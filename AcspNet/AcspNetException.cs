@@ -1,0 +1,13 @@
+// /////////////////////////////////////////////////////////////
+
+using System;
+
+namespace AcspNet
+{
+	public sealed class AcspNetException : Exception
+	{
+		public AcspNetException(string message) : base(message) {}
+	}
+}
+
+// /////////////////////////////////////////////////////////////
