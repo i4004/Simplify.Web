@@ -6,10 +6,10 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("AcspNet")]
-[assembly: AssemblyDescription("Advanced Controls SIte Platform")]
+[assembly: AssemblyDescription("Advanced Controls Site Platform .NET version")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Alexander Krylkov")]
-[assembly: AssemblyProduct("Advanced Controls SIte Platform .NET version")]
+[assembly: AssemblyProduct("Advanced Controls Site Platform")]
 [assembly: AssemblyCopyright("Licensed under LGPL")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
