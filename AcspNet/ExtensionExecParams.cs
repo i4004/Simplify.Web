@@ -3,7 +3,7 @@
 namespace AcspNet
 {
 	/// <summary>
-	/// Parameters which are used to run extension
+	///     Parameters which are used to run extension
 	/// </summary>
 	public class ExtensionExecParams
 	{
@@ -15,7 +15,8 @@ namespace AcspNet
 
 		// /////////////////////////////////////////////////////////////
 
-		public ExtensionExecParams(string action = "", string mode = "", ExtensionProtectionTypes protectionType = ExtensionProtectionTypes.None, int priority = 0, ExtensionRunTypes runType = ExtensionRunTypes.OnAction)
+		public ExtensionExecParams(string action = "", string mode = "", ExtensionProtectionTypes protectionType = ExtensionProtectionTypes.None, int priority = 0,
+			ExtensionRunTypes runType = ExtensionRunTypes.OnAction)
 		{
 			Action = action;
 			Mode = mode;

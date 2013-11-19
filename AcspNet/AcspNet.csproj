@@ -59,15 +59,23 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AcspNetException.cs" />
-    <Compile Include="ExtensionExecParams.cs" />
-    <Compile Include="ExtensionInfo.cs" />
-    <Compile Include="ExtensionProtectionTypes.cs" />
-    <Compile Include="ExtensionRunTypes.cs" />
-    <Compile Include="IExtension.cs" />
+    <Compile Include="ExecExtensionRunTypeAttribute.cs" />
+    <Compile Include="ModeAttribute.cs" />
+    <Compile Include="ExtensionRunType.cs" />
+    <Compile Include="IExecExtension.cs" />
     <Compile Include="ILibExtension.cs" />
-    <Compile Include="Manager.cs" />
-    <Compile Include="ManagerResults.cs" />
+    <Compile Include="ExtensionMetaContainer.cs" />
+    <Compile Include="ExecExtensionMetaContainer.cs" />
+    <Compile Include="LibExtensionMetaContainer.cs" />
+    <Compile Include="LoadIndividualExtensionsAttribute.cs" />
+    <Compile Include="Manager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ActionAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PriorityAttribute.cs" />
+    <Compile Include="LoadExtensionsFromAssemblyOfAttribute.cs" />
+    <Compile Include="VersionAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AcspNet.nupkg" />
