@@ -61,7 +61,7 @@
     <Compile Include="AcspNetException.cs" />
     <Compile Include="ExecExtensionRunTypeAttribute.cs" />
     <Compile Include="ModeAttribute.cs" />
-    <Compile Include="ExtensionRunType.cs" />
+    <Compile Include="ExecExtensionRunType.cs" />
     <Compile Include="IExecExtension.cs" />
     <Compile Include="ILibExtension.cs" />
     <Compile Include="ExtensionMetaContainer.cs" />
@@ -110,7 +110,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

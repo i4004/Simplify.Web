@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.SessionState;
 
@@ -24,8 +22,7 @@ namespace AcspNet
 		private static List<ExecExtensionMetaContainer> ExecExtensionsMetaContainers = new List<ExecExtensionMetaContainer>();
 		private static List<LibExtensionMetaContainer> LibExtensionsMetaContainers = new List<LibExtensionMetaContainer>();
 
-		private static bool IsBatchExtensionsTypesLoaded;
-		private static bool IsIndividualExtensionsTypesLoaded;
+		private static bool IsExtensionsTypesLoaded;
 
 		private static readonly object Locker = new object();
 
@@ -68,7 +65,7 @@ namespace AcspNet
 		private string _currentMode;
 
 		private IList<IExecExtension> _execExtensionsList;
-		//private bool _isExtensionsExecutionStopped;
+		private bool _isExtensionsExecutionStopped;
 
 		private Dictionary<string, bool> _libExtensionsIsInitializedList;
 		private IList<ILibExtension> _libExtensionsList;
@@ -83,10 +80,15 @@ namespace AcspNet
 
 			StartExecutionTime = DateTime.Now;
 
+			if (IsExtensionsTypesLoaded)
+				return;
+
 			lock (Locker)
 			{
-				if (!IsBatchExtensionsTypesLoaded && !IsIndividualExtensionsTypesLoaded)
-					CreateMetaContainers();
+				if (IsExtensionsTypesLoaded) return;
+
+				CreateMetaContainers(Assembly.GetCallingAssembly());
+				IsExtensionsTypesLoaded = true;
 			}
 		}
 
@@ -215,10 +217,10 @@ namespace AcspNet
 		////}
 
 		/// <summary>
-		///     Gets the current web-site action (?act=someAction).
+		/// Gets the current web-site action (?act=someAction).
 		/// </summary>
 		/// <value>
-		///     The current action (?act=someAction).
+		/// The current action (?act=someAction).
 		/// </value>
 		public string CurrentAction
 		{
@@ -235,10 +237,10 @@ namespace AcspNet
 		}
 
 		/// <summary>
-		///     Gets the current web-site mode (?act=someAction&amp;mode=somMode).
+		/// Gets the current web-site mode (?act=someAction&amp;mode=somMode).
 		/// </summary>
 		/// <value>
-		///     The current mode (?act=someAction&amp;mode=somMode).
+		/// The current mode (?act=someAction&amp;mode=somMode).
 		/// </value>
 		public string CurrentMode
 		{
@@ -254,13 +256,12 @@ namespace AcspNet
 			}
 		}
 
-		private static void CreateMetaContainers()
+		private static void CreateMetaContainers(Assembly callingAssembly)
 		{
-			var callingAssembly = Assembly.GetCallingAssembly();
 			var assemblyTypes = callingAssembly.GetTypes();
 
-			var containingClass = assemblyTypes.FirstOrDefault(t => t.IsDefined(typeof(LoadExtensionsFromAssemblyOfAttribute), false)) ??
-								  assemblyTypes.FirstOrDefault(t => t.IsDefined(typeof(LoadIndividualExtensionsAttribute), false));
+			var containingClass = assemblyTypes.FirstOrDefault(t => t.IsDefined(typeof(LoadExtensionsFromAssemblyOfAttribute), true)) ??
+								  assemblyTypes.FirstOrDefault(t => t.IsDefined(typeof(LoadIndividualExtensionsAttribute), true));
 
 			if (containingClass == null)
 				throw new AcspNetException("LoadExtensionsFromAssemblyOf attribute not found in your class");
@@ -271,16 +272,10 @@ namespace AcspNet
 			if (batchExtensionsAttributes.Length <= 1 && individualExtensionsAttributes.Length <= 1)
 			{
 				if (batchExtensionsAttributes.Length == 1)
-				{
 					LoadExtensionsFromAssemblyOf(((LoadExtensionsFromAssemblyOfAttribute)batchExtensionsAttributes[0]).Types);
-					IsBatchExtensionsTypesLoaded = true;
-				}
 
 				if (individualExtensionsAttributes.Length == 1)
-				{
 					LoadIndividualExtensions(((LoadIndividualExtensionsAttribute)batchExtensionsAttributes[0]).Types);
-					IsIndividualExtensionsTypesLoaded = true;
-				}
 
 				SortLibraryExtensionsMetaContainers();
 				SortExecExtensionsMetaContainers();
@@ -288,7 +283,7 @@ namespace AcspNet
 			else if (batchExtensionsAttributes.Length > 1)
 				throw new Exception("Multiple LoadExtensionsFromAssemblyOf attributes found");
 			else if (individualExtensionsAttributes.Length > 1)
-				throw new Exception("Multiple LoadIndividualExtensions attributes found");			
+				throw new Exception("Multiple LoadIndividualExtensions attributes found");
 		}
 
 		private static void LoadExtensionsFromAssemblyOf(params Type[] types)
@@ -381,7 +376,7 @@ namespace AcspNet
 
 			Session.Add(IsNewSessionFieldName, "true");
 		}
-		
+
 		private void CreateLibraryExtensionsInstances()
 		{
 			_libExtensionsList = new List<ILibExtension>(LibExtensionsMetaContainers.Count);
@@ -405,11 +400,11 @@ namespace AcspNet
 
 		private void CreateExecutableExtensionsInstances()
 		{
-			_execExtensionsList = new List<IExecExtension>(ExecExtensionsMetaContainers.Count));
+			_execExtensionsList = new List<IExecExtension>(ExecExtensionsMetaContainers.Count);
 
 			foreach (var container in ExecExtensionsMetaContainers)
 			{
-				var extension = (IExecExtension) Activator.CreateInstance(container.ExtensionType);
+				var extension = (IExecExtension)Activator.CreateInstance(container.ExtensionType);
 
 				// Checking execution parameters
 				if (container.Action == "")
@@ -420,10 +415,9 @@ namespace AcspNet
 				}
 				else
 				{
-					// todo
 					if (container.RunType != ExecExtensionRunType.MainPage &&
-						container.Action.ToLower() == CurrentAction.ToLower() &&
-						container.Mode.ToLower() == CurrentMode.ToLower())
+						String.Equals(container.Action, CurrentAction, StringComparison.CurrentCultureIgnoreCase) &&
+						String.Equals(container.Mode, CurrentMode, StringComparison.CurrentCultureIgnoreCase))
 						_execExtensionsList.Add(extension);
 				}
 			}
@@ -431,67 +425,57 @@ namespace AcspNet
 
 		private void RunExecutableExtensions()
 		{
-		//	if (_execExtensionsList.Count <= 0) return ManagerResults.ExtensionsExecutionSucceed;
+			if (_execExtensionsList.Count <= 0) return;
 
-		//	foreach (var extension in _execExtensionsList.Cast<IExtension>().OrderBy(x => x.ExecParams.Priority))
-		//	{
-		//		if (_isExtensionsExecutionStopped)
-		//			return ManagerResults.ExtensionsExecutionStopped;
+			foreach (var extension in _execExtensionsList)
+			{
+				if (_isExtensionsExecutionStopped)
+					return;
 
-		//		// Extension deny checking
-
-		//		//if (extension.ExecParams.ProtectionType == ExtensionProtectionTypes.Guest && (IsAuthenticatedAsUser))
-		//		//	return ManagerResults.ExtensionDenyErrorGuest;
-
-		//		//if (extension.ExecParams.ProtectionType == ExtensionProtectionTypes.User && !IsAuthenticatedAsUser)
-		//		//	return ManagerResults.ExtensionDenyErrorUser;
-
-		//		extension.Invoke(this);
-		//	}
-
-			//return ManagerResults.ExtensionsExecutionSucceed;
+				extension.Invoke(this);
+			}
 		}
 
-		///// <summary>
-		/////     Stop ACSP subsequent extensions execution
-		///// </summary>
-		//public void StopExtensionsExecution()
-		//{
-		//	_isExtensionsExecutionStopped = true;
-		//}
+		/// <summary>
+		///     Stop ACSP subsequent extensions execution
+		/// </summary>
+		public void StopExtensionsExecution()
+		{
+			_isExtensionsExecutionStopped = true;
+		}
 
-		///// <summary>
-		/////     Gets library extension instance
-		///// </summary>
-		///// <typeparam name="T">Library extension instance to get</typeparam>
-		///// <returns>Library extension</returns>
-		//public T GetLibExtension<T>()
-		//	where T : class, ILibExtension
-		//{
-		//	foreach (var t in _libExtensionsList)
-		//	{
-		//		var currentType = t.GetType();
+		/// <summary>
+		///     Gets library extension instance
+		/// </summary>
+		/// <typeparam name="T">Library extension instance to get</typeparam>
+		/// <returns>Library extension</returns>
+		public T GetLibExtension<T>()
+			where T : class, ILibExtension
+		{
+			foreach (var t in _libExtensionsList)
+			{
+				var currentType = t.GetType();
 
-		//		if (currentType != typeof (T))
-		//			continue;
+				if (currentType != typeof(T))
+					continue;
 
-		//		if (_libExtensionsIsInitializedList[currentType.Name] == false)
-		//			throw new AcspNetException("Attempt to call not initialized library extension '" + t.GetType() + "'");
+				if (_libExtensionsIsInitializedList[currentType.Name] == false)
+					throw new AcspNetException("Attempt to call not initialized library extension '" + t.GetType() + "'");
 
-		//		return t as T;
-		//	}
+				return t as T;
+			}
 
-		//	return null;
-		//}
+			return null;
+		}
 
-		///// <summary>
-		/////     Redirects a client to a new URL
-		///// </summary>
-		//public void Redirect(string url)
-		//{
-		//	StopExtensionsExecution();
-		//	Response.Redirect(url, false);
-		//}
+		/// <summary>
+		///     Redirects a client to a new URL
+		/// </summary>
+		public void Redirect(string url)
+		{
+			StopExtensionsExecution();
+			Response.Redirect(url, false);
+		}
 
 		/////// <summary>
 		/////// Create user authentication cookies (login user via cookies)
