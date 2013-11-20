@@ -13,10 +13,6 @@ namespace AcspNet
 	/// </summary>
 	public sealed class Manager
 	{
-		//private const string CookieUserNameFieldName = "AcspUserName";
-		//private const string CookieUserPasswordFieldName = "AcspUserPassword";
-		//private const string SessionUserAuthenticationStatusFieldName = "AcspAuthenticationStatus";
-		//private const string SessionUserIdFieldName = "AcspAunthenticatedUserID";
 		private const string IsNewSessionFieldName = "AcspIsNewSession";
 
 		private static List<ExecExtensionMetaContainer> ExecExtensionsMetaContainers = new List<ExecExtensionMetaContainer>();
@@ -50,17 +46,16 @@ namespace AcspNet
 		/// </summary>
 		public readonly HttpSessionState Session = HttpContext.Current.Session;
 
-		///// <summary>
-		/////     Engine execution end time
-		///// </summary>
-		//public DateTime EndExecutionTime;
+		/// <summary>
+		///     Engige execution end time (the time should be set by last executed extension)
+		/// </summary>
+		public DateTime EndExecutionTime;
 
 		/// <summary>
 		///     Engine execution start time (the time when Manager instance was created)
 		/// </summary>
 		public DateTime StartExecutionTime;
 
-		////private int _authenticatedUserID = -1;
 		private string _currentAction;
 		private string _currentMode;
 
@@ -92,7 +87,6 @@ namespace AcspNet
 			}
 		}
 
-
 		/// <summary>
 		///     Gets the web-site physical path, for example: C:\inetpub\wwwroot\YourSite
 		/// </summary>
@@ -103,13 +97,12 @@ namespace AcspNet
 		{
 			get
 			{
-				if (SitePhysicalPathContainer == "")
-				{
-					SitePhysicalPathContainer = HttpContext.Current.Request.PhysicalApplicationPath;
+				if (SitePhysicalPathContainer != "") return SitePhysicalPathContainer;
 
-					if (SitePhysicalPathContainer != null)
-						SitePhysicalPathContainer = SitePhysicalPathContainer.Replace("\\", "/");
-				}
+				SitePhysicalPathContainer = HttpContext.Current.Request.PhysicalApplicationPath;
+
+				if (SitePhysicalPathContainer != null)
+					SitePhysicalPathContainer = SitePhysicalPathContainer.Replace("\\", "/");
 
 				return SitePhysicalPathContainer;
 			}
@@ -143,84 +136,11 @@ namespace AcspNet
 			get { return HttpContext.Current.Session[IsNewSessionFieldName] == null; }
 		}
 
-		///// <summary>
-		/////     Total engine execution time for current request
-		///// </summary>
-		//public TimeSpan ExecutionTime
-		//{
-		//	get { return EndExecutionTime.Subtract(StartExecutionTime); }
-		//}
-
-		/////// <summary>
-		///////     Gets a value indicating whether current web-site client is authenticated as user.
-		/////// </summary>
-		/////// <value>
-		///////     <c>true</c> if current web-site client is authenticated as user; otherwise, <c>false</c>.
-		/////// </value>
-		////public bool IsAuthenticatedAsUser { get; private set; }
-
-		/////// <summary>
-		///////     Gets the authenticated user identifier.
-		/////// </summary>
-		/////// <value>
-		///////     The authenticated user identifier.
-		/////// </value>
-		////public int AuthenticatedUserID
-		////{
-		////	get { return _authenticatedUserID; }
-		////}
-
-		/////// <summary>
-		///////     Gets the name of the authenticated user.
-		/////// </summary>
-		/////// <value>
-		///////     The name of the authenticated user.
-		/////// </value>
-		////public string AuthenticatedUserName { get; private set; }
-
-		/////// <summary>
-		///////     Gets the authenticated user name from cookie.
-		/////// </summary>
-		/////// <value>
-		///////     The authenticated user name from cookie.
-		/////// </value>
-		////public string UserNameFromCookie
-		////{
-		////	get
-		////	{
-		////		HttpCookie cookie = Request.Cookies[CookieUserNameFieldName];
-
-		////		if (cookie != null)
-		////			return cookie.Value ?? "";
-
-		////		return null;
-		////	}
-		////}
-
-		/////// <summary>
-		///////     Gets the authenticated user password from cookie.
-		/////// </summary>
-		/////// <value>
-		///////     The authenticated user password from cookie.
-		/////// </value>
-		////public string UserPasswordFromCookie
-		////{
-		////	get
-		////	{
-		////		HttpCookie cookie = Request.Cookies[CookieUserPasswordFieldName];
-
-		////		if (cookie != null)
-		////			return cookie.Value ?? "";
-
-		////		return null;
-		////	}
-		////}
-
 		/// <summary>
-		/// Gets the current web-site action (?act=someAction).
+		///     Gets the current web-site action (?act=someAction).
 		/// </summary>
 		/// <value>
-		/// The current action (?act=someAction).
+		///     The current action (?act=someAction).
 		/// </value>
 		public string CurrentAction
 		{
@@ -237,10 +157,10 @@ namespace AcspNet
 		}
 
 		/// <summary>
-		/// Gets the current web-site mode (?act=someAction&amp;mode=somMode).
+		///     Gets the current web-site mode (?act=someAction&amp;mode=somMode).
 		/// </summary>
 		/// <value>
-		/// The current mode (?act=someAction&amp;mode=somMode).
+		///     The current mode (?act=someAction&amp;mode=somMode).
 		/// </value>
 		public string CurrentMode
 		{
@@ -256,26 +176,34 @@ namespace AcspNet
 			}
 		}
 
+		/// <summary>
+		///     Total engine execution time for current request
+		/// </summary>
+		public TimeSpan ExecutionTime
+		{
+			get { return EndExecutionTime.Subtract(StartExecutionTime); }
+		}
+
 		private static void CreateMetaContainers(Assembly callingAssembly)
 		{
 			var assemblyTypes = callingAssembly.GetTypes();
 
-			var containingClass = assemblyTypes.FirstOrDefault(t => t.IsDefined(typeof(LoadExtensionsFromAssemblyOfAttribute), true)) ??
-								  assemblyTypes.FirstOrDefault(t => t.IsDefined(typeof(LoadIndividualExtensionsAttribute), true));
+			var containingClass = assemblyTypes.FirstOrDefault(t => t.IsDefined(typeof (LoadExtensionsFromAssemblyOfAttribute), true)) ??
+			                      assemblyTypes.FirstOrDefault(t => t.IsDefined(typeof (LoadIndividualExtensionsAttribute), true));
 
 			if (containingClass == null)
 				throw new AcspNetException("LoadExtensionsFromAssemblyOf attribute not found in your class");
 
-			var batchExtensionsAttributes = containingClass.GetCustomAttributes(typeof(LoadExtensionsFromAssemblyOfAttribute), false);
-			var individualExtensionsAttributes = containingClass.GetCustomAttributes(typeof(LoadIndividualExtensionsAttribute), false);
+			var batchExtensionsAttributes = containingClass.GetCustomAttributes(typeof (LoadExtensionsFromAssemblyOfAttribute), false);
+			var individualExtensionsAttributes = containingClass.GetCustomAttributes(typeof (LoadIndividualExtensionsAttribute), false);
 
 			if (batchExtensionsAttributes.Length <= 1 && individualExtensionsAttributes.Length <= 1)
 			{
 				if (batchExtensionsAttributes.Length == 1)
-					LoadExtensionsFromAssemblyOf(((LoadExtensionsFromAssemblyOfAttribute)batchExtensionsAttributes[0]).Types);
+					LoadExtensionsFromAssemblyOf(((LoadExtensionsFromAssemblyOfAttribute) batchExtensionsAttributes[0]).Types);
 
 				if (individualExtensionsAttributes.Length == 1)
-					LoadIndividualExtensions(((LoadIndividualExtensionsAttribute)batchExtensionsAttributes[0]).Types);
+					LoadIndividualExtensions(((LoadIndividualExtensionsAttribute) batchExtensionsAttributes[0]).Types);
 
 				SortLibraryExtensionsMetaContainers();
 				SortExecExtensionsMetaContainers();
@@ -293,7 +221,7 @@ namespace AcspNet
 				foreach (var t in assemblyTypes.Where(t => t.GetInterface("ILibExtension") != null))
 					AddLibExtensionMetaContainer(t);
 
-				foreach (var t in assemblyTypes.Where(t => t.GetInterface("IExtension") != null))
+				foreach (var t in assemblyTypes.Where(t => t.GetInterface("IExecExtension") != null))
 					AddExecExtensionMetaContainer(t);
 			}
 		}
@@ -316,22 +244,22 @@ namespace AcspNet
 		{
 			var action = "";
 			var mode = "";
-			var runType = ExecExtensionRunType.OnAction;
+			var runType = RunType.OnAction;
 
-			var attributes = extensionType.GetCustomAttributes(typeof(ActionAttribute), false);
-
-			if (attributes.Length > 0)
-				action = ((ActionAttribute)attributes[0]).Action;
-
-			attributes = extensionType.GetCustomAttributes(typeof(ModeAttribute), false);
+			var attributes = extensionType.GetCustomAttributes(typeof (ActionAttribute), false);
 
 			if (attributes.Length > 0)
-				mode = ((ModeAttribute)attributes[0]).Mode;
+				action = ((ActionAttribute) attributes[0]).Action;
 
-			attributes = extensionType.GetCustomAttributes(typeof(ExecExtensionRunTypeAttribute), false);
+			attributes = extensionType.GetCustomAttributes(typeof (ModeAttribute), false);
 
 			if (attributes.Length > 0)
-				runType = ((ExecExtensionRunTypeAttribute)attributes[0]).RunType;
+				mode = ((ModeAttribute) attributes[0]).Mode;
+
+			attributes = extensionType.GetCustomAttributes(typeof (RunTypeAttribute), false);
+
+			if (attributes.Length > 0)
+				runType = ((RunTypeAttribute) attributes[0]).RunType;
 
 			ExecExtensionsMetaContainers.Add(new ExecExtensionMetaContainer(CreateExtensionMetaContainer(extensionType), action, mode, runType));
 		}
@@ -341,15 +269,15 @@ namespace AcspNet
 			var priority = 0;
 			var version = "";
 
-			var attributes = extensionType.GetCustomAttributes(typeof(PriorityAttribute), false);
+			var attributes = extensionType.GetCustomAttributes(typeof (PriorityAttribute), false);
 
 			if (attributes.Length > 0)
-				priority = ((PriorityAttribute)attributes[0]).Priority;
+				priority = ((PriorityAttribute) attributes[0]).Priority;
 
-			attributes = extensionType.GetCustomAttributes(typeof(VersionAttribute), false);
+			attributes = extensionType.GetCustomAttributes(typeof (VersionAttribute), false);
 
 			if (attributes.Length > 0)
-				version = ((VersionAttribute)attributes[0]).Version;
+				version = ((VersionAttribute) attributes[0]).Version;
 
 			return new ExtensionMetaContainer(extensionType, priority, version);
 		}
@@ -358,6 +286,7 @@ namespace AcspNet
 		{
 			LibExtensionsMetaContainers = LibExtensionsMetaContainers.OrderBy(x => x.Priority).ToList();
 		}
+
 		private static void SortExecExtensionsMetaContainers()
 		{
 			ExecExtensionsMetaContainers = ExecExtensionsMetaContainers.OrderBy(x => x.Priority).ToList();
@@ -384,7 +313,7 @@ namespace AcspNet
 
 			foreach (var container in LibExtensionsMetaContainers)
 			{
-				_libExtensionsList.Add((ILibExtension)Activator.CreateInstance(container.ExtensionType));
+				_libExtensionsList.Add((ILibExtension) Activator.CreateInstance(container.ExtensionType));
 				_libExtensionsIsInitializedList.Add(container.ExtensionType.Name, false);
 			}
 		}
@@ -404,20 +333,20 @@ namespace AcspNet
 
 			foreach (var container in ExecExtensionsMetaContainers)
 			{
-				var extension = (IExecExtension)Activator.CreateInstance(container.ExtensionType);
+				var extension = (IExecExtension) Activator.CreateInstance(container.ExtensionType);
 
 				// Checking execution parameters
 				if (container.Action == "")
 				{
-					if (container.RunType != ExecExtensionRunType.MainPage ||
-						container.RunType == ExecExtensionRunType.MainPage && CurrentAction == "")
+					if (container.RunType != RunType.MainPage ||
+					    container.RunType == RunType.MainPage && CurrentAction == "")
 						_execExtensionsList.Add(extension);
 				}
 				else
 				{
-					if (container.RunType != ExecExtensionRunType.MainPage &&
-						String.Equals(container.Action, CurrentAction, StringComparison.CurrentCultureIgnoreCase) &&
-						String.Equals(container.Mode, CurrentMode, StringComparison.CurrentCultureIgnoreCase))
+					if (container.RunType != RunType.MainPage &&
+					    String.Equals(container.Action, CurrentAction, StringComparison.CurrentCultureIgnoreCase) &&
+					    String.Equals(container.Mode, CurrentMode, StringComparison.CurrentCultureIgnoreCase))
 						_execExtensionsList.Add(extension);
 				}
 			}
@@ -456,7 +385,7 @@ namespace AcspNet
 			{
 				var currentType = t.GetType();
 
-				if (currentType != typeof(T))
+				if (currentType != typeof (T))
 					continue;
 
 				if (_libExtensionsIsInitializedList[currentType.Name] == false)
@@ -465,7 +394,7 @@ namespace AcspNet
 				return t as T;
 			}
 
-			return null;
+			throw new AcspNetException("Extension not found: " + typeof(T).FullName);
 		}
 
 		/// <summary>
@@ -476,122 +405,5 @@ namespace AcspNet
 			StopExtensionsExecution();
 			Response.Redirect(url, false);
 		}
-
-		/////// <summary>
-		/////// Create user authentication cookies (login user via cookies)
-		/////// </summary>
-		////public void LogInUser(string name, string password, bool autoLogin)
-		////{
-		////	var cookie = new HttpCookie(CookieUserNameFieldName, name);
-
-		////	if(autoLogin)
-		////		cookie.Expires = DateTime.Now.AddDays(256);
-
-		////	Response.Cookies.Add(cookie);
-
-		////	cookie = new HttpCookie(CookieUserPasswordFieldName, password);
-
-		////	if(autoLogin)
-		////		cookie.Expires = DateTime.Now.AddDays(256);
-
-		////	Response.Cookies.Add(cookie);
-		////}
-
-		/////// <summary>
-		/////// Create user authentication variable in user's session (login user via session)
-		/////// </summary>
-		////public void LogInSessionUser(int userID = -1)
-		////{
-		////	Session.Add(SessionUserAuthenticationStatusFieldName, "authenticated");
-		////	Session.Add(SessionUserIdFieldName, userID);		
-		////}
-
-		/////// <summary>
-		/////// Checking user cookies authentication data and updating Manager authentication status if success
-		/////// </summary>
-		////public void AuthenticateUser(int userID, string name, string password)
-		////{
-		////	var userNameCookie = Request.Cookies[CookieUserNameFieldName];
-		////	var userPasswordCookie = Request.Cookies[CookieUserPasswordFieldName];
-
-		////	if(userNameCookie != null &&
-		////	   userPasswordCookie != null &&
-		////	   userNameCookie.Value == name &&
-		////	   userPasswordCookie.Value == password)
-		////	{
-		////		IsAuthenticatedAsUser = true;
-		////		_authenticatedUserID = userID;
-		////		AuthenticatedUserName = name;
-		////	}
-		////	else
-		////	{
-		////		Request.Cookies.Remove(CookieUserNameFieldName);
-		////		Request.Cookies.Remove(CookieUserPasswordFieldName);
-		////	}
-		////}
-
-		/////// <summary>
-		///////Checking user session authentication data and updating Manager authentication status if success
-		/////// </summary>
-		////public void AuthenticateSessionUser()
-		////{
-		////	if(Session[SessionUserAuthenticationStatusFieldName] == null || (string)Session[SessionUserAuthenticationStatusFieldName] != "authenticated")
-		////		return;
-
-		////	IsAuthenticatedAsUser = true;
-		////	_authenticatedUserID = (int)Session[SessionUserIdFieldName];
-		////	AuthenticatedUserName = "";
-		////}
-
-		/////// <summary>
-		/////// Remove user authentication data cookies
-		/////// </summary>
-		////public void LogOutUser()
-		////{
-		////	var myCookie = new HttpCookie(CookieUserNameFieldName)
-		////					{
-		////						Expires = DateTime.Now.AddDays(-1d)
-		////					};
-
-		////	Response.Cookies.Add(myCookie);
-
-		////	myCookie = new HttpCookie(CookieUserPasswordFieldName)
-		////				{
-		////					Expires = DateTime.Now.AddDays(-1d)
-		////				};
-
-		////	Response.Cookies.Add(myCookie);
-
-		////	IsAuthenticatedAsUser = false;
-		////	_authenticatedUserID = -1;
-		////	AuthenticatedUserName = "";
-		////}
-
-		/////// <summary>
-		/////// Remove user session authentication data
-		/////// </summary>
-		////public void LogOutSessionUser()
-		////{
-		////	Session.Remove(SessionUserAuthenticationStatusFieldName);
-		////	Session.Remove(SessionUserIdFieldName);
-		////}
-
-		///// <summary>
-		/////     Gets the library extensions types list.
-		///// </summary>
-		///// <returns></returns>
-		//public static IList<Type> GetLibExtensionsTypesList()
-		//{
-		//	return LibExtensionsTypes.ToArray();
-		//}
-
-		///// <summary>
-		/////     Gets the executable extensions types list.
-		///// </summary>
-		///// <returns></returns>
-		//public static IList<Type> GetExecExtensionsTypesList()
-		//{
-		//	return ExecExtensionsTypes.ToArray();
-		//}
 	}
 }
