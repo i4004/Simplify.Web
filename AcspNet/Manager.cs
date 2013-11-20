@@ -184,6 +184,14 @@ namespace AcspNet
 			get { return EndExecutionTime.Subtract(StartExecutionTime); }
 		}
 
+		/// <summary>
+		/// Gets the current executing extensions types.
+		/// </summary>
+		/// <value>
+		/// The current executing extensions types.
+		/// </value>
+		public IList<Type> ExecExtensionsTypes { get; private set; }
+
 		private static void CreateMetaContainers(Assembly callingAssembly)
 		{
 			var assemblyTypes = callingAssembly.GetTypes();
@@ -330,6 +338,7 @@ namespace AcspNet
 		private void CreateExecutableExtensionsInstances()
 		{
 			_execExtensionsList = new List<IExecExtension>(ExecExtensionsMetaContainers.Count);
+			ExecExtensionsTypes = new List<Type>(ExecExtensionsMetaContainers.Count);
 
 			foreach (var container in ExecExtensionsMetaContainers)
 			{
@@ -338,16 +347,21 @@ namespace AcspNet
 				// Checking execution parameters
 				if (container.Action == "")
 				{
-					if (container.RunType != RunType.MainPage ||
-					    container.RunType == RunType.MainPage && CurrentAction == "")
-						_execExtensionsList.Add(extension);
+					if (container.RunType == RunType.MainPage && (container.RunType != RunType.MainPage || CurrentAction != ""))
+						continue;
+
+					_execExtensionsList.Add(extension);
+					ExecExtensionsTypes.Add(extension.GetType());
 				}
 				else
 				{
-					if (container.RunType != RunType.MainPage &&
-					    String.Equals(container.Action, CurrentAction, StringComparison.CurrentCultureIgnoreCase) &&
-					    String.Equals(container.Mode, CurrentMode, StringComparison.CurrentCultureIgnoreCase))
-						_execExtensionsList.Add(extension);
+					if (container.RunType == RunType.MainPage ||
+					    !String.Equals(container.Action, CurrentAction, StringComparison.CurrentCultureIgnoreCase)
+					    || !String.Equals(container.Mode, CurrentMode, StringComparison.CurrentCultureIgnoreCase))
+						continue;
+
+					_execExtensionsList.Add(extension);
+					ExecExtensionsTypes.Add(extension.GetType());
 				}
 			}
 		}
@@ -378,7 +392,7 @@ namespace AcspNet
 		/// </summary>
 		/// <typeparam name="T">Library extension instance to get</typeparam>
 		/// <returns>Library extension</returns>
-		public T GetLibExtension<T>()
+		public T Get<T>()
 			where T : class, ILibExtension
 		{
 			foreach (var t in _libExtensionsList)
