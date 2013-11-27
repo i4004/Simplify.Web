@@ -8,6 +8,12 @@ namespace AcspNet
 	[AttributeUsage(AttributeTargets.Class)]
 	public class LoadExtensionsFromAssemblyOfAttribute : Attribute
 	{
+		/// <summary>
+		/// Gets the types of extensions.
+		/// </summary>
+		/// <value>
+		/// The types.
+		/// </value>
 		public Type[] Types { get; private set; }
 
 		/// <summary>

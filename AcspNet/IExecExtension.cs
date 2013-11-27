@@ -6,6 +6,10 @@ namespace AcspNet
 	/// </summary>
 	public interface IExecExtension
 	{
+		/// <summary>
+		/// Invokes the executable extension.
+		/// </summary>
+		/// <param name="manager">The manager.</param>
 		void Invoke(Manager manager);
 	}
 }
