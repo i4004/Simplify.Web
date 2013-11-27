@@ -44,7 +44,7 @@ using System.Web.UI;
 using AcspCommonExtensions.Library;
 using AcspDev.Extensions.Executable.Dev;
 using AcspNet;
-using BarcodeInfoWebStat.Extensions.Executable;
+using ExampleProject.Extensions.Executable;
 
 namespace ExampleProject
 {
