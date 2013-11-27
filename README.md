@@ -167,3 +167,70 @@ namespace ExampleProject.Extensions.Executable
 	}
 }
 ```
+
+#### LoginForm.tpl (Login form html template file)
+
+```html
+<script type="text/javascript">
+    function Login()
+    {
+        var resultPanel = $('#ResultPanel');
+        var userName = $('#UserName');
+        var password = $('#Password');
+
+        resultPanel.hide();
+
+        if (!ValidateFields([userName, password]))
+        {
+            resultPanel.html(GetMessageBox("{MessageValidationError}"));
+            resultPanel.show('slow');
+            return;
+        }
+
+        var buttonOK = $('#ButtonOK');
+
+        buttonOK.attr('disabled', 'disabled');
+        $('#AjaxProgress').show();
+
+        $.get("?act=login", { userName: userName.val(), password: password.val() },
+
+        function (response)
+        {
+            if (response == "1")
+                $('#LoginForm').submit();
+            else
+            {
+                $('#AjaxProgress').hide();
+                resultPanel.html(response);
+                resultPanel.show('slow');
+
+                $('html, body').animate({
+                    scrollTop: resultPanel.offset().top
+                }, 1000);
+
+                buttonOK.removeAttr("disabled");
+            }
+        });
+    }
+</script>
+<form action="?act=info" id="LoginForm" method="post">
+    <div class="FormHeader HeaderBackground">{Header} </div>
+    <div class="FormLabelValueContainer">
+        <label class="FormLabel" for="Login">{LabelUserName}:</label>
+        <div class="FormValue">
+            <input name="UserName" type="text" id="UserName" onkeypress="ResetInvalidState(this); ClickByEnter(event, 'ButtonOK');" />
+        </div>
+    </div>
+    <div class="FormLabelValueContainer">
+        <label class="FormLabel" for="Password">{LabelPassword}:</label>
+        <div class="FormValue">
+            <input name="Password" id="Password" type="password" onkeypress="ResetInvalidState(this); ClickByEnter(event, 'ButtonOK');" />
+        </div>
+    </div>
+    <div id="ResultPanel"></div>
+    <div class="FormButton">
+        <input id="ButtonOK" name="ButtonOK" type="button" value="{LabelButtonOK}" onclick="Login()" class="Button" />
+    </div>
+    <div class="FormsAjaxProgressCell" id="AjaxProgress"></div>
+</form>
+```
