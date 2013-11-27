@@ -1,6 +1,3 @@
-AcspNet
-=======
-
 Advanced Controls Site Platform .NET is an ASP.NET based web-sites plugin-based engine.
 It is allows you to construct your web-site from a set of extensions (plugins). Each web site extension can do their own task.
 
