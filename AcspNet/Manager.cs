@@ -211,7 +211,7 @@ namespace AcspNet
 					LoadExtensionsFromAssemblyOf(((LoadExtensionsFromAssemblyOfAttribute) batchExtensionsAttributes[0]).Types);
 
 				if (individualExtensionsAttributes.Length == 1)
-					LoadIndividualExtensions(((LoadIndividualExtensionsAttribute) batchExtensionsAttributes[0]).Types);
+					LoadIndividualExtensions(((LoadIndividualExtensionsAttribute)individualExtensionsAttributes[0]).Types);
 
 				SortLibraryExtensionsMetaContainers();
 				SortExecExtensionsMetaContainers();
@@ -418,6 +418,24 @@ namespace AcspNet
 		{
 			StopExtensionsExecution();
 			Response.Redirect(url, false);
+		}
+
+		/// <summary>
+		/// Get currently loaded executable extensions meta-data
+		/// </summary>
+		/// <returns></returns>
+		public static IList<ExecExtensionMetaContainer> GetExecExtensionsMetaData()
+		{
+			return ExecExtensionsMetaContainers.ToArray();
+		}
+
+		/// <summary>
+		/// Gets the library extensions meta data.
+		/// </summary>
+		/// <returns></returns>
+		public static IList<LibExtensionMetaContainer> GetLibExtensionsMetaData()
+		{
+			return LibExtensionsMetaContainers.ToArray();
 		}
 	}
 }
