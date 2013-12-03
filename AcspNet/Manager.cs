@@ -412,6 +412,15 @@ namespace AcspNet
 		}
 
 		/// <summary>
+		/// Gets current action/mode URL in formal like ?act={0}&amp;mode={1}.
+		/// </summary>
+		/// <returns></returns>
+		public string GetActionModeUrl()
+		{
+			return string.Format("?act={0}&amp;mode={1}", CurrentAction, CurrentMode);
+		}
+
+		/// <summary>
 		///     Redirects a client to a new URL
 		/// </summary>
 		public void Redirect(string url)
