@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -46,15 +47,20 @@ namespace AcspNet
 		/// </summary>
 		public readonly HttpSessionState Session = HttpContext.Current.Session;
 
-		/// <summary>
-		///     Engige execution end time (the time should be set by last executed extension)
-		/// </summary>
-		public DateTime EndExecutionTime;
+		///// <summary>
+		/////     Engige execution end time (the time should be set by last executed extension)
+		///// </summary>
+		//public DateTime EndExecutionTime;
+
+		///// <summary>
+		/////     Engine execution start time (the time when Manager instance was created)
+		///// </summary>
+		//public DateTime StartExecutionTime;
 
 		/// <summary>
-		///     Engine execution start time (the time when Manager instance was created)
+		/// The stop watch (for web-page build measurement)
 		/// </summary>
-		public DateTime StartExecutionTime;
+		public readonly Stopwatch StopWatch;
 
 		private string _currentAction;
 		private string _currentMode;
@@ -73,7 +79,8 @@ namespace AcspNet
 			if (Request == null)
 				throw new AcspNetException("HTTP Request doest not exist.");
 
-			StartExecutionTime = DateTime.Now;
+			StopWatch = new Stopwatch();
+			StopWatch.Start();
 
 			if (IsExtensionsTypesLoaded)
 				return;
@@ -176,13 +183,13 @@ namespace AcspNet
 			}
 		}
 
-		/// <summary>
-		///     Total engine execution time for current request
-		/// </summary>
-		public TimeSpan ExecutionTime
-		{
-			get { return EndExecutionTime.Subtract(StartExecutionTime); }
-		}
+		///// <summary>
+		/////     Total engine execution time for current request
+		///// </summary>
+		//public TimeSpan ExecutionTime
+		//{
+		//	get { return EndExecutionTime.Subtract(StartExecutionTime); }
+		//}
 
 		/// <summary>
 		/// Gets the current executing extensions types.
