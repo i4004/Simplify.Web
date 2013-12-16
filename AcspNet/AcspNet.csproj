@@ -81,6 +81,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AcspNetException.cs" />
+    <Compile Include="Extensions\Library\DataCollector.cs" />
+    <Compile Include="Extensions\Library\EngineSettings.cs" />
+    <Compile Include="Extensions\Library\EnvironmentVariables.cs" />
+    <Compile Include="Extensions\Library\TemplateFactory.cs" />
     <Compile Include="RunTypeAttribute.cs" />
     <Compile Include="ModeAttribute.cs" />
     <Compile Include="RunType.cs" />
@@ -101,10 +105,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="AcspNet.snk" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="ApplicationHelper">
+      <HintPath>..\packages\ApplicationHelper.2.7\lib\net40\ApplicationHelper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -131,7 +142,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
