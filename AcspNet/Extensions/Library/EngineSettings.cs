@@ -4,28 +4,53 @@ using System.Configuration;
 namespace AcspNet.Extensions.Library
 {
 	/// <summary>
-	/// ACSP.NET base settings class
+	/// ACSP.NET base settings
 	/// </summary>
 	[Priority(-11)]
-	[Version("1.1.1")]
+	[Version("1.2")]
 	public sealed class EngineSettings : ILibExtension
 	{
+		private static string DefaultTemplatesDirInstance = "Templates";
+		private static string DefaultLanguageInstance = "en";
+		private static string ExtensionsDataDirInstance = "ExtensionsData";
+
 		/// <summary>
-		/// Default templates path, for example: templates
+		/// Default templates directory, for example: Templates, default value is "Templates"
 		/// </summary>
-		public static string DefaultTemplatesPath { get; private set; }
+		public static string DefaultTemplatesDir
+		{
+			get
+			{
+				return DefaultTemplatesDirInstance;
+			}
+		}
+
 		/// <summary>
 		/// Default site style
 		/// </summary>
-		public static string DefaultSiteStyle { get; private set; }
+		public static string DefaultStyle { get; private set; }
+		
 		/// <summary>
-		/// Default language, for example: "en", "ru", "de" etc.
+		/// Default language, for example: "en", "ru", "de" etc., default value is "en"
 		/// </summary>
-		public static string DefaultLanguage { get; private set; }
+		public static string DefaultLanguage 
+		{
+			get
+			{
+				return DefaultLanguageInstance;
+			}
+		}
+
 		/// <summary>
-		/// Extension data path, for example: ExtensionsData
+		/// Extension data path, for example: ExtensionsData, default value is "ExtensionsData"
 		/// </summary>
-		public static string ExtensionDataPath { get; private set; }
+		public static string ExtensionDataDir
+		{
+			get
+			{
+				return ExtensionsDataDirInstance;
+			}
+		}
 
 		/// <summary>
 		/// Initializes the library extension.
@@ -33,14 +58,21 @@ namespace AcspNet.Extensions.Library
 		/// <param name="manager">The manager.</param>
 		public void Initialize(Manager manager)
 		{
-			var siteConfigurationSection = ConfigurationManager.GetSection("EngineSettings") as NameValueCollection;
+			var config = ConfigurationManager.GetSection("EngineSettings") as NameValueCollection;
 
-			if (siteConfigurationSection == null) return;
+			if (config == null) return;
 
-			DefaultTemplatesPath = siteConfigurationSection["DefaultTemplatesPath"];
-			DefaultSiteStyle = siteConfigurationSection["DefaultSiteStyle"];
-			DefaultLanguage = siteConfigurationSection["DefaultLanguage"];
-			ExtensionDataPath = siteConfigurationSection["ExtensionDataPath"];
+			if (!string.IsNullOrEmpty(config["DefaultTemplatesDir"]))
+				DefaultTemplatesDirInstance = config["DefaultTemplatesDir"];
+
+			if (!string.IsNullOrEmpty(config["DefaultStyle"]))
+				DefaultStyle = config["DefaultStyle"];
+
+			if (!string.IsNullOrEmpty(config["DefaultLanguage"]))
+				DefaultLanguageInstance = config["DefaultLanguage"];
+
+			if (!string.IsNullOrEmpty(config["ExtensionDataDir"]))
+				ExtensionsDataDirInstance = config["ExtensionDataDir"];
 		}
 	}
 }

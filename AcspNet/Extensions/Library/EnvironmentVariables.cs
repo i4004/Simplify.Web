@@ -9,7 +9,7 @@ namespace AcspNet.Extensions.Library
 	/// Site environment variables, by default initialized from <see cref="EngineSettings" />
 	/// </summary>
 	[Priority(-9)]
-	[Version("1.0.8")]
+	[Version("1.1")]
 	public sealed class EnvironmentVariables : ILibExtension
 	{
 		/// <summary>
@@ -32,17 +32,17 @@ namespace AcspNet.Extensions.Library
 
 			SetCurrentLanguage(cookieLanguage != null && !string.IsNullOrEmpty(cookieLanguage.Value) ? cookieLanguage.Value : EngineSettings.DefaultLanguage);
 
-			//TemplatesPath = EngineSettings.DefaultTemplatesPath;
-			//SiteStyle = EngineSettings.DefaultSiteStyle;
+			TemplatesPath = EngineSettings.DefaultTemplatesDir;
+			SiteStyle = EngineSettings.DefaultStyle;
 		}
 
 		/// <summary>
-		/// Site current templates relative path
+		/// Site current templates relative directory
 		/// </summary>
 		public string TemplatesPath { get; set; }
 
 		/// <summary>
-		/// Site current templates physical path
+		/// Site current templates physical directory
 		/// </summary>
 		public string TemplatesPhysicalPath
 		{
@@ -71,9 +71,6 @@ namespace AcspNet.Extensions.Library
 		/// <param name="language">language code</param>
 		public void SetLanguage(string language)
 		{
-			if (language == "kz")
-				language = "kk";
-
 			SetCurrentLanguage(language);
 			SetCookieLanguage(language);
 		}
