@@ -122,8 +122,11 @@ namespace AcspNet
 			{
 				if (SiteUrlContainer == "")
 				{
-					SiteUrlContainer = string.Format("{0}://{1}{2}/", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority,
+					SiteUrlContainer = string.Format("{0}://{1}{2}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority,
 						HttpContext.Current.Request.ApplicationPath);
+
+					if (!SiteUrlContainer.EndsWith("/"))
+						SiteUrlContainer += "/";
 				}
 
 				return SiteUrlContainer;

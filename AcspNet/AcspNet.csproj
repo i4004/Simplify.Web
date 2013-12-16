@@ -83,6 +83,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AcspNetException.cs" />
+    <Compile Include="Extensions\Executable\SiteDisplay.cs" />
+    <Compile Include="Extensions\Executable\SiteVariablesSetter.cs" />
     <Compile Include="Extensions\Library\DataCollector.cs" />
     <Compile Include="Extensions\Library\EngineSettings.cs" />
     <Compile Include="Extensions\Library\EnvironmentVariables.cs" />
@@ -145,7 +147,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
