@@ -3,9 +3,8 @@ using System;
 namespace AcspNet
 {
 	/// <summary>
-	///     The exception class using for ACSP exceptions
+	/// The exception class using for ACSP.NET exceptions
 	/// </summary>
-	[Serializable]
 	public sealed class AcspNetException : Exception
 	{
 		/// <summary>

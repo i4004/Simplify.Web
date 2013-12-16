@@ -3,7 +3,7 @@
 namespace AcspNet
 {
 	/// <summary>
-	/// Set extensions Priority
+	/// Set extensions execute/initialize Priority
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class)]
 	public class PriorityAttribute : Attribute

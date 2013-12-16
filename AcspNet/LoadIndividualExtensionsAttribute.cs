@@ -3,7 +3,7 @@
 namespace AcspNet
 {
 	/// <summary>
-	/// Attribute for specifying ACSP extensions
+	/// Attribute for set ACSP extensions
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class)]
 	public class LoadIndividualExtensionsAttribute : Attribute

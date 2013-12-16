@@ -7,7 +7,6 @@
 	{
 		private readonly string _action;
 		private readonly string _mode;
-		//private readonly ExtensionProtectionTypes ProtectionType;
 		private readonly RunType _runType;
 
 		/// <summary>

@@ -2,7 +2,7 @@ namespace AcspNet
 {
 	/// <summary>
 	/// Library extension interface 
-	/// Provides interface for ACSP.NET engine extensions
+	/// Provides interface for ACSP.NET library extensions
 	/// </summary>
 	public interface ILibExtension
 	{

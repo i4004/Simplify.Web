@@ -10,7 +10,7 @@ using System.Web.SessionState;
 namespace AcspNet
 {
 	/// <summary>
-	///     ACSP.NET main class
+	/// ACSP.NET main class
 	/// </summary>
 	public sealed class Manager
 	{
@@ -47,15 +47,10 @@ namespace AcspNet
 		/// </summary>
 		public readonly HttpSessionState Session = HttpContext.Current.Session;
 
-		///// <summary>
-		/////     Engige execution end time (the time should be set by last executed extension)
-		///// </summary>
-		//public DateTime EndExecutionTime;
-
-		///// <summary>
-		/////     Engine execution start time (the time when Manager instance was created)
-		///// </summary>
-		//public DateTime StartExecutionTime;
+		/// <summary>
+		///     Gets the connection of HTTP post request form variables
+		/// </summary>
+		public readonly NameValueCollection Form = HttpContext.Current.Request.Form;
 
 		/// <summary>
 		/// The stop watch (for web-page build measurement)
@@ -182,14 +177,6 @@ namespace AcspNet
 				return _currentMode;
 			}
 		}
-
-		///// <summary>
-		/////     Total engine execution time for current request
-		///// </summary>
-		//public TimeSpan ExecutionTime
-		//{
-		//	get { return EndExecutionTime.Subtract(StartExecutionTime); }
-		//}
 
 		/// <summary>
 		/// Gets the current executing extensions types.
