@@ -86,6 +86,19 @@ namespace AcspNet.Extensions.Library
 		}
 
 		/// <summary>
+		/// Replace template variable with value from StringTable (all occurrences will be replaced)
+		/// </summary>
+		/// <param name="variableName">Variable name in master template file</param>
+		/// <param name="stringTableKey">StringTable key</param>
+		/// <param name="addType">Value addition type</param>
+		/// <returns></returns>
+		public void SetSt(string variableName, string stringTableKey,
+			DataCollectorAddType addType = DataCollectorAddType.AddNew)
+		{
+			Set(variableName, _manager.Get<StringTable>()[stringTableKey], addType);
+		}
+
+		/// <summary>
 		/// Checking if some variable data already in data collector
 		/// </summary>
 		/// <param name="variableName">Variable name</param>
