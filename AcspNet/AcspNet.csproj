@@ -83,13 +83,21 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AcspNetException.cs" />
+    <Compile Include="Extensions\Executable\MessagePage.cs" />
     <Compile Include="Extensions\Executable\SiteTitleSetter.cs" />
     <Compile Include="Extensions\Executable\SiteDisplay.cs" />
     <Compile Include="Extensions\Executable\SiteVariablesSetter.cs" />
+    <Compile Include="Extensions\Library\Authentication\Auth.cs" />
+    <Compile Include="Extensions\Library\Authentication\Protection.cs" />
+    <Compile Include="Extensions\Library\Authentication\ProtectionAttribute.cs" />
+    <Compile Include="Extensions\Library\MessageBox.cs" />
+    <Compile Include="Extensions\Library\MessagePageState.cs" />
     <Compile Include="Extensions\Library\DataCollector.cs" />
     <Compile Include="Extensions\Library\EngineSettings.cs" />
     <Compile Include="Extensions\Library\EnvironmentVariables.cs" />
     <Compile Include="Extensions\Library\ExtensionsDataLoader.cs" />
+    <Compile Include="Extensions\Library\Html\EnumListsGenerator.cs" />
+    <Compile Include="Extensions\Library\Html\ListsGenerator.cs" />
     <Compile Include="Extensions\Library\StringTable.cs" />
     <Compile Include="Extensions\Library\TemplateFactory.cs" />
     <Compile Include="RouteConfig.cs" />
@@ -151,7 +159,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
