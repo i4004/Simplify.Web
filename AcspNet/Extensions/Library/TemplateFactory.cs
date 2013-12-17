@@ -25,7 +25,7 @@ namespace AcspNet.Extensions.Library
 		/// </summary>
 		/// <param name="fileName">Template file name</param>
 		/// <returns>Template class with loaded template</returns>
-		public Template LoadTemplate(string fileName)
+		public Template Load(string fileName)
 		{
 			var ev = _manager.Get<EnvironmentVariables>();
 

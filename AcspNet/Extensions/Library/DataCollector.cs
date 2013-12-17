@@ -102,13 +102,10 @@ namespace AcspNet.Extensions.Library
 			if (_isDisplayDisabled)
 				return;
 
-			var tpl = _manager.Get<TemplateFactory>().LoadTemplate(_masterTemplateFileName);
+			var tpl = _manager.Get<TemplateFactory>().Load(_masterTemplateFileName);
 
-			if (_siteData.Count != 0)
-			{
-				foreach (var item in _siteData.Keys)
-					tpl.Set(item, _siteData[item]);
-			}
+			foreach (var item in _siteData.Keys)
+				tpl.Set(item, _siteData[item]);
 
 			_manager.Response.Write(tpl.Text);
 		}

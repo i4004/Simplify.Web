@@ -83,11 +83,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AcspNetException.cs" />
+    <Compile Include="Extensions\Executable\SiteTitleSetter.cs" />
     <Compile Include="Extensions\Executable\SiteDisplay.cs" />
     <Compile Include="Extensions\Executable\SiteVariablesSetter.cs" />
     <Compile Include="Extensions\Library\DataCollector.cs" />
     <Compile Include="Extensions\Library\EngineSettings.cs" />
     <Compile Include="Extensions\Library\EnvironmentVariables.cs" />
+    <Compile Include="Extensions\Library\ExtensionsDataLoader.cs" />
+    <Compile Include="Extensions\Library\StringTable.cs" />
     <Compile Include="Extensions\Library\TemplateFactory.cs" />
     <Compile Include="RunTypeAttribute.cs" />
     <Compile Include="ModeAttribute.cs" />
