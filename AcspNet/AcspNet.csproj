@@ -92,6 +92,7 @@
     <Compile Include="Extensions\Library\ExtensionsDataLoader.cs" />
     <Compile Include="Extensions\Library\StringTable.cs" />
     <Compile Include="Extensions\Library\TemplateFactory.cs" />
+    <Compile Include="RouteConfig.cs" />
     <Compile Include="RunTypeAttribute.cs" />
     <Compile Include="ModeAttribute.cs" />
     <Compile Include="RunType.cs" />
@@ -150,7 +151,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

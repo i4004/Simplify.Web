@@ -5,7 +5,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using System.Web.Routing;
 using System.Web.SessionState;
+using System.Web.UI;
 
 namespace AcspNet
 {
@@ -23,9 +25,9 @@ namespace AcspNet
 
 		private static readonly object Locker = new object();
 
-		private static string SitePhysicalPathContainer = "";
-
-		private static string SiteUrlContainer = "";
+		private static string SitePhysicalPathInstance = "";
+		private static string SiteUrlInstance = "";
+		private static string DefaultPageInstance = "index.aspx";
 
 		/// <summary>
 		///     Gets the connection of  HTTP query string variables
@@ -57,8 +59,11 @@ namespace AcspNet
 		/// </summary>
 		public readonly Stopwatch StopWatch;
 
+		private readonly Page _currentPage;
+
 		private string _currentAction;
 		private string _currentMode;
+		private string _currentID;
 
 		private IList<IExecExtension> _execExtensionsList;
 		private bool _isExtensionsExecutionStopped;
@@ -67,13 +72,17 @@ namespace AcspNet
 		private IList<ILibExtension> _libExtensionsList;
 
 		/// <summary>
-		///     Initialize ACSP .NET engine instance
+		/// Initialize ACSP .NET engine instance
 		/// </summary>
-		public Manager()
+		/// <param name="page">The web-site default page.</param>
+		/// <exception cref="AcspNetException">HTTP Request doest not exist.</exception>
+		public Manager(Page page)
 		{
 			if (Request == null)
 				throw new AcspNetException("HTTP Request doest not exist.");
 
+			_currentPage = page;
+			
 			StopWatch = new Stopwatch();
 			StopWatch.Start();
 
@@ -83,6 +92,8 @@ namespace AcspNet
 			lock (Locker)
 			{
 				if (IsExtensionsTypesLoaded) return;
+
+				RouteConfig.RegisterRoutes(RouteTable.Routes);
 
 				CreateMetaContainers(Assembly.GetCallingAssembly());
 				IsExtensionsTypesLoaded = true;
@@ -99,14 +110,14 @@ namespace AcspNet
 		{
 			get
 			{
-				if (SitePhysicalPathContainer != "") return SitePhysicalPathContainer;
+				if (SitePhysicalPathInstance != "") return SitePhysicalPathInstance;
 
-				SitePhysicalPathContainer = HttpContext.Current.Request.PhysicalApplicationPath;
+				SitePhysicalPathInstance = HttpContext.Current.Request.PhysicalApplicationPath;
 
-				if (SitePhysicalPathContainer != null)
-					SitePhysicalPathContainer = SitePhysicalPathContainer.Replace("\\", "/");
+				if (SitePhysicalPathInstance != null)
+					SitePhysicalPathInstance = SitePhysicalPathInstance.Replace("\\", "/");
 
-				return SitePhysicalPathContainer;
+				return SitePhysicalPathInstance;
 			}
 		}
 
@@ -120,16 +131,35 @@ namespace AcspNet
 		{
 			get
 			{
-				if (SiteUrlContainer == "")
+				if (SiteUrlInstance == "")
 				{
-					SiteUrlContainer = string.Format("{0}://{1}{2}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority,
+					SiteUrlInstance = string.Format("{0}://{1}{2}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority,
 						HttpContext.Current.Request.ApplicationPath);
 
-					if (!SiteUrlContainer.EndsWith("/"))
-						SiteUrlContainer += "/";
+					if (!SiteUrlInstance.EndsWith("/"))
+						SiteUrlInstance += "/";
 				}
 
-				return SiteUrlContainer;
+				return SiteUrlInstance;
+			}
+		}
+
+		/// <summary>
+		/// Site default page
+		/// </summary>
+		/// <value>
+		/// Site default page
+		/// </value>
+		public static string DefaultPage
+		{
+			get
+			{
+				return DefaultPageInstance;
+			}
+
+			set
+			{
+				DefaultPageInstance = value;
 			}
 		}
 
@@ -142,7 +172,7 @@ namespace AcspNet
 		}
 
 		/// <summary>
-		///     Gets the current web-site action (?act=someAction).
+		///     Gets the current web-site request action parameter (/someAction or ?act=someAction).
 		/// </summary>
 		/// <value>
 		///     The current action (?act=someAction).
@@ -153,7 +183,12 @@ namespace AcspNet
 			{
 				if (_currentAction != null) return _currentAction;
 
-				var action = HttpContext.Current.Request.QueryString["act"];
+				string action;
+
+				if (_currentPage.RouteData.Values.ContainsKey("action"))
+					action = (string) _currentPage.RouteData.Values["action"];
+				else
+					action = HttpContext.Current.Request.QueryString["act"];
 
 				_currentAction = action ?? "";
 
@@ -162,7 +197,7 @@ namespace AcspNet
 		}
 
 		/// <summary>
-		///     Gets the current web-site mode (?act=someAction&amp;mode=somMode).
+		///     Gets the current web-site mode request parameter (/someAction/someMode/SomeID or ?act=someAction&amp;mode=somMode).
 		/// </summary>
 		/// <value>
 		///     The current mode (?act=someAction&amp;mode=somMode).
@@ -173,13 +208,44 @@ namespace AcspNet
 			{
 				if (_currentMode != null) return _currentMode;
 
-				var mode = HttpContext.Current.Request.QueryString["mode"];
+				string mode;
+
+				if (_currentPage.RouteData.Values.ContainsKey("mode"))
+					mode = (string)_currentPage.RouteData.Values["mode"];
+				else
+					mode = HttpContext.Current.Request.QueryString["mode"];
 
 				_currentMode = mode ?? "";
 
 				return _currentMode;
 			}
 		}
+
+		/// <summary>
+		///     Gets the current web-site ID request parameter (/someAction/someID or ?act=someAction&amp;id=someID).
+		/// </summary>
+		/// <value>
+		///     The current mode (?act=someAction&amp;mode=somMode).
+		/// </value>
+		public string CurrentID
+		{
+			get
+			{
+				if (_currentID != null) return _currentID;
+
+				string id;
+
+				if (_currentPage.RouteData.Values.ContainsKey("id"))
+					id = (string)_currentPage.RouteData.Values["id"];
+				else
+					id = HttpContext.Current.Request.QueryString["id"];
+
+				_currentID = id ?? "";
+
+				return _currentID;
+			}
+		}
+
 
 		/// <summary>
 		/// Gets the current executing extensions types.
