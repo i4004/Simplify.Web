@@ -1,4 +1,5 @@
-﻿using AcspNet.Extensions.Library;
+﻿using AcspNet.CoreExtensions.Library;
+using AcspNet.Extensions.Library;
 
 namespace AcspNet.Extensions.Executable
 {
@@ -11,14 +12,14 @@ namespace AcspNet.Extensions.Executable
 	/// </summary>
 	[Priority(8)]
 	[Version("1.0.3")]
-	internal sealed class SiteTitleSetter : IExecExtension
+	internal sealed class SiteTitleSetter : ExecExtension
 	{
-		public void Invoke(Manager manager)
+		public override void Invoke()
 		{
-			var st = manager.Get<StringTable>();
-			var dc = manager.Get<DataCollector>();
+			var st = Manager.Get<StringTable>();
+			var dc = Manager.Get<DataCollector>();
 
-			if (string.IsNullOrEmpty(manager.CurrentAction) && string.IsNullOrEmpty(manager.CurrentMode) && !dc.IsDataExist("Title"))
+			if (string.IsNullOrEmpty(Manager.CurrentAction) && string.IsNullOrEmpty(Manager.CurrentMode) && !dc.IsDataExist("Title"))
 				dc.Set("Title", st["SiteTitle"]);
 			else
 				dc.Set("Title", " - " + st["SiteTitle"], DataCollectorAddType.AddFromEnd);

@@ -1,13 +1,13 @@
-﻿using AcspNet.Extensions.Library;
+﻿using AcspNet.CoreExtensions.Library;
 
-namespace AcspNet.Extensions.Executable
+namespace AcspNet.CoreExtensions.Executable
 {
 	/// <summary>
 	/// Setting site environment variables and settings values to <see cref="DataCollector"/> templates
 	/// </summary>
 	[Priority(9)]
 	[Version("1.2")]
-	public sealed class SiteVariablesSetter : IExecExtension
+	public sealed class SiteVariablesSetter : ExecExtension
 	{
 		/// <summary>
 		/// The site variable name templates dir
@@ -35,11 +35,10 @@ namespace AcspNet.Extensions.Executable
 		/// <summary>
 		/// Invokes the executable extension.
 		/// </summary>
-		/// <param name="manager">The manager.</param>
-		public void Invoke(Manager manager)
+		public override void Invoke()
 		{
-			var dc = manager.Get<DataCollector>();
-			var ev = manager.Get<EnvironmentVariables>();
+			var dc = Manager.Get<DataCollector>();
+			var ev = Manager.Get<EnvironmentVariables>();
 
 			dc.Set(SiteVariableNameTemplatesPath, ev.TemplatesPath);
 			dc.Set(SiteVariableNameCurrentStyle, ev.SiteStyle);

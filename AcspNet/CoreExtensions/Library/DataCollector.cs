@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 
-namespace AcspNet.Extensions.Library
+namespace AcspNet.CoreExtensions.Library
 {
 	/// <summary>
 	/// Site master page template data collector
 	/// </summary>
 	[Priority(-7)]
 	[Version("1.1")]
-	public sealed class DataCollector : ILibExtension
+	public sealed class DataCollector : LibExtension
 	{
 		private readonly IDictionary<string, string> _siteData = new Dictionary<string, string>();
 
@@ -20,17 +20,6 @@ namespace AcspNet.Extensions.Library
 		/// Prevent site to be displayed via DataCollector
 		/// </summary>
 		private bool _isDisplayDisabled;
-
-		private Manager _manager;
-
-		/// <summary>
-		/// Initializes the library extension.
-		/// </summary>
-		/// <param name="manager">The manager.</param>
-		public void Initialize(Manager manager)
-		{
-			_manager = manager;
-		}
 
 		/// <summary>
 		/// Gets or sets the master page template file name
@@ -95,7 +84,7 @@ namespace AcspNet.Extensions.Library
 		public void SetSt(string variableName, string stringTableKey,
 			DataCollectorAddType addType = DataCollectorAddType.AddNew)
 		{
-			Set(variableName, _manager.Get<StringTable>()[stringTableKey], addType);
+			Set(variableName, Manager.Get<StringTable>()[stringTableKey], addType);
 		}
 
 		/// <summary>
@@ -115,12 +104,12 @@ namespace AcspNet.Extensions.Library
 			if (_isDisplayDisabled)
 				return;
 
-			var tpl = _manager.Get<TemplateFactory>().Load(_masterTemplateFileName);
+			var tpl = Manager.Get<TemplateFactory>().Load(_masterTemplateFileName);
 
 			foreach (var item in _siteData.Keys)
 				tpl.Set(item, _siteData[item]);
 
-			_manager.Response.Write(tpl.Text);
+			Manager.Response.Write(tpl.Text);
 		}
 
 		/// <summary>
@@ -129,9 +118,9 @@ namespace AcspNet.Extensions.Library
 		/// <param name="data">Data to write</param>
 		public void DisplayPartial(string data)
 		{
-			_manager.Response.Write(data);
+			Manager.Response.Write(data);
 
-			_manager.StopExtensionsExecution();
+			Manager.StopExtensionsExecution();
 		}
 	}
 

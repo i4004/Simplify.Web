@@ -1,3 +1,4 @@
+using AcspNet.CoreExtensions.Library.Html;
 using AcspNet.Extensions.Library;
 
 namespace AcspNet.Extensions.Executable
@@ -7,20 +8,19 @@ namespace AcspNet.Extensions.Executable
 	/// </summary>
 	[Action("message")]
 	[Version("1.0")]
-	public sealed class MessagePage : IExecExtension
+	public sealed class MessagePage : ExecExtension
 	{
 		/// <summary>
 		/// Invokes the executable extension.
 		/// </summary>
-		/// <param name="manager">The manager.</param>
-		public void Invoke(Manager manager)
+		public override void Invoke()
 		{
-			var messagePageState = manager.Get<MessagePageState>();
+			var messagePageState = Manager.Get<MessagePageState>();
 
 			if(string.IsNullOrEmpty(messagePageState.Message))
-				manager.Redirect("/");
+				Manager.Redirect("/");
 			{
-				var messageBox = manager.Get<MessageBox>();
+				var messageBox = Manager.Get<MessageBox>();
 
 				messageBox.Show(messagePageState.Message, messagePageState.MessageStatus);
 

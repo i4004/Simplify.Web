@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace AcspNet.Extensions.Library.Html
+namespace AcspNet.CoreExtensions.Library.Html
 {
 	/// <summary>
 	/// Html select control lists generator from Enums
@@ -9,19 +9,8 @@ namespace AcspNet.Extensions.Library.Html
 	/// "HtmlListNotSelectedMessage"
 	/// </summary>
 	[Version("1.0.1")]
-	public sealed class EnumListsGenerator : ILibExtension
+	public sealed class EnumListsGenerator : LibExtension
 	{
-		private Manager _manager;
-
-		/// <summary>
-		/// Initializes the library extension.
-		/// </summary>
-		/// <param name="manager">The manager.</param>
-		public void Initialize(Manager manager)
-		{
-			_manager = manager;
-		}
-
 		/// <summary>
 		/// Generate HTML list from enum items
 		/// </summary>
@@ -32,8 +21,8 @@ namespace AcspNet.Extensions.Library.Html
 		public string GenerateList<T>(T selectedItem, bool displayNotSelectedMessage = true)
 			where T : struct 
 		{
-			var st = _manager.Get<StringTable>();
-			var data = displayNotSelectedMessage ? _manager.Get<ListsGenerator>().GenerateNotSelectedListItem() : "";
+			var st = Manager.Get<StringTable>();
+			var data = displayNotSelectedMessage ? Manager.Get<ListsGenerator>().GenerateNotSelectedListItem() : "";
 
 			return Enum.GetValues(typeof (T))
 				.Cast<T>()

@@ -2,17 +2,15 @@
 using System.Collections.Specialized;
 using System.Xml;
 
-namespace AcspNet.Extensions.Library
+namespace AcspNet.CoreExtensions.Library
 {
 	/// <summary>
 	/// Provides access to site string table
 	/// </summary>
 	[Priority(-7)]
 	[Version("3.0.4")]
-	public sealed class StringTable : ILibExtension
+	public sealed class StringTable : LibExtension
 	{
-		private Manager _manager;
-
 		/// <summary>
 		/// List of string table items
 		/// </summary>
@@ -31,10 +29,8 @@ namespace AcspNet.Extensions.Library
 		/// <summary>
 		/// Initializes the library extension.
 		/// </summary>
-		/// <param name="manager">The manager.</param>
-		public void Initialize(Manager manager)
+		public override void Initialize()
 		{
-			_manager = manager;
 			Load();
 		}
 
@@ -44,8 +40,8 @@ namespace AcspNet.Extensions.Library
 		public void Load()
 		{
 			Items = new StringDictionary();
-			var ev = _manager.Get<EnvironmentVariables>();
-			var loader = _manager.Get<ExtensionsDataLoader>();
+			var ev = Manager.Get<EnvironmentVariables>();
+			var loader = Manager.Get<ExtensionsDataLoader>();
 
 			var stringTable = loader.LoadXmlDocument("StringTable.xml");
 
@@ -67,6 +63,7 @@ namespace AcspNet.Extensions.Library
 
 			if (stringTable == null)
 				return;
+
 			foreach (XmlNode item in stringTable.ChildNodes[1])
 			{
 				if (item.Attributes == null)

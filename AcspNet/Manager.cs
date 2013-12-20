@@ -65,11 +65,11 @@ namespace AcspNet
 		private string _currentMode;
 		private string _currentID;
 
-		private IList<IExecExtension> _execExtensionsList;
+		private IList<ExecExtension> _execExtensionsList;
 		private bool _isExtensionsExecutionStopped;
 
 		private Dictionary<string, bool> _libExtensionsIsInitializedList;
-		private IList<ILibExtension> _libExtensionsList;
+		private IList<LibExtension> _libExtensionsList;
 
 		/// <summary>
 		/// Initialize ACSP .NET engine instance
@@ -289,20 +289,20 @@ namespace AcspNet
 		{
 			foreach (var assemblyTypes in types.Select(classType => Assembly.GetAssembly(classType).GetTypes()))
 			{
-				foreach (var t in assemblyTypes.Where(t => t.GetInterface("ILibExtension") != null))
+				foreach (var t in assemblyTypes.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.LibExtension"))
 					AddLibExtensionMetaContainer(t);
 
-				foreach (var t in assemblyTypes.Where(t => t.GetInterface("IExecExtension") != null))
+				foreach (var t in assemblyTypes.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.ExecExtension"))
 					AddExecExtensionMetaContainer(t);
 			}
 		}
 
 		private static void LoadIndividualExtensions(params Type[] types)
 		{
-			foreach (var t in types.Where(t => t.GetInterface("ILibExtension") != null).Where(t => LibExtensionsMetaContainers.All(x => x.ExtensionType != t)))
+			foreach (var t in types.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.LibExtension").Where(t => LibExtensionsMetaContainers.All(x => x.ExtensionType != t)))
 				AddLibExtensionMetaContainer(t);
 
-			foreach (var t in types.Where(t => t.GetInterface("IExecExtension") != null).Where(t => ExecExtensionsMetaContainers.All(x => x.ExtensionType != t)))
+			foreach (var t in types.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.ExecExtension").Where(t => ExecExtensionsMetaContainers.All(x => x.ExtensionType != t)))
 				AddExecExtensionMetaContainer(t);
 		}
 
@@ -379,12 +379,15 @@ namespace AcspNet
 
 		private void CreateLibraryExtensionsInstances()
 		{
-			_libExtensionsList = new List<ILibExtension>(LibExtensionsMetaContainers.Count);
+			_libExtensionsList = new List<LibExtension>(LibExtensionsMetaContainers.Count);
 			_libExtensionsIsInitializedList = new Dictionary<string, bool>(LibExtensionsMetaContainers.Count);
 
 			foreach (var container in LibExtensionsMetaContainers)
 			{
-				_libExtensionsList.Add((ILibExtension) Activator.CreateInstance(container.ExtensionType));
+				var newInstance = (LibExtension) Activator.CreateInstance(container.ExtensionType);
+				newInstance.ManagerInstance = this;
+
+				_libExtensionsList.Add(newInstance);
 				_libExtensionsIsInitializedList.Add(container.ExtensionType.Name, false);
 			}
 		}
@@ -393,39 +396,28 @@ namespace AcspNet
 		{
 			foreach (var extension in _libExtensionsList)
 			{
-				extension.Initialize(this);
+				extension.Initialize();
 				_libExtensionsIsInitializedList[extension.GetType().Name] = true;
 			}
 		}
 
 		private void CreateExecutableExtensionsInstances()
 		{
-			_execExtensionsList = new List<IExecExtension>(ExecExtensionsMetaContainers.Count);
+			_execExtensionsList = new List<ExecExtension>(ExecExtensionsMetaContainers.Count);
 			ExecExtensionsTypes = new List<Type>(ExecExtensionsMetaContainers.Count);
 
 			foreach (var container in ExecExtensionsMetaContainers)
 			{
-				var extension = (IExecExtension) Activator.CreateInstance(container.ExtensionType);
+				if ((CurrentAction != "" || CurrentMode != "" || container.RunType != RunType.MainPage) &&
+				    (!String.Equals(container.Action, CurrentAction, StringComparison.CurrentCultureIgnoreCase) ||
+				     !String.Equals(container.Mode, CurrentMode, StringComparison.CurrentCultureIgnoreCase)) &&
+				    (container.Action != "" || container.RunType != RunType.OnAction)) continue;
 
-				// Checking execution parameters
-				if (container.Action == "")
-				{
-					if (container.RunType == RunType.MainPage && (container.RunType != RunType.MainPage || CurrentAction != ""))
-						continue;
+				var extension = (ExecExtension)Activator.CreateInstance(container.ExtensionType);
+				extension.ManagerInstance = this;
 
-					_execExtensionsList.Add(extension);
-					ExecExtensionsTypes.Add(extension.GetType());
-				}
-				else
-				{
-					if (container.RunType == RunType.MainPage ||
-					    !String.Equals(container.Action, CurrentAction, StringComparison.CurrentCultureIgnoreCase)
-					    || !String.Equals(container.Mode, CurrentMode, StringComparison.CurrentCultureIgnoreCase))
-						continue;
-
-					_execExtensionsList.Add(extension);
-					ExecExtensionsTypes.Add(extension.GetType());
-				}
+				_execExtensionsList.Add(extension);
+				ExecExtensionsTypes.Add(extension.GetType());
 			}
 		}
 
@@ -438,7 +430,7 @@ namespace AcspNet
 				if (_isExtensionsExecutionStopped)
 					return;
 
-				extension.Invoke(this);
+				extension.Invoke();
 			}
 		}
 
@@ -456,7 +448,7 @@ namespace AcspNet
 		/// <typeparam name="T">Library extension instance to get</typeparam>
 		/// <returns>Library extension</returns>
 		public T Get<T>()
-			where T : class, ILibExtension
+			where T : LibExtension
 		{
 			foreach (var t in _libExtensionsList)
 			{

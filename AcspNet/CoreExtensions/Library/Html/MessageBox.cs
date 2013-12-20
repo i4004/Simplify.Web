@@ -1,4 +1,4 @@
-namespace AcspNet.Extensions.Library
+namespace AcspNet.CoreExtensions.Library.Html
 {
 	/// <summary>
 	/// MessageBox control
@@ -20,21 +20,10 @@ namespace AcspNet.Extensions.Library
 	/// </summary>
 	[Priority(-6)]
 	[Version("2")]
-	public sealed class MessageBox : ILibExtension
+	public sealed class MessageBox : LibExtension
 	{
 		private const string MessageBoxTemplatesPath = "AcspNet/MessageBox/";
 		private static string DataCollectorVariableNameInstance = "MainContent";
-
-		private Manager _manager;
-
-		/// <summary>
-		/// Initializes the library extension.
-		/// </summary>
-		/// <param name="manager">The manager.</param>
-		public void Initialize(Manager manager)
-		{
-			_manager = manager;
-		}
 
 		/// <summary>
 		/// Gets or sets the data collector variable name to put message box to
@@ -56,12 +45,12 @@ namespace AcspNet.Extensions.Library
 		/// <param name="title">Title of message box</param>
 		public void Show(string text, MessageBoxStatus status = MessageBoxStatus.Information, string title = "")
 		{
-			var dataCollector = _manager.Get<DataCollector>();
+			var dataCollector = Manager.Get<DataCollector>();
 			if (dataCollector.IsDataExist("MainContainerData") || dataCollector.IsDataExist("Title"))
 				return;
 
-			var st = _manager.Get<StringTable>();
-			var templateFactory = _manager.Get<TemplateFactory>();
+			var st = Manager.Get<StringTable>();
+			var templateFactory = Manager.Get<TemplateFactory>();
 
 			var templateFile = MessageBoxTemplatesPath;
 
@@ -95,7 +84,7 @@ namespace AcspNet.Extensions.Library
 		/// <param name="title">Title of message box</param>
 		public void ShowSt(string stringTableItemName, MessageBoxStatus status = MessageBoxStatus.Information, string title = "")
 		{
-			Show(_manager.Get<StringTable>()[stringTableItemName], status, title);
+			Show(Manager.Get<StringTable>()[stringTableItemName], status, title);
 		}
 
 		/// <summary>
@@ -106,7 +95,7 @@ namespace AcspNet.Extensions.Library
 		/// <returns>Message box html</returns>
 		public string GetInline(string text, MessageBoxStatus status = MessageBoxStatus.Information)
 		{
-			var tf = _manager.Get<TemplateFactory>();
+			var tf = Manager.Get<TemplateFactory>();
 
 			var templateFile = MessageBoxTemplatesPath;
 
@@ -137,7 +126,7 @@ namespace AcspNet.Extensions.Library
 		/// <returns>Message box html</returns>
 		public string GetInlineSt(string stringTableItemName, MessageBoxStatus status = MessageBoxStatus.Error)
 		{
-			return GetInline(_manager.Get<StringTable>()[stringTableItemName], status);
+			return GetInline(Manager.Get<StringTable>()[stringTableItemName], status);
 		}
 	}
 

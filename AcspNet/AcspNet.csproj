@@ -85,27 +85,27 @@
     <Compile Include="AcspNetException.cs" />
     <Compile Include="Extensions\Executable\MessagePage.cs" />
     <Compile Include="Extensions\Executable\SiteTitleSetter.cs" />
-    <Compile Include="Extensions\Executable\SiteDisplay.cs" />
-    <Compile Include="Extensions\Executable\SiteVariablesSetter.cs" />
-    <Compile Include="Extensions\Library\Authentication\Auth.cs" />
-    <Compile Include="Extensions\Library\Authentication\Protection.cs" />
-    <Compile Include="Extensions\Library\Authentication\ProtectionAttribute.cs" />
-    <Compile Include="Extensions\Library\MessageBox.cs" />
+    <Compile Include="CoreExtensions\Executable\SiteDisplay.cs" />
+    <Compile Include="CoreExtensions\Executable\SiteVariablesSetter.cs" />
+    <Compile Include="CoreExtensions\Library\Authentication\Auth.cs" />
+    <Compile Include="CoreExtensions\Library\Authentication\Protection.cs" />
+    <Compile Include="CoreExtensions\Library\Authentication\ProtectionAttribute.cs" />
+    <Compile Include="CoreExtensions\Library\Html\MessageBox.cs" />
     <Compile Include="Extensions\Library\MessagePageState.cs" />
-    <Compile Include="Extensions\Library\DataCollector.cs" />
-    <Compile Include="Extensions\Library\EngineSettings.cs" />
-    <Compile Include="Extensions\Library\EnvironmentVariables.cs" />
-    <Compile Include="Extensions\Library\ExtensionsDataLoader.cs" />
-    <Compile Include="Extensions\Library\Html\EnumListsGenerator.cs" />
-    <Compile Include="Extensions\Library\Html\ListsGenerator.cs" />
-    <Compile Include="Extensions\Library\StringTable.cs" />
-    <Compile Include="Extensions\Library\TemplateFactory.cs" />
+    <Compile Include="CoreExtensions\Library\DataCollector.cs" />
+    <Compile Include="CoreExtensions\Library\EngineSettings.cs" />
+    <Compile Include="CoreExtensions\Library\EnvironmentVariables.cs" />
+    <Compile Include="CoreExtensions\Library\ExtensionsDataLoader.cs" />
+    <Compile Include="CoreExtensions\Library\Html\EnumListsGenerator.cs" />
+    <Compile Include="CoreExtensions\Library\Html\ListsGenerator.cs" />
+    <Compile Include="CoreExtensions\Library\StringTable.cs" />
+    <Compile Include="CoreExtensions\Library\TemplateFactory.cs" />
     <Compile Include="RouteConfig.cs" />
     <Compile Include="RunTypeAttribute.cs" />
     <Compile Include="ModeAttribute.cs" />
     <Compile Include="RunType.cs" />
-    <Compile Include="IExecExtension.cs" />
-    <Compile Include="ILibExtension.cs" />
+    <Compile Include="ExecExtension.cs" />
+    <Compile Include="LibExtension.cs" />
     <Compile Include="ExtensionMetaContainer.cs" />
     <Compile Include="ExecExtensionMetaContainer.cs" />
     <Compile Include="LibExtensionMetaContainer.cs" />
@@ -159,7 +159,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

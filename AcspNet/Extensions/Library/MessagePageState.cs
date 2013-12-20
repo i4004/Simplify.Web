@@ -1,3 +1,5 @@
+using AcspNet.CoreExtensions.Library.Html;
+
 namespace AcspNet.Extensions.Library
 {
 	/// <summary>
@@ -5,21 +7,10 @@ namespace AcspNet.Extensions.Library
 	/// </summary>
 	[Priority(-5)]
 	[Version("1.0")]
-	public sealed class MessagePageState : ILibExtension
+	public sealed class MessagePageState : LibExtension
 	{
 		private const string MessageSessionFieldName = "Message";
 		private const string MessageStatusSessionFieldName = "MessageStatus";
-
-		private Manager _manager;
-
-		/// <summary>
-		/// Initializes the library extension.
-		/// </summary>
-		/// <param name="manager">The manager.</param>
-		public void Initialize(Manager manager)
-		{
-			_manager = manager;
-		}
 		
 		/// <summary>
 		/// Gets or sets the message to be displayed on the message page.
@@ -31,11 +22,11 @@ namespace AcspNet.Extensions.Library
 		{
 			get
 			{
-				return (string)_manager.Session[MessageSessionFieldName];
+				return (string)Manager.Session[MessageSessionFieldName];
 			}
 			set
 			{
-				_manager.Session.Add(MessageSessionFieldName, value);
+				Manager.Session.Add(MessageSessionFieldName, value);
 			}
 		}
 
@@ -49,14 +40,14 @@ namespace AcspNet.Extensions.Library
 		{
 			get
 			{
-				if (_manager.Session[MessageStatusSessionFieldName] != null)
-					return (MessageBoxStatus)_manager.Session[MessageStatusSessionFieldName];
+				if (Manager.Session[MessageStatusSessionFieldName] != null)
+					return (MessageBoxStatus)Manager.Session[MessageStatusSessionFieldName];
 
 				return MessageBoxStatus.Information;
 			}
 			set
 			{
-				_manager.Session.Add(MessageStatusSessionFieldName, value);
+				Manager.Session.Add(MessageStatusSessionFieldName, value);
 			}
 		}
 		
@@ -65,7 +56,7 @@ namespace AcspNet.Extensions.Library
 		/// </summary>
 		public void NavigateToMessagePage()
 		{
-			_manager.Redirect("message");
+			Manager.Redirect("message");
 		}
 
 		/// <summary>

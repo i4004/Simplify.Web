@@ -3,32 +3,28 @@ using System.Globalization;
 using System.Threading;
 using System.Web;
 
-namespace AcspNet.Extensions.Library
+namespace AcspNet.CoreExtensions.Library
 {
 	/// <summary>
 	/// Site environment variables, by default initialized from <see cref="EngineSettings" />
 	/// </summary>
 	[Priority(-9)]
 	[Version("1.1")]
-	public sealed class EnvironmentVariables : ILibExtension
+	public sealed class EnvironmentVariables : LibExtension
 	{
 		/// <summary>
 		/// Language field name in user cookies
 		/// </summary>
 		public const string CookieLanguageFieldName = "language";
 
-		private Manager _manager;
 		private string _language = "";
 	
 		/// <summary>
 		/// Initializes the library extension.
 		/// </summary>
-		/// <param name="manager">The manager.</param>
-		public void Initialize(Manager manager)
+		public override void Initialize()
 		{
-			_manager = manager;
-
-			var cookieLanguage = manager.Request.Cookies[CookieLanguageFieldName];
+			var cookieLanguage = Manager.Request.Cookies[CookieLanguageFieldName];
 
 			SetCurrentLanguage(cookieLanguage != null && !string.IsNullOrEmpty(cookieLanguage.Value) ? cookieLanguage.Value : EngineSettings.DefaultLanguage);
 
@@ -89,7 +85,7 @@ namespace AcspNet.Extensions.Library
 				Expires = DateTime.Now.AddYears(5)
 			};
 
-			_manager.Response.Cookies.Add(cookie);
+			Manager.Response.Cookies.Add(cookie);
 		}
 
 		/// <summary>

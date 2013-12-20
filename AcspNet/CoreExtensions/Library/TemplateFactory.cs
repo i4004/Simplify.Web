@@ -1,25 +1,14 @@
 ﻿using ApplicationHelper.Templates;
 
-namespace AcspNet.Extensions.Library
+namespace AcspNet.CoreExtensions.Library
 {
 	/// <summary>
 	/// Html templates factory
 	/// </summary>
 	[Priority(-7)]
 	[Version("1.2.4")]
-	public sealed class TemplateFactory : ILibExtension
+	public sealed class TemplateFactory : LibExtension
 	{
-		private Manager _manager;
-
-		/// <summary>
-		/// Initializes the library extension.
-		/// </summary>
-		/// <param name="manager">The manager.</param>
-		public void Initialize(Manager manager)
-		{
-			_manager = manager;
-		}
-
 		/// <summary>
 		/// Load template from a file
 		/// </summary>
@@ -27,7 +16,7 @@ namespace AcspNet.Extensions.Library
 		/// <returns>Template class with loaded template</returns>
 		public Template Load(string fileName)
 		{
-			var ev = _manager.Get<EnvironmentVariables>();
+			var ev = Manager.Get<EnvironmentVariables>();
 
 			return new Template(string.Format("{0}/{1}", ev.TemplatesPhysicalPath, fileName), EngineSettings.DefaultLanguage, ev.Language);
 		}

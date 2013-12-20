@@ -1,4 +1,4 @@
-namespace AcspNet.Extensions.Library.Authentication
+namespace AcspNet.CoreExtensions.Library.Authentication
 {
 	/// <summary>
 	/// Executable extension protection type

@@ -1,14 +1,14 @@
 ﻿using System.Collections.Specialized;
 using System.Configuration;
 
-namespace AcspNet.Extensions.Library
+namespace AcspNet.CoreExtensions.Library
 {
 	/// <summary>
 	/// ACSP.NET base settings
 	/// </summary>
 	[Priority(-11)]
 	[Version("1.2")]
-	public sealed class EngineSettings : ILibExtension
+	public sealed class EngineSettings : LibExtension
 	{
 		private static string DefaultTemplatesDirInstance = "Templates";
 		private static string DefaultLanguageInstance = "en";
@@ -55,8 +55,7 @@ namespace AcspNet.Extensions.Library
 		/// <summary>
 		/// Initializes the library extension.
 		/// </summary>
-		/// <param name="manager">The manager.</param>
-		public void Initialize(Manager manager)
+		public override void Initialize()
 		{
 			var config = ConfigurationManager.GetSection("EngineSettings") as NameValueCollection;
 

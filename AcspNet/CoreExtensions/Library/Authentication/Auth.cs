@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Web;
 
-namespace AcspNet.Extensions.Library.Authentication
+namespace AcspNet.CoreExtensions.Library.Authentication
 {
 	/// <summary>
 	/// Authentication class
 	/// </summary>
 	[Priority(-10)]
 	[Version("1.0")]
-	public class Auth : ILibExtension
+	public class Auth : LibExtension
 	{
 		private const string CookieUserNameFieldName = "AcspUserName";
 		private const string CookieUserPasswordFieldName = "AcspUserPassword";
@@ -16,16 +16,6 @@ namespace AcspNet.Extensions.Library.Authentication
 		private const string SessionUserIdFieldName = "AcspAunthenticatedUserID";
 
 		private int _authenticatedUserID = -1;
-		private Manager _manager;
-
-		/// <summary>
-		/// Initializes the library extension.
-		/// </summary>
-		/// <param name="manager">The manager.</param>
-		public void Initialize(Manager manager)
-		{
-			_manager = manager;
-		}
 
 		/// <summary>
 		///     Gets the authenticated user name from cookie.
@@ -37,7 +27,7 @@ namespace AcspNet.Extensions.Library.Authentication
 		{
 			get
 			{
-				var cookie = _manager.Request.Cookies[CookieUserNameFieldName];
+				var cookie = Manager.Request.Cookies[CookieUserNameFieldName];
 
 				if (cookie != null)
 					return cookie.Value ?? "";
@@ -56,7 +46,7 @@ namespace AcspNet.Extensions.Library.Authentication
 		{
 			get
 			{
-				var cookie = _manager.Request.Cookies[CookieUserPasswordFieldName];
+				var cookie = Manager.Request.Cookies[CookieUserPasswordFieldName];
 
 				if (cookie != null)
 					return cookie.Value ?? "";
@@ -102,14 +92,14 @@ namespace AcspNet.Extensions.Library.Authentication
 			if (autoLogin)
 				cookie.Expires = DateTime.Now.AddDays(256);
 
-			_manager.Response.Cookies.Add(cookie);
+			Manager.Response.Cookies.Add(cookie);
 
 			cookie = new HttpCookie(CookieUserPasswordFieldName, password);
 
 			if (autoLogin)
 				cookie.Expires = DateTime.Now.AddDays(256);
 
-			_manager.Response.Cookies.Add(cookie);
+			Manager.Response.Cookies.Add(cookie);
 		}
 
 		/// <summary>
@@ -117,8 +107,8 @@ namespace AcspNet.Extensions.Library.Authentication
 		/// </summary>
 		public void LogInSessionUser(int userID = -1)
 		{
-			_manager.Session.Add(SessionUserAuthenticationStatusFieldName, "authenticated");
-			_manager.Session.Add(SessionUserIdFieldName, userID);
+			Manager.Session.Add(SessionUserAuthenticationStatusFieldName, "authenticated");
+			Manager.Session.Add(SessionUserIdFieldName, userID);
 		}
 
 		/// <summary>
@@ -126,8 +116,8 @@ namespace AcspNet.Extensions.Library.Authentication
 		/// </summary>
 		public void AuthenticateUser(int userID, string name, string password)
 		{
-			var userNameCookie = _manager.Request.Cookies[CookieUserNameFieldName];
-			var userPasswordCookie = _manager.Request.Cookies[CookieUserPasswordFieldName];
+			var userNameCookie = Manager.Request.Cookies[CookieUserNameFieldName];
+			var userPasswordCookie = Manager.Request.Cookies[CookieUserPasswordFieldName];
 
 			if (userNameCookie != null &&
 			   userPasswordCookie != null &&
@@ -140,8 +130,8 @@ namespace AcspNet.Extensions.Library.Authentication
 			}
 			else
 			{
-				_manager.Request.Cookies.Remove(CookieUserNameFieldName);
-				_manager.Request.Cookies.Remove(CookieUserPasswordFieldName);
+				Manager.Request.Cookies.Remove(CookieUserNameFieldName);
+				Manager.Request.Cookies.Remove(CookieUserPasswordFieldName);
 			}
 		}
 
@@ -150,11 +140,11 @@ namespace AcspNet.Extensions.Library.Authentication
 		/// </summary>
 		public void AuthenticateSessionUser()
 		{
-			if (_manager.Session[SessionUserAuthenticationStatusFieldName] == null || (string)_manager.Session[SessionUserAuthenticationStatusFieldName] != "authenticated")
+			if (Manager.Session[SessionUserAuthenticationStatusFieldName] == null || (string)Manager.Session[SessionUserAuthenticationStatusFieldName] != "authenticated")
 				return;
 
 			IsAuthenticatedAsUser = true;
-			_authenticatedUserID = (int)_manager.Session[SessionUserIdFieldName];
+			_authenticatedUserID = (int)Manager.Session[SessionUserIdFieldName];
 			AuthenticatedUserName = "";
 		}
 
@@ -168,14 +158,14 @@ namespace AcspNet.Extensions.Library.Authentication
 								Expires = DateTime.Now.AddDays(-1d)
 							};
 
-			_manager.Response.Cookies.Add(myCookie);
+			Manager.Response.Cookies.Add(myCookie);
 
 			myCookie = new HttpCookie(CookieUserPasswordFieldName)
 						{
 							Expires = DateTime.Now.AddDays(-1d)
 						};
 
-			_manager.Response.Cookies.Add(myCookie);
+			Manager.Response.Cookies.Add(myCookie);
 
 			IsAuthenticatedAsUser = false;
 			_authenticatedUserID = -1;
@@ -187,8 +177,8 @@ namespace AcspNet.Extensions.Library.Authentication
 		/// </summary>
 		public void LogOutSessionUser()
 		{
-			_manager.Session.Remove(SessionUserAuthenticationStatusFieldName);
-			_manager.Session.Remove(SessionUserIdFieldName);
+			Manager.Session.Remove(SessionUserAuthenticationStatusFieldName);
+			Manager.Session.Remove(SessionUserIdFieldName);
 		}
 	}
 }

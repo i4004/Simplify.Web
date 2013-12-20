@@ -2,26 +2,15 @@
 using System.Xml;
 using System.Xml.Linq;
 
-namespace AcspNet.Extensions.Library
+namespace AcspNet.CoreExtensions.Library
 {
 	/// <summary>
 	/// Extension for loading data from extensions data directory
 	/// </summary>
 	[Priority(-7)]
 	[Version("2.1.2")]
-	public sealed class ExtensionsDataLoader : ILibExtension
+	public sealed class ExtensionsDataLoader : LibExtension
 	{
-		private Manager _manager;
-
-		/// <summary>
-		/// Initializes the library extension.
-		/// </summary>
-		/// <param name="manager">The manager.</param>
-		public void Initialize(Manager manager)
-		{
-			_manager = manager;
-		}
-
 		/// <summary>
 		/// Get extension data file path
 		/// </summary>
@@ -29,7 +18,7 @@ namespace AcspNet.Extensions.Library
 		/// <returns>Extension data file path</returns>
 		public string GetFilePath(string extensionsDataFileName)
 		{
-			return GetFilePath(extensionsDataFileName, _manager.Get<EnvironmentVariables>().Language);
+			return GetFilePath(extensionsDataFileName, Manager.Get<EnvironmentVariables>().Language);
 		}
 
 		/// <summary>
@@ -62,7 +51,7 @@ namespace AcspNet.Extensions.Library
 		/// <returns>Xml document</returns>
 		public XmlDocument LoadXmlDocument(string extensionsDataFileName)
 		{
-			return LoadXmlDocument(extensionsDataFileName, _manager.Get<EnvironmentVariables>().Language);
+			return LoadXmlDocument(extensionsDataFileName, Manager.Get<EnvironmentVariables>().Language);
 		}
 
 		/// <summary>
@@ -92,7 +81,7 @@ namespace AcspNet.Extensions.Library
 		/// <returns>Xml document</returns>
 		public XDocument LoadXDocument(string extensionsDataFileName)
 		{
-			return LoadXDocument(extensionsDataFileName, _manager.Get<EnvironmentVariables>().Language);
+			return LoadXDocument(extensionsDataFileName, Manager.Get<EnvironmentVariables>().Language);
 		}
 
 		/// <summary>
@@ -115,7 +104,7 @@ namespace AcspNet.Extensions.Library
 		/// <returns>Text from a extension data file</returns>
 		public string LoadTextDocument(string extensionsDataFileName)
 		{
-			return LoadTextDocument(extensionsDataFileName, _manager.Get<EnvironmentVariables>().Language);
+			return LoadTextDocument(extensionsDataFileName, Manager.Get<EnvironmentVariables>().Language);
 		}
 
 		/// <summary>

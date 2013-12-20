@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AcspNet.Extensions.Library.Html
+namespace AcspNet.CoreExtensions.Library.Html
 {
 	/// <summary>
 	/// HTML select control lists generator
@@ -10,19 +10,8 @@ namespace AcspNet.Extensions.Library.Html
 	/// "HtmlListNotSelectedMessage"
 	/// </summary>
 	[Version("1.1.3")]
-	public class ListsGenerator : ILibExtension
+	public class ListsGenerator : LibExtension
 	{
-		private Manager _manager;
-
-		/// <summary>
-		/// Initializes the library extension.
-		/// </summary>
-		/// <param name="manager">The manager.</param>
-		public void Initialize(Manager manager)
-		{
-			_manager = manager;
-		}
-
 		/// <summary>
 		/// Generate number selected HTML list
 		/// </summary>
@@ -195,7 +184,7 @@ namespace AcspNet.Extensions.Library.Html
 		/// <returns></returns>
 		public string GenerateNotSelectedListItem(bool isSelected = true)
 		{
-			var st = _manager.Get<StringTable>();
+			var st = Manager.Get<StringTable>();
 			return string.Format("<option value=''{1}>{0}</option>", st["HtmlListNotSelectedMessage"], isSelected ? " selected='selected'" : "");
 		}
 	}
