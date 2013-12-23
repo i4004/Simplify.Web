@@ -14,7 +14,9 @@ namespace AcspNet.CoreExtensions.Library
 		/// <summary>
 		/// Master page template file name
 		/// </summary>
-		private string _masterTemplateFileName = "Index.tpl";
+		private static string MasterTemplateFileNameInstance = "Index.tpl";
+
+		private static string MainContentInstance = "MainContent";
 
 		/// <summary>
 		/// Prevent site to be displayed via DataCollector
@@ -27,10 +29,22 @@ namespace AcspNet.CoreExtensions.Library
 		/// <value>
 		/// The name of the master page template file
 		/// </value>
-		public string MasterTemplateFileName
+		public static string MasterTemplateFileName
 		{
-			get { return _masterTemplateFileName; }
-			set { _masterTemplateFileName = value; }
+			get { return MasterTemplateFileNameInstance; }
+			set { MasterTemplateFileNameInstance = value; }
+		}
+
+		/// <summary>
+		/// Gets or sets the main page content variable name.
+		/// </summary>
+		/// <value>
+		/// The  main page content variable name.
+		/// </value>
+		public static string MainContent
+		{
+			get { return MainContentInstance; }
+			set { MainContentInstance = value; }
 		}
 
 		/// <summary>
@@ -104,7 +118,7 @@ namespace AcspNet.CoreExtensions.Library
 			if (_isDisplayDisabled)
 				return;
 
-			var tpl = Manager.Get<TemplateFactory>().Load(_masterTemplateFileName);
+			var tpl = Manager.Get<TemplateFactory>().Load(MasterTemplateFileNameInstance);
 
 			foreach (var item in _siteData.Keys)
 				tpl.Set(item, _siteData[item]);

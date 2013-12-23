@@ -27,7 +27,7 @@ namespace AcspNet
 
 		private static string SitePhysicalPathInstance = "";
 		private static string SiteUrlInstance = "";
-		private static string DefaultPageInstance = "index.aspx";
+		private static string DefaultPageInstance = "Index.aspx";
 
 		/// <summary>
 		///     Gets the connection of  HTTP query string variables
