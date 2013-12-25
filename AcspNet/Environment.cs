@@ -3,14 +3,12 @@ using System.Globalization;
 using System.Threading;
 using System.Web;
 
-namespace AcspNet.CoreExtensions.Library
+namespace AcspNet
 {
 	/// <summary>
-	/// Site environment variables, by default initialized from <see cref="EngineSettings" />
+	/// Site environment variables, by default initialized from <see cref="AcspNetSettings" />
 	/// </summary>
-	[Priority(-9)]
-	[Version("1.1")]
-	public sealed class EnvironmentVariables : LibExtension
+	public sealed class Environment
 	{
 		/// <summary>
 		/// Language field name in user cookies
@@ -18,22 +16,23 @@ namespace AcspNet.CoreExtensions.Library
 		public const string CookieLanguageFieldName = "language";
 
 		private string _language = "";
-	
-		/// <summary>
-		/// Initializes the library extension.
-		/// </summary>
-		public override void Initialize()
+
+		private readonly Manager _manager;
+
+		internal Environment(Manager manager)
 		{
-			var cookieLanguage = Manager.Request.Cookies[CookieLanguageFieldName];
+			_manager = manager;
 
-			SetCurrentLanguage(cookieLanguage != null && !string.IsNullOrEmpty(cookieLanguage.Value) ? cookieLanguage.Value : EngineSettings.DefaultLanguage);
+			var cookieLanguage = _manager.Request.Cookies[CookieLanguageFieldName];
 
-			TemplatesPath = EngineSettings.DefaultTemplatesDir;
-			SiteStyle = EngineSettings.DefaultStyle;
+			SetCurrentLanguage(cookieLanguage != null && !string.IsNullOrEmpty(cookieLanguage.Value) ? cookieLanguage.Value : Manager.Settings.DefaultLanguage);
+
+			TemplatesPath = Manager.Settings.DefaultTemplatesDir;
+			SiteStyle = Manager.Settings.DefaultStyle;
 		}
 
 		/// <summary>
-		/// Site current templates relative directory
+		/// Site current templates directory relative path
 		/// </summary>
 		public string TemplatesPath { get; set; }
 
@@ -62,16 +61,6 @@ namespace AcspNet.CoreExtensions.Library
 		}
 
 		/// <summary>
-		/// Set site current and cookie language value
-		/// </summary>
-		/// <param name="language">language code</param>
-		public void SetLanguage(string language)
-		{
-			SetCurrentLanguage(language);
-			SetCookieLanguage(language);
-		}
-
-		/// <summary>
 		/// Set site cookie language value
 		/// </summary>
 		/// <param name="language">Language code</param>
@@ -85,14 +74,14 @@ namespace AcspNet.CoreExtensions.Library
 				Expires = DateTime.Now.AddYears(5)
 			};
 
-			Manager.Response.Cookies.Add(cookie);
+			_manager.Response.Cookies.Add(cookie);
 		}
 
 		/// <summary>
 		/// Set language for current request
 		/// </summary>
 		/// <param name="language">Language code</param>
-		public void SetCurrentLanguage(string language)
+		private void SetCurrentLanguage(string language)
 		{
 			Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
 			Thread.CurrentThread.CurrentCulture = new CultureInfo(language);

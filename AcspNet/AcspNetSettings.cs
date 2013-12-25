@@ -12,6 +12,7 @@ namespace AcspNet
 		private readonly string _defaultLanguageInstance = "en";
 		private readonly string _extensionsDataDirInstance = "ExtensionsData";
 		private readonly string _indexPageInstance = "Index.aspx";
+		private readonly bool _templatesMemoryCache;
 
 		/// <summary>
 		/// Default templates directory, for example: Templates, default value is "Templates"
@@ -66,9 +67,23 @@ namespace AcspNet
 		}
 
 		/// <summary>
+		/// Gets a value indicating whether templates memory cache enabled or disabled.
+		/// </summary>
+		/// <value>
+		/// <c>true</c> if templates memory cache enabled; otherwise, <c>false</c>.
+		/// </value>
+		public bool TemplatesMemoryCache
+		{
+			get
+			{
+				return _templatesMemoryCache;
+			}
+		}
+
+		/// <summary>
 		/// Initializes a new instance of the <see cref="AcspNetSettings"/> class.
 		/// </summary>
-		public AcspNetSettings()
+		internal AcspNetSettings()
 		{
 			var config = ConfigurationManager.GetSection("AcspNetSettings") as NameValueCollection;
 
@@ -88,6 +103,10 @@ namespace AcspNet
 
 			if (!string.IsNullOrEmpty(config["IndexPage"]))
 				_indexPageInstance = config["IndexPage"];
+
+			if (!string.IsNullOrEmpty(config["TemplatesMemoryCache"]))
+				_templatesMemoryCache = bool.Parse(config["TemplatesMemoryCache"]);
+		
 		}
 	}
 }

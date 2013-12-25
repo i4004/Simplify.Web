@@ -90,6 +90,8 @@
   <ItemGroup>
     <Compile Include="AcspNetException.cs" />
     <Compile Include="AcspNetSettings.cs" />
+    <Compile Include="Environment.cs" />
+    <Compile Include="ExtensionsDataLoader.cs" />
     <Compile Include="Manager.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -138,7 +140,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

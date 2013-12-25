@@ -2,15 +2,20 @@
 using System.Xml;
 using System.Xml.Linq;
 
-namespace AcspNet.CoreExtensions.Library
+namespace AcspNet
 {
 	/// <summary>
 	/// Extension for loading data from extensions data directory
 	/// </summary>
-	[Priority(-7)]
-	[Version("2.1.2")]
-	public sealed class ExtensionsDataLoader : LibExtension
+	public sealed class ExtensionsDataLoader
 	{
+		private readonly Environment _ev;
+
+		public ExtensionsDataLoader(Environment ev)
+		{
+			_ev = ev;
+		}
+
 		/// <summary>
 		/// Get extension data file path
 		/// </summary>
@@ -18,7 +23,7 @@ namespace AcspNet.CoreExtensions.Library
 		/// <returns>Extension data file path</returns>
 		public string GetFilePath(string extensionsDataFileName)
 		{
-			return GetFilePath(extensionsDataFileName, Manager.Get<EnvironmentVariables>().Language);
+			return GetFilePath(extensionsDataFileName, _ev.Language);
 		}
 
 		/// <summary>
@@ -36,12 +41,12 @@ namespace AcspNet.CoreExtensions.Library
 				var extensionsDataFileNameFirstPart = extensionsDataFileName.Substring(0, indexOfPoint);
 				var extensionsDataFileNameLastPart = extensionsDataFileName.Substring(indexOfPoint, extensionsDataFileName.Length - indexOfPoint);
 
-				var path = string.Format("{0}{1}/{2}.{3}{4}", Manager.SitePhysicalPath, EngineSettings.ExtensionDataDir, extensionsDataFileNameFirstPart, language, extensionsDataFileNameLastPart);
+				var path = string.Format("{0}{1}/{2}.{3}{4}", Manager.SitePhysicalPath, Manager.Settings.ExtensionDataDir, extensionsDataFileNameFirstPart, language, extensionsDataFileNameLastPart);
 
-				return !File.Exists(path) ? string.Format("{0}{1}/{2}.{3}{4}", Manager.SitePhysicalPath, EngineSettings.ExtensionDataDir, extensionsDataFileNameFirstPart, EngineSettings.DefaultLanguage, extensionsDataFileNameLastPart) : path;
+				return !File.Exists(path) ? string.Format("{0}{1}/{2}.{3}{4}", Manager.SitePhysicalPath, Manager.Settings.ExtensionDataDir, extensionsDataFileNameFirstPart, Manager.Settings.DefaultLanguage, extensionsDataFileNameLastPart) : path;
 			}
 
-			return string.Format("{0}{1}/{2}.{3}", Manager.SitePhysicalPath, EngineSettings.ExtensionDataDir, extensionsDataFileName, language);
+			return string.Format("{0}{1}/{2}.{3}", Manager.SitePhysicalPath, Manager.Settings.ExtensionDataDir, extensionsDataFileName, language);
 		}
 
 		/// <summary>
@@ -51,7 +56,7 @@ namespace AcspNet.CoreExtensions.Library
 		/// <returns>Xml document</returns>
 		public XmlDocument LoadXmlDocument(string extensionsDataFileName)
 		{
-			return LoadXmlDocument(extensionsDataFileName, Manager.Get<EnvironmentVariables>().Language);
+			return LoadXmlDocument(extensionsDataFileName, _ev.Language);
 		}
 
 		/// <summary>
@@ -81,7 +86,7 @@ namespace AcspNet.CoreExtensions.Library
 		/// <returns>Xml document</returns>
 		public XDocument LoadXDocument(string extensionsDataFileName)
 		{
-			return LoadXDocument(extensionsDataFileName, Manager.Get<EnvironmentVariables>().Language);
+			return LoadXDocument(extensionsDataFileName, _ev.Language);
 		}
 
 		/// <summary>
@@ -104,7 +109,7 @@ namespace AcspNet.CoreExtensions.Library
 		/// <returns>Text from a extension data file</returns>
 		public string LoadTextDocument(string extensionsDataFileName)
 		{
-			return LoadTextDocument(extensionsDataFileName, Manager.Get<EnvironmentVariables>().Language);
+			return LoadTextDocument(extensionsDataFileName, _ev.Language);
 		}
 
 		/// <summary>

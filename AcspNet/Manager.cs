@@ -17,20 +17,6 @@ namespace AcspNet
 	/// </summary>
 	public sealed class Manager
 	{
-		//private const string IsNewSessionFieldName = "AcspIsNewSession";
-
-		//private static List<ExecExtensionMetaContainer> ExecExtensionsMetaContainers = new List<ExecExtensionMetaContainer>();
-		//private static List<LibExtensionMetaContainer> LibExtensionsMetaContainers = new List<LibExtensionMetaContainer>();
-
-		private static bool IsStaticInitialized;
-
-		private static readonly object Locker = new object();
-
-		private static AcspNetSettings SettingsInstance;
-
-		//private static string SitePhysicalPathInstance = "";
-		//private static string SiteUrlInstance = "";
-
 		///// <summary>
 		/////     Gets the connection of  HTTP query string variables
 		///// </summary>
@@ -41,20 +27,20 @@ namespace AcspNet
 		/// </summary>
 		public readonly HttpRequest Request = HttpContext.Current.Request;
 
-		/////// <summary>
-		///////     Gets the System.Web.HttpResponse object for the current HTTP response
-		/////// </summary>
-		//public readonly HttpResponse Response = HttpContext.Current.Response;
-
 		///// <summary>
-		/////     Gets the System.Web.HttpSessionState object for the current HTTP request
+		/////     Gets the System.Web.HttpResponse object for the current HTTP response
 		///// </summary>
-		//public readonly HttpSessionState Session = HttpContext.Current.Session;
+		public readonly HttpResponse Response = HttpContext.Current.Response;
 
-		///// <summary>
-		/////     Gets the connection of HTTP post request form variables
-		///// </summary>
-		//public readonly NameValueCollection Form = HttpContext.Current.Request.Form;
+		/// <summary>
+		///     Gets the System.Web.HttpSessionState object for the current HTTP request
+		/// </summary>
+		public readonly HttpSessionState Session = HttpContext.Current.Session;
+
+		/// <summary>
+		///     Gets the connection of HTTP post request form variables
+		/// </summary>
+		public readonly NameValueCollection Form = HttpContext.Current.Request.Form;
 
 		/// <summary>
 		/// Gets the current aspx page.
@@ -68,6 +54,23 @@ namespace AcspNet
 		/// The stop watch (for web-page build measurement)
 		/// </summary>
 		public readonly Stopwatch StopWatch;
+
+		//private const string IsNewSessionFieldName = "AcspIsNewSession";
+
+		//private static List<ExecExtensionMetaContainer> ExecExtensionsMetaContainers = new List<ExecExtensionMetaContainer>();
+		//private static List<LibExtensionMetaContainer> LibExtensionsMetaContainers = new List<LibExtensionMetaContainer>();
+
+		private static bool IsStaticInitialized;
+
+		private static readonly object Locker = new object();
+
+		private static volatile AcspNetSettings SettingsInstance;
+
+		private static string SitePhysicalPathInstance = "";
+		//private static string SiteUrlInstance = "";
+
+		private readonly Environment _environment;
+		private readonly ExtensionsDataLoader _extensionsDataLoader;
 		
 		//private string _currentAction;
 		//private string _currentMode;
@@ -105,6 +108,8 @@ namespace AcspNet
 				if (IsStaticInitialized) return;
 
 				RouteConfig.RegisterRoutes(RouteTable.Routes);
+				_environment = new Environment(this);
+				_extensionsDataLoader = new ExtensionsDataLoader(_environment);
 
 			//	CreateMetaContainers(Assembly.GetCallingAssembly());
 				IsStaticInitialized = true;
@@ -115,30 +120,41 @@ namespace AcspNet
 		{
 			get
 			{
-				return SettingsInstance ?? (SettingsInstance = new AcspNetSettings());
+				if (SettingsInstance != null)
+					return SettingsInstance;
+
+				lock (Locker)
+				{
+					if (SettingsInstance != null)
+						return SettingsInstance;
+					
+					SettingsInstance = new AcspNetSettings();
+				}
+
+				return SettingsInstance;
 			}
 		}
 
-		///// <summary>
-		/////     Gets the web-site physical path, for example: C:\inetpub\wwwroot\YourSite
-		///// </summary>
-		///// <value>
-		/////     The site physical path.
-		///// </value>
-		//public static string SitePhysicalPath
-		//{
-		//	get
-		//	{
-		//		if (SitePhysicalPathInstance != "") return SitePhysicalPathInstance;
+		/// <summary>
+		///     Gets the web-site physical path, for example: C:\inetpub\wwwroot\YourSite
+		/// </summary>
+		/// <value>
+		///     The site physical path.
+		/// </value>
+		public static string SitePhysicalPath
+		{
+			get
+			{
+				if (SitePhysicalPathInstance != "") return SitePhysicalPathInstance;
 
-		//		SitePhysicalPathInstance = HttpContext.Current.Request.PhysicalApplicationPath;
+				SitePhysicalPathInstance = HttpContext.Current.Request.PhysicalApplicationPath;
 
-		//		if (SitePhysicalPathInstance != null)
-		//			SitePhysicalPathInstance = SitePhysicalPathInstance.Replace("\\", "/");
+				if (SitePhysicalPathInstance != null)
+					SitePhysicalPathInstance = SitePhysicalPathInstance.Replace("\\", "/");
 
-		//		return SitePhysicalPathInstance;
-		//	}
-		//}
+				return SitePhysicalPathInstance;
+			}
+		}
 
 		///// <summary>
 		/////     Gets the web-site URL, for example: http://yoursite.com/site1/
