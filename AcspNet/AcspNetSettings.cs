@@ -8,12 +8,14 @@ namespace AcspNet
 	/// </summary>
 	public sealed class AcspNetSettings
 	{
-		private readonly string _defaultTemplatesDirInstance = "Templates";
-		private readonly string _defaultLanguageInstance = "en";
-		private readonly string _extensionsDataDirInstance = "ExtensionsData";
-		private readonly string _indexPageInstance = "Index.aspx";
+		private readonly string _defaultTemplatesDir = "Templates";
+		private readonly string _defaultLanguage = "en";
+		private readonly string _extensionsDataDir = "ExtensionsData";
+		private readonly string _indexPage = "Index.aspx";
+		private readonly string _masterTemplateFileName = "Index.tpl";
+		private readonly string _mainContentVariableName = "MainContent";
 		private readonly bool _templatesMemoryCache;
-
+	
 		/// <summary>
 		/// Default templates directory, for example: Templates, default value is "Templates"
 		/// </summary>
@@ -21,7 +23,7 @@ namespace AcspNet
 		{
 			get
 			{
-				return _defaultTemplatesDirInstance;
+				return _defaultTemplatesDir;
 			}
 		}
 
@@ -37,7 +39,7 @@ namespace AcspNet
 		{
 			get
 			{
-				return _defaultLanguageInstance;
+				return _defaultLanguage;
 			}
 		}
 
@@ -48,7 +50,7 @@ namespace AcspNet
 		{
 			get
 			{
-				return _extensionsDataDirInstance;
+				return _extensionsDataDir;
 			}
 		}
 
@@ -62,8 +64,31 @@ namespace AcspNet
 		{
 			get
 			{
-				return _indexPageInstance;
+				return _indexPage;
 			}
+		}
+
+		/// <summary>
+		/// Gets or sets the master page template file name
+		/// </summary>
+		/// <value>
+		/// The name of the master page template file
+		/// </value>
+		public string MasterTemplateFileName
+		{
+			get { return _masterTemplateFileName; }
+		}
+
+
+		/// <summary>
+		/// Gets or sets the master template main content variable name.
+		/// </summary>
+		/// <value>
+		/// The  master template main content variable name.
+		/// </value>
+		public string MainContentVariableName
+		{
+			get { return _mainContentVariableName; }
 		}
 
 		/// <summary>
@@ -90,20 +115,26 @@ namespace AcspNet
 			if (config == null) return;
 
 			if (!string.IsNullOrEmpty(config["DefaultTemplatesDir"]))
-				_defaultTemplatesDirInstance = config["DefaultTemplatesDir"];
+				_defaultTemplatesDir = config["DefaultTemplatesDir"];
 
 			if (!string.IsNullOrEmpty(config["DefaultStyle"]))
 				DefaultStyle = config["DefaultStyle"];
 
 			if (!string.IsNullOrEmpty(config["DefaultLanguage"]))
-				_defaultLanguageInstance = config["DefaultLanguage"];
+				_defaultLanguage = config["DefaultLanguage"];
 
 			if (!string.IsNullOrEmpty(config["ExtensionDataDir"]))
-				_extensionsDataDirInstance = config["ExtensionDataDir"];
+				_extensionsDataDir = config["ExtensionDataDir"];
 
 			if (!string.IsNullOrEmpty(config["IndexPage"]))
-				_indexPageInstance = config["IndexPage"];
+				_indexPage = config["IndexPage"];
 
+			if (!string.IsNullOrEmpty(config["MasterTemplateFileName"]))
+				_masterTemplateFileName = config["MasterTemplateFileName"];
+
+			if (!string.IsNullOrEmpty(config["MainContentVariableName"]))
+				_mainContentVariableName = config["MainContentVariableName"];
+			
 			if (!string.IsNullOrEmpty(config["TemplatesMemoryCache"]))
 				_templatesMemoryCache = bool.Parse(config["TemplatesMemoryCache"]);
 		

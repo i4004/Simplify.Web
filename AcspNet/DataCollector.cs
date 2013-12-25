@@ -5,48 +5,22 @@ namespace AcspNet.CoreExtensions.Library
 	/// <summary>
 	/// Site master page template data collector
 	/// </summary>
-	[Priority(-7)]
-	[Version("1.1")]
-	public sealed class DataCollector : LibExtension
+	public sealed class DataCollector
 	{
 		private readonly IDictionary<string, string> _siteData = new Dictionary<string, string>();
 
-		/// <summary>
-		/// Master page template file name
-		/// </summary>
-		private static string MasterTemplateFileNameInstance = "Index.tpl";
-
-		private static string MainContentInstance = "MainContent";
+		private readonly Manager _manager;
 
 		/// <summary>
 		/// Prevent site to be displayed via DataCollector
 		/// </summary>
 		private bool _isDisplayDisabled;
 
-		/// <summary>
-		/// Gets or sets the master page template file name
-		/// </summary>
-		/// <value>
-		/// The name of the master page template file
-		/// </value>
-		public static string MasterTemplateFileName
+		public DataCollector(Manager manager)
 		{
-			get { return MasterTemplateFileNameInstance; }
-			set { MasterTemplateFileNameInstance = value; }
+			_manager = manager;
 		}
-
-		/// <summary>
-		/// Gets or sets the main page content variable name.
-		/// </summary>
-		/// <value>
-		/// The  main page content variable name.
-		/// </value>
-		public static string MainContent
-		{
-			get { return MainContentInstance; }
-			set { MainContentInstance = value; }
-		}
-
+		
 		/// <summary>
 		/// Prevent site to be displayed via DataCollector
 		/// </summary>
@@ -56,10 +30,10 @@ namespace AcspNet.CoreExtensions.Library
 		}
 
 		/// <summary>
-		/// Replace template variable with value (all occurrences will be replaced)
+		///  Set template variable value (all occurrences will be replaced)
 		/// </summary>
 		/// <param name="variableName">Variable name in master template file</param>
-		/// <param name="value">Replace value</param>
+		/// <param name="value">Value to set</param>
 		/// <param name="addType">Value addition type</param>
 		/// <returns></returns>
 		public void Set(string variableName, string value, DataCollectorAddType addType = DataCollectorAddType.AddNew)
@@ -89,7 +63,18 @@ namespace AcspNet.CoreExtensions.Library
 		}
 
 		/// <summary>
-		/// Replace template variable with value from StringTable (all occurrences will be replaced)
+		/// Set template main content variable value (all occurrences will be replaced)
+		/// </summary>
+		/// <param name="value">Value to set</param>
+		/// <param name="addType">Value addition type</param>
+		/// <returns></returns>
+		public void Set(string value, DataCollectorAddType addType = DataCollectorAddType.AddNew)
+		{
+			Set(Manager.Settings.MainContentVariableName, value, addType);
+		}
+
+		/// <summary>
+		/// Set template variable value from StringTable (all occurrences will be replaced)
 		/// </summary>
 		/// <param name="variableName">Variable name in master template file</param>
 		/// <param name="stringTableKey">StringTable key</param>
@@ -98,7 +83,21 @@ namespace AcspNet.CoreExtensions.Library
 		public void SetSt(string variableName, string stringTableKey,
 			DataCollectorAddType addType = DataCollectorAddType.AddNew)
 		{
-			Set(variableName, Manager.Get<StringTable>()[stringTableKey], addType);
+			//Set(variableName, Manager.Get<StringTable>()[stringTableKey], addType);
+		}
+
+		/// <summary>
+		/// Set template template main content variable value from StringTable (all occurrences will be replaced)
+		/// </summary>
+		/// <param name="variableName">Variable name in master template file</param>
+		/// <param name="stringTableKey">StringTable key</param>
+		/// <param name="addType">Value addition type</param>
+		/// <returns></returns>
+		public void SetSt(string stringTableKey,
+			DataCollectorAddType addType = DataCollectorAddType.AddNew)
+		{
+			SetSt(Manager.Settings.MainContentVariableName, stringTableKey, addType);
+			//Set(variableName, Manager.Get<StringTable>()[stringTableKey], addType);
 		}
 
 		/// <summary>
@@ -118,12 +117,12 @@ namespace AcspNet.CoreExtensions.Library
 			if (_isDisplayDisabled)
 				return;
 
-			var tpl = Manager.Get<TemplateFactory>().Load(MasterTemplateFileNameInstance);
+			//var tpl = Manager.Get<TemplateFactory>().Load(MasterTemplateFileNameInstance);
 
-			foreach (var item in _siteData.Keys)
-				tpl.Set(item, _siteData[item]);
+			//foreach (var item in _siteData.Keys)
+			//	tpl.Set(item, _siteData[item]);
 
-			Manager.Response.Write(tpl.Text);
+			//Manager.Response.Write(tpl.Text);
 		}
 
 		/// <summary>
@@ -132,9 +131,9 @@ namespace AcspNet.CoreExtensions.Library
 		/// <param name="data">Data to write</param>
 		public void DisplayPartial(string data)
 		{
-			Manager.Response.Write(data);
+			_manager.Response.Write(data);
 
-			Manager.StopExtensionsExecution();
+			//Manager.StopExtensionsExecution();
 		}
 	}
 

@@ -90,6 +90,7 @@
   <ItemGroup>
     <Compile Include="AcspNetException.cs" />
     <Compile Include="AcspNetSettings.cs" />
+    <Compile Include="DataCollector.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="ExtensionsDataLoader.cs" />
     <Compile Include="Manager.cs">
