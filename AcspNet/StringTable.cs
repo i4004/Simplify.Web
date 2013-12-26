@@ -2,48 +2,21 @@
 using System.Collections.Specialized;
 using System.Xml;
 
-namespace AcspNet.CoreExtensions.Library
+namespace AcspNet
 {
 	/// <summary>
 	/// Provides access to site string table
 	/// </summary>
-	[Priority(-7)]
-	[Version("3.0.4")]
-	public sealed class StringTable : LibExtension
+	public sealed class StringTable
 	{
 		/// <summary>
-		/// List of string table items
+		/// Load string table with current language
 		/// </summary>
-		public StringDictionary Items { get; private set; }
-
-		/// <summary>
-		/// List of string table items
-		/// </summary>
-		/// <param name="key">Item name</param>
-		/// <returns>String table item</returns>
-		public string this[string key]
-		{
-			get { return Items[key]; }
-		}
-
-		/// <summary>
-		/// Initializes the library extension.
-		/// </summary>
-		public override void Initialize()
-		{
-			Load();
-		}
-
-		/// <summary>
-		/// Load or reload string table with current language
-		/// </summary>
-		public void Load()
+		public StringTable(Environment ev, ExtensionsDataLoader edl)
 		{
 			Items = new StringDictionary();
-			var ev = Manager.Get<EnvironmentVariables>();
-			var loader = Manager.Get<ExtensionsDataLoader>();
 
-			var stringTable = loader.LoadXmlDocument("StringTable.xml");
+			var stringTable = edl.LoadXmlDocument("StringTable.xml");
 
 			// Loading current culture strings
 			if (stringTable != null)
@@ -57,9 +30,9 @@ namespace AcspNet.CoreExtensions.Library
 
 			// Loading default culture strings
 
-			if (ev.Language == EngineSettings.DefaultLanguage)
+			if (ev.Language == Manager.Settings.DefaultLanguage)
 				return;
-			stringTable = ExtensionsDataLoader.LoadXmlDocument("StringTable.xml", EngineSettings.DefaultLanguage);
+			stringTable = ExtensionsDataLoader.LoadXmlDocument("StringTable.xml", Manager.Settings.DefaultLanguage);
 
 			if (stringTable == null)
 				return;
@@ -74,6 +47,21 @@ namespace AcspNet.CoreExtensions.Library
 				if (!Items.ContainsKey(itemName))
 					Items.Add(item.Attributes["name"].InnerText, string.IsNullOrEmpty(item.InnerXml) ? item.Attributes["value"].InnerText : item.InnerXml.Trim());
 			}
+		}
+
+		/// <summary>
+		/// List of string table items
+		/// </summary>
+		public StringDictionary Items { get; private set; }
+
+		/// <summary>
+		/// List of string table items
+		/// </summary>
+		/// <param name="key">Item name</param>
+		/// <returns>String table item</returns>
+		public string this[string key]
+		{
+			get { return Items[key]; }
 		}
 
 		/// <summary>

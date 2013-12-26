@@ -100,15 +100,13 @@
     <Compile Include="RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="StringTable.cs" />
+    <Compile Include="TemplateFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AcspNet.snk" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="ApplicationHelper">
-      <HintPath>..\packages\ApplicationHelper.2.7\lib\net40\ApplicationHelper.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web" />
@@ -137,11 +135,16 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\ApplicationHelper\ApplicationHelper\ApplicationHelper.csproj">
+      <Project>{022d4333-46f4-4462-b5c3-3bf174ea03d9}</Project>
+      <Name>ApplicationHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

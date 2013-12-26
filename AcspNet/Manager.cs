@@ -71,6 +71,7 @@ namespace AcspNet
 
 		private readonly Environment _environment;
 		private readonly ExtensionsDataLoader _extensionsDataLoader;
+		private readonly StringTable _stringTable;
 		private readonly DataCollector _dataCollector;
 		
 		//private string _currentAction;
@@ -111,7 +112,8 @@ namespace AcspNet
 				RouteConfig.RegisterRoutes(RouteTable.Routes);
 				_environment = new Environment(this);
 				_extensionsDataLoader = new ExtensionsDataLoader(_environment);
-				_dataCollector = new DataCollector(this);
+				_stringTable = new StringTable(_environment, _extensionsDataLoader);
+				_dataCollector = new DataCollector(this, _stringTable);
 
 			//	CreateMetaContainers(Assembly.GetCallingAssembly());
 				IsStaticInitialized = true;

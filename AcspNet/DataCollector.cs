@@ -10,15 +10,17 @@ namespace AcspNet
 		private readonly IDictionary<string, string> _siteData = new Dictionary<string, string>();
 
 		private readonly Manager _manager;
+		private readonly StringTable _st;
 
 		/// <summary>
 		/// Prevent site to be displayed via DataCollector
 		/// </summary>
 		private bool _isDisplayDisabled;
 
-		public DataCollector(Manager manager)
+		public DataCollector(Manager manager, StringTable st)
 		{
 			_manager = manager;
+			_st = st;
 		}
 		
 		/// <summary>
@@ -94,7 +96,7 @@ namespace AcspNet
 		public void SetSt(string variableName, string stringTableKey,
 			DataCollectorAddType addType = DataCollectorAddType.AddNew)
 		{
-			//Set(variableName, Manager.Get<StringTable>()[stringTableKey], addType);
+			Set(variableName, _st[stringTableKey], addType);
 		}
 
 		/// <summary>
