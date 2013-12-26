@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AcspNet.CoreExtensions.Library
+namespace AcspNet
 {
 	/// <summary>
 	/// Site master page template data collector
@@ -74,6 +74,17 @@ namespace AcspNet.CoreExtensions.Library
 		}
 
 		/// <summary>
+		/// Set template title variable value (all occurrences will be replaced)
+		/// </summary>
+		/// <param name="value">Value to set</param>
+		/// <param name="addType">Value addition type</param>
+		/// <returns></returns>
+		public void SetTitle(string value, DataCollectorAddType addType = DataCollectorAddType.AddNew)
+		{
+			Set(Manager.Settings.TitleVariableName, value, addType);
+		}
+
+		/// <summary>
 		/// Set template variable value from StringTable (all occurrences will be replaced)
 		/// </summary>
 		/// <param name="variableName">Variable name in master template file</param>
@@ -87,9 +98,8 @@ namespace AcspNet.CoreExtensions.Library
 		}
 
 		/// <summary>
-		/// Set template template main content variable value from StringTable (all occurrences will be replaced)
+		/// Set template main content variable value from StringTable (all occurrences will be replaced)
 		/// </summary>
-		/// <param name="variableName">Variable name in master template file</param>
 		/// <param name="stringTableKey">StringTable key</param>
 		/// <param name="addType">Value addition type</param>
 		/// <returns></returns>
@@ -97,7 +107,18 @@ namespace AcspNet.CoreExtensions.Library
 			DataCollectorAddType addType = DataCollectorAddType.AddNew)
 		{
 			SetSt(Manager.Settings.MainContentVariableName, stringTableKey, addType);
-			//Set(variableName, Manager.Get<StringTable>()[stringTableKey], addType);
+		}
+
+		/// <summary>
+		/// Set template title variable value from StringTable (all occurrences will be replaced)
+		/// </summary>
+		/// <param name="stringTableKey">StringTable key</param>
+		/// <param name="addType">Value addition type</param>
+		/// <returns></returns>
+		public void SetTitleSt(string stringTableKey,
+			DataCollectorAddType addType = DataCollectorAddType.AddNew)
+		{
+			SetSt(Manager.Settings.TitleVariableName, stringTableKey, addType);
 		}
 
 		/// <summary>
@@ -117,12 +138,12 @@ namespace AcspNet.CoreExtensions.Library
 			if (_isDisplayDisabled)
 				return;
 
-			//var tpl = Manager.Get<TemplateFactory>().Load(MasterTemplateFileNameInstance);
+			//var tpl = _manager.Get<TemplateFactory>().Load(MasterTemplateFileNameInstance);
 
 			//foreach (var item in _siteData.Keys)
 			//	tpl.Set(item, _siteData[item]);
 
-			//Manager.Response.Write(tpl.Text);
+			//_manager.Response.Write(tpl.Text);
 		}
 
 		/// <summary>
@@ -133,7 +154,7 @@ namespace AcspNet.CoreExtensions.Library
 		{
 			_manager.Response.Write(data);
 
-			//Manager.StopExtensionsExecution();
+			_manager.StopExtensionsExecution();
 		}
 	}
 

@@ -17,10 +17,10 @@ namespace AcspNet
 	/// </summary>
 	public sealed class Manager
 	{
-		///// <summary>
-		/////     Gets the connection of  HTTP query string variables
-		///// </summary>
-		//public readonly NameValueCollection QueryString = HttpContext.Current.Request.QueryString;
+		/// <summary>
+		///     Gets the connection of  HTTP query string variables
+		/// </summary>
+		public readonly NameValueCollection QueryString = HttpContext.Current.Request.QueryString;
 
 		/// <summary>
 		///     Gets the System.Web.HttpRequest object for the current HTTP request
@@ -71,13 +71,14 @@ namespace AcspNet
 
 		private readonly Environment _environment;
 		private readonly ExtensionsDataLoader _extensionsDataLoader;
+		private readonly DataCollector _dataCollector;
 		
 		//private string _currentAction;
 		//private string _currentMode;
 		//private string _currentID;
 
 		//private IList<ExecExtension> _execExtensionsList;
-		//private bool _isExtensionsExecutionStopped;
+		private bool _isExtensionsExecutionStopped;
 
 		//private Dictionary<string, bool> _libExtensionsIsInitializedList;
 		//private IList<LibExtension> _libExtensionsList;
@@ -110,6 +111,7 @@ namespace AcspNet
 				RouteConfig.RegisterRoutes(RouteTable.Routes);
 				_environment = new Environment(this);
 				_extensionsDataLoader = new ExtensionsDataLoader(_environment);
+				_dataCollector = new DataCollector(this);
 
 			//	CreateMetaContainers(Assembly.GetCallingAssembly());
 				IsStaticInitialized = true;
@@ -380,7 +382,7 @@ namespace AcspNet
 		//}
 
 		/// <summary>
-		///     Run ACSP engine
+		/// Run ACSP engine
 		/// </summary>
 		public void Run()
 		{
@@ -391,6 +393,14 @@ namespace AcspNet
 		//	RunExecutableExtensions();
 
 		//	Session.Add(IsNewSessionFieldName, "true");
+		}
+
+		/// <summary>
+		/// Stop ACSP subsequent extensions execution
+		/// </summary>
+		public void StopExtensionsExecution()
+		{
+			_isExtensionsExecutionStopped = true;
 		}
 
 		//private void CreateLibraryExtensionsInstances()
@@ -448,14 +458,6 @@ namespace AcspNet
 
 		//		extension.Invoke();
 		//	}
-		//}
-
-		///// <summary>
-		/////     Stop ACSP subsequent extensions execution
-		///// </summary>
-		//public void StopExtensionsExecution()
-		//{
-		//	_isExtensionsExecutionStopped = true;
 		//}
 
 		///// <summary>

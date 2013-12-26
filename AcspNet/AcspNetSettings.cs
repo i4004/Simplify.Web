@@ -14,6 +14,7 @@ namespace AcspNet
 		private readonly string _indexPage = "Index.aspx";
 		private readonly string _masterTemplateFileName = "Index.tpl";
 		private readonly string _mainContentVariableName = "MainContent";
+		private readonly string _titleVariableName = "Title";
 		private readonly bool _templatesMemoryCache;
 	
 		/// <summary>
@@ -79,7 +80,6 @@ namespace AcspNet
 			get { return _masterTemplateFileName; }
 		}
 
-
 		/// <summary>
 		/// Gets or sets the master template main content variable name.
 		/// </summary>
@@ -89,6 +89,17 @@ namespace AcspNet
 		public string MainContentVariableName
 		{
 			get { return _mainContentVariableName; }
+		}
+
+		/// <summary>
+		/// Gets or sets the master template title variable name.
+		/// </summary>
+		/// <value>
+		/// The title variable name.
+		/// </value>
+		public string TitleVariableName
+		{
+			get { return _titleVariableName; }
 		}
 
 		/// <summary>
@@ -134,10 +145,12 @@ namespace AcspNet
 
 			if (!string.IsNullOrEmpty(config["MainContentVariableName"]))
 				_mainContentVariableName = config["MainContentVariableName"];
-			
-			if (!string.IsNullOrEmpty(config["TemplatesMemoryCache"]))
-				_templatesMemoryCache = bool.Parse(config["TemplatesMemoryCache"]);
+
+			if (!string.IsNullOrEmpty(config["TitleVariableName"]))
+				_titleVariableName = config["TitleVariableName"];
 		
+			if (!string.IsNullOrEmpty(config["TemplatesMemoryCache"]))
+				_templatesMemoryCache = bool.Parse(config["TemplatesMemoryCache"]);	
 		}
 	}
 }
