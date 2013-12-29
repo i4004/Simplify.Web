@@ -25,10 +25,10 @@ namespace AcspNet
 
 			var cookieLanguage = _manager.Request.Cookies[CookieLanguageFieldName];
 
-			SetCurrentLanguage(cookieLanguage != null && !string.IsNullOrEmpty(cookieLanguage.Value) ? cookieLanguage.Value : Manager.Settings.DefaultLanguage);
+			SetCurrentLanguage(cookieLanguage != null && !string.IsNullOrEmpty(cookieLanguage.Value) ? cookieLanguage.Value : _manager.Settings.DefaultLanguage);
 
-			TemplatesPath = Manager.Settings.DefaultTemplatesDir;
-			SiteStyle = Manager.Settings.DefaultStyle;
+			TemplatesPath = _manager.Settings.DefaultTemplatesDir;
+			SiteStyle = _manager.Settings.DefaultStyle;
 		}
 
 		/// <summary>
@@ -43,7 +43,7 @@ namespace AcspNet
 		{
 			get
 			{
-				return Manager.SitePhysicalPath + TemplatesPath;
+				return _manager.SitePhysicalPath + TemplatesPath;
 			}
 		}
 

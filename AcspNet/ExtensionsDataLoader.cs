@@ -9,11 +9,11 @@ namespace AcspNet
 	/// </summary>
 	public sealed class ExtensionsDataLoader
 	{
-		private readonly Environment _ev;
+		private readonly Manager _manager;
 
-		public ExtensionsDataLoader(Environment ev)
+		public ExtensionsDataLoader(Manager manager)
 		{
-			_ev = ev;
+			_manager = manager;
 		}
 
 		/// <summary>
@@ -23,7 +23,7 @@ namespace AcspNet
 		/// <returns>Extension data file path</returns>
 		public string GetFilePath(string extensionsDataFileName)
 		{
-			return GetFilePath(extensionsDataFileName, _ev.Language);
+			return GetFilePath(extensionsDataFileName, _manager.Environment.Language);
 		}
 
 		/// <summary>
@@ -32,21 +32,20 @@ namespace AcspNet
 		/// <param name="extensionsDataFileName">Extension data file name</param>
 		/// <param name="language">Extension data file language</param>
 		/// <returns>Extension data file path</returns>
-		public static string GetFilePath(string extensionsDataFileName, string language)
+		public string GetFilePath(string extensionsDataFileName, string language)
 		{
 			var indexOfPoint = extensionsDataFileName.IndexOf(".", System.StringComparison.Ordinal);
 
-			if (indexOfPoint != -1)
-			{
-				var extensionsDataFileNameFirstPart = extensionsDataFileName.Substring(0, indexOfPoint);
-				var extensionsDataFileNameLastPart = extensionsDataFileName.Substring(indexOfPoint, extensionsDataFileName.Length - indexOfPoint);
+			if (indexOfPoint == -1)
+				return string.Format("{0}{1}/{2}.{3}", _manager.SitePhysicalPath, _manager.Settings.ExtensionDataDir,
+					extensionsDataFileName, language);
 
-				var path = string.Format("{0}{1}/{2}.{3}{4}", Manager.SitePhysicalPath, Manager.Settings.ExtensionDataDir, extensionsDataFileNameFirstPart, language, extensionsDataFileNameLastPart);
+			var extensionsDataFileNameFirstPart = extensionsDataFileName.Substring(0, indexOfPoint);
+			var extensionsDataFileNameLastPart = extensionsDataFileName.Substring(indexOfPoint, extensionsDataFileName.Length - indexOfPoint);
 
-				return !File.Exists(path) ? string.Format("{0}{1}/{2}.{3}{4}", Manager.SitePhysicalPath, Manager.Settings.ExtensionDataDir, extensionsDataFileNameFirstPart, Manager.Settings.DefaultLanguage, extensionsDataFileNameLastPart) : path;
-			}
+			var path = string.Format("{0}{1}/{2}.{3}{4}", _manager.SitePhysicalPath, _manager.Settings.ExtensionDataDir, extensionsDataFileNameFirstPart, language, extensionsDataFileNameLastPart);
 
-			return string.Format("{0}{1}/{2}.{3}", Manager.SitePhysicalPath, Manager.Settings.ExtensionDataDir, extensionsDataFileName, language);
+			return !File.Exists(path) ? string.Format("{0}{1}/{2}.{3}{4}", _manager.SitePhysicalPath, _manager.Settings.ExtensionDataDir, extensionsDataFileNameFirstPart, _manager.Settings.DefaultLanguage, extensionsDataFileNameLastPart) : path;
 		}
 
 		/// <summary>
@@ -56,7 +55,7 @@ namespace AcspNet
 		/// <returns>Xml document</returns>
 		public XmlDocument LoadXmlDocument(string extensionsDataFileName)
 		{
-			return LoadXmlDocument(extensionsDataFileName, _ev.Language);
+			return LoadXmlDocument(extensionsDataFileName, _manager.Environment.Language);
 		}
 
 		/// <summary>
@@ -65,7 +64,7 @@ namespace AcspNet
 		/// <param name="extensionsDataFileName">Extension data file name</param>
 		/// <param name="language">Extension data file language</param>
 		/// <returns>Xml document</returns>
-		public static XmlDocument LoadXmlDocument(string extensionsDataFileName, string language)
+		public XmlDocument LoadXmlDocument(string extensionsDataFileName, string language)
 		{
 			XmlDocument xmlDoc = null;
 			var filePath = GetFilePath(extensionsDataFileName, language);
@@ -86,7 +85,7 @@ namespace AcspNet
 		/// <returns>Xml document</returns>
 		public XDocument LoadXDocument(string extensionsDataFileName)
 		{
-			return LoadXDocument(extensionsDataFileName, _ev.Language);
+			return LoadXDocument(extensionsDataFileName, _manager.Environment.Language);
 		}
 
 		/// <summary>
@@ -95,7 +94,7 @@ namespace AcspNet
 		/// <param name="extensionsDataFileName">Extension data file name</param>
 		/// <param name="language">Extension data file language</param>
 		/// <returns>Xml document</returns>
-		public static XDocument LoadXDocument(string extensionsDataFileName, string language)
+		public XDocument LoadXDocument(string extensionsDataFileName, string language)
 		{
 			var filePath = GetFilePath(extensionsDataFileName, language);
 
@@ -109,7 +108,7 @@ namespace AcspNet
 		/// <returns>Text from a extension data file</returns>
 		public string LoadTextDocument(string extensionsDataFileName)
 		{
-			return LoadTextDocument(extensionsDataFileName, _ev.Language);
+			return LoadTextDocument(extensionsDataFileName, _manager.Environment.Language);
 		}
 
 		/// <summary>
@@ -118,7 +117,7 @@ namespace AcspNet
 		/// <param name="extensionsDataFileName">Extension data file name</param>
 		/// <param name="language">Extension data file language</param>
 		/// <returns>Text from a extension data file</returns>
-		public static string LoadTextDocument(string extensionsDataFileName, string language)
+		public string LoadTextDocument(string extensionsDataFileName, string language)
 		{
 			var filePath = GetFilePath(extensionsDataFileName, language);
 

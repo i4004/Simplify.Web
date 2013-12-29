@@ -1,13 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Reflection;
 using System.Web;
 using System.Web.Routing;
-using System.Web.SessionState;
 using System.Web.UI;
 
 namespace AcspNet
@@ -18,37 +12,39 @@ namespace AcspNet
 	public sealed class Manager
 	{
 		/// <summary>
-		///     Gets the connection of  HTTP query string variables
+		///  Gets the <see cref="T:System.Web.HttpContextBase"/> object for the current HTTP request.
 		/// </summary>
-		public readonly NameValueCollection QueryString = HttpContext.Current.Request.QueryString;
+		public readonly HttpContextBase Context;
 
 		/// <summary>
-		///     Gets the System.Web.HttpRequest object for the current HTTP request
+		/// Gets the System.Web.HttpRequest object for the current HTTP request
 		/// </summary>
-		public readonly HttpRequest Request = HttpContext.Current.Request;
+		public readonly HttpRequestBase Request;
+
+		/// <summary>
+		/// Gets the System.Web.HttpResponse object for the current HTTP response
+		/// </summary>
+		public readonly HttpResponseBase Response;
 
 		///// <summary>
-		/////     Gets the System.Web.HttpResponse object for the current HTTP response
+		///// Gets the connection of  HTTP query string variables
 		///// </summary>
-		public readonly HttpResponse Response = HttpContext.Current.Response;
+		//public readonly NameValueCollection QueryString;
 
-		/// <summary>
-		///     Gets the System.Web.HttpSessionState object for the current HTTP request
-		/// </summary>
-		public readonly HttpSessionState Session = HttpContext.Current.Session;
+		///// <summary>
+		///// Gets the System.Web.HttpSessionState object for the current HTTP request
+		///// </summary>
+		//public readonly HttpSessionState Session;
 
-		/// <summary>
-		///     Gets the connection of HTTP post request form variables
-		/// </summary>
-		public readonly NameValueCollection Form = HttpContext.Current.Request.Form;
+		///// <summary>
+		///// Gets the connection of HTTP post request form variables
+		///// </summary>
+		//public readonly NameValueCollection Form;
 
 		/// <summary>
 		/// Gets the current aspx page.
 		/// </summary>
-		/// <value>
-		/// The current aspx page.
-		/// </value>
-		public readonly Page CurrentPage;
+		public readonly Page Page;
 
 		/// <summary>
 		/// The stop watch (for web-page build measurement)
@@ -61,46 +57,57 @@ namespace AcspNet
 		//private static List<LibExtensionMetaContainer> LibExtensionsMetaContainers = new List<LibExtensionMetaContainer>();
 
 		private static bool IsStaticInitialized;
-
 		private static readonly object Locker = new object();
 
-		private static volatile AcspNetSettings SettingsInstance;
+		private static readonly Lazy<AcspNetSettings> SettingsInstance = new Lazy<AcspNetSettings>(() => new AcspNetSettings());
 
-		private static string SitePhysicalPathInstance = "";
-		//private static string SiteUrlInstance = "";
+		private static Lazy<string> SitePhysicalPathInstance;
 
-		private readonly Environment _environment;
-		private readonly ExtensionsDataLoader _extensionsDataLoader;
-		private readonly StringTable _stringTable;
-		private readonly DataCollector _dataCollector;
+
+		public readonly Environment Environment;
+		public readonly ExtensionsDataLoader DataLoader;
+		//public readonly StringTable StringTable;
+		//private readonly DataCollector _dataCollector;
 		
 		//private string _currentAction;
 		//private string _currentMode;
 		//private string _currentID;
 
 		//private IList<ExecExtension> _execExtensionsList;
-		private bool _isExtensionsExecutionStopped;
+		//private bool _isExtensionsExecutionStopped;
 
 		//private Dictionary<string, bool> _libExtensionsIsInitializedList;
 		//private IList<LibExtension> _libExtensionsList;
+
+		//////private static string SiteUrlInstance = "";
 
 		/// <summary>
 		/// Initialize ACSP .NET engine instance
 		/// </summary>
 		/// <param name="page">The web-site default page.</param>
-		/// <exception cref="AcspNetException">HTTP Request doest not exist.</exception>
-		public Manager(Page page)
+		/// <param name="httpContext">The HTTP context.</param>
+		/// <exception cref="System.ArgumentNullException">page
+		/// or
+		/// httpContext</exception>
+		public Manager(Page page, HttpContextBase httpContext)
 		{
-			if (Request == null)
-				throw new AcspNetException("HTTP Request doest not exist.");
-
 			if (page == null)
 				throw new ArgumentNullException("page");
+
+			if (httpContext == null)
+				throw new ArgumentNullException("httpContext");
 
 			StopWatch = new Stopwatch();
 			StopWatch.Start();
 
-			CurrentPage = page;
+			Page = page;
+			Context = httpContext;
+			Request = Context.Request;
+			Response = Context.Response;
+
+			//QueryString = HttpContext.Current.Request.QueryString;
+			//Session = HttpContext.Current.Session;
+			//Form = HttpContext.Current.Request.Form;
 
 			if (IsStaticInitialized)
 				return;
@@ -109,54 +116,40 @@ namespace AcspNet
 			{
 				if (IsStaticInitialized) return;
 
-				RouteConfig.RegisterRoutes(RouteTable.Routes);
-				_environment = new Environment(this);
-				_extensionsDataLoader = new ExtensionsDataLoader(_environment);
-				_stringTable = new StringTable(_environment, _extensionsDataLoader);
-				_dataCollector = new DataCollector(this, _stringTable);
+				SitePhysicalPathInstance = new Lazy<string>(() => Request.PhysicalApplicationPath != null
+					? Request.PhysicalApplicationPath.Replace("\\", "/")
+					: null);
 
-			//	CreateMetaContainers(Assembly.GetCallingAssembly());
+				RouteConfig.RegisterRoutes(RouteTable.Routes, Settings);
+				Environment = new Environment(this);
+				DataLoader = new ExtensionsDataLoader(this);
+				//StringTable = new StringTable(this);
+				//_dataCollector = new DataCollector(this, _stringTable);
+
+				//CreateMetaContainers(Assembly.GetCallingAssembly());
 				IsStaticInitialized = true;
 			}
 		}
 
-		public static AcspNetSettings Settings
+		public AcspNetSettings Settings
 		{
 			get
-			{
-				if (SettingsInstance != null)
-					return SettingsInstance;
-
-				lock (Locker)
-				{
-					if (SettingsInstance != null)
-						return SettingsInstance;
-					
-					SettingsInstance = new AcspNetSettings();
-				}
-
-				return SettingsInstance;
+			{				
+				return SettingsInstance.Value;
 			}
 		}
 
 		/// <summary>
-		///     Gets the web-site physical path, for example: C:\inetpub\wwwroot\YourSite
+		/// Gets the web-site physical path, for example: C:\inetpub\wwwroot\YourSite
 		/// </summary>
 		/// <value>
-		///     The site physical path.
+		/// The site physical path.
 		/// </value>
-		public static string SitePhysicalPath
+		public string SitePhysicalPath
 		{
 			get
 			{
-				if (SitePhysicalPathInstance != "") return SitePhysicalPathInstance;
-
-				SitePhysicalPathInstance = HttpContext.Current.Request.PhysicalApplicationPath;
-
-				if (SitePhysicalPathInstance != null)
-					SitePhysicalPathInstance = SitePhysicalPathInstance.Replace("\\", "/");
-
-				return SitePhysicalPathInstance;
+				return SitePhysicalPathInstance.Value;
 			}
 		}
 
@@ -383,27 +376,27 @@ namespace AcspNet
 		//	ExecExtensionsMetaContainers = ExecExtensionsMetaContainers.OrderBy(x => x.Priority).ToList();
 		//}
 
-		/// <summary>
-		/// Run ACSP engine
-		/// </summary>
-		public void Run()
-		{
-		//	CreateLibraryExtensionsInstances();
-		//	InitializeLibraryExtensions();
+		///// <summary>
+		///// Run ACSP engine
+		///// </summary>
+		//public void Run()
+		//{
+			//	CreateLibraryExtensionsInstances();
+			//	InitializeLibraryExtensions();
 
-		//	CreateExecutableExtensionsInstances();
-		//	RunExecutableExtensions();
+			//	CreateExecutableExtensionsInstances();
+			//	RunExecutableExtensions();
 
-		//	Session.Add(IsNewSessionFieldName, "true");
-		}
+			//	Session.Add(IsNewSessionFieldName, "true");
+		//}
 
-		/// <summary>
-		/// Stop ACSP subsequent extensions execution
-		/// </summary>
-		public void StopExtensionsExecution()
-		{
-			_isExtensionsExecutionStopped = true;
-		}
+		///// <summary>
+		///// Stop ACSP subsequent extensions execution
+		///// </summary>
+		//public void StopExtensionsExecution()
+		//{
+		//	_isExtensionsExecutionStopped = true;
+		//}
 
 		//private void CreateLibraryExtensionsInstances()
 		//{

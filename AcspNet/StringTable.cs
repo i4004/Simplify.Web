@@ -12,11 +12,11 @@ namespace AcspNet
 		/// <summary>
 		/// Load string table with current language
 		/// </summary>
-		public StringTable(Environment ev, ExtensionsDataLoader edl)
+		public StringTable(Manager manager)
 		{
 			Items = new StringDictionary();
 
-			var stringTable = edl.LoadXmlDocument("StringTable.xml");
+			var stringTable = manager.DataLoader.LoadXmlDocument("StringTable.xml");
 
 			// Loading current culture strings
 			if (stringTable != null)
@@ -30,9 +30,9 @@ namespace AcspNet
 
 			// Loading default culture strings
 
-			if (ev.Language == Manager.Settings.DefaultLanguage)
+			if (manager.Environment.Language == manager.Settings.DefaultLanguage)
 				return;
-			stringTable = ExtensionsDataLoader.LoadXmlDocument("StringTable.xml", Manager.Settings.DefaultLanguage);
+			stringTable = manager.DataLoader.LoadXmlDocument("StringTable.xml", manager.Settings.DefaultLanguage);
 
 			if (stringTable == null)
 				return;

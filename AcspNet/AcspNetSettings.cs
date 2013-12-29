@@ -148,9 +148,13 @@ namespace AcspNet
 
 			if (!string.IsNullOrEmpty(config["TitleVariableName"]))
 				_titleVariableName = config["TitleVariableName"];
-		
-			if (!string.IsNullOrEmpty(config["TemplatesMemoryCache"]))
-				_templatesMemoryCache = bool.Parse(config["TemplatesMemoryCache"]);	
+
+			bool buffer;
+
+			if (string.IsNullOrEmpty(config["TemplatesMemoryCache"])) return;
+
+			if (bool.TryParse(config["TemplatesMemoryCache"], out buffer))
+				_templatesMemoryCache = buffer;
 		}
 	}
 }
