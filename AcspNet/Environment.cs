@@ -81,7 +81,7 @@ namespace AcspNet
 		/// Set language for current request
 		/// </summary>
 		/// <param name="language">Language code</param>
-		private void SetCurrentLanguage(string language)
+		public void SetCurrentLanguage(string language)
 		{
 			Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
 			Thread.CurrentThread.CurrentCulture = new CultureInfo(language);

@@ -1,5 +1,7 @@
 using System;
 using System.Diagnostics;
+using System.IO;
+using System.IO.Abstractions;
 using System.Web;
 using System.Web.Routing;
 using System.Web.UI;
@@ -42,6 +44,11 @@ namespace AcspNet
 		//public readonly NameValueCollection Form;
 
 		/// <summary>
+		/// The file system instance, to work with System.IO functions
+		/// </summary>
+		public IFileSystem FileSystem;
+
+		/// <summary>
 		/// Gets the current aspx page.
 		/// </summary>
 		public readonly Page Page;
@@ -82,14 +89,24 @@ namespace AcspNet
 		//////private static string SiteUrlInstance = "";
 
 		/// <summary>
+		///Initialize ACSP .NET engine instance
+		/// </summary>
+		/// <param name="page">The web-site default page.</param>
+		public Manager(Page page)
+			: this(page, new HttpContextWrapper(HttpContext.Current), new FileSystem())
+		{
+		}
+
+		/// <summary>
 		/// Initialize ACSP .NET engine instance
 		/// </summary>
 		/// <param name="page">The web-site default page.</param>
 		/// <param name="httpContext">The HTTP context.</param>
+		/// <param name="fileSystem">The file system.</param>
 		/// <exception cref="System.ArgumentNullException">page
 		/// or
 		/// httpContext</exception>
-		public Manager(Page page, HttpContextBase httpContext)
+		public Manager(Page page, HttpContextBase httpContext, IFileSystem fileSystem)
 		{
 			if (page == null)
 				throw new ArgumentNullException("page");
@@ -97,11 +114,15 @@ namespace AcspNet
 			if (httpContext == null)
 				throw new ArgumentNullException("httpContext");
 
+			if (fileSystem == null)
+				throw new ArgumentNullException("fileSystem");
+
 			StopWatch = new Stopwatch();
 			StopWatch.Start();
 
 			Page = page;
 			Context = httpContext;
+			FileSystem = fileSystem;
 			Request = Context.Request;
 			Response = Context.Response;
 
@@ -114,20 +135,21 @@ namespace AcspNet
 
 			lock (Locker)
 			{
-				if (IsStaticInitialized) return;
+				if (!IsStaticInitialized)
+				{
+					SitePhysicalPathInstance = new Lazy<string>(() => Request.PhysicalApplicationPath != null
+						? Request.PhysicalApplicationPath.Replace("\\", "/")
+						: null);
 
-				SitePhysicalPathInstance = new Lazy<string>(() => Request.PhysicalApplicationPath != null
-					? Request.PhysicalApplicationPath.Replace("\\", "/")
-					: null);
+					RouteConfig.RegisterRoutes(RouteTable.Routes, Settings);
+					Environment = new Environment(this);
+					DataLoader = new ExtensionsDataLoader(this);
+					//StringTable = new StringTable(this);
+					//_dataCollector = new DataCollector(this, _stringTable);
 
-				RouteConfig.RegisterRoutes(RouteTable.Routes, Settings);
-				Environment = new Environment(this);
-				DataLoader = new ExtensionsDataLoader(this);
-				//StringTable = new StringTable(this);
-				//_dataCollector = new DataCollector(this, _stringTable);
-
-				//CreateMetaContainers(Assembly.GetCallingAssembly());
-				IsStaticInitialized = true;
+					//CreateMetaContainers(Assembly.GetCallingAssembly());
+					IsStaticInitialized = true;
+				}
 			}
 		}
 

@@ -45,7 +45,7 @@ namespace AcspNet
 
 			var path = string.Format("{0}{1}/{2}.{3}{4}", _manager.SitePhysicalPath, _manager.Settings.ExtensionDataDir, extensionsDataFileNameFirstPart, language, extensionsDataFileNameLastPart);
 
-			return !File.Exists(path) ? string.Format("{0}{1}/{2}.{3}{4}", _manager.SitePhysicalPath, _manager.Settings.ExtensionDataDir, extensionsDataFileNameFirstPart, _manager.Settings.DefaultLanguage, extensionsDataFileNameLastPart) : path;
+			return !_manager.FileSystem.File.Exists(path) ? string.Format("{0}{1}/{2}.{3}{4}", _manager.SitePhysicalPath, _manager.Settings.ExtensionDataDir, extensionsDataFileNameFirstPart, _manager.Settings.DefaultLanguage, extensionsDataFileNameLastPart) : path;
 		}
 
 		/// <summary>

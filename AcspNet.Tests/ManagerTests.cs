@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO.Abstractions;
+using System.IO.Abstractions.TestingHelpers;
 using System.Web;
 using System.Web.UI;
 
@@ -20,7 +23,7 @@ namespace AcspNet.Tests
 
 			httpContext.SetupGet(r => r.Request).Returns(httpRequest.Object);
 			httpRequest.SetupGet(r => r.Cookies).Returns(new HttpCookieCollection());
-			httpRequest.SetupGet(r => r.PhysicalApplicationPath).Returns(@"C:\WebSites\TestSite\");
+			httpRequest.SetupGet(r => r.PhysicalApplicationPath).Returns(@"C:\WebSites\FooSite\");
 
 			httpContext.SetupGet(r => r.Response).Returns(httpResponse.Object);
 			httpResponse.SetupGet(r => r.Cookies).Returns(new HttpCookieCollection());
@@ -28,13 +31,30 @@ namespace AcspNet.Tests
 			return httpContext.Object;
 		}
 
+		public IFileSystem GetTestFileSystem()
+		{
+			var files = new Dictionary<string, MockFileData>();
+			files.Add("bar.ru.xml", null);
+
+			return new MockFileSystem(files, "C:/WebSites/FooSite/ExtensionsData");
+		}
+
+		public Page GetTestPage()
+		{
+			return new Page();
+		}
+
 		[Test]
 		public void TestManagerExecution()
 		{
-			Assert.Throws<ArgumentNullException>(() => new Manager(null, null));
-			Assert.Throws<ArgumentNullException>(() => new Manager(new Page(), null));
+			Assert.Throws<ArgumentNullException>(() => new Manager(null, null, null));
+			Assert.Throws<ArgumentNullException>(() => new Manager(new Page(), null, null));
+			Assert.Throws<ArgumentNullException>(() => new Manager(new Page(), GetTestHttpContext(), null));
 
-			var manager = new Manager(new Page(), GetTestHttpContext());
+			var page = GetTestPage();
+			var fs = GetTestFileSystem();
+			var httpContext = GetTestHttpContext();
+			var manager = new Manager(page, httpContext, fs);
 
 			Assert.IsNotNull(manager.Context);
 			Assert.IsNotNull(manager.Request);
@@ -43,18 +63,19 @@ namespace AcspNet.Tests
 			Assert.IsNotNull(manager.StopWatch);
 			Assert.IsNotNull(manager.Settings);
 			Assert.IsNotNull(manager.Environment);
-			Assert.AreEqual("C:/WebSites/TestSite/", manager.SitePhysicalPath);
+			Assert.AreEqual("C:/WebSites/FooSite/", manager.SitePhysicalPath);
 			Assert.AreEqual("en", manager.Environment.Language);
 			Assert.IsNull(manager.Environment.SiteStyle);
 			Assert.AreEqual("Templates", manager.Environment.TemplatesPath);
-			Assert.AreEqual("C:/WebSites/TestSite/Templates", manager.Environment.TemplatesPhysicalPath);
+			Assert.AreEqual("C:/WebSites/FooSite/Templates", manager.Environment.TemplatesPhysicalPath);
 
 			TestEnvironment(manager);
 			TestExtensionsDataLoader(manager);
+
+			// Testing seconds page request
 			
 			var sessings = manager.Settings;
-
-			manager = new Manager(new Page(), GetTestHttpContext());
+			manager = new Manager(page, httpContext, fs);
 
 			Assert.AreEqual(sessings, manager.Settings);
 		}
@@ -76,9 +97,14 @@ namespace AcspNet.Tests
 
 		public void TestExtensionsDataLoader(Manager manager)
 		{
-			Assert.AreEqual("C:/WebSites/TestSite/ExtensionsData/test.en.xml", manager.DataLoader.GetFilePath("test.xml"));
-			Assert.AreEqual("C:/WebSites/TestSite/ExtensionsData/test.en.xml", manager.DataLoader.GetFilePath("test.xml", "en"));
-			Assert.AreEqual("C:/WebSites/TestSite/ExtensionsData/test.en", manager.DataLoader.GetFilePath("test"));
+			Assert.AreEqual("C:/WebSites/FooSite/ExtensionsData/foo.en.xml", manager.DataLoader.GetFilePath("foo.xml"));
+			Assert.AreEqual("C:/WebSites/FooSite/ExtensionsData/foo.en.xml", manager.DataLoader.GetFilePath("foo.xml", "en"));
+			Assert.AreEqual("C:/WebSites/FooSite/ExtensionsData/foo.en", manager.DataLoader.GetFilePath("foo"));
+
+			manager.Environment.SetCurrentLanguage("ru");
+
+			Assert.AreEqual("C:/WebSites/FooSite/ExtensionsData/foo.en.xml", manager.DataLoader.GetFilePath("foo.xml"));
+			Assert.AreEqual("C:/WebSites/FooSite/ExtensionsData/bar.ru.xml", manager.DataLoader.GetFilePath("bar.xml"));
 		}
     }
 }
