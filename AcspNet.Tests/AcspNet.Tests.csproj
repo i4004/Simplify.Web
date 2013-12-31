@@ -99,6 +99,10 @@
     <None Include="Scripts\jquery-2.0.3.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ApplicationHelper\ApplicationHelper\ApplicationHelper.csproj">
+      <Project>{022d4333-46f4-4462-b5c3-3bf174ea03d9}</Project>
+      <Name>ApplicationHelper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AcspNet\AcspNet.csproj">
       <Project>{03b0ae6c-88d0-4d7a-8657-57fc4fd2682a}</Project>
       <Name>AcspNet</Name>

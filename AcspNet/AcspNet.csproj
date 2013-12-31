@@ -110,9 +110,11 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AcspNetException.cs" />
     <Compile Include="AcspNetSettings.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataCollector.cs" />
     <Compile Include="Environment.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -126,6 +128,8 @@
     <Compile Include="RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="StringTable.cs" />
+    <Compile Include="TemplateFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AcspNet.snk" />

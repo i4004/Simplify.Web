@@ -41,12 +41,7 @@ namespace AcspNet
 		///// Gets the connection of HTTP post request form variables
 		///// </summary>
 		//public readonly NameValueCollection Form;
-
-		/// <summary>
-		/// The file system instance, to work with System.IO functions
-		/// </summary>
-		public IFileSystem FileSystem;
-
+		
 		/// <summary>
 		/// Gets the current aspx page.
 		/// </summary>
@@ -56,6 +51,11 @@ namespace AcspNet
 		/// The stop watch (for web-page build measurement)
 		/// </summary>
 		public readonly Stopwatch StopWatch;
+
+		/// <summary>
+		/// The file system instance, to work with System.IO functions
+		/// </summary>
+		public IFileSystem FileSystem;
 
 		//private const string IsNewSessionFieldName = "AcspIsNewSession";
 
@@ -68,12 +68,12 @@ namespace AcspNet
 		private static readonly Lazy<AcspNetSettings> SettingsInstance = new Lazy<AcspNetSettings>(() => new AcspNetSettings());
 
 		private static Lazy<string> SitePhysicalPathInstance;
-
-
+		
 		public readonly Environment Environment;
 		public readonly ExtensionsDataLoader DataLoader;
-		//public readonly StringTable StringTable;
-		//private readonly DataCollector _dataCollector;
+		public readonly StringTable StringTable;
+		public readonly TemplateFactory TemplateFactory;
+		public readonly DataCollector DataCollector;
 		
 		//private string _currentAction;
 		//private string _currentMode;
@@ -129,27 +129,29 @@ namespace AcspNet
 			//Session = HttpContext.Current.Session;
 			//Form = HttpContext.Current.Request.Form;
 
-			if (IsStaticInitialized)
-				return;
-
-			lock (Locker)
+			if (!IsStaticInitialized)
 			{
-				if (!IsStaticInitialized)
+				lock (Locker)
 				{
-					SitePhysicalPathInstance = new Lazy<string>(() => Request.PhysicalApplicationPath != null
-						? Request.PhysicalApplicationPath.Replace("\\", "/")
-						: null);
+					if (!IsStaticInitialized)
+					{
+						SitePhysicalPathInstance = new Lazy<string>(() => Request.PhysicalApplicationPath != null
+							? Request.PhysicalApplicationPath.Replace("\\", "/")
+							: null);
 
-					RouteConfig.RegisterRoutes(RouteTable.Routes, Settings);
-					Environment = new Environment(this);
-					DataLoader = new ExtensionsDataLoader(this);
-					//StringTable = new StringTable(this);
-					//_dataCollector = new DataCollector(this, _stringTable);
+						RouteConfig.RegisterRoutes(RouteTable.Routes, Settings);
 
-					//CreateMetaContainers(Assembly.GetCallingAssembly());
-					IsStaticInitialized = true;
+						//CreateMetaContainers(Assembly.GetCallingAssembly());
+						IsStaticInitialized = true;
+					}
 				}
 			}
+
+			Environment = new Environment(this);
+			DataLoader = new ExtensionsDataLoader(this);
+			StringTable = new StringTable(this);
+			TemplateFactory = new TemplateFactory(this);
+			DataCollector = new DataCollector(this);
 		}
 
 		public AcspNetSettings Settings

@@ -1,6 +1,4 @@
-﻿using System.IO;
-using System.Xml;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 
 namespace AcspNet
 {
@@ -68,7 +66,7 @@ namespace AcspNet
 		{
 			var filePath = GetFilePath(extensionsDataFileName, language);
 
-			return File.Exists(filePath) ? XDocument.Load(filePath) : null;
+			return _manager.FileSystem.File.Exists(filePath) ? XDocument.Parse(_manager.FileSystem.File.ReadAllText(filePath)) : null;
 		}
 
 		/// <summary>
@@ -91,10 +89,9 @@ namespace AcspNet
 		{
 			var filePath = GetFilePath(extensionsDataFileName, language);
 
-			if (!File.Exists(filePath)) return "";
+			if (!_manager.FileSystem.File.Exists(filePath)) return null;
 
-			using (var sr = new StreamReader(GetFilePath(extensionsDataFileName, language)))
-				return sr.ReadToEnd();
+			return _manager.FileSystem.File.ReadAllText(GetFilePath(extensionsDataFileName, language));
 		}
 	}
 }

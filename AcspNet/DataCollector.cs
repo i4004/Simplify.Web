@@ -10,19 +10,17 @@ namespace AcspNet
 		private readonly IDictionary<string, string> _siteData = new Dictionary<string, string>();
 
 		private readonly Manager _manager;
-		private readonly StringTable _st;
 
 		/// <summary>
 		/// Prevent site to be displayed via DataCollector
 		/// </summary>
 		private bool _isDisplayDisabled;
 
-		public DataCollector(Manager manager, StringTable st)
+		public DataCollector(Manager manager)
 		{
 			_manager = manager;
-			_st = st;
 		}
-		
+
 		/// <summary>
 		/// Prevent site to be displayed via DataCollector
 		/// </summary>
@@ -72,7 +70,7 @@ namespace AcspNet
 		/// <returns></returns>
 		public void Set(string value, DataCollectorAddType addType = DataCollectorAddType.AddNew)
 		{
-			Set(Manager.Settings.MainContentVariableName, value, addType);
+			Set(_manager.Settings.MainContentVariableName, value, addType);
 		}
 
 		/// <summary>
@@ -83,20 +81,20 @@ namespace AcspNet
 		/// <returns></returns>
 		public void SetTitle(string value, DataCollectorAddType addType = DataCollectorAddType.AddNew)
 		{
-			Set(Manager.Settings.TitleVariableName, value, addType);
+			Set(_manager.Settings.TitleVariableName, value, addType);
 		}
 
 		/// <summary>
 		/// Set template variable value from StringTable (all occurrences will be replaced)
 		/// </summary>
-		/// <param name="variableName">Variable name in master template file</param>
 		/// <param name="stringTableKey">StringTable key</param>
+		/// <param name="variableName">Variable name in master template file</param>
 		/// <param name="addType">Value addition type</param>
 		/// <returns></returns>
-		public void SetSt(string variableName, string stringTableKey,
+		public void SetSt(string stringTableKey, string variableName,
 			DataCollectorAddType addType = DataCollectorAddType.AddNew)
 		{
-			Set(variableName, _st[stringTableKey], addType);
+			Set(variableName, _manager.StringTable[stringTableKey], addType);
 		}
 
 		/// <summary>
@@ -108,7 +106,7 @@ namespace AcspNet
 		public void SetSt(string stringTableKey,
 			DataCollectorAddType addType = DataCollectorAddType.AddNew)
 		{
-			SetSt(Manager.Settings.MainContentVariableName, stringTableKey, addType);
+			SetSt(_manager.Settings.MainContentVariableName, stringTableKey, addType);
 		}
 
 		/// <summary>
@@ -120,7 +118,7 @@ namespace AcspNet
 		public void SetTitleSt(string stringTableKey,
 			DataCollectorAddType addType = DataCollectorAddType.AddNew)
 		{
-			SetSt(Manager.Settings.TitleVariableName, stringTableKey, addType);
+			SetSt(_manager.Settings.TitleVariableName, stringTableKey, addType);
 		}
 
 		/// <summary>
@@ -148,16 +146,16 @@ namespace AcspNet
 			//_manager.Response.Write(tpl.Text);
 		}
 
-		/// <summary>
-		/// Write data to the response and stop all extensions execution
-		/// </summary>
-		/// <param name="data">Data to write</param>
-		public void DisplayPartial(string data)
-		{
-			_manager.Response.Write(data);
+		///// <summary>
+		///// Write data to the response and stop all extensions execution
+		///// </summary>
+		///// <param name="data">Data to write</param>
+		//public void DisplayPartial(string data)
+		//{
+		//	_manager.Response.Write(data);
 
-			_manager.StopExtensionsExecution();
-		}
+		//	_manager.StopExtensionsExecution();
+		//}
 	}
 
 	/// <summary>

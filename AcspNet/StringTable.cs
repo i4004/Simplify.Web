@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.Xml;
+using System.Linq;
+using System.Xml.XPath;
+using ApplicationHelper.Extensions.Xml;
 
 namespace AcspNet
 {
@@ -9,43 +11,45 @@ namespace AcspNet
 	/// </summary>
 	public sealed class StringTable
 	{
+		private readonly Manager _manager;
+
 		/// <summary>
 		/// Load string table with current language
 		/// </summary>
 		public StringTable(Manager manager)
 		{
+			_manager = manager;
+
+			Reload();
+		}
+
+		public void Reload()
+		{
 			Items = new StringDictionary();
 
-			var stringTable = manager.DataLoader.LoadXmlDocument("StringTable.xml");
+			var stringTable = _manager.DataLoader.LoadXDocument("StringTable.xml");
 
 			// Loading current culture strings
 			if (stringTable != null)
 			{
-				foreach (XmlNode item in stringTable.ChildNodes[1])
-				{
-					if (item.Attributes != null)
-						Items.Add(item.Attributes["name"].InnerText, string.IsNullOrEmpty(item.InnerXml) ? item.Attributes["value"].InnerText : item.InnerXml.Trim());
-				}
+				if (stringTable.Root != null)
+					foreach (var item in stringTable.Root.XPathSelectElements("item").Where(x => x.HasAttributes))
+						Items.Add((string)item.Attribute("name"), string.IsNullOrEmpty(item.Value) ? (string)item.Attribute("value") : item.InnerXml().Trim());
 			}
-
+			
 			// Loading default culture strings
 
-			if (manager.Environment.Language == manager.Settings.DefaultLanguage)
-				return;
-			stringTable = manager.DataLoader.LoadXmlDocument("StringTable.xml", manager.Settings.DefaultLanguage);
-
-			if (stringTable == null)
+			if (_manager.Environment.Language == _manager.Settings.DefaultLanguage)
 				return;
 
-			foreach (XmlNode item in stringTable.ChildNodes[1])
+			stringTable = _manager.DataLoader.LoadXDocument("StringTable.xml", _manager.Settings.DefaultLanguage);
+
+			if (stringTable != null)
 			{
-				if (item.Attributes == null)
-					continue;
-
-				var itemName = item.Attributes["name"].InnerText;
-
-				if (!Items.ContainsKey(itemName))
-					Items.Add(item.Attributes["name"].InnerText, string.IsNullOrEmpty(item.InnerXml) ? item.Attributes["value"].InnerText : item.InnerXml.Trim());
+				if (stringTable.Root != null)
+					foreach (var item in stringTable.Root.XPathSelectElements("item").Where(x => x.HasAttributes))
+						if (!Items.ContainsKey((string) item.Attribute("name")))
+							Items.Add((string) item.Attribute("name"), string.IsNullOrEmpty(item.Value) ? (string) item.Attribute("value") : item.InnerXml().Trim());
 			}
 		}
 
@@ -72,7 +76,7 @@ namespace AcspNet
 		/// <returns>associated value</returns>
 		public string GetAssociatedValue<T>(T enumValue) where T : struct
 		{
-			return this[enumValue.GetType().Name + Enum.GetName(typeof(T), enumValue)] ?? "";
+			return this[enumValue.GetType().Name + Enum.GetName(typeof(T), enumValue)];
 		}
 	}
 }

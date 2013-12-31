@@ -8,12 +8,10 @@ namespace AcspNet
 	public sealed class TemplateFactory
 	{
 		private Manager _manager;
-		private Environment _ev;
 
-		public TemplateFactory(Manager manager, Environment ev)
+		public TemplateFactory(Manager manager)
 		{
 			_manager = manager;
-			_ev = ev;
 		}
 
 		/// <summary>
@@ -25,12 +23,13 @@ namespace AcspNet
 		{
 			//if (Manager.Settings.TemplatesMemoryCache)
 
-			var a = new Template();
-			
-			//var tpl = new Template(string.Format("{0}/{1}", _ev.TemplatesPhysicalPath, fileName),
-				//Manager.Settings.DefaultLanguage, _ev.Language);
+			//var a = new Template();
 
-			return tpl;
+			//var tpl = new Template(string.Format("{0}/{1}", _ev.TemplatesPhysicalPath, fileName),
+			//Manager.Settings.DefaultLanguage, _ev.Language);
+
+			//return tpl;
+			return null;
 		}
 	}
 }
