@@ -53,36 +53,6 @@ namespace AcspNet
 		/// </summary>
 		/// <param name="extensionsDataFileName">Extension data file name</param>
 		/// <returns>Xml document</returns>
-		public XmlDocument LoadXmlDocument(string extensionsDataFileName)
-		{
-			return LoadXmlDocument(extensionsDataFileName, _manager.Environment.Language);
-		}
-
-		/// <summary>
-		/// Load xml document from a extension data file with specific language
-		/// </summary>
-		/// <param name="extensionsDataFileName">Extension data file name</param>
-		/// <param name="language">Extension data file language</param>
-		/// <returns>Xml document</returns>
-		public XmlDocument LoadXmlDocument(string extensionsDataFileName, string language)
-		{
-			XmlDocument xmlDoc = null;
-			var filePath = GetFilePath(extensionsDataFileName, language);
-
-			if (File.Exists(filePath))
-			{
-				xmlDoc = new XmlDocument();
-				xmlDoc.Load(filePath);
-			}
-
-			return xmlDoc;
-		}
-
-		/// <summary>
-		/// Load xml document from a extension data file
-		/// </summary>
-		/// <param name="extensionsDataFileName">Extension data file name</param>
-		/// <returns>Xml document</returns>
 		public XDocument LoadXDocument(string extensionsDataFileName)
 		{
 			return LoadXDocument(extensionsDataFileName, _manager.Environment.Language);

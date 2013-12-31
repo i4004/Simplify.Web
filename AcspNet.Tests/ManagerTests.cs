@@ -34,7 +34,8 @@ namespace AcspNet.Tests
 		public IFileSystem GetTestFileSystem()
 		{
 			var files = new Dictionary<string, MockFileData>();
-			files.Add("bar.ru.xml", null);
+			files.Add("bar.ru.xml", "Hello!");
+			files.Add("bar.ru.txt", "Hello text!");
 
 			return new MockFileSystem(files, "C:/WebSites/FooSite/ExtensionsData");
 		}
@@ -47,6 +48,7 @@ namespace AcspNet.Tests
 		[Test]
 		public void TestManagerExecution()
 		{
+			Assert.Throws<ArgumentNullException>(() => new Manager(null));
 			Assert.Throws<ArgumentNullException>(() => new Manager(null, null, null));
 			Assert.Throws<ArgumentNullException>(() => new Manager(new Page(), null, null));
 			Assert.Throws<ArgumentNullException>(() => new Manager(new Page(), GetTestHttpContext(), null));
@@ -105,6 +107,11 @@ namespace AcspNet.Tests
 
 			Assert.AreEqual("C:/WebSites/FooSite/ExtensionsData/foo.en.xml", manager.DataLoader.GetFilePath("foo.xml"));
 			Assert.AreEqual("C:/WebSites/FooSite/ExtensionsData/bar.ru.xml", manager.DataLoader.GetFilePath("bar.xml"));
+
+			Assert.AreEqual("Hello!", manager.DataLoader.LoadTextDocument("bar.txt"));
+
+			//var xDoc = manager.DataLoader.LoadXDocument("bar.xml");
+			//Assert.AreEqual("Hello!", );
 		}
     }
 }
