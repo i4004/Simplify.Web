@@ -34,9 +34,8 @@ namespace AcspNet
 		/// </summary>
 		/// <param name="variableName">Variable name in master template file</param>
 		/// <param name="value">Value to set</param>
-		/// <param name="addType">Value addition type</param>
 		/// <returns></returns>
-		public void Set(string variableName, string value, DataCollectorAddType addType = DataCollectorAddType.AddNew)
+		public void Add(string variableName, string value)
 		{
 			if (string.IsNullOrEmpty(variableName))
 				return;
@@ -47,41 +46,27 @@ namespace AcspNet
 				return;
 			}
 
-			if (addType == DataCollectorAddType.AddNew)
-				throw new AcspNetException("DataCollector variable data already exist, variable: " + variableName);
-
-			switch (addType)
-			{
-				case DataCollectorAddType.AddFromBegin:
-					_siteData[variableName] = value + _siteData[variableName];
-					break;
-
-				case DataCollectorAddType.AddFromEnd:
-					_siteData[variableName] = _siteData[variableName] + value;
-					break;
-			}
+			_siteData[variableName] += value;
 		}
 
 		/// <summary>
 		/// Set template main content variable value (all occurrences will be replaced)
 		/// </summary>
 		/// <param name="value">Value to set</param>
-		/// <param name="addType">Value addition type</param>
 		/// <returns></returns>
-		public void Set(string value, DataCollectorAddType addType = DataCollectorAddType.AddNew)
+		public void Add(string value)
 		{
-			Set(_manager.Settings.MainContentVariableName, value, addType);
+			Add(_manager.Settings.MainContentVariableName, value);
 		}
 
 		/// <summary>
 		/// Set template title variable value (all occurrences will be replaced)
 		/// </summary>
 		/// <param name="value">Value to set</param>
-		/// <param name="addType">Value addition type</param>
 		/// <returns></returns>
-		public void SetTitle(string value, DataCollectorAddType addType = DataCollectorAddType.AddNew)
+		public void AddTitle(string value)
 		{
-			Set(_manager.Settings.TitleVariableName, value, addType);
+			Add(_manager.Settings.TitleVariableName, value);
 		}
 
 		/// <summary>
@@ -89,36 +74,30 @@ namespace AcspNet
 		/// </summary>
 		/// <param name="stringTableKey">StringTable key</param>
 		/// <param name="variableName">Variable name in master template file</param>
-		/// <param name="addType">Value addition type</param>
 		/// <returns></returns>
-		public void SetSt(string stringTableKey, string variableName,
-			DataCollectorAddType addType = DataCollectorAddType.AddNew)
+		public void AddSt( string variableName,string stringTableKey)
 		{
-			Set(variableName, _manager.StringTable[stringTableKey], addType);
+			Add(variableName, _manager.StringTable[stringTableKey]);
 		}
 
 		/// <summary>
 		/// Set template main content variable value from StringTable (all occurrences will be replaced)
 		/// </summary>
 		/// <param name="stringTableKey">StringTable key</param>
-		/// <param name="addType">Value addition type</param>
 		/// <returns></returns>
-		public void SetSt(string stringTableKey,
-			DataCollectorAddType addType = DataCollectorAddType.AddNew)
+		public void AddSt(string stringTableKey)
 		{
-			SetSt(_manager.Settings.MainContentVariableName, stringTableKey, addType);
+			AddSt(_manager.Settings.MainContentVariableName, stringTableKey);
 		}
 
 		/// <summary>
 		/// Set template title variable value from StringTable (all occurrences will be replaced)
 		/// </summary>
 		/// <param name="stringTableKey">StringTable key</param>
-		/// <param name="addType">Value addition type</param>
 		/// <returns></returns>
-		public void SetTitleSt(string stringTableKey,
-			DataCollectorAddType addType = DataCollectorAddType.AddNew)
+		public void AddTitleSt(string stringTableKey)
 		{
-			SetSt(_manager.Settings.TitleVariableName, stringTableKey, addType);
+			AddSt(_manager.Settings.TitleVariableName, stringTableKey);
 		}
 
 		/// <summary>
@@ -135,45 +114,26 @@ namespace AcspNet
 		/// </summary>
 		public void DisplaySite()
 		{
-			if (_isDisplayDisabled)
-				return;
+			if (!_isDisplayDisabled)
+			{
+				var tpl = _manager.TemplateFactory.Load(_manager.Settings.MasterTemplateFileName);
 
-			//var tpl = _manager.Get<TemplateFactory>().Load(MasterTemplateFileNameInstance);
+				foreach (var item in _siteData.Keys)
+					tpl.Set(item, _siteData[item]);
 
-			//foreach (var item in _siteData.Keys)
-			//	tpl.Set(item, _siteData[item]);
-
-			//_manager.Response.Write(tpl.Text);
+				_manager.Response.Write(tpl.Get());
+			}
 		}
 
-		///// <summary>
-		///// Write data to the response and stop all extensions execution
-		///// </summary>
-		///// <param name="data">Data to write</param>
-		//public void DisplayPartial(string data)
-		//{
-		//	_manager.Response.Write(data);
+		/// <summary>
+		/// Write data to the response and stop all extensions execution
+		/// </summary>
+		/// <param name="data">Data to write</param>
+		public void DisplayPartial(string data)
+		{
+			_manager.Response.Write(data);
 
-		//	_manager.StopExtensionsExecution();
-		//}
-	}
-
-	/// <summary>
-	/// Data collector data addition type
-	/// </summary>
-	public enum DataCollectorAddType
-	{
-		/// <summary>
-		/// Add new item
-		/// </summary>
-		AddNew = 0,
-		/// <summary>
-		/// Add data to a variable from the begin
-		/// </summary>
-		AddFromBegin = 1,
-		/// <summary>
-		/// Add data to a variable from the end
-		/// </summary>
-		AddFromEnd = 2
+			_manager.StopExtensionsExecution();
+		}
 	}
 }

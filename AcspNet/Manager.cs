@@ -80,7 +80,7 @@ namespace AcspNet
 		//private string _currentID;
 
 		//private IList<ExecExtension> _execExtensionsList;
-		//private bool _isExtensionsExecutionStopped;
+		private bool _isExtensionsExecutionStopped;
 
 		//private Dictionary<string, bool> _libExtensionsIsInitializedList;
 		//private IList<LibExtension> _libExtensionsList;
@@ -291,6 +291,14 @@ namespace AcspNet
 		///// </value>
 		//public IList<Type> ExecExtensionsTypes { get; private set; }
 
+		/// <summary>
+		/// Stop ACSP subsequent extensions execution
+		/// </summary>
+		public void StopExtensionsExecution()
+		{
+			_isExtensionsExecutionStopped = true;
+		}
+
 		//private static void CreateMetaContainers(Assembly callingAssembly)
 		//{
 		//	var assemblyTypes = callingAssembly.GetTypes();
@@ -411,14 +419,6 @@ namespace AcspNet
 			//	RunExecutableExtensions();
 
 			//	Session.Add(IsNewSessionFieldName, "true");
-		//}
-
-		///// <summary>
-		///// Stop ACSP subsequent extensions execution
-		///// </summary>
-		//public void StopExtensionsExecution()
-		//{
-		//	_isExtensionsExecutionStopped = true;
 		//}
 
 		//private void CreateLibraryExtensionsInstances()

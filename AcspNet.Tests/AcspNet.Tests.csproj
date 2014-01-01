@@ -95,8 +95,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Scripts\jquery-2.0.3.min.map" />
+    <EmbeddedResource Include="TestData\Index.tpl" />
+    <EmbeddedResource Include="TestData\IndexResult.tpl" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ApplicationHelper\ApplicationHelper\ApplicationHelper.csproj">

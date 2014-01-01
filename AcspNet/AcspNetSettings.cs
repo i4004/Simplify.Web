@@ -8,52 +8,25 @@ namespace AcspNet
 	/// </summary>
 	public sealed class AcspNetSettings
 	{
-		private readonly string _defaultTemplatesDir = "Templates";
-		private readonly string _defaultLanguage = "en";
-		private readonly string _extensionsDataDir = "ExtensionsData";
-		private readonly string _indexPage = "Index.aspx";
-		private readonly string _masterTemplateFileName = "Index.tpl";
-		private readonly string _mainContentVariableName = "MainContent";
-		private readonly string _titleVariableName = "Title";
-		private readonly bool _templatesMemoryCache;
-	
 		/// <summary>
 		/// Default templates directory, for example: Templates, default value is "Templates"
 		/// </summary>
-		public string DefaultTemplatesDir
-		{
-			get
-			{
-				return _defaultTemplatesDir;
-			}
-		}
+		public string DefaultTemplatesDir { get; private set; }
 
 		/// <summary>
 		/// Default site style
 		/// </summary>
-		public string DefaultStyle { get; private set; }
-		
+		public string DefaultStyle { get; set; }
+
 		/// <summary>
 		/// Default language, for example: "en", "ru", "de" etc., default value is "en"
 		/// </summary>
-		public string DefaultLanguage 
-		{
-			get
-			{
-				return _defaultLanguage;
-			}
-		}
+		public string DefaultLanguage { get; private set; }
 
 		/// <summary>
 		/// Extension data path, for example: ExtensionsData, default value is "ExtensionsData"
 		/// </summary>
-		public string ExtensionDataDir
-		{
-			get
-			{
-				return _extensionsDataDir;
-			}
-		}
+		public string ExtensionDataDir { get; private set; }
 
 		/// <summary>
 		/// Site default page
@@ -61,13 +34,7 @@ namespace AcspNet
 		/// <value>
 		/// Site default page
 		/// </value>
-		public string IndexPage
-		{
-			get
-			{
-				return _indexPage;
-			}
-		}
+		public string IndexPage { get; private set; }
 
 		/// <summary>
 		/// Gets or sets the master page template file name
@@ -75,10 +42,7 @@ namespace AcspNet
 		/// <value>
 		/// The name of the master page template file
 		/// </value>
-		public string MasterTemplateFileName
-		{
-			get { return _masterTemplateFileName; }
-		}
+		public string MasterTemplateFileName { get; private set; }
 
 		/// <summary>
 		/// Gets or sets the master template main content variable name.
@@ -86,10 +50,7 @@ namespace AcspNet
 		/// <value>
 		/// The  master template main content variable name.
 		/// </value>
-		public string MainContentVariableName
-		{
-			get { return _mainContentVariableName; }
-		}
+		public string MainContentVariableName { get; private set; }
 
 		/// <summary>
 		/// Gets or sets the master template title variable name.
@@ -97,10 +58,7 @@ namespace AcspNet
 		/// <value>
 		/// The title variable name.
 		/// </value>
-		public string TitleVariableName
-		{
-			get { return _titleVariableName; }
-		}
+		public string TitleVariableName { get; private set; }
 
 		/// <summary>
 		/// Gets a value indicating whether templates memory cache enabled or disabled.
@@ -108,53 +66,58 @@ namespace AcspNet
 		/// <value>
 		/// <c>true</c> if templates memory cache enabled; otherwise, <c>false</c>.
 		/// </value>
-		public bool TemplatesMemoryCache
-		{
-			get
-			{
-				return _templatesMemoryCache;
-			}
-		}
+		public bool TemplatesMemoryCache { get; set; }
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AcspNetSettings"/> class.
 		/// </summary>
 		internal AcspNetSettings()
 		{
+			TitleVariableName = "Title";
+			MainContentVariableName = "MainContent";
+			MasterTemplateFileName = "Index.tpl";
+			IndexPage = "Index.aspx";
+			ExtensionDataDir = "ExtensionsData";
+			DefaultLanguage = "en";
+			DefaultStyle = "Main";
+			DefaultTemplatesDir = "Templates";
+
 			var config = ConfigurationManager.GetSection("AcspNetSettings") as NameValueCollection;
 
-			if (config == null) return;
+			if (config != null)
+			{
+				if (!string.IsNullOrEmpty(config["DefaultTemplatesDir"]))
+					DefaultTemplatesDir = config["DefaultTemplatesDir"];
 
-			if (!string.IsNullOrEmpty(config["DefaultTemplatesDir"]))
-				_defaultTemplatesDir = config["DefaultTemplatesDir"];
+				if (!string.IsNullOrEmpty(config["DefaultStyle"]))
+					DefaultStyle = config["DefaultStyle"];
 
-			if (!string.IsNullOrEmpty(config["DefaultStyle"]))
-				DefaultStyle = config["DefaultStyle"];
+				if (!string.IsNullOrEmpty(config["DefaultLanguage"]))
+					DefaultLanguage = config["DefaultLanguage"];
 
-			if (!string.IsNullOrEmpty(config["DefaultLanguage"]))
-				_defaultLanguage = config["DefaultLanguage"];
+				if (!string.IsNullOrEmpty(config["ExtensionDataDir"]))
+					ExtensionDataDir = config["ExtensionDataDir"];
 
-			if (!string.IsNullOrEmpty(config["ExtensionDataDir"]))
-				_extensionsDataDir = config["ExtensionDataDir"];
+				if (!string.IsNullOrEmpty(config["IndexPage"]))
+					IndexPage = config["IndexPage"];
 
-			if (!string.IsNullOrEmpty(config["IndexPage"]))
-				_indexPage = config["IndexPage"];
+				if (!string.IsNullOrEmpty(config["MasterTemplateFileName"]))
+					MasterTemplateFileName = config["MasterTemplateFileName"];
 
-			if (!string.IsNullOrEmpty(config["MasterTemplateFileName"]))
-				_masterTemplateFileName = config["MasterTemplateFileName"];
+				if (!string.IsNullOrEmpty(config["MainContentVariableName"]))
+					MainContentVariableName = config["MainContentVariableName"];
 
-			if (!string.IsNullOrEmpty(config["MainContentVariableName"]))
-				_mainContentVariableName = config["MainContentVariableName"];
+				if (!string.IsNullOrEmpty(config["TitleVariableName"]))
+					TitleVariableName = config["TitleVariableName"];
 
-			if (!string.IsNullOrEmpty(config["TitleVariableName"]))
-				_titleVariableName = config["TitleVariableName"];
+				if (!string.IsNullOrEmpty(config["TemplatesMemoryCache"]))
+				{
+					bool buffer;
 
-			bool buffer;
-
-			if (string.IsNullOrEmpty(config["TemplatesMemoryCache"])) return;
-
-			if (bool.TryParse(config["TemplatesMemoryCache"], out buffer))
-				_templatesMemoryCache = buffer;
+					if (bool.TryParse(config["TemplatesMemoryCache"], out buffer))
+						TemplatesMemoryCache = buffer;
+				}
+			}
 		}
 	}
 }

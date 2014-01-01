@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
+
+using ApplicationHelper.Templates;
 
 using Moq;
 
@@ -14,12 +17,11 @@ namespace AcspNet.Tests
 	[TestFixture]
     public class ManagerTests
 	{
-		public HttpContextBase GetTestHttpContext()
+		public Mock<HttpContextBase> GetTestHttpContext()
 		{
 			var httpContext = new Mock<HttpContextBase>();
 			var httpRequest = new Mock<HttpRequestBase>();
 			var httpResponse = new Mock<HttpResponseBase>();
-
 
 			httpContext.SetupGet(r => r.Request).Returns(httpRequest.Object);
 			httpRequest.SetupGet(r => r.Cookies).Returns(new HttpCookieCollection());
@@ -28,23 +30,32 @@ namespace AcspNet.Tests
 			httpContext.SetupGet(r => r.Response).Returns(httpResponse.Object);
 			httpResponse.SetupGet(r => r.Cookies).Returns(new HttpCookieCollection());
 
-			return httpContext.Object;
+			return httpContext;
 		}
 
 		public IFileSystem GetTestFileSystem()
 		{
 			var files = new Dictionary<string, MockFileData>();
-			files.Add("Bar.en.xml", "<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Your site title!\" /></items>");
-			files.Add("Bar.ru.txt", "Hello text!");
-			files.Add("BarEmpty.en.txt", "");
-			files.Add("BarDefault.en.txt", "Hello default!");
-			files.Add("StringTable.en.xml", "<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Your site title!\" /><item name=\"InfoTitle\" value=\"Information!\" /><item name=\"FooEnumFooItem1\" value=\"Foo item text\" /></items>");
-			files.Add("StringTable.ru.xml", "<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Заголовок сайта!\" /></items>");
+			files.Add("ExtensionsData/Bar.en.xml", "<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Your site title!\" /></items>");
+			files.Add("ExtensionsData/Bar.ru.txt", "Hello text!");
+			files.Add("ExtensionsData/BarEmpty.en.txt", "");
+			files.Add("ExtensionsData/BarDefault.en.txt", "Hello default!");
+			files.Add("ExtensionsData/StringTable.en.xml", "<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Your site title!\" /><item name=\"InfoTitle\" value=\"Information!\" /><item name=\"FooEnumFooItem1\" value=\"Foo item text\" /></items>");
+			files.Add("ExtensionsData/StringTable.ru.xml", "<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Заголовок сайта!\" /></items>");
+			files.Add("Templates/Foo.tpl", "Hello world!!!");
+			files.Add("Templates/Index.tpl", Template.FromManifest("TestData.Index.tpl").Get());
 
-			var fs = new Mock<IFileSystem>();
-			fs.Verify();
+			return new MockFileSystem(files, "C:/WebSites/FooSite");
+		}
 
-			return new MockFileSystem(files, "C:/WebSites/FooSite/ExtensionsData");
+		public IFileSystem GetTestFileSystemForAsyncTesting()
+		{
+			var files = new Dictionary<string, MockFileData>();
+
+			for (var i = 0; i < 5000; i++)
+				files.Add("Templates/Async" + i + ".tpl", "<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Your site title!\" /></items>");
+
+			return new MockFileSystem(files, "C:/WebSites/FooSite");
 		}
 
 		public Page GetTestPage()
@@ -57,8 +68,9 @@ namespace AcspNet.Tests
 			var page = GetTestPage();
 			var fs = GetTestFileSystem();
 			var httpContext = GetTestHttpContext();
+			Template.FileSystem = fs;
 
-			return new Manager(page, httpContext, fs);
+			return new Manager(page, httpContext.Object, fs);
 		}
 
 		[Test]
@@ -67,7 +79,7 @@ namespace AcspNet.Tests
 			Assert.Throws<ArgumentNullException>(() => new Manager(null));
 			Assert.Throws<ArgumentNullException>(() => new Manager(null, null, null));
 			Assert.Throws<ArgumentNullException>(() => new Manager(new Page(), null, null));
-			Assert.Throws<ArgumentNullException>(() => new Manager(new Page(), GetTestHttpContext(), null));
+			Assert.Throws<ArgumentNullException>(() => new Manager(new Page(), GetTestHttpContext().Object, null));
 		}
 
 		[Test]
@@ -94,7 +106,7 @@ namespace AcspNet.Tests
 
 			Assert.AreEqual("en", manager.Environment.Language);
 
-			Assert.IsNull(manager.Environment.SiteStyle);
+			Assert.AreEqual("Main", manager.Environment.SiteStyle);
 			Assert.AreEqual("Templates", manager.Environment.TemplatesPath);
 			Assert.AreEqual("C:/WebSites/FooSite/Templates", manager.Environment.TemplatesPhysicalPath);
 		}
@@ -182,43 +194,93 @@ namespace AcspNet.Tests
 		{
 			var manager = GetTestManager();
 
-			Assert.IsNull(manager.TemplateFactory.Load(null));
-			Assert.IsNull(manager.TemplateFactory.Load("Not"));
-			var tpl = manager.TemplateFactory.Load("Not");
+			Assert.Throws<ArgumentNullException>(() => manager.TemplateFactory.Load(null));
+			Assert.Throws<TemplateException>(() => manager.TemplateFactory.Load("Not"));
+
+			var tpl = manager.TemplateFactory.Load("Foo.tpl");
 
 			Assert.IsNotNull(tpl);
-
 			Assert.AreEqual("Hello world!!!", tpl.Get());
+
+			manager.Settings.TemplatesMemoryCache = true;
+
+			Assert.IsNotNull(tpl);
+			Assert.AreEqual("Hello world!!!", manager.TemplateFactory.Load("Foo.tpl").Get());
+
+			Assert.IsNotNull(tpl);
+			Assert.AreEqual("Hello world!!!", manager.TemplateFactory.Load("Foo.tpl").Get());
+
+			// Test async operations
+
+			var fs = GetTestFileSystemForAsyncTesting();
+			Template.FileSystem = fs;
+			var manager1 = new Manager(GetTestPage(), GetTestHttpContext().Object, fs);
+			var manager2 = new Manager(GetTestPage(), GetTestHttpContext().Object, fs);
+
+			ThreadStart first = () => manager1.TemplateFactory.Load("Async1.tpl");
+			ThreadStart second = () => manager2.TemplateFactory.Load("Async1.tpl");
+
+			first.BeginInvoke(null, null);
+			second.BeginInvoke(null, null);
 		}
 
 		[Test]
 		public void TestDataCollectorBehaviour()
 		{
-			var manager = GetTestManager();
+			var page = GetTestPage();
+			var fs = GetTestFileSystem();
+			var httpContext = GetTestHttpContext();
+			Template.FileSystem = fs;
 
-			manager.DataCollector.Set(null, null);
-			manager.DataCollector.Set("Foo", null);
-			Assert.Throws<AcspNetException>(() => manager.DataCollector.Set("Foo", null));
-			manager.DataCollector.Set("Foo", null, DataCollectorAddType.AddFromBegin);
-			manager.DataCollector.Set("Foo", null, DataCollectorAddType.AddFromEnd);
-			manager.DataCollector.Set("Foo", "val", DataCollectorAddType.AddFromEnd);
-			manager.DataCollector.Set("Foo2", "val");
+			httpContext.Setup(x => x.Response.Write(It.IsAny<string>())).Callback<string>(TestDataCollectorResponseWriteResultNormal);
 
-			manager.DataCollector.Set("bar");
-			manager.DataCollector.SetTitle("FooTitle");
-			manager.DataCollector.SetSt("Foo", "FooValue");
-			manager.DataCollector.SetSt("FooValue", DataCollectorAddType.AddFromEnd);
-			manager.DataCollector.SetTitleSt("FooTitle", DataCollectorAddType.AddFromEnd);
+			var manager = new Manager(page, httpContext.Object, fs);
+
+			manager.DataCollector.Add(null, null);
+			Assert.IsFalse(manager.DataCollector.IsDataExist("Foo"));
+
+			manager.DataCollector.Add("Foo", null);
 
 			Assert.IsTrue(manager.DataCollector.IsDataExist("Foo"));
+
+			manager.DataCollector.Add("Foo", "val");
+			manager.DataCollector.Add("Foo2", "val");
+
+			Assert.IsTrue(manager.DataCollector.IsDataExist("Foo2"));
+	
+			manager.DataCollector.AddSt("FooEnumFooItem1");
+
+			Assert.IsTrue(manager.DataCollector.IsDataExist("MainContent"));
+
+			manager.DataCollector.Add("bar");
+
+			manager.DataCollector.AddTitleSt("InfoTitle");
+
+			Assert.IsTrue(manager.DataCollector.IsDataExist("Title"));
+
+			manager.DataCollector.AddTitle("FooTitle");
+
 			Assert.IsFalse(manager.DataCollector.IsDataExist("Not"));
 
 			manager.DataCollector.DisplaySite();
 
 			manager.DataCollector.DisableSiteDisplay();
-			manager.DataCollector.DisplaySite();
+
+			httpContext.Setup(x => x.Response.Write(It.IsAny<string>())).Callback<string>(TestDataCollectorResponseWriteResultPartial);
+
+			manager.DataCollector.DisplayPartial("Test!");
 		}
-    }
+
+		public void TestDataCollectorResponseWriteResultNormal(string s)
+		{
+			Assert.AreEqual(Template.FromManifest("TestData.IndexResult.tpl").Get(), s);
+		}
+
+		public void TestDataCollectorResponseWriteResultPartial(string s)
+		{
+			Assert.AreEqual("Test!", s);
+		}
+	}
 
 	public enum FooEnum
 	{

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using ApplicationHelper.Templates;
@@ -27,6 +28,9 @@ namespace AcspNet
 		/// <returns>Template class with loaded template</returns>
 		public Template Load(string fileName)
 		{
+			if(string.IsNullOrEmpty(fileName))
+				throw new ArgumentNullException("fileName");
+
 			var filePath = string.Format("{0}/{1}", _manager.Environment.TemplatesPhysicalPath, fileName);
 
 			if (_manager.Settings.TemplatesMemoryCache)
