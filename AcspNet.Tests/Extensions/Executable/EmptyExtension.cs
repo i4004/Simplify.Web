@@ -1,7 +1,6 @@
 ﻿namespace AcspNet.Tests.Extensions.Executable
 {
-	public class TestPage
+	public class EmptyExtension : ExecExtension
 	{
-		 
 	}
 }

@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.IO;
 using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
+using System.Runtime.Caching;
 using System.Threading;
 using System.Web;
 using System.Web.UI;
+
+using AcspNet.Tests.Extensions.Executable;
+using AcspNet.Tests.Extensions.Library;
 
 using ApplicationHelper.Templates;
 
@@ -15,20 +21,33 @@ using NUnit.Framework;
 namespace AcspNet.Tests
 {
 	[TestFixture]
+	[LoadExtensionsFromAssemblyOf(typeof(ManagerTests))]
+	[LoadIndividualExtensions(typeof(ExternalExecExtension), typeof(ExternalLibExtension))]
     public class ManagerTests
 	{
 		public Mock<HttpContextBase> GetTestHttpContext()
 		{
+			var context = new HttpContext(new HttpRequest("Foo", "http://localhost", ""), new HttpResponse(new StringWriter()));
+
 			var httpContext = new Mock<HttpContextBase>();
 			var httpRequest = new Mock<HttpRequestBase>();
 			var httpResponse = new Mock<HttpResponseBase>();
+			var httpSession = new Mock<HttpSessionStateBase>();
 
 			httpContext.SetupGet(r => r.Request).Returns(httpRequest.Object);
 			httpRequest.SetupGet(r => r.Cookies).Returns(new HttpCookieCollection());
+			httpRequest.SetupGet(r => r.QueryString).Returns(new NameValueCollection());
+			httpRequest.SetupGet(r => r.Form).Returns(new NameValueCollection());
 			httpRequest.SetupGet(r => r.PhysicalApplicationPath).Returns(@"C:\WebSites\FooSite\");
+			httpRequest.SetupGet(r => r.Url).Returns(new Uri("http://localhost"));
+			httpRequest.SetupGet(r => r.ApplicationPath).Returns("/FooSite");
 
 			httpContext.SetupGet(r => r.Response).Returns(httpResponse.Object);
 			httpResponse.SetupGet(r => r.Cookies).Returns(new HttpCookieCollection());
+			//httpResponse.SetupGet(r => r.Cache).Returns(new MemoryCache("FooCache"));
+			httpResponse.SetupGet(r => r.Cache).Returns(new HttpCachePolicyWrapper(context.Response.Cache));
+
+			httpContext.SetupGet(r => r.Session).Returns(httpSession.Object);
 
 			return httpContext;
 		}
@@ -40,7 +59,7 @@ namespace AcspNet.Tests
 			files.Add("ExtensionsData/Bar.ru.txt", "Hello text!");
 			files.Add("ExtensionsData/BarEmpty.en.txt", "");
 			files.Add("ExtensionsData/BarDefault.en.txt", "Hello default!");
-			files.Add("ExtensionsData/StringTable.en.xml", "<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Your site title!\" /><item name=\"InfoTitle\" value=\"Information!\" /><item name=\"FooEnumFooItem1\" value=\"Foo item text\" /></items>");
+			files.Add("ExtensionsData/StringTable.en.xml", "<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Your site title!\" /><item name=\"InfoTitle\" value=\"Information!\" /><item name=\"FooEnumFooItem1\" value=\"Foo item text\" /><item name=\"HtmlListDefaultItemLabel\" value=\"Default label\" /></items>");
 			files.Add("ExtensionsData/StringTable.ru.xml", "<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Заголовок сайта!\" /></items>");
 			files.Add("Templates/Foo.tpl", "Hello world!!!");
 			files.Add("Templates/Index.tpl", Template.FromManifest("TestData.Index.tpl").Get());
@@ -52,7 +71,7 @@ namespace AcspNet.Tests
 		{
 			var files = new Dictionary<string, MockFileData>();
 
-			for (var i = 0; i < 5000; i++)
+			for (var i = 0; i < 1000; i++)
 				files.Add("Templates/Async" + i + ".tpl", "<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Your site title!\" /></items>");
 
 			return new MockFileSystem(files, "C:/WebSites/FooSite");
@@ -91,12 +110,20 @@ namespace AcspNet.Tests
 			Assert.IsNotNull(manager.Request);
 			Assert.IsNotNull(manager.Page);
 			Assert.IsNotNull(manager.Response);
+			Assert.IsNotNull(manager.Session);
+			Assert.IsNotNull(manager.QueryString);
+			Assert.IsNotNull(manager.Form);
 			Assert.IsNotNull(manager.StopWatch);
 			Assert.IsNotNull(manager.Settings);
 			Assert.IsNotNull(manager.Environment);
 			Assert.IsNotNull(manager.StringTable);
 			Assert.IsNotNull(manager.DataCollector);
+			Assert.IsNotNull(manager.HtmlContainer);
+			Assert.IsNotNull(manager.HtmlContainer.ListsGenerator);
 			Assert.AreEqual("C:/WebSites/FooSite/", manager.SitePhysicalPath);
+			Assert.AreEqual("http://localhost/FooSite/", manager.SiteUrl);
+			Assert.IsNotNull(manager.CurrentAction);
+			Assert.IsNotNull(manager.CurrentMode);
 		}
 
 		[Test]
@@ -171,7 +198,7 @@ namespace AcspNet.Tests
 		{
 			var manager = GetTestManager();
 
-			Assert.AreEqual(3, manager.StringTable.Items.Count);
+			Assert.AreEqual(4, manager.StringTable.Items.Count);
 
 			Assert.AreEqual("Your site title!", manager.StringTable["SiteTitle"]);
 			Assert.AreEqual("Information!", manager.StringTable["InfoTitle"]);
@@ -179,7 +206,7 @@ namespace AcspNet.Tests
 			manager.Environment.SetCurrentLanguage("ru");
 			manager.StringTable.Reload();
 
-			Assert.AreEqual(3, manager.StringTable.Items.Count);
+			Assert.AreEqual(4, manager.StringTable.Items.Count);
 			Assert.AreEqual("Заголовок сайта!", manager.StringTable["SiteTitle"]);
 			Assert.AreEqual("Information!", manager.StringTable["InfoTitle"]);
 
@@ -279,6 +306,64 @@ namespace AcspNet.Tests
 		public void TestDataCollectorResponseWriteResultPartial(string s)
 		{
 			Assert.AreEqual("Test!", s);
+		}
+
+		[Test]
+		public void TestMainExecution()
+		{
+			var manager = GetTestManager();
+			manager.Run();
+
+			Assert.IsTrue(manager.IsNewSession);
+		}
+
+		[Test]
+		public void TestFooBarPageExecution()
+		{
+			var page = GetTestPage();
+			var fs = GetTestFileSystem();
+			var httpContext = GetTestHttpContext();
+
+			httpContext.Object.Request.QueryString.Add("act", "foo");
+			httpContext.Object.Request.QueryString.Add("mode", "bar");
+			httpContext.Object.Request.QueryString.Add("id", "15");
+
+			var manager = new Manager(page, httpContext.Object, fs);
+
+			manager.Run();
+		}
+
+		[Test]
+		public void TestFooPageExecution()
+		{
+			var page = GetTestPage();
+			var fs = GetTestFileSystem();
+			var httpContext = GetTestHttpContext();
+
+			httpContext.Object.Request.QueryString.Add("act", "foo");
+
+			var manager = new Manager(page, httpContext.Object, fs);
+
+			manager.Run();
+		}
+
+		[Test]
+		public void TestFoo2PageExecution()
+		{
+			var page = GetTestPage();
+			var fs = GetTestFileSystem();
+			var httpContext = GetTestHttpContext();
+
+			httpContext.Object.Request.QueryString.Add("act", "foo2");
+			httpContext.Object.Request.QueryString.Add("id", "2");
+
+			var manager = new Manager(page, httpContext.Object, fs);
+
+			manager.Run();
+
+			Assert.Throws<ArgumentNullException>(() => manager.Redirect(""));
+
+			manager.Redirect("http://localhost");
 		}
 	}
 

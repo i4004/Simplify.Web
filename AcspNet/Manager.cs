@@ -1,66 +1,61 @@
 using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO.Abstractions;
+using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Routing;
 using System.Web.UI;
+
+using AcspNet.Html;
 
 namespace AcspNet
 {
 	/// <summary>
 	/// ACSP.NET main class
 	/// </summary>
-	public sealed class Manager
+	public sealed class Manager : IManager
 	{
 		/// <summary>
-		///  Gets the <see cref="T:System.Web.HttpContextBase"/> object for the current HTTP request.
+		/// Site generation time templates variable name
 		/// </summary>
-		public readonly HttpContextBase Context;
+		public const string SiteVariableNameSiteGenerationTime = "SV:SiteGenerationTime";
 
 		/// <summary>
-		/// Gets the System.Web.HttpRequest object for the current HTTP request
+		/// The site variable name templates dir
 		/// </summary>
-		public readonly HttpRequestBase Request;
+		public const string SiteVariableNameTemplatesPath = "SV:TemplatesDir";
 
 		/// <summary>
-		/// Gets the System.Web.HttpResponse object for the current HTTP response
+		/// The site variable name current style
 		/// </summary>
-		public readonly HttpResponseBase Response;
-
-		///// <summary>
-		///// Gets the connection of  HTTP query string variables
-		///// </summary>
-		//public readonly NameValueCollection QueryString;
-
-		///// <summary>
-		///// Gets the System.Web.HttpSessionState object for the current HTTP request
-		///// </summary>
-		//public readonly HttpSessionState Session;
-
-		///// <summary>
-		///// Gets the connection of HTTP post request form variables
-		///// </summary>
-		//public readonly NameValueCollection Form;
-		
-		/// <summary>
-		/// Gets the current aspx page.
-		/// </summary>
-		public readonly Page Page;
+		public const string SiteVariableNameCurrentStyle = "SV:Style";
 
 		/// <summary>
-		/// The stop watch (for web-page build measurement)
+		/// The site variable name current language
 		/// </summary>
-		public readonly Stopwatch StopWatch;
+		public const string SiteVariableNameCurrentLanguage = "SV:Language";
+		/// <summary>
+		/// The site variable name current language extension
+		/// </summary>
+		public const string SiteVariableNameCurrentLanguageExtension = "SV:LanguageExt";
+		/// <summary>
+		/// The site variable name site URL
+		/// </summary>
+		public const string SiteVariableNameSiteUrl = "SV:SiteUrl";
+
+		private const string IsNewSessionFieldName = "AcspIsNewSession";
 
 		/// <summary>
 		/// The file system instance, to work with System.IO functions
 		/// </summary>
 		public IFileSystem FileSystem;
 
-		//private const string IsNewSessionFieldName = "AcspIsNewSession";
-
-		//private static List<ExecExtensionMetaContainer> ExecExtensionsMetaContainers = new List<ExecExtensionMetaContainer>();
-		//private static List<LibExtensionMetaContainer> LibExtensionsMetaContainers = new List<LibExtensionMetaContainer>();
+		private static List<ExecExtensionMetaContainer> ExecExtensionsMetaContainers = new List<ExecExtensionMetaContainer>();
+		private static List<LibExtensionMetaContainer> LibExtensionsMetaContainers = new List<LibExtensionMetaContainer>();
 
 		private static bool IsStaticInitialized;
 		private static readonly object Locker = new object();
@@ -68,24 +63,24 @@ namespace AcspNet
 		private static readonly Lazy<AcspNetSettings> SettingsInstance = new Lazy<AcspNetSettings>(() => new AcspNetSettings());
 
 		private static Lazy<string> SitePhysicalPathInstance;
-		
-		public readonly Environment Environment;
+		private static Lazy<string> SiteUrlInstance;
+
+		public readonly IEnvironment Environment;
 		public readonly ExtensionsDataLoader DataLoader;
 		public readonly StringTable StringTable;
-		public readonly TemplateFactory TemplateFactory;
-		public readonly DataCollector DataCollector;
-		
-		//private string _currentAction;
-		//private string _currentMode;
-		//private string _currentID;
+		public readonly ITemplateFactory TemplateFactory;
+		public readonly IDataCollector DataCollector;
+		public readonly HtmlContainer HtmlContainer;
 
-		//private IList<ExecExtension> _execExtensionsList;
+		private string _currentAction;
+		private string _currentMode;
+		private string _currentID;
+
 		private bool _isExtensionsExecutionStopped;
 
-		//private Dictionary<string, bool> _libExtensionsIsInitializedList;
-		//private IList<LibExtension> _libExtensionsList;
-
-		//////private static string SiteUrlInstance = "";
+		private Dictionary<string, bool> _libExtensionsIsInitializedList;
+		private IList<LibExtension> _libExtensionsList;
+		private IList<ExecExtension> _execExtensionsList;
 
 		/// <summary>
 		///Initialize ACSP .NET engine instance
@@ -124,10 +119,9 @@ namespace AcspNet
 			FileSystem = fileSystem;
 			Request = Context.Request;
 			Response = Context.Response;
-
-			//QueryString = HttpContext.Current.Request.QueryString;
-			//Session = HttpContext.Current.Session;
-			//Form = HttpContext.Current.Request.Form;
+			Session = Context.Session;
+			QueryString = Request.QueryString;
+			Form = Request.Form;
 
 			if (!IsStaticInitialized)
 			{
@@ -139,9 +133,26 @@ namespace AcspNet
 							? Request.PhysicalApplicationPath.Replace("\\", "/")
 							: null);
 
+						SiteUrlInstance = new Lazy<string>(() =>
+						                                   {
+							                                   if (Request == null || Request.Url == null)
+								                                   return null;
+
+							                                   var url = string.Format("{0}://{1}{2}",
+								                                   Request.Url.Scheme,
+								                                   Request.Url.Authority,
+								                                   Request.ApplicationPath);
+
+							                                   if (!url.EndsWith("/"))
+								                                   url += "/";
+
+							                                   return url;
+						                                   });
+
+
 						RouteConfig.RegisterRoutes(RouteTable.Routes, Settings);
 
-						//CreateMetaContainers(Assembly.GetCallingAssembly());
+						CreateMetaContainers(Assembly.GetCallingAssembly());
 						IsStaticInitialized = true;
 					}
 				}
@@ -152,8 +163,51 @@ namespace AcspNet
 			StringTable = new StringTable(this);
 			TemplateFactory = new TemplateFactory(this);
 			DataCollector = new DataCollector(this);
-		}
+			HtmlContainer = new HtmlContainer();
 
+			InitializeHtmlContainer();
+		}
+		
+		/// <summary>
+		///  Gets the <see cref="T:System.Web.HttpContextBase"/> object for the current HTTP request.
+		/// </summary>
+		public HttpContextBase Context { get; private set; }
+
+		/// <summary>
+		/// Gets the System.Web.HttpRequest object for the current HTTP request
+		/// </summary>
+		public HttpRequestBase Request { get; private set; }
+
+		/// <summary>
+		/// Gets the System.Web.HttpResponse object for the current HTTP response
+		/// </summary>
+		public HttpResponseBase Response { get; private set; }
+
+		/// <summary>
+		/// Gets the System.Web.HttpSessionState object for the current HTTP request
+		/// </summary>
+		public HttpSessionStateBase Session { get; private set; }
+
+		/// <summary>
+		/// Gets the connection of  HTTP query string variables
+		/// </summary>
+		public NameValueCollection QueryString { get; private set; }
+
+		/// <summary>
+		/// Gets the connection of HTTP post request form variables
+		/// </summary>
+		public NameValueCollection Form { get; private set; }
+		
+		/// <summary>
+		/// Gets the current aspx page.
+		/// </summary>
+		public Page Page { get; private set; }
+		
+		/// <summary>
+		/// The stop watch (for web-page build measurement)
+		/// </summary>
+		public Stopwatch StopWatch { get; private set; }
+		
 		public AcspNetSettings Settings
 		{
 			get
@@ -176,120 +230,110 @@ namespace AcspNet
 			}
 		}
 
-		///// <summary>
-		/////     Gets the web-site URL, for example: http://yoursite.com/site1/
-		///// </summary>
-		///// <value>
-		/////     The site URL.
-		///// </value>
-		//public static string SiteUrl
-		//{
-		//	get
-		//	{
-		//		if (SiteUrlInstance == "")
-		//		{
-		//			SiteUrlInstance = string.Format("{0}://{1}{2}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority,
-		//				HttpContext.Current.Request.ApplicationPath);
+		/// <summary>
+		/// Gets the web-site URL, for example: http://yoursite.com/site1/
+		/// </summary>
+		/// <value>
+		/// The site URL.
+		/// </value>
+		public string SiteUrl
+		{
+			get
+			{
+				return SiteUrlInstance.Value;
+			}
+		}
 
-		//			if (!SiteUrlInstance.EndsWith("/"))
-		//				SiteUrlInstance += "/";
-		//		}
+		/// <summary>
+		/// Indicating whether session was created with the current request
+		/// </summary>
+		public bool IsNewSession
+		{
+			get { return Session[IsNewSessionFieldName] == null; }
+		}
 
-		//		return SiteUrlInstance;
-		//	}
-		//}
+		/// <summary>
+		/// Gets the current web-site request action parameter (/someAction or ?act=someAction).
+		/// </summary>
+		/// <value>
+		/// The current action (?act=someAction).
+		/// </value>
+		public string CurrentAction
+		{
+			get
+			{
+				if (_currentAction != null) return _currentAction;
 
-		///// <summary>
-		/////     Indicating whether session was created with the current request
-		///// </summary>
-		//public static bool IsNewSession
-		//{
-		//	get { return HttpContext.Current.Session[IsNewSessionFieldName] == null; }
-		//}
+				string action;
 
-		///// <summary>
-		/////     Gets the current web-site request action parameter (/someAction or ?act=someAction).
-		///// </summary>
-		///// <value>
-		/////     The current action (?act=someAction).
-		///// </value>
-		//public string CurrentAction
-		//{
-		//	get
-		//	{
-		//		if (_currentAction != null) return _currentAction;
+				if (Page.RouteData != null && Page.RouteData.Values.ContainsKey("action"))
+					action = (string)Page.RouteData.Values["action"];
+				else
+					action = Request.QueryString["act"];
 
-		//		string action;
+				_currentAction = action ?? "";
 
-		//		if (_currentPage.RouteData.Values.ContainsKey("action"))
-		//			action = (string) _currentPage.RouteData.Values["action"];
-		//		else
-		//			action = HttpContext.Current.Request.QueryString["act"];
+				return _currentAction;
+			}
+		}
 
-		//		_currentAction = action ?? "";
+		/// <summary>
+		/// Gets the current web-site mode request parameter (/someAction/someMode/SomeID or ?act=someAction&amp;mode=somMode).
+		/// </summary>
+		/// <value>
+		/// The current mode (?act=someAction&amp;mode=somMode).
+		/// </value>
+		public string CurrentMode
+		{
+			get
+			{
+				if (_currentMode != null) return _currentMode;
 
-		//		return _currentAction;
-		//	}
-		//}
+				string mode;
 
-		///// <summary>
-		/////     Gets the current web-site mode request parameter (/someAction/someMode/SomeID or ?act=someAction&amp;mode=somMode).
-		///// </summary>
-		///// <value>
-		/////     The current mode (?act=someAction&amp;mode=somMode).
-		///// </value>
-		//public string CurrentMode
-		//{
-		//	get
-		//	{
-		//		if (_currentMode != null) return _currentMode;
+				if (Page.RouteData != null && Page.RouteData.Values.ContainsKey("mode"))
+					mode = (string)Page.RouteData.Values["mode"];
+				else
+					mode = Request.QueryString["mode"];
 
-		//		string mode;
+				_currentMode = mode ?? "";
 
-		//		if (_currentPage.RouteData.Values.ContainsKey("mode"))
-		//			mode = (string)_currentPage.RouteData.Values["mode"];
-		//		else
-		//			mode = HttpContext.Current.Request.QueryString["mode"];
+				return _currentMode;
+			}
+		}
 
-		//		_currentMode = mode ?? "";
+		/// <summary>
+		/// Gets the current web-site ID request parameter (/someAction/someID or ?act=someAction&amp;id=someID).
+		/// </summary>
+		/// <value>
+		/// The current mode (?act=someAction&amp;mode=somMode).
+		/// </value>
+		public string CurrentID
+		{
+			get
+			{
+				if (_currentID != null) return _currentID;
 
-		//		return _currentMode;
-		//	}
-		//}
+				string id;
 
-		///// <summary>
-		/////     Gets the current web-site ID request parameter (/someAction/someID or ?act=someAction&amp;id=someID).
-		///// </summary>
-		///// <value>
-		/////     The current mode (?act=someAction&amp;mode=somMode).
-		///// </value>
-		//public string CurrentID
-		//{
-		//	get
-		//	{
-		//		if (_currentID != null) return _currentID;
+				if (Page.RouteData != null && Page.RouteData.Values.ContainsKey("id"))
+					id = (string)Page.RouteData.Values["id"];
+				else
+					id = Request.QueryString["id"];
 
-		//		string id;
+				_currentID = id ?? "";
 
-		//		if (_currentPage.RouteData.Values.ContainsKey("id"))
-		//			id = (string)_currentPage.RouteData.Values["id"];
-		//		else
-		//			id = HttpContext.Current.Request.QueryString["id"];
-
-		//		_currentID = id ?? "";
-
-		//		return _currentID;
-		//	}
-		//}
-
-
-		///// <summary>
-		///// Gets the current executing extensions types.
-		///// </summary>
-		///// <value>
-		///// The current executing extensions types.
-		///// </value>
-		//public IList<Type> ExecExtensionsTypes { get; private set; }
+				return _currentID;
+			}
+		}
+		
+		/// <summary>
+		/// Gets the current executing extensions types.
+		/// </summary>
+		/// <value>
+		/// The current executing extensions types.
+		/// </value>
+		private IList<Type> ExecExtensionsTypes { get; set; }
 
 		/// <summary>
 		/// Stop ACSP subsequent extensions execution
@@ -299,243 +343,298 @@ namespace AcspNet
 			_isExtensionsExecutionStopped = true;
 		}
 
-		//private static void CreateMetaContainers(Assembly callingAssembly)
-		//{
-		//	var assemblyTypes = callingAssembly.GetTypes();
+		/// <summary>
+		/// Run ACSP engine
+		/// </summary>
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public void Run()
+		{
+			CreateLibraryExtensionsInstances();
+			InitializeLibraryExtensions();
 
-		//	var containingClass = assemblyTypes.FirstOrDefault(t => t.IsDefined(typeof (LoadExtensionsFromAssemblyOfAttribute), true)) ??
-		//						  assemblyTypes.FirstOrDefault(t => t.IsDefined(typeof (LoadIndividualExtensionsAttribute), true));
+			CreateExecutableExtensionsInstances();
+			RunExecutableExtensions();
 
-		//	if (containingClass == null)
-		//		throw new AcspNetException("LoadExtensionsFromAssemblyOf attribute not found in your class");
+			Session.Add(IsNewSessionFieldName, "true");
+		}
 
-		//	var batchExtensionsAttributes = containingClass.GetCustomAttributes(typeof (LoadExtensionsFromAssemblyOfAttribute), false);
-		//	var individualExtensionsAttributes = containingClass.GetCustomAttributes(typeof (LoadIndividualExtensionsAttribute), false);
+		/// <summary>
+		/// Gets library extension instance
+		/// </summary>
+		/// <typeparam name="T">Library extension instance to get</typeparam>
+		/// <returns>Library extension</returns>
+		public T Get<T>()
+			where T : LibExtension
+		{
+			foreach (var t in _libExtensionsList)
+			{
+				var currentType = t.GetType();
 
-		//	if (batchExtensionsAttributes.Length <= 1 && individualExtensionsAttributes.Length <= 1)
-		//	{
-		//		if (batchExtensionsAttributes.Length == 1)
-		//			LoadExtensionsFromAssemblyOf(((LoadExtensionsFromAssemblyOfAttribute) batchExtensionsAttributes[0]).Types);
+				if (currentType != typeof(T))
+					continue;
 
-		//		if (individualExtensionsAttributes.Length == 1)
-		//			LoadIndividualExtensions(((LoadIndividualExtensionsAttribute)individualExtensionsAttributes[0]).Types);
+				if (_libExtensionsIsInitializedList[currentType.Name] == false)
+					throw new AcspNetException("Attempt to call not initialized library extension '" + t.GetType() + "'");
 
-		//		SortLibraryExtensionsMetaContainers();
-		//		SortExecExtensionsMetaContainers();
-		//	}
-		//	else if (batchExtensionsAttributes.Length > 1)
-		//		throw new Exception("Multiple LoadExtensionsFromAssemblyOf attributes found");
-		//	else if (individualExtensionsAttributes.Length > 1)
-		//		throw new Exception("Multiple LoadIndividualExtensions attributes found");
-		//}
+				return t as T;
+			}
 
-		//private static void LoadExtensionsFromAssemblyOf(params Type[] types)
-		//{
-		//	foreach (var assemblyTypes in types.Select(classType => Assembly.GetAssembly(classType).GetTypes()))
-		//	{
-		//		foreach (var t in assemblyTypes.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.LibExtension"))
-		//			AddLibExtensionMetaContainer(t);
+			throw new AcspNetException("Extension not found: " + typeof(T).FullName);
+		}
 
-		//		foreach (var t in assemblyTypes.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.ExecExtension"))
-		//			AddExecExtensionMetaContainer(t);
-		//	}
-		//}
+		/// <summary>
+		/// Gets current action/mode URL in formal like ?act={0}&amp;mode={1}&amp;id={2}.
+		/// </summary>
+		/// <returns></returns>
+		public string GetActionModeUrl()
+		{
+			if (string.IsNullOrEmpty(CurrentAction)) return "";
 
-		//private static void LoadIndividualExtensions(params Type[] types)
-		//{
-		//	foreach (var t in types.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.LibExtension").Where(t => LibExtensionsMetaContainers.All(x => x.ExtensionType != t)))
-		//		AddLibExtensionMetaContainer(t);
+			var url = "?act=" + CurrentAction;
 
-		//	foreach (var t in types.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.ExecExtension").Where(t => ExecExtensionsMetaContainers.All(x => x.ExtensionType != t)))
-		//		AddExecExtensionMetaContainer(t);
-		//}
+			if(!string.IsNullOrEmpty(CurrentMode))
+				url += "&amp;mode=" + CurrentMode;
 
-		//private static void AddLibExtensionMetaContainer(Type extensionType)
-		//{
-		//	LibExtensionsMetaContainers.Add(new LibExtensionMetaContainer(CreateExtensionMetaContainer(extensionType)));
-		//}
+			if (!string.IsNullOrEmpty(CurrentID))
+				url += "&amp;id=" + CurrentID;
 
-		//private static void AddExecExtensionMetaContainer(Type extensionType)
-		//{
-		//	var action = "";
-		//	var mode = "";
-		//	var runType = RunType.OnAction;
+			return url;
+		}
 
-		//	var attributes = extensionType.GetCustomAttributes(typeof (ActionAttribute), false);
+		/// <summary>
+		/// Redirects a client to a new URL
+		/// </summary>
+		public void Redirect(string url)
+		{
+			if(string.IsNullOrEmpty(url))
+				throw new ArgumentNullException("url");
 
-		//	if (attributes.Length > 0)
-		//		action = ((ActionAttribute) attributes[0]).Action;
+			StopExtensionsExecution();
+			Response.Redirect(url, false);
+		}
 
-		//	attributes = extensionType.GetCustomAttributes(typeof (ModeAttribute), false);
+		/// <summary>
+		/// Get currently loaded executable extensions meta-data
+		/// </summary>
+		/// <returns></returns>
+		public IList<ExecExtensionMetaContainer> GetExecExtensionsMetaData()
+		{
+			return ExecExtensionsMetaContainers.ToArray();
+		}
 
-		//	if (attributes.Length > 0)
-		//		mode = ((ModeAttribute) attributes[0]).Mode;
+		/// <summary>
+		/// Gets the library extensions meta data.
+		/// </summary>
+		/// <returns></returns>
+		public IList<LibExtensionMetaContainer> GetLibExtensionsMetaData()
+		{
+			return LibExtensionsMetaContainers.ToArray();
+		}
 
-		//	attributes = extensionType.GetCustomAttributes(typeof (RunTypeAttribute), false);
+		private void CreateLibraryExtensionsInstances()
+		{
+			_libExtensionsList = new List<LibExtension>(LibExtensionsMetaContainers.Count);
+			_libExtensionsIsInitializedList = new Dictionary<string, bool>(LibExtensionsMetaContainers.Count);
 
-		//	if (attributes.Length > 0)
-		//		runType = ((RunTypeAttribute) attributes[0]).RunType;
+			foreach (var container in LibExtensionsMetaContainers)
+			{
+				var newInstance = (LibExtension)Activator.CreateInstance(container.ExtensionType);
+				newInstance.ManagerInstance = this;
+				newInstance.TemplateFactoryInstance = TemplateFactory;
+				newInstance.DataCollectorInstance = DataCollector;
+				newInstance.EnvironmentInstance = Environment;
+				newInstance.ExtensionsDataLoaderInstance = DataLoader;
+				newInstance.StringTableInstance = StringTable;
+				newInstance.HtmlInstance = HtmlContainer;
 
-		//	ExecExtensionsMetaContainers.Add(new ExecExtensionMetaContainer(CreateExtensionMetaContainer(extensionType), action, mode, runType));
-		//}
+				_libExtensionsList.Add(newInstance);
+				_libExtensionsIsInitializedList.Add(container.ExtensionType.Name, false);
+			}
+		}
 
-		//private static ExtensionMetaContainer CreateExtensionMetaContainer(Type extensionType)
-		//{
-		//	var priority = 0;
-		//	var version = "";
+		private void InitializeLibraryExtensions()
+		{
+			foreach (var extension in _libExtensionsList)
+			{
+				extension.Initialize();
+				_libExtensionsIsInitializedList[extension.GetType().Name] = true;
+			}
+		}
 
-		//	var attributes = extensionType.GetCustomAttributes(typeof (PriorityAttribute), false);
+		private void CreateExecutableExtensionsInstances()
+		{
+			_execExtensionsList = new List<ExecExtension>(ExecExtensionsMetaContainers.Count);
+			ExecExtensionsTypes = new List<Type>(ExecExtensionsMetaContainers.Count);
 
-		//	if (attributes.Length > 0)
-		//		priority = ((PriorityAttribute) attributes[0]).Priority;
+			foreach (var container in ExecExtensionsMetaContainers)
+			{
+				if ((CurrentAction == "" && CurrentMode == "" && container.RunType == RunType.MainPage) ||
+					(String.Equals(container.Action, CurrentAction, StringComparison.CurrentCultureIgnoreCase) &&
+					 String.Equals(container.Mode, CurrentMode, StringComparison.CurrentCultureIgnoreCase)) ||
+					(container.Action == "" && container.RunType == RunType.OnAction))
+				{
+					var extension = (ExecExtension)Activator.CreateInstance(container.ExtensionType);
+					extension.ManagerInstance = this;
+					extension.TemplateFactoryInstance = TemplateFactory;
+					extension.DataCollectorInstance = DataCollector;
+					extension.EnvironmentInstance = Environment;
+					extension.ExtensionsDataLoaderInstance = DataLoader;
+					extension.StringTableInstance = StringTable;
+					extension.HtmlInstance = HtmlContainer;
 
-		//	attributes = extensionType.GetCustomAttributes(typeof (VersionAttribute), false);
+					_execExtensionsList.Add(extension);
+					ExecExtensionsTypes.Add(extension.GetType());
+				}
+			}
+		}
 
-		//	if (attributes.Length > 0)
-		//		version = ((VersionAttribute) attributes[0]).Version;
+		private void RunExecutableExtensions()
+		{
+			foreach (var extension in _execExtensionsList)
+			{
+				if (_isExtensionsExecutionStopped)
+					return;
 
-		//	return new ExtensionMetaContainer(extensionType, priority, version);
-		//}
+				extension.Invoke();
+			}
 
-		//private static void SortLibraryExtensionsMetaContainers()
-		//{
-		//	LibExtensionsMetaContainers = LibExtensionsMetaContainers.OrderBy(x => x.Priority).ToList();
-		//}
+			DisplaySite();
+		}
+		
+		private static void CreateMetaContainers(Assembly callingAssembly)
+		{
+			var assemblyTypes = callingAssembly.GetTypes();
 
-		//private static void SortExecExtensionsMetaContainers()
-		//{
-		//	ExecExtensionsMetaContainers = ExecExtensionsMetaContainers.OrderBy(x => x.Priority).ToList();
-		//}
+			var containingClass =
+				assemblyTypes.FirstOrDefault(t => t.IsDefined(typeof(LoadExtensionsFromAssemblyOfAttribute), true)) ??
+				assemblyTypes.FirstOrDefault(t => t.IsDefined(typeof(LoadIndividualExtensionsAttribute), true));
 
-		///// <summary>
-		///// Run ACSP engine
-		///// </summary>
-		//public void Run()
-		//{
-			//	CreateLibraryExtensionsInstances();
-			//	InitializeLibraryExtensions();
+			if (containingClass == null)
+				throw new AcspNetException("LoadExtensionsFromAssemblyOf attribute not found in your classes");
 
-			//	CreateExecutableExtensionsInstances();
-			//	RunExecutableExtensions();
+			var batchExtensionsAttributes = containingClass.GetCustomAttributes(typeof(LoadExtensionsFromAssemblyOfAttribute), false);
+			var individualExtensionsAttributes = containingClass.GetCustomAttributes(typeof(LoadIndividualExtensionsAttribute), false);
 
-			//	Session.Add(IsNewSessionFieldName, "true");
-		//}
+			if (batchExtensionsAttributes.Length <= 1 && individualExtensionsAttributes.Length <= 1)
+			{
+				if (batchExtensionsAttributes.Length == 1)
+					LoadExtensionsFromAssemblyOf(((LoadExtensionsFromAssemblyOfAttribute)batchExtensionsAttributes[0]).Types);
 
-		//private void CreateLibraryExtensionsInstances()
-		//{
-		//	_libExtensionsList = new List<LibExtension>(LibExtensionsMetaContainers.Count);
-		//	_libExtensionsIsInitializedList = new Dictionary<string, bool>(LibExtensionsMetaContainers.Count);
+				if (individualExtensionsAttributes.Length == 1)
+					LoadIndividualExtensions(((LoadIndividualExtensionsAttribute)individualExtensionsAttributes[0]).Types);
 
-		//	foreach (var container in LibExtensionsMetaContainers)
-		//	{
-		//		var newInstance = (LibExtension) Activator.CreateInstance(container.ExtensionType);
-		//		newInstance.ManagerInstance = this;
+				SortLibraryExtensionsMetaContainers();
+				SortExecExtensionsMetaContainers();
+			}
+			else if (batchExtensionsAttributes.Length > 1)
+				throw new Exception("Multiple LoadExtensionsFromAssemblyOf attributes found");
+			else if (individualExtensionsAttributes.Length > 1)
+				throw new Exception("Multiple LoadIndividualExtensions attributes found");
+		}
 
-		//		_libExtensionsList.Add(newInstance);
-		//		_libExtensionsIsInitializedList.Add(container.ExtensionType.Name, false);
-		//	}
-		//}
+		private static void LoadExtensionsFromAssemblyOf(params Type[] types)
+		{
+			foreach (var assemblyTypes in types.Select(classType => Assembly.GetAssembly(classType).GetTypes()))
+			{
+				foreach (var t in assemblyTypes.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.LibExtension"))
+					AddLibExtensionMetaContainer(t);
 
-		//private void InitializeLibraryExtensions()
-		//{
-		//	foreach (var extension in _libExtensionsList)
-		//	{
-		//		extension.Initialize();
-		//		_libExtensionsIsInitializedList[extension.GetType().Name] = true;
-		//	}
-		//}
+				foreach (var t in assemblyTypes.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.ExecExtension"))
+					AddExecExtensionMetaContainer(t);
+			}
+		}
 
-		//private void CreateExecutableExtensionsInstances()
-		//{
-		//	_execExtensionsList = new List<ExecExtension>(ExecExtensionsMetaContainers.Count);
-		//	ExecExtensionsTypes = new List<Type>(ExecExtensionsMetaContainers.Count);
+		private static void LoadIndividualExtensions(params Type[] types)
+		{
+			foreach (var t in types.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.LibExtension").Where(t => LibExtensionsMetaContainers.All(x => x.ExtensionType != t)))
+				AddLibExtensionMetaContainer(t);
 
-		//	foreach (var container in ExecExtensionsMetaContainers)
-		//	{
-		//		if ((CurrentAction != "" || CurrentMode != "" || container.RunType != RunType.MainPage) &&
-		//			(!String.Equals(container.Action, CurrentAction, StringComparison.CurrentCultureIgnoreCase) ||
-		//			 !String.Equals(container.Mode, CurrentMode, StringComparison.CurrentCultureIgnoreCase)) &&
-		//			(container.Action != "" || container.RunType != RunType.OnAction)) continue;
+			foreach (var t in types.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.ExecExtension").Where(t => ExecExtensionsMetaContainers.All(x => x.ExtensionType != t)))
+				AddExecExtensionMetaContainer(t);
+		}
 
-		//		var extension = (ExecExtension)Activator.CreateInstance(container.ExtensionType);
-		//		extension.ManagerInstance = this;
+		private static void AddLibExtensionMetaContainer(Type extensionType)
+		{
+			LibExtensionsMetaContainers.Add(new LibExtensionMetaContainer(CreateExtensionMetaContainer(extensionType)));
+		}
 
-		//		_execExtensionsList.Add(extension);
-		//		ExecExtensionsTypes.Add(extension.GetType());
-		//	}
-		//}
+		private static void AddExecExtensionMetaContainer(Type extensionType)
+		{
+			var action = "";
+			var mode = "";
+			var runType = RunType.OnAction;
 
-		//private void RunExecutableExtensions()
-		//{
-		//	if (_execExtensionsList.Count <= 0) return;
+			var attributes = extensionType.GetCustomAttributes(typeof(ActionAttribute), false);
 
-		//	foreach (var extension in _execExtensionsList)
-		//	{
-		//		if (_isExtensionsExecutionStopped)
-		//			return;
+			if (attributes.Length > 0)
+				action = ((ActionAttribute)attributes[0]).Action;
 
-		//		extension.Invoke();
-		//	}
-		//}
+			attributes = extensionType.GetCustomAttributes(typeof(ModeAttribute), false);
 
-		///// <summary>
-		/////     Gets library extension instance
-		///// </summary>
-		///// <typeparam name="T">Library extension instance to get</typeparam>
-		///// <returns>Library extension</returns>
-		//public T Get<T>()
-		//	where T : LibExtension
-		//{
-		//	foreach (var t in _libExtensionsList)
-		//	{
-		//		var currentType = t.GetType();
+			if (attributes.Length > 0)
+				mode = ((ModeAttribute)attributes[0]).Mode;
 
-		//		if (currentType != typeof (T))
-		//			continue;
+			attributes = extensionType.GetCustomAttributes(typeof(RunTypeAttribute), false);
 
-		//		if (_libExtensionsIsInitializedList[currentType.Name] == false)
-		//			throw new AcspNetException("Attempt to call not initialized library extension '" + t.GetType() + "'");
+			if (attributes.Length > 0)
+				runType = ((RunTypeAttribute)attributes[0]).RunType;
 
-		//		return t as T;
-		//	}
+			ExecExtensionsMetaContainers.Add(new ExecExtensionMetaContainer(CreateExtensionMetaContainer(extensionType), action, mode, runType));
+		}
 
-		//	throw new AcspNetException("Extension not found: " + typeof(T).FullName);
-		//}
+		private static ExtensionMetaContainer CreateExtensionMetaContainer(Type extensionType)
+		{
+			var priority = 0;
+			var version = "";
 
-		///// <summary>
-		///// Gets current action/mode URL in formal like ?act={0}&amp;mode={1}.
-		///// </summary>
-		///// <returns></returns>
-		//public string GetActionModeUrl()
-		//{
-		//	return string.Format("?act={0}&amp;mode={1}", CurrentAction, CurrentMode);
-		//}
+			var attributes = extensionType.GetCustomAttributes(typeof(PriorityAttribute), false);
 
-		///// <summary>
-		/////     Redirects a client to a new URL
-		///// </summary>
-		//public void Redirect(string url)
-		//{
-		//	StopExtensionsExecution();
-		//	Response.Redirect(url, false);
-		//}
+			if (attributes.Length > 0)
+				priority = ((PriorityAttribute)attributes[0]).Priority;
 
-		///// <summary>
-		///// Get currently loaded executable extensions meta-data
-		///// </summary>
-		///// <returns></returns>
-		//public static IList<ExecExtensionMetaContainer> GetExecExtensionsMetaData()
-		//{
-		//	return ExecExtensionsMetaContainers.ToArray();
-		//}
+			attributes = extensionType.GetCustomAttributes(typeof(VersionAttribute), false);
 
-		///// <summary>
-		///// Gets the library extensions meta data.
-		///// </summary>
-		///// <returns></returns>
-		//public static IList<LibExtensionMetaContainer> GetLibExtensionsMetaData()
-		//{
-		//	return LibExtensionsMetaContainers.ToArray();
-		//}
+			if (attributes.Length > 0)
+				version = ((VersionAttribute)attributes[0]).Version;
+
+			return new ExtensionMetaContainer(extensionType, priority, version);
+		}
+
+		private static void SortLibraryExtensionsMetaContainers()
+		{
+			LibExtensionsMetaContainers = LibExtensionsMetaContainers.OrderBy(x => x.Priority).ToList();
+		}
+
+		private static void SortExecExtensionsMetaContainers()
+		{
+			ExecExtensionsMetaContainers = ExecExtensionsMetaContainers.OrderBy(x => x.Priority).ToList();
+		}
+
+		private void DisplaySite()
+		{
+			StopWatch.Stop();
+
+			SetEnvironmentVariablesToDataCollector();
+
+			Response.Cache.SetExpires(DateTime.Now);
+			Response.Cache.SetNoStore();
+			DataCollector.DisplaySite();
+		}
+
+		private void SetEnvironmentVariablesToDataCollector()
+		{
+			DataCollector.Add(SiteVariableNameSiteGenerationTime, StopWatch.Elapsed.ToString("mm\\:ss\\:fff"));
+			DataCollector.Add(SiteVariableNameTemplatesPath, Environment.TemplatesPath);
+			DataCollector.Add(SiteVariableNameCurrentStyle, Environment.SiteStyle);
+			DataCollector.Add(SiteVariableNameCurrentLanguage, Environment.Language);
+			DataCollector.Add(SiteVariableNameCurrentLanguageExtension, Environment.Language != "" ? "." + Environment.Language : "");
+			DataCollector.Add(SiteVariableNameSiteUrl, SiteUrl);			
+		}
+
+		private void InitializeHtmlContainer()
+		{
+			HtmlContainer.ListsGeneratorInstance = new ListsGenerator(this);
+			HtmlContainer.MessageBoxInstance = new MessageBox(this);
+		}
 	}
 }

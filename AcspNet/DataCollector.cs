@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 
+using ApplicationHelper;
+
 namespace AcspNet
 {
 	/// <summary>
 	/// Site master page template data collector
 	/// </summary>
-	public sealed class DataCollector
+	public sealed class DataCollector : IDataCollector
 	{
 		private readonly IDictionary<string, string> _siteData = new Dictionary<string, string>();
 
@@ -16,7 +18,7 @@ namespace AcspNet
 		/// </summary>
 		private bool _isDisplayDisabled;
 
-		public DataCollector(Manager manager)
+		internal DataCollector(Manager manager)
 		{
 			_manager = manager;
 		}

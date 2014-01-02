@@ -8,7 +8,7 @@ namespace AcspNet
 	/// <summary>
 	/// Site environment variables, by default initialized from <see cref="AcspNetSettings" />
 	/// </summary>
-	public sealed class Environment
+	public sealed class Environment : IEnvironment
 	{
 		/// <summary>
 		/// Language field name in user cookies

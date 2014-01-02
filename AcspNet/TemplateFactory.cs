@@ -9,7 +9,7 @@ namespace AcspNet
 	/// <summary>
 	/// Html templates factory
 	/// </summary>
-	public sealed class TemplateFactory
+	public sealed class TemplateFactory : ITemplateFactory
 	{
 		private readonly Manager _manager;
 

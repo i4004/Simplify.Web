@@ -5,7 +5,7 @@ namespace AcspNet
 	/// <summary>
 	/// Extension for loading data from extensions data directory
 	/// </summary>
-	public sealed class ExtensionsDataLoader
+	public sealed class ExtensionsDataLoader : IExtensionsDataLoader
 	{
 		private readonly Manager _manager;
 

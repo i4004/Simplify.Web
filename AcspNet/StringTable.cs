@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.Linq;
 using System.Xml.XPath;
+
 using ApplicationHelper.Extensions.Xml;
 
 namespace AcspNet
@@ -9,7 +10,7 @@ namespace AcspNet
 	/// <summary>
 	/// Provides access to site string table
 	/// </summary>
-	public sealed class StringTable
+	public sealed class StringTable : IStringTable
 	{
 		private readonly Manager _manager;
 

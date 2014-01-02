@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AcspNet.Tests")]
-[assembly: AssemblyDescription("Advanced Controls Site Platform unit tests")]
+[assembly: AssemblyTitle("AcspNet.Tests.Extensions")]
+[assembly: AssemblyDescription("Advanced Controls Site Platform unit tests Acsp test extensions")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Alexander Krylkov")]
 [assembly: AssemblyProduct("Advanced Controls Site Platform .NET")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("6059c279-be16-40bf-9678-602072c07ee0")]
+[assembly: Guid("015e7c38-b315-4043-96fd-6be761490b8f")]
 
 // Version information for an assembly consists of the following four values:
 //
