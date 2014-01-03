@@ -3,7 +3,7 @@
 namespace AcspNet.Tests.Extensions.Executable
 {
 	[Action("foo")]
-	public class ExternalExecExtension : ExecExtension
+	public class ExternalExecExtensionTest : ExecExtension
 	{
 		public override void Invoke()
 		{

@@ -21,7 +21,7 @@ namespace AcspNet.Tests
 {
 	[TestFixture]
 	[LoadExtensionsFromAssemblyOf(typeof(ManagerTests))]
-	[LoadIndividualExtensions(typeof(ExternalExecExtension), typeof(ExternalLibExtension))]
+	[LoadIndividualExtensions(typeof(ExternalExecExtensionTest), typeof(ExternalLibExtensionTest))]
     public class ManagerTests
 	{
 		public Mock<HttpContextBase> GetTestHttpContext()
@@ -32,20 +32,21 @@ namespace AcspNet.Tests
 			var httpRequest = new Mock<HttpRequestBase>();
 			var httpResponse = new Mock<HttpResponseBase>();
 			var httpSession = new Mock<HttpSessionStateBase>();
+			var cookieCollection = new HttpCookieCollection();
 
 			httpContext.SetupGet(r => r.Request).Returns(httpRequest.Object);
-			httpRequest.SetupGet(r => r.Cookies).Returns(new HttpCookieCollection());
+			httpContext.SetupGet(r => r.Response).Returns(httpResponse.Object);
+			httpContext.SetupGet(r => r.Session).Returns(httpSession.Object);
+
+			httpRequest.SetupGet(r => r.Cookies).Returns(cookieCollection);
 			httpRequest.SetupGet(r => r.QueryString).Returns(new NameValueCollection());
 			httpRequest.SetupGet(r => r.Form).Returns(new NameValueCollection());
 			httpRequest.SetupGet(r => r.PhysicalApplicationPath).Returns(@"C:\WebSites\FooSite\");
 			httpRequest.SetupGet(r => r.Url).Returns(new Uri("http://localhost"));
 			httpRequest.SetupGet(r => r.ApplicationPath).Returns("/FooSite");
 
-			httpContext.SetupGet(r => r.Response).Returns(httpResponse.Object);
-			httpResponse.SetupGet(r => r.Cookies).Returns(new HttpCookieCollection());
+			httpResponse.SetupGet(r => r.Cookies).Returns(cookieCollection);
 			httpResponse.SetupGet(r => r.Cache).Returns(new HttpCachePolicyWrapper(context.Response.Cache));
-
-			httpContext.SetupGet(r => r.Session).Returns(httpSession.Object);
 
 			return httpContext;
 		}
@@ -53,14 +54,19 @@ namespace AcspNet.Tests
 		public IFileSystem GetTestFileSystem()
 		{
 			var files = new Dictionary<string, MockFileData>();
+
 			files.Add("ExtensionsData/Bar.en.xml", "<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Your site title!\" /></items>");
 			files.Add("ExtensionsData/Bar.ru.txt", "Hello text!");
-			files.Add("ExtensionsData/BarEmpty.en.txt", "");
+			files.Add("ExtensionsData/Empty.en.txt", "");
 			files.Add("ExtensionsData/BarDefault.en.txt", "Hello default!");
+
 			files.Add("ExtensionsData/StringTable.en.xml", "<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Your site title!\" /><item name=\"InfoTitle\" value=\"Information!\" /><item name=\"FooEnumFooItem1\" value=\"Foo item text\" /><item name=\"HtmlListDefaultItemLabel\" value=\"Default label\" /></items>");
 			files.Add("ExtensionsData/StringTable.ru.xml", "<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Заголовок сайта!\" /></items>");
+
 			files.Add("Templates/Foo.tpl", "Hello world!!!");
+
 			files.Add("Templates/Index.tpl", Template.FromManifest("TestData.Index.tpl").Get());
+
 			files.Add("Templates/AcspNet/MessageBox/OkMessageBox.tpl", "{Title}{Message}");
 			files.Add("Templates/AcspNet/MessageBox/ErrorMessageBox.tpl", "{Title}{Message}");
 			files.Add("Templates/AcspNet/MessageBox/InfoMessageBox.tpl", "{Title}{Message}");
@@ -86,18 +92,28 @@ namespace AcspNet.Tests
 			return new Page();
 		}
 
-		public Manager GetTestManager()
+		public Manager GetTestManager(string action = null, string mode = null, string id = null)
 		{
 			var page = GetTestPage();
 			var fs = GetTestFileSystem();
 			var httpContext = GetTestHttpContext();
+
+			if(action != null)
+				httpContext.Object.Request.QueryString.Add("act", action);
+
+			if (mode != null)
+				httpContext.Object.Request.QueryString.Add("mode", mode);
+
+			if (id != null)
+				httpContext.Object.Request.QueryString.Add("id", id);
+
 			Template.FileSystem = fs;
 
 			return new Manager(page, httpContext.Object, fs);
 		}
 
 		[Test]
-		public void VerifyManagerInitializeExceptionsThrownCorrectly()
+		public void Manager_Initialize_ExceptionsThrownCorrectly()
 		{
 			Assert.Throws<ArgumentNullException>(() => new Manager(null));
 			Assert.Throws<ArgumentNullException>(() => new Manager(null, null, null));
@@ -106,10 +122,10 @@ namespace AcspNet.Tests
 		}
 
 		[Test]
-		public void VerifyManagerParametersInitializedCorrectly()
+		public void Manager_Initialize_ParametersInitializedCorrectly()
 		{
 			var manager = GetTestManager();
-			
+
 			Assert.IsNotNull(manager.Context);
 			Assert.IsNotNull(manager.Request);
 			Assert.IsNotNull(manager.Page);
@@ -122,10 +138,11 @@ namespace AcspNet.Tests
 			Assert.IsNotNull(manager.Environment);
 			Assert.IsNotNull(manager.StringTable);
 			Assert.IsNotNull(manager.DataCollector);
-			Assert.IsNotNull(manager.HtmlContainer);
-			Assert.IsNotNull(manager.HtmlContainer.ListsGenerator);
-			Assert.IsNotNull(manager.HtmlContainer.MessageBox);
+			Assert.IsNotNull(manager.HtmlWrapper);
+			Assert.IsNotNull(manager.HtmlWrapper.ListsGenerator);
+			Assert.IsNotNull(manager.HtmlWrapper.MessageBox);
 			Assert.IsNotNull(manager.AuthenticationModule);
+			Assert.IsNotNull(manager.ExtensionsWrapper);
 			Assert.AreEqual("C:/WebSites/FooSite/", manager.SitePhysicalPath);
 			Assert.AreEqual("http://localhost/FooSite/", manager.SiteUrl);
 			Assert.IsNotNull(manager.CurrentAction);
@@ -133,7 +150,7 @@ namespace AcspNet.Tests
 		}
 
 		[Test]
-		public void VerifyEnvironmentParametersInitializedCorrectly()
+		public void Environment_Initialize_ParametersInitializedCorrectly()
 		{
 			var manager = GetTestManager();
 
@@ -145,13 +162,13 @@ namespace AcspNet.Tests
 		}
 
 		[Test]
-		public void TestEnvironmentBehaviour()
+		public void Environment_Usage_BehaviourIsCorrect()
 		{
 			var manager = GetTestManager();
 
 			manager.Environment.SetCookieLanguage(null);
 			Assert.AreEqual(0, manager.Response.Cookies.Count);
-			
+
 			manager.Environment.SetCookieLanguage("ru");
 			Assert.AreEqual(1, manager.Response.Cookies.Count);
 
@@ -163,7 +180,7 @@ namespace AcspNet.Tests
 		}
 
 		[Test]
-		public void TestExtensionsDataLoaderBehaviour()
+		public void ExtensionsDataLoader_Usage_BehaviourIsCorrect()
 		{
 			var manager = GetTestManager();
 
@@ -178,8 +195,9 @@ namespace AcspNet.Tests
 
 			Assert.AreEqual("Hello text!", manager.DataLoader.LoadTextDocument("Bar.txt", "ru"));
 			Assert.AreEqual("Hello text!", manager.DataLoader.LoadTextDocument("Bar.txt"));
+
 			Assert.IsNull(manager.DataLoader.LoadTextDocument("BarNot.txt"));
-			Assert.AreEqual("", manager.DataLoader.LoadTextDocument("BarEmpty.txt"));
+			Assert.AreEqual("", manager.DataLoader.LoadTextDocument("Empty.txt"));
 			Assert.AreEqual("Hello default!", manager.DataLoader.LoadTextDocument("BarDefault.txt"));
 
 			var xDoc = manager.DataLoader.LoadXDocument("BarNot.xml", "ru");
@@ -200,7 +218,7 @@ namespace AcspNet.Tests
 		}
 
 		[Test]
-		public void TestStringTableBehaviour()
+		public void StringTable_Usage_BehaviourIsCorrect()
 		{
 			var manager = GetTestManager();
 
@@ -223,7 +241,7 @@ namespace AcspNet.Tests
 		}
 
 		[Test]
-		public void TestTemplateFactoryBehaviour()
+		public void TemplateFactory_Usage_BehaviourIsCorrect()
 		{
 			var manager = GetTestManager();
 
@@ -258,14 +276,14 @@ namespace AcspNet.Tests
 		}
 
 		[Test]
-		public void TestDataCollectorBehaviour()
+		public void DataCollector_Usage_BehaviourIsCorrect()
 		{
 			var page = GetTestPage();
 			var fs = GetTestFileSystem();
 			var httpContext = GetTestHttpContext();
 			Template.FileSystem = fs;
 
-			httpContext.Setup(x => x.Response.Write(It.IsAny<string>())).Callback<string>(TestDataCollectorResponseWriteResultNormal);
+			httpContext.Setup(x => x.Response.Write(It.IsAny<string>())).Callback<string>(DataCollectorResponseWriteWriteDataIsCorrect);
 
 			var manager = new Manager(page, httpContext.Object, fs);
 
@@ -280,7 +298,7 @@ namespace AcspNet.Tests
 			manager.DataCollector.Add("Foo2", "val");
 
 			Assert.IsTrue(manager.DataCollector.IsDataExist("Foo2"));
-	
+
 			manager.DataCollector.AddSt("FooEnumFooItem1");
 
 			Assert.IsTrue(manager.DataCollector.IsDataExist("MainContent"));
@@ -299,23 +317,23 @@ namespace AcspNet.Tests
 
 			manager.DataCollector.DisableSiteDisplay();
 
-			httpContext.Setup(x => x.Response.Write(It.IsAny<string>())).Callback<string>(TestDataCollectorResponseWriteResultPartial);
+			httpContext.Setup(x => x.Response.Write(It.IsAny<string>())).Callback<string>(DataCollectorResponseWritePartialWriteDataIsCorrect);
 
 			manager.DataCollector.DisplayPartial("Test!");
 		}
 
-		public void TestDataCollectorResponseWriteResultNormal(string s)
+		public void DataCollectorResponseWriteWriteDataIsCorrect(string s)
 		{
 			Assert.AreEqual(Template.FromManifest("TestData.IndexResult.tpl").Get(), s);
 		}
 
-		public void TestDataCollectorResponseWriteResultPartial(string s)
+		public void DataCollectorResponseWritePartialWriteDataIsCorrect(string s)
 		{
 			Assert.AreEqual("Test!", s);
 		}
 
 		[Test]
-		public void TestMainExecution()
+		public void MainPage_Execution_BehaviourIsCorrect()
 		{
 			var manager = GetTestManager();
 			manager.Run();
@@ -324,47 +342,58 @@ namespace AcspNet.Tests
 		}
 
 		[Test]
-		public void TestFooBarPageExecution()
+		public void HtmlListsGenerator_Usage_BehaviourIsCorrect()
 		{
-			var page = GetTestPage();
-			var fs = GetTestFileSystem();
-			var httpContext = GetTestHttpContext();
-
-			httpContext.Object.Request.QueryString.Add("act", "foo");
-			httpContext.Object.Request.QueryString.Add("mode", "bar");
-			httpContext.Object.Request.QueryString.Add("id", "15");
-
-			var manager = new Manager(page, httpContext.Object, fs);
-
+			var manager = GetTestManager("htmlListsTest");
 			manager.Run();
 		}
 
 		[Test]
-		public void TestFooPageExecution()
+		public void MessageBox_Usage_BehaviourIsCorrect()
 		{
-			var page = GetTestPage();
-			var fs = GetTestFileSystem();
-			var httpContext = GetTestHttpContext();
-
-			httpContext.Object.Request.QueryString.Add("act", "foo");
-
-			var manager = new Manager(page, httpContext.Object, fs);
-
+			var manager = GetTestManager("messageBoxTests");
 			manager.Run();
 		}
 
 		[Test]
-		public void TestFoo2PageExecution()
+		public void AuthenticationModule_Usage_BehaviourIsCorrect()
 		{
-			var page = GetTestPage();
-			var fs = GetTestFileSystem();
-			var httpContext = GetTestHttpContext();
+			var manager = GetTestManager("authenticationModuleTests");
+			manager.Run();
+		}
 
-			httpContext.Object.Request.QueryString.Add("act", "foo2");
-			httpContext.Object.Request.QueryString.Add("id", "2");
+		[Test]
+		public void Manager_Usage_StopExtensionsExecutionIsCorrect()
+		{
+			var manager = GetTestManager("stopExtensionsExecution");
+			manager.Run();
+		}
+		
+		[Test]
+		public void Manager_Usage_ActionModeIdUsageIsCorrect()
+		{
+			var manager = GetTestManager("foo", "bar", "15");
+			manager.Run();
+		}
 
-			var manager = new Manager(page, httpContext.Object, fs);
+		[Test]
+		public void Manager_Usage_ActionIdUsageIsCorrect()
+		{
+			var manager = GetTestManager("foo2", null, "2");
+			manager.Run();
+		}
+		
+		[Test]
+		public void Manager_UsageGetExtensionsMetadataIsCorrect()
+		{
+			var manager = GetTestManager("getExtensionsMetadataTest");
+			manager.Run();
+		}
 
+		[Test]
+		public void Manager_Redirect_BehaviourIsCorrect()
+		{
+			var manager = GetTestManager();
 			manager.Run();
 
 			Assert.Throws<ArgumentNullException>(() => manager.Redirect(""));

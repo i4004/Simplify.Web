@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace AcspNet.Tests.Extensions.Executable
 {
-	[Action("foo2")]
+	[Action("messageBoxTests")]
 	[Priority(2)]
 	public class MessageBoxTests : ExecExtension
 	{

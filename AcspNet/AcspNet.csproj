@@ -132,12 +132,16 @@
     <Compile Include="ExtensionsDataLoader.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Html\HtmlContainer.cs" />
+    <Compile Include="Extensions\Executable\MessagePageDisplay.cs" />
+    <Compile Include="Extensions\ExtensionsWrapper.cs" />
+    <Compile Include="Extensions\MessagePage.cs" />
+    <Compile Include="Html\HtmlWrapper.cs" />
     <Compile Include="Html\IListsGenerator.cs" />
     <Compile Include="Html\IMessageBox.cs" />
     <Compile Include="Html\MessageBox.cs" />
     <Compile Include="IDataCollector.cs" />
     <Compile Include="IEnvironment.cs" />
+    <Compile Include="Extensions\IExtensions.cs" />
     <Compile Include="IExtensionsDataLoader.cs" />
     <Compile Include="Html\IHtml.cs" />
     <Compile Include="IManager.cs" />
@@ -208,7 +212,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

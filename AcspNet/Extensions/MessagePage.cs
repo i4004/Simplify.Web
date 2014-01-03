@@ -1,17 +1,22 @@
-using AcspNet.CoreExtensions.Library.Html;
+using AcspNet.Html;
 
-namespace AcspNet.Extensions.Library
+namespace AcspNet.Extensions
 {
 	/// <summary>
 	/// Message display page state
 	/// </summary>
-	[Priority(-5)]
-	[Version("1.0")]
-	public sealed class MessagePageState : LibExtension
+	public sealed class MessagePage
 	{
 		private const string MessageSessionFieldName = "Message";
 		private const string MessageStatusSessionFieldName = "MessageStatus";
-		
+
+		internal Manager Manager;
+
+		internal MessagePage(Manager manager)
+		{
+			Manager = manager;
+		}
+
 		/// <summary>
 		/// Gets or sets the message to be displayed on the message page.
 		/// </summary>
@@ -50,7 +55,7 @@ namespace AcspNet.Extensions.Library
 				Manager.Session.Add(MessageStatusSessionFieldName, value);
 			}
 		}
-		
+
 		/// <summary>
 		/// Navigates client to message page.
 		/// </summary>
@@ -64,7 +69,7 @@ namespace AcspNet.Extensions.Library
 		/// </summary>
 		/// <param name="message">The message to be displayed on the message page.</param>
 		/// <param name="status">The message status.</param>
-		public void NavigateToMessagePage(string message, MessageBoxStatus status = MessageBoxStatus.Error)
+		public void NavigateToMessagePage(string message, MessageBoxStatus status = MessageBoxStatus.Information)
 		{
 			Message = message;
 			MessageStatus = status;

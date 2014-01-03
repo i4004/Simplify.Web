@@ -1,8 +1,8 @@
 ﻿namespace AcspNet.Tests.Extensions.Executable
 {
-	[Action("foo2")]
+	[Action("stopExtensionsExecution")]
 	[Priority(10)]
-	public class FinalExtension : ExecExtension
+	public class StopExtensionsExecutionTest : ExecExtension
 	{
 		public override void Invoke()
 		{

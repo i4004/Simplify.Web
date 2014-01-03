@@ -3,7 +3,7 @@
 namespace AcspNet.Tests.Extensions.Executable
 {
 	[RunType(RunType.MainPage)]
-	public class MainPage : ExecExtension
+	public class MainPageTest : ExecExtension
 	{
 		public override void Invoke()
 		{
@@ -15,7 +15,9 @@ namespace AcspNet.Tests.Extensions.Executable
 			Assert.IsNotNull(TemplateFactory);
 			Assert.IsNotNull(Html);
 			Assert.IsNotNull(Html.ListsGenerator);
-			Assert.IsNotNull(Html.MessageBox); 
+			Assert.IsNotNull(Html.MessageBox);
+			Assert.IsNotNull(Extensions);
+			Assert.IsNotNull(Extensions.MessagePage);
 
 			Assert.AreEqual("", Manager.CurrentAction);
 			Assert.AreEqual("", Manager.CurrentMode);

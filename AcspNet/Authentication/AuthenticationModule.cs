@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Web;
 
 namespace AcspNet.Authentication
@@ -175,7 +174,7 @@ namespace AcspNet.Authentication
 		public void AuthenticateCookieUser(int userID, string name, string password)
 		{
 			if (userID <= 0)
-				throw new InvalidEnumArgumentException("userID");
+				throw new ArgumentException("User ID is invalid");
 
 			if (string.IsNullOrEmpty(name))
 				throw new ArgumentNullException("name");

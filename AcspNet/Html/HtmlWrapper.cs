@@ -1,6 +1,6 @@
 ﻿namespace AcspNet.Html
 {
-	public sealed class HtmlContainer : IHtml
+	public sealed class HtmlWrapper : IHtml
 	{
 		internal IListsGenerator ListsGeneratorInstance;
 		internal IMessageBox MessageBoxInstance;

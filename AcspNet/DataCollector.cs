@@ -119,6 +119,9 @@ namespace AcspNet
 		{
 			if (!_isDisplayDisabled)
 			{
+				if (!_manager.Settings.DisableAutomaticSiteTitleSet)
+					SetSiteTitle();
+
 				var tpl = _manager.TemplateFactory.Load(_manager.Settings.MasterTemplateFileName);
 
 				foreach (var item in Items.Keys)
@@ -137,6 +140,15 @@ namespace AcspNet
 			_manager.Response.Write(data);
 
 			_manager.StopExtensionsExecution();
+		}
+
+		private void SetSiteTitle()
+		{
+			if (string.IsNullOrEmpty(_manager.CurrentAction) && string.IsNullOrEmpty(_manager.CurrentMode)
+				&& !IsDataExist(_manager.Settings.TitleVariableName))
+				Add(_manager.Settings.TitleVariableName, _manager.StringTable["SiteTitle"]);
+			else
+				Add(_manager.Settings.TitleVariableName, " - " + _manager.StringTable["SiteTitle"]);
 		}
 	}
 }

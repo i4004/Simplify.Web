@@ -11,6 +11,7 @@ using System.Web.Routing;
 using System.Web.UI;
 
 using AcspNet.Authentication;
+using AcspNet.Extensions;
 using AcspNet.Html;
 
 namespace AcspNet
@@ -71,8 +72,9 @@ namespace AcspNet
 		public readonly StringTable StringTable;
 		public readonly ITemplateFactory TemplateFactory;
 		public readonly DataCollector DataCollector;
-		public readonly HtmlContainer HtmlContainer;
+		public readonly HtmlWrapper HtmlWrapper;
 		public readonly IAuthenticationModule AuthenticationModule;
+		public readonly ExtensionsWrapper ExtensionsWrapper;
 
 		private string _currentAction;
 		private string _currentMode;
@@ -165,10 +167,12 @@ namespace AcspNet
 			StringTable = new StringTable(this);
 			TemplateFactory = new TemplateFactory(this);
 			DataCollector = new DataCollector(this);
-			HtmlContainer = new HtmlContainer();
+			HtmlWrapper = new HtmlWrapper();
 			AuthenticationModule = new AuthenticationModule(this);
+			ExtensionsWrapper = new ExtensionsWrapper();
 
-			InitializeHtmlContainer();
+			InitializeHtmlWrapper();
+			InitializeExtensionsWrapper();
 		}
 		
 		/// <summary>
@@ -448,8 +452,9 @@ namespace AcspNet
 				extension.EnvironmentInstance = Environment;
 				extension.ExtensionsDataLoaderInstance = DataLoader;
 				extension.StringTableInstance = StringTable;
-				extension.HtmlInstance = HtmlContainer;
+				extension.HtmlInstance = HtmlWrapper;
 				extension.AuthenticationModuleInstance = AuthenticationModule;
+				extension.ExtensionsInstance = ExtensionsWrapper;
 
 				_libExtensionsList.Add(extension);
 				_libExtensionsIsInitializedList.Add(container.ExtensionType.Name, false);
@@ -484,8 +489,9 @@ namespace AcspNet
 					extension.EnvironmentInstance = Environment;
 					extension.ExtensionsDataLoaderInstance = DataLoader;
 					extension.StringTableInstance = StringTable;
-					extension.HtmlInstance = HtmlContainer;
+					extension.HtmlInstance = HtmlWrapper;
 					extension.AuthenticationModuleInstance = AuthenticationModule;
+					extension.ExtensionsInstance = ExtensionsWrapper;
 
 					_execExtensionsList.Add(extension);
 					ExecExtensionsTypes.Add(extension.GetType());
@@ -636,10 +642,15 @@ namespace AcspNet
 			DataCollector.Add(SiteVariableNameSiteUrl, SiteUrl);			
 		}
 
-		private void InitializeHtmlContainer()
+		private void InitializeHtmlWrapper()
 		{
-			HtmlContainer.ListsGeneratorInstance = new ListsGenerator(this);
-			HtmlContainer.MessageBoxInstance = new MessageBox(this);
+			HtmlWrapper.ListsGeneratorInstance = new ListsGenerator(this);
+			HtmlWrapper.MessageBoxInstance = new MessageBox(this);
+		}
+
+		private void InitializeExtensionsWrapper()
+		{
+			ExtensionsWrapper.MessagePageInstance = new MessagePage(this);
 		}
 	}
 }

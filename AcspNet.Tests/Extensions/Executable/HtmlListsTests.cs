@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace AcspNet.Tests.Extensions.Executable
 {
-	[Action("foo2")]
+	[Action("htmlListsTest")]
 	public class HtmlListsTests : ExecExtension
 	{
 		public override void Invoke()

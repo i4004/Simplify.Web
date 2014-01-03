@@ -9,7 +9,6 @@ namespace AcspNet.Tests.Extensions.Executable
 	{
 		public override void Invoke()
 		{
-			Assert.IsNotNull(Manager);
 			Assert.AreEqual("foo2", Manager.CurrentAction);
 			Assert.AreEqual("2", Manager.CurrentID);
 

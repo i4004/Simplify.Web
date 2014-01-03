@@ -1,4 +1,5 @@
 ﻿using AcspNet.Authentication;
+using AcspNet.Extensions;
 using AcspNet.Html;
 
 using ApplicationHelper;
@@ -15,6 +16,7 @@ namespace AcspNet
 		internal IExtensionsDataLoader ExtensionsDataLoaderInstance;
 		internal IHtml HtmlInstance;
 		internal IAuthenticationModule AuthenticationModuleInstance;
+		internal IExtensions ExtensionsInstance;
 
 		/// <summary>
 		/// Current AcspNet.Manager instance
@@ -57,6 +59,13 @@ namespace AcspNet
 		public IAuthenticationModule AuthenticationModule
 		{
 			get { return AuthenticationModuleInstance; }
-		}		 
+		}
+
+		public IExtensions Extensions
+		{
+			get { return ExtensionsInstance; }
+		}
+
+		
 	}
 }

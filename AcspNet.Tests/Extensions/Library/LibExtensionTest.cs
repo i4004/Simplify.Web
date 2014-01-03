@@ -4,7 +4,7 @@ namespace AcspNet.Tests.Extensions.Library
 {
 	[Priority(-1)]
 	[Version("1.0")]
-	public class TestLibExtension : LibExtension
+	public class LibExtensionTest : LibExtension
 	{
 		public override void Initialize()
 		{
@@ -17,7 +17,7 @@ namespace AcspNet.Tests.Extensions.Library
 			Assert.IsNotNull(Html);
 			Assert.IsNotNull(Html.ListsGenerator);
 
-			Assert.Throws<AcspNetException>(() => Manager.Get<EmptyLibExtension>());
+			Assert.Throws<AcspNetException>(() => Manager.Get<HightPriortyLibExtensionTest>());
 		}
 
 		public int GetNumber()

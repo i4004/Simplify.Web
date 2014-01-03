@@ -91,25 +91,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\Executable\ActionIdTest.cs" />
+    <Compile Include="Extensions\Executable\AllPagesExtensionTest.cs" />
     <Compile Include="Extensions\Executable\AuthenticationModuleTest.cs" />
-    <Compile Include="Extensions\Executable\EmptyExtension.cs" />
-    <Compile Include="Extensions\Executable\FinalExtension2.cs" />
-    <Compile Include="Extensions\Executable\FinalExtension.cs" />
-    <Compile Include="Extensions\Executable\MessageBoxTests.cs" />
+    <Compile Include="Extensions\Executable\EmptyExecExtensionTest.cs" />
+    <Compile Include="Extensions\Executable\ActionModeIdTest.cs" />
+    <Compile Include="Extensions\Executable\GetExtensionsMetadataTest.cs" />
+    <Compile Include="Extensions\Executable\LibraryExtensionCallTest.cs" />
+    <Compile Include="Extensions\Executable\StopExtensionsExecution2Test.cs" />
+    <Compile Include="Extensions\Executable\StopExtensionsExecutionTest.cs" />
     <Compile Include="Extensions\Executable\HtmlListsTests.cs" />
-    <Compile Include="Extensions\Executable\MainPage.cs" />
-    <Compile Include="Extensions\Executable\AllPagesControl.cs" />
-    <Compile Include="Extensions\Executable\FooTestPage2.cs" />
-    <Compile Include="Extensions\Executable\FooTestPage.cs" />
-    <Compile Include="Extensions\Library\EmptyLibExtension.cs" />
-    <Compile Include="Extensions\Library\TestLibExtension.cs" />
+    <Compile Include="Extensions\Executable\MainPageTest.cs" />
+    <Compile Include="Extensions\Executable\MessageBoxTests.cs" />
+    <Compile Include="Extensions\Library\EmptyLibExtensionTest.cs" />
+    <Compile Include="Extensions\Library\HightPriortyLibExtensionTest.cs" />
+    <Compile Include="Extensions\Library\LibExtensionTest.cs" />
     <Compile Include="ManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="Scripts\jquery-2.0.3.min.map" />
     <EmbeddedResource Include="TestData\Index.tpl" />
     <EmbeddedResource Include="TestData\IndexResult.tpl" />
   </ItemGroup>
@@ -127,11 +129,7 @@
       <Name>AcspNet</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\jquery-2.0.3.intellisense.js" />
-    <Content Include="Scripts\jquery-2.0.3.js" />
-    <Content Include="Scripts\jquery-2.0.3.min.js" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

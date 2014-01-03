@@ -1,4 +1,4 @@
 ﻿Hello world!!!
-Information!FooTitle
+Information!FooTitle - Your site title!
 val
 Foo item textbar
