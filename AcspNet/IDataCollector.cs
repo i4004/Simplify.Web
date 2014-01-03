@@ -1,9 +1,13 @@
-﻿using ApplicationHelper;
+﻿using System.Collections.Generic;
+
+using ApplicationHelper;
 
 namespace AcspNet
 {
 	public interface IDataCollector : IHideObjectMembers
 	{
+		IDictionary<string, string> Items { get; }
+
 		/// <summary>
 		/// Prevent site to be displayed via DataCollector
 		/// </summary>
@@ -58,11 +62,6 @@ namespace AcspNet
 		/// </summary>
 		/// <param name="variableName">Variable name</param>
 		bool IsDataExist(string variableName);
-
-		/// <summary>
-		/// Combine all collected data and send it to the HTTP response
-		/// </summary>
-		void DisplaySite();
 
 		/// <summary>
 		/// Write data to the response and stop all extensions execution

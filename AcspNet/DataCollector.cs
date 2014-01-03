@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-
-using ApplicationHelper;
+using System.Collections.Specialized;
 
 namespace AcspNet
 {
@@ -9,8 +8,6 @@ namespace AcspNet
 	/// </summary>
 	public sealed class DataCollector : IDataCollector
 	{
-		private readonly IDictionary<string, string> _siteData = new Dictionary<string, string>();
-
 		private readonly Manager _manager;
 
 		/// <summary>
@@ -20,8 +17,12 @@ namespace AcspNet
 
 		internal DataCollector(Manager manager)
 		{
+			Items = new Dictionary<string, string>();
 			_manager = manager;
 		}
+
+		public IDictionary<string, string> Items { get; private set; }
+
 
 		/// <summary>
 		/// Prevent site to be displayed via DataCollector
@@ -42,13 +43,13 @@ namespace AcspNet
 			if (string.IsNullOrEmpty(variableName))
 				return;
 
-			if (!_siteData.ContainsKey(variableName))
+			if (!Items.ContainsKey(variableName))
 			{
-				_siteData.Add(variableName, value);
+				Items.Add(variableName, value);
 				return;
 			}
 
-			_siteData[variableName] += value;
+			Items[variableName] += value;
 		}
 
 		/// <summary>
@@ -108,7 +109,7 @@ namespace AcspNet
 		/// <param name="variableName">Variable name</param>
 		public bool IsDataExist(string variableName)
 		{
-			return _siteData.ContainsKey(variableName);
+			return Items.ContainsKey(variableName);
 		}
 
 		/// <summary>
@@ -120,8 +121,8 @@ namespace AcspNet
 			{
 				var tpl = _manager.TemplateFactory.Load(_manager.Settings.MasterTemplateFileName);
 
-				foreach (var item in _siteData.Keys)
-					tpl.Set(item, _siteData[item]);
+				foreach (var item in Items.Keys)
+					tpl.Set(item, Items[item]);
 
 				_manager.Response.Write(tpl.Get());
 			}

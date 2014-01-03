@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AcspNet.CoreExtensions.Library.Authentication
+namespace AcspNet.Authentication
 {
 	/// <summary>
 	/// Set executable extensions Protection type

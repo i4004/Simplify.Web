@@ -59,20 +59,27 @@ namespace AcspNet.Html
 		string GenerateMonthsListFrom1(int selectedMonth = -1, bool displayNotSelectedMessage = true);
 
 		/// <summary>
-		/// Generate years selector HTML list (from current year to -<paramref name="numberOfYears"/>)
+		/// Generate years selector HTML list (from current year to -<paramref name="numberOfYears" />)
 		/// </summary>
 		/// <param name="numberOfYears">Number of years in list</param>
 		/// <param name="selectedYear">Selected year</param>
 		/// <param name="displayNotSelectedMessage">Display not selected message in list or not</param>
-		/// <returns>HTML list</returns>
-		string GenerateYearsListToPast(int numberOfYears, int selectedYear = -1, bool displayNotSelectedMessage = true);
+		/// <param name="currentYear">The current year.</param>
+		/// <returns>
+		/// HTML list
+		/// </returns>
+		string GenerateYearsListToPast(int numberOfYears, int selectedYear = -1, bool displayNotSelectedMessage = true,
+			int? currentYear = null);
 
 		/// <summary>
-		/// Generate years selector HTML list (from current year to +<paramref name="numberOfYears"/>)
+		/// Generate years selector HTML list (from current year to +<paramref name="numberOfYears" />)
 		/// </summary>
 		/// <param name="numberOfYears">Number of years in list</param>
-		/// <returns>HTML list</returns>
-		string GenerateYearsListToFuture(int numberOfYears);
+		/// <param name="currentYear">The current year.</param>
+		/// <returns>
+		/// HTML list
+		/// </returns>
+		string GenerateYearsListToFuture(int numberOfYears, int? currentYear = null);
 
 		/// <summary>
 		/// Generic list generator

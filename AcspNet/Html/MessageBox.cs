@@ -1,138 +1,124 @@
+using System;
+
 namespace AcspNet.Html
 {
-	///// <summary>
-	///// MessageBox control
-	///// Usable template files:
-	///// "AcspNet/MessageBox/InfoMessageBox.tpl"
-	///// "AcspNet/MessageBox/ErrorMessageBox.tpl"
-	///// "AcspNet/MessageBox/OkMessageBox.tpl"
-	///// "AcspNet/MessageBox/InlineInfoMessageBox.tpl"
-	///// "AcspNet/MessageBox/InlineErrorMessageBox.tpl"
-	///// "AcspNet/MessageBox/InlineOkMessageBox.tpl"
-	///// Usable <see cref="StringTable"/> items:
-	///// "FormTitleMessageBox"
-	///// Template variables:
-	///// "Message"
-	///// "Title"
-	///// <see cref="DataCollector"/> variables:
-	///// "MainContent"
-	///// "Title"
-	///// </summary>
+	/// <summary>
+	/// MessageBox control
+	/// Usable template files:
+	/// "AcspNet/MessageBox/InfoMessageBox.tpl"
+	/// "AcspNet/MessageBox/ErrorMessageBox.tpl"
+	/// "AcspNet/MessageBox/OkMessageBox.tpl"
+	/// "AcspNet/MessageBox/InlineInfoMessageBox.tpl"
+	/// "AcspNet/MessageBox/InlineErrorMessageBox.tpl"
+	/// "AcspNet/MessageBox/InlineOkMessageBox.tpl"
+	/// Usable <see cref="StringTable"/> items:
+	/// "FormTitleMessageBox"
+	/// Template variables:
+	/// "Message"
+	/// "Title"
+	/// </summary>
 	public sealed class MessageBox : IMessageBox
 	{
-		//private const string MessageBoxTemplatesPath = "AcspNet/MessageBox/";
-		//private static string DataCollectorVariableNameInstance = "MainContent";
+		public const string MessageBoxTemplatesPath = "AcspNet/MessageBox/";
 
-		internal Manager Manager;
+		private readonly Manager _manager;
 
 		internal MessageBox(Manager manager)
 		{
-			Manager = manager;
+			_manager = manager;
 		}
 
-		///// <summary>
-		///// Gets or sets the data collector variable name to put message box to
-		///// </summary>
-		///// <value>
-		///// The data collector variable name to put message box to
-		///// </value>
-		//public static string DataCollectorVariableName
-		//{
-		//	get { return DataCollectorVariableNameInstance; }
-		//	set { DataCollectorVariableNameInstance = value; }
-		//}
+		/// <summary>
+		/// Generate message box HTML and set to data collector
+		/// </summary>
+		/// <param name="text">Text of message box</param>
+		/// <param name="status">Status of the information</param>
+		/// <param name="title">Title of message box</param>
+		public void Show(string text, MessageBoxStatus status = MessageBoxStatus.Information, string title = "")
+		{
+			if(string.IsNullOrEmpty(text))
+				throw new ArgumentNullException("text");
 
-		///// <summary>
-		///// Generate message box HTML and set to data collector
-		///// </summary>
-		///// <param name="text">Text of message box</param>
-		///// <param name="status">Status of the information</param>
-		///// <param name="title">Title of message box</param>
-		//public void Show(string text, MessageBoxStatus status = MessageBoxStatus.Information, string title = "")
-		//{
-		//	var dataCollector = Manager.Get<DataCollector>();
-		//	if (dataCollector.IsDataExist("MainContainerData") || dataCollector.IsDataExist("Title"))
-		//		return;
+			if(title == null)
+				throw new ArgumentNullException("title");
 
-		//	var st = Manager.Get<StringTable>();
-		//	var templateFactory = Manager.Get<TemplateFactory>();
+			var templateFile = MessageBoxTemplatesPath;
 
-		//	var templateFile = MessageBoxTemplatesPath;
+			switch (status)
+			{
+				case MessageBoxStatus.Information:
+					templateFile += "InfoMessageBox.tpl";
+					break;
+				case MessageBoxStatus.Error:
+					templateFile += "ErrorMessageBox.tpl";
+					break;
+				case MessageBoxStatus.Ok:
+					templateFile += "OkMessageBox.tpl";
+					break;
+			}
 
-		//	switch (status)
-		//	{
-		//		case MessageBoxStatus.Information:
-		//			templateFile += "InfoMessageBox.tpl";
-		//			break;
-		//		case MessageBoxStatus.Error:
-		//			templateFile += "ErrorMessageBox.tpl";
-		//			break;
-		//		case MessageBoxStatus.Ok:
-		//			templateFile += "OkMessageBox.tpl";
-		//			break;
-		//	}
+			var tpl = _manager.TemplateFactory.Load(templateFile);
 
-		//	var tpl = templateFactory.Load(templateFile);
+			tpl.Set("Message", text);
+			tpl.Set("Title", title == "" ? _manager.StringTable["FormTitleMessageBox"] : title);
 
-		//	tpl.Set("Message", text);
-		//	tpl.Set("Title", title == "" ? st.Items["FormTitleMessageBox"] : title);
+			_manager.DataCollector.Add(_manager.Settings.MainContentVariableName, tpl.Get());
+			_manager.DataCollector.Add(_manager.Settings.TitleVariableName, title == "" ? _manager.StringTable["FormTitleMessageBox"] : title);
+		}
 
-		//	dataCollector.Set(DataCollectorVariableName, tpl.Text);
-		//	dataCollector.Set("Title", title == "" ? st.Items["FormTitleMessageBox"] : title);
-		//}
+		/// <summary>
+		///Generate message box HTML and set to data collector
+		/// </summary>
+		/// <param name="stringTableItemName">Show message from string table item</param>
+		/// <param name="status">Status of the information</param>
+		/// <param name="title">Title of message box</param>
+		public void ShowSt(string stringTableItemName, MessageBoxStatus status = MessageBoxStatus.Information, string title = "")
+		{
+			Show(_manager.StringTable[stringTableItemName], status, title);
+		}
 
-		///// <summary>
-		/////Generate message box HTML and set to data collector
-		///// </summary>
-		///// <param name="stringTableItemName">Show message from string table item</param>
-		///// <param name="status">Status of the information</param>
-		///// <param name="title">Title of message box</param>
-		//public void ShowSt(string stringTableItemName, MessageBoxStatus status = MessageBoxStatus.Information, string title = "")
-		//{
-		//	Show(Manager.Get<StringTable>()[stringTableItemName], status, title);
-		//}
+		/// <summary>
+		/// Get inline message box HTML
+		/// </summary>
+		/// <param name="text">Text of message box</param>
+		/// <param name="status">Status of the information</param>
+		/// <returns>Message box html</returns>
+		public string GetInline(string text, MessageBoxStatus status = MessageBoxStatus.Information)
+		{
+			if (string.IsNullOrEmpty(text))
+				throw new ArgumentNullException("text");
 
-		///// <summary>
-		///// Get inline message box HTML
-		///// </summary>
-		///// <param name="text">Text of message box</param>
-		///// <param name="status">Status of the information</param>
-		///// <returns>Message box html</returns>
-		//public string GetInline(string text, MessageBoxStatus status = MessageBoxStatus.Information)
-		//{
-		//	var tf = Manager.Get<TemplateFactory>();
+			var templateFile = MessageBoxTemplatesPath;
 
-		//	var templateFile = MessageBoxTemplatesPath;
+			switch (status)
+			{
+				case MessageBoxStatus.Information:
+					templateFile += "InlineInfoMessageBox.tpl";
+					break;
+				case MessageBoxStatus.Error:
+					templateFile += "InlineErrorMessageBox.tpl";
+					break;
+				case MessageBoxStatus.Ok:
+					templateFile += "InlineOkMessageBox.tpl";
+					break;
+			}
 
-		//	switch (status)
-		//	{
-		//		case MessageBoxStatus.Information:
-		//			templateFile += "InlineInfoMessageBox.tpl";
-		//			break;
-		//		case MessageBoxStatus.Error:
-		//			templateFile += "InlineErrorMessageBox.tpl";
-		//			break;
-		//		case MessageBoxStatus.Ok:
-		//			templateFile += "InlineOkMessageBox.tpl";
-		//			break;
-		//	}
+			var tpl = _manager.TemplateFactory.Load(templateFile);
 
-		//	var tpl = tf.Load(templateFile);
+			tpl.Set("Message", text);
+			return tpl.Get();
+		}
 
-		//	tpl.Set("Message", text);
-		//	return tpl.Text;
-		//}
-
-		///// <summary>
-		///// Get inline message box HTML
-		///// </summary>
-		///// <param name="stringTableItemName">Show message from string table item</param>
-		///// <param name="status">Status of the information</param>
-		///// <returns>Message box html</returns>
-		//public string GetInlineSt(string stringTableItemName, MessageBoxStatus status = MessageBoxStatus.Error)
-		//{
-		//	return GetInline(Manager.Get<StringTable>()[stringTableItemName], status);
-		//}
+		/// <summary>
+		/// Get inline message box HTML
+		/// </summary>
+		/// <param name="stringTableItemName">Show message from string table item</param>
+		/// <param name="status">Status of the information</param>
+		/// <returns>Message box html</returns>
+		public string GetInlineSt(string stringTableItemName, MessageBoxStatus status = MessageBoxStatus.Information)
+		{
+			return GetInline(_manager.StringTable[stringTableItemName], status);
+		}
 	}
 
 	/// <summary>

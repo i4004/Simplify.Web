@@ -4,7 +4,6 @@ using System.Collections.Specialized;
 using System.IO;
 using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
-using System.Runtime.Caching;
 using System.Threading;
 using System.Web;
 using System.Web.UI;
@@ -44,7 +43,6 @@ namespace AcspNet.Tests
 
 			httpContext.SetupGet(r => r.Response).Returns(httpResponse.Object);
 			httpResponse.SetupGet(r => r.Cookies).Returns(new HttpCookieCollection());
-			//httpResponse.SetupGet(r => r.Cache).Returns(new MemoryCache("FooCache"));
 			httpResponse.SetupGet(r => r.Cache).Returns(new HttpCachePolicyWrapper(context.Response.Cache));
 
 			httpContext.SetupGet(r => r.Session).Returns(httpSession.Object);
@@ -63,6 +61,12 @@ namespace AcspNet.Tests
 			files.Add("ExtensionsData/StringTable.ru.xml", "<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Заголовок сайта!\" /></items>");
 			files.Add("Templates/Foo.tpl", "Hello world!!!");
 			files.Add("Templates/Index.tpl", Template.FromManifest("TestData.Index.tpl").Get());
+			files.Add("Templates/AcspNet/MessageBox/OkMessageBox.tpl", "{Title}{Message}");
+			files.Add("Templates/AcspNet/MessageBox/ErrorMessageBox.tpl", "{Title}{Message}");
+			files.Add("Templates/AcspNet/MessageBox/InfoMessageBox.tpl", "{Title}{Message}");
+			files.Add("Templates/AcspNet/MessageBox/InlineInfoMessageBox.tpl", "{Message}");
+			files.Add("Templates/AcspNet/MessageBox/InlineErrorMessageBox.tpl", "{Message}");
+			files.Add("Templates/AcspNet/MessageBox/InlineOkMessageBox.tpl", "{Message}");
 
 			return new MockFileSystem(files, "C:/WebSites/FooSite");
 		}
@@ -120,6 +124,8 @@ namespace AcspNet.Tests
 			Assert.IsNotNull(manager.DataCollector);
 			Assert.IsNotNull(manager.HtmlContainer);
 			Assert.IsNotNull(manager.HtmlContainer.ListsGenerator);
+			Assert.IsNotNull(manager.HtmlContainer.MessageBox);
+			Assert.IsNotNull(manager.AuthenticationModule);
 			Assert.AreEqual("C:/WebSites/FooSite/", manager.SitePhysicalPath);
 			Assert.AreEqual("http://localhost/FooSite/", manager.SiteUrl);
 			Assert.IsNotNull(manager.CurrentAction);

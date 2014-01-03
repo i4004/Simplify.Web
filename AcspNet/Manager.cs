@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Routing;
 using System.Web.UI;
 
+using AcspNet.Authentication;
 using AcspNet.Html;
 
 namespace AcspNet
@@ -69,8 +70,9 @@ namespace AcspNet
 		public readonly ExtensionsDataLoader DataLoader;
 		public readonly StringTable StringTable;
 		public readonly ITemplateFactory TemplateFactory;
-		public readonly IDataCollector DataCollector;
+		public readonly DataCollector DataCollector;
 		public readonly HtmlContainer HtmlContainer;
+		public readonly IAuthenticationModule AuthenticationModule;
 
 		private string _currentAction;
 		private string _currentMode;
@@ -164,6 +166,7 @@ namespace AcspNet
 			TemplateFactory = new TemplateFactory(this);
 			DataCollector = new DataCollector(this);
 			HtmlContainer = new HtmlContainer();
+			AuthenticationModule = new AuthenticationModule(this);
 
 			InitializeHtmlContainer();
 		}
@@ -438,16 +441,17 @@ namespace AcspNet
 
 			foreach (var container in LibExtensionsMetaContainers)
 			{
-				var newInstance = (LibExtension)Activator.CreateInstance(container.ExtensionType);
-				newInstance.ManagerInstance = this;
-				newInstance.TemplateFactoryInstance = TemplateFactory;
-				newInstance.DataCollectorInstance = DataCollector;
-				newInstance.EnvironmentInstance = Environment;
-				newInstance.ExtensionsDataLoaderInstance = DataLoader;
-				newInstance.StringTableInstance = StringTable;
-				newInstance.HtmlInstance = HtmlContainer;
+				var extension = (LibExtension)Activator.CreateInstance(container.ExtensionType);
+				extension.ManagerInstance = this;
+				extension.TemplateFactoryInstance = TemplateFactory;
+				extension.DataCollectorInstance = DataCollector;
+				extension.EnvironmentInstance = Environment;
+				extension.ExtensionsDataLoaderInstance = DataLoader;
+				extension.StringTableInstance = StringTable;
+				extension.HtmlInstance = HtmlContainer;
+				extension.AuthenticationModuleInstance = AuthenticationModule;
 
-				_libExtensionsList.Add(newInstance);
+				_libExtensionsList.Add(extension);
 				_libExtensionsIsInitializedList.Add(container.ExtensionType.Name, false);
 			}
 		}
@@ -481,6 +485,7 @@ namespace AcspNet
 					extension.ExtensionsDataLoaderInstance = DataLoader;
 					extension.StringTableInstance = StringTable;
 					extension.HtmlInstance = HtmlContainer;
+					extension.AuthenticationModuleInstance = AuthenticationModule;
 
 					_execExtensionsList.Add(extension);
 					ExecExtensionsTypes.Add(extension.GetType());

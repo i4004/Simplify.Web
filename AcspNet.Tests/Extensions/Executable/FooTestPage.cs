@@ -16,7 +16,7 @@ namespace AcspNet.Tests.Extensions.Executable
 			Assert.AreEqual("15", Manager.CurrentID);
 
 			var execItems = Manager.GetExecExtensionsMetaData();
-			Assert.AreEqual(9, execItems.Count);
+			Assert.AreEqual(11, execItems.Count);
 
 			var libsitems = Manager.GetLibExtensionsMetaData();
 			Assert.AreEqual(3, libsitems.Count);

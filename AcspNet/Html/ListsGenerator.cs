@@ -47,7 +47,7 @@ namespace AcspNet.Html
 			var data = displayNotSelectedMessage ? GenerateDefaultListItem(selectedHour == -1) : "";
 
 			for (var i = 0; i < 24; i++)
-				data += string.Format("<option value=\"{0}\"{2}>{1}</option>", i, i.ToString("00"), i == selectedHour ? " selected='selected'" : "");
+				data += string.Format("<option value='{0}'{2}>{1}</option>", i, i.ToString("00"), i == selectedHour ? " selected='selected'" : "");
 
 			return data;
 		}
@@ -63,7 +63,7 @@ namespace AcspNet.Html
 			var data = displayNotSelectedMessage ? GenerateDefaultListItem(selectedMinute == -1) : "";
 
 			for (var i = 0; i < 60; i++)
-				data += string.Format("<option value=\"{0}\"{2}>{1}</option>", i, i.ToString("00"), i == selectedMinute ? " selected='selected'" : "");
+				data += string.Format("<option value='{0}'{2}>{1}</option>", i, i.ToString("00"), i == selectedMinute ? " selected='selected'" : "");
 
 			return data;
 		}
@@ -79,7 +79,7 @@ namespace AcspNet.Html
 			var data = displayNotSelectedMessage ? GenerateDefaultListItem(selectedDay == -1) : "";
 
 			for (var i = 1; i < 32; i++)
-				data += string.Format("<option value=\"{0}\" {2}>{1}</option>", i, i.ToString("00"), i == selectedDay ? "selected='selected'" : "");
+				data += string.Format("<option value='{0}' {2}>{1}</option>", i, i.ToString("00"), i == selectedDay ? "selected='selected'" : "");
 
 			return data;
 		}
@@ -97,7 +97,7 @@ namespace AcspNet.Html
 			var month = Convert.ToDateTime("1/1/2010");
 
 			for (var i = 0; i < 12; i++)
-				data += string.Format("<option value=\"{0}\" {2}>{1}</option>", i, month.AddMonths(i).ToString("MMMM"), i == selectedMonth ? "selected='selected'" : "");
+				data += string.Format("<option value='{0}' {2}>{1}</option>", i, month.AddMonths(i).ToString("MMMM"), i == selectedMonth ? "selected='selected'" : "");
 
 			return data;
 		}
@@ -115,39 +115,47 @@ namespace AcspNet.Html
 			var month = Convert.ToDateTime("1/1/2010");
 
 			for (var i = 1; i < 13; i++)
-				data += string.Format("<option value=\"{0}\" {2}>{1}</option>", i, month.AddMonths(i).ToString("MMMM"), i == selectedMonth ? "selected='selected'" : "");
+				data += string.Format("<option value='{0}' {2}>{1}</option>", i, month.AddMonths(i).ToString("MMMM"), i == selectedMonth ? "selected='selected'" : "");
 
 			return data;
 		}
 
 		/// <summary>
-		/// Generate years selector HTML list (from current year to -<paramref name="numberOfYears"/>)
+		/// Generate years selector HTML list (from current year to -<paramref name="numberOfYears" />)
 		/// </summary>
 		/// <param name="numberOfYears">Number of years in list</param>
 		/// <param name="selectedYear">Selected year</param>
 		/// <param name="displayNotSelectedMessage">Display not selected message in list or not</param>
-		/// <returns>HTML list</returns>
-		public string GenerateYearsListToPast(int numberOfYears, int selectedYear = -1, bool displayNotSelectedMessage = true)
+		/// <param name="currentYear">The current year.</param>
+		/// <returns>
+		/// HTML list
+		/// </returns>
+		public string GenerateYearsListToPast(int numberOfYears, int selectedYear = -1, bool displayNotSelectedMessage = true, int? currentYear = null)
 		{
 			var data = displayNotSelectedMessage ? GenerateDefaultListItem(selectedYear == -1) : "";
+			var currentyear = currentYear ?? DateTime.Now.Year;
 
-			for (var i = DateTime.Now.Year; i >= DateTime.Now.Year - numberOfYears; i--)
-				data += string.Format("<option value=\"{0}\" {2}>{1}</option>", i, i, i == selectedYear ? "selected='selected'" : "");
+			for (var i = currentyear; i >= currentyear - numberOfYears; i--)
+				data += string.Format("<option value='{0}' {2}>{1}</option>", i, i, i == selectedYear ? "selected='selected'" : "");
 
 			return data;
 		}
 
 		/// <summary>
-		/// Generate years selector HTML list (from current year to +<paramref name="numberOfYears"/>)
+		/// Generate years selector HTML list (from current year to +<paramref name="numberOfYears" />)
 		/// </summary>
 		/// <param name="numberOfYears">Number of years in list</param>
-		/// <returns>HTML list</returns>
-		public string GenerateYearsListToFuture(int numberOfYears)
+		/// <param name="currentYear">The current year.</param>
+		/// <returns>
+		/// HTML list
+		/// </returns>
+		public string GenerateYearsListToFuture(int numberOfYears, int? currentYear = null)
 		{
 			var data = "";
+			var currentyear = currentYear ?? DateTime.Now.Year;
 
-			for (var i = DateTime.Now.Year; i <= DateTime.Now.Year + numberOfYears; i++)
-				data += string.Format("<option value=\"{0}\">{1}</option>", i, i);
+			for (var i = currentyear; i <= currentyear + numberOfYears; i++)
+				data += string.Format("<option value='{0}'>{1}</option>", i, i);
 
 			return data;
 		}
@@ -170,7 +178,7 @@ namespace AcspNet.Html
 			return items.Aggregate(data,
 				(current, item) =>
 					current +
-					string.Format("<option value=\"{0}\" {2}>{1}</option>", id(item), name(item),
+					string.Format("<option value='{0}' {2}>{1}</option>", id(item), name(item),
 						(selectedItem == item ? "selected='selected'" : "")));
 		}
 
@@ -191,7 +199,7 @@ namespace AcspNet.Html
 				.Aggregate(data,
 					(current, item) =>
 						current +
-						string.Format("<option value=\"{0}\" {2}>{1}</option>", Convert.ToInt32(item), Manager.StringTable.GetAssociatedValue(item),
+						string.Format("<option value='{0}' {2}>{1}</option>", Convert.ToInt32(item), Manager.StringTable.GetAssociatedValue(item),
 							selectedItem.ToString() == item.ToString() ? "selected='selected'" : ""));
 		}
 

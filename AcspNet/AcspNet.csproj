@@ -117,6 +117,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ActionAttribute.cs" />
+    <Compile Include="Authentication\AuthenticationModule.cs" />
+    <Compile Include="Authentication\IAuthenticationModule.cs" />
+    <Compile Include="Authentication\Protection.cs" />
+    <Compile Include="Authentication\ProtectionAttribute.cs" />
     <Compile Include="DataCollector.cs" />
     <Compile Include="Environment.cs">
       <SubType>Code</SubType>
@@ -124,6 +128,7 @@
     <Compile Include="ExecExtension.cs" />
     <Compile Include="ExecExtensionMetaContainer.cs" />
     <Compile Include="ExtensionMetaContainer.cs" />
+    <Compile Include="ExtensionsBase.cs" />
     <Compile Include="ExtensionsDataLoader.cs">
       <SubType>Code</SubType>
     </Compile>
