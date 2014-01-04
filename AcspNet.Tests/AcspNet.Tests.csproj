@@ -98,6 +98,7 @@
     <Compile Include="Extensions\Executable\ActionModeIdTest.cs" />
     <Compile Include="Extensions\Executable\GetExtensionsMetadataTest.cs" />
     <Compile Include="Extensions\Executable\LibraryExtensionCallTest.cs" />
+    <Compile Include="Extensions\Executable\ExtensionsProtectorTest.cs" />
     <Compile Include="Extensions\Executable\StopExtensionsExecution2Test.cs" />
     <Compile Include="Extensions\Executable\StopExtensionsExecutionTest.cs" />
     <Compile Include="Extensions\Executable\HtmlListsTests.cs" />

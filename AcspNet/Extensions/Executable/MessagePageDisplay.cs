@@ -14,10 +14,11 @@ namespace AcspNet.Extensions.Executable
 		{
 			if(string.IsNullOrEmpty(Extensions.MessagePage.Message))
 				Manager.Redirect("/");
+			else
 			{
 				Html.MessageBox.Show(Extensions.MessagePage.Message, Extensions.MessagePage.MessageStatus);
 
-				Extensions.MessagePage.Message = null;
+				Extensions.MessagePage.RemoveMessage();
 			}
 		}
 	}

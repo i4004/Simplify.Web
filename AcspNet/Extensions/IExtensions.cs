@@ -4,6 +4,7 @@ namespace AcspNet.Extensions
 {
 	public interface IExtensions : IHideObjectMembers
 	{
-		MessagePage MessagePage { get; }
+		IMessagePage MessagePage { get; }
+		IIdProcessor IdProcessor { get; }
 	}
 }

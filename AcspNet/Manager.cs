@@ -8,10 +8,10 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Routing;
-using System.Web.UI;
 
 using AcspNet.Authentication;
 using AcspNet.Extensions;
+using AcspNet.Extensions.Executable;
 using AcspNet.Html;
 
 namespace AcspNet
@@ -89,25 +89,24 @@ namespace AcspNet
 		/// <summary>
 		///Initialize ACSP .NET engine instance
 		/// </summary>
-		/// <param name="page">The web-site default page.</param>
-		public Manager(Page page)
-			: this(page, new HttpContextWrapper(HttpContext.Current), new FileSystem())
+		public Manager(RouteData routeData)
+			: this(routeData, new HttpContextWrapper(HttpContext.Current), new FileSystem())
 		{
 		}
 
 		/// <summary>
 		/// Initialize ACSP .NET engine instance
 		/// </summary>
-		/// <param name="page">The web-site default page.</param>
+		/// <param name="routeData">The current page route data.</param>
 		/// <param name="httpContext">The HTTP context.</param>
 		/// <param name="fileSystem">The file system.</param>
 		/// <exception cref="System.ArgumentNullException">page
 		/// or
 		/// httpContext</exception>
-		public Manager(Page page, HttpContextBase httpContext, IFileSystem fileSystem)
+		public Manager(RouteData routeData, HttpContextBase httpContext, IFileSystem fileSystem)
 		{
-			if (page == null)
-				throw new ArgumentNullException("page");
+			if (routeData == null)
+				throw new ArgumentNullException("routeData");
 
 			if (httpContext == null)
 				throw new ArgumentNullException("httpContext");
@@ -118,7 +117,7 @@ namespace AcspNet
 			StopWatch = new Stopwatch();
 			StopWatch.Start();
 
-			Page = page;
+			RouteData = routeData;
 			Context = httpContext;
 			FileSystem = fileSystem;
 			Request = Context.Request;
@@ -205,10 +204,8 @@ namespace AcspNet
 		/// </summary>
 		public NameValueCollection Form { get; private set; }
 		
-		/// <summary>
-		/// Gets the current aspx page.
-		/// </summary>
-		public Page Page { get; private set; }
+		public RouteData RouteData { get; private set; }
+
 		
 		/// <summary>
 		/// The stop watch (for web-page build measurement)
@@ -273,8 +270,8 @@ namespace AcspNet
 
 				string action;
 
-				if (Page.RouteData != null && Page.RouteData.Values.ContainsKey("action"))
-					action = (string)Page.RouteData.Values["action"];
+				if (RouteData != null && RouteData.Values.ContainsKey("action"))
+					action = (string)RouteData.Values["action"];
 				else
 					action = Request.QueryString["act"];
 
@@ -298,8 +295,8 @@ namespace AcspNet
 
 				string mode;
 
-				if (Page.RouteData != null && Page.RouteData.Values.ContainsKey("mode"))
-					mode = (string)Page.RouteData.Values["mode"];
+				if (RouteData != null && RouteData.Values.ContainsKey("mode"))
+					mode = (string)RouteData.Values["mode"];
 				else
 					mode = Request.QueryString["mode"];
 
@@ -323,8 +320,8 @@ namespace AcspNet
 
 				string id;
 
-				if (Page.RouteData != null && Page.RouteData.Values.ContainsKey("id"))
-					id = (string)Page.RouteData.Values["id"];
+				if (RouteData != null && RouteData.Values.ContainsKey("id"))
+					id = (string)RouteData.Values["id"];
 				else
 					id = Request.QueryString["id"];
 
@@ -340,7 +337,7 @@ namespace AcspNet
 		/// <value>
 		/// The current executing extensions types.
 		/// </value>
-		private IList<Type> ExecExtensionsTypes { get; set; }
+		public IList<Type> ExecExtensionsTypes { get; private set; }
 
 		/// <summary>
 		/// Stop ACSP subsequent extensions execution
@@ -362,7 +359,8 @@ namespace AcspNet
 			CreateExecutableExtensionsInstances();
 			RunExecutableExtensions();
 
-			Session.Add(IsNewSessionFieldName, "true");
+			if (Session[IsNewSessionFieldName] == null)
+				Session.Add(IsNewSessionFieldName, "true");
 		}
 
 		/// <summary>
@@ -557,6 +555,9 @@ namespace AcspNet
 
 		private static void LoadIndividualExtensions(params Type[] types)
 		{
+			if (!SettingsInstance.Value.DisableAcspInternalExtensions)
+				types = types.Concat(new List<Type> { typeof(MessagePageDisplay), typeof(ExtensionsProtector) }).ToArray();
+
 			foreach (var t in types.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.LibExtension").Where(t => LibExtensionsMetaContainers.All(x => x.ExtensionType != t)))
 				AddLibExtensionMetaContainer(t);
 
@@ -651,6 +652,7 @@ namespace AcspNet
 		private void InitializeExtensionsWrapper()
 		{
 			ExtensionsWrapper.MessagePageInstance = new MessagePage(this);
+			ExtensionsWrapper.IdProcessorInstance = new IdProcessor(this);
 		}
 	}
 }

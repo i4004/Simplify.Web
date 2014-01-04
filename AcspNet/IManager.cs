@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Web;
-using System.Web.UI;
+using System.Web.Routing;
 
 using ApplicationHelper;
 
@@ -41,10 +41,7 @@ namespace AcspNet
 		/// </summary>
 		NameValueCollection Form { get;}
 
-		/// <summary>
-		/// Gets the current aspx page.
-		/// </summary>
-		Page Page { get; }
+		RouteData RouteData { get; }
 
 		/// <summary>
 		/// The stop watch (for web-page build measurement)
@@ -97,6 +94,14 @@ namespace AcspNet
 		/// The current mode (?act=someAction&amp;mode=somMode).
 		/// </value>
 		string CurrentID { get; }
+
+		/// <summary>
+		/// Gets the current executing extensions types.
+		/// </summary>
+		/// <value>
+		/// The current executing extensions types.
+		/// </value>
+		IList<Type> ExecExtensionsTypes { get; }
 
 		/// <summary>
 		/// Stop ACSP subsequent extensions execution

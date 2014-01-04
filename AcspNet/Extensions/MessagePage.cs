@@ -5,7 +5,7 @@ namespace AcspNet.Extensions
 	/// <summary>
 	/// Message display page state
 	/// </summary>
-	public sealed class MessagePage
+	public sealed class MessagePage : IMessagePage
 	{
 		private const string MessageSessionFieldName = "Message";
 		private const string MessageStatusSessionFieldName = "MessageStatus";
@@ -75,6 +75,11 @@ namespace AcspNet.Extensions
 			MessageStatus = status;
 
 			NavigateToMessagePage();
+		}
+
+		public void RemoveMessage()
+		{
+			Manager.Session.Remove(MessageSessionFieldName);
 		}
 	}
 }

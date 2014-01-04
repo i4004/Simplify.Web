@@ -8,7 +8,7 @@ namespace AcspNet.Tests.Extensions.Executable
 		public override void Invoke()
 		{
 			var execItems = Manager.GetExecExtensionsMetaData();
-			Assert.AreEqual(13, execItems.Count);
+			Assert.AreEqual(16, execItems.Count);
 
 			var libsitems = Manager.GetLibExtensionsMetaData();
 			Assert.AreEqual(4, libsitems.Count);

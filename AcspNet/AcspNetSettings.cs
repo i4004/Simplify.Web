@@ -69,6 +69,7 @@ namespace AcspNet
 		public bool TemplatesMemoryCache { get; set; }
 
 		public bool DisableAutomaticSiteTitleSet { get; set; }
+		public bool DisableAcspInternalExtensions { get; set; }
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AcspNetSettings"/> class.
@@ -127,6 +128,16 @@ namespace AcspNet
 					if (bool.TryParse(config["DisableAutomaticSiteTitleSet"], out buffer))
 						DisableAutomaticSiteTitleSet = buffer;
 				}
+
+				if (!string.IsNullOrEmpty(config["DisableAcspInternalExtensions"]))
+				{
+					bool buffer;
+
+					if (bool.TryParse(config["DisableAcspInternalExtensions"], out buffer))
+						DisableAcspInternalExtensions = buffer;
+				}
+
+				
 			}
 		}
 	}

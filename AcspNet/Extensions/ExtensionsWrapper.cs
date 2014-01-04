@@ -2,11 +2,17 @@
 {
 	public class ExtensionsWrapper : IExtensions
 	{
-		internal MessagePage MessagePageInstance;
+		internal IMessagePage MessagePageInstance;
+		internal IIdProcessor IdProcessorInstance;
 
-		public MessagePage MessagePage
+		public IMessagePage MessagePage
 		{
 			get { return MessagePageInstance; }
+		}
+
+		public IIdProcessor IdProcessor
+		{
+			get { return IdProcessorInstance; }
 		}
 	}
 }
