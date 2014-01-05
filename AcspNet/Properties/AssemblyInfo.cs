@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: AssemblyTitle("AcspNet")]
-[assembly: AssemblyDescription("Advanced Controls Site Platform")]
+[assembly: AssemblyDescription("Advanced Controls Site Platform .NET")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Alexander Krylkov")]
 [assembly: AssemblyProduct("Advanced Controls Site Platform .NET")]
