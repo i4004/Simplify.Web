@@ -13,7 +13,7 @@ namespace AcspNet.Extensions.Executable
 		public override void Invoke()
 		{
 			if(string.IsNullOrEmpty(Extensions.MessagePage.Message))
-				Manager.Redirect("/");
+				Manager.Redirect(AcspNet.Manager.SiteVirtualPath + "/");
 			else
 			{
 				Html.MessageBox.Show(Extensions.MessagePage.Message, Extensions.MessagePage.MessageStatus);

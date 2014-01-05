@@ -160,6 +160,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ModeAttribute.cs" />
+    <None Include="NugetPackageTemplate\Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="NugetPackageTemplate\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Compile Include="PriorityAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RouteConfig.cs">
@@ -170,12 +178,44 @@
     <Compile Include="StringTable.cs" />
     <Compile Include="TemplateFactory.cs" />
     <Compile Include="VersionAttribute.cs" />
+    <None Include="NugetPackageTemplate\index.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="AcspNet.snk" />
     <None Include="packages.config" />
+    <None Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\ErrorMessageBox.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\InfoMessageBox.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\InlineErrorMessageBox.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\InlineInfoMessageBox.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\InlineOkMessageBox.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\OkMessageBox.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="NugetPackageTemplate\Templates\Index.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="NugetPackageTemplate\Web.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="ApplicationHelper, Version=3.0.0.0, Culture=neutral, PublicKeyToken=61ff4d1997283fbd, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ApplicationHelper.3.0\lib\net40\ApplicationHelper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.IO.Abstractions">
@@ -208,10 +248,18 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ApplicationHelper\ApplicationHelper\ApplicationHelper.csproj">
-      <Project>{022d4333-46f4-4462-b5c3-3bf174ea03d9}</Project>
-      <Name>ApplicationHelper</Name>
-    </ProjectReference>
+    <None Include="NugetPackageTemplate\ExtensionsData\StringTable.en.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="NugetPackageTemplate\Global.asax">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="NugetPackageTemplate\Styles\Main.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="NugetPackageTemplate\Templates\Index.tpl.en.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

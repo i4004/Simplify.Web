@@ -68,6 +68,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ApplicationHelper, Version=3.0.0.0, Culture=neutral, PublicKeyToken=61ff4d1997283fbd, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ApplicationHelper.3.0\lib\net40\ApplicationHelper.dll</HintPath>
+    </Reference>
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.2.1312.1622\lib\net40\Moq.dll</HintPath>
     </Reference>
@@ -117,10 +121,6 @@
     <EmbeddedResource Include="TestData\IndexResult.tpl" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ApplicationHelper\ApplicationHelper\ApplicationHelper.csproj">
-      <Project>{022d4333-46f4-4462-b5c3-3bf174ea03d9}</Project>
-      <Name>ApplicationHelper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AcspNet.Tests.Extensions\AcspNet.Tests.Extensions.csproj">
       <Project>{80d67062-328d-4adb-9833-9151cc10fd98}</Project>
       <Name>AcspNet.Tests.Extensions</Name>

@@ -304,7 +304,7 @@ namespace AcspNet
 		/// <value>
 		/// The site URL.
 		/// </value>
-		public string SiteVirtualPath
+		public static string SiteVirtualPath
 		{
 			get
 			{
@@ -593,8 +593,15 @@ namespace AcspNet
 				if (batchExtensionsAttributes.Length == 1)
 					LoadExtensionsFromAssemblyOf(((LoadExtensionsFromAssemblyOfAttribute)batchExtensionsAttributes[0]).Types);
 
+				var types = new Type[0];
+
 				if (individualExtensionsAttributes.Length == 1)
-					LoadIndividualExtensions(((LoadIndividualExtensionsAttribute)individualExtensionsAttributes[0]).Types);
+					types = ((LoadIndividualExtensionsAttribute)individualExtensionsAttributes[0]).Types;
+
+				if (!AcspNetSettingsInstance.Value.DisableAcspInternalExtensions)
+					types = types.Concat(new List<Type> { typeof(MessagePageDisplay), typeof(ExtensionsProtector) }).ToArray();
+
+				LoadIndividualExtensions(types);
 
 				SortLibraryExtensionsMetaContainers();
 				SortExecExtensionsMetaContainers();
@@ -619,9 +626,6 @@ namespace AcspNet
 
 		private static void LoadIndividualExtensions(params Type[] types)
 		{
-			if (!AcspNetSettingsInstance.Value.DisableAcspInternalExtensions)
-				types = types.Concat(new List<Type> { typeof(MessagePageDisplay), typeof(ExtensionsProtector) }).ToArray();
-
 			foreach (var t in types.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.LibExtension").Where(t => LibExtensionsMetaContainers.All(x => x.ExtensionType != t)))
 				AddLibExtensionMetaContainer(t);
 
