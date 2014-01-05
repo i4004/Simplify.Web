@@ -137,8 +137,10 @@
     <Compile Include="Extensions\ExtensionsWrapper.cs" />
     <Compile Include="Extensions\IIdProcessor.cs" />
     <Compile Include="Extensions\IMessagePage.cs" />
+    <Compile Include="Extensions\INavigator.cs" />
     <Compile Include="Extensions\MessagePage.cs" />
     <Compile Include="Extensions\IdProcessor.cs" />
+    <Compile Include="Extensions\Navigator.cs" />
     <Compile Include="Html\HtmlWrapper.cs" />
     <Compile Include="Html\IListsGenerator.cs" />
     <Compile Include="Html\IMessageBox.cs" />
@@ -160,6 +162,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ModeAttribute.cs" />
+    <Compile Include="Web\HttpRuntime.cs" />
+    <Compile Include="Web\IHttpRuntime.cs" />
     <None Include="NugetPackageTemplate\Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -264,7 +268,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

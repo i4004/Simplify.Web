@@ -16,5 +16,10 @@ namespace AcspNet.Extensions
 		/// Gets the identifier processor that is used to parse 'ID' field from request query string or form.
 		/// </summary>
 		IIdProcessor IdProcessor { get; }
+
+		/// <summary>
+		/// Website navigation manager, controls current user location, link to previous page or link specific page
+		/// </summary>
+		INavigator Navigator { get; }
 	}
 }

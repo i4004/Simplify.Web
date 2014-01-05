@@ -7,6 +7,7 @@
 	{
 		internal IMessagePage MessagePageInstance;
 		internal IIdProcessor IdProcessorInstance;
+		internal INavigator NavigatorInstance;
 
 		/// <summary>
 		/// Gets the message page that is used to display messages to user on a separated site page.
@@ -22,6 +23,14 @@
 		public IIdProcessor IdProcessor
 		{
 			get { return IdProcessorInstance; }
+		}
+		
+		/// <summary>
+		/// Website navigation manager, controls current user location, link to previous page or link specific page
+		/// </summary>
+		public INavigator Navigator
+		{
+			get { return NavigatorInstance; }
 		}
 	}
 }

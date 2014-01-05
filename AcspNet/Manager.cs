@@ -8,11 +8,12 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Routing;
-
 using AcspNet.Authentication;
 using AcspNet.Extensions;
 using AcspNet.Extensions.Executable;
 using AcspNet.Html;
+using AcspNet.Web;
+using HttpRuntime = AcspNet.Web.HttpRuntime;
 
 namespace AcspNet
 {
@@ -73,9 +74,14 @@ namespace AcspNet
 		private static Lazy<string> SiteVirtualPathInstance;
 		
 		/// <summary>
-		/// The file system instance, to work with System.IO functions
+		/// The file system abstraction, to work with System.IO functions
 		/// </summary>
 		public readonly IFileSystem FileSystem;
+
+		/// <summary>
+		/// The HttpRuntime abstration, to work with HttpRuntime functions
+		/// </summary>
+		public readonly IHttpRuntime HttpRuntime;
 
 		/// <summary>
 		/// Current request environment data.
@@ -131,7 +137,7 @@ namespace AcspNet
 		///Initialize ACSP .NET engine instance
 		/// </summary>
 		public Manager(RouteData routeData)
-			: this(routeData, new HttpContextWrapper(HttpContext.Current), new FileSystem(), Assembly.GetCallingAssembly())
+			: this(routeData, new HttpContextWrapper(HttpContext.Current), new FileSystem(), new HttpRuntime(), Assembly.GetCallingAssembly())
 		{
 		}
 
@@ -141,11 +147,12 @@ namespace AcspNet
 		/// <param name="routeData">The current page route data.</param>
 		/// <param name="httpContext">The HTTP context.</param>
 		/// <param name="fileSystem">The file system.</param>
+		/// <param name="httpRuntime">The HTTP runtime.</param>
 		/// <param name="userAssembly">The user web-site assembly.</param>
 		/// <exception cref="System.ArgumentNullException">page
 		/// or
 		/// httpContext</exception>
-		public Manager(RouteData routeData, HttpContextBase httpContext, IFileSystem fileSystem, Assembly userAssembly)
+		public Manager(RouteData routeData, HttpContextBase httpContext, IFileSystem fileSystem, IHttpRuntime httpRuntime, Assembly userAssembly)
 		{
 			if (routeData == null)
 				throw new ArgumentNullException("routeData");
@@ -156,6 +163,9 @@ namespace AcspNet
 			if (fileSystem == null)
 				throw new ArgumentNullException("fileSystem");
 
+			if (httpRuntime == null)
+				throw new ArgumentNullException("httpRuntime");
+			
 			if (userAssembly == null)
 				throw new ArgumentNullException("userAssembly");
 
@@ -165,6 +175,7 @@ namespace AcspNet
 			RouteData = routeData;
 			Context = httpContext;
 			FileSystem = fileSystem;
+			HttpRuntime = httpRuntime;
 			Request = Context.Request;
 			Response = Context.Response;
 			Session = Context.Session;
@@ -699,6 +710,7 @@ namespace AcspNet
 		{
 			StopWatch.Stop();
 
+			UpdateNavigatorLinks();
 			SetEnvironmentVariablesToDataCollector();
 
 			Response.Cache.SetExpires(DateTime.Now);
@@ -727,6 +739,16 @@ namespace AcspNet
 		{
 			ExtensionsWrapper.MessagePageInstance = new MessagePage(this);
 			ExtensionsWrapper.IdProcessorInstance = new IdProcessor(this);
+			ExtensionsWrapper.NavigatorInstance = new Navigator(this);
+		}
+
+		private void UpdateNavigatorLinks()
+		{
+			if (Request.Url != null)
+			{
+				ExtensionsWrapper.Navigator.PreviousPageLink = Request.Url.ToString();
+				ExtensionsWrapper.Navigator.PreviousNavigatedUrl = null;
+			}
 		}
 	}
 }
