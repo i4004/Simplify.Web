@@ -4,6 +4,11 @@ using ApplicationHelper;
 
 namespace AcspNet.Extensions
 {
+	/// <summary>
+	/// Class that is used to parse 'ID' field from request query string or form.
+	/// Usable <see cref="StringTable" /> items:
+	/// "NotifyPageDataError"
+	/// </summary>
 	public interface IIdProcessor : IHideObjectMembers
 	{
 		/// <summary>

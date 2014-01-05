@@ -37,6 +37,9 @@ namespace AcspNet.Extensions
 		/// <param name="status">The message status.</param>
 		void NavigateToMessagePage(string message, MessageBoxStatus status = MessageBoxStatus.Information);
 
+		/// <summary>
+		/// Removes the message from the crurrent session.
+		/// </summary>
 		void RemoveMessage();
 	}
 }

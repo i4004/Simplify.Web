@@ -5,6 +5,11 @@ using ApplicationHelper;
 
 namespace AcspNet.Html
 {
+	/// <summary>
+	/// HTML select control lists generator
+	/// Usable <see cref="StringTable"/> items:
+	/// "HtmlListDefaultItemLabel"
+	/// </summary>
 	public interface IListsGenerator : IHideObjectMembers
 	{
 		/// <summary>

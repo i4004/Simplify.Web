@@ -7,7 +7,7 @@ namespace AcspNet.Html
 	/// <summary>
 	/// HTML select control lists generator
 	/// Usable <see cref="StringTable"/> items:
-	/// "HtmlListNotSelectedMessage"
+	/// "HtmlListDefaultItemLabel"
 	/// </summary>
 	public sealed class ListsGenerator : IListsGenerator
 	{

@@ -3,7 +3,7 @@ using System;
 namespace AcspNet.Html
 {
 	/// <summary>
-	/// MessageBox control
+	/// The HTML message box
 	/// Usable template files:
 	/// "AcspNet/MessageBox/InfoMessageBox.tpl"
 	/// "AcspNet/MessageBox/ErrorMessageBox.tpl"
@@ -19,7 +19,7 @@ namespace AcspNet.Html
 	/// </summary>
 	public sealed class MessageBox : IMessageBox
 	{
-		public const string MessageBoxTemplatesPath = "AcspNet/MessageBox/";
+		private const string MessageBoxTemplatesPath = "AcspNet/MessageBox/";
 
 		private readonly Manager _manager;
 
@@ -62,8 +62,8 @@ namespace AcspNet.Html
 			tpl.Set("Message", text);
 			tpl.Set("Title", title == "" ? _manager.StringTable["FormTitleMessageBox"] : title);
 
-			_manager.DataCollector.Add(_manager.Settings.MainContentVariableName, tpl.Get());
-			_manager.DataCollector.Add(_manager.Settings.TitleVariableName, title == "" ? _manager.StringTable["FormTitleMessageBox"] : title);
+			_manager.DataCollector.Add(Manager.AcspNetSettings.MainContentVariableName, tpl.Get());
+			_manager.DataCollector.Add(Manager.AcspNetSettings.TitleVariableName, title == "" ? _manager.StringTable["FormTitleMessageBox"] : title);
 		}
 
 		/// <summary>

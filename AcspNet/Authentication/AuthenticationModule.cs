@@ -4,14 +4,14 @@ using System.Web;
 namespace AcspNet.Authentication
 {
 	/// <summary>
-	/// Authentication class
+	/// Implementation of IAuthenticationModule interface that is used to control users login/logout/autnenticate via cookie or session and stores current user name/password/id unformation
 	/// </summary>
 	public class AuthenticationModule : IAuthenticationModule
 	{
-		public const string CookieUserNameFieldName = "AcspUserName";
-		public const string CookieUserPasswordFieldName = "AcspUserPassword";
-		public const string SessionUserAuthenticationStatusFieldName = "AcspAuthenticationStatus";
-		public const string SessionUserIdFieldName = "AcspAunthenticatedUserID";
+		private const string CookieUserNameFieldName = "AcspUserName";
+		private const string CookieUserPasswordFieldName = "AcspUserPassword";
+		private const string SessionUserAuthenticationStatusFieldName = "AcspAuthenticationStatus";
+		private const string SessionUserIdFieldName = "AcspAunthenticatedUserID";
 
 		internal Manager Manager;
 

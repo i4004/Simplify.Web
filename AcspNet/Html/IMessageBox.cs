@@ -2,6 +2,21 @@
 
 namespace AcspNet.Html
 {
+	/// <summary>
+	/// The HTML message box
+	/// Usable template files:
+	/// "AcspNet/MessageBox/InfoMessageBox.tpl"
+	/// "AcspNet/MessageBox/ErrorMessageBox.tpl"
+	/// "AcspNet/MessageBox/OkMessageBox.tpl"
+	/// "AcspNet/MessageBox/InlineInfoMessageBox.tpl"
+	/// "AcspNet/MessageBox/InlineErrorMessageBox.tpl"
+	/// "AcspNet/MessageBox/InlineOkMessageBox.tpl"
+	/// Usable <see cref="StringTable"/> items:
+	/// "FormTitleMessageBox"
+	/// Template variables:
+	/// "Message"
+	/// "Title"
+	/// </summary>
 	public interface IMessageBox : IHideObjectMembers
 	{
 		/// <summary>

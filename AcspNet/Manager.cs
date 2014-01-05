@@ -17,7 +17,7 @@ using AcspNet.Html;
 namespace AcspNet
 {
 	/// <summary>
-	/// ACSP.NET main class
+	/// ACSP.NET manager class
 	/// </summary>
 	public sealed class Manager : IManager
 	{
@@ -48,13 +48,12 @@ namespace AcspNet
 		/// The site variable name site URL
 		/// </summary>
 		public const string SiteVariableNameSiteUrl = "SV:SiteUrl";
+		/// <summary>
+		/// The site variable name site virtual path (returns '/yoursite' if your site is placed in virtual directory like http://yourdomain.com/yoursite/)
+		/// </summary>
+		public const string SiteVariableNameSiteVirtualPath = "SV:SiteVirtualPath";
 
 		private const string IsNewSessionFieldName = "AcspIsNewSession";
-
-		/// <summary>
-		/// The file system instance, to work with System.IO functions
-		/// </summary>
-		public IFileSystem FileSystem;
 
 		private static List<ExecExtensionMetaContainer> ExecExtensionsMetaContainers = new List<ExecExtensionMetaContainer>();
 		private static List<LibExtensionMetaContainer> LibExtensionsMetaContainers = new List<LibExtensionMetaContainer>();
@@ -62,18 +61,55 @@ namespace AcspNet
 		private static bool IsStaticInitialized;
 		private static readonly object Locker = new object();
 
-		private static readonly Lazy<AcspNetSettings> SettingsInstance = new Lazy<AcspNetSettings>(() => new AcspNetSettings());
+		private static readonly Lazy<AcspNetSettings> AcspNetSettingsInstance = new Lazy<AcspNetSettings>(() => new AcspNetSettings());
 
 		private static Lazy<string> SitePhysicalPathInstance;
 		private static Lazy<string> SiteUrlInstance;
+		private static Lazy<string> SiteVirtualPathInstance;
+		
+		/// <summary>
+		/// The file system instance, to work with System.IO functions
+		/// </summary>
+		public readonly IFileSystem FileSystem;
 
+		/// <summary>
+		/// Current request environment data.
+		/// </summary>
 		public readonly IEnvironment Environment;
+
+		/// <summary>
+		/// Text and XML files loader.
+		/// </summary>
 		public readonly ExtensionsDataLoader DataLoader;
+
+		/// <summary>
+		/// Localizable text items string table.
+		/// </summary>
 		public readonly StringTable StringTable;
+
+		/// <summary>
+		/// Text templates loader.
+		/// </summary>
 		public readonly ITemplateFactory TemplateFactory;
+
+		/// <summary>
+		/// Web-site master page data collector.
+		/// </summary>
 		public readonly DataCollector DataCollector;
+
+		/// <summary>
+		/// Various HTML generation classes
+		/// </summary>
 		public readonly HtmlWrapper HtmlWrapper;
+
+		/// <summary>
+		/// Interface that is used to control users login/logout/autnenticate via cookie or session and stores current user name/password/id unformation
+		/// </summary>
 		public readonly IAuthenticationModule AuthenticationModule;
+
+		/// <summary>
+		/// Additional extensions
+		/// </summary>
 		public readonly ExtensionsWrapper ExtensionsWrapper;
 
 		private string _currentAction;
@@ -90,7 +126,7 @@ namespace AcspNet
 		///Initialize ACSP .NET engine instance
 		/// </summary>
 		public Manager(RouteData routeData)
-			: this(routeData, new HttpContextWrapper(HttpContext.Current), new FileSystem())
+			: this(routeData, new HttpContextWrapper(HttpContext.Current), new FileSystem(), Assembly.GetCallingAssembly())
 		{
 		}
 
@@ -100,10 +136,11 @@ namespace AcspNet
 		/// <param name="routeData">The current page route data.</param>
 		/// <param name="httpContext">The HTTP context.</param>
 		/// <param name="fileSystem">The file system.</param>
+		/// <param name="userAssembly">The user web-site assembly.</param>
 		/// <exception cref="System.ArgumentNullException">page
 		/// or
 		/// httpContext</exception>
-		public Manager(RouteData routeData, HttpContextBase httpContext, IFileSystem fileSystem)
+		public Manager(RouteData routeData, HttpContextBase httpContext, IFileSystem fileSystem, Assembly userAssembly)
 		{
 			if (routeData == null)
 				throw new ArgumentNullException("routeData");
@@ -113,6 +150,9 @@ namespace AcspNet
 
 			if (fileSystem == null)
 				throw new ArgumentNullException("fileSystem");
+
+			if (userAssembly == null)
+				throw new ArgumentNullException("userAssembly");
 
 			StopWatch = new Stopwatch();
 			StopWatch.Start();
@@ -152,10 +192,15 @@ namespace AcspNet
 							                                   return url;
 						                                   });
 
+						SiteVirtualPathInstance = new Lazy<string>(() =>
+						{
+							if (HttpRuntime.AppDomainAppVirtualPath == null)
+								return null;
 
-						RouteConfig.RegisterRoutes(RouteTable.Routes, Settings);
+							return HttpRuntime.AppDomainAppVirtualPath == "/" ? "" : HttpRuntime.AppDomainAppVirtualPath;
+						});
 
-						CreateMetaContainers(Assembly.GetCallingAssembly());
+						CreateMetaContainers(userAssembly);
 						IsStaticInitialized = true;
 					}
 				}
@@ -203,20 +248,25 @@ namespace AcspNet
 		/// Gets the connection of HTTP post request form variables
 		/// </summary>
 		public NameValueCollection Form { get; private set; }
-		
-		public RouteData RouteData { get; private set; }
 
+		/// <summary>
+		/// Gets the route data.
+		/// </summary>
+		public RouteData RouteData { get; private set; }
 		
 		/// <summary>
 		/// The stop watch (for web-page build measurement)
 		/// </summary>
 		public Stopwatch StopWatch { get; private set; }
-		
-		public AcspNetSettings Settings
+
+		/// <summary>
+		/// Gets the AcspNet settings.
+		/// </summary>
+		public static AcspNetSettings AcspNetSettings
 		{
 			get
 			{				
-				return SettingsInstance.Value;
+				return AcspNetSettingsInstance.Value;
 			}
 		}
 
@@ -226,7 +276,7 @@ namespace AcspNet
 		/// <value>
 		/// The site physical path.
 		/// </value>
-		public string SitePhysicalPath
+		public static string SitePhysicalPath
 		{
 			get
 			{
@@ -240,11 +290,25 @@ namespace AcspNet
 		/// <value>
 		/// The site URL.
 		/// </value>
-		public string SiteUrl
+		public static string SiteUrl
 		{
 			get
 			{
 				return SiteUrlInstance.Value;
+			}
+		}
+
+		/// <summary>
+		/// Gets the web-site URL, for example: http://yoursite.com/site1/
+		/// </summary>
+		/// <value>
+		/// The site URL.
+		/// </value>
+		public string SiteVirtualPath
+		{
+			get
+			{
+				return SiteVirtualPathInstance.Value;
 			}
 		}
 
@@ -555,7 +619,7 @@ namespace AcspNet
 
 		private static void LoadIndividualExtensions(params Type[] types)
 		{
-			if (!SettingsInstance.Value.DisableAcspInternalExtensions)
+			if (!AcspNetSettingsInstance.Value.DisableAcspInternalExtensions)
 				types = types.Concat(new List<Type> { typeof(MessagePageDisplay), typeof(ExtensionsProtector) }).ToArray();
 
 			foreach (var t in types.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.LibExtension").Where(t => LibExtensionsMetaContainers.All(x => x.ExtensionType != t)))
@@ -640,7 +704,8 @@ namespace AcspNet
 			DataCollector.Add(SiteVariableNameCurrentStyle, Environment.SiteStyle);
 			DataCollector.Add(SiteVariableNameCurrentLanguage, Environment.Language);
 			DataCollector.Add(SiteVariableNameCurrentLanguageExtension, Environment.Language != "" ? "." + Environment.Language : "");
-			DataCollector.Add(SiteVariableNameSiteUrl, SiteUrl);			
+			DataCollector.Add(SiteVariableNameSiteUrl, SiteUrl);
+			DataCollector.Add(SiteVariableNameSiteVirtualPath, SiteVirtualPath);
 		}
 
 		private void InitializeHtmlWrapper()

@@ -2,6 +2,9 @@
 
 namespace AcspNet.Authentication
 {
+	/// <summary>
+	/// Interface that is used to control users login/logout/autnenticate via cookie or session and stores current user name/password/id unformation
+	/// </summary>
 	public interface IAuthenticationModule : IHideObjectMembers
 	{
 		/// <summary>

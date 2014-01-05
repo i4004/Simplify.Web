@@ -2,6 +2,9 @@ using AcspNet.Authentication;
 
 namespace AcspNet.Extensions.Executable
 {
+	/// <summary>
+	/// Class that is used to control extensions from unauthorized users acces
+	/// </summary>
 	[Priority(-10)]
 	[Version("1.0")]
 	public sealed class ExtensionsProtector : ExecExtension

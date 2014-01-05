@@ -4,6 +4,9 @@ using ApplicationHelper;
 
 namespace AcspNet
 {
+	/// <summary>
+	/// Localizable text items string table.
+	/// </summary>
 	public interface IStringTable : IHideObjectMembers
 	{
 		/// <summary>

@@ -8,7 +8,7 @@ using ApplicationHelper.Extensions.Xml;
 namespace AcspNet
 {
 	/// <summary>
-	/// Provides access to site string table
+	/// Localizable text items string table.
 	/// </summary>
 	public sealed class StringTable : IStringTable
 	{
@@ -24,6 +24,9 @@ namespace AcspNet
 			Reload();
 		}
 
+		/// <summary>
+		/// Reloads strign table.
+		/// </summary>
 		public void Reload()
 		{
 			Items = new StringDictionary();
@@ -40,10 +43,10 @@ namespace AcspNet
 			
 			// Loading default culture strings
 
-			if (_manager.Environment.Language == _manager.Settings.DefaultLanguage)
+			if (_manager.Environment.Language == Manager.AcspNetSettings.DefaultLanguage)
 				return;
 
-			stringTable = _manager.DataLoader.LoadXDocument("StringTable.xml", _manager.Settings.DefaultLanguage);
+			stringTable = _manager.DataLoader.LoadXDocument("StringTable.xml", Manager.AcspNetSettings.DefaultLanguage);
 
 			if (stringTable != null)
 			{

@@ -68,7 +68,17 @@ namespace AcspNet
 		/// </value>
 		public bool TemplatesMemoryCache { get; set; }
 
+		/// <summary>
+		/// Gets or sets a value indicating whether site title postfix should be set automatically
+		/// </summary>
+		/// <value>
+		/// <c>true</c> if [disable automatic site title set]; otherwise, <c>false</c>.
+		/// </value>
 		public bool DisableAutomaticSiteTitleSet { get; set; }
+
+		/// <summary>
+		/// Gets or sets a value indicating whether internal AcspNet extensions from AcspNet.Extensions.Executable should be disabled
+		/// </summary>
 		public bool DisableAcspInternalExtensions { get; set; }
 
 		/// <summary>

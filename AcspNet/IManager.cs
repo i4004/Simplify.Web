@@ -9,6 +9,9 @@ using ApplicationHelper;
 
 namespace AcspNet
 {
+	/// <summary>
+	/// ACSP.NET manager class interface
+	/// </summary>
 	public interface IManager : IHideObjectMembers
 	{
 		/// <summary>
@@ -41,30 +44,15 @@ namespace AcspNet
 		/// </summary>
 		NameValueCollection Form { get;}
 
+		/// <summary>
+		/// Gets the route data.
+		/// </summary>
 		RouteData RouteData { get; }
 
 		/// <summary>
 		/// The stop watch (for web-page build measurement)
 		/// </summary>
 		Stopwatch StopWatch { get; }
-
-		AcspNetSettings Settings { get; }
-
-		/// <summary>
-		/// Gets the web-site physical path, for example: C:\inetpub\wwwroot\YourSite
-		/// </summary>
-		/// <value>
-		/// The site physical path.
-		/// </value>
-		string SitePhysicalPath { get; }
-
-		/// <summary>
-		/// Gets the web-site URL, for example: http://yoursite.com/site1/
-		/// </summary>
-		/// <value>
-		/// The site URL.
-		/// </value>
-		string SiteUrl { get; }
 
 		/// <summary>
 		/// Indicating whether session was created with the current request

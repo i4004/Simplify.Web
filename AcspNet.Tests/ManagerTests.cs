@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
+using System.Reflection;
 using System.Threading;
 using System.Web;
 using System.Web.Routing;
@@ -25,7 +26,7 @@ namespace AcspNet.Tests
     public class ManagerTests
 	{
 		private Mock<HttpResponseBase> _httpResponse;
-
+		
 		public Mock<HttpContextBase> GetTestHttpContext()
 		{
 			var context = new HttpContext(new HttpRequest("Foo", "http://localhost", ""), new HttpResponse(new StringWriter()));
@@ -101,11 +102,16 @@ namespace AcspNet.Tests
 			return new RouteData();
 		}
 
+		public Assembly GetTestUserAssembly()
+		{
+			return Assembly.GetCallingAssembly();
+		}
+
 		public Manager GetTestManager(string action = null, string mode = null, string id = null)
 		{
+			var httpContext = GetTestHttpContext();
 			var routeData = GetTestRouteData();
 			var fs = GetTestFileSystem();
-			var httpContext = GetTestHttpContext();
 
 			if(action != null)
 				httpContext.Object.Request.QueryString.Add("act", action);
@@ -118,16 +124,17 @@ namespace AcspNet.Tests
 
 			Template.FileSystem = fs;
 
-			return new Manager(routeData, httpContext.Object, fs);
+			return new Manager(routeData, httpContext.Object, fs, GetTestUserAssembly());
 		}
 
 		[Test]
 		public void Manager_Initialize_ExceptionsThrownCorrectly()
 		{
 			Assert.Throws<ArgumentNullException>(() => new Manager(null));
-			Assert.Throws<ArgumentNullException>(() => new Manager(null, null, null));
-			Assert.Throws<ArgumentNullException>(() => new Manager(GetTestRouteData(), null, null));
-			Assert.Throws<ArgumentNullException>(() => new Manager(GetTestRouteData(), GetTestHttpContext().Object, null));
+			Assert.Throws<ArgumentNullException>(() => new Manager(null, null, null, null));
+			Assert.Throws<ArgumentNullException>(() => new Manager(GetTestRouteData(), null, null, null));
+			Assert.Throws<ArgumentNullException>(() => new Manager(GetTestRouteData(), GetTestHttpContext().Object, null, null));
+			Assert.Throws<ArgumentNullException>(() => new Manager(GetTestRouteData(), GetTestHttpContext().Object, GetTestFileSystem(), null));
 		}
 
 		[Test]
@@ -143,7 +150,7 @@ namespace AcspNet.Tests
 			Assert.IsNotNull(manager.QueryString);
 			Assert.IsNotNull(manager.Form);
 			Assert.IsNotNull(manager.StopWatch);
-			Assert.IsNotNull(manager.Settings);
+			Assert.IsNotNull(Manager.AcspNetSettings);
 			Assert.IsNotNull(manager.Environment);
 			Assert.IsNotNull(manager.StringTable);
 			Assert.IsNotNull(manager.DataCollector);
@@ -154,8 +161,8 @@ namespace AcspNet.Tests
 			Assert.IsNotNull(manager.ExtensionsWrapper);
 			Assert.IsNotNull(manager.ExtensionsWrapper.MessagePage);
 			Assert.IsNotNull(manager.ExtensionsWrapper.IdProcessor);
-			Assert.AreEqual("C:/WebSites/FooSite/", manager.SitePhysicalPath);
-			Assert.AreEqual("http://localhost/FooSite/", manager.SiteUrl);
+			Assert.AreEqual("C:/WebSites/FooSite/", Manager.SitePhysicalPath);
+			Assert.AreEqual("http://localhost/FooSite/", Manager.SiteUrl);
 			Assert.IsNotNull(manager.CurrentAction);
 			Assert.IsNotNull(manager.CurrentMode);
 		}
@@ -264,7 +271,7 @@ namespace AcspNet.Tests
 			Assert.IsNotNull(tpl);
 			Assert.AreEqual("Hello world!!!", tpl.Get());
 
-			manager.Settings.TemplatesMemoryCache = true;
+			Manager.AcspNetSettings.TemplatesMemoryCache = true;
 
 			Assert.IsNotNull(tpl);
 			Assert.AreEqual("Hello world!!!", manager.TemplateFactory.Load("Foo.tpl").Get());
@@ -276,8 +283,8 @@ namespace AcspNet.Tests
 
 			var fs = GetTestFileSystemForAsyncTesting();
 			Template.FileSystem = fs;
-			var manager1 = new Manager(GetTestRouteData(), GetTestHttpContext().Object, fs);
-			var manager2 = new Manager(GetTestRouteData(), GetTestHttpContext().Object, fs);
+			var manager1 = new Manager(GetTestRouteData(), GetTestHttpContext().Object, fs, GetTestUserAssembly());
+			var manager2 = new Manager(GetTestRouteData(), GetTestHttpContext().Object, fs, GetTestUserAssembly());
 
 			ThreadStart first = () => manager1.TemplateFactory.Load("Async1.tpl");
 			ThreadStart second = () => manager2.TemplateFactory.Load("Async1.tpl");
@@ -292,11 +299,12 @@ namespace AcspNet.Tests
 			var routeData = GetTestRouteData();
 			var fs = GetTestFileSystem();
 			var httpContext = GetTestHttpContext();
+			var userAssembly = GetTestUserAssembly();
 			Template.FileSystem = fs;
 
 			httpContext.Setup(x => x.Response.Write(It.IsAny<string>())).Callback<string>(DataCollectorResponseWriteWriteDataIsCorrect);
 
-			var manager = new Manager(routeData, httpContext.Object, fs);
+			var manager = new Manager(routeData, httpContext.Object, fs, userAssembly);
 
 			manager.DataCollector.Add(null, null);
 			Assert.IsFalse(manager.DataCollector.IsDataExist("Foo"));
@@ -346,6 +354,7 @@ namespace AcspNet.Tests
 		[Test]
 		public void MainPage_Execution_BehaviourIsCorrect()
 		{
+			RouteConfig.RegisterRoutes();
 			var manager = GetTestManager();
 
 			Assert.IsTrue(manager.IsNewSession);
@@ -391,6 +400,13 @@ namespace AcspNet.Tests
 		}
 
 		[Test]
+		public void Manager_Usage_ExternalLibraryExtensionUsageIsCorrect()
+		{
+			var manager = GetTestManager("foo");
+			manager.Run();
+		}
+		
+		[Test]
 		public void Manager_Usage_ActionIdUsageIsCorrect()
 		{
 			var manager = GetTestManager("foo2", null, "2");
@@ -421,20 +437,21 @@ namespace AcspNet.Tests
 			var routeData = GetTestRouteData();
 			var httpContext = GetTestHttpContext();
 			var fs = GetTestFileSystem();
+			var userAssembly = GetTestUserAssembly();
 			Template.FileSystem = fs;
 
-			var manager = new Manager(routeData, httpContext.Object, fs);
+			var manager = new Manager(routeData, httpContext.Object, fs, userAssembly);
 			manager.Run();
 
 			manager.ExtensionsWrapper.MessagePage.Message = "Hello!";
 			manager.ExtensionsWrapper.MessagePage.NavigateToMessagePage();
 
 			httpContext.Object.Request.QueryString.Add("act", "message");
-			manager = new Manager(routeData, httpContext.Object, fs);
+			manager = new Manager(routeData, httpContext.Object, fs, userAssembly);
 			manager.Run();
 
 			manager.ExtensionsWrapper.MessagePage.NavigateToMessagePage("Hello!");
-			manager = new Manager(routeData, httpContext.Object, fs);
+			manager = new Manager(routeData, httpContext.Object, fs, userAssembly);
 			manager.Run();
 
 			manager.Run();
@@ -453,9 +470,10 @@ namespace AcspNet.Tests
 			var routeData = GetTestRouteData();
 			var httpContext = GetTestHttpContext();
 			var fs = GetTestFileSystem();
+			var userAssembly = GetTestUserAssembly();
 			Template.FileSystem = fs;
-			
-			var manager = new Manager(routeData, httpContext.Object, fs);
+
+			var manager = new Manager(routeData, httpContext.Object, fs, userAssembly);
 			manager.Run();
 
 			Assert.IsNull(manager.ExtensionsWrapper.IdProcessor.CheckAndGetQueryStringIdAjax());
@@ -479,9 +497,10 @@ namespace AcspNet.Tests
 			var routeData = GetTestRouteData();
 			var httpContext = GetTestHttpContext();
 			var fs = GetTestFileSystem();
+			var userAssembly = GetTestUserAssembly();
 			Template.FileSystem = fs;
 
-			var manager = new Manager(routeData, httpContext.Object, fs);
+			var manager = new Manager(routeData, httpContext.Object, fs, userAssembly);
 			manager.Run();
 
 			Assert.IsNull(manager.ExtensionsWrapper.IdProcessor.CheckAndGetQueryStringID());
@@ -499,9 +518,10 @@ namespace AcspNet.Tests
 			var routeData = GetTestRouteData();
 			var httpContext = GetTestHttpContext();
 			var fs = GetTestFileSystem();
+			var userAssembly = GetTestUserAssembly();
 			Template.FileSystem = fs;
 
-			var manager = new Manager(routeData, httpContext.Object, fs);
+			var manager = new Manager(routeData, httpContext.Object, fs, userAssembly);
 			manager.Run();
 
 			Assert.IsNull(manager.ExtensionsWrapper.IdProcessor.CheckAndGetFormID());
@@ -519,13 +539,14 @@ namespace AcspNet.Tests
 			var routeData = GetTestRouteData();
 			var httpContext = GetTestHttpContext();
 			var fs = GetTestFileSystem();
+			var userAssembly = GetTestUserAssembly();
 			Template.FileSystem = fs;
 
 			routeData.Values.Add("action", "routeAction");
 			routeData.Values.Add("mode", "routeMode");
 			routeData.Values.Add("id", "routeID");
 
-			var manager = new Manager(routeData, httpContext.Object, fs);
+			var manager = new Manager(routeData, httpContext.Object, fs, userAssembly);
 
 			Assert.AreEqual("routeAction", manager.CurrentAction);
 			Assert.AreEqual("routeMode", manager.CurrentMode);

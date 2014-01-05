@@ -4,6 +4,9 @@ using ApplicationHelper;
 
 namespace AcspNet
 {
+	/// <summary>
+	/// Text and XML files loader
+	/// </summary>
 	public interface IExtensionsDataLoader : IHideObjectMembers
 	{
 		/// <summary>

@@ -4,8 +4,14 @@ using ApplicationHelper;
 
 namespace AcspNet
 {
+	/// <summary>
+	/// Site master page template data collector
+	/// </summary>
 	public interface IDataCollector : IHideObjectMembers
 	{
+		/// <summary>
+		/// Gets the data collector items which will be inserted into master template file.
+		/// </summary>
 		IDictionary<string, string> Items { get; }
 
 		/// <summary>

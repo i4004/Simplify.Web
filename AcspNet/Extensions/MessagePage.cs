@@ -77,6 +77,9 @@ namespace AcspNet.Extensions
 			NavigateToMessagePage();
 		}
 
+		/// <summary>
+		/// Removes the message from the crurrent session.
+		/// </summary>
 		public void RemoveMessage()
 		{
 			Manager.Session.Remove(MessageSessionFieldName);

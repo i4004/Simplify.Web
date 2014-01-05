@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Specialized;
 
 namespace AcspNet
 {
@@ -21,6 +20,9 @@ namespace AcspNet
 			_manager = manager;
 		}
 
+		/// <summary>
+		/// Gets the data collector items which will be inserted into master template file.
+		/// </summary>
 		public IDictionary<string, string> Items { get; private set; }
 
 
@@ -59,7 +61,7 @@ namespace AcspNet
 		/// <returns></returns>
 		public void Add(string value)
 		{
-			Add(_manager.Settings.MainContentVariableName, value);
+			Add(Manager.AcspNetSettings.MainContentVariableName, value);
 		}
 
 		/// <summary>
@@ -69,7 +71,7 @@ namespace AcspNet
 		/// <returns></returns>
 		public void AddTitle(string value)
 		{
-			Add(_manager.Settings.TitleVariableName, value);
+			Add(Manager.AcspNetSettings.TitleVariableName, value);
 		}
 
 		/// <summary>
@@ -90,7 +92,7 @@ namespace AcspNet
 		/// <returns></returns>
 		public void AddSt(string stringTableKey)
 		{
-			AddSt(_manager.Settings.MainContentVariableName, stringTableKey);
+			AddSt(Manager.AcspNetSettings.MainContentVariableName, stringTableKey);
 		}
 
 		/// <summary>
@@ -100,7 +102,7 @@ namespace AcspNet
 		/// <returns></returns>
 		public void AddTitleSt(string stringTableKey)
 		{
-			AddSt(_manager.Settings.TitleVariableName, stringTableKey);
+			AddSt(Manager.AcspNetSettings.TitleVariableName, stringTableKey);
 		}
 
 		/// <summary>
@@ -119,10 +121,10 @@ namespace AcspNet
 		{
 			if (!_isDisplayDisabled)
 			{
-				if (!_manager.Settings.DisableAutomaticSiteTitleSet)
+				if (!Manager.AcspNetSettings.DisableAutomaticSiteTitleSet)
 					SetSiteTitle();
 
-				var tpl = _manager.TemplateFactory.Load(_manager.Settings.MasterTemplateFileName);
+				var tpl = _manager.TemplateFactory.Load(Manager.AcspNetSettings.MasterTemplateFileName);
 
 				foreach (var item in Items.Keys)
 					tpl.Set(item, Items[item]);
@@ -145,10 +147,10 @@ namespace AcspNet
 		private void SetSiteTitle()
 		{
 			if (string.IsNullOrEmpty(_manager.CurrentAction) && string.IsNullOrEmpty(_manager.CurrentMode)
-				&& !IsDataExist(_manager.Settings.TitleVariableName))
-				Add(_manager.Settings.TitleVariableName, _manager.StringTable["SiteTitle"]);
+				&& !IsDataExist(Manager.AcspNetSettings.TitleVariableName))
+				Add(Manager.AcspNetSettings.TitleVariableName, _manager.StringTable["SiteTitle"]);
 			else
-				Add(_manager.Settings.TitleVariableName, " - " + _manager.StringTable["SiteTitle"]);
+				Add(Manager.AcspNetSettings.TitleVariableName, " - " + _manager.StringTable["SiteTitle"]);
 		}
 	}
 }

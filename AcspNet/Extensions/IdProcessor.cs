@@ -3,14 +3,18 @@ using AcspNet.Html;
 namespace AcspNet.Extensions
 {
 	/// <summary>
-	/// Query and form data helper
-	/// Usable <see cref="StringTable"/> items:
+	/// Class that is used to parse 'ID' field from request query string or form.
+	/// Usable <see cref="StringTable" /> items:
 	/// "NotifyPageDataError"
 	/// </summary>
 	public sealed class IdProcessor : IIdProcessor
 	{
 		private readonly Manager _manager;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="IdProcessor"/> class.
+		/// </summary>
+		/// <param name="manager">The manager.</param>
 		public IdProcessor(Manager manager)
 		{
 			_manager = manager;

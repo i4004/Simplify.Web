@@ -3,6 +3,9 @@ using ApplicationHelper.Templates;
 
 namespace AcspNet
 {
+	/// <summary>
+	/// Text templates loader.
+	/// </summary>
 	public interface ITemplateFactory : IHideObjectMembers
 	{
 		/// <summary>

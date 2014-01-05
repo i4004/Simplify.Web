@@ -7,7 +7,7 @@ using ApplicationHelper.Templates;
 namespace AcspNet
 {
 	/// <summary>
-	/// Html templates factory
+	/// Text templates loader.
 	/// </summary>
 	public sealed class TemplateFactory : ITemplateFactory
 	{
@@ -16,6 +16,10 @@ namespace AcspNet
 		private static readonly IDictionary<KeyValuePair<string, string>, string> Cache = new Dictionary<KeyValuePair<string, string>, string>();
 		private static readonly object Locker = new object();
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="TemplateFactory"/> class.
+		/// </summary>
+		/// <param name="manager">The manager.</param>
 		public TemplateFactory(Manager manager)
 		{
 			_manager = manager;
@@ -33,7 +37,7 @@ namespace AcspNet
 
 			var filePath = string.Format("{0}/{1}", _manager.Environment.TemplatesPhysicalPath, fileName);
 
-			if (_manager.Settings.TemplatesMemoryCache)
+			if (Manager.AcspNetSettings.TemplatesMemoryCache)
 			{
 				var existingItem = Cache.FirstOrDefault(x => x.Key.Key == filePath && x.Key.Value == _manager.Environment.Language);
 
@@ -47,13 +51,13 @@ namespace AcspNet
 					if (!existingItem.Equals(default(KeyValuePair<KeyValuePair<string, string>, string>)))
 						return new Template(existingItem.Value, false);
 
-					var tpl = new Template(filePath, _manager.Environment.Language, _manager.Settings.DefaultLanguage);
+					var tpl = new Template(filePath, _manager.Environment.Language, Manager.AcspNetSettings.DefaultLanguage);
 					Cache.Add(new KeyValuePair<string, string>(filePath, _manager.Environment.Language), tpl.Get());
 					return tpl;					
 				}
 			}
 
-			return new Template(filePath, _manager.Environment.Language, _manager.Settings.DefaultLanguage);
+			return new Template(filePath, _manager.Environment.Language, Manager.AcspNetSettings.DefaultLanguage);
 		}
 	}
 }

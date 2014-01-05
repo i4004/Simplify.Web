@@ -2,6 +2,9 @@
 
 namespace AcspNet
 {
+	/// <summary>
+	/// Current request environment data.
+	/// </summary>
 	public interface IEnvironment : IHideObjectMembers
 	{
 		/// <summary>

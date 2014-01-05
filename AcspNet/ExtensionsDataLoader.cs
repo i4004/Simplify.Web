@@ -3,12 +3,16 @@
 namespace AcspNet
 {
 	/// <summary>
-	/// Extension for loading data from extensions data directory
+	/// Text and XML files loader
 	/// </summary>
 	public sealed class ExtensionsDataLoader : IExtensionsDataLoader
 	{
 		private readonly Manager _manager;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ExtensionsDataLoader"/> class.
+		/// </summary>
+		/// <param name="manager">The manager.</param>
 		public ExtensionsDataLoader(Manager manager)
 		{
 			_manager = manager;
@@ -35,15 +39,15 @@ namespace AcspNet
 			var indexOfPoint = extensionsDataFileName.IndexOf(".", System.StringComparison.Ordinal);
 
 			if (indexOfPoint == -1)
-				return string.Format("{0}{1}/{2}.{3}", _manager.SitePhysicalPath, _manager.Settings.ExtensionDataDir,
+				return string.Format("{0}{1}/{2}.{3}", Manager.SitePhysicalPath, Manager.AcspNetSettings.ExtensionDataDir,
 					extensionsDataFileName, language);
 
 			var extensionsDataFileNameFirstPart = extensionsDataFileName.Substring(0, indexOfPoint);
 			var extensionsDataFileNameLastPart = extensionsDataFileName.Substring(indexOfPoint, extensionsDataFileName.Length - indexOfPoint);
 
-			var path = string.Format("{0}{1}/{2}.{3}{4}", _manager.SitePhysicalPath, _manager.Settings.ExtensionDataDir, extensionsDataFileNameFirstPart, language, extensionsDataFileNameLastPart);
+			var path = string.Format("{0}{1}/{2}.{3}{4}", Manager.SitePhysicalPath, Manager.AcspNetSettings.ExtensionDataDir, extensionsDataFileNameFirstPart, language, extensionsDataFileNameLastPart);
 
-			return !_manager.FileSystem.File.Exists(path) ? string.Format("{0}{1}/{2}.{3}{4}", _manager.SitePhysicalPath, _manager.Settings.ExtensionDataDir, extensionsDataFileNameFirstPart, _manager.Settings.DefaultLanguage, extensionsDataFileNameLastPart) : path;
+			return !_manager.FileSystem.File.Exists(path) ? string.Format("{0}{1}/{2}.{3}{4}", Manager.SitePhysicalPath, Manager.AcspNetSettings.ExtensionDataDir, extensionsDataFileNameFirstPart, Manager.AcspNetSettings.DefaultLanguage, extensionsDataFileNameLastPart) : path;
 		}
 
 		/// <summary>
