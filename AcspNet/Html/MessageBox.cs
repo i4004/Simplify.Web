@@ -62,8 +62,8 @@ namespace AcspNet.Html
 			tpl.Set("Message", text);
 			tpl.Set("Title", title == "" ? _manager.StringTable["FormTitleMessageBox"] : title);
 
-			_manager.DataCollector.Add(Manager.AcspNetSettings.MainContentVariableName, tpl.Get());
-			_manager.DataCollector.Add(Manager.AcspNetSettings.TitleVariableName, title == "" ? _manager.StringTable["FormTitleMessageBox"] : title);
+			_manager.DataCollector.Add(_manager.Environment.MainContentVariableName, tpl.Get());
+			_manager.DataCollector.Add(_manager.Environment.TitleVariableName, title == "" ? _manager.StringTable["FormTitleMessageBox"] : title);
 		}
 
 		/// <summary>

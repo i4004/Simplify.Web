@@ -37,7 +37,7 @@ namespace AcspNet
 
 			var filePath = string.Format("{0}/{1}", _manager.Environment.TemplatesPhysicalPath, fileName);
 
-			if (Manager.AcspNetSettings.TemplatesMemoryCache)
+			if (_manager.Environment.TemplatesMemoryCache)
 			{
 				var existingItem = Cache.FirstOrDefault(x => x.Key.Key == filePath && x.Key.Value == _manager.Environment.Language);
 
@@ -51,13 +51,13 @@ namespace AcspNet
 					if (!existingItem.Equals(default(KeyValuePair<KeyValuePair<string, string>, string>)))
 						return new Template(existingItem.Value, false);
 
-					var tpl = new Template(filePath, _manager.Environment.Language, Manager.AcspNetSettings.DefaultLanguage);
+					var tpl = new Template(filePath, _manager.Environment.Language, Manager.Settings.DefaultLanguage);
 					Cache.Add(new KeyValuePair<string, string>(filePath, _manager.Environment.Language), tpl.Get());
 					return tpl;					
 				}
 			}
 
-			return new Template(filePath, _manager.Environment.Language, Manager.AcspNetSettings.DefaultLanguage);
+			return new Template(filePath, _manager.Environment.Language, Manager.Settings.DefaultLanguage);
 		}
 	}
 }

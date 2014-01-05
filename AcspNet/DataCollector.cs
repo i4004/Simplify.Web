@@ -61,7 +61,7 @@ namespace AcspNet
 		/// <returns></returns>
 		public void Add(string value)
 		{
-			Add(Manager.AcspNetSettings.MainContentVariableName, value);
+			Add(_manager.Environment.MainContentVariableName, value);
 		}
 
 		/// <summary>
@@ -71,7 +71,7 @@ namespace AcspNet
 		/// <returns></returns>
 		public void AddTitle(string value)
 		{
-			Add(Manager.AcspNetSettings.TitleVariableName, value);
+			Add(_manager.Environment.TitleVariableName, value);
 		}
 
 		/// <summary>
@@ -92,7 +92,7 @@ namespace AcspNet
 		/// <returns></returns>
 		public void AddSt(string stringTableKey)
 		{
-			AddSt(Manager.AcspNetSettings.MainContentVariableName, stringTableKey);
+			AddSt(_manager.Environment.MainContentVariableName, stringTableKey);
 		}
 
 		/// <summary>
@@ -102,7 +102,7 @@ namespace AcspNet
 		/// <returns></returns>
 		public void AddTitleSt(string stringTableKey)
 		{
-			AddSt(Manager.AcspNetSettings.TitleVariableName, stringTableKey);
+			AddSt(_manager.Environment.TitleVariableName, stringTableKey);
 		}
 
 		/// <summary>
@@ -121,10 +121,10 @@ namespace AcspNet
 		{
 			if (!_isDisplayDisabled)
 			{
-				if (!Manager.AcspNetSettings.DisableAutomaticSiteTitleSet)
+				if (!Manager.Settings.DisableAutomaticSiteTitleSet)
 					SetSiteTitle();
 
-				var tpl = _manager.TemplateFactory.Load(Manager.AcspNetSettings.MasterTemplateFileName);
+				var tpl = _manager.TemplateFactory.Load(_manager.Environment.MasterTemplateFileName);
 
 				foreach (var item in Items.Keys)
 					tpl.Set(item, Items[item]);
@@ -147,10 +147,10 @@ namespace AcspNet
 		private void SetSiteTitle()
 		{
 			if (string.IsNullOrEmpty(_manager.CurrentAction) && string.IsNullOrEmpty(_manager.CurrentMode)
-				&& !IsDataExist(Manager.AcspNetSettings.TitleVariableName))
-				Add(Manager.AcspNetSettings.TitleVariableName, _manager.StringTable["SiteTitle"]);
+				&& !IsDataExist(_manager.Environment.TitleVariableName))
+				Add(_manager.Environment.TitleVariableName, _manager.StringTable["SiteTitle"]);
 			else
-				Add(Manager.AcspNetSettings.TitleVariableName, " - " + _manager.StringTable["SiteTitle"]);
+				Add(_manager.Environment.TitleVariableName, " - " + _manager.StringTable["SiteTitle"]);
 		}
 	}
 }

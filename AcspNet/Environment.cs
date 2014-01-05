@@ -10,11 +10,6 @@ namespace AcspNet
 	/// </summary>
 	public sealed class Environment : IEnvironment
 	{
-		/// <summary>
-		/// Language field name in user cookies
-		/// </summary>
-		public const string CookieLanguageFieldName = "language";
-
 		private string _language = "";
 
 		private readonly Manager _manager;
@@ -23,12 +18,17 @@ namespace AcspNet
 		{
 			_manager = manager;
 
-			var cookieLanguage = _manager.Request.Cookies[CookieLanguageFieldName];
+			var cookieLanguage = _manager.Request.Cookies[Manager.CookieLanguageFieldName];
 
-			SetCurrentLanguage(cookieLanguage != null && !string.IsNullOrEmpty(cookieLanguage.Value) ? cookieLanguage.Value : Manager.AcspNetSettings.DefaultLanguage);
+			SetCurrentLanguage(cookieLanguage != null && !string.IsNullOrEmpty(cookieLanguage.Value) ? cookieLanguage.Value : Manager.Settings.DefaultLanguage);
 
-			TemplatesPath = Manager.AcspNetSettings.DefaultTemplatesDir;
-			SiteStyle = Manager.AcspNetSettings.DefaultStyle;
+			TemplatesPath = Manager.Settings.DefaultTemplatesPath;
+			SiteStyle = Manager.Settings.DefaultStyle;
+			ExtensionsDataPath = Manager.Settings.DefaultExtensionDataPath;
+			TemplatesMemoryCache = Manager.Settings.TemplatesMemoryCache;
+			MasterTemplateFileName = Manager.Settings.DefaultMasterTemplateFileName;
+			MainContentVariableName = Manager.Settings.DefaultMainContentVariableName;
+			TitleVariableName = Manager.Settings.DefaultTitleVariableName;
 		}
 
 		/// <summary>
@@ -37,7 +37,7 @@ namespace AcspNet
 		public string TemplatesPath { get; set; }
 
 		/// <summary>
-		/// Site current templates physical directory
+		/// Site current templates directory physical path
 		/// </summary>
 		public string TemplatesPhysicalPath
 		{
@@ -61,6 +61,43 @@ namespace AcspNet
 		}
 
 		/// <summary>
+		/// Site current extensions data directory relative path
+		/// </summary>
+		public string ExtensionsDataPath { get; set; }
+
+		/// <summary>
+		/// Site templates memory cache status
+		/// </summary>
+		/// <value>
+		/// <c>true</c> if templates memory cache enabled; otherwise, <c>false</c>.
+		/// </value>
+		public bool TemplatesMemoryCache { get; set; }
+
+		/// <summary>
+		/// Gets or sets the current master page template file name
+		/// </summary>
+		/// <value>
+		/// The name of the master page template file
+		/// </value>
+		public string MasterTemplateFileName { get; set; }
+
+		/// <summary>
+		/// Gets or sets the current master template main content variable name.
+		/// </summary>
+		/// <value>
+		/// The  master template main content variable name.
+		/// </value>
+		public string MainContentVariableName { get; set; }
+
+		/// <summary>
+		/// Gets or sets the current master template title variable name.
+		/// </summary>
+		/// <value>
+		/// The title variable name.
+		/// </value>
+		public string TitleVariableName { get; set; }
+
+		/// <summary>
 		/// Set site cookie language value
 		/// </summary>
 		/// <param name="language">Language code</param>
@@ -69,7 +106,7 @@ namespace AcspNet
 			if (string.IsNullOrEmpty(language))
 				return;
 
-			var cookie = new HttpCookie(CookieLanguageFieldName, language)
+			var cookie = new HttpCookie(Manager.CookieLanguageFieldName, language)
 			{
 				Expires = DateTime.Now.AddYears(5)
 			};

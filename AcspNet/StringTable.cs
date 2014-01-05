@@ -43,10 +43,10 @@ namespace AcspNet
 			
 			// Loading default culture strings
 
-			if (_manager.Environment.Language == Manager.AcspNetSettings.DefaultLanguage)
+			if (_manager.Environment.Language == Manager.Settings.DefaultLanguage)
 				return;
 
-			stringTable = _manager.DataLoader.LoadXDocument("StringTable.xml", Manager.AcspNetSettings.DefaultLanguage);
+			stringTable = _manager.DataLoader.LoadXDocument("StringTable.xml", Manager.Settings.DefaultLanguage);
 
 			if (stringTable != null)
 			{

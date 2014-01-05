@@ -39,15 +39,15 @@ namespace AcspNet
 			var indexOfPoint = extensionsDataFileName.IndexOf(".", System.StringComparison.Ordinal);
 
 			if (indexOfPoint == -1)
-				return string.Format("{0}{1}/{2}.{3}", Manager.SitePhysicalPath, Manager.AcspNetSettings.ExtensionDataDir,
+				return string.Format("{0}{1}/{2}.{3}", Manager.SitePhysicalPath, _manager.Environment.ExtensionsDataPath,
 					extensionsDataFileName, language);
 
 			var extensionsDataFileNameFirstPart = extensionsDataFileName.Substring(0, indexOfPoint);
 			var extensionsDataFileNameLastPart = extensionsDataFileName.Substring(indexOfPoint, extensionsDataFileName.Length - indexOfPoint);
 
-			var path = string.Format("{0}{1}/{2}.{3}{4}", Manager.SitePhysicalPath, Manager.AcspNetSettings.ExtensionDataDir, extensionsDataFileNameFirstPart, language, extensionsDataFileNameLastPart);
+			var path = string.Format("{0}{1}/{2}.{3}{4}", Manager.SitePhysicalPath, _manager.Environment.ExtensionsDataPath, extensionsDataFileNameFirstPart, language, extensionsDataFileNameLastPart);
 
-			return !_manager.FileSystem.File.Exists(path) ? string.Format("{0}{1}/{2}.{3}{4}", Manager.SitePhysicalPath, Manager.AcspNetSettings.ExtensionDataDir, extensionsDataFileNameFirstPart, Manager.AcspNetSettings.DefaultLanguage, extensionsDataFileNameLastPart) : path;
+			return !_manager.FileSystem.File.Exists(path) ? string.Format("{0}{1}/{2}.{3}{4}", Manager.SitePhysicalPath, _manager.Environment.ExtensionsDataPath, extensionsDataFileNameFirstPart, Manager.Settings.DefaultLanguage, extensionsDataFileNameLastPart) : path;
 		}
 
 		/// <summary>

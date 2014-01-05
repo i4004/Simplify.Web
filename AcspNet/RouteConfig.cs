@@ -19,7 +19,7 @@ namespace AcspNet
 		/// </summary>
 		public static void RegisterRoutes()
 		{
-			RegisterRoutes(RouteTable.Routes, Manager.AcspNetSettings);
+			RegisterRoutes(RouteTable.Routes, Manager.Settings);
 		}
 	}
 }

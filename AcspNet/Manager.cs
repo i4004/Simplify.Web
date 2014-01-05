@@ -53,6 +53,11 @@ namespace AcspNet
 		/// </summary>
 		public const string SiteVariableNameSiteVirtualPath = "SV:SiteVirtualPath";
 
+		/// <summary>
+		/// Language field name in user cookies
+		/// </summary>
+		public const string CookieLanguageFieldName = "language";
+
 		private const string IsNewSessionFieldName = "AcspIsNewSession";
 
 		private static List<ExecExtensionMetaContainer> ExecExtensionsMetaContainers = new List<ExecExtensionMetaContainer>();
@@ -181,7 +186,7 @@ namespace AcspNet
 							                                   if (Request == null || Request.Url == null)
 								                                   return null;
 
-							                                   var url = string.Format("{0}://{1}{2}",
+							                                   var url = String.Format("{0}://{1}{2}",
 								                                   Request.Url.Scheme,
 								                                   Request.Url.Authority,
 								                                   Request.ApplicationPath);
@@ -262,7 +267,7 @@ namespace AcspNet
 		/// <summary>
 		/// Gets the AcspNet settings.
 		/// </summary>
-		public static AcspNetSettings AcspNetSettings
+		public static AcspNetSettings Settings
 		{
 			get
 			{				
@@ -457,14 +462,14 @@ namespace AcspNet
 		/// <returns></returns>
 		public string GetActionModeUrl()
 		{
-			if (string.IsNullOrEmpty(CurrentAction)) return "";
+			if (String.IsNullOrEmpty(CurrentAction)) return "";
 
 			var url = "?act=" + CurrentAction;
 
-			if(!string.IsNullOrEmpty(CurrentMode))
+			if(!String.IsNullOrEmpty(CurrentMode))
 				url += "&amp;mode=" + CurrentMode;
 
-			if (!string.IsNullOrEmpty(CurrentID))
+			if (!String.IsNullOrEmpty(CurrentID))
 				url += "&amp;id=" + CurrentID;
 
 			return url;
@@ -475,7 +480,7 @@ namespace AcspNet
 		/// </summary>
 		public void Redirect(string url)
 		{
-			if(string.IsNullOrEmpty(url))
+			if(String.IsNullOrEmpty(url))
 				throw new ArgumentNullException("url");
 
 			StopExtensionsExecution();

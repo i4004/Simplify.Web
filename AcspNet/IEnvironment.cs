@@ -13,7 +13,7 @@ namespace AcspNet
 		string TemplatesPath { get; set; }
 
 		/// <summary>
-		/// Site current templates physical directory
+		/// Site current templates directory physical path
 		/// </summary>
 		string TemplatesPhysicalPath { get; }
 
@@ -26,6 +26,43 @@ namespace AcspNet
 		/// Site current language, for example: "en", "ru", "de" etc.
 		/// </summary>
 		string Language { get; }
+
+		/// <summary>
+		/// Site current extensions data directory relative path
+		/// </summary>
+		string ExtensionsDataPath { get; set; }
+
+		/// <summary>
+		/// Site templates memory cache status
+		/// </summary>
+		/// <value>
+		/// <c>true</c> if templates memory cache enabled; otherwise, <c>false</c>.
+		/// </value>
+		bool TemplatesMemoryCache { get; set; }
+
+		/// <summary>
+		/// Gets or sets the current master page template file name
+		/// </summary>
+		/// <value>
+		/// The name of the master page template file
+		/// </value>
+		string MasterTemplateFileName { get; set; }
+
+		/// <summary>
+		/// Gets or sets the current master template main content variable name.
+		/// </summary>
+		/// <value>
+		/// The  master template main content variable name.
+		/// </value>
+		string MainContentVariableName { get; set; }
+
+		/// <summary>
+		/// Gets or sets the current master template title variable name.
+		/// </summary>
+		/// <value>
+		/// The title variable name.
+		/// </value>
+		string TitleVariableName { get; set; }
 
 		/// <summary>
 		/// Set site cookie language value

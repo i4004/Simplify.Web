@@ -150,7 +150,7 @@ namespace AcspNet.Tests
 			Assert.IsNotNull(manager.QueryString);
 			Assert.IsNotNull(manager.Form);
 			Assert.IsNotNull(manager.StopWatch);
-			Assert.IsNotNull(Manager.AcspNetSettings);
+			Assert.IsNotNull(Manager.Settings);
 			Assert.IsNotNull(manager.Environment);
 			Assert.IsNotNull(manager.StringTable);
 			Assert.IsNotNull(manager.DataCollector);
@@ -190,10 +190,10 @@ namespace AcspNet.Tests
 			manager.Environment.SetCookieLanguage("ru");
 			Assert.AreEqual(1, manager.Response.Cookies.Count);
 
-			var cookie = manager.Response.Cookies[Environment.CookieLanguageFieldName];
+			var cookie = manager.Response.Cookies[Manager.CookieLanguageFieldName];
 
 			Assert.IsNotNull(cookie);
-			Assert.AreEqual(Environment.CookieLanguageFieldName, cookie.Name);
+			Assert.AreEqual(Manager.CookieLanguageFieldName, cookie.Name);
 			Assert.AreEqual("ru", cookie.Value);
 		}
 
@@ -271,7 +271,7 @@ namespace AcspNet.Tests
 			Assert.IsNotNull(tpl);
 			Assert.AreEqual("Hello world!!!", tpl.Get());
 
-			Manager.AcspNetSettings.TemplatesMemoryCache = true;
+			manager.Environment.TemplatesMemoryCache = true;
 
 			Assert.IsNotNull(tpl);
 			Assert.AreEqual("Hello world!!!", manager.TemplateFactory.Load("Foo.tpl").Get());
