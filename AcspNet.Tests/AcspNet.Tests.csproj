@@ -90,9 +90,6 @@
     <Reference Include="System.Web" />
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="SystemInterface">
-      <HintPath>..\packages\SystemWrapper-sn.0.5.3\lib\net40\SystemInterface.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\Executable\ActionIdTest.cs" />
