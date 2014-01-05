@@ -430,7 +430,6 @@ namespace AcspNet
 		/// <summary>
 		/// Run ACSP engine
 		/// </summary>
-		[EditorBrowsable(EditorBrowsableState.Never)]
 		public void Run()
 		{
 			CreateLibraryExtensionsInstances();
