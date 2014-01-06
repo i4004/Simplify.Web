@@ -7,10 +7,10 @@ namespace AcspNet.Tests.Extensions.Executable
 	{
 		public override void Invoke()
 		{
-			var execItems = Manager.GetExecExtensionsMetaData();
+			var execItems = AcspNet.Manager.GetExecExtensionsMetaData();
 			Assert.AreEqual(16, execItems.Count);
 
-			var libsitems = Manager.GetLibExtensionsMetaData();
+			var libsitems = AcspNet.Manager.GetLibExtensionsMetaData();
 			Assert.AreEqual(4, libsitems.Count);
 		}
 	}

@@ -501,7 +501,7 @@ namespace AcspNet
 		/// Get currently loaded executable extensions meta-data
 		/// </summary>
 		/// <returns></returns>
-		public IList<ExecExtensionMetaContainer> GetExecExtensionsMetaData()
+		public static IList<ExecExtensionMetaContainer> GetExecExtensionsMetaData()
 		{
 			return ExecExtensionsMetaContainers.ToArray();
 		}
@@ -510,7 +510,7 @@ namespace AcspNet
 		/// Gets the library extensions meta data.
 		/// </summary>
 		/// <returns></returns>
-		public IList<LibExtensionMetaContainer> GetLibExtensionsMetaData()
+		public static IList<LibExtensionMetaContainer> GetLibExtensionsMetaData()
 		{
 			return LibExtensionsMetaContainers.ToArray();
 		}

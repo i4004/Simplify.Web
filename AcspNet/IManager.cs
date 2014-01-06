@@ -113,17 +113,5 @@ namespace AcspNet
 		/// Redirects a client to a new URL
 		/// </summary>
 		void Redirect(string url);
-
-		/// <summary>
-		/// Get currently loaded executable extensions meta-data
-		/// </summary>
-		/// <returns></returns>
-		IList<ExecExtensionMetaContainer> GetExecExtensionsMetaData();
-
-		/// <summary>
-		/// Gets the library extensions meta data.
-		/// </summary>
-		/// <returns></returns>
-		IList<LibExtensionMetaContainer> GetLibExtensionsMetaData();
 	}
 }
