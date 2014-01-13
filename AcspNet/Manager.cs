@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO.Abstractions;
 using System.Linq;
@@ -69,10 +68,6 @@ namespace AcspNet
 
 		private static readonly Lazy<AcspNetSettings> AcspNetSettingsInstance = new Lazy<AcspNetSettings>(() => new AcspNetSettings());
 
-		private static Lazy<string> SitePhysicalPathInstance;
-		private static Lazy<string> SiteUrlInstance;
-		private static Lazy<string> SiteVirtualPathInstance;
-		
 		/// <summary>
 		/// The file system abstraction, to work with System.IO functions
 		/// </summary>
@@ -188,33 +183,22 @@ namespace AcspNet
 				{
 					if (!IsStaticInitialized)
 					{
-						SitePhysicalPathInstance = new Lazy<string>(() => Request.PhysicalApplicationPath != null
-							? Request.PhysicalApplicationPath.Replace("\\", "/")
-							: null);
+						if(Request.PhysicalApplicationPath != null)
+							SitePhysicalPath = Request.PhysicalApplicationPath.Replace("\\", "/");
 
-						SiteUrlInstance = new Lazy<string>(() =>
-						                                   {
-							                                   if (Request == null || Request.Url == null)
-								                                   return null;
-
-							                                   var url = String.Format("{0}://{1}{2}",
-								                                   Request.Url.Scheme,
-								                                   Request.Url.Authority,
-								                                   Request.ApplicationPath);
-
-							                                   if (!url.EndsWith("/"))
-								                                   url += "/";
-
-							                                   return url;
-						                                   });
-
-						SiteVirtualPathInstance = new Lazy<string>(() =>
+						if (Request != null && Request.Url != null)
 						{
-							if (HttpRuntime.AppDomainAppVirtualPath == null)
-								return null;
+							SiteUrl = String.Format("{0}://{1}{2}",
+								Request.Url.Scheme,
+								Request.Url.Authority,
+								Request.ApplicationPath);
 
-							return HttpRuntime.AppDomainAppVirtualPath == "/" ? "" : HttpRuntime.AppDomainAppVirtualPath;
-						});
+							if (!SiteUrl.EndsWith("/"))
+								SiteUrl += "/";
+						}
+
+						if (HttpRuntime.AppDomainAppVirtualPath != null)
+							SiteVirtualPath = HttpRuntime.AppDomainAppVirtualPath == "/" ? "" : HttpRuntime.AppDomainAppVirtualPath;
 
 						CreateMetaContainers(userAssembly);
 						IsStaticInitialized = true;
@@ -292,13 +276,7 @@ namespace AcspNet
 		/// <value>
 		/// The site physical path.
 		/// </value>
-		public static string SitePhysicalPath
-		{
-			get
-			{
-				return SitePhysicalPathInstance.Value;
-			}
-		}
+		public static string SitePhysicalPath { get; private set; }
 
 		/// <summary>
 		/// Gets the web-site URL, for example: http://yoursite.com/site1/
@@ -306,13 +284,7 @@ namespace AcspNet
 		/// <value>
 		/// The site URL.
 		/// </value>
-		public static string SiteUrl
-		{
-			get
-			{
-				return SiteUrlInstance.Value;
-			}
-		}
+		public static string SiteUrl { get; private set; }
 
 		/// <summary>
 		/// Gets the web-site URL, for example: http://yoursite.com/site1/
@@ -320,13 +292,7 @@ namespace AcspNet
 		/// <value>
 		/// The site URL.
 		/// </value>
-		public static string SiteVirtualPath
-		{
-			get
-			{
-				return SiteVirtualPathInstance.Value;
-			}
-		}
+		public static string SiteVirtualPath { get; private set; }
 
 		/// <summary>
 		/// Indicating whether session was created with the current request
