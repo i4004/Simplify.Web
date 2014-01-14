@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AcspNet
 {
@@ -139,6 +140,8 @@ namespace AcspNet
 		/// <param name="data">Data to write</param>
 		public void DisplayPartial(string data)
 		{
+			_manager.Response.Cache.SetExpires(DateTime.Now);
+			_manager.Response.Cache.SetNoStore(); 
 			_manager.Response.Write(data);
 
 			_manager.StopExtensionsExecution();

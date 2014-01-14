@@ -314,7 +314,7 @@ namespace AcspNet.Tests
 			var userAssembly = GetTestUserAssembly();
 			Template.FileSystem = fs;
 
-			httpContext.Setup(x => x.Response.Write(It.IsAny<string>()))
+			_httpResponse.Setup(x => x.Write(It.IsAny<string>()))
 				.Callback<string>(DataCollectorResponseWriteWriteDataIsCorrect);
 
 			var manager = new Manager(routeData, httpContext.Object, fs, AcspNetTestingHelper.GetTestHttpRuntime(), userAssembly);
@@ -349,7 +349,7 @@ namespace AcspNet.Tests
 
 			manager.DataCollector.DisableSiteDisplay();
 
-			httpContext.Setup(x => x.Response.Write(It.IsAny<string>()))
+			_httpResponse.Setup(x => x.Write(It.IsAny<string>()))
 				.Callback<string>(DataCollectorResponseWritePartialWriteDataIsCorrect);
 
 			manager.DataCollector.DisplayPartial("Test!");
