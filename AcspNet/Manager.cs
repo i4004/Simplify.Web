@@ -195,6 +195,11 @@ namespace AcspNet
 
 							if (!SiteUrl.EndsWith("/"))
 								SiteUrl += "/";
+
+							CompleteUrl = String.Format("{0}://{1}{2}",
+								Request.Url.Scheme,
+								Request.Url.Authority,
+								Request.RawUrl);
 						}
 
 						if (HttpRuntime.AppDomainAppVirtualPath != null)
@@ -205,6 +210,12 @@ namespace AcspNet
 					}
 				}
 			}
+
+			if (Request != null && Request.Url != null)
+				CompleteUrl = String.Format("{0}://{1}{2}",
+					Request.Url.Scheme,
+					Request.Url.Authority,
+					Request.RawUrl);
 
 			Environment = new Environment(this);
 			DataLoader = new ExtensionsDataLoader(this);
@@ -294,6 +305,14 @@ namespace AcspNet
 		/// </value>
 		public static string SiteVirtualPath { get; private set; }
 
+		/// <summary>
+		/// Gets current page complete URL, for example: http://yoursite.com/site1/page1/id2
+		/// </summary>
+		/// <value>
+		/// The current page complete URL.
+		/// </value>
+		public string CompleteUrl { get; private set; }
+		
 		/// <summary>
 		/// Indicating whether session was created with the current request
 		/// </summary>
@@ -709,11 +728,8 @@ namespace AcspNet
 
 		private void UpdateNavigatorLinks()
 		{
-			if (Request.Url != null)
-			{
-				ExtensionsWrapper.Navigator.PreviousPageLink = Request.Url.ToString();
-				ExtensionsWrapper.Navigator.PreviousNavigatedUrl = null;
-			}
+			ExtensionsWrapper.Navigator.PreviousPageLink = CompleteUrl;
+			ExtensionsWrapper.Navigator.PreviousNavigatedUrl = null;
 		}
 	}
 }
