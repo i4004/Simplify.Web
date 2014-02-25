@@ -7,6 +7,7 @@
 		<authors>Alexander Krylkov</authors>
 		<owners>Alexander Krylkov</owners>
 		<projectUrl>https://github.com/i4004/AcspNet/tree/master/AcspNet.TestingHelpers</projectUrl>
+		<iconUrl>https://raw.github.com/i4004/AcspNet/master/Images/Icon.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>ACSP.NET extensions unit tests helpers.</description>
 		<summary>ACSP.NET extensions unit tests helpers.</summary>
