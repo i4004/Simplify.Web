@@ -150,6 +150,7 @@
     <Compile Include="Extensions\IExtensions.cs" />
     <Compile Include="IExtensionsDataLoader.cs" />
     <Compile Include="Html\IHtml.cs" />
+    <Compile Include="IHideObjectMembers.cs" />
     <Compile Include="IManager.cs" />
     <Compile Include="IStringTable.cs" />
     <Compile Include="ITemplateFactory.cs" />
@@ -186,10 +187,10 @@
       <SubType>ASPXCodeBehind</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AcspNet.snk" />
-    <None Include="packages.config" />
     <None Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\ErrorMessageBox.tpl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -216,14 +217,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="ApplicationHelper, Version=3.0.0.0, Culture=neutral, PublicKeyToken=61ff4d1997283fbd, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\ApplicationHelper.3.0\lib\net40\ApplicationHelper.dll</HintPath>
+    <Reference Include="Simplify.Templates">
+      <HintPath>..\packages\Simplify.Templates.1.0.0\lib\net40\Simplify.Templates.dll</HintPath>
+    </Reference>
+    <Reference Include="Simplify.Xml">
+      <HintPath>..\packages\Simplify.Xml.1.0.0\lib\net40\Simplify.Xml.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.IO.Abstractions">
-      <HintPath>..\packages\System.IO.Abstractions.1.4.0.73\lib\net35\System.IO.Abstractions.dll</HintPath>
+    <Reference Include="System.IO.Abstractions, Version=1.4.0.76, Culture=neutral, PublicKeyToken=d480b5b72fb413da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.IO.Abstractions.1.4.0.76\lib\net35\System.IO.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
@@ -268,7 +272,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

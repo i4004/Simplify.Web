@@ -2,8 +2,6 @@
 using AcspNet.Extensions;
 using AcspNet.Html;
 
-using ApplicationHelper;
-
 namespace AcspNet
 {
 	/// <summary>

@@ -1,7 +1,5 @@
 ﻿using AcspNet.Html;
 
-using ApplicationHelper;
-
 namespace AcspNet.Extensions
 {
 	/// <summary>

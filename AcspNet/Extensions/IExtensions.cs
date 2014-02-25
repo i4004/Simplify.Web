@@ -1,6 +1,4 @@
-﻿using ApplicationHelper;
-
-namespace AcspNet.Extensions
+﻿namespace AcspNet.Extensions
 {
 	/// <summary>
 	/// Additional extensions

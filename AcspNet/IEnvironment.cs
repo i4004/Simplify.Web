@@ -1,6 +1,4 @@
-﻿using ApplicationHelper;
-
-namespace AcspNet
+﻿namespace AcspNet
 {
 	/// <summary>
 	/// Current request environment data.

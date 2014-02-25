@@ -1,6 +1,4 @@
-﻿using ApplicationHelper;
-
-namespace AcspNet.Extensions
+﻿namespace AcspNet.Extensions
 {
 	/// <summary>
 	/// Website navigation manager, controls current user location, link to previous page or link specific page

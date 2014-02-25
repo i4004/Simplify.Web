@@ -1,7 +1,5 @@
 ﻿using System.Xml.Linq;
 
-using ApplicationHelper;
-
 namespace AcspNet
 {
 	/// <summary>

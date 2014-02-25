@@ -1,5 +1,4 @@
-﻿using ApplicationHelper;
-using ApplicationHelper.Templates;
+﻿using Simplify.Templates;
 
 namespace AcspNet
 {

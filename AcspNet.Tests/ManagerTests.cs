@@ -7,16 +7,14 @@ using System.IO.Abstractions.TestingHelpers;
 using System.Reflection;
 using System.Threading;
 using System.Web;
-
 using AcspNet.TestingHelpers;
 using AcspNet.Tests.Extensions.Executable;
 using AcspNet.Tests.Extensions.Library;
 
-using ApplicationHelper.Templates;
-
 using Moq;
 
 using NUnit.Framework;
+using Simplify.Templates;
 
 namespace AcspNet.Tests
 {
