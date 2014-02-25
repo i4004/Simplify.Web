@@ -1,0 +1,45 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+	<metadata>
+		<id>AcspNet</id>
+		<version>3.0.0</version>
+		<title>AcspNet</title>
+		<authors>Alexander Krylkov</authors>
+		<owners>Alexander Krylkov</owners>
+		<projectUrl>https://github.com/i4004/AcspNet</projectUrl>
+		<iconUrl></iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Advanced Controls Site Platform .NET is an ASP.NET based web-sites plugin-based engine. It is allows you to construct your web-site from a set of extensions (plugins). Each web site extension can do their own task.</description>
+		<summary>Advanced Controls Site Platform .NET.</summary>
+		<releaseNotes></releaseNotes>
+		<copyright>Licensed under LGPL</copyright>
+		<language>en-US</language>
+		<tags>.NET site-platform web</tags>
+		<dependencies>
+			<group targetFramework=".NETFramework4.0">
+				<dependency id="System.IO.Abstractions" version="1.4.0.76" />
+				<dependency id="Simplify.Xml" version="1.0.0" />
+				<dependency id="Simplify.Templates" version="1.0.0" />
+			</group>
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="bin\release\AcspNet.dll" target="lib\net40" />
+		<file src="bin\release\AcspNet.xml" target="lib\net40" />
+		<file src="bin\release\NugetPackageTemplate\ExtensionsData\StringTable.en.xml" target="content\ExtensionsData\StringTable.en.xml" />
+		<file src="bin\release\NugetPackageTemplate\Styles\Main.css" target="content\Styles\Main.css" />
+		<file src="bin\release\NugetPackageTemplate\Templates\AcspNet\MessageBox\ErrorMessageBox.tpl" target="content\Templates\AcspNet\MessageBox\ErrorMessageBox.tpl" />
+		<file src="bin\release\NugetPackageTemplate\Templates\AcspNet\MessageBox\InfoMessageBox.tpl" target="content\Templates\AcspNet\MessageBox\InfoMessageBox.tpl" />
+		<file src="bin\release\NugetPackageTemplate\Templates\AcspNet\MessageBox\InlineErrorMessageBox.tpl" target="content\Templates\AcspNet\MessageBox\InlineErrorMessageBox.tpl" />
+		<file src="bin\release\NugetPackageTemplate\Templates\AcspNet\MessageBox\InlineInfoMessageBox.tpl" target="content\Templates\AcspNet\MessageBox\InlineInfoMessageBox.tpl" />
+		<file src="bin\release\NugetPackageTemplate\Templates\AcspNet\MessageBox\InlineOkMessageBox.tpl" target="content\Templates\AcspNet\MessageBox\InlineOkMessageBox.tpl" />
+		<file src="bin\release\NugetPackageTemplate\Templates\AcspNet\MessageBox\OkMessageBox.tpl" target="content\Templates\AcspNet\MessageBox\OkMessageBox.tpl" />
+		<file src="bin\release\NugetPackageTemplate\Templates\Index.tpl" target="content\Templates\Index.tpl" />
+		<file src="bin\release\NugetPackageTemplate\Templates\Index.tpl.en.xml" target="content\Templates\Index.tpl.en.xml" />
+		<file src="bin\release\NugetPackageTemplate\Global.asax" target="content\Global.asax" />
+		<file src="bin\release\NugetPackageTemplate\Global.asax.cs" target="content\Global.asax.cs" />
+		<file src="bin\release\NugetPackageTemplate\index.aspx" target="content\index.aspx" />
+		<file src="bin\release\NugetPackageTemplate\index.aspx.cs" target="content\index.aspx.cs" />
+		<file src="bin\release\NugetPackageTemplate\Web.config" target="content\Web.config" />
+	</files>
+</package>

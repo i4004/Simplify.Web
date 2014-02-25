@@ -44,6 +44,7 @@
     <AssemblyOriginatorKeyFile>AcspNet.TestingHelpers.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="AcspNetTestingHelper.nuspec" />
     <None Include="AcspNet.TestingHelpers.snk" />
     <None Include="packages.config" />
   </ItemGroup>
