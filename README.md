@@ -13,16 +13,3 @@ It is allows you to construct your web-site from a set of extensions (plugins). 
 AcspNet have two types of extensions:
 * Executable (exec) extensions which can run depending on HTTP query string parameters only;
 * Library (lib) extensions which can be used by other lib or exec extensions.
-
-Recommended extrensions folder structure:
-
-```text
-YourProject
-  -Extensions
-    -Executable
-      -Extension1.cs
-      -Extension2.cs
-    -Library
-      -Extension3.cs
-      -Extension4.cs
-```
