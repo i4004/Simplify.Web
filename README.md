@@ -12,5 +12,5 @@ It is allows you to construct your web-site from a set of extensions (plugins). 
 * Starting from version 2.0 you can set extension parameters via class attributes.
 
 AcspNet have two types of extensions:
-* Executable (exec) extensions which can run depending on HTTP query string parameters only;
-* Library (lib) extensions which can be used by other lib or exec extensions.
+* Executable (exec) extensions (controllers in MVC) which can run depending on HTTP query string parameters only;
+* Library (lib) extensions (views in MVC or any classes) which can be used by other lib or exec extensions.
