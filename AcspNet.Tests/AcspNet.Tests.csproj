@@ -88,7 +88,6 @@
       <HintPath>..\packages\Simplify.Xml.1.0.0\lib\net40\Simplify.Xml.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.IO.Abstractions, Version=1.4.0.76, Culture=neutral, PublicKeyToken=d480b5b72fb413da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\System.IO.Abstractions.1.4.0.76\lib\net35\System.IO.Abstractions.dll</HintPath>
@@ -97,28 +96,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\System.IO.Abstractions.TestingHelpers.1.4.0.76\lib\net35\System.IO.Abstractions.TestingHelpers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.XML" />
-    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\Executable\ActionIdTest.cs" />
-    <Compile Include="Extensions\Executable\AllPagesExtensionTest.cs" />
-    <Compile Include="Extensions\Executable\AuthenticationModuleTest.cs" />
-    <Compile Include="Extensions\Executable\EmptyExecExtensionTest.cs" />
-    <Compile Include="Extensions\Executable\ActionModeIdTest.cs" />
-    <Compile Include="Extensions\Executable\GetExtensionsMetadataTest.cs" />
-    <Compile Include="Extensions\Executable\LibraryExtensionCallTest.cs" />
-    <Compile Include="Extensions\Executable\ExtensionsProtectorTest.cs" />
-    <Compile Include="Extensions\Executable\StopExtensionsExecution2Test.cs" />
-    <Compile Include="Extensions\Executable\StopExtensionsExecutionTest.cs" />
-    <Compile Include="Extensions\Executable\HtmlListsTests.cs" />
-    <Compile Include="Extensions\Executable\MainPageTest.cs" />
-    <Compile Include="Extensions\Executable\MessageBoxTests.cs" />
-    <Compile Include="Extensions\Library\EmptyLibExtensionTest.cs" />
-    <Compile Include="Extensions\Library\HightPriortyLibExtensionTest.cs" />
-    <Compile Include="Extensions\Library\LibExtensionTest.cs" />
+    <Compile Include="AcspApplicationTests.cs" />
+    <Compile Include="AcspManagerTests.cs" />
     <Compile Include="ManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -126,8 +107,6 @@
     <None Include="AcspNet.Tests.snk" />
     <None Include="App.config" />
     <None Include="packages.config" />
-    <EmbeddedResource Include="TestData\Index.tpl" />
-    <EmbeddedResource Include="TestData\IndexResult.tpl" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AcspNet.TestingHelpers\AcspNet.TestingHelpers.csproj">

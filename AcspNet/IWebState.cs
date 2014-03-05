@@ -8,9 +8,9 @@ using System.Web.Routing;
 namespace AcspNet
 {
 	/// <summary>
-	/// ACSP.NET manager class interface
+	/// Web state interface
 	/// </summary>
-	public interface IManager : IHideObjectMembers
+	public interface IWebState : IHideObjectMembers
 	{
 		/// <summary>
 		///  Gets the <see cref="T:System.Web.HttpContextBase"/> object for the current HTTP request.
@@ -40,7 +40,7 @@ namespace AcspNet
 		/// <summary>
 		/// Gets the connection of HTTP post request form variables
 		/// </summary>
-		NameValueCollection Form { get;}
+		NameValueCollection Form { get; }
 
 		/// <summary>
 		/// Gets the route data.
@@ -81,35 +81,35 @@ namespace AcspNet
 		/// </value>
 		string CurrentID { get; }
 
-		/// <summary>
-		/// Gets the current executing extensions types.
-		/// </summary>
-		/// <value>
-		/// The current executing extensions types.
-		/// </value>
-		IList<Type> ExecExtensionsTypes { get; }
+		///// <summary>
+		///// Gets the current executing extensions types.
+		///// </summary>
+		///// <value>
+		///// The current executing extensions types.
+		///// </value>
+		//IList<Type> ExecExtensionsTypes { get; }
 
-		/// <summary>
-		/// Stop ACSP subsequent extensions execution
-		/// </summary>
-		void StopExtensionsExecution();
+		///// <summary>
+		///// Stop ACSP subsequent extensions execution
+		///// </summary>
+		//void StopExtensionsExecution();
 
-		/// <summary>
-		/// Gets library extension instance
-		/// </summary>
-		/// <typeparam name="T">Library extension instance to get</typeparam>
-		/// <returns>Library extension</returns>
-		T Get<T>() where T : LibExtension;
+		///// <summary>
+		///// Gets library extension instance
+		///// </summary>
+		///// <typeparam name="T">Library extension instance to get</typeparam>
+		///// <returns>Library extension</returns>
+		//T Get<T>() where T : LibExtension;
 
-		/// <summary>
-		/// Gets current action/mode URL in formal like ?act={0}&amp;mode={1}&amp;id={2}.
-		/// </summary>
-		/// <returns></returns>
-		string GetActionModeUrl();
+		///// <summary>
+		///// Gets current action/mode URL in formal like ?act={0}&amp;mode={1}&amp;id={2}.
+		///// </summary>
+		///// <returns></returns>
+		//string GetActionModeUrl();
 
-		/// <summary>
-		/// Redirects a client to a new URL
-		/// </summary>
-		void Redirect(string url);
+		///// <summary>
+		///// Redirects a client to a new URL
+		///// </summary>
+		//void Redirect(string url);
 	}
 }

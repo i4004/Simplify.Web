@@ -48,9 +48,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Executable\ExternalExecExtensionTest.cs" />
-    <Compile Include="Library\ExternalLibExtension2Test.cs" />
-    <Compile Include="Library\ExternalLibExtensionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
