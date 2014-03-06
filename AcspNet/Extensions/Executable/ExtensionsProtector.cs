@@ -1,5 +1,3 @@
-using AcspNet.Authentication;
-
 namespace AcspNet.Extensions.Executable
 {
 	/// <summary>
@@ -14,17 +12,17 @@ namespace AcspNet.Extensions.Executable
 		/// </summary>
 		public override void Invoke()
 		{
-			foreach (var type in Manager.ExecExtensionsTypes)
-			{
-				var attributes = type.GetCustomAttributes(typeof(ProtectionAttribute), false);
+			//foreach (var type in Manager.ExecExtensionsTypes)
+			//{
+			//	var attributes = type.GetCustomAttributes(typeof(ProtectionAttribute), false);
 
-				if (attributes.Length <= 0) continue;
+			//	if (attributes.Length <= 0) continue;
 
-				var protectionType = ((ProtectionAttribute) attributes[0]).ProtectionType;
+			//	var protectionType = ((ProtectionAttribute) attributes[0]).ProtectionType;
 
-				if ( protectionType == Protection.User && !AuthenticationModule.IsAuthenticatedAsUser)
-					Extensions.MessagePage.NavigateToMessagePage(StringTable["PageDenyErrorUser"]);
-			}
+			//	if ( protectionType == Protection.User && !AuthenticationModule.IsAuthenticatedAsUser)
+			//		Extensions.MessagePage.NavigateToMessagePage(StringTable["PageDenyErrorUser"]);
+			//}
 		}
 	}
 }

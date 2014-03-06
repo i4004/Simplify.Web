@@ -110,16 +110,30 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AcspNetSettings.cs" />
+    <Compile Include="ActionAttribute.cs" />
+    <Compile Include="ExecExtension.cs" />
     <Compile Include="ExecExtensionMetaContainer.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ExtensionMetaContainer.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ExtensionsBase.cs" />
+    <Compile Include="Extensions\Executable\ExtensionsProtector.cs" />
+    <Compile Include="Extensions\Executable\MessagePageDisplay.cs" />
+    <Compile Include="IAcspNetSettings.cs" />
+    <Compile Include="LibExtension.cs" />
     <Compile Include="LibExtensionMetaContainer.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LoadExtensionsFromAssemblyOfAttribute.cs" />
+    <Compile Include="LoadIndividualExtensionsAttribute.cs" />
+    <Compile Include="ModeAttribute.cs" />
+    <Compile Include="PriorityAttribute.cs" />
     <Compile Include="RunType.cs" />
+    <Compile Include="RunTypeAttribute.cs" />
+    <Compile Include="VersionAttribute.cs" />
     <None Include="AcspNet.nuspec" />
     <Compile Include="AcspApplication.cs" />
     <Compile Include="AcspNetException.cs" />
@@ -174,13 +188,11 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

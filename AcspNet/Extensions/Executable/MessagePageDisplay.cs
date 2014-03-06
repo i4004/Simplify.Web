@@ -12,14 +12,14 @@ namespace AcspNet.Extensions.Executable
 		/// </summary>
 		public override void Invoke()
 		{
-			if(string.IsNullOrEmpty(Extensions.MessagePage.Message))
-				Manager.Redirect(AcspNet.Manager.SiteVirtualPath + "/");
-			else
-			{
-				Html.MessageBox.Show(Extensions.MessagePage.Message, Extensions.MessagePage.MessageStatus);
+			//if(string.IsNullOrEmpty(Extensions.MessagePage.Message))
+			//	Manager.Redirect(AcspNet.Manager.SiteVirtualPath + "/");
+			//else
+			//{
+			//	Html.MessageBox.Show(Extensions.MessagePage.Message, Extensions.MessagePage.MessageStatus);
 
-				Extensions.MessagePage.RemoveMessage();
-			}
+			//	Extensions.MessagePage.RemoveMessage();
+			//}
 		}
 	}
 }

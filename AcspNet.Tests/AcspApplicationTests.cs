@@ -6,14 +6,56 @@ namespace AcspNet.Tests
 	public class AcspApplicationTests
 	{
 		[Test]
-		public void Setup_ExtensionsLoading_LoadedCorrectly()
+		[ExpectedException(typeof(AcspNetException))]
+		public void Constructor_Init_LoadExtensionsFromAssemblyOfNotFound()
 		{
-			var app = new AcspApplication();
-			var execExtensions = app.GetExecExtensionsMetaData();
-			var libExtensions = app.GetLibExtensionsMetaData();
-
-			Assert.AreEqual(0, execExtensions.Count);
-			Assert.AreEqual(0, libExtensions.Count);
+			AcspApplication.Setup();
 		}
+
+		//[Test]
+		//public void Constructor_Init_LoadExtensionsFromAssemblyOfNotFound()
+		//{
+		//	var execExtensions = AcspApplication.Current.GetExecExtensionsMetaData();
+		//	var libExtensions = AcspApplication.Current.GetLibExtensionsMetaData();
+
+		//	Assert.AreEqual(0, execExtensions.Count);
+		//	Assert.AreEqual(0, libExtensions.Count);
+
+		//	AcspApplication.Setup();
+
+		//	execExtensions = AcspApplication.Current.GetExecExtensionsMetaData();
+		//	libExtensions = AcspApplication.Current.GetLibExtensionsMetaData();
+
+		//	Assert.AreEqual(0, execExtensions.Count);
+		//	Assert.AreEqual(0, libExtensions.Count);
+		//}
+
+		//[Test]
+		//public void Constructor_Init_ExtensionsLoadedCorrectly()
+		//{
+		//	var execExtensions = AcspApplication.Current.GetExecExtensionsMetaData();
+		//	var libExtensions = AcspApplication.Current.GetLibExtensionsMetaData();
+
+		//	Assert.AreEqual(0, execExtensions.Count);
+		//	Assert.AreEqual(0, libExtensions.Count);
+
+		//	AcspApplication.Setup();
+
+		//	execExtensions = AcspApplication.Current.GetExecExtensionsMetaData();
+		//	libExtensions = AcspApplication.Current.GetLibExtensionsMetaData();
+
+		//	Assert.AreEqual(0, execExtensions.Count);
+		//	Assert.AreEqual(0, libExtensions.Count);
+		//}
+
+		//[Test]
+		//public void Setup_Init_ExternalsCreated()
+		//{
+		//	Assert.IsNull(AcspApplication.MainAssembly);
+
+		//	AcspApplication.Setup();
+
+		//	Assert.IsNotNull(AcspApplication.MainAssembly);
+		//}
 	}
 }

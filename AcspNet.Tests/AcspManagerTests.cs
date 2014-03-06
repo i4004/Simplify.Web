@@ -2,9 +2,9 @@
 
 namespace AcspNet.Tests
 {
-	[TestFixture]
-	public class AcspManagerTests
-	{
+	//[TestFixture]
+	//public class AcspManagerTests
+	//{
 		//[Test]
 		//public void Setup_SitePhysicalPath_LoadedCorrectly()
 		//{
@@ -16,5 +16,5 @@ namespace AcspNet.Tests
 		//{
 			
 		//}
-	}
+	//}
 }

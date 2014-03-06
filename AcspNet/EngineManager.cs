@@ -46,13 +46,6 @@ namespace AcspNet
 
 		//private const string IsNewSessionFieldName = "AcspIsNewSession";
 
-		//private static bool IsStaticInitialized;
-		//private static readonly object Locker = new object();
-
-		//private static readonly Lazy<AcspNetSettings> AcspNetSettingsInstance = new Lazy<AcspNetSettings>(() => new AcspNetSettings());
-
-		private static HttpContextBase HttpContextBaseInstance;
-
 		///// <summary>
 		///// The file system abstraction, to work with System.IO functions
 		///// </summary>
@@ -183,26 +176,6 @@ namespace AcspNet
 		//	InitializeExtensionsWrapper();
 		//}
 
-		/// <summary>
-		///  Gets the <see cref="T:System.Web.HttpContextBase"/> object for the current HTTP request.
-		/// </summary>
-		public static HttpContextBase Context
-		{
-			get { return HttpContextBaseInstance ?? (HttpContextBaseInstance = new HttpContextWrapper(HttpContext.Current)); }
-			set
-			{
-				HttpContextBaseInstance = value;
-			}
-		}
-
-		/// <summary>
-		/// Gets the System.Web.HttpRequest object for the current HTTP request
-		/// </summary>
-		public static HttpRequestBase Request
-		{
-			get { return Context.Request; }
-		}
-
 		///// <summary>
 		///// Gets the System.Web.HttpResponse object for the current HTTP response
 		///// </summary>
@@ -232,25 +205,6 @@ namespace AcspNet
 		///// The stop watch (for web-page build measurement)
 		///// </summary>
 		//public Stopwatch StopWatch { get; private set; }
-
-		///// <summary>
-		///// Gets the AcspNet settings.
-		///// </summary>
-		//public static AcspNetSettings Settings
-		//{
-		//	get
-		//	{				
-		//		return AcspNetSettingsInstance.Value;
-		//	}
-		//}
-
-		/// <summary>
-		/// Gets the web-site physical path, for example: C:\inetpub\wwwroot\YourSite
-		/// </summary>
-		/// <value>
-		/// The site physical path.
-		/// </value>
-		public static string SitePhysicalPath { get; private set; }
 
 		///// <summary>
 		///// Gets the web-site URL, for example: http://yoursite.com/site1/
@@ -380,9 +334,6 @@ namespace AcspNet
 		/// </summary>
 		public static void Setup()
 		{
-			if (Request.PhysicalApplicationPath != null)
-				SitePhysicalPath = Request.PhysicalApplicationPath.Replace("\\", "/");
-
 			//				if (Request != null && Request.Url != null)
 			//				{
 			//					SiteUrl = String.Format("{0}://{1}{2}",
@@ -548,84 +499,6 @@ namespace AcspNet
 		//	}
 
 		//	DisplaySite();
-		//}
-
-		//private static void LoadExtensionsFromAssemblyOf(params Type[] types)
-		//{
-		//	foreach (var assemblyTypes in types.Select(classType => Assembly.GetAssembly(classType).GetTypes()))
-		//	{
-		//		foreach (var t in assemblyTypes.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.LibExtension"))
-		//			AddLibExtensionMetaContainer(t);
-
-		//		foreach (var t in assemblyTypes.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.ExecExtension"))
-		//			AddExecExtensionMetaContainer(t);
-		//	}
-		//}
-
-		//private static void LoadIndividualExtensions(params Type[] types)
-		//{
-		//	foreach (var t in types.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.LibExtension").Where(t => LibExtensionsMetaContainers.All(x => x.ExtensionType != t)))
-		//		AddLibExtensionMetaContainer(t);
-
-		//	foreach (var t in types.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.ExecExtension").Where(t => ExecExtensionsMetaContainers.All(x => x.ExtensionType != t)))
-		//		AddExecExtensionMetaContainer(t);
-		//}
-
-		//private static void AddLibExtensionMetaContainer(Type extensionType)
-		//{
-		//	LibExtensionsMetaContainers.Add(new LibExtensionMetaContainer(CreateExtensionMetaContainer(extensionType)));
-		//}
-
-		//private static void AddExecExtensionMetaContainer(Type extensionType)
-		//{
-		//	var action = "";
-		//	var mode = "";
-		//	var runType = RunType.OnAction;
-
-		//	var attributes = extensionType.GetCustomAttributes(typeof(ActionAttribute), false);
-
-		//	if (attributes.Length > 0)
-		//		action = ((ActionAttribute)attributes[0]).Action;
-
-		//	attributes = extensionType.GetCustomAttributes(typeof(ModeAttribute), false);
-
-		//	if (attributes.Length > 0)
-		//		mode = ((ModeAttribute)attributes[0]).Mode;
-
-		//	attributes = extensionType.GetCustomAttributes(typeof(RunTypeAttribute), false);
-
-		//	if (attributes.Length > 0)
-		//		runType = ((RunTypeAttribute)attributes[0]).RunType;
-
-		//	ExecExtensionsMetaContainers.Add(new ExecExtensionMetaContainer(CreateExtensionMetaContainer(extensionType), action, mode, runType));
-		//}
-
-		//private static ExtensionMetaContainer CreateExtensionMetaContainer(Type extensionType)
-		//{
-		//	var priority = 0;
-		//	var version = "";
-
-		//	var attributes = extensionType.GetCustomAttributes(typeof(PriorityAttribute), false);
-
-		//	if (attributes.Length > 0)
-		//		priority = ((PriorityAttribute)attributes[0]).Priority;
-
-		//	attributes = extensionType.GetCustomAttributes(typeof(VersionAttribute), false);
-
-		//	if (attributes.Length > 0)
-		//		version = ((VersionAttribute)attributes[0]).Version;
-
-		//	return new ExtensionMetaContainer(extensionType, priority, version);
-		//}
-
-		//private static void SortLibraryExtensionsMetaContainers()
-		//{
-		//	LibExtensionsMetaContainers = LibExtensionsMetaContainers.OrderBy(x => x.Priority).ToList();
-		//}
-
-		//private static void SortExecExtensionsMetaContainers()
-		//{
-		//	ExecExtensionsMetaContainers = ExecExtensionsMetaContainers.OrderBy(x => x.Priority).ToList();
 		//}
 
 		//private void DisplaySite()
