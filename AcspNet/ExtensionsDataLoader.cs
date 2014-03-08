@@ -1,21 +1,72 @@
-﻿using System.Xml.Linq;
+﻿using System;
+using System.IO.Abstractions;
+using System.Xml.Linq;
 
 namespace AcspNet
 {
 	/// <summary>
-	/// Text and XML files loader
+	/// Loads text and XML localized files from extensions data folder
 	/// </summary>
 	public sealed class ExtensionsDataLoader : IExtensionsDataLoader
 	{
-		private readonly Manager _manager;
+		private static IFileSystem FileSystemInstance;
 
+		private readonly string _extensionsDataPath;
+		private readonly string _sitePhysicalPath;
+		private readonly string _language;
+		private readonly string _defaultLanguage;
+		
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ExtensionsDataLoader"/> class.
 		/// </summary>
-		/// <param name="manager">The manager.</param>
-		public ExtensionsDataLoader(Manager manager)
+		public ExtensionsDataLoader(string extensionsDataPath, string sitePhysicalPath, string language, string defaultLanguage)
 		{
-			_manager = manager;
+			_extensionsDataPath = extensionsDataPath;
+			_sitePhysicalPath = sitePhysicalPath;
+			_language = language;
+			_defaultLanguage = defaultLanguage;
+		}
+
+		/// <summary>
+		/// Gets or sets the file system.
+		/// </summary>
+		/// <value>
+		/// The file system.
+		/// </value>
+		/// <exception cref="System.ArgumentNullException"></exception>
+		public static IFileSystem FileSystem
+		{
+			get { return FileSystemInstance ?? (FileSystemInstance = new FileSystem()); }
+
+			set
+			{
+				if (value == null)
+					throw new ArgumentNullException();
+
+				FileSystemInstance = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets the language.
+		/// </summary>
+		/// <value>
+		/// The language.
+		/// </value>
+		public string Language
+		{
+			get { return _language; }
+		}
+
+		/// <summary>
+		/// Gets the default language.
+		/// </summary>
+		/// <value>
+		/// The default language.
+		/// </value>
+		public string DefaultLanguage
+		{
+			get { return _defaultLanguage; }
 		}
 
 		/// <summary>
@@ -25,7 +76,7 @@ namespace AcspNet
 		/// <returns>Extension data file path</returns>
 		public string GetFilePath(string extensionsDataFileName)
 		{
-			return GetFilePath(extensionsDataFileName, _manager.Environment.Language);
+			return GetFilePath(extensionsDataFileName, Language);
 		}
 
 		/// <summary>
@@ -36,18 +87,24 @@ namespace AcspNet
 		/// <returns>Extension data file path</returns>
 		public string GetFilePath(string extensionsDataFileName, string language)
 		{
-			var indexOfPoint = extensionsDataFileName.IndexOf(".", System.StringComparison.Ordinal);
+			if (string.IsNullOrEmpty(extensionsDataFileName)) throw new ArgumentNullException("extensionsDataFileName");
+			if (string.IsNullOrEmpty(language)) throw new ArgumentNullException("language");
+
+			var indexOfPoint = extensionsDataFileName.IndexOf(".", StringComparison.Ordinal);
 
 			if (indexOfPoint == -1)
-				return string.Format("{0}{1}/{2}.{3}", Manager.SitePhysicalPath, _manager.Environment.ExtensionsDataPath,
+				return string.Format("{0}/{1}/{2}.{3}", _sitePhysicalPath, _extensionsDataPath,
 					extensionsDataFileName, language);
 
 			var extensionsDataFileNameFirstPart = extensionsDataFileName.Substring(0, indexOfPoint);
 			var extensionsDataFileNameLastPart = extensionsDataFileName.Substring(indexOfPoint, extensionsDataFileName.Length - indexOfPoint);
 
-			var path = string.Format("{0}{1}/{2}.{3}{4}", Manager.SitePhysicalPath, _manager.Environment.ExtensionsDataPath, extensionsDataFileNameFirstPart, language, extensionsDataFileNameLastPart);
+			var path = string.Format("{0}/{1}/{2}.{3}{4}", _sitePhysicalPath, _extensionsDataPath, extensionsDataFileNameFirstPart, language, extensionsDataFileNameLastPart);
 
-			return !_manager.FileSystem.File.Exists(path) ? string.Format("{0}{1}/{2}.{3}{4}", Manager.SitePhysicalPath, _manager.Environment.ExtensionsDataPath, extensionsDataFileNameFirstPart, Manager.Settings.DefaultLanguage, extensionsDataFileNameLastPart) : path;
+			return !FileSystem.File.Exists(path)
+				? string.Format("{0}/{1}/{2}.{3}{4}", _sitePhysicalPath, _extensionsDataPath, extensionsDataFileNameFirstPart, DefaultLanguage,
+					extensionsDataFileNameLastPart)
+				: path;
 		}
 
 		/// <summary>
@@ -57,7 +114,7 @@ namespace AcspNet
 		/// <returns>Xml document</returns>
 		public XDocument LoadXDocument(string extensionsDataFileName)
 		{
-			return LoadXDocument(extensionsDataFileName, _manager.Environment.Language);
+			return LoadXDocument(extensionsDataFileName, Language);
 		}
 
 		/// <summary>
@@ -70,7 +127,7 @@ namespace AcspNet
 		{
 			var filePath = GetFilePath(extensionsDataFileName, language);
 
-			return _manager.FileSystem.File.Exists(filePath) ? XDocument.Parse(_manager.FileSystem.File.ReadAllText(filePath)) : null;
+			return FileSystem.File.Exists(filePath) ? XDocument.Parse(FileSystem.File.ReadAllText(filePath)) : null;
 		}
 
 		/// <summary>
@@ -80,7 +137,7 @@ namespace AcspNet
 		/// <returns>Text from a extension data file</returns>
 		public string LoadTextDocument(string extensionsDataFileName)
 		{
-			return LoadTextDocument(extensionsDataFileName, _manager.Environment.Language);
+			return LoadTextDocument(extensionsDataFileName, Language);
 		}
 
 		/// <summary>
@@ -93,9 +150,7 @@ namespace AcspNet
 		{
 			var filePath = GetFilePath(extensionsDataFileName, language);
 
-			if (!_manager.FileSystem.File.Exists(filePath)) return null;
-
-			return _manager.FileSystem.File.ReadAllText(GetFilePath(extensionsDataFileName, language));
+			return !FileSystem.File.Exists(filePath) ? null : FileSystem.File.ReadAllText(GetFilePath(extensionsDataFileName, language));
 		}
 	}
 }

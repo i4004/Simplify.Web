@@ -1,0 +1,25 @@
+﻿namespace AcspNet
+{
+	/// <summary>
+	/// Represent data displayer to client
+	/// </summary>
+	public interface IDisplayer : IHideObjectMembers
+	{
+		/// <summary>
+		/// Prevent data sent to displayer to be displayed
+		/// </summary>
+		void DisableDisplay();
+
+		/// <summary>
+		/// Write data to the HTTP response
+		/// </summary>
+		/// <param name="data">Data to write</param>
+		void Display(string data);
+
+		/// <summary>
+		/// Disable HTTP response caching and write data to the HTTP response (useful for ajax response)
+		/// </summary>
+		/// <param name="data">Data to write</param>
+		void DisplayNoCache(string data);
+	}
+}

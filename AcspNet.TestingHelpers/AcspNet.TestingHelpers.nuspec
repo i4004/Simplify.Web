@@ -11,10 +11,10 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>ACSP.NET extensions unit tests helpers.</description>
 		<summary>ACSP.NET extensions unit tests helpers.</summary>
-		<releaseNotes>Update to AcspNet 3.1</releaseNotes>
+		<releaseNotes></releaseNotes>
 		<copyright>Licensed under LGPL</copyright>
 		<language>en-US</language>
-		<tags>.NET AcspNet testing</tags>
+		<tags>.NET ACSP.NET testing</tags>
 		<dependencies>
 			<group targetFramework=".NETFramework4.0">
 				<dependency id="AcspNet" version="3.1.0" />

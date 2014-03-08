@@ -2,24 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using AcspNet.Extensions.Executable;
+using System.Web;
+using System.Web.Routing;
 
 namespace AcspNet
 {
+	/// <summary>
+	/// Loads and stores ACSP extensions meta information and ACSP settings, creates AcspProcessors for extensions processing
+	/// </summary>
 	public sealed class AcspApplication : IAcspApplication
 	{
 		private static IAcspApplication CurrentApplication;
+		//private Assembly _mainAssembly;
+		//private HttpContextBase _httpContext;
+		private IAcspSettings _settings;
 
-		private static Assembly MainAssemblyInstance;
-		private static IAcspNetSettings SettingsInstance;
+		//private List<ExecExtensionMetaContainer> _execExtensionsMetaContainers = new List<ExecExtensionMetaContainer>();
+		//private List<LibExtensionMetaContainer> _libExtensionsMetaContainers = new List<LibExtensionMetaContainer>();
 
-		private static List<ExecExtensionMetaContainer> ExecExtensionsMetaContainers = new List<ExecExtensionMetaContainer>();
-		private static List<LibExtensionMetaContainer> LibExtensionsMetaContainers = new List<LibExtensionMetaContainer>();
-		
-		private AcspApplication()
-		{
-		}
+		//private bool _isSetup;
 
+		/// <summary>
+		/// Gets or sets the current ACSP application instance.
+		/// </summary>
+		/// <value>
+		/// The current.
+		/// </value>
+		/// <exception cref="System.ArgumentNullException">value</exception>
 		public static IAcspApplication Current
 		{
 			get
@@ -35,197 +44,230 @@ namespace AcspNet
 			}
 		}
 
-		public static Assembly MainAssembly
+		///// <summary>
+		///// Gets or sets the assembly which contains LoadExtensionsFromAssemblyOf or LoadIndividualExtensions attributes.
+		///// </summary>
+		///// <exception cref="System.ArgumentNullException">value</exception>
+		//public Assembly MainAssembly
+		//{
+		//	get
+		//	{
+		//		return _mainAssembly;
+		//	}
+		//	set
+		//	{
+		//		if (value == null)
+		//			throw new ArgumentNullException("value");
+
+		//		_mainAssembly = value;
+		//	}
+		//}
+
+		///// <summary>
+		///// Gets or sets the HTTP context.
+		///// </summary>
+		///// <value>
+		///// The HTTP context.
+		///// </value>
+		///// <exception cref="System.ArgumentNullException">value</exception>
+		//public HttpContextBase HttpContext
+		//{
+		//	get
+		//	{
+		//		return _httpContext ?? (_httpContext = new HttpContextWrapper(System.Web.HttpContext.Current));
+		//	}
+		//	set
+		//	{
+		//		if (value == null)
+		//			throw new ArgumentNullException("value");
+
+		//		_httpContext = value;
+		//	}
+		//}
+
+		/// <summary>
+		/// Gets or sets the ACSP settings.
+		/// </summary>
+		/// <value>
+		/// The ACSP settings.
+		/// </value>
+		/// <exception cref="System.ArgumentNullException">value</exception>
+		public IAcspSettings Settings
 		{
 			get
 			{
-				return MainAssemblyInstance ?? (MainAssemblyInstance = Assembly.GetCallingAssembly());
+				return _settings;
 			}
 			set
 			{
 				if (value == null)
 					throw new ArgumentNullException("value");
 
-				MainAssemblyInstance = value;
-			}
-		}
-
-		public static IAcspNetSettings Settings
-		{
-			get
-			{
-				return SettingsInstance ?? (SettingsInstance = new AcspNetSettings());
-			}
-			set
-			{
-				if (value == null)
-					throw new ArgumentNullException("value");
-
-				SettingsInstance = value;
+				_settings = value;
 			}
 		}
 		
 		///// <summary>
-		///// Gets the System.Web.HttpRequest object for the current HTTP request
+		///// Setup ACSP application.
 		///// </summary>
-		//public HttpRequestBase Request
+		//public void Setup()
 		//{
-		//	get { return Context.Request; }
+		//	if (_mainAssembly == null)
+		//		_mainAssembly = Assembly.GetCallingAssembly();
+
+		//	if (_settings == null)
+		//		_settings = new AcspSettings();
+
+		//	CreateMetaContainers(MainAssembly);
+
+		//	_isSetup = true;
 		//}
 
-		/// <summary>
-		/// Gets the web-site physical path, for example: C:\inetpub\wwwroot\YourSite
-		/// </summary>
-		/// <value>
-		/// The site physical path.
-		/// </value>
-		public static string SitePhysicalPath { get; private set; }
+		///// <summary>
+		///// Creates an ACSP extensions processor.
+		///// </summary>
+		///// <param name="routeData">The route data.</param>
+		///// <returns></returns>
+		//public IAcspProcessor CreateProcessor(RouteData routeData)
+		//{
+		//	if (!_isSetup)
+		//		throw new AcspException("AcspApplication has not been set up");
 
-		public static void Setup()
-		{
-			CreateMetaContainers(MainAssembly);
+		//	return new AcspProcessor(/*Settings, */new AcspContext(routeData, HttpContext), _execExtensionsMetaContainers, _libExtensionsMetaContainers);
+		//}
 
-			InitializePaths();
-		}
+		///// <summary>
+		///// Get currently loaded executable extensions meta-data
+		///// </summary>
+		///// <returns></returns>
+		//public IList<ExecExtensionMetaContainer> GetExecExtensionsMetaData()
+		//{
+		//	return _execExtensionsMetaContainers.ToArray();
+		//}
 
-		private static void InitializePaths()
-		{
-			if (Request.PhysicalApplicationPath != null)
-				AcspApplication.SitePhysicalPath = Request.PhysicalApplicationPath.Replace("\\", "/");
-		}
+		///// <summary>
+		///// Gets the library extensions meta data.
+		///// </summary>
+		///// <returns></returns>
+		//public IList<LibExtensionMetaContainer> GetLibExtensionsMetaData()
+		//{
+		//	return _libExtensionsMetaContainers.ToArray();
+		//}
 
-		/// <summary>
-		/// Get currently loaded executable extensions meta-data
-		/// </summary>
-		/// <returns></returns>
-		public static IList<ExecExtensionMetaContainer> GetExecExtensionsMetaData()
-		{
-			return ExecExtensionsMetaContainers.ToArray();
-		}
+		//private void CreateMetaContainers(Assembly callingAssembly)
+		//{
+		//	var assemblyTypes = callingAssembly.GetTypes();
 
-		/// <summary>
-		/// Gets the library extensions meta data.
-		/// </summary>
-		/// <returns></returns>
-		public static IList<LibExtensionMetaContainer> GetLibExtensionsMetaData()
-		{
-			return LibExtensionsMetaContainers.ToArray();
-		}
+		//	var containingClass =
+		//		assemblyTypes.FirstOrDefault(t => t.IsDefined(typeof(LoadExtensionsFromAssemblyOfAttribute), true)) ??
+		//		assemblyTypes.FirstOrDefault(t => t.IsDefined(typeof(LoadIndividualExtensionsAttribute), true));
 
-		private static void CreateMetaContainers(Assembly callingAssembly)
-		{
-			var assemblyTypes = callingAssembly.GetTypes();
+		//	if (containingClass == null)
+		//		throw new AcspException("LoadExtensionsFromAssemblyOf or LoadIndividualExtensionsAttribute attributes are not found in AcspApplication.MainAssembly");
 
-			var containingClass =
-				assemblyTypes.FirstOrDefault(t => t.IsDefined(typeof(LoadExtensionsFromAssemblyOfAttribute), true)) ??
-				assemblyTypes.FirstOrDefault(t => t.IsDefined(typeof(LoadIndividualExtensionsAttribute), true));
+		//	var batchExtensionsAttributes = containingClass.GetCustomAttributes(typeof(LoadExtensionsFromAssemblyOfAttribute), false);
+		//	var individualExtensionsAttributes = containingClass.GetCustomAttributes(typeof(LoadIndividualExtensionsAttribute), false);
 
-			if (containingClass == null)
-				throw new AcspNetException("LoadExtensionsFromAssemblyOf attribute not found in AcspApplication.MainAssembly");
+		//	if (batchExtensionsAttributes.Length <= 1 && individualExtensionsAttributes.Length <= 1)
+		//	{
+		//		if (batchExtensionsAttributes.Length == 1)
+		//			LoadExtensionsFromAssemblyOf(((LoadExtensionsFromAssemblyOfAttribute)batchExtensionsAttributes[0]).Types);
 
-			var batchExtensionsAttributes = containingClass.GetCustomAttributes(typeof(LoadExtensionsFromAssemblyOfAttribute), false);
-			var individualExtensionsAttributes = containingClass.GetCustomAttributes(typeof(LoadIndividualExtensionsAttribute), false);
+		//		var types = new Type[0];
 
-			if (batchExtensionsAttributes.Length <= 1 && individualExtensionsAttributes.Length <= 1)
-			{
-				if (batchExtensionsAttributes.Length == 1)
-					LoadExtensionsFromAssemblyOf(((LoadExtensionsFromAssemblyOfAttribute)batchExtensionsAttributes[0]).Types);
+		//		if (individualExtensionsAttributes.Length == 1)
+		//			types = ((LoadIndividualExtensionsAttribute)individualExtensionsAttributes[0]).Types;
 
-				var types = new Type[0];
+		//		//if (!Settings.DisableAcspInternalExtensions)
+		//		//	types = types.Concat(new List<Type> { typeof(MessagePageDisplay), typeof(ExtensionsProtector) }).ToArray();
 
-				if (individualExtensionsAttributes.Length == 1)
-					types = ((LoadIndividualExtensionsAttribute)individualExtensionsAttributes[0]).Types;
+		//		LoadIndividualExtensions(types);
 
-				if (!Settings.DisableAcspInternalExtensions)
-					types = types.Concat(new List<Type> { typeof(MessagePageDisplay), typeof(ExtensionsProtector) }).ToArray();
+		//		SortLibraryExtensionsMetaContainers();
+		//		SortExecExtensionsMetaContainers();
+		//	}
+		//	else if (batchExtensionsAttributes.Length > 1)
+		//		throw new Exception("Multiple LoadExtensionsFromAssemblyOf attributes found");
+		//	else if (individualExtensionsAttributes.Length > 1)
+		//		throw new Exception("Multiple LoadIndividualExtensions attributes found");
+		//}
 
-				LoadIndividualExtensions(types);
+		//private void LoadExtensionsFromAssemblyOf(params Type[] types)
+		//{
+		//	foreach (var assemblyTypes in types.Select(classType => Assembly.GetAssembly(classType).GetTypes()))
+		//	{
+		//		foreach (var t in assemblyTypes.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.LibExtension"))
+		//			AddLibExtensionMetaContainer(t);
 
-				SortLibraryExtensionsMetaContainers();
-				SortExecExtensionsMetaContainers();
-			}
-			else if (batchExtensionsAttributes.Length > 1)
-				throw new Exception("Multiple LoadExtensionsFromAssemblyOf attributes found");
-			else if (individualExtensionsAttributes.Length > 1)
-				throw new Exception("Multiple LoadIndividualExtensions attributes found");
-		}
+		//		foreach (var t in assemblyTypes.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.ExecExtension"))
+		//			AddExecExtensionMetaContainer(t);
+		//	}
+		//}
 
-		private static void LoadExtensionsFromAssemblyOf(params Type[] types)
-		{
-			foreach (var assemblyTypes in types.Select(classType => Assembly.GetAssembly(classType).GetTypes()))
-			{
-				foreach (var t in assemblyTypes.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.LibExtension"))
-					AddLibExtensionMetaContainer(t);
+		//private void LoadIndividualExtensions(params Type[] types)
+		//{
+		//	foreach (var t in types.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.LibExtension").Where(t => _libExtensionsMetaContainers.All(x => x.ExtensionType != t)))
+		//		AddLibExtensionMetaContainer(t);
 
-				foreach (var t in assemblyTypes.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.ExecExtension"))
-					AddExecExtensionMetaContainer(t);
-			}
-		}
+		//	foreach (var t in types.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.ExecExtension").Where(t => _execExtensionsMetaContainers.All(x => x.ExtensionType != t)))
+		//		AddExecExtensionMetaContainer(t);
+		//}
 
-		private static void LoadIndividualExtensions(params Type[] types)
-		{
-			foreach (var t in types.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.LibExtension").Where(t => LibExtensionsMetaContainers.All(x => x.ExtensionType != t)))
-				AddLibExtensionMetaContainer(t);
+		//private void AddLibExtensionMetaContainer(Type extensionType)
+		//{
+		//	_libExtensionsMetaContainers.Add(new LibExtensionMetaContainer(CreateExtensionMetaContainer(extensionType)));
+		//}
 
-			foreach (var t in types.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.ExecExtension").Where(t => ExecExtensionsMetaContainers.All(x => x.ExtensionType != t)))
-				AddExecExtensionMetaContainer(t);
-		}
+		//private ExtensionMetaContainer CreateExtensionMetaContainer(Type extensionType)
+		//{
+		//	var priority = 0;
+		//	var version = "";
 
-		private static void AddLibExtensionMetaContainer(Type extensionType)
-		{
-			LibExtensionsMetaContainers.Add(new LibExtensionMetaContainer(CreateExtensionMetaContainer(extensionType)));
-		}
+		//	var attributes = extensionType.GetCustomAttributes(typeof(PriorityAttribute), false);
 
-		private static ExtensionMetaContainer CreateExtensionMetaContainer(Type extensionType)
-		{
-			var priority = 0;
-			var version = "";
+		//	if (attributes.Length > 0)
+		//		priority = ((PriorityAttribute)attributes[0]).Priority;
 
-			var attributes = extensionType.GetCustomAttributes(typeof(PriorityAttribute), false);
+		//	attributes = extensionType.GetCustomAttributes(typeof(VersionAttribute), false);
 
-			if (attributes.Length > 0)
-				priority = ((PriorityAttribute)attributes[0]).Priority;
+		//	if (attributes.Length > 0)
+		//		version = ((VersionAttribute)attributes[0]).Version;
 
-			attributes = extensionType.GetCustomAttributes(typeof(VersionAttribute), false);
+		//	return new ExtensionMetaContainer(extensionType, priority, version);
+		//}
 
-			if (attributes.Length > 0)
-				version = ((VersionAttribute)attributes[0]).Version;
+		//private void AddExecExtensionMetaContainer(Type extensionType)
+		//{
+		//	var action = "";
+		//	var mode = "";
+		//	var runType = RunType.OnAction;
 
-			return new ExtensionMetaContainer(extensionType, priority, version);
-		}
+		//	var attributes = extensionType.GetCustomAttributes(typeof(ActionAttribute), false);
 
-		private static void AddExecExtensionMetaContainer(Type extensionType)
-		{
-			var action = "";
-			var mode = "";
-			var runType = RunType.OnAction;
+		//	if (attributes.Length > 0)
+		//		action = ((ActionAttribute)attributes[0]).Action;
 
-			var attributes = extensionType.GetCustomAttributes(typeof(ActionAttribute), false);
+		//	attributes = extensionType.GetCustomAttributes(typeof(ModeAttribute), false);
 
-			if (attributes.Length > 0)
-				action = ((ActionAttribute)attributes[0]).Action;
+		//	if (attributes.Length > 0)
+		//		mode = ((ModeAttribute)attributes[0]).Mode;
 
-			attributes = extensionType.GetCustomAttributes(typeof(ModeAttribute), false);
+		//	attributes = extensionType.GetCustomAttributes(typeof(RunTypeAttribute), false);
 
-			if (attributes.Length > 0)
-				mode = ((ModeAttribute)attributes[0]).Mode;
+		//	if (attributes.Length > 0)
+		//		runType = ((RunTypeAttribute)attributes[0]).RunType;
 
-			attributes = extensionType.GetCustomAttributes(typeof(RunTypeAttribute), false);
+		//	_execExtensionsMetaContainers.Add(new ExecExtensionMetaContainer(CreateExtensionMetaContainer(extensionType), action, mode, runType));
+		//}
 
-			if (attributes.Length > 0)
-				runType = ((RunTypeAttribute)attributes[0]).RunType;
+		//private void SortLibraryExtensionsMetaContainers()
+		//{
+		//	_libExtensionsMetaContainers = _libExtensionsMetaContainers.OrderBy(x => x.Priority).ToList();
+		//}
 
-			ExecExtensionsMetaContainers.Add(new ExecExtensionMetaContainer(CreateExtensionMetaContainer(extensionType), action, mode, runType));
-		}
-
-		private static void SortLibraryExtensionsMetaContainers()
-		{
-			LibExtensionsMetaContainers = LibExtensionsMetaContainers.OrderBy(x => x.Priority).ToList();
-		}
-
-		private static void SortExecExtensionsMetaContainers()
-		{
-			ExecExtensionsMetaContainers = ExecExtensionsMetaContainers.OrderBy(x => x.Priority).ToList();
-		}
+		//private void SortExecExtensionsMetaContainers()
+		//{
+		//	_execExtensionsMetaContainers = _execExtensionsMetaContainers.OrderBy(x => x.Priority).ToList();
+		//}
 	}
 }

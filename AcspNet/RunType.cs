@@ -12,6 +12,6 @@ namespace AcspNet
 		/// <summary>
 		/// Indicates what extension should run only on default page
 		/// </summary>
-		MainPage = 1
+		DefaultPage = 1
 	}
 }

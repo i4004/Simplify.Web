@@ -4,35 +4,45 @@ using System.Collections.Generic;
 namespace AcspNet
 {
 	/// <summary>
-	/// Site master page template data collector
+	/// Collects web-site master page data
 	/// </summary>
 	public sealed class DataCollector : IDataCollector
 	{
-		private readonly Manager _manager;
+		private readonly string _mainContentVariableName;
+		private readonly string _titleVariableName;
+		private readonly IStringTable _stringTable;
+		private readonly IDictionary<string, string> _items = new Dictionary<string, string>();
 
 		/// <summary>
-		/// Prevent site to be displayed via DataCollector
+		/// Initializes a new instance of the <see cref="DataCollector"/> class.
 		/// </summary>
-		private bool _isDisplayDisabled;
-
-		internal DataCollector(Manager manager)
+		/// <param name="mainContentVariableName">Name of the main content variable.</param>
+		/// <param name="titleVariableName">Name of the title variable.</param>
+		/// <param name="stringTable">The string table.</param>
+		/// <exception cref="System.ArgumentNullException">
+		/// mainContentVariableName
+		/// or
+		/// titleVariableName
+		/// or
+		/// stringTable
+		/// </exception>
+		public DataCollector(string mainContentVariableName, string titleVariableName, IStringTable stringTable)
 		{
-			Items = new Dictionary<string, string>();
-			_manager = manager;
+			if (string.IsNullOrEmpty(mainContentVariableName)) throw new ArgumentNullException("mainContentVariableName");
+			if (string.IsNullOrEmpty(titleVariableName)) throw new ArgumentNullException("titleVariableName");
+			if (stringTable == null) throw new ArgumentNullException("stringTable");
+
+			_mainContentVariableName = mainContentVariableName;
+			_titleVariableName = titleVariableName;
+			_stringTable = stringTable;
 		}
 
 		/// <summary>
 		/// Gets the data collector items which will be inserted into master template file.
 		/// </summary>
-		public IDictionary<string, string> Items { get; private set; }
-
-
-		/// <summary>
-		/// Prevent site to be displayed via DataCollector
-		/// </summary>
-		public void DisableSiteDisplay()
+		public IDictionary<string, string> Items
 		{
-			_isDisplayDisabled = true;
+			get { return _items; }
 		}
 
 		/// <summary>
@@ -62,7 +72,7 @@ namespace AcspNet
 		/// <returns></returns>
 		public void Add(string value)
 		{
-			Add(_manager.Environment.MainContentVariableName, value);
+			Add(_mainContentVariableName, value);
 		}
 
 		/// <summary>
@@ -72,7 +82,7 @@ namespace AcspNet
 		/// <returns></returns>
 		public void AddTitle(string value)
 		{
-			Add(_manager.Environment.TitleVariableName, value);
+			Add(_titleVariableName, value);
 		}
 
 		/// <summary>
@@ -81,9 +91,9 @@ namespace AcspNet
 		/// <param name="stringTableKey">StringTable key</param>
 		/// <param name="variableName">Variable name in master template file</param>
 		/// <returns></returns>
-		public void AddSt( string variableName,string stringTableKey)
+		public void AddSt(string variableName, string stringTableKey)
 		{
-			Add(variableName, _manager.StringTable[stringTableKey]);
+			Add(variableName, _stringTable[stringTableKey]);
 		}
 
 		/// <summary>
@@ -93,7 +103,7 @@ namespace AcspNet
 		/// <returns></returns>
 		public void AddSt(string stringTableKey)
 		{
-			AddSt(_manager.Environment.MainContentVariableName, stringTableKey);
+			AddSt(_mainContentVariableName, stringTableKey);
 		}
 
 		/// <summary>
@@ -103,7 +113,7 @@ namespace AcspNet
 		/// <returns></returns>
 		public void AddTitleSt(string stringTableKey)
 		{
-			AddSt(_manager.Environment.TitleVariableName, stringTableKey);
+			AddSt(_titleVariableName, stringTableKey);
 		}
 
 		/// <summary>
@@ -113,47 +123,6 @@ namespace AcspNet
 		public bool IsDataExist(string variableName)
 		{
 			return Items.ContainsKey(variableName);
-		}
-
-		/// <summary>
-		/// Combine all collected data and send it to the HTTP response
-		/// </summary>
-		public void DisplaySite()
-		{
-			if (!_isDisplayDisabled)
-			{
-				if (!Manager.Settings.DisableAutomaticSiteTitleSet)
-					SetSiteTitle();
-
-				var tpl = _manager.TemplateFactory.Load(_manager.Environment.MasterTemplateFileName);
-
-				foreach (var item in Items.Keys)
-					tpl.Set(item, Items[item]);
-
-				_manager.Response.Write(tpl.Get());
-			}
-		}
-
-		/// <summary>
-		/// Write data to the response and stop all extensions execution
-		/// </summary>
-		/// <param name="data">Data to write</param>
-		public void DisplayPartial(string data)
-		{
-			_manager.Response.Cache.SetExpires(DateTime.Now);
-			_manager.Response.Cache.SetNoStore(); 
-			_manager.Response.Write(data);
-
-			_manager.StopExtensionsExecution();
-		}
-
-		private void SetSiteTitle()
-		{
-			if (string.IsNullOrEmpty(_manager.CurrentAction) && string.IsNullOrEmpty(_manager.CurrentMode)
-				&& !IsDataExist(_manager.Environment.TitleVariableName))
-				Add(_manager.Environment.TitleVariableName, _manager.StringTable["SiteTitle"]);
-			else
-				Add(_manager.Environment.TitleVariableName, " - " + _manager.StringTable["SiteTitle"]);
 		}
 	}
 }

@@ -9,9 +9,9 @@
 		<projectUrl>https://github.com/i4004/AcspNet</projectUrl>
 		<iconUrl>https://raw.github.com/i4004/AcspNet/master/Images/Icon.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>Advanced Controls Site Platform .NET is an ASP.NET based web-sites plugin-based engine. It is allows you to construct your web-site from a set of extensions (plugins). Each web site extension can do their own task.</description>
+		<description>Advanced Controls Site Platform .NET is an ASP.NET based web-sites extensions(plugin)-based engine. It is allows you to construct your web-site from a set of extensions (plugins). Each web site extension can do their own task.</description>
 		<summary>Advanced Controls Site Platform .NET.</summary>
-		<releaseNotes>Minor bugs fixes, switched to Simplify libraries</releaseNotes>
+		<releaseNotes>Refactored to DI</releaseNotes>
 		<copyright>Licensed under LGPL</copyright>
 		<language>en-US</language>
 		<tags>.NET site-platform web</tags>

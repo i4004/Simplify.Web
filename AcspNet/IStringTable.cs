@@ -3,7 +3,7 @@
 namespace AcspNet
 {
 	/// <summary>
-	/// Localizable text items string table.
+	/// Represent string table
 	/// </summary>
 	public interface IStringTable : IHideObjectMembers
 	{

@@ -3,10 +3,26 @@
 namespace AcspNet
 {
 	/// <summary>
-	/// Text and XML files loader
+	/// Represents text and XML files loader
 	/// </summary>
 	public interface IExtensionsDataLoader : IHideObjectMembers
 	{
+		/// <summary>
+		/// Gets the language.
+		/// </summary>
+		/// <value>
+		/// The language.
+		/// </value>
+		string Language { get; }
+
+		/// <summary>
+		/// Gets the default language.
+		/// </summary>
+		/// <value>
+		/// The default language.
+		/// </value>
+		string DefaultLanguage { get; }
+
 		/// <summary>
 		/// Load xml document from a extension data file
 		/// </summary>

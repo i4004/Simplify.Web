@@ -110,39 +110,23 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AcspNetSettings.cs" />
-    <Compile Include="ActionAttribute.cs" />
-    <Compile Include="ExecExtension.cs" />
-    <Compile Include="ExecExtensionMetaContainer.cs">
+    <Compile Include="DataCollector.cs" />
+    <Compile Include="Displayer.cs" />
+    <Compile Include="ExtensionsDataLoader.cs" />
+    <Compile Include="IAcspSettings.cs" />
+    <Compile Include="IDataCollector.cs" />
+    <Compile Include="IDisplayer.cs" />
+    <Compile Include="IExtensionsDataLoader.cs" />
+    <Compile Include="IHideObjectMembers.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ExtensionMetaContainer.cs">
+    <Compile Include="IPageBuilder.cs" />
+    <Compile Include="IStringTable.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ExtensionsBase.cs" />
-    <Compile Include="Extensions\Executable\ExtensionsProtector.cs" />
-    <Compile Include="Extensions\Executable\MessagePageDisplay.cs" />
-    <Compile Include="IAcspNetSettings.cs" />
-    <Compile Include="LibExtension.cs" />
-    <Compile Include="LibExtensionMetaContainer.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LoadExtensionsFromAssemblyOfAttribute.cs" />
-    <Compile Include="LoadIndividualExtensionsAttribute.cs" />
-    <Compile Include="ModeAttribute.cs" />
-    <Compile Include="PriorityAttribute.cs" />
-    <Compile Include="RunType.cs" />
-    <Compile Include="RunTypeAttribute.cs" />
-    <Compile Include="VersionAttribute.cs" />
+    <Compile Include="PageBuilder.cs" />
+    <Compile Include="StringTable.cs" />
     <None Include="AcspNet.nuspec" />
-    <Compile Include="AcspApplication.cs" />
-    <Compile Include="AcspNetException.cs" />
-    <Compile Include="IAcspApplication.cs" />
-    <Compile Include="IHideObjectMembers.cs" />
-    <Compile Include="IWebState.cs" />
-    <Compile Include="EngineManager.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
   </ItemGroup>

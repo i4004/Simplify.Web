@@ -3,7 +3,7 @@
 namespace AcspNet
 {
 	/// <summary>
-	/// Site master page template data collector
+	/// Represents web-site master page data collector
 	/// </summary>
 	public interface IDataCollector : IHideObjectMembers
 	{
@@ -11,11 +11,6 @@ namespace AcspNet
 		/// Gets the data collector items which will be inserted into master template file.
 		/// </summary>
 		IDictionary<string, string> Items { get; }
-
-		/// <summary>
-		/// Prevent site to be displayed via DataCollector
-		/// </summary>
-		void DisableSiteDisplay();
 
 		/// <summary>
 		///  Set template variable value (all occurrences will be replaced)
@@ -62,15 +57,9 @@ namespace AcspNet
 		void AddTitleSt(string stringTableKey);
 
 		/// <summary>
-		/// Checking if some variable data already in data collector
+		/// Checking if some variable data is already exist in a data collector
 		/// </summary>
 		/// <param name="variableName">Variable name</param>
 		bool IsDataExist(string variableName);
-
-		/// <summary>
-		/// Write data to the response and stop all extensions execution
-		/// </summary>
-		/// <param name="data">Data to write</param>
-		void DisplayPartial(string data);
 	}
 }

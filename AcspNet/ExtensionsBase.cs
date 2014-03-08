@@ -5,7 +5,6 @@
 	/// </summary>
 	public abstract class ExtensionsBase : IHideObjectMembers
 	{
-		//internal IManager ManagerInstance;
 		//internal ITemplateFactory TemplateFactoryInstance;
 		//internal IStringTable StringTableInstance;
 		//internal IDataCollector DataCollectorInstance;
@@ -15,13 +14,10 @@
 		//internal IAuthenticationModule AuthenticationModuleInstance;
 		//internal IExtensions ExtensionsInstance;
 
-		///// <summary>
-		///// Current AcspNet.Manager instance
-		///// </summary>
-		//public IManager Manager
-		//{
-		//	get { return ManagerInstance; }
-		//}
+		/// <summary>
+		/// Current HTTP and ACSP context
+		/// </summary>
+		public IAcspContext Context { get; internal set; }
 
 		///// <summary>
 		///// Text templates loader.
@@ -85,7 +81,6 @@
 		//public IExtensions Extensions
 		//{
 		//	get { return ExtensionsInstance; }
-		//}
-	
+		//}	
 	}
 }

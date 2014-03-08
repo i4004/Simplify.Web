@@ -11,26 +11,28 @@ namespace AcspNet
 	/// </summary>
 	public sealed class StringTable : IStringTable
 	{
-		private readonly Manager _manager;
+		private readonly IExtensionsDataLoader _dataLoader;
 
 		/// <summary>
 		/// Load string table with current language
 		/// </summary>
-		public StringTable(Manager manager)
+		public StringTable(IExtensionsDataLoader dataLoader)
 		{
-			_manager = manager;
+			if (dataLoader == null) throw new ArgumentNullException("dataLoader");
 
-			Reload();
+			_dataLoader = dataLoader;
+
+			Load();
 		}
 
 		/// <summary>
-		/// Reloads strign table.
+		/// Loads strign table.
 		/// </summary>
-		public void Reload()
+		public void Load()
 		{
 			Items = new StringDictionary();
 
-			var stringTable = _manager.DataLoader.LoadXDocument("StringTable.xml");
+			var stringTable = _dataLoader.LoadXDocument("StringTable.xml");
 
 			// Loading current culture strings
 			if (stringTable != null)
@@ -39,13 +41,13 @@ namespace AcspNet
 					foreach (var item in stringTable.Root.XPathSelectElements("item").Where(x => x.HasAttributes))
 						Items.Add((string)item.Attribute("name"), string.IsNullOrEmpty(item.Value) ? (string)item.Attribute("value") : item.InnerXml().Trim());
 			}
-			
+
 			// Loading default culture strings
 
-			if (_manager.Environment.Language == Manager.Settings.DefaultLanguage)
+			if (_dataLoader.Language == _dataLoader.DefaultLanguage)
 				return;
 
-			stringTable = _manager.DataLoader.LoadXDocument("StringTable.xml", Manager.Settings.DefaultLanguage);
+			stringTable = _dataLoader.LoadXDocument("StringTable.xml", _dataLoader.DefaultLanguage);
 
 			if (stringTable != null)
 			{
