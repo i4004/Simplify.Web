@@ -127,12 +127,13 @@ namespace AcspNet
 			if (!string.IsNullOrEmpty(config["DefaultMasterTemplateFileName"]))
 				DefaultMasterTemplateFileName = config["DefaultMasterTemplateFileName"];
 
-			if (string.IsNullOrEmpty(config["TemplatesMemoryCache"])) return;
+			if (!string.IsNullOrEmpty(config["TemplatesMemoryCache"]))
+			{
+				bool buffer;
 
-			bool buffer;
-
-			if (bool.TryParse(config["TemplatesMemoryCache"], out buffer))
-				TemplatesMemoryCache = buffer;
+				if (bool.TryParse(config["TemplatesMemoryCache"], out buffer))
+					TemplatesMemoryCache = buffer;
+			}
 		}
 
 		private void LoadExtensionsSettings(NameValueCollection config)
@@ -140,12 +141,13 @@ namespace AcspNet
 			if (!string.IsNullOrEmpty(config["DefaultExtensionDataPath"]))
 				DefaultExtensionDataPath = config["DefaultExtensionDataPath"];
 
-			if (string.IsNullOrEmpty(config["DisableAcspInternalExtensions"])) return;
+			if (!string.IsNullOrEmpty(config["DisableAcspInternalExtensions"]))
+			{
+				bool buffer;
 
-			bool buffer;
-
-			if (bool.TryParse(config["DisableAcspInternalExtensions"], out buffer))
-				DisableAcspInternalExtensions = buffer;
+				if (bool.TryParse(config["DisableAcspInternalExtensions"], out buffer))
+					DisableAcspInternalExtensions = buffer;
+			}
 		}
 
 		private void LoadVariablesNamesSettings(NameValueCollection config)
@@ -159,12 +161,13 @@ namespace AcspNet
 
 		private void LoadBehaviourSettings(NameValueCollection config)
 		{
-			if (string.IsNullOrEmpty(config["DisableAutomaticSiteTitleSet"])) return;
+			if (!string.IsNullOrEmpty(config["DisableAutomaticSiteTitleSet"]))
+			{
+				bool buffer;
 
-			bool buffer;
-
-			if (bool.TryParse(config["DisableAutomaticSiteTitleSet"], out buffer))
-				DisableAutomaticSiteTitleSet = buffer;
+				if (bool.TryParse(config["DisableAutomaticSiteTitleSet"], out buffer))
+					DisableAutomaticSiteTitleSet = buffer;
+			}
 		}
 	}
 }

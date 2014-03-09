@@ -2,7 +2,7 @@ namespace AcspNet
 {
 	/// <summary>
 	/// Executable extensions base class
-	/// Provides interface for ACSP.NET executable extensions
+	/// Provides interface for ACSP executable extensions
 	/// </summary>
 	public abstract class ExecExtension : ExtensionsBase
 	{

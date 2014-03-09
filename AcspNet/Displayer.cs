@@ -4,7 +4,7 @@ using System.Web;
 namespace AcspNet
 {
 	/// <summary>
-	/// Writes data to a HTTP response
+	/// Displays web-site
 	/// </summary>
 	public class Displayer : IDisplayer
 	{

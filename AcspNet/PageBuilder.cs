@@ -4,25 +4,26 @@ using System.Collections.Generic;
 namespace AcspNet
 {
 	/// <summary>
-	/// Builds web-site page HTML code
+	/// Builds (combines) web-site page HTML code
 	/// </summary>
 	public class PageBuilder : IPageBuilder
 	{
 		private readonly string _masterTemplateFileName;
-		private readonly bool _disableAutomaticSiteTitleSet;
+		private readonly ITemplateFactory _templateFactory;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="PageBuilder"/> class.
+		/// Initializes a new instance of the <see cref="PageBuilder" /> class.
 		/// </summary>
 		/// <param name="masterTemplateFileName">Name of the master template file.</param>
-		/// <param name="disableAutomaticSiteTitleSet">if set to <c>true</c> [disable automatic site title set].</param>
+		/// <param name="templateFactory">The template factory.</param>
 		/// <exception cref="System.ArgumentNullException">masterTemplateFileName</exception>
-		public PageBuilder(string masterTemplateFileName, bool disableAutomaticSiteTitleSet)
+		public PageBuilder(string masterTemplateFileName, ITemplateFactory templateFactory)
 		{
 			if (string.IsNullOrEmpty(masterTemplateFileName)) throw new ArgumentNullException("masterTemplateFileName");
+			if (templateFactory == null) throw new ArgumentNullException("templateFactory");
 
 			_masterTemplateFileName = masterTemplateFileName;
-			_disableAutomaticSiteTitleSet = disableAutomaticSiteTitleSet;			
+			_templateFactory = templateFactory;
 		}
 
 		/// <summary>
@@ -33,28 +34,12 @@ namespace AcspNet
 		/// <exception cref="System.NotImplementedException"></exception>
 		public string Buid(IDictionary<string, string> dataItems)
 		{
-			throw new System.NotImplementedException();
-		}
+			var tpl = _templateFactory.Load(_masterTemplateFileName);
 
-		//private void SetSiteTitle()
-		//{
-		//	if (string.IsNullOrEmpty(_manager.CurrentAction) && string.IsNullOrEmpty(_manager.CurrentMode)
-		//		&& !IsDataExist(_manager.Environment.TitleVariableName))
-		//		Add(_manager.Environment.TitleVariableName, _manager.StringTable["SiteTitle"]);
-		//	else
-		//		Add(_manager.Environment.TitleVariableName, " - " + _manager.StringTable["SiteTitle"]);
-		//}
+			foreach (var item in dataItems.Keys)
+				tpl.Set(item, dataItems[item]);
+
+			return tpl.Get();
+		}
 	}
 }
-
-//if (!disableAutomaticSiteTitleSet)
-//SetSiteTitle();
-
-//var tpl = _manager.TemplateFactory.Load(_manager.Environment.MasterTemplateFileName);
-
-//		foreach (var item in Items.Keys)
-//			tpl.Set(item, Items[item]);
-
-
-//	_manager.StopExtensionsExecution();
-

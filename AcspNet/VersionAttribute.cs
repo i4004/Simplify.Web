@@ -3,7 +3,7 @@
 namespace AcspNet
 {
 	/// <summary>
-	/// Set extension Version
+	/// Extension version
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class)]
 	public class VersionAttribute : Attribute

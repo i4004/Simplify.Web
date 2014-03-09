@@ -1,15 +1,11 @@
 ﻿namespace AcspNet
 {
 	/// <summary>
-	/// AcspNet extension base class
+	/// ACSP extension base class
 	/// </summary>
 	public abstract class ExtensionsBase : IHideObjectMembers
 	{
-		//internal ITemplateFactory TemplateFactoryInstance;
-		//internal IStringTable StringTableInstance;
-		//internal IDataCollector DataCollectorInstance;
 		//internal IEnvironment EnvironmentInstance;
-		//internal IExtensionsDataLoader ExtensionsDataLoaderInstance;
 		//internal IHtml HtmlInstance;
 		//internal IAuthenticationModule AuthenticationModuleInstance;
 		//internal IExtensions ExtensionsInstance;
@@ -19,29 +15,25 @@
 		/// </summary>
 		public IAcspContext Context { get; internal set; }
 
-		///// <summary>
-		///// Text templates loader.
-		///// </summary>
-		//public ITemplateFactory TemplateFactory
-		//{
-		//	get { return TemplateFactoryInstance; }
-		//}
+		/// <summary>
+		/// Current ACSP executing processor controller
+		/// </summary>
+		public IAcspProcessorContoller ProcessorContoller { get; internal set; }
 
-		///// <summary>
-		///// Localizable text items string table.
-		///// </summary>
-		//public IStringTable StringTable
-		//{
-		//	get { return StringTableInstance; }
-		//}
+		/// <summary>
+		/// Text templates loader.
+		/// </summary>
+		public ITemplateFactory TemplateFactory { get; internal set; }
 
-		///// <summary>
-		///// Web-site master page data collector.
-		///// </summary>
-		//public IDataCollector DataCollector
-		//{
-		//	get { return DataCollectorInstance; }
-		//}
+		/// <summary>
+		/// Localizable text items string table.
+		/// </summary>
+		public IStringTable StringTable { get; internal set; }
+
+		/// <summary>
+		/// Web-site master page data collector.
+		/// </summary>
+		public IDataCollector DataCollector { get; internal set; }
 
 		///// <summary>
 		///// Current request environment data.
@@ -51,13 +43,10 @@
 		//	get { return EnvironmentInstance; }
 		//}
 
-		///// <summary>
-		///// Text and XML files loader.
-		///// </summary>
-		//public IExtensionsDataLoader ExtensionsDataLoader
-		//{
-		//	get { return ExtensionsDataLoaderInstance; }
-		//}
+		/// <summary>
+		/// Text and XML files loader.
+		/// </summary>
+		public IExtensionsDataLoader ExtensionsDataLoader { get; internal set; }
 
 		///// <summary>
 		///// Various HTML generation classes

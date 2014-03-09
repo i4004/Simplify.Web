@@ -1,6 +1,7 @@
 ﻿using System;
 using Moq;
 using NUnit.Framework;
+using Simplify.Templates;
 
 namespace AcspNet.Tests
 {
@@ -49,7 +50,7 @@ namespace AcspNet.Tests
 			dc.Add("bar");
 
 			Assert.AreEqual(3, dc.Items.Count);
-			Assert.AreEqual("Foo 3 textbar", dc.Items["MainContent"]);
+			Assert.AreEqual("Foo 3 textbar", dc["MainContent"]);
 
 			dc.AddTitle("FooTitle");
 
@@ -61,6 +62,16 @@ namespace AcspNet.Tests
 			dc.AddTitleSt("Foo3");
 			Assert.AreEqual(4, dc.Items.Count);
 			Assert.AreEqual("FooTitleFoo 3 text", dc.Items["Title"]);
+
+			dc.Add(new Template("Hello!", false));
+
+			Assert.AreEqual(4, dc.Items.Count);
+			Assert.AreEqual("Foo 3 textbarHello!", dc.Items["MainContent"]);
+
+			dc.Add((ITemplate)null);
+
+			Assert.AreEqual(4, dc.Items.Count);
+			Assert.AreEqual("Foo 3 textbarHello!", dc.Items["MainContent"]);
 		}
 	}
 }

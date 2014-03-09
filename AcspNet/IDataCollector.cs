@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Simplify.Templates;
 
 namespace AcspNet
 {
@@ -11,6 +12,37 @@ namespace AcspNet
 		/// Gets the data collector items which will be inserted into master template file.
 		/// </summary>
 		IDictionary<string, string> Items { get; }
+
+		/// <summary>
+		/// Gets the name of the main content variable.
+		/// </summary>
+		/// <value>
+		/// The name of the main content variable.
+		/// </value>
+		string MainContentVariableName { get; }
+
+		/// <summary>
+		/// Gets the name of the title variable.
+		/// </summary>
+		/// <value>
+		/// The name of the title variable.
+		/// </value>
+		string TitleVariableName { get; }
+		
+		/// <summary>
+		/// Gets the string table.
+		/// </summary>
+		/// <value>
+		/// The string table.
+		/// </value>
+		IStringTable StringTable { get; }
+		
+		/// <summary>
+		/// List of data collector items
+		/// </summary>
+		/// <param name="key">Item name</param>
+		/// <returns>Data collector item</returns>
+		string this[string key] { get; }
 
 		/// <summary>
 		///  Set template variable value (all occurrences will be replaced)
@@ -26,6 +58,13 @@ namespace AcspNet
 		/// <param name="value">Value to set</param>
 		/// <returns></returns>
 		void Add(string value);
+
+		/// <summary>
+		/// Set template main content variable value with data from template (all occurrences will be replaced)
+		/// </summary>
+		/// <param name="tpl">Template to set</param>
+		/// <returns></returns>
+		void Add(ITemplate tpl);
 
 		/// <summary>
 		/// Set template title variable value (all occurrences will be replaced)

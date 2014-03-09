@@ -3,7 +3,7 @@
 namespace AcspNet
 {
 	/// <summary>
-	/// Set executable extension run type
+	/// Executable extension run type
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class)]
 	public class RunTypeAttribute : Attribute

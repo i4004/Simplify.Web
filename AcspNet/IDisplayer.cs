@@ -1,7 +1,7 @@
 ﻿namespace AcspNet
 {
 	/// <summary>
-	/// Represent data displayer to client
+	/// Represent web-site displayer
 	/// </summary>
 	public interface IDisplayer : IHideObjectMembers
 	{

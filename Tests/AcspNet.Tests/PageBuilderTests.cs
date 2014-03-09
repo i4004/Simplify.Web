@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Abstractions.TestingHelpers;
 using NUnit.Framework;
+using Simplify.Templates;
 
 namespace AcspNet.Tests
 {
@@ -10,13 +12,22 @@ namespace AcspNet.Tests
 		[Test]
 		public void Constructor_NullsPassed_ArgumentNullExceptionsThrown()
 		{
-			Assert.Throws<ArgumentNullException>(() => new PageBuilder(null, false));
+			Assert.Throws<ArgumentNullException>(() => new PageBuilder(null, null));
+			Assert.Throws<ArgumentNullException>(() => new PageBuilder("test", null));
 		}
 
 		[Test]
-		public void Build_CorrectData_BuilderCorrectly()
+		public void Build_CorrectData_BuildedCorrectly()
 		{
-			var b = new PageBuilder("Index.tpl", false);
+			var files = new Dictionary<string, MockFileData>();
+
+			files.Add("Templates/Index.tpl", "<html>{Var1}{Var2}</html>");
+
+			Template.FileSystem = new MockFileSystem(files, "C:/WebSites/FooSite");
+
+			var tf = new TemplateFactory("C:/WebSites/FooSite/Templates", "en", "en");
+			var b = new PageBuilder("Index.tpl", tf);
+
 			var data = new Dictionary<string, string>();
 
 			data.Add("Var1", "data1");
@@ -24,18 +35,7 @@ namespace AcspNet.Tests
 
 			var result = b.Buid(data);
 
-			Assert.AreEqual("data1data2", result);
-		}	
+			Assert.AreEqual("<html>data1data2</html>", result);
+		}
 	}
 }
-
-//	//			var routeData = AcspNetTestingHelper.GetTestRouteData();
-//	//			var fs = GetTestFileSystem();
-//	//			var httpContext = GetTestHttpContext();
-//	//			var userAssembly = GetTestUserAssembly();
-//	//			Template.FileSystem = fs;
-
-//	//			_httpResponse.Setup(x => x.Write(It.IsAny<string>()))
-//	//				.Callback<string>(DataCollectorResponseWriteWriteDataIsCorrect);
-
-//	//			var manager = new Manager(routeData, httpContext.Object, fs, AcspNetTestingHelper.GetTestHttpRuntime(), userAssembly);

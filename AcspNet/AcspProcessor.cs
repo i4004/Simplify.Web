@@ -6,9 +6,9 @@ namespace AcspNet
 	/// <summary>
 	/// Creates and executes ACSP extensions for current HTTP request
 	/// </summary>
-	public class AcspProcessor : IAcspProcessor
+	public class AcspProcessor : IAcspProcessor, IAcspProcessorContoller
 	{
-		//private readonly IAcspSettings _settings;
+		private readonly IAcspSettings _settings;
 		private readonly AcspContext _context;
 		private readonly IList<ExecExtensionMetaContainer> _execExtensionMetaContainers;
 		private readonly IList<LibExtensionMetaContainer> _libExtensionMetaContainers;
@@ -22,16 +22,26 @@ namespace AcspNet
 		///// </summary>
 		//private readonly IDataCollector DataCollector;
 
+		/// <summary>
+		/// Text and XML files loader.
+		/// </summary>
+		private readonly ExtensionsDataLoader _dataLoader;
+
+		/// <summary>
+		/// Localizable text items string table.
+		/// </summary>
+		private readonly StringTable _stringTable;
+
+		/// <summary>
+		/// Text templates loader.
+		/// </summary>
+		private readonly ITemplateFactory _templateFactory;
+
 		private bool _isExtensionsExecutionStopped;
 
-		internal AcspProcessor(/*IAcspSettings settings, */AcspContext context, IList<ExecExtensionMetaContainer> execExtensionMetaContainers, IList<LibExtensionMetaContainer> libExtensionMetaContainers)
+		internal AcspProcessor(IAcspSettings settings, AcspContext context, IList<ExecExtensionMetaContainer> execExtensionMetaContainers, IList<LibExtensionMetaContainer> libExtensionMetaContainers)
 		{
-//			if (settings == null) throw new ArgumentNullException("settings");
-			if (context == null) throw new ArgumentNullException("context");
-			if (execExtensionMetaContainers == null) throw new ArgumentNullException("execExtensionMetaContainers");
-			if (libExtensionMetaContainers == null) throw new ArgumentNullException("libExtensionMetaContainers");
-
-//			_settings = settings;
+			_settings = settings;
 			_context = context;
 			_execExtensionMetaContainers = execExtensionMetaContainers;
 			_libExtensionMetaContainers = libExtensionMetaContainers;
@@ -41,6 +51,14 @@ namespace AcspNet
 			_libExtensionsIsInitializedList = new Dictionary<string, bool>(_libExtensionMetaContainers.Count);
 
 //			DataCollector = new DataCollector();
+
+			//			Environment = new Environment(this);
+			//DataLoader = new ExtensionsDataLoader(_settings.DefaultExtensionDataPath,);
+			//StringTable = new StringTable(this);
+			//TemplateFactory = new TemplateFactory(_settings.this);
+			//			HtmlWrapper = new HtmlWrapper();
+			//			AuthenticationModule = new AuthenticationModule(this);
+			//			ExtensionsWrapper = new ExtensionsWrapper();
 		}
 
 		/// <summary>
@@ -72,14 +90,15 @@ namespace AcspNet
 			{
 				var extension = (LibExtension)Activator.CreateInstance(container.ExtensionType);
 				extension.Context = _context;
-				//		extension.TemplateFactoryInstance = TemplateFactory;
-				//		extension.DataCollectorInstance = DataCollector;
+				extension.ProcessorContoller = this;
+				extension.TemplateFactory = _templateFactory;
+				//extension.DataCollectorInstance = DataCollector;
 				//		extension.EnvironmentInstance = Environment;
-				//		extension.ExtensionsDataLoaderInstance = DataLoader;
-				//		extension.StringTableInstance = StringTable;
+				extension.ExtensionsDataLoader = _dataLoader;
+				extension.StringTable = _stringTable;
 				//		extension.HtmlInstance = HtmlWrapper;
 				//		extension.AuthenticationModuleInstance = AuthenticationModule;
-				//		extension.ExtensionsInstance = ExtensionsWrapper;
+				//extension.ExtensionsInstance = ExtensionsWrapper;
 
 				_libExtensionsList.Add(extension);
 				// _libExtensionsIsInitializedList.Add(container.ExtensionType.Name, false); check not need?
@@ -108,11 +127,12 @@ namespace AcspNet
 				{
 					var extension = (ExecExtension)Activator.CreateInstance(container.ExtensionType);
 					extension.Context = _context;
-					//			extension.TemplateFactoryInstance = TemplateFactory;
+					extension.ProcessorContoller = this;
+					extension.TemplateFactory = _templateFactory;
 					//			extension.DataCollectorInstance = DataCollector;
 					//			extension.EnvironmentInstance = Environment;
-					//			extension.ExtensionsDataLoaderInstance = DataLoader;
-					//			extension.StringTableInstance = StringTable;
+					extension.ExtensionsDataLoader = _dataLoader;
+					extension.StringTable = _stringTable;
 					//			extension.HtmlInstance = HtmlWrapper;
 					//			extension.AuthenticationModuleInstance = AuthenticationModule;
 					//			extension.ExtensionsInstance = ExtensionsWrapper;
@@ -122,17 +142,13 @@ namespace AcspNet
 				}
 			}
 		}
-
-
-
+		
 		private void RunExecutableExtensions()
 		{
 			foreach (var extension in _execExtensionsList)
 			{
-				if (_isExtensionsExecutionStopped)
-					return;
-
-				extension.Invoke();
+				if (!_isExtensionsExecutionStopped)
+					extension.Invoke();
 			}
 
 			//			DisplaySite();

@@ -64,21 +64,6 @@
 //		public readonly IEnvironment Environment;
 
 //		/// <summary>
-//		/// Text and XML files loader.
-//		/// </summary>
-//		public readonly ExtensionsDataLoader DataLoader;
-
-//		/// <summary>
-//		/// Localizable text items string table.
-//		/// </summary>
-//		public readonly StringTable StringTable;
-
-//		/// <summary>
-//		/// Text templates loader.
-//		/// </summary>
-//		public readonly ITemplateFactory TemplateFactory;
-
-//		/// <summary>
 //		/// Various HTML generation classes
 //		/// </summary>
 //		public readonly HtmlWrapper HtmlWrapper;
@@ -168,14 +153,6 @@
 //					Request.Url.Scheme,
 //					Request.Url.Authority,
 //					Request.RawUrl);
-
-//			Environment = new Environment(this);
-//			DataLoader = new ExtensionsDataLoader(this);
-//			StringTable = new StringTable(this);
-//			TemplateFactory = new TemplateFactory(this);
-//			HtmlWrapper = new HtmlWrapper();
-//			AuthenticationModule = new AuthenticationModule(this);
-//			ExtensionsWrapper = new ExtensionsWrapper();
 
 //			InitializeHtmlWrapper();
 //			InitializeExtensionsWrapper();

@@ -3,7 +3,7 @@ using System;
 namespace AcspNet
 {
 	/// <summary>
-	/// Represent ACSP.NET related exceptions
+	/// Represent ACSP related exceptions
 	/// </summary>
 	[Serializable]
 	public sealed class AcspException : Exception

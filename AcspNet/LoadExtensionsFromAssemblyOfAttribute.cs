@@ -3,7 +3,7 @@
 namespace AcspNet
 {
 	/// <summary>
-	/// Attribute for set assemblies which contains ACSP.NET extensions
+	/// Set assemblies which contains ACSP extensions
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class)]
 	public class LoadExtensionsFromAssemblyOfAttribute : Attribute

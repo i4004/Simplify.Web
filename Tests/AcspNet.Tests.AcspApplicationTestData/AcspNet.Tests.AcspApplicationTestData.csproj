@@ -41,6 +41,11 @@
     <AssemblyOriginatorKeyFile>AcspNet.Tests.TestLibrary.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Default.cs" />
+    <Compile Include="Extensions\Executable\TestExecExtension1.cs" />
+    <Compile Include="Extensions\Executable\TestExecExtension2.cs" />
+    <Compile Include="Extensions\Library\TestLibraryExtension1.cs" />
+    <Compile Include="Extensions\Library\TestLibraryExtension2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

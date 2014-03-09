@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Simplify.Templates;
 
 namespace AcspNet
 {
@@ -46,6 +47,49 @@ namespace AcspNet
 		}
 
 		/// <summary>
+		/// Gets the name of the main content variable.
+		/// </summary>
+		/// <value>
+		/// The name of the main content variable.
+		/// </value>
+		public string MainContentVariableName
+		{
+			get { return _mainContentVariableName; }
+		}
+
+		/// <summary>
+		/// Gets the name of the title variable.
+		/// </summary>
+		/// <value>
+		/// The name of the title variable.
+		/// </value>
+		public string TitleVariableName
+		{
+			get { return _titleVariableName; }
+		}
+
+		/// <summary>
+		/// Gets the string table.
+		/// </summary>
+		/// <value>
+		/// The string table.
+		/// </value>
+		public IStringTable StringTable
+		{
+			get { return _stringTable; }
+		}
+
+		/// <summary>
+		/// List of data collector items
+		/// </summary>
+		/// <param name="key">Item name</param>
+		/// <returns>Data collector item</returns>
+		public string this[string key]
+		{
+			get { return Items[key]; }
+		}
+
+		/// <summary>
 		///  Set template variable value (all occurrences will be replaced)
 		/// </summary>
 		/// <param name="variableName">Variable name in master template file</param>
@@ -72,7 +116,20 @@ namespace AcspNet
 		/// <returns></returns>
 		public void Add(string value)
 		{
-			Add(_mainContentVariableName, value);
+			Add(MainContentVariableName, value);
+		}
+
+		/// <summary>
+		/// Set template main content variable value with data from template (all occurrences will be replaced)
+		/// </summary>
+		/// <param name="tpl"></param>
+		/// <returns></returns>
+		public void Add(ITemplate tpl)
+		{
+			if(tpl == null)
+				return;
+
+			Add(MainContentVariableName, tpl.Get());
 		}
 
 		/// <summary>
@@ -82,7 +139,7 @@ namespace AcspNet
 		/// <returns></returns>
 		public void AddTitle(string value)
 		{
-			Add(_titleVariableName, value);
+			Add(TitleVariableName, value);
 		}
 
 		/// <summary>
@@ -93,7 +150,7 @@ namespace AcspNet
 		/// <returns></returns>
 		public void AddSt(string variableName, string stringTableKey)
 		{
-			Add(variableName, _stringTable[stringTableKey]);
+			Add(variableName, StringTable[stringTableKey]);
 		}
 
 		/// <summary>
@@ -103,7 +160,7 @@ namespace AcspNet
 		/// <returns></returns>
 		public void AddSt(string stringTableKey)
 		{
-			AddSt(_mainContentVariableName, stringTableKey);
+			AddSt(MainContentVariableName, stringTableKey);
 		}
 
 		/// <summary>
@@ -113,7 +170,7 @@ namespace AcspNet
 		/// <returns></returns>
 		public void AddTitleSt(string stringTableKey)
 		{
-			AddSt(_titleVariableName, stringTableKey);
+			AddSt(TitleVariableName, stringTableKey);
 		}
 
 		/// <summary>

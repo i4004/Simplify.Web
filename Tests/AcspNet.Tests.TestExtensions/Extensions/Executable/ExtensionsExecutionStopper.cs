@@ -1,4 +1,4 @@
-﻿namespace AcspNet.Tests.Extensions.Executable
+﻿namespace AcspNet.Tests.TestExtensions.Extensions.Executable
 {
 	[Action("stopExtensionsExecution")]
 	[Priority(10)]
@@ -6,7 +6,7 @@
 	{
 		public override void Invoke()
 		{
-			Manager.StopExtensionsExecution();
+			ProcessorContoller.StopExtensionsExecution();
 		}
 	}
 }

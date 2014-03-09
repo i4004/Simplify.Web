@@ -3,7 +3,7 @@
 namespace AcspNet
 {
 	/// <summary>
-	/// Represent a web page HTML code builder
+	/// Represent a web page HTML code builder (combiner)
 	/// </summary>
 	public interface IPageBuilder : IHideObjectMembers
 	{
