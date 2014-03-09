@@ -16,7 +16,7 @@ namespace AcspNet
 		/// <summary>
 		/// Load string table with current language
 		/// </summary>
-		public StringTable(IExtensionsDataLoader dataLoader)
+		internal StringTable(IExtensionsDataLoader dataLoader)
 		{
 			if (dataLoader == null) throw new ArgumentNullException("dataLoader");
 

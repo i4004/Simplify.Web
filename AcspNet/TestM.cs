@@ -39,11 +39,6 @@
 //		/// </summary>
 //		public const string SiteVariableNameSiteVirtualPath = "SV:SiteVirtualPath";
 
-//		/// <summary>
-//		/// Language field name in user cookies
-//		/// </summary>
-//		public const string CookieLanguageFieldName = "language";
-
 //		private const string IsNewSessionFieldName = "AcspIsNewSession";
 
 //		private static readonly object Locker = new object();
@@ -57,11 +52,6 @@
 //		/// The HttpRuntime abstration, to work with HttpRuntime functions
 //		/// </summary>
 //		public readonly IHttpRuntime HttpRuntime;
-
-//		/// <summary>
-//		/// Current request environment data.
-//		/// </summary>
-//		public readonly IEnvironment Environment;
 
 //		/// <summary>
 //		/// Various HTML generation classes
@@ -120,8 +110,6 @@
 //				{
 //					if (!IsStaticInitialized)
 //					{
-//						if (Request.PhysicalApplicationPath != null)
-//							SitePhysicalPath = Request.PhysicalApplicationPath.Replace("\\", "/");
 
 //						if (Request != null && Request.Url != null)
 //						{
@@ -177,14 +165,6 @@
 //		/// The stop watch (for web-page build measurement)
 //		/// </summary>
 //		public Stopwatch StopWatch { get; private set; }
-
-//		/// <summary>
-//		/// Gets the web-site physical path, for example: C:\inetpub\wwwroot\YourSite
-//		/// </summary>
-//		/// <value>
-//		/// The site physical path.
-//		/// </value>
-//		public static string SitePhysicalPath { get; private set; }
 
 //		/// <summary>
 //		/// Gets the web-site URL, for example: http://yoursite.com/site1/

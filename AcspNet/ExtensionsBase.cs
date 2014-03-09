@@ -5,7 +5,6 @@
 	/// </summary>
 	public abstract class ExtensionsBase : IHideObjectMembers
 	{
-		//internal IEnvironment EnvironmentInstance;
 		//internal IHtml HtmlInstance;
 		//internal IAuthenticationModule AuthenticationModuleInstance;
 		//internal IExtensions ExtensionsInstance;
@@ -35,13 +34,10 @@
 		/// </summary>
 		public IDataCollector DataCollector { get; internal set; }
 
-		///// <summary>
-		///// Current request environment data.
-		///// </summary>
-		//public IEnvironment Environment
-		//{
-		//	get { return EnvironmentInstance; }
-		//}
+		/// <summary>
+		/// Current request environment data.
+		/// </summary>
+		public IEnvironment Environment { get; internal set; }
 
 		/// <summary>
 		/// Text and XML files loader.

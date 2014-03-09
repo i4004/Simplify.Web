@@ -25,6 +25,8 @@ namespace AcspNet.Tests
 			Assert.IsNotNull(context.Request);
 			Assert.IsNotNull(context.Response);
 			Assert.IsNotNull(context.RouteData);
+			//Assert.AreEqual("C:/WebSites/FooSite/Templates", context.TemplatesPhysicalPath);
+			Assert.AreEqual("C:/WebSites/TestSite", context.SitePhysicalPath);			
 		}
 
 		[Test]

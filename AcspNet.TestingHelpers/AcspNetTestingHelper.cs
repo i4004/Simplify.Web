@@ -25,21 +25,25 @@ namespace AcspNet.TestingHelpers
 			var httpRequest = new Mock<HttpRequestBase>();
 			var httpResponse = new Mock<HttpResponseBase>();
 			//var httpSession = new Mock<HttpSessionStateBase>();
-			//var cookieCollection = new HttpCookieCollection();
 
 			httpContext.SetupGet(r => r.Request).Returns(httpRequest.Object);
 			httpContext.SetupGet(r => r.Response).Returns(httpResponse.Object);
 			//httpContext.SetupGet(r => r.Session).Returns(httpSession.Object);
 
-			//httpRequest.SetupGet(r => r.Cookies).Returns(cookieCollection);
+			var requestCookies = new HttpCookieCollection();
+			httpRequest.SetupGet(r => r.Cookies).Returns(requestCookies);
+
+			httpRequest.SetupGet(r => r.PhysicalApplicationPath).Returns(@"C:\WebSites\TestSite\");
 			httpRequest.SetupGet(r => r.QueryString).Returns(new NameValueCollection());
+
 			//httpRequest.SetupGet(r => r.Form).Returns(new NameValueCollection());
-			//httpRequest.SetupGet(r => r.PhysicalApplicationPath).Returns(@"C:\WebSites\TestSite\");
 			//httpRequest.SetupGet(r => r.Url).Returns(new Uri("http://localhost"));
 			//httpRequest.SetupGet(r => r.RawUrl).Returns("http://localhost/TestSite/");
 			//httpRequest.SetupGet(r => r.ApplicationPath).Returns("/TestSite");
 
-			//httpResponse.SetupGet(r => r.Cookies).Returns(cookieCollection);
+			var responseCookies = new HttpCookieCollection();
+			httpResponse.SetupGet(r => r.Cookies).Returns(responseCookies);
+
 			//httpResponse.SetupGet(r => r.Cache).Returns(new HttpCachePolicyWrapper(httpCacheContext.Response.Cache));
 
 			//var sessions = new Dictionary<string, object>();

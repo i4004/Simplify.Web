@@ -157,36 +157,6 @@
 //		}
 
 //		[Test]
-//		public void Environment_Initialize_ParametersInitializedCorrectly()
-//		{
-//			var manager = GetTestManager();
-
-//			Assert.AreEqual("en", manager.Environment.Language);
-
-//			Assert.AreEqual("Main", manager.Environment.SiteStyle);
-//			Assert.AreEqual("Templates", manager.Environment.TemplatesPath);
-//			Assert.AreEqual("C:/WebSites/FooSite/Templates", manager.Environment.TemplatesPhysicalPath);
-//		}
-
-//		[Test]
-//		public void Environment_Usage_BehaviourIsCorrect()
-//		{
-//			var manager = GetTestManager();
-
-//			manager.Environment.SetCookieLanguage(null);
-//			Assert.AreEqual(0, manager.Response.Cookies.Count);
-
-//			manager.Environment.SetCookieLanguage("ru");
-//			Assert.AreEqual(1, manager.Response.Cookies.Count);
-
-//			var cookie = manager.Response.Cookies[Manager.CookieLanguageFieldName];
-
-//			Assert.IsNotNull(cookie);
-//			Assert.AreEqual(Manager.CookieLanguageFieldName, cookie.Name);
-//			Assert.AreEqual("ru", cookie.Value);
-//		}
-
-//		[Test]
 //		public void TemplateFactory_Usage_BehaviourIsCorrect()
 //		{
 //			var manager = GetTestManager();

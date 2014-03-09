@@ -1,4 +1,4 @@
-﻿namespace AcspNet
+﻿namespace AcspNet.Meta
 {
 	/// <summary>
 	/// Executable extension meta-data information container

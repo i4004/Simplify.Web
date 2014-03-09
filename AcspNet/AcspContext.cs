@@ -14,7 +14,7 @@ namespace AcspNet
 		/// </summary>
 		/// <param name="routeData">The current page route data.</param>
 		/// <param name="httpContext">The HTTP context.</param>
-		public AcspContext(RouteData routeData, HttpContextBase httpContext)
+		internal AcspContext(RouteData routeData, HttpContextBase httpContext)
 		{
 			if (routeData == null)
 				throw new ArgumentNullException("routeData");
@@ -35,6 +35,7 @@ namespace AcspNet
 			CalculateCurrentAction();
 			CalculateCurrentMode();
 			CalculateCurrentID();
+			CalculateSitePhysicalPath();
 		}
 
 		/// <summary>
@@ -57,7 +58,6 @@ namespace AcspNet
 		/// </summary>
 		public HttpResponseBase Response { get; private set; }
 
-
 		/// <summary>
 		/// Gets the current web-site request action parameter (/someAction or ?act=someAction).
 		/// </summary>
@@ -74,7 +74,6 @@ namespace AcspNet
 		/// </value>
 		public string CurrentMode { get; private set; }
 
-
 		/// <summary>
 		/// Gets the current web-site ID request parameter (/someAction/someID or ?act=someAction&amp;id=someID).
 		/// </summary>
@@ -82,6 +81,14 @@ namespace AcspNet
 		/// The current mode (?act=someAction&amp;mode=somMode).
 		/// </value>
 		public string CurrentID { get; private set; }
+
+		/// <summary>
+		/// Gets the web-site physical path, for example: C:/inetpub/wwwroot/YourSite
+		/// </summary>
+		/// <value>
+		/// The site physical path.
+		/// </value>
+		public string SitePhysicalPath { get; private set; }
 
 		/// <summary>
 		/// Gets current action/mode URL in formal like ?act={0}&amp;mode={1}&amp;id={2}.
@@ -136,6 +143,16 @@ namespace AcspNet
 				id = Request.QueryString["id"];
 
 			CurrentID = id ?? "";
+		}
+		private void CalculateSitePhysicalPath()
+		{
+			if (Request.PhysicalApplicationPath != null)
+			{
+				SitePhysicalPath = Request.PhysicalApplicationPath.Replace("\\", "/");
+
+				if (SitePhysicalPath.EndsWith("/"))
+					SitePhysicalPath = SitePhysicalPath.Substring(0, SitePhysicalPath.Length - 1);
+			}
 		}
 	}
 }

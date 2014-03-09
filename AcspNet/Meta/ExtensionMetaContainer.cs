@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AcspNet
+namespace AcspNet.Meta
 {
 	/// <summary>
 	/// Extension meta-data information container

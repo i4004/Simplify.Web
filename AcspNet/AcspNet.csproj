@@ -121,9 +121,10 @@
     <Compile Include="ActionAttribute.cs" />
     <Compile Include="DataCollector.cs" />
     <Compile Include="Displayer.cs" />
+    <Compile Include="Environment.cs" />
     <Compile Include="ExecExtension.cs" />
-    <Compile Include="ExecExtensionMetaContainer.cs" />
-    <Compile Include="ExtensionMetaContainer.cs" />
+    <Compile Include="Meta\ExecExtensionMetaContainer.cs" />
+    <Compile Include="Meta\ExtensionMetaContainer.cs" />
     <Compile Include="ExtensionsBase.cs" />
     <Compile Include="ExtensionsDataLoader.cs" />
     <Compile Include="IAcspApplication.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="IAcspSettings.cs" />
     <Compile Include="IDataCollector.cs" />
     <Compile Include="IDisplayer.cs" />
+    <Compile Include="IEnvironment.cs" />
     <Compile Include="IExtensionsDataLoader.cs" />
     <Compile Include="IHideObjectMembers.cs">
       <SubType>Code</SubType>
@@ -143,7 +145,7 @@
     </Compile>
     <Compile Include="ITemplateFactory.cs" />
     <Compile Include="LibExtension.cs" />
-    <Compile Include="LibExtensionMetaContainer.cs" />
+    <Compile Include="Meta\LibExtensionMetaContainer.cs" />
     <Compile Include="LoadExtensionsFromAssemblyOfAttribute.cs" />
     <Compile Include="LoadIndividualExtensionsAttribute.cs" />
     <Compile Include="ModeAttribute.cs" />

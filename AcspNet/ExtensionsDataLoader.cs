@@ -19,7 +19,7 @@ namespace AcspNet
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ExtensionsDataLoader"/> class.
 		/// </summary>
-		public ExtensionsDataLoader(string extensionsDataPath, string sitePhysicalPath, string language, string defaultLanguage)
+		internal ExtensionsDataLoader(string extensionsDataPath, string sitePhysicalPath, string language, string defaultLanguage)
 		{
 			_extensionsDataPath = extensionsDataPath;
 			_sitePhysicalPath = sitePhysicalPath;

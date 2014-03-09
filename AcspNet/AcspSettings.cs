@@ -84,7 +84,7 @@ namespace AcspNet
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AcspSettings"/> class.
 		/// </summary>
-		public AcspSettings()
+		internal AcspSettings()
 		{
 			DefaultTitleVariableName = "Title";
 			DefaultMainContentVariableName = "MainContent";

@@ -108,6 +108,7 @@
     <Compile Include="AcspRouteConfigTests.cs" />
     <Compile Include="DataCollectorTests.cs" />
     <Compile Include="DisplayerTests.cs" />
+    <Compile Include="EnvironmentTests.cs" />
     <Compile Include="ExtensionsDataLoaderTests.cs" />
     <Compile Include="PageBuilderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

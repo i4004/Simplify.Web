@@ -27,7 +27,7 @@ namespace AcspNet
 		/// or
 		/// stringTable
 		/// </exception>
-		public DataCollector(string mainContentVariableName, string titleVariableName, IStringTable stringTable)
+		internal DataCollector(string mainContentVariableName, string titleVariableName, IStringTable stringTable)
 		{
 			if (string.IsNullOrEmpty(mainContentVariableName)) throw new ArgumentNullException("mainContentVariableName");
 			if (string.IsNullOrEmpty(titleVariableName)) throw new ArgumentNullException("titleVariableName");

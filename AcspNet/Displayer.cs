@@ -20,7 +20,7 @@ namespace AcspNet
 		/// </summary>
 		/// <param name="httpResponse">The HTTP response.</param>
 		/// <exception cref="System.ArgumentNullException">httpResponse</exception>
-		public Displayer(HttpResponseBase httpResponse)
+		internal Displayer(HttpResponseBase httpResponse)
 		{
 			if (httpResponse == null) throw new ArgumentNullException("httpResponse");
 

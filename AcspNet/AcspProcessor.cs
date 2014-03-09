@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AcspNet.Meta;
 
 namespace AcspNet
 {
@@ -8,7 +9,6 @@ namespace AcspNet
 	/// </summary>
 	public class AcspProcessor : IAcspProcessor, IAcspProcessorContoller
 	{
-		private readonly IAcspSettings _settings;
 		private readonly AcspContext _context;
 		private readonly IList<ExecExtensionMetaContainer> _execExtensionMetaContainers;
 		private readonly IList<LibExtensionMetaContainer> _libExtensionMetaContainers;
@@ -16,6 +16,11 @@ namespace AcspNet
 		private readonly IList<ExecExtension> _execExtensionsList;
 		private readonly IList<LibExtension> _libExtensionsList;
 		private readonly Dictionary<string, bool> _libExtensionsIsInitializedList;
+
+		/// <summary>
+		/// Current request environment data.
+		/// </summary>
+		private readonly IEnvironment _environment;
 
 		///// <summary>
 		///// Web-site master page data collector.
@@ -41,7 +46,6 @@ namespace AcspNet
 
 		internal AcspProcessor(IAcspSettings settings, AcspContext context, IList<ExecExtensionMetaContainer> execExtensionMetaContainers, IList<LibExtensionMetaContainer> libExtensionMetaContainers)
 		{
-			_settings = settings;
 			_context = context;
 			_execExtensionMetaContainers = execExtensionMetaContainers;
 			_libExtensionMetaContainers = libExtensionMetaContainers;
@@ -52,10 +56,10 @@ namespace AcspNet
 
 //			DataCollector = new DataCollector();
 
-			//			Environment = new Environment(this);
-			//DataLoader = new ExtensionsDataLoader(_settings.DefaultExtensionDataPath,);
-			//StringTable = new StringTable(this);
-			//TemplateFactory = new TemplateFactory(_settings.this);
+			_environment = new Environment(_context.SitePhysicalPath, settings, _context.Request.Cookies, _context.Response.Cookies);
+			_dataLoader = new ExtensionsDataLoader(_environment.ExtensionsDataPath, _context.SitePhysicalPath, _environment.Language, settings.DefaultLanguage);
+			_stringTable = new StringTable(_dataLoader);
+			_templateFactory = new TemplateFactory(_environment.TemplatesPhysicalPath, _environment.Language, settings.DefaultLanguage, _environment.TemplatesMemoryCache);
 			//			HtmlWrapper = new HtmlWrapper();
 			//			AuthenticationModule = new AuthenticationModule(this);
 			//			ExtensionsWrapper = new ExtensionsWrapper();
@@ -91,9 +95,9 @@ namespace AcspNet
 				var extension = (LibExtension)Activator.CreateInstance(container.ExtensionType);
 				extension.Context = _context;
 				extension.ProcessorContoller = this;
+				extension.Environment = _environment;
 				extension.TemplateFactory = _templateFactory;
 				//extension.DataCollectorInstance = DataCollector;
-				//		extension.EnvironmentInstance = Environment;
 				extension.ExtensionsDataLoader = _dataLoader;
 				extension.StringTable = _stringTable;
 				//		extension.HtmlInstance = HtmlWrapper;
@@ -128,9 +132,9 @@ namespace AcspNet
 					var extension = (ExecExtension)Activator.CreateInstance(container.ExtensionType);
 					extension.Context = _context;
 					extension.ProcessorContoller = this;
+					extension.Environment = _environment; 
 					extension.TemplateFactory = _templateFactory;
 					//			extension.DataCollectorInstance = DataCollector;
-					//			extension.EnvironmentInstance = Environment;
 					extension.ExtensionsDataLoader = _dataLoader;
 					extension.StringTable = _stringTable;
 					//			extension.HtmlInstance = HtmlWrapper;

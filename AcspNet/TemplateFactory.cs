@@ -22,7 +22,7 @@ namespace AcspNet
 		/// <summary>
 		/// Initializes a new instance of the <see cref="TemplateFactory"/> class.
 		/// </summary>
-		public TemplateFactory(string templatesPhysicalPath, string language, string defaultLanguage, bool templatesMemoryCache = false)
+		internal TemplateFactory(string templatesPhysicalPath, string language, string defaultLanguage, bool templatesMemoryCache = false)
 		{
 			if (string.IsNullOrEmpty(templatesPhysicalPath)) throw new ArgumentNullException("templatesPhysicalPath");
 			if (string.IsNullOrEmpty(language)) throw new ArgumentNullException("language");

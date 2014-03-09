@@ -17,7 +17,7 @@ namespace AcspNet
 		/// <param name="masterTemplateFileName">Name of the master template file.</param>
 		/// <param name="templateFactory">The template factory.</param>
 		/// <exception cref="System.ArgumentNullException">masterTemplateFileName</exception>
-		public PageBuilder(string masterTemplateFileName, ITemplateFactory templateFactory)
+		internal PageBuilder(string masterTemplateFileName, ITemplateFactory templateFactory)
 		{
 			if (string.IsNullOrEmpty(masterTemplateFileName)) throw new ArgumentNullException("masterTemplateFileName");
 			if (templateFactory == null) throw new ArgumentNullException("templateFactory");

@@ -75,6 +75,14 @@ namespace AcspNet
 		/// The current mode (?act=someAction&amp;mode=somMode).
 		/// </value>
 		string CurrentID { get; }
+		
+		/// <summary>
+		/// Gets the web-site physical path, for example: C:/inetpub/wwwroot/YourSite
+		/// </summary>
+		/// <value>
+		/// The site physical path.
+		/// </value>
+		string SitePhysicalPath { get; }
 
 		///// <summary>
 		///// Gets the current executing extensions types.

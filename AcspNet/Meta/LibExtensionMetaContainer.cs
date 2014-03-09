@@ -1,4 +1,4 @@
-﻿namespace AcspNet
+﻿namespace AcspNet.Meta
 {
 	/// <summary>
 	/// Library extension meta-data information container
