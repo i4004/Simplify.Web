@@ -17,14 +17,6 @@
 //			var httpSession = new Mock<HttpSessionStateBase>();
 //			var cookieCollection = new HttpCookieCollection();
 
-//			httpContext.SetupGet(r => r.Request).Returns(httpRequest.Object);
-//			httpContext.SetupGet(r => r.Response).Returns(_httpResponse.Object);
-//			httpContext.SetupGet(r => r.Session).Returns(httpSession.Object);
-
-//			httpRequest.SetupGet(r => r.Cookies).Returns(cookieCollection);
-//			httpRequest.SetupGet(r => r.QueryString).Returns(new NameValueCollection());
-//			httpRequest.SetupGet(r => r.Form).Returns(new NameValueCollection());
-//			httpRequest.SetupGet(r => r.PhysicalApplicationPath).Returns(@"C:\WebSites\FooSite\");
 //			httpRequest.SetupGet(r => r.Url).Returns(new Uri("http://localhost"));
 //			httpRequest.SetupGet(r => r.RawUrl).Returns("http://localhost/FooSite/");
 //			httpRequest.SetupGet(r => r.ApplicationPath).Returns("/FooSite");
@@ -87,62 +79,12 @@
 //			return new MockFileSystem(files, "C:/WebSites/FooSite");
 //		}
 
-//		public Assembly GetTestUserAssembly()
-//		{
-//			return Assembly.GetCallingAssembly();
-//		}
-
-//		public Manager GetTestManager(string action = null, string mode = null, string id = null)
-//		{
-//			var httpContext = GetTestHttpContext();
-//			var routeData = AcspNetTestingHelper.GetTestRouteData();
-//			var fs = GetTestFileSystem();
-
-//			if (action != null)
-//				httpContext.Object.Request.QueryString.Add("act", action);
-
-//			if (mode != null)
-//				httpContext.Object.Request.QueryString.Add("mode", mode);
-
-//			if (id != null)
-//				httpContext.Object.Request.QueryString.Add("id", id);
-
-//			Template.FileSystem = fs;
-
-//			return new Manager(routeData, httpContext.Object, fs, AcspNetTestingHelper.GetTestHttpRuntime(), GetTestUserAssembly());
-//		}
-
-//		[Test]
-//		public void Manager_Initialize_ExceptionsThrownCorrectly()
-//		{
-//			Assert.Throws<ArgumentNullException>(() => new Manager(null));
-//			Assert.Throws<ArgumentNullException>(() => new Manager(null, null, null, null, null));
-//			Assert.Throws<ArgumentNullException>(() => new Manager(AcspNetTestingHelper.GetTestRouteData(), null, null, null, null));
-//			Assert.Throws<ArgumentNullException>(
-//				() => new Manager(AcspNetTestingHelper.GetTestRouteData(), GetTestHttpContext().Object, null, null, null));
-//			Assert.Throws<ArgumentNullException>(
-//				() => new Manager(AcspNetTestingHelper.GetTestRouteData(), GetTestHttpContext().Object, GetTestFileSystem(), null, null));
-//			Assert.Throws<ArgumentNullException>(
-//				() => new Manager(AcspNetTestingHelper.GetTestRouteData(), GetTestHttpContext().Object, GetTestFileSystem(), AcspNetTestingHelper.GetTestHttpRuntime(), null));
-//		}
-
 //		[Test]
 //		public void Manager_Initialize_ParametersInitializedCorrectly()
 //		{
 //			var manager = GetTestManager();
 
-//			Assert.IsNotNull(manager.Context);
-//			Assert.IsNotNull(manager.Request);
-//			Assert.IsNotNull(manager.RouteData);
-//			Assert.IsNotNull(manager.Response);
-//			Assert.IsNotNull(manager.Session);
-//			Assert.IsNotNull(manager.QueryString);
-//			Assert.IsNotNull(manager.Form);
 //			Assert.IsNotNull(manager.StopWatch);
-//			Assert.IsNotNull(Manager.Settings);
-//			Assert.IsNotNull(manager.Environment);
-//			Assert.IsNotNull(manager.StringTable);
-//			Assert.IsNotNull(manager.DataCollector);
 //			Assert.IsNotNull(manager.HtmlWrapper);
 //			Assert.IsNotNull(manager.HtmlWrapper.ListsGenerator);
 //			Assert.IsNotNull(manager.HtmlWrapper.MessageBox);
@@ -152,45 +94,6 @@
 //			Assert.IsNotNull(manager.ExtensionsWrapper.IdProcessor);
 //			Assert.IsNotNull(manager.ExtensionsWrapper.Navigator);
 //			Assert.AreEqual("http://localhost/FooSite/", Manager.SiteUrl);
-//			Assert.IsNotNull(manager.CurrentAction);
-//			Assert.IsNotNull(manager.CurrentMode);
-//		}
-
-//		[Test]
-//		public void TemplateFactory_Usage_BehaviourIsCorrect()
-//		{
-//			var manager = GetTestManager();
-
-//			Assert.Throws<ArgumentNullException>(() => manager.TemplateFactory.Load(null));
-//			Assert.Throws<TemplateException>(() => manager.TemplateFactory.Load("Not"));
-
-//			var tpl = manager.TemplateFactory.Load("Foo.tpl");
-
-//			Assert.IsNotNull(tpl);
-//			Assert.AreEqual("Hello world!!!", tpl.Get());
-
-//			manager.Environment.TemplatesMemoryCache = true;
-
-//			Assert.IsNotNull(tpl);
-//			Assert.AreEqual("Hello world!!!", manager.TemplateFactory.Load("Foo.tpl").Get());
-
-//			Assert.IsNotNull(tpl);
-//			Assert.AreEqual("Hello world!!!", manager.TemplateFactory.Load("Foo.tpl").Get());
-
-//			// Test async operations
-
-//			var fs = GetTestFileSystemForAsyncTesting();
-//			Template.FileSystem = fs;
-//			var manager1 = new Manager(AcspNetTestingHelper.GetTestRouteData(), GetTestHttpContext().Object, fs, AcspNetTestingHelper.GetTestHttpRuntime(),
-//				GetTestUserAssembly());
-//			var manager2 = new Manager(AcspNetTestingHelper.GetTestRouteData(), GetTestHttpContext().Object, fs, AcspNetTestingHelper.GetTestHttpRuntime(),
-//				GetTestUserAssembly());
-
-//			ThreadStart first = () => manager1.TemplateFactory.Load("Async1.tpl");
-//			ThreadStart second = () => manager2.TemplateFactory.Load("Async1.tpl");
-
-//			first.BeginInvoke(null, null);
-//			second.BeginInvoke(null, null);
 //		}
 
 //		[Test]
@@ -366,26 +269,6 @@
 
 //			httpContext.Object.Request.Form["id"] = "26";
 //			Assert.AreEqual(26, manager.ExtensionsWrapper.IdProcessor.CheckAndGetFormID());
-//		}
-
-//		[Test]
-//		public void Manager_Execution_IsRouteDataParsingCorrect()
-//		{
-//			var routeData = AcspNetTestingHelper.GetTestRouteData();
-//			var httpContext = GetTestHttpContext();
-//			var fs = GetTestFileSystem();
-//			var userAssembly = GetTestUserAssembly();
-//			Template.FileSystem = fs;
-
-//			routeData.Values.Add("action", "routeAction");
-//			routeData.Values.Add("mode", "routeMode");
-//			routeData.Values.Add("id", "routeID");
-
-//			var manager = new Manager(routeData, httpContext.Object, fs, AcspNetTestingHelper.GetTestHttpRuntime(), userAssembly);
-
-//			Assert.AreEqual("routeAction", manager.CurrentAction);
-//			Assert.AreEqual("routeMode", manager.CurrentMode);
-//			Assert.AreEqual("routeID", manager.CurrentID);
 //		}
 
 //		[Test]

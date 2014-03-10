@@ -1,4 +1,6 @@
-﻿namespace AcspNet
+﻿using System.Linq;
+
+namespace AcspNet
 {
 	/// <summary>
 	/// ACSP extension base class
@@ -13,6 +15,11 @@
 		/// Current HTTP and ACSP context
 		/// </summary>
 		public IAcspContext Context { get; internal set; }
+
+		/// <summary>
+		/// Current ACSP executing processor controller
+		/// </summary>
+		internal AcspProcessor Processor { get; set; }
 
 		/// <summary>
 		/// Current ACSP executing processor controller
@@ -67,5 +74,24 @@
 		//{
 		//	get { return ExtensionsInstance; }
 		//}	
+
+		/// <summary>
+		/// Gets library extension instance
+		/// </summary>
+		/// <typeparam name="T">Library extension instance to get</typeparam>
+		/// <returns>Library extension</returns>
+		public T Get<T>()
+			where T : LibExtension
+		{
+			var type = typeof (T);
+
+			if(Processor.LibExtensionsList.All(x => x.GetType() != type))
+				throw new AcspException("Extension not found: " + typeof(T).FullName);
+
+			if (!Processor.LibExtensionsIsInitializedList.ContainsKey(type))
+				throw new AcspException("Attempt to call not initialized library extension '" + type + "'");
+
+			return (T)Processor.LibExtensionsList.First(x => x.GetType() == type);
+		}
 	}
 }

@@ -19,7 +19,6 @@ namespace AcspNet
 		{
 			RouteData = routeData;
 			HttpContext = httpContext;
-			//	FileSystem = fileSystem;
 			//	HttpRuntime = httpRuntime;
 			Request = HttpContext.Request;
 			Response = HttpContext.Response;

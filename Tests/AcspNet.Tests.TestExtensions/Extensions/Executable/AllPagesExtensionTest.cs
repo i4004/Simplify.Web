@@ -1,6 +1,4 @@
-﻿using NUnit.Framework;
-
-namespace AcspNet.Tests.Extensions.Executable
+﻿namespace AcspNet.Tests.TestExtensions.Extensions.Executable
 {
 	[Action("")]
 	[Mode("")]

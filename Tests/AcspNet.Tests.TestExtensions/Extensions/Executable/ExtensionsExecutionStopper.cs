@@ -6,7 +6,7 @@
 	{
 		public override void Invoke()
 		{
-			ProcessorContoller.StopExtensionsExecution();
+			ProcessorContoller.StopExecution();
 		}
 	}
 }

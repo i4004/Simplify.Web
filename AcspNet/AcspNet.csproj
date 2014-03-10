@@ -123,6 +123,10 @@
     <Compile Include="Displayer.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="ExecExtension.cs" />
+    <Compile Include="Html\HtmlWrapper.cs" />
+    <Compile Include="Html\IHtml.cs" />
+    <Compile Include="Html\IListsGenerator.cs" />
+    <Compile Include="Html\ListsGenerator.cs" />
     <Compile Include="Meta\ExecExtensionMetaContainer.cs" />
     <Compile Include="Meta\ExtensionMetaContainer.cs" />
     <Compile Include="ExtensionsBase.cs" />
@@ -207,7 +211,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

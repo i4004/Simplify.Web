@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.IO;
 using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
 using System.Web;
@@ -19,7 +20,6 @@ namespace AcspNet.TestingHelpers
 		/// <returns></returns>
 		public static Mock<HttpContextBase> CreateTestHttpContext()
 		{
-			//var httpCacheContext = new HttpContext(new HttpRequest("TestRequest", "http://localhost", ""), new HttpResponse(new StringWriter()));
 
 			var httpContext = new Mock<HttpContextBase>();
 			var httpRequest = new Mock<HttpRequestBase>();
@@ -45,7 +45,8 @@ namespace AcspNet.TestingHelpers
 			var responseCookies = new HttpCookieCollection();
 			httpResponse.SetupGet(r => r.Cookies).Returns(responseCookies);
 
-			//httpResponse.SetupGet(r => r.Cache).Returns(new HttpCachePolicyWrapper(httpCacheContext.Response.Cache));
+			var httpCacheContext = new HttpContext(new HttpRequest("TestRequest", "http://localhost", ""), new HttpResponse(new StringWriter()));
+			httpResponse.SetupGet(r => r.Cache).Returns(new HttpCachePolicyWrapper(httpCacheContext.Response.Cache));
 
 			//var sessions = new Dictionary<string, object>();
 			//httpSession.Setup(x => x.Add(It.IsAny<string>(), It.IsAny<object>()))
@@ -61,15 +62,15 @@ namespace AcspNet.TestingHelpers
 
 			return httpContext;
 		}
-		
-		///// <summary>
-		///// Gets the default route data for AcspNet unit tests.
-		///// </summary>
-		///// <returns></returns>
-		//public static RouteData CreateTestRouteData()
-		//{
-		//	return new RouteData();
-		//}
+
+		/// <summary>
+		/// Gets the default route data for AcspNet unit tests.
+		/// </summary>
+		/// <returns></returns>
+		public static RouteData CreateTestRouteData()
+		{
+			return new RouteData();
+		}
 
 		/// <summary>
 		/// Creates the route data with action

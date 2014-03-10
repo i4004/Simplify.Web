@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AcspNet.Html;
 using AcspNet.Meta;
 
 namespace AcspNet
@@ -15,7 +16,7 @@ namespace AcspNet
 
 		private readonly IList<ExecExtension> _execExtensionsList;
 		private readonly IList<LibExtension> _libExtensionsList;
-		private readonly Dictionary<string, bool> _libExtensionsIsInitializedList;
+		private readonly Dictionary<Type, bool> _libExtensionsIsInitializedList;
 
 		/// <summary>
 		/// Current request environment data.
@@ -44,13 +45,13 @@ namespace AcspNet
 
 		private readonly IPageBuilder _pageBuilder;
 		private readonly IDisplayer _displayer;
-
-		private bool _isExtensionsExecutionStopped;
 		
 		/// <summary>
-		/// Prevent site to be displayed via DataCollector
+		/// Various HTML generation classes
 		/// </summary>
-		private bool _isDisplayDisabled;
+		public readonly HtmlWrapper HtmlWrapper;
+
+		private bool _isExecutionStopped;
 
 		internal AcspProcessor(IAcspSettings settings, AcspContext context, IList<ExecExtensionMetaContainer> execExtensionMetaContainers, IList<LibExtensionMetaContainer> libExtensionMetaContainers)
 		{
@@ -60,19 +61,32 @@ namespace AcspNet
 
 			_execExtensionsList = new List<ExecExtension>(_execExtensionMetaContainers.Count);
 			_libExtensionsList = new List<LibExtension>(_libExtensionMetaContainers.Count);
-			_libExtensionsIsInitializedList = new Dictionary<string, bool>(_libExtensionMetaContainers.Count);
+			_libExtensionsIsInitializedList = new Dictionary<Type, bool>();
 
 			_environment = new Environment(_context.SitePhysicalPath, settings, _context.Request.Cookies, _context.Response.Cookies);
 			_dataLoader = new ExtensionsDataLoader(_environment.ExtensionsDataPath, _context.SitePhysicalPath, _environment.Language, settings.DefaultLanguage);
 			_stringTable = new StringTable(_dataLoader);
 			_templateFactory = new TemplateFactory(_environment.TemplatesPhysicalPath, _environment.Language, settings.DefaultLanguage, _environment.TemplatesMemoryCache);
 			_dataCollector = new DataCollector(_environment.MainContentVariableName, _environment.TitleVariableName, _stringTable);
+			//			AuthenticationModule = new AuthenticationModule(this);
+			//			ExtensionsWrapper = new ExtensionsWrapper();
 
 			_pageBuilder = new PageBuilder(_environment.MasterTemplateFileName, _templateFactory);
 			_displayer = new Displayer(_context.Response);
-			//			HtmlWrapper = new HtmlWrapper();
-			//			AuthenticationModule = new AuthenticationModule(this);
-			//			ExtensionsWrapper = new ExtensionsWrapper();
+
+			HtmlWrapper = new HtmlWrapper();
+
+			InitializeHtmlWrapper();
+		}
+
+		internal IList<LibExtension> LibExtensionsList
+		{
+			get { return _libExtensionsList; }
+		}
+
+		internal Dictionary<Type, bool> LibExtensionsIsInitializedList
+		{
+			get { return _libExtensionsIsInitializedList; }
 		}
 
 		/// <summary>
@@ -86,27 +100,19 @@ namespace AcspNet
 			CreateExecutableExtensionsInstances();
 			RunExecutableExtensions();
 
-			if (!_isDisplayDisabled)
-				_displayer.Display(_pageBuilder.Buid(_dataCollector.Items));
+			if (!_isExecutionStopped)
+				_displayer.DisplayNoCache(_pageBuilder.Buid(_dataCollector.Items));
 
 			//	if (Session[IsNewSessionFieldName] == null)
 			//		Session.Add(IsNewSessionFieldName, "true");
 		}
 
 		/// <summary>
-		/// Stop ACSP subsequent extensions execution
+		/// Stop ACSP execution
 		/// </summary>
-		public void StopExtensionsExecution()
+		public void StopExecution()
 		{
-			_isExtensionsExecutionStopped = true;
-		}
-		
-		/// <summary>
-		/// Prevent data sent to displayer to be displayed
-		/// </summary>
-		public void DisableDisplay()
-		{
-			_isDisplayDisabled = true;
+			_isExecutionStopped = true;
 		}
 
 		private void CreateLibraryExtensionsInstances()
@@ -115,6 +121,7 @@ namespace AcspNet
 			{
 				var extension = (LibExtension)Activator.CreateInstance(container.ExtensionType);
 				extension.Context = _context;
+				extension.Processor = this;
 				extension.ProcessorContoller = this;
 				extension.Environment = _environment;
 				extension.TemplateFactory = _templateFactory;
@@ -125,17 +132,16 @@ namespace AcspNet
 				//		extension.AuthenticationModuleInstance = AuthenticationModule;
 				//extension.ExtensionsInstance = ExtensionsWrapper;
 
-				_libExtensionsList.Add(extension);
-				// _libExtensionsIsInitializedList.Add(container.ExtensionType.Name, false); check not need?
+				LibExtensionsList.Add(extension);
 			}
 		}
 
 		private void InitializeLibraryExtensions()
 		{
-			foreach (var extension in _libExtensionsList)
+			foreach (var extension in LibExtensionsList)
 			{
 				extension.Initialize();
-				_libExtensionsIsInitializedList[extension.GetType().Name] = true;
+				LibExtensionsIsInitializedList[extension.GetType()] = true;
 			}
 		}
 
@@ -152,6 +158,7 @@ namespace AcspNet
 				{
 					var extension = (ExecExtension)Activator.CreateInstance(container.ExtensionType);
 					extension.Context = _context;
+					extension.Processor = this;
 					extension.ProcessorContoller = this;
 					extension.Environment = _environment;
 					extension.TemplateFactory = _templateFactory;
@@ -172,9 +179,15 @@ namespace AcspNet
 		{
 			foreach (var extension in _execExtensionsList)
 			{
-				if (!_isExtensionsExecutionStopped)
+				if (!_isExecutionStopped)
 					extension.Invoke();
 			}
+		}
+		
+		private void InitializeHtmlWrapper()
+		{
+			HtmlWrapper.ListsGenerator = new ListsGenerator();
+			//HtmlWrapper.MessageBoxInstance = new MessageBox(this);
 		}
 	}
 }
