@@ -110,6 +110,7 @@
     <Compile Include="DisplayerTests.cs" />
     <Compile Include="EnvironmentTests.cs" />
     <Compile Include="ExtensionsDataLoaderTests.cs" />
+    <Compile Include="ListsGeneratorTests.cs" />
     <Compile Include="PageBuilderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SiteTitleSetterTests.cs" />

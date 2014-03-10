@@ -79,7 +79,7 @@ namespace AcspNet
 		/// <returns>associated value</returns>
 		public string GetAssociatedValue<T>(T enumValue) where T : struct
 		{
-			return this[enumValue.GetType().Name + Enum.GetName(typeof(T), enumValue)];
+			return this[enumValue.GetType().Name + "." + Enum.GetName(typeof(T), enumValue)];
 		}
 	}
 }

@@ -49,7 +49,7 @@ namespace AcspNet
 		/// <summary>
 		/// Various HTML generation classes
 		/// </summary>
-		public readonly HtmlWrapper HtmlWrapper;
+		private readonly HtmlWrapper _htmlWrapper;
 
 		private bool _isExecutionStopped;
 
@@ -74,7 +74,7 @@ namespace AcspNet
 			_pageBuilder = new PageBuilder(_environment.MasterTemplateFileName, _templateFactory);
 			_displayer = new Displayer(_context.Response);
 
-			HtmlWrapper = new HtmlWrapper();
+			_htmlWrapper = new HtmlWrapper();
 
 			InitializeHtmlWrapper();
 		}
@@ -128,7 +128,7 @@ namespace AcspNet
 				extension.DataCollector = _dataCollector;
 				extension.ExtensionsDataLoader = _dataLoader;
 				extension.StringTable = _stringTable;
-				//		extension.HtmlInstance = HtmlWrapper;
+				extension.Html = _htmlWrapper;
 				//		extension.AuthenticationModuleInstance = AuthenticationModule;
 				//extension.ExtensionsInstance = ExtensionsWrapper;
 
@@ -165,7 +165,7 @@ namespace AcspNet
 					extension.DataCollector = _dataCollector;
 					extension.ExtensionsDataLoader = _dataLoader;
 					extension.StringTable = _stringTable;
-					//			extension.HtmlInstance = HtmlWrapper;
+					extension.Html = _htmlWrapper;
 					//			extension.AuthenticationModuleInstance = AuthenticationModule;
 					//			extension.ExtensionsInstance = ExtensionsWrapper;
 
@@ -186,7 +186,7 @@ namespace AcspNet
 		
 		private void InitializeHtmlWrapper()
 		{
-			HtmlWrapper.ListsGenerator = new ListsGenerator();
+			_htmlWrapper.ListsGenerator = new ListsGenerator(_stringTable);
 			//HtmlWrapper.MessageBoxInstance = new MessageBox(this);
 		}
 	}

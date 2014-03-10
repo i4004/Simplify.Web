@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using AcspNet.Html;
 
 namespace AcspNet
 {
@@ -7,7 +8,6 @@ namespace AcspNet
 	/// </summary>
 	public abstract class ExtensionsBase : IHideObjectMembers
 	{
-		//internal IHtml HtmlInstance;
 		//internal IAuthenticationModule AuthenticationModuleInstance;
 		//internal IExtensions ExtensionsInstance;
 
@@ -51,13 +51,10 @@ namespace AcspNet
 		/// </summary>
 		public IExtensionsDataLoader ExtensionsDataLoader { get; internal set; }
 
-		///// <summary>
-		///// Various HTML generation classes
-		///// </summary>
-		//public IHtml Html
-		//{
-		//	get { return HtmlInstance; }
-		//}
+		/// <summary>
+		/// Various HTML generation classes
+		/// </summary>
+		public IHtml Html { get; internal set; }
 
 		///// <summary>
 		///// Interface that is used to control users login/logout/autnenticate via cookie or session and stores current user name/password/id unformation
