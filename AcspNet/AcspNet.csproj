@@ -126,7 +126,9 @@
     <Compile Include="Html\HtmlWrapper.cs" />
     <Compile Include="Html\IHtml.cs" />
     <Compile Include="Html\IListsGenerator.cs" />
+    <Compile Include="Html\IMessageBox.cs" />
     <Compile Include="Html\ListsGenerator.cs" />
+    <Compile Include="Html\MessageBox.cs" />
     <Compile Include="Meta\ExecExtensionMetaContainer.cs" />
     <Compile Include="Meta\ExtensionMetaContainer.cs" />
     <Compile Include="ExtensionsBase.cs" />
