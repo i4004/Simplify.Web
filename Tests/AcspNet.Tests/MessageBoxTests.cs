@@ -18,6 +18,13 @@ namespace AcspNet.Tests
 		}
 
 		[Test]
+		public void GetInline_NullParameters_ExceptionsThrown()
+		{
+			var mb = new MessageBox(null, null, null);
+			Assert.Throws<ArgumentNullException>(() => mb.GetInline(null));
+		}
+
+		[Test]
 		public void Show_OkMessageBox_GeneratedCorrectly()
 		{
 			var tf = new Mock<ITemplateFactory>();
@@ -27,33 +34,93 @@ namespace AcspNet.Tests
 			st.Setup(x => x[It.Is<string>(c => c == "FormTitleMessageBox")]).Returns("Foo title");
 
 			var dc = new Mock<IDataCollector>();
-			dc.Setup(x => x.Add(It.IsAny<string>())).Callback((string str) => Assert.AreEqual("1", str));
+			dc.Setup(x => x.Add(It.IsAny<string>())).Callback((string str) => Assert.AreEqual("21", str));
 			dc.Setup(x => x.AddTitle(It.IsAny<string>())).Callback((string str) => Assert.AreEqual("2", str));
 
 			var mb = new MessageBox(tf.Object, st.Object, dc.Object);
 			mb.Show("1", MessageBoxStatus.Ok, "2");
 
+			dc.Verify(x => x.Add(It.IsAny<string>()), Times.Once);		
+		}
+
+		[Test]
+		public void Show_InfoMessageBox_GeneratedCorrectly()
+		{
+			var tf = new Mock<ITemplateFactory>();
+			tf.Setup(x => x.Load(It.Is<string>(c => c.EndsWith("InfoMessageBox.tpl")))).Returns(new Template("{Title}{Message}", false));
+
+			var st = new Mock<IStringTable>();
+			st.Setup(x => x[It.Is<string>(c => c == "FormTitleMessageBox")]).Returns("Foo title");
+
+			var dc = new Mock<IDataCollector>();
+			dc.Setup(x => x.Add(It.IsAny<string>())).Callback((string str) => Assert.AreEqual("21", str));
+			dc.Setup(x => x.AddTitle(It.IsAny<string>())).Callback((string str) => Assert.AreEqual("2", str));
+
+			var mb = new MessageBox(tf.Object, st.Object, dc.Object);
+			mb.Show("1", MessageBoxStatus.Information, "2");
+
 			dc.Verify(x => x.Add(It.IsAny<string>()), Times.Once);
-			//Assert.IsTrue(DataCollector.IsDataExist(Environment.MainContentVariableName));
-			//Assert.AreEqual("21", DataCollector.Items[Environment.MainContentVariableName]);
-			//Assert.AreEqual("2", DataCollector.Items[Environment.TitleVariableName]);
+		}
 
-			//Html.MessageBox.Show("3", MessageBoxStatus.Information, "4");
+		[Test]
+		public void ShowSt_ErrorMessageBox_GeneratedCorrectly()
+		{
+			var tf = new Mock<ITemplateFactory>();
+			tf.Setup(x => x.Load(It.Is<string>(c => c.EndsWith("ErrorMessageBox.tpl")))).Returns(new Template("{Title}{Message}", false));
 
-			//Assert.IsTrue(DataCollector.IsDataExist(Environment.MainContentVariableName));
-			//Assert.AreEqual("2143", DataCollector.Items[Environment.MainContentVariableName]);
-			//Assert.AreEqual("24", DataCollector.Items[Environment.TitleVariableName]);
+			var st = new Mock<IStringTable>();
+			st.Setup(x => x[It.Is<string>(c => c == "FormTitleMessageBox")]).Returns("Foo title");
+			st.Setup(x => x[It.Is<string>(c => c == "StTestItem")]).Returns("Foo data");			
 
-			//Html.MessageBox.ShowSt("SiteTitle", MessageBoxStatus.Error, "6");
+			var dc = new Mock<IDataCollector>();
+			dc.Setup(x => x.Add(It.IsAny<string>())).Callback((string str) => Assert.AreEqual("2Foo data", str));
+			dc.Setup(x => x.AddTitle(It.IsAny<string>())).Callback((string str) => Assert.AreEqual("2", str));
 
-			//Assert.IsTrue(DataCollector.IsDataExist(Environment.MainContentVariableName));
-			//Assert.AreEqual("21436Your site title!", DataCollector.Items[Environment.MainContentVariableName]);
-			//Assert.AreEqual("246", DataCollector.Items[Environment.TitleVariableName]);
+			var mb = new MessageBox(tf.Object, st.Object, dc.Object);
+			mb.ShowSt("StTestItem", MessageBoxStatus.Error, "2");
 
-			//Assert.Throws<ArgumentNullException>(() => Html.MessageBox.GetInline(null));
-			//Assert.AreEqual("test", Html.MessageBox.GetInline("test"));
-			//Assert.AreEqual("test", Html.MessageBox.GetInline("test", MessageBoxStatus.Ok));
-			//Assert.AreEqual("Your site title!", Html.MessageBox.GetInlineSt("SiteTitle", MessageBoxStatus.Error));			
+			dc.Verify(x => x.Add(It.IsAny<string>()), Times.Once);
+		}
+
+		[Test]
+		public void GetInlineSt_ErrorMessageBox_GeneratedCorrectly()
+		{
+			var tf = new Mock<ITemplateFactory>();
+			tf.Setup(x => x.Load(It.Is<string>(c => c.EndsWith("InlineErrorMessageBox.tpl")))).Returns(new Template("{Message}", false));
+
+			var st = new Mock<IStringTable>();
+			st.Setup(x => x[It.Is<string>(c => c == "StTestItem")]).Returns("Foo data");
+
+			var dc = new Mock<IDataCollector>();
+	
+			var mb = new MessageBox(tf.Object, st.Object, dc.Object);
+			Assert.AreEqual("Foo data", mb.GetInlineSt("StTestItem", MessageBoxStatus.Error));
+		}
+
+		[Test]
+		public void GetInline_InfoMessageBox_GeneratedCorrectly()
+		{
+			var tf = new Mock<ITemplateFactory>();
+			tf.Setup(x => x.Load(It.Is<string>(c => c.EndsWith("InlineInfoMessageBox.tpl")))).Returns(new Template("{Message}", false));
+
+			var st = new Mock<IStringTable>();
+			var dc = new Mock<IDataCollector>();
+
+			var mb = new MessageBox(tf.Object, st.Object, dc.Object);
+			Assert.AreEqual("Foo data", mb.GetInline("Foo data"));
+		}
+
+		[Test]
+		public void GetInline_OkMessageBox_GeneratedCorrectly()
+		{
+			var tf = new Mock<ITemplateFactory>();
+			tf.Setup(x => x.Load(It.Is<string>(c => c.EndsWith("InlineOkMessageBox.tpl")))).Returns(new Template("{Message}", false));
+
+			var st = new Mock<IStringTable>();
+			var dc = new Mock<IDataCollector>();
+
+			var mb = new MessageBox(tf.Object, st.Object, dc.Object);
+			Assert.AreEqual("Foo data", mb.GetInline("Foo data", MessageBoxStatus.Ok));
 		}
 	}
 }
