@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace AcspNet
 {
@@ -19,9 +18,6 @@ namespace AcspNet
 		/// <exception cref="System.ArgumentNullException">masterTemplateFileName</exception>
 		internal PageBuilder(string masterTemplateFileName, ITemplateFactory templateFactory)
 		{
-			if (string.IsNullOrEmpty(masterTemplateFileName)) throw new ArgumentNullException("masterTemplateFileName");
-			if (templateFactory == null) throw new ArgumentNullException("templateFactory");
-
 			_masterTemplateFileName = masterTemplateFileName;
 			_templateFactory = templateFactory;
 		}

@@ -2,6 +2,7 @@
 using AcspNet.TestingHelpers;
 using AcspNet.Tests.TestExtensions.Extensions.Executable;
 using NUnit.Framework;
+using Simplify.Templates;
 
 namespace AcspNet.Tests
 {
@@ -20,24 +21,25 @@ namespace AcspNet.Tests
 		[Test]
 		public void AcspProcessor_RunActionIdExtension_ExtensionExecuted()
 		{
-			_app.HttpContext = AcspNetTestingHelper.CreateTestHttpContext().Object;
-			var processor = _app.CreateProcessor(AcspNetTestingHelper.CreateRouteDataWithActionAndId("ActionIdTest", "2"));
+			_app.HttpContext = AcspTestingHelper.CreateTestHttpContext().Object;
+			Template.FileSystem = AcspTestingHelper.GetTestFileSystem();
+			var processor = _app.CreateProcessor(AcspTestingHelper.CreateRouteDataWithActionAndId("ActionIdTest", "2"));
 			processor.Execute();
 		}
 
 		[Test]
 		public void AcspProcessor_RunActionModeIdExtension_ExtensionExecuted()
 		{
-			_app.HttpContext = AcspNetTestingHelper.CreateTestHttpContext().Object;
-			var processor = _app.CreateProcessor(AcspNetTestingHelper.CreateRouteDataWithActionModeAndId("ActionModeIdTest", "ActionModeIdTestMode", "15"));
+			_app.HttpContext = AcspTestingHelper.CreateTestHttpContext().Object;
+			var processor = _app.CreateProcessor(AcspTestingHelper.CreateRouteDataWithActionModeAndId("ActionModeIdTest", "ActionModeIdTestMode", "15"));
 			processor.Execute();
 		}
 
 		[Test]
 		public void AcspProcessor_StopExtensionsExecution_SubsequentExtensionIsNotExecuted()
 		{
-			_app.HttpContext = AcspNetTestingHelper.CreateTestHttpContext().Object;
-			var processor = _app.CreateProcessor(AcspNetTestingHelper.CreateRouteDataWithActionAndId("stopExtensionsExecution"));
+			_app.HttpContext = AcspTestingHelper.CreateTestHttpContext().Object;
+			var processor = _app.CreateProcessor(AcspTestingHelper.CreateRouteDataWithActionAndId("stopExtensionsExecution"));
 			processor.Execute();
 		}
 	}

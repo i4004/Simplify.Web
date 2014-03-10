@@ -24,10 +24,6 @@ namespace AcspNet
 		/// </summary>
 		internal TemplateFactory(string templatesPhysicalPath, string language, string defaultLanguage, bool templatesMemoryCache = false)
 		{
-			if (string.IsNullOrEmpty(templatesPhysicalPath)) throw new ArgumentNullException("templatesPhysicalPath");
-			if (string.IsNullOrEmpty(language)) throw new ArgumentNullException("language");
-			if (string.IsNullOrEmpty(defaultLanguage)) throw new ArgumentNullException("defaultLanguage");
-
 			_templatesPhysicalPath = templatesPhysicalPath;
 			_language = language;
 			_defaultLanguage = defaultLanguage;

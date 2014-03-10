@@ -22,10 +22,10 @@ namespace AcspNet
 		/// </summary>
 		private readonly IEnvironment _environment;
 
-		///// <summary>
-		///// Web-site master page data collector.
-		///// </summary>
-		//private readonly IDataCollector DataCollector;
+		/// <summary>
+		/// Web-site master page data collector.
+		/// </summary>
+		private readonly IDataCollector _dataCollector;
 
 		/// <summary>
 		/// Text and XML files loader.
@@ -42,7 +42,15 @@ namespace AcspNet
 		/// </summary>
 		private readonly ITemplateFactory _templateFactory;
 
+		private readonly IPageBuilder _pageBuilder;
+		private readonly IDisplayer _displayer;
+
 		private bool _isExtensionsExecutionStopped;
+		
+		/// <summary>
+		/// Prevent site to be displayed via DataCollector
+		/// </summary>
+		private bool _isDisplayDisabled;
 
 		internal AcspProcessor(IAcspSettings settings, AcspContext context, IList<ExecExtensionMetaContainer> execExtensionMetaContainers, IList<LibExtensionMetaContainer> libExtensionMetaContainers)
 		{
@@ -54,12 +62,14 @@ namespace AcspNet
 			_libExtensionsList = new List<LibExtension>(_libExtensionMetaContainers.Count);
 			_libExtensionsIsInitializedList = new Dictionary<string, bool>(_libExtensionMetaContainers.Count);
 
-//			DataCollector = new DataCollector();
-
 			_environment = new Environment(_context.SitePhysicalPath, settings, _context.Request.Cookies, _context.Response.Cookies);
 			_dataLoader = new ExtensionsDataLoader(_environment.ExtensionsDataPath, _context.SitePhysicalPath, _environment.Language, settings.DefaultLanguage);
 			_stringTable = new StringTable(_dataLoader);
 			_templateFactory = new TemplateFactory(_environment.TemplatesPhysicalPath, _environment.Language, settings.DefaultLanguage, _environment.TemplatesMemoryCache);
+			_dataCollector = new DataCollector(_environment.MainContentVariableName, _environment.TitleVariableName, _stringTable);
+
+			_pageBuilder = new PageBuilder(_environment.MasterTemplateFileName, _templateFactory);
+			_displayer = new Displayer(_context.Response);
 			//			HtmlWrapper = new HtmlWrapper();
 			//			AuthenticationModule = new AuthenticationModule(this);
 			//			ExtensionsWrapper = new ExtensionsWrapper();
@@ -76,6 +86,9 @@ namespace AcspNet
 			CreateExecutableExtensionsInstances();
 			RunExecutableExtensions();
 
+			if (!_isDisplayDisabled)
+				_displayer.Display(_pageBuilder.Buid(_dataCollector.Items));
+
 			//	if (Session[IsNewSessionFieldName] == null)
 			//		Session.Add(IsNewSessionFieldName, "true");
 		}
@@ -87,6 +100,14 @@ namespace AcspNet
 		{
 			_isExtensionsExecutionStopped = true;
 		}
+		
+		/// <summary>
+		/// Prevent data sent to displayer to be displayed
+		/// </summary>
+		public void DisableDisplay()
+		{
+			_isDisplayDisabled = true;
+		}
 
 		private void CreateLibraryExtensionsInstances()
 		{
@@ -97,7 +118,7 @@ namespace AcspNet
 				extension.ProcessorContoller = this;
 				extension.Environment = _environment;
 				extension.TemplateFactory = _templateFactory;
-				//extension.DataCollectorInstance = DataCollector;
+				extension.DataCollector = _dataCollector;
 				extension.ExtensionsDataLoader = _dataLoader;
 				extension.StringTable = _stringTable;
 				//		extension.HtmlInstance = HtmlWrapper;
@@ -132,9 +153,9 @@ namespace AcspNet
 					var extension = (ExecExtension)Activator.CreateInstance(container.ExtensionType);
 					extension.Context = _context;
 					extension.ProcessorContoller = this;
-					extension.Environment = _environment; 
+					extension.Environment = _environment;
 					extension.TemplateFactory = _templateFactory;
-					//			extension.DataCollectorInstance = DataCollector;
+					extension.DataCollector = _dataCollector;
 					extension.ExtensionsDataLoader = _dataLoader;
 					extension.StringTable = _stringTable;
 					//			extension.HtmlInstance = HtmlWrapper;
@@ -146,7 +167,7 @@ namespace AcspNet
 				}
 			}
 		}
-		
+
 		private void RunExecutableExtensions()
 		{
 			foreach (var extension in _execExtensionsList)
@@ -154,8 +175,6 @@ namespace AcspNet
 				if (!_isExtensionsExecutionStopped)
 					extension.Invoke();
 			}
-
-			//			DisplaySite();
 		}
 	}
 }

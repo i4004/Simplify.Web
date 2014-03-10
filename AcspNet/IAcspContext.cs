@@ -1,4 +1,6 @@
-﻿using System.Web;
+﻿using System.Collections.Specialized;
+using System.Web;
+using System.Web.Routing;
 
 namespace AcspNet
 {
@@ -22,25 +24,25 @@ namespace AcspNet
 		/// </summary>
 		HttpResponseBase Response { get; }
 
-		///// <summary>
-		///// Gets the System.Web.HttpSessionState object for the current HTTP request
-		///// </summary>
-		//HttpSessionStateBase Session { get; }
+		/// <summary>
+		/// Gets the System.Web.HttpSessionState object for the current HTTP request
+		/// </summary>
+		HttpSessionStateBase Session { get; }
 
-		///// <summary>
-		///// Gets the connection of  HTTP query string variables
-		///// </summary>
-		//NameValueCollection QueryString { get; }
+		/// <summary>
+		/// Gets the connection of  HTTP query string variables
+		/// </summary>
+		NameValueCollection QueryString { get; }
 
-		///// <summary>
-		///// Gets the connection of HTTP post request form variables
-		///// </summary>
-		//NameValueCollection Form { get; }
+		/// <summary>
+		/// Gets the connection of HTTP post request form variables
+		/// </summary>
+		NameValueCollection Form { get; }
 
-		///// <summary>
-		///// Gets the route data.
-		///// </summary>
-		//RouteData RouteData { get; }
+		/// <summary>
+		/// Gets the route data.
+		/// </summary>
+		RouteData RouteData { get; }
 
 		///// <summary>
 		///// The stop watch (for web-page build measurement)

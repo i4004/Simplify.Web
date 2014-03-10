@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Web;
 using System.Web.Routing;
 
@@ -16,21 +17,15 @@ namespace AcspNet
 		/// <param name="httpContext">The HTTP context.</param>
 		internal AcspContext(RouteData routeData, HttpContextBase httpContext)
 		{
-			if (routeData == null)
-				throw new ArgumentNullException("routeData");
-
-			if (httpContext == null)
-				throw new ArgumentNullException("httpContext");
-
 			RouteData = routeData;
 			HttpContext = httpContext;
 			//	FileSystem = fileSystem;
 			//	HttpRuntime = httpRuntime;
 			Request = HttpContext.Request;
 			Response = HttpContext.Response;
-			//	Session = Context.Session;
-			//	QueryString = Request.QueryString;
-			//	Form = Request.Form;
+			Session = httpContext.Session;
+			QueryString = Request.QueryString;
+			Form = Request.Form;
 
 			CalculateCurrentAction();
 			CalculateCurrentMode();
@@ -57,6 +52,21 @@ namespace AcspNet
 		/// Gets the System.Web.HttpResponse object for the current HTTP response
 		/// </summary>
 		public HttpResponseBase Response { get; private set; }
+
+		/// <summary>
+		/// Gets the System.Web.HttpSessionState object for the current HTTP request
+		/// </summary>
+		public HttpSessionStateBase Session { get; private set; }
+
+		/// <summary>
+		/// Gets the connection of  HTTP query string variables
+		/// </summary>
+		public NameValueCollection QueryString { get; private set; }
+
+		/// <summary>
+		/// Gets the connection of HTTP post request form variables
+		/// </summary>
+		public NameValueCollection Form { get; private set; }
 
 		/// <summary>
 		/// Gets the current web-site request action parameter (/someAction or ?act=someAction).

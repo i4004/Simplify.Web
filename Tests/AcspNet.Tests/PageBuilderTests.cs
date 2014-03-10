@@ -10,13 +10,6 @@ namespace AcspNet.Tests
 	public class PageBuilderTests
 	{
 		[Test]
-		public void Constructor_NullsPassed_ArgumentNullExceptionsThrown()
-		{
-			Assert.Throws<ArgumentNullException>(() => new PageBuilder(null, null));
-			Assert.Throws<ArgumentNullException>(() => new PageBuilder("test", null));
-		}
-
-		[Test]
 		public void Build_CorrectData_BuildedCorrectly()
 		{
 			var files = new Dictionary<string, MockFileData>();

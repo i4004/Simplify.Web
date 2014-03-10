@@ -22,14 +22,6 @@ namespace AcspNet.Tests
 		}
 
 		[Test]
-		public void Constructor_NullsPassed_ArgumentNullExceptionsThrown()
-		{
-			Assert.Throws<ArgumentNullException>(() => new TemplateFactory(null, null, null));
-			Assert.Throws<ArgumentNullException>(() => new TemplateFactory("test", null, null));
-			Assert.Throws<ArgumentNullException>(() => new TemplateFactory("test", "test", null));
-		}
-
-		[Test]
 		public void Load_NoCache_TemplateLoadedCorrectly()
 		{		
 			var tf = new TemplateFactory("C:/WebSites/FooSite/Templates", "en", "en");

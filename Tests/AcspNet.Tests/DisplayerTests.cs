@@ -10,12 +10,6 @@ namespace AcspNet.Tests
 	public class DisplayerTests
 	{
 		[Test]
-		public void Constructor_NullsPassed_ArgumentNullExceptionsThrown()
-		{
-			Assert.Throws<ArgumentNullException>(() => new Displayer(null));
-		}
-
-		[Test]
 		public void Display_SomeData_DataSent()
 		{
 			var httpCacheContext = new HttpContext(new HttpRequest("TestRequest", "http://localhost", ""), new HttpResponse(new StringWriter()));
@@ -32,11 +26,6 @@ namespace AcspNet.Tests
 			httpResponse.Verify(x => x.Write(It.IsAny<string>()), Times.Exactly(1));
 
 			d.DisplayNoCache("Test data!");
-
-			httpResponse.Verify(x => x.Write(It.IsAny<string>()), Times.Exactly(2));
-
-			d.DisableDisplay();
-			d.Display("Test data!");
 
 			httpResponse.Verify(x => x.Write(It.IsAny<string>()), Times.Exactly(2));
 		}

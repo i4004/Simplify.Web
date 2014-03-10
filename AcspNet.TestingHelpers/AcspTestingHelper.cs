@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.IO;
+using System.IO.Abstractions;
+using System.IO.Abstractions.TestingHelpers;
 using System.Web;
 using System.Web.Routing;
 using Moq;
@@ -9,9 +9,9 @@ using Moq;
 namespace AcspNet.TestingHelpers
 {
 	/// <summary>
-	/// Provides default AcspNet Manager parameters for unit tests
+	/// Provides default ACSP Manager parameters for unit tests
 	/// </summary>
-	public static class AcspNetTestingHelper
+	public static class AcspTestingHelper
 	{
 		/// <summary>
 		/// Gets the default test HTTP context for AcspNet unit tests.
@@ -24,11 +24,12 @@ namespace AcspNet.TestingHelpers
 			var httpContext = new Mock<HttpContextBase>();
 			var httpRequest = new Mock<HttpRequestBase>();
 			var httpResponse = new Mock<HttpResponseBase>();
-			//var httpSession = new Mock<HttpSessionStateBase>();
 
 			httpContext.SetupGet(r => r.Request).Returns(httpRequest.Object);
 			httpContext.SetupGet(r => r.Response).Returns(httpResponse.Object);
-			//httpContext.SetupGet(r => r.Session).Returns(httpSession.Object);
+
+			var httpSession = new Mock<HttpSessionStateBase>();
+			httpContext.SetupGet(r => r.Session).Returns(httpSession.Object);
 
 			var requestCookies = new HttpCookieCollection();
 			httpRequest.SetupGet(r => r.Cookies).Returns(requestCookies);
@@ -36,7 +37,7 @@ namespace AcspNet.TestingHelpers
 			httpRequest.SetupGet(r => r.PhysicalApplicationPath).Returns(@"C:\WebSites\TestSite\");
 			httpRequest.SetupGet(r => r.QueryString).Returns(new NameValueCollection());
 
-			//httpRequest.SetupGet(r => r.Form).Returns(new NameValueCollection());
+			httpRequest.SetupGet(r => r.Form).Returns(new NameValueCollection());
 			//httpRequest.SetupGet(r => r.Url).Returns(new Uri("http://localhost"));
 			//httpRequest.SetupGet(r => r.RawUrl).Returns("http://localhost/TestSite/");
 			//httpRequest.SetupGet(r => r.ApplicationPath).Returns("/TestSite");
@@ -116,17 +117,17 @@ namespace AcspNet.TestingHelpers
 			return routeData;
 		}
 
-//		/// <summary>
-//		/// Gets the default test file system for AcspNet unit tests.
-//		/// </summary>
-//		/// <returns></returns>
-//		public static IFileSystem GetTestFileSystem()
-//		{
-//			var files = new Dictionary<string, MockFileData>();
-//			files.Add("Templates/Index.tpl", "");
+		/// <summary>
+		/// Gets the default test file system for AcspNet unit tests.
+		/// </summary>
+		/// <returns></returns>
+		public static IFileSystem GetTestFileSystem()
+		{
+			var files = new Dictionary<string, MockFileData>();
+			files.Add("Templates/Index.tpl", "");
 
-//			return new MockFileSystem(files, "C:/WebSites/FooSite");
-//		}
+			return new MockFileSystem(files, "C:/WebSites/TestSite");
+		}
 
 
 //		/// <summary>

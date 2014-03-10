@@ -6,11 +6,6 @@
 	public interface IDisplayer : IHideObjectMembers
 	{
 		/// <summary>
-		/// Prevent data sent to displayer to be displayed
-		/// </summary>
-		void DisableDisplay();
-
-		/// <summary>
 		/// Write data to the HTTP response
 		/// </summary>
 		/// <param name="data">Data to write</param>

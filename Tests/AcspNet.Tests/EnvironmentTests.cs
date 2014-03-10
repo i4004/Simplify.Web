@@ -13,7 +13,7 @@ namespace AcspNet.Tests
 			var settings = new AcspSettings();
 			var requestCookies = new HttpCookieCollection();
 			var responseCookies = new HttpCookieCollection();
-			var env = new Environment("C:/Test/", settings, requestCookies, responseCookies);
+			var env = new Environment("C:/Test", settings, requestCookies, responseCookies);
 
 			Assert.AreEqual("en", env.Language);
 			Assert.AreEqual("Main", env.SiteStyle);

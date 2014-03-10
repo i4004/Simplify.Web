@@ -47,7 +47,7 @@ namespace AcspNet
 		{
 			get
 			{
-				return _sitePhysicalPath + TemplatesPath;
+				return _sitePhysicalPath + "/" + TemplatesPath;
 			}
 		}
 

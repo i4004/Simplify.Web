@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Routing;
+﻿using System.Web.Routing;
 using AcspNet.TestingHelpers;
 using NUnit.Framework;
 
@@ -9,30 +8,25 @@ namespace AcspNet.Tests
 	public class AcspContextTests
 	{
 		[Test]
-		public void Constructor_NullValues_ArgumentNullExceptionsThown()
-		{
-			Assert.Throws<ArgumentNullException>(() => new AcspContext(null, null));
-			Assert.Throws<ArgumentNullException>(() => new AcspContext(new RouteData(), null));
-		}
-
-		[Test]
 		public void Constructor_CorrectValues_PropertiesInitializedCorrectly()
 		{
-			var httpContext = AcspNetTestingHelper.CreateTestHttpContext();
+			var httpContext = AcspTestingHelper.CreateTestHttpContext();
 			var context = new AcspContext(new RouteData(), httpContext.Object);
 
 			Assert.IsNotNull(context.HttpContext);
 			Assert.IsNotNull(context.Request);
 			Assert.IsNotNull(context.Response);
 			Assert.IsNotNull(context.RouteData);
-			//Assert.AreEqual("C:/WebSites/FooSite/Templates", context.TemplatesPhysicalPath);
+			Assert.IsNotNull(context.Form);
+			Assert.IsNotNull(context.QueryString);
+			Assert.IsNotNull(context.Session);
 			Assert.AreEqual("C:/WebSites/TestSite", context.SitePhysicalPath);			
 		}
 
 		[Test]
 		public void Constructor_CorrectValuesFromRouteData_ActionModeIdInitializedCorrectly()
 		{
-			var httpContext = AcspNetTestingHelper.CreateTestHttpContext();
+			var httpContext = AcspTestingHelper.CreateTestHttpContext();
 			var routeData = new RouteData();
 
 			routeData.Values.Add("action", "Foo");
@@ -49,7 +43,7 @@ namespace AcspNet.Tests
 		[Test]
 		public void Constructor_CorrectValuesFromQueryString_ActionAndModeInitializedCorrectly()
 		{
-			var httpContext = AcspNetTestingHelper.CreateTestHttpContext();
+			var httpContext = AcspTestingHelper.CreateTestHttpContext();
 
 			httpContext.Object.Request.QueryString.Add("act", "Foo");
 			httpContext.Object.Request.QueryString.Add("mode", "Bar");
@@ -65,7 +59,7 @@ namespace AcspNet.Tests
 		[Test]
 		public void Constructor_CorrectValuesFromQueryString_ActionModeIdUrlCalculatedCorrectly()
 		{
-			var httpContext = AcspNetTestingHelper.CreateTestHttpContext();
+			var httpContext = AcspTestingHelper.CreateTestHttpContext();
 
 			httpContext.Object.Request.QueryString.Add("act", "Foo");
 			httpContext.Object.Request.QueryString.Add("mode", "Bar");
@@ -79,7 +73,7 @@ namespace AcspNet.Tests
 		[Test]
 		public void Constructor_CorrectValuesFromQueryString_ActionIdUrlCalculatedCorrectly()
 		{
-			var httpContext = AcspNetTestingHelper.CreateTestHttpContext();
+			var httpContext = AcspTestingHelper.CreateTestHttpContext();
 
 			httpContext.Object.Request.QueryString.Add("act", "Foo");
 			httpContext.Object.Request.QueryString.Add("id", "5");
@@ -92,7 +86,7 @@ namespace AcspNet.Tests
 		[Test]
 		public void Constructor_ActionIsNull_EmptyStringReturned()
 		{
-			var httpContext = AcspNetTestingHelper.CreateTestHttpContext();
+			var httpContext = AcspTestingHelper.CreateTestHttpContext();
 
 			var context = new AcspContext(new RouteData(), httpContext.Object);
 

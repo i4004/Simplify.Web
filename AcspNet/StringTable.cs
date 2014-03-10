@@ -18,8 +18,6 @@ namespace AcspNet
 		/// </summary>
 		internal StringTable(IExtensionsDataLoader dataLoader)
 		{
-			if (dataLoader == null) throw new ArgumentNullException("dataLoader");
-
 			_dataLoader = dataLoader;
 
 			Load();

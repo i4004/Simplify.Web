@@ -1,5 +1,4 @@
-﻿using System;
-using Moq;
+﻿using Moq;
 using NUnit.Framework;
 using Simplify.Templates;
 
@@ -8,14 +7,6 @@ namespace AcspNet.Tests
 	[TestFixture]
 	public class DataCollectorTests
 	{
-		[Test]
-		public void Constructor_NullsPassed_ArgumentNullExceptionsThrown()
-		{
-			Assert.Throws<ArgumentNullException>(() => new DataCollector(null, null, null));
-			Assert.Throws<ArgumentNullException>(() => new DataCollector("Test", null, null));
-			Assert.Throws<ArgumentNullException>(() => new DataCollector("Test", "Test", null));
-		}
-
 		[Test]
 		public void Add_DifferentData_InsertedCorrectly()
 		{

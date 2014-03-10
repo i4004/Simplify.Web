@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
 using NUnit.Framework;
 
@@ -8,12 +7,6 @@ namespace AcspNet.Tests
 	[TestFixture]
 	public class StringTableTests
 	{
-		[Test]
-		public void Constructor_NullsPassed_ArgumentNullExceptionsThrown()
-		{
-			Assert.Throws<ArgumentNullException>(() => new StringTable(null));
-		}
-
 		[Test]
 		public void Constructor_NoStringTable_NoItemsLoaded()
 		{
