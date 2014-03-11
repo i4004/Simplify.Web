@@ -11,9 +11,9 @@ namespace AcspNet.Html
 		/// </summary>
 		IListsGenerator ListsGenerator { get; }
 
-		///// <summary>
-		///// The HTML message box.
-		///// </summary>
-		//IMessageBox MessageBox { get; }
+		/// <summary>
+		/// The HTML message box.
+		/// </summary>
+		IMessageBox MessageBox { get; }
 	}
 }

@@ -187,7 +187,7 @@ namespace AcspNet
 		private void InitializeHtmlWrapper()
 		{
 			_htmlWrapper.ListsGenerator = new ListsGenerator(_stringTable);
-			//HtmlWrapper.MessageBoxInstance = new MessageBox(this);
+			_htmlWrapper.MessageBox = new MessageBox(_templateFactory, _stringTable, _dataCollector);
 		}
 	}
 }
