@@ -1,9 +1,23 @@
-﻿namespace AcspNet.Authentication
+﻿using System;
+using System.Web;
+
+namespace AcspNet.Authentication
 {
-	public class CookieAuthentication
+	public class CookieAuthentication : ICookieAuthentication
 	{
-		//private const string CookieUserNameFieldName = "AcspUserName";
-		//private const string CookieUserPasswordFieldName = "AcspUserPassword";
+		internal const string CookieUserNameFieldName = "AcspUserName";
+		internal const string CookieUserPasswordFieldName = "AcspUserPassword";
+
+		private readonly HttpCookieCollection _requestCookies;
+		private readonly HttpCookieCollection _responseCookies;
+		private readonly IAuthenticationState _state;
+
+		internal CookieAuthentication(HttpCookieCollection requestCookies, HttpCookieCollection responseCookies, IAuthenticationState state)
+		{
+			_requestCookies = requestCookies;
+			_responseCookies = responseCookies;
+			_state = state;
+		}
 
 		///// <summary>
 		///// Gets the authenticated user name from cookie.
@@ -43,38 +57,37 @@
 		//	}
 		//}		
 
+		/// <summary>
+		/// Create user authentication cookies (login user via cookies)
+		/// </summary>
+		public void LogInCookieUser(string name, string password, bool autoLogin = false)
+		{
+			if (string.IsNullOrEmpty(name))
+				throw new ArgumentNullException("name");
 
-		///// <summary>
-		///// Create user authentication cookies (login user via cookies)
-		///// </summary>
-		//public void LogInCookieUser(string name, string password, bool autoLogin = false)
-		//{
-		//	if(string.IsNullOrEmpty(name))
-		//		throw new ArgumentNullException("name");
+			if (string.IsNullOrEmpty(password))
+				throw new ArgumentNullException("password");
 
-		//	if (string.IsNullOrEmpty(password))
-		//		throw new ArgumentNullException("password");
+			var cookie = new HttpCookie(CookieUserNameFieldName, name);
 
-		//	var cookie = new HttpCookie(CookieUserNameFieldName, name);
+			if (autoLogin)
+				cookie.Expires = TimeProvider.Current.Now.AddDays(256);
 
-		//	if (autoLogin)
-		//		cookie.Expires = DateTime.Now.AddDays(256);
+			_responseCookies.Add(cookie);
 
-		//	Manager.Response.Cookies.Add(cookie);
+			cookie = new HttpCookie(CookieUserPasswordFieldName, password);
 
-		//	cookie = new HttpCookie(CookieUserPasswordFieldName, password);
+			if (autoLogin)
+				cookie.Expires = TimeProvider.Current.Now.AddDays(256);
 
-		//	if (autoLogin)
-		//		cookie.Expires = DateTime.Now.AddDays(256);
+			_responseCookies.Add(cookie);
+		}
 
-		//	Manager.Response.Cookies.Add(cookie);
-		//}
-
-		///// <summary>
-		///// Remove user authentication data cookies
-		///// </summary>
-		//public void LogOutCookieUser()
-		//{
+		/// <summary>
+		/// Remove user authentication data cookies
+		/// </summary>
+		public void LogOutCookieUser()
+		{
 		//	var myCookie = new HttpCookie(CookieUserNameFieldName)
 		//					{
 		//						Expires = DateTime.Now.AddDays(-1d)
@@ -92,13 +105,13 @@
 		//	IsAuthenticatedAsUser = false;
 		//	AuthenticatedUserID = -1;
 		//	AuthenticatedUserName = null;
-		//}
+		}
 
-		///// <summary>
-		///// Checking user cookies authentication data and updating authentication status if success
-		///// </summary>
-		//public void AuthenticateCookieUser(int userID, string name, string password)
-		//{
+		/// <summary>
+		/// Checking user cookies authentication data and updating authentication status if success
+		/// </summary>
+		public void AuthenticateCookieUser(int userID, string name, string password)
+		{
 		//	if (userID <= 0)
 		//		throw new ArgumentException("User ID is invalid");
 
@@ -125,6 +138,6 @@
 		//		Manager.Request.Cookies.Remove(CookieUserNameFieldName);
 		//		Manager.Request.Cookies.Remove(CookieUserPasswordFieldName);
 		//	}
-		//}
+		}
 	}
 }

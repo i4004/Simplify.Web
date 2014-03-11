@@ -170,7 +170,9 @@
     <Compile Include="RunTypeAttribute.cs" />
     <Compile Include="SiteTitleSetter.cs" />
     <Compile Include="StringTable.cs" />
+    <Compile Include="SystemTimeProvider.cs" />
     <Compile Include="TemplateFactory.cs" />
+    <Compile Include="TimeProvider.cs" />
     <Compile Include="VersionAttribute.cs" />
     <None Include="AcspNet.nuspec" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -222,7 +224,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

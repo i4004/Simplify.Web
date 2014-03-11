@@ -10,7 +10,7 @@ namespace AcspNet.Tests
 	public class SessionAuthenticationTests
 	{
 		[Test]
-		public void LogInSessionUser_RegularUser_DataSavedToSession()
+		public void LogInSessionUser_RegularUser_DataAddedToSession()
 		{
 			var session = new Mock<HttpSessionStateBase>();
 			var state = new Mock<IAuthenticationState>();
@@ -55,26 +55,32 @@ namespace AcspNet.Tests
 			var session = new Mock<HttpSessionStateBase>();
 			var state = new Mock<IAuthenticationState>();
 
-			var sessions = new Dictionary<string, object>();
-			session.Setup(x => x.Add(It.IsAny<string>(), It.IsAny<object>()))
-				.Callback((string key, object value) =>
-				{
-					if (!sessions.ContainsKey(key))
-						sessions.Add(key, value);
-				});
+			session.Setup(x => x[It.Is<string>(c => c == SessionAuthentication.SessionUserAuthenticationStatusFieldName)])
+				.Returns("authenticated");
+			session.Setup(x => x[It.Is<string>(c => c == SessionAuthentication.SessionUserIdFieldName)])
+				.Returns(5);
 
-			session.Setup(x => x[It.IsAny<string>()])
-				.Returns((string key) => sessions.ContainsKey(key) ? sessions[key] : null);
-			session.Setup(x => x.Remove(It.IsAny<string>())).Callback((string key) => sessions.Remove(key));
-
-			session.Object.Add(SessionAuthentication.SessionUserAuthenticationStatusFieldName, "authenticated");
-			session.Object.Add(SessionAuthentication.SessionUserIdFieldName, 5);
+			//session.Object.Add(SessionAuthentication.SessionUserAuthenticationStatusFieldName, "authenticated");
+			//session.Object.Add(SessionAuthentication.SessionUserIdFieldName, 5);
 
 			var sa = new SessionAuthentication(session.Object, state.Object);
 
 			sa.AuthenticateSessionUser();
 
-			state.Verify(x => x.SetAuthenticated(It.Is<int>(c => c == 5), It.Is<string>(null)), Times.Once);
-		}	
+			state.Verify(x => x.SetAuthenticated(It.Is<int>(c => c == 5), It.IsAny<string>()), Times.Once);
+		}
+
+		[Test]
+		public void AuthenticateSessionUser_NotLoggedUser_DataRemovedFromSession()
+		{
+			var session = new Mock<HttpSessionStateBase>();
+			var state = new Mock<IAuthenticationState>();
+
+			var sa = new SessionAuthentication(session.Object, state.Object);
+
+			sa.AuthenticateSessionUser();
+
+			state.Verify(x => x.SetAuthenticated(It.IsAny<int>(), It.IsAny<string>()), Times.Never);
+		}
 	}
 }
