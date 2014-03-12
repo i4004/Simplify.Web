@@ -2,21 +2,21 @@
 {
 	public interface ICookieAuthentication : IHideObjectMembers
 	{
-		///// <summary>
-		///// Gets the authenticated user name from cookie.
-		///// </summary>
-		///// <value>
-		///// The authenticated user name from cookie.
-		///// </value>
-		//string UserNameFromCookie { get; }
+		/// <summary>
+		/// Gets the authenticated user name from cookie.
+		/// </summary>
+		/// <value>
+		/// The authenticated user name from cookie.
+		/// </value>
+		string UserNameFromCookie { get; }
 
-		///// <summary>
-		///// Gets the authenticated user password from cookie.
-		///// </summary>
-		///// <value>
-		///// The authenticated user password from cookie.
-		///// </value>
-		//string UserPasswordFromCookie { get; }
+		/// <summary>
+		/// Gets the authenticated user password from cookie.
+		/// </summary>
+		/// <value>
+		/// The authenticated user password from cookie.
+		/// </value>
+		string UserPasswordFromCookie { get; }
 
 		/// <summary>
 		/// Remove user authentication data cookies

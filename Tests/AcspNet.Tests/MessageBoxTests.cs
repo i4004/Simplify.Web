@@ -66,6 +66,7 @@ namespace AcspNet.Tests
 		public void ShowSt_ErrorMessageBox_GeneratedCorrectly()
 		{
 			var tf = new Mock<ITemplateFactory>();
+			// todo use full path for checking
 			tf.Setup(x => x.Load(It.Is<string>(c => c.EndsWith("ErrorMessageBox.tpl")))).Returns(new Template("{Title}{Message}", false));
 
 			var st = new Mock<IStringTable>();

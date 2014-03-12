@@ -110,48 +110,6 @@
 //		}
 
 //		[Test]
-//		public void HtmlListsGenerator_Usage_BehaviourIsCorrect()
-//		{
-//			var manager = GetTestManager("htmlListsTest");
-//			manager.Run();
-//		}
-
-//		[Test]
-//		public void MessageBox_Usage_BehaviourIsCorrect()
-//		{
-//			var manager = GetTestManager("messageBoxTests");
-//			manager.Run();
-//		}
-
-//		[Test]
-//		public void AuthenticationModule_Usage_BehaviourIsCorrect()
-//		{
-//			var manager = GetTestManager("authenticationModuleTests");
-//			manager.Run();
-//		}
-
-//		[Test]
-//		public void Manager_Usage_StopExtensionsExecutionIsCorrect()
-//		{
-//			var manager = GetTestManager("stopExtensionsExecution");
-//			manager.Run();
-//		}
-
-//		[Test]
-//		public void Manager_Usage_ActionModeIdUsageIsCorrect()
-//		{
-//			var manager = GetTestManager("foo", "bar", "15");
-//			manager.Run();
-//		}
-
-//		[Test]
-//		public void Manager_Usage_ExternalLibraryExtensionUsageIsCorrect()
-//		{
-//			var manager = GetTestManager("foo");
-//			manager.Run();
-//		}
-
-//		[Test]
 //		public void Manager_Usage_GetExtensionsMetadataIsCorrect()
 //		{
 //			var manager = GetTestManager("getExtensionsMetadataTest");

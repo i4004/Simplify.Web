@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Specialized;
 using System.Web;
 using AcspNet.Authentication;
 using Moq;
@@ -73,59 +72,111 @@ namespace AcspNet.Tests
 			Assert.AreEqual(tp.Object.Now.AddDays(256), passwordCookie.Expires);
 		}
 
-		//[Test]
-		//public void LogOutSessionUser_RegularUser_DataRemovedFromSession()
-		//{
-		//	var session = new Mock<HttpSessionStateBase>();
-		//	var state = new Mock<IAuthenticationState>();
+		[Test]
+		public void LogOutCookieUser_RegularUser_CookieExpireTimeAdded()
+		{
+			var cookies = new HttpCookieCollection();
+			var state = new Mock<IAuthenticationState>();
 
-		//	var sa = new SessionAuthentication(session.Object, state.Object);
+			var tp = new Mock<TimeProvider>();
+			tp.SetupGet(x => x.Now).Returns(new DateTime(2014, 03, 11));
+			TimeProvider.Current = tp.Object;
 
-		//	sa.LogOutSessionUser();
+			var ca = new CookieAuthentication(null, cookies, state.Object);
 
-		//	session.Verify(
-		//		x => x.Remove(It.Is<string>(c => c == SessionAuthentication.SessionUserAuthenticationStatusFieldName)),
-		//		Times.Once());
+			ca.LogOutCookieUser();
 
-		//	session.Verify(
-		//		x => x.Remove(It.Is<string>(c => c == SessionAuthentication.SessionUserIdFieldName)),
-		//		Times.Once());
+			Assert.AreEqual(2, cookies.Count);
 
-		//	state.Verify(x => x.Reset(), Times.Once);
-		//}
+			var nameCookie = cookies[CookieAuthentication.CookieUserNameFieldName];
+			Assert.IsNotNull(nameCookie);
+			Assert.AreEqual(tp.Object.Now.AddDays(-1d), nameCookie.Expires);
 
-		//[Test]
-		//public void AuthenticateSessionUser_LoggedUser_DataRemovedFromSession()
-		//{
-		//	var session = new Mock<HttpSessionStateBase>();
-		//	var state = new Mock<IAuthenticationState>();
+			var passwordCookie = cookies[CookieAuthentication.CookieUserPasswordFieldName];
+			Assert.IsNotNull(passwordCookie);
+			Assert.AreEqual(tp.Object.Now.AddDays(-1d), passwordCookie.Expires);
 
-		//	session.Setup(x => x[It.Is<string>(c => c == SessionAuthentication.SessionUserAuthenticationStatusFieldName)])
-		//		.Returns("authenticated");
-		//	session.Setup(x => x[It.Is<string>(c => c == SessionAuthentication.SessionUserIdFieldName)])
-		//		.Returns(5);
+			state.Verify(x => x.Reset(), Times.Once);
+		}
 
-		//	//session.Object.Add(SessionAuthentication.SessionUserAuthenticationStatusFieldName, "authenticated");
-		//	//session.Object.Add(SessionAuthentication.SessionUserIdFieldName, 5);
+		[Test]
+		public void AuthenticateCookieUser_NullParameters_ExceptionsThrown()
+		{
+			var ca = new CookieAuthentication(null, null, null);
 
-		//	var sa = new SessionAuthentication(session.Object, state.Object);
+			Assert.Throws<ArgumentException>(() => ca.AuthenticateCookieUser(-1, null, null));
+			Assert.Throws<ArgumentNullException>(() => ca.AuthenticateCookieUser(1, null, null));
+			Assert.Throws<ArgumentNullException>(() => ca.AuthenticateCookieUser(1, "Test", null));
+		}
 
-		//	sa.AuthenticateSessionUser();
+		[Test]
+		public void AuthenticateCookieUser_LoggedUser_StateSetAuthenticatedSet()
+		{
+			var requestCookies = new HttpCookieCollection();
+			var responseCookies = new HttpCookieCollection();
+			var state = new Mock<IAuthenticationState>();
 
-		//	state.Verify(x => x.SetAuthenticated(It.Is<int>(c => c == 5), It.IsAny<string>()), Times.Once);
-		//}
+			var cookie = new HttpCookie(CookieAuthentication.CookieUserNameFieldName, "FooName");
+			requestCookies.Add(cookie);
 
-		//[Test]
-		//public void AuthenticateSessionUser_NotLoggedUser_DataRemovedFromSession()
-		//{
-		//	var session = new Mock<HttpSessionStateBase>();
-		//	var state = new Mock<IAuthenticationState>();
+			cookie = new HttpCookie(CookieAuthentication.CookieUserPasswordFieldName, "FooPassword");
+			requestCookies.Add(cookie);
 
-		//	var sa = new SessionAuthentication(session.Object, state.Object);
+			var ca = new CookieAuthentication(requestCookies, responseCookies, state.Object);
 
-		//	sa.AuthenticateSessionUser();
+			ca.AuthenticateCookieUser(1, "FooName", "FooPassword");
 
-		//	state.Verify(x => x.SetAuthenticated(It.IsAny<int>(), It.IsAny<string>()), Times.Never);
-		//}
+			state.Verify(x => x.SetAuthenticated(It.Is<int>(c => c == 1), It.IsAny<string>()), Times.Once);
+		}
+
+		[Test]
+		public void AuthenticateSessionUser_NotLoggedOrInvalidUser_StateSetAuthenticatedIsNotSetAndCookieRemoved()
+		{
+			var requestCookies = new HttpCookieCollection();
+			var responseCookies = new HttpCookieCollection();
+			var state = new Mock<IAuthenticationState>();
+
+			var cookie = new HttpCookie(CookieAuthentication.CookieUserNameFieldName, "FooName");
+			requestCookies.Add(cookie);
+
+			var ca = new CookieAuthentication(requestCookies, responseCookies, state.Object);
+
+			ca.AuthenticateCookieUser(1, "FooName", "FooPassword");
+
+			Assert.AreEqual(0, requestCookies.Count);
+			state.Verify(x => x.Reset(), Times.Never);
+		}
+
+		[Test]
+		public void UserNameAndPasswordFromCookier_DataExist_DataGet()
+		{
+			var requestCookies = new HttpCookieCollection();
+			var responseCookies = new HttpCookieCollection();
+			var state = new Mock<IAuthenticationState>();
+
+			var cookie = new HttpCookie(CookieAuthentication.CookieUserNameFieldName, "FooName");
+			requestCookies.Add(cookie);
+
+			cookie = new HttpCookie(CookieAuthentication.CookieUserPasswordFieldName, "FooPassword");
+			requestCookies.Add(cookie);
+
+			var ca = new CookieAuthentication(requestCookies, responseCookies, state.Object);
+
+			Assert.AreEqual("FooName", ca.UserNameFromCookie);
+			Assert.AreEqual("FooPassword", ca.UserPasswordFromCookie);
+		}
+
+		[Test]
+		public void UserNameAndPasswordFromCookier_DataNotExist_NullDataGet()
+		{
+			var requestCookies = new HttpCookieCollection();
+			var responseCookies = new HttpCookieCollection();
+			var state = new Mock<IAuthenticationState>();
+
+			var ca = new CookieAuthentication(requestCookies, responseCookies, state.Object);
+
+			Assert.IsNull(ca.UserNameFromCookie);
+			Assert.IsNull(ca.UserPasswordFromCookie);
+		}
 	}
 }

@@ -6,7 +6,8 @@ namespace AcspNet.Authentication
 	/// Implementation of IAuthenticationModule interface that is used to control users login/logout/autnenticate via cookie or session and stores current user name/password/id unformation
 	/// </summary>
 	public class AuthenticationModule : IAuthenticationModule
-	{		internal AuthenticationModule()
+	{
+		internal AuthenticationModule()
 		{
 			AuthenticatedUserID = -1;
 		}
@@ -34,6 +35,9 @@ namespace AcspNet.Authentication
 		/// The name of the authenticated user.
 		/// </value>
 		public string AuthenticatedUserName { get; private set; }
+
+		//public ISessionAuthentication Session { get; private set; }
+		//public ICookieAuthentication Cookie { get; private set; }
 
 		public void SetAuthenticated(int userID, string userName = null)
 		{
