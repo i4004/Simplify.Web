@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 
 namespace AcspNet.Authentication
 {
@@ -7,9 +8,12 @@ namespace AcspNet.Authentication
 	/// </summary>
 	public class AuthenticationModule : IAuthenticationModule
 	{
-		internal AuthenticationModule()
+		internal AuthenticationModule(HttpSessionStateBase session, HttpCookieCollection requestCookies, HttpCookieCollection responseCookies)
 		{
 			AuthenticatedUserID = -1;
+
+			Session = new SessionAuthentication(session, this);
+			Cookie = new CookieAuthentication(requestCookies, responseCookies, this);
 		}
 
 		/// <summary>
@@ -36,21 +40,24 @@ namespace AcspNet.Authentication
 		/// </value>
 		public string AuthenticatedUserName { get; private set; }
 
-		//public ISessionAuthentication Session { get; private set; }
-		//public ICookieAuthentication Cookie { get; private set; }
+		public ISessionAuthentication Session { get; private set; }
+		public ICookieAuthentication Cookie { get; private set; }
 
 		public void SetAuthenticated(int userID, string userName = null)
 		{
-			throw new NotImplementedException();
+			if (userID < 0)
+				throw new ArgumentException("User ID is invalid");
+
+			AuthenticatedUserID = userID;
+			AuthenticatedUserName = userName;
+			IsAuthenticatedAsUser = true;
 		}
 
 		public void Reset()
 		{
-			//	IsAuthenticatedAsUser = false;
-			//	AuthenticatedUserID = -1;
-			//	AuthenticatedUserName = null;
-
-			throw new NotImplementedException();
+			IsAuthenticatedAsUser = false;
+			AuthenticatedUserID = -1;
+			AuthenticatedUserName = null;
 		}
 	}
 }

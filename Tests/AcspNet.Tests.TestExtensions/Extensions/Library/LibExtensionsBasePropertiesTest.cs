@@ -15,6 +15,11 @@ namespace AcspNet.Tests.TestExtensions.Extensions.Library
 			Assert.IsNotNull(Environment);
 			Assert.IsNotNull(StringTable);
 			Assert.IsNotNull(TemplateFactory);
+			Assert.IsNotNull(Html);
+			Assert.IsNotNull(Html.ListsGenerator);
+			Assert.IsNotNull(Html.MessageBox);
+			Assert.IsNotNull(AuthenticationModule);
+			Assert.IsNotNull(Extensions);
 		}
 	}
 }

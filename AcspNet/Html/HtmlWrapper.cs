@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Various HTML generation classes container
 	/// </summary>
-	public sealed class HtmlWrapper : IHtml
+	public sealed class HtmlWrapper : IHtmlWrapper
 	{
 		/// <summary>
 		/// HTML comboBox lists generator.

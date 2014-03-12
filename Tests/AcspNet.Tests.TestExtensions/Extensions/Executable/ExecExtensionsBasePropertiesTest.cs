@@ -17,8 +17,9 @@ namespace AcspNet.Tests.TestExtensions.Extensions.Executable
 			Assert.IsNotNull(TemplateFactory);
 			Assert.IsNotNull(Html);
 			Assert.IsNotNull(Html.ListsGenerator);
-			//Assert.IsNotNull(Html.MessageBox);
-			//Assert.IsNotNull(Extensions);
+			Assert.IsNotNull(Html.MessageBox);
+			Assert.IsNotNull(AuthenticationModule);
+			Assert.IsNotNull(Extensions);
 			////Assert.IsNotNull(Extensions.MessagePage);
 		}
 	}

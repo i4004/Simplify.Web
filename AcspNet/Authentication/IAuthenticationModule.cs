@@ -5,7 +5,7 @@
 	/// </summary>
 	public interface IAuthenticationModule : IAuthenticationState
 	{
-		//ISessionAuthentication Session { get; }
-		//ICookieAuthentication Cookie { get; }
+		ISessionAuthentication Session { get; }
+		ICookieAuthentication Cookie { get; }
 	}
 }
