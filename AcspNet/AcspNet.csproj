@@ -136,6 +136,8 @@
     <Compile Include="Extensions\IdVerifier.cs" />
     <Compile Include="Extensions\IExtensionsWrapper.cs" />
     <Compile Include="Extensions\IIdVerifier.cs" />
+    <Compile Include="Extensions\INavigator.cs" />
+    <Compile Include="Extensions\Navigator.cs" />
     <Compile Include="Html\HtmlWrapper.cs" />
     <Compile Include="Html\IHtmlWrapper.cs" />
     <Compile Include="Html\IListsGenerator.cs" />
@@ -228,7 +230,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
