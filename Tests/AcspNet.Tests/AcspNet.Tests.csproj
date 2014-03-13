@@ -111,6 +111,7 @@
     <Compile Include="DisplayerTests.cs" />
     <Compile Include="EnvironmentTests.cs" />
     <Compile Include="ExtensionsDataLoaderTests.cs" />
+    <Compile Include="IdVerifierTests.cs" />
     <Compile Include="ListsGeneratorTests.cs" />
     <Compile Include="MessageBoxTests.cs" />
     <Compile Include="PageBuilderTests.cs" />
