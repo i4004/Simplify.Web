@@ -113,74 +113,60 @@
     <Compile Include="AcspApplication.cs" />
     <Compile Include="AcspContext.cs" />
     <Compile Include="AcspException.cs" />
-    <Compile Include="AcspProcessor.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="AcspProcessor.cs" />
     <Compile Include="AcspRouteConfig.cs" />
     <Compile Include="AcspSettings.cs" />
     <Compile Include="ActionAttribute.cs" />
     <Compile Include="Authentication\AuthenticationModule.cs" />
-    <Compile Include="Authentication\CookieAuthentication.cs" />
     <Compile Include="Authentication\IAuthenticationModule.cs" />
-    <Compile Include="Authentication\IAuthenticationState.cs" />
-    <Compile Include="Authentication\ICookieAuthentication.cs" />
-    <Compile Include="Authentication\Protection.cs" />
-    <Compile Include="Authentication\ProtectionAttribute.cs" />
-    <Compile Include="Authentication\ISessionAuthentication.cs" />
-    <Compile Include="Authentication\SessionAuthentication.cs" />
-    <Compile Include="DataCollector.cs" />
-    <Compile Include="Displayer.cs" />
-    <Compile Include="Environment.cs" />
-    <Compile Include="ExecExtension.cs" />
-    <Compile Include="Extensions\ExtensionsWrapper.cs" />
-    <Compile Include="Extensions\IdVerifier.cs" />
-    <Compile Include="Extensions\IExtensionsWrapper.cs" />
-    <Compile Include="Extensions\IIdVerifier.cs" />
-    <Compile Include="Extensions\INavigator.cs" />
-    <Compile Include="Extensions\Navigator.cs" />
     <Compile Include="Html\HtmlWrapper.cs" />
     <Compile Include="Html\IHtmlWrapper.cs" />
     <Compile Include="Html\IListsGenerator.cs" />
     <Compile Include="Html\IMessageBox.cs" />
     <Compile Include="Html\ListsGenerator.cs" />
     <Compile Include="Html\MessageBox.cs" />
-    <Compile Include="Meta\ExecExtensionMetaContainer.cs" />
-    <Compile Include="Meta\ExtensionMetaContainer.cs" />
-    <Compile Include="ExtensionBase.cs" />
-    <Compile Include="ExtensionsDataLoader.cs" />
     <Compile Include="IAcspApplication.cs" />
     <Compile Include="IAcspContext.cs" />
     <Compile Include="IAcspProcessor.cs" />
     <Compile Include="IAcspProcessorContoller.cs" />
     <Compile Include="IAcspSettings.cs" />
+    <Compile Include="DataCollector.cs" />
+    <Compile Include="Displayer.cs" />
+    <Compile Include="Environment.cs" />
+    <Compile Include="ExtensionsDataLoader.cs" />
     <Compile Include="IDataCollector.cs" />
     <Compile Include="IDisplayer.cs" />
+    <Compile Include="IdVerifier.cs" />
     <Compile Include="IEnvironment.cs" />
     <Compile Include="IExtensionsDataLoader.cs" />
+    <Compile Include="IIdVerifier.cs" />
+    <Compile Include="INavigator.cs" />
+    <Compile Include="IPageBuilder.cs" />
+    <Compile Include="IStringTable.cs" />
+    <Compile Include="ITemplateFactory.cs" />
+    <Compile Include="ModeAttribute.cs" />
+    <Compile Include="Navigator.cs" />
+    <Compile Include="PageBuilder.cs" />
+    <Compile Include="SiteTitleSetter.cs" />
+    <Compile Include="StringTable.cs" />
+    <Compile Include="TemplateFactory.cs" />
+    <Compile Include="SystemTimeProvider.cs" />
+    <Compile Include="TimeProvider.cs" />
+    <None Include="AcspNet.nuspec" />
+    <Compile Include="Authentication\CookieAuthentication.cs" />
+    <Compile Include="Authentication\IAuthenticationState.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Authentication\ICookieAuthentication.cs" />
+    <Compile Include="Authentication\ISessionAuthentication.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Authentication\SessionAuthentication.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="IHideObjectMembers.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="IPageBuilder.cs" />
-    <Compile Include="IStringTable.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ITemplateFactory.cs" />
-    <Compile Include="LibExtension.cs" />
-    <Compile Include="Meta\LibExtensionMetaContainer.cs" />
-    <Compile Include="LoadExtensionsFromAssemblyOfAttribute.cs" />
-    <Compile Include="LoadIndividualExtensionsAttribute.cs" />
-    <Compile Include="ModeAttribute.cs" />
-    <Compile Include="PageBuilder.cs" />
-    <Compile Include="PriorityAttribute.cs" />
-    <Compile Include="RunType.cs" />
-    <Compile Include="RunTypeAttribute.cs" />
-    <Compile Include="SiteTitleSetter.cs" />
-    <Compile Include="StringTable.cs" />
-    <Compile Include="SystemTimeProvider.cs" />
-    <Compile Include="TemplateFactory.cs" />
-    <Compile Include="TimeProvider.cs" />
-    <Compile Include="VersionAttribute.cs" />
-    <None Include="AcspNet.nuspec" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -226,7 +212,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Meta\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

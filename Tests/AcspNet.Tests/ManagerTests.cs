@@ -85,15 +85,9 @@
 //			var manager = GetTestManager();
 
 //			Assert.IsNotNull(manager.StopWatch);
-//			Assert.IsNotNull(manager.HtmlWrapper);
-//			Assert.IsNotNull(manager.HtmlWrapper.ListsGenerator);
-//			Assert.IsNotNull(manager.HtmlWrapper.MessageBox);
-//			Assert.IsNotNull(manager.AuthenticationModule);
-//			Assert.IsNotNull(manager.ExtensionsWrapper);
 //			Assert.IsNotNull(manager.ExtensionsWrapper.MessagePage);
 //			Assert.IsNotNull(manager.ExtensionsWrapper.IdProcessor);
 //			Assert.IsNotNull(manager.ExtensionsWrapper.Navigator);
-//			Assert.AreEqual("http://localhost/FooSite/", Manager.SiteUrl);
 //		}
 
 //		[Test]

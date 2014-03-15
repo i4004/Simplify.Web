@@ -102,30 +102,26 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AcspApplicationTests.cs" />
-    <Compile Include="AcspContextTests.cs" />
-    <Compile Include="AcspProcessorTests.cs" />
     <Compile Include="AcspRouteConfigTests.cs" />
-    <Compile Include="AuthenticationModuleTests.cs" />
+    <Compile Include="Authentication\AuthenticationModuleTests.cs" />
+    <Compile Include="Authentication\CookieAuthenticationTests.cs" />
+    <Compile Include="Html\ListsGeneratorTests.cs" />
+    <Compile Include="Html\MessageBoxTests.cs" />
     <Compile Include="DataCollectorTests.cs" />
     <Compile Include="DisplayerTests.cs" />
     <Compile Include="EnvironmentTests.cs" />
     <Compile Include="ExtensionsDataLoaderTests.cs" />
     <Compile Include="IdVerifierTests.cs" />
-    <Compile Include="ListsGeneratorTests.cs" />
-    <Compile Include="MessageBoxTests.cs" />
     <Compile Include="NavigatorTests.cs" />
     <Compile Include="PageBuilderTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CookieAuthenticationTests.cs" />
-    <Compile Include="SessionAuthenticationTests.cs" />
     <Compile Include="SiteTitleSetterTests.cs" />
     <Compile Include="StringTableTests.cs" />
     <Compile Include="TemplateFactoryTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Authentication\SessionAuthenticationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AcspNet.Tests.snk" />
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

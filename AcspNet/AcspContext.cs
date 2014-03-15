@@ -11,7 +11,7 @@ namespace AcspNet
 	public class AcspContext : IAcspContext
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="AcspContext"/> class.
+		/// Initializes a new instance of the <see cref="AcspContext" /> class.
 		/// </summary>
 		/// <param name="routeData">The current page route data.</param>
 		/// <param name="httpContext">The HTTP context.</param>
@@ -19,7 +19,6 @@ namespace AcspNet
 		{
 			RouteData = routeData;
 			HttpContext = httpContext;
-			//	HttpRuntime = httpRuntime;
 			Request = HttpContext.Request;
 			Response = HttpContext.Response;
 			Session = httpContext.Session;
@@ -30,6 +29,8 @@ namespace AcspNet
 			CalculateCurrentMode();
 			CalculateCurrentID();
 			CalculateSitePhysicalPath();
+			//CalculateSiteVirualPath();
+			CalculateSiteUrl();
 		}
 
 		/// <summary>
@@ -67,6 +68,11 @@ namespace AcspNet
 		/// </summary>
 		public NameValueCollection Form { get; private set; }
 
+		///// <summary>
+		///// The HttpRuntime abstration, to work with HttpRuntime functions
+		///// </summary>
+		//public IHttpRuntime HttpRuntime { get; private set; }
+
 		/// <summary>
 		/// Gets the current web-site request action parameter (/someAction or ?act=someAction).
 		/// </summary>
@@ -98,6 +104,19 @@ namespace AcspNet
 		/// The site physical path.
 		/// </value>
 		public string SitePhysicalPath { get; private set; }
+
+		///// <summary>
+		///// Gets the web-site virtual relative path, for example: /site1 if your web-site url is http://yoursite.com/site1/
+		///// </summary>
+		//public string SiteVirtualPath { get; private set; }
+
+		/// <summary>
+		/// Gets the web-site URL, for example: http://yoursite.com/site1/
+		/// </summary>
+		/// <value>
+		/// The site URL.
+		/// </value>
+		public string SiteUrl { get; private set; }
 
 		/// <summary>
 		/// Gets current action/mode URL in formal like ?act={0}&amp;mode={1}&amp;id={2}.
@@ -153,6 +172,7 @@ namespace AcspNet
 
 			CurrentID = id ?? "";
 		}
+
 		private void CalculateSitePhysicalPath()
 		{
 			if (Request.PhysicalApplicationPath != null)
@@ -161,6 +181,26 @@ namespace AcspNet
 
 				if (SitePhysicalPath.EndsWith("/"))
 					SitePhysicalPath = SitePhysicalPath.Substring(0, SitePhysicalPath.Length - 1);
+			}
+		}
+
+		//private void CalculateSiteVirualPath()
+		//{
+		//	if (HttpRuntime.AppDomainAppVirtualPath != null)
+		//		SiteVirtualPath = HttpRuntime.AppDomainAppVirtualPath == "/" ? "" : HttpRuntime.AppDomainAppVirtualPath;
+		//}
+
+		private void CalculateSiteUrl()
+		{
+			if (Request != null && Request.Url != null)
+			{
+				SiteUrl = String.Format("{0}://{1}{2}",
+					Request.Url.Scheme,
+					Request.Url.Authority,
+					Request.ApplicationPath);
+
+				if (!SiteUrl.EndsWith("/"))
+					SiteUrl += "/";
 			}
 		}
 	}

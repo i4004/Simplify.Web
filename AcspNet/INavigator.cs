@@ -54,5 +54,11 @@
 		///// Sets the redirect link to current page.
 		///// </summary>
 		//void SetRedirectLinkToCurrentPage();
+
+		/// <summary>
+		/// Redirects the client to specified URL.
+		/// </summary>
+		/// <param name="url">The URL.</param>
+		void Redirect(string url);
 	}
 }

@@ -20,6 +20,8 @@ namespace AcspNet.Tests.TestExtensions.Extensions.Library
 			Assert.IsNotNull(Html.MessageBox);
 			Assert.IsNotNull(AuthenticationModule);
 			Assert.IsNotNull(Extensions);
+			Assert.IsNotNull(Extensions.IdVerifier);
+			Assert.IsNotNull(Extensions.Navigator);
 		}
 	}
 }

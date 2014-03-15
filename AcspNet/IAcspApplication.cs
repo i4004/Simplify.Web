@@ -2,7 +2,6 @@
 using System.Reflection;
 using System.Web;
 using System.Web.Routing;
-using AcspNet.Meta;
 
 namespace AcspNet
 {
@@ -18,15 +17,6 @@ namespace AcspNet
 		Assembly MainAssembly { get; set; }
 
 		/// <summary>
-		/// Gets or sets the HTTP context.
-		/// </summary>
-		/// <value>
-		/// The HTTP context.
-		/// </value>
-		/// <exception cref="System.ArgumentNullException">value</exception>
-		HttpContextBase HttpContext { get; set; }
-
-		/// <summary>
 		/// Gets or sets the ACSP settings.
 		/// </summary>
 		/// <value>
@@ -40,23 +30,23 @@ namespace AcspNet
 		/// </summary>
 		void SetUp();
 
-		/// <summary>
-		/// Creates an ACSP extensions processor.
-		/// </summary>
-		/// <param name="routeData">The route data.</param>
-		/// <returns></returns>
-		IAcspProcessor CreateProcessor(RouteData routeData);
+		/////// <summary>
+		/////// Creates an ACSP extensions processor.
+		/////// </summary>
+		/////// <param name="routeData">The route data.</param>
+		/////// <returns></returns>
+		////IAcspProcessor CreateProcessor(RouteData routeData);
 
-		/// <summary>
-		/// Get currently loaded executable extensions meta-data
-		/// </summary>
-		/// <returns></returns>
-		IList<ExecExtensionMetaContainer> GetExecExtensionsMetaData();
+		///// <summary>
+		///// Get currently loaded executable extensions meta-data
+		///// </summary>
+		///// <returns></returns>
+		//IList<ExecExtensionMetaContainer> GetExecExtensionsMetaData();
 
-		/// <summary>
-		/// Gets the library extensions meta data.
-		/// </summary>
-		/// <returns></returns>
-		IList<LibExtensionMetaContainer> GetLibExtensionsMetaData();
+		///// <summary>
+		///// Gets the library extensions meta data.
+		///// </summary>
+		///// <returns></returns>
+		//IList<LibExtensionMetaContainer> GetLibExtensionsMetaData();
 	}
 }

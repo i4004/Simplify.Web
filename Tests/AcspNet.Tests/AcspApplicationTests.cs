@@ -44,11 +44,11 @@ namespace AcspNet.Tests
 			Assert.AreEqual("2.0", libExtensions[1].Version);
 		}
 
-		[Test]
-		public void CreateProcessor_AcspApplicationNotSetup_AcspNetExceptionThrown()
-		{
-			var app = new AcspApplication();
-			Assert.Throws<AcspException>(() => app.CreateProcessor(null));
-		}
+		//[Test]
+		//public void CreateProcessor_AcspApplicationNotSetup_AcspNetExceptionThrown()
+		//{
+		//	var app = new AcspApplication();
+		//	Assert.Throws<AcspException>(() => app.CreateProcessor(null));
+		//}
 	}
 }

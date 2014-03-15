@@ -10,14 +10,14 @@
 		///// </summary>
 		//IMessagePage MessagePage { get; }
 
-		///// <summary>
-		///// Gets the identifier processor that is used to parse 'ID' field from request query string or form.
-		///// </summary>
-		//IIdProcessor IdProcessor { get; }
+		/// <summary>
+		/// Gets the identifier processor that is used to parse 'ID' field from request query string or form.
+		/// </summary>
+		IIdVerifier IdVerifier { get; }
 
-		///// <summary>
-		///// Website navigation manager, controls current user location, link to previous page or link specific page
-		///// </summary>
-		//INavigator Navigator { get; }
+		/// <summary>
+		/// Website navigation manager, controls current user location, link to previous page or link specific page
+		/// </summary>
+		INavigator Navigator { get;  }
 	}
 }

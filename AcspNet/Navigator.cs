@@ -1,3 +1,4 @@
+using System;
 using System.Web;
 
 namespace AcspNet.Extensions
@@ -8,13 +9,15 @@ namespace AcspNet.Extensions
 	public sealed class Navigator : INavigator
 	{
 		private readonly HttpSessionStateBase _session;
+		private readonly HttpResponseBase _response;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Navigator"/> class.
 		/// </summary>
-		internal Navigator(HttpSessionStateBase session)
+		internal Navigator(HttpSessionStateBase session, HttpResponseBase response)
 		{
 			_session = session;
+			_response = response;
 		}
 
 		///// <summary>
@@ -65,14 +68,14 @@ namespace AcspNet.Extensions
 		//	Response.Redirect(url, false);
 		//}
 
-		///// <summary>
-		///// Navigates to previous page.
-		///// </summary>
+		/// <summary>
+		/// Navigates to previous page.
+		/// </summary>
 		//public void NavigateToPreviousPage()
 		//{
-		////	PreviousNavigatedUrl = _manager.Request.RawUrl;
+		//////	PreviousNavigatedUrl = _manager.Request.RawUrl;
 
-		////	_manager.Redirect(string.IsNullOrEmpty(PreviousPageLink) ? Manager.SiteVirtualPath : PreviousPageLink);
+		//////	_manager.Redirect(string.IsNullOrEmpty(PreviousPageLink) ? Manager.SiteVirtualPath : PreviousPageLink);
 		//}
 
 		///// <summary>
@@ -106,5 +109,17 @@ namespace AcspNet.Extensions
 		//	if(_manager.Request.Url != null)
 		//		RedirectLink = _manager.Request.Url.AbsoluteUri;
 		//}
+
+		/// <summary>
+		/// Redirects the client to specified URL.
+		/// </summary>
+		/// <param name="url">The URL.</param>
+		public void Redirect(string url)
+		{
+			if (string.IsNullOrEmpty(url))
+				throw new ArgumentNullException("url");
+
+			_response.Redirect(url, true);
+		}
 	}
 }

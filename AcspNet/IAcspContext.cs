@@ -87,6 +87,19 @@ namespace AcspNet
 		string SitePhysicalPath { get; }
 
 		///// <summary>
+		///// Gets the web-site virtual relative path, for example: /site1 if your web-site url is http://yoursite.com/site1/
+		///// </summary>
+		//string SiteVirtualPath { get; }
+		
+		/// <summary>
+		/// Gets the web-site URL, for example: http://yoursite.com/site1/
+		/// </summary>
+		/// <value>
+		/// The site URL.
+		/// </value>
+		string SiteUrl { get; }
+
+		///// <summary>
 		///// Gets the current executing extensions types.
 		///// </summary>
 		///// <value>

@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
+using System.Net.Mail;
+using System.Reflection;
 using System.Web;
 using System.Web.Routing;
+using AcspNet.Web;
 using Moq;
 
 namespace AcspNet.TestingHelpers
@@ -38,9 +42,9 @@ namespace AcspNet.TestingHelpers
 			httpRequest.SetupGet(r => r.QueryString).Returns(new NameValueCollection());
 
 			httpRequest.SetupGet(r => r.Form).Returns(new NameValueCollection());
-			//httpRequest.SetupGet(r => r.Url).Returns(new Uri("http://localhost"));
+			httpRequest.SetupGet(r => r.Url).Returns(new Uri("http://localhost/"));
 			//httpRequest.SetupGet(r => r.RawUrl).Returns("http://localhost/TestSite/");
-			//httpRequest.SetupGet(r => r.ApplicationPath).Returns("/TestSite");
+			httpRequest.SetupGet(r => r.ApplicationPath).Returns("/TestSite");
 
 			var responseCookies = new HttpCookieCollection();
 			httpResponse.SetupGet(r => r.Cookies).Returns(responseCookies);
@@ -67,7 +71,7 @@ namespace AcspNet.TestingHelpers
 		/// Gets the default route data for AcspNet unit tests.
 		/// </summary>
 		/// <returns></returns>
-		public static RouteData CreateTestRouteData()
+		public static RouteData CreateEmptyRouteData()
 		{
 			return new RouteData();
 		}
@@ -122,7 +126,7 @@ namespace AcspNet.TestingHelpers
 		/// Gets the default test file system for AcspNet unit tests.
 		/// </summary>
 		/// <returns></returns>
-		public static IFileSystem GetTestFileSystem()
+		public static IFileSystem CreateTestFileSystem()
 		{
 			var files = new Dictionary<string, MockFileData>();
 			files.Add("Templates/Index.tpl", "");
@@ -130,18 +134,44 @@ namespace AcspNet.TestingHelpers
 			return new MockFileSystem(files, "C:/WebSites/TestSite");
 		}
 
+		/// <summary>
+		/// Gets the default test HTTP runtime for AcspNet unit tests.
+		/// </summary>
+		/// <returns></returns>
+		public static Mock<IHttpRuntime> CreateTestHttpRuntime()
+		{
+			var httpRuntime = new Mock<IHttpRuntime>();
 
-//		/// <summary>
-//		/// Gets the default test HTTP runtime for AcspNet unit tests.
-//		/// </summary>
-//		/// <returns></returns>
-//		public static IHttpRuntime GetTestHttpRuntime()
-//		{
-//			var httpRuntime = new Mock<IHttpRuntime>();
+			httpRuntime.SetupGet(x => x.AppDomainAppVirtualPath).Returns("/TestSite");
 
-//			httpRuntime.SetupGet(x => x.AppDomainAppVirtualPath).Returns("/FooSite");
+			return httpRuntime;
+		}
 
-//			return httpRuntime.Object;
-//		}
+		public static void CreateAndExecuteAcspProcessor(Assembly assembly, string action, string id)
+		{
+			var app = new AcspApplication();
+			app.MainAssembly = assembly;
+			app.SetUp();
+
+			//var processor = new AcspProcessor(app.Settings,
+			//	new AcspContext(CreateRouteDataWithActionAndId(action, id), CreateTestHttpContext().Object),
+			//	app.GetExecExtensionsMetaData(), app.GetLibExtensionsMetaData());
+
+			//	Template.FileSystem = AcspTestingHelper.CreateTestFileSystem();
+
+			//	processor.Execute();
+
+		}
+
+
+		//[TestFixtureSetUp]
+		//public void SetupAcspApplication()
+		//{
+		//}
+
+		//[Test]
+		//public void AcspProcessor_RunActionIdExtension_ExtensionExecuted()
+		//{
+		//}
 	}
 }

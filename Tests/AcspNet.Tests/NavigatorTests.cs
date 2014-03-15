@@ -1,4 +1,8 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Web;
+using AcspNet.Extensions;
+using Moq;
+using NUnit.Framework;
 
 namespace AcspNet.Tests
 {
@@ -6,13 +10,25 @@ namespace AcspNet.Tests
 	public class NavigatorTests
 	{
 		[Test]
-		public void T()
+		public void Redirect_NullUrl_ArgumentNullExceptionThrown()
 		{
-			
+			var nav = new Navigator(null, null);
+
+			Assert.Throws<ArgumentNullException>(() => nav.Redirect(null));
+		}
+
+		[Test]
+		public void Redirect_NormalUrl_ResponseRedirectCalled()
+		{
+			var response = new Mock<HttpResponseBase>();
+			var nav = new Navigator(null, response.Object);
+
+			nav.Redirect("http://testwebsite.com");
+
+			response.Verify(x => x.Redirect(It.Is<string>(c => c == "http://testwebsite.com"), It.Is<bool>(c => c)), Times.Once);
 		}
 	}
 }
-
 
 //		[Test]
 //		public void Navigator_NavigateToPreviosPage_IsCorrect()

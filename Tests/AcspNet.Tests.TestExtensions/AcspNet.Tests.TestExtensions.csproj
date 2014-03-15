@@ -43,21 +43,6 @@
     <AssemblyOriginatorKeyFile>AcspNet.Tests.TestExtensions.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Default.cs" />
-    <Compile Include="Extensions\Executable\ActionIdTest.cs" />
-    <Compile Include="Extensions\Executable\ActionModeIdTest.cs" />
-    <Compile Include="Extensions\Executable\AllPagesExtensionTest.cs" />
-    <Compile Include="Extensions\Executable\ExecExtensionsBasePropertiesTest.cs" />
-    <Compile Include="Extensions\Executable\EmptyExecExtensionTest.cs" />
-    <Compile Include="Extensions\Executable\ExtensionsExecutionStopper.cs" />
-    <Compile Include="Extensions\Executable\DefaultPageTest.cs" />
-    <Compile Include="Extensions\Executable\LibExtensionCallTest.cs" />
-    <Compile Include="Extensions\Executable\NotReachedException.cs" />
-    <Compile Include="Extensions\Library\EmptyLibExtensionTest.cs" />
-    <Compile Include="Extensions\Library\HighPriortyLibExtension.cs" />
-    <Compile Include="Extensions\Library\LibExtensionsBasePropertiesTest.cs" />
-    <Compile Include="Extensions\Library\LibExtensionWithMethod.cs" />
-    <Compile Include="Extensions\Library\NotInitializedExtensionCallTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
