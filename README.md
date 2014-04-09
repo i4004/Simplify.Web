@@ -1,6 +1,4 @@
 ![ACSP .NET](https://raw.github.com/i4004/AcspNet/master/Images/Icon128x128.png)
-
-======
 ### For examples see: https://github.com/i4004/AcspNet.Examples
 
 Advanced Controls Site Platform .NET is an ASP.NET based web-sites plugin-based engine.
