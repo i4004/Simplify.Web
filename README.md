@@ -1,8 +1,7 @@
 ![ACSP .NET](https://raw.github.com/i4004/AcspNet/master/Images/Icon128x128.png)
 ### For examples see: https://github.com/i4004/AcspNet.Examples
 
-Advanced Controls Site Platform .NET is an ASP.NET based web-sites plugin-based engine.
-It is allows you to construct your web-site from a set of extensions (plugins). Each web site extension can do their own task.
+Advanced Controls Site Platform .NET is a .NET web-framework based on MVC.
 
 * It is based on basic ASP.NET functionality (empty ASP.NET web-page);
 * Web-site is constructing from extensions (plugins);
