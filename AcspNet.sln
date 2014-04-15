@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet", "AcspNet\AcspNet.csproj", "{03B0AE6C-88D0-4D7A-8657-57FC4FD2682A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet.TestingHelpers", "AcspNet.TestingHelpers\AcspNet.TestingHelpers.csproj", "{7879CBD5-C738-4980-AF9B-BF8B47996355}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{28C6A1D1-9C35-4FA8-9F3A-266437D0E768}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
@@ -21,6 +19,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet.Tests", "Tests\AcspNet.Tests\AcspNet.Tests.csproj", "{7E41B115-AEAA-4149-B223-41105F358B11}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet.Tests.TestExtensions", "Tests\AcspNet.Tests.TestExtensions\AcspNet.Tests.TestExtensions.csproj", "{BCD4F060-5EC2-4712-B628-7ABB4F304078}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet.TestingHelper", "AcspNet.TestingHelper\AcspNet.TestingHelper.csproj", "{7879CBD5-C738-4980-AF9B-BF8B47996355}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,14 +43,6 @@ Global
 		{03B0AE6C-88D0-4D7A-8657-57FC4FD2682A}.Release|x64.ActiveCfg = Release|x64
 		{03B0AE6C-88D0-4D7A-8657-57FC4FD2682A}.Release|x64.Build.0 = Release|x64
 		{03B0AE6C-88D0-4D7A-8657-57FC4FD2682A}.Release|x86.ActiveCfg = Release|Any CPU
-		{7879CBD5-C738-4980-AF9B-BF8B47996355}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7879CBD5-C738-4980-AF9B-BF8B47996355}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7879CBD5-C738-4980-AF9B-BF8B47996355}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{7879CBD5-C738-4980-AF9B-BF8B47996355}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{7879CBD5-C738-4980-AF9B-BF8B47996355}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7879CBD5-C738-4980-AF9B-BF8B47996355}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7879CBD5-C738-4980-AF9B-BF8B47996355}.Release|x64.ActiveCfg = Release|Any CPU
-		{7879CBD5-C738-4980-AF9B-BF8B47996355}.Release|x86.ActiveCfg = Release|Any CPU
 		{3E463147-C29D-4991-8784-1CE76A09BFD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3E463147-C29D-4991-8784-1CE76A09BFD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E463147-C29D-4991-8784-1CE76A09BFD7}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -79,6 +71,14 @@ Global
 		{BCD4F060-5EC2-4712-B628-7ABB4F304078}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BCD4F060-5EC2-4712-B628-7ABB4F304078}.Release|x64.ActiveCfg = Release|Any CPU
 		{BCD4F060-5EC2-4712-B628-7ABB4F304078}.Release|x86.ActiveCfg = Release|Any CPU
+		{7879CBD5-C738-4980-AF9B-BF8B47996355}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7879CBD5-C738-4980-AF9B-BF8B47996355}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7879CBD5-C738-4980-AF9B-BF8B47996355}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7879CBD5-C738-4980-AF9B-BF8B47996355}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7879CBD5-C738-4980-AF9B-BF8B47996355}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7879CBD5-C738-4980-AF9B-BF8B47996355}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7879CBD5-C738-4980-AF9B-BF8B47996355}.Release|x64.ActiveCfg = Release|Any CPU
+		{7879CBD5-C738-4980-AF9B-BF8B47996355}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

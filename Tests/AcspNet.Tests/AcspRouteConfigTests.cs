@@ -10,7 +10,7 @@ namespace AcspNet.Tests
 		public void RegisterRoutes_AcspRoutes_RegisteredCorrectly()
 		{
 			Assert.AreEqual(0, RouteTable.Routes.Count);
-			AcspRouteConfig.RegisterRoutes("index.aspx");
+			AcspRouteConfig.RegisterRoutes();
 			Assert.AreEqual(3, RouteTable.Routes.Count);
 		}
 	}

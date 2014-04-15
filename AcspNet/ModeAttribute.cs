@@ -3,7 +3,7 @@
 namespace AcspNet
 {
 	/// <summary>
-	/// Executable extension "mode" query string parameter
+	/// Controller "mode" parameter
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class)]
 	public class ModeAttribute : Attribute

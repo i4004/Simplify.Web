@@ -3,7 +3,7 @@
 namespace AcspNet
 {
 	/// <summary>
-	/// Executable extension "action" query string parameter
+	/// Controller "action" parameter
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class)]
 	public class ActionAttribute : Attribute

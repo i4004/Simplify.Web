@@ -1,14 +1,9 @@
-﻿using System.Linq;
-using AcspNet.Authentication;
-using AcspNet.Extensions;
-using AcspNet.Html;
-
-namespace AcspNet
+﻿namespace AcspNet
 {
 	/// <summary>
-	/// ACSP extension base class
+	/// AcspNet controllers and views base class
 	/// </summary>
-	public abstract class ExtensionBase : IHideObjectMembers
+	public abstract class Container : IHideObjectMembers
 	{
 		////todo make methods virtual for unit testing like myExtension.Object.Context and var myExtension = new Mock<MyExtension>();
 		///// <summary>
@@ -41,10 +36,10 @@ namespace AcspNet
 		///// </summary>
 		//public IEnvironment Environment { get; internal set; }
 
-		///// <summary>
-		///// Text and XML files loader.
-		///// </summary>
-		//public IExtensionsDataLoader ExtensionsDataLoader { get; internal set; }
+		/// <summary>
+		/// Text and XML files loader.
+		/// </summary>
+		public virtual IFileReader ExtensionsDataLoader { get; internal set; }
 
 		///// <summary>
 		///// Various HTML generation classes

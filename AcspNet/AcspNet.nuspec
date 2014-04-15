@@ -2,19 +2,19 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
 		<id>AcspNet</id>
-		<version>3.1.0</version>
+		<version>4.0.0</version>
 		<title>AcspNet</title>
 		<authors>Alexander Krylkov</authors>
 		<owners>Alexander Krylkov</owners>
 		<projectUrl>https://github.com/i4004/AcspNet</projectUrl>
 		<iconUrl>https://raw.github.com/i4004/AcspNet/master/Images/Icon.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>Advanced Controls Site Platform .NET is an ASP.NET based web-sites extensions(plugin)-based engine. It is allows you to construct your web-site from a set of extensions (plugins). Each web site extension can do their own task.</description>
-		<summary>Advanced Controls Site Platform .NET.</summary>
-		<releaseNotes>Refactored to DI</releaseNotes>
+		<description>ACSP.NET is a lightweight ASP.NET web-framework based on MVC.</description>
+		<summary>Lightweight ASP.NET web-framework.</summary>
+		<releaseNotes></releaseNotes>
 		<copyright>Licensed under LGPL</copyright>
 		<language>en-US</language>
-		<tags>.NET site-platform web</tags>
+		<tags>ASP.NET web-framework MVC DI</tags>
 		<dependencies>
 			<group targetFramework=".NETFramework4.0">
 				<dependency id="System.IO.Abstractions" version="1.4.0.76" />
@@ -26,7 +26,7 @@
 	<files>
 		<file src="bin\release\AcspNet.dll" target="lib\net40" />
 		<file src="bin\release\AcspNet.xml" target="lib\net40" />
-		<file src="bin\release\NugetPackageTemplate\ExtensionsData\StringTable.en.xml" target="content\ExtensionsData\StringTable.en.xml" />
+		<!--<file src="bin\release\NugetPackageTemplate\ExtensionsData\StringTable.en.xml" target="content\ExtensionsData\StringTable.en.xml" />
 		<file src="bin\release\NugetPackageTemplate\Styles\Main.css" target="content\Styles\Main.css" />
 		<file src="bin\release\NugetPackageTemplate\Templates\AcspNet\MessageBox\ErrorMessageBox.tpl" target="content\Templates\AcspNet\MessageBox\ErrorMessageBox.tpl" />
 		<file src="bin\release\NugetPackageTemplate\Templates\AcspNet\MessageBox\InfoMessageBox.tpl" target="content\Templates\AcspNet\MessageBox\InfoMessageBox.tpl" />
@@ -40,6 +40,6 @@
 		<file src="bin\release\NugetPackageTemplate\Global.asax.cs" target="content\Global.asax.cs" />
 		<file src="bin\release\NugetPackageTemplate\index.aspx" target="content\index.aspx" />
 		<file src="bin\release\NugetPackageTemplate\index.aspx.cs" target="content\index.aspx.cs" />
-		<file src="bin\release\NugetPackageTemplate\Web.config" target="content\Web.config" />
+		<file src="bin\release\NugetPackageTemplate\Web.config" target="content\Web.config" />-->
 	</files>
 </package>

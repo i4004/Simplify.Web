@@ -11,11 +11,11 @@ namespace AcspNet
 		/// Registers the AcspNet routes in ASP.NET routes collection.
 		/// </summary>
 		/// 
-		public static void RegisterRoutes(string indexPageName)
+		public static void RegisterRoutes()
 		{
-			RouteTable.Routes.MapPageRoute("AcspNetAction", "{action}", "~/" + indexPageName);
-			RouteTable.Routes.MapPageRoute("AcspNetActionID", "{action}/{id}", "~/" + indexPageName);
-			RouteTable.Routes.MapPageRoute("AcspNetActionModeID", "{action}/{mode}/{id}", "~/" + indexPageName);
+			RouteTable.Routes.MapPageRoute("AcspNetAction", "{action}", "~/");
+			RouteTable.Routes.MapPageRoute("AcspNetActionID", "{action}/{id}", "~/");
+			RouteTable.Routes.MapPageRoute("AcspNetActionModeID", "{action}/{mode}/{id}", "~/");
 		}
 	}
 }

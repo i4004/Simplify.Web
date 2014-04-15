@@ -110,63 +110,33 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AcspApplication.cs" />
+    <None Include="AcspNet.nuspec" />
     <Compile Include="AcspContext.cs" />
     <Compile Include="AcspException.cs" />
-    <Compile Include="AcspProcessor.cs" />
+    <Compile Include="AcspHandler.cs" />
+    <Compile Include="AcspHttpModule.cs" />
     <Compile Include="AcspRouteConfig.cs" />
-    <Compile Include="AcspSettings.cs" />
     <Compile Include="ActionAttribute.cs" />
-    <Compile Include="Authentication\AuthenticationModule.cs" />
-    <Compile Include="Authentication\IAuthenticationModule.cs" />
-    <Compile Include="Html\HtmlWrapper.cs" />
-    <Compile Include="Html\IHtmlWrapper.cs" />
-    <Compile Include="Html\IListsGenerator.cs" />
-    <Compile Include="Html\IMessageBox.cs" />
-    <Compile Include="Html\ListsGenerator.cs" />
-    <Compile Include="Html\MessageBox.cs" />
-    <Compile Include="IAcspApplication.cs" />
+    <Compile Include="Controller.cs" />
+    <Compile Include="Container.cs" />
+    <Compile Include="ControllerFactory.cs" />
+    <Compile Include="DefaultDependencyResolver.cs" />
+    <Compile Include="DependencyResolver.cs" />
+    <Compile Include="EventDependencyResolver.cs" />
+    <Compile Include="FileReader.cs" />
     <Compile Include="IAcspContext.cs" />
-    <Compile Include="IAcspProcessor.cs" />
-    <Compile Include="IAcspProcessorContoller.cs" />
-    <Compile Include="IAcspSettings.cs" />
-    <Compile Include="DataCollector.cs" />
-    <Compile Include="Displayer.cs" />
-    <Compile Include="Environment.cs" />
-    <Compile Include="ExtensionsDataLoader.cs" />
-    <Compile Include="IDataCollector.cs" />
-    <Compile Include="IDisplayer.cs" />
-    <Compile Include="IdVerifier.cs" />
-    <Compile Include="IEnvironment.cs" />
-    <Compile Include="IExtensionsDataLoader.cs" />
-    <Compile Include="IIdVerifier.cs" />
-    <Compile Include="INavigator.cs" />
-    <Compile Include="IPageBuilder.cs" />
-    <Compile Include="IStringTable.cs" />
-    <Compile Include="ITemplateFactory.cs" />
+    <Compile Include="IControllerFactory.cs" />
+    <Compile Include="IDependecyResolver.cs" />
+    <Compile Include="IFileReader.cs" />
+    <Compile Include="IHideObjectMembers.cs" />
+    <Compile Include="LoadClassesFromAssemblyOfAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LoadIndividualClassesAttribute.cs" />
+    <Compile Include="ControllerMetaContainer.cs" />
     <Compile Include="ModeAttribute.cs" />
-    <Compile Include="Navigator.cs" />
-    <Compile Include="PageBuilder.cs" />
-    <Compile Include="SiteTitleSetter.cs" />
-    <Compile Include="StringTable.cs" />
-    <Compile Include="TemplateFactory.cs" />
-    <Compile Include="SystemTimeProvider.cs" />
-    <Compile Include="TimeProvider.cs" />
-    <None Include="AcspNet.nuspec" />
-    <Compile Include="Authentication\CookieAuthentication.cs" />
-    <Compile Include="Authentication\IAuthenticationState.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Authentication\ICookieAuthentication.cs" />
-    <Compile Include="Authentication\ISessionAuthentication.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Authentication\SessionAuthentication.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="IHideObjectMembers.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="DefaultPageAttribute.cs" />
+    <Compile Include="View.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -175,16 +145,18 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Simplify.Templates">
-      <HintPath>..\packages\Simplify.Templates.1.0.0\lib\net40\Simplify.Templates.dll</HintPath>
+      <HintPath>..\packages\Simplify.Templates.1.0.1\lib\net40\Simplify.Templates.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Simplify.Xml">
       <HintPath>..\packages\Simplify.Xml.1.0.0\lib\net40\Simplify.Xml.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.IO.Abstractions, Version=1.4.0.76, Culture=neutral, PublicKeyToken=d480b5b72fb413da, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\System.IO.Abstractions.1.4.0.76\lib\net35\System.IO.Abstractions.dll</HintPath>
+    <Reference Include="System.IO.Abstractions">
+      <HintPath>..\packages\System.IO.Abstractions.1.4.0.84\lib\net35\System.IO.Abstractions.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
@@ -213,12 +185,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Meta\" />
+    <Folder Include="Authentication\" />
+    <Folder Include="Html\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

@@ -28,9 +28,9 @@ namespace AcspNet
 			CalculateCurrentAction();
 			CalculateCurrentMode();
 			CalculateCurrentID();
-			CalculateSitePhysicalPath();
+			//CalculateSitePhysicalPath();
 			//CalculateSiteVirualPath();
-			CalculateSiteUrl();
+			//CalculateSiteUrl();
 		}
 
 		/// <summary>
@@ -97,26 +97,26 @@ namespace AcspNet
 		/// </value>
 		public string CurrentID { get; private set; }
 
-		/// <summary>
-		/// Gets the web-site physical path, for example: C:/inetpub/wwwroot/YourSite
-		/// </summary>
-		/// <value>
-		/// The site physical path.
-		/// </value>
-		public string SitePhysicalPath { get; private set; }
+		///// <summary>
+		///// Gets the web-site physical path, for example: C:/inetpub/wwwroot/YourSite
+		///// </summary>
+		///// <value>
+		///// The site physical path.
+		///// </value>
+		//public string SitePhysicalPath { get; private set; }
 
 		///// <summary>
 		///// Gets the web-site virtual relative path, for example: /site1 if your web-site url is http://yoursite.com/site1/
 		///// </summary>
 		//public string SiteVirtualPath { get; private set; }
 
-		/// <summary>
-		/// Gets the web-site URL, for example: http://yoursite.com/site1/
-		/// </summary>
-		/// <value>
-		/// The site URL.
-		/// </value>
-		public string SiteUrl { get; private set; }
+		///// <summary>
+		///// Gets the web-site URL, for example: http://yoursite.com/site1/
+		///// </summary>
+		///// <value>
+		///// The site URL.
+		///// </value>
+		//public string SiteUrl { get; private set; }
 
 		/// <summary>
 		/// Gets current action/mode URL in formal like ?act={0}&amp;mode={1}&amp;id={2}.
@@ -173,16 +173,16 @@ namespace AcspNet
 			CurrentID = id ?? "";
 		}
 
-		private void CalculateSitePhysicalPath()
-		{
-			if (Request.PhysicalApplicationPath != null)
-			{
-				SitePhysicalPath = Request.PhysicalApplicationPath.Replace("\\", "/");
+		//private void CalculateSitePhysicalPath()
+		//{
+		//	if (Request.PhysicalApplicationPath != null)
+		//	{
+		//		SitePhysicalPath = Request.PhysicalApplicationPath.Replace("\\", "/");
 
-				if (SitePhysicalPath.EndsWith("/"))
-					SitePhysicalPath = SitePhysicalPath.Substring(0, SitePhysicalPath.Length - 1);
-			}
-		}
+		//		if (SitePhysicalPath.EndsWith("/"))
+		//			SitePhysicalPath = SitePhysicalPath.Substring(0, SitePhysicalPath.Length - 1);
+		//	}
+		//}
 
 		//private void CalculateSiteVirualPath()
 		//{
@@ -190,18 +190,18 @@ namespace AcspNet
 		//		SiteVirtualPath = HttpRuntime.AppDomainAppVirtualPath == "/" ? "" : HttpRuntime.AppDomainAppVirtualPath;
 		//}
 
-		private void CalculateSiteUrl()
-		{
-			if (Request != null && Request.Url != null)
-			{
-				SiteUrl = String.Format("{0}://{1}{2}",
-					Request.Url.Scheme,
-					Request.Url.Authority,
-					Request.ApplicationPath);
+		//private void CalculateSiteUrl()
+		//{
+		//	if (Request != null && Request.Url != null)
+		//	{
+		//		SiteUrl = String.Format("{0}://{1}{2}",
+		//			Request.Url.Scheme,
+		//			Request.Url.Authority,
+		//			Request.ApplicationPath);
 
-				if (!SiteUrl.EndsWith("/"))
-					SiteUrl += "/";
-			}
-		}
+		//		if (!SiteUrl.EndsWith("/"))
+		//			SiteUrl += "/";
+		//	}
+		//}
 	}
 }
