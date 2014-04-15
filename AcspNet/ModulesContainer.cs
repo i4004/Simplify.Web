@@ -1,7 +1,4 @@
 ﻿namespace AcspNet
 {
-	public class ModulesContainer : Container
-	{
-		 
-	}
+	public class ModulesContainer : Container { }
 }

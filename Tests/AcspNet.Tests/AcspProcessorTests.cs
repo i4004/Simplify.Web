@@ -10,26 +10,26 @@ namespace AcspNet.Tests
 	[TestFixture]
 	public class AcspProcessorTests
 	{
-		private readonly AcspApplication _app = new AcspApplication();
+		//private readonly AcspApplication _app = new AcspApplication();
 
-		[TestFixtureSetUp]
-		public void SetupAcspApplication()
-		{
-			_app.MainAssembly = Assembly.GetAssembly(typeof(ActionIdTest));
-			_app.SetUp();
-		}
+		//[TestFixtureSetUp]
+		//public void SetupAcspApplication()
+		//{
+		//	_app.MainAssembly = Assembly.GetAssembly(typeof(ActionIdTest));
+		//	_app.SetUp();
+		//}
 
-		[Test]
-		public void AcspProcessor_RunActionIdExtension_ExtensionExecuted()
-		{
-			var processor = new AcspProcessor(_app.Settings,
-				new AcspContext(AcspTestingHelper.CreateRouteDataWithActionAndId("ActionIdTest", "2"), AcspTestingHelper.CreateTestHttpContext().Object),
-				_app.GetExecExtensionsMetaData(), _app.GetLibExtensionsMetaData());
+		//[Test]
+		//public void AcspProcessor_RunActionIdExtension_ExtensionExecuted()
+		//{
+		//	var processor = new AcspProcessor(_app.Settings,
+		//		new AcspContext(AcspTestingHelper.CreateRouteDataWithActionAndId("ActionIdTest", "2"), AcspTestingHelper.CreateTestHttpContext().Object),
+		//		_app.GetExecExtensionsMetaData(), _app.GetLibExtensionsMetaData());
 
-			Template.FileSystem = AcspTestingHelper.CreateTestFileSystem();
+		//	Template.FileSystem = AcspTestingHelper.CreateTestFileSystem();
 
-			processor.Execute();
-		}
+		//	processor.Execute();
+		//}
 
 		//[Test]
 		//public void AcspProcessor_DefaultPage_ExtensionExecuted()

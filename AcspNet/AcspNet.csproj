@@ -118,10 +118,9 @@
     <Compile Include="AcspRouteConfig.cs" />
     <Compile Include="AcspSettings.cs" />
     <Compile Include="ActionAttribute.cs" />
-    <Compile Include="ContainerBuilder.cs" />
+    <Compile Include="ContainerFactory.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="Container.cs" />
-    <Compile Include="ControllerFactory.cs" />
     <Compile Include="DefaultDependencyResolver.cs" />
     <Compile Include="DependencyResolver.cs" />
     <Compile Include="Environment.cs" />
@@ -129,8 +128,7 @@
     <Compile Include="FileReader.cs" />
     <Compile Include="IAcspContext.cs" />
     <Compile Include="IAcspSettings.cs" />
-    <Compile Include="IContainerBuilder.cs" />
-    <Compile Include="IControllerFactory.cs" />
+    <Compile Include="IContainerFactory.cs" />
     <Compile Include="IDependecyResolver.cs" />
     <Compile Include="IEnvironment.cs" />
     <Compile Include="IFileReader.cs" />
@@ -202,7 +200,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

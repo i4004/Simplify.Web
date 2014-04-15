@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AcspNet
 {
@@ -72,7 +73,7 @@ namespace AcspNet
 			//_execExtensionMetaContainers = execExtensionMetaContainers;
 			//_libExtensionMetaContainers = libExtensionMetaContainers;
 
-			//CreateControllersInstances();
+			CreateControllersInstances();
 
 			//_libExtensionsList = new List<LibExtension>(_libExtensionMetaContainers.Count);
 			//_libExtensionsIsInitializedList = new Dictionary<Type, bool>();
@@ -105,17 +106,17 @@ namespace AcspNet
 		//	get { return _libExtensionsIsInitializedList; }
 		//}
 
-		/// <summary>
-		/// Creates and executes ACSP extensions for current HTTP request
-		/// </summary>
-		public void Execute()
-		{
+		///// <summary>
+		///// Creates and executes ACSP extensions for current HTTP request
+		///// </summary>
+		//public void Execute()
+		//{
 			//if (!_isExecutionStopped)
 			//	_displayer.DisplayNoCache(_pageBuilder.Buid(_dataCollector.Items));
 
 			//	if (Session[IsNewSessionFieldName] == null)
 			//		Session.Add(IsNewSessionFieldName, "true");
-		}
+		//}
 
 		///// <summary>
 		///// Stop ACSP execution
@@ -150,13 +151,13 @@ namespace AcspNet
 		{
 		//	//ExecExtensionsTypes = new List<Type>(ExecExtensionsMetaContainers.Count);
 
-		//	foreach (var container in _execExtensionMetaContainers)
-		//	{
-		//		if ((_context.CurrentAction == "" && _context.CurrentMode == "" && container.RunType == RunType.DefaultPage) ||
-		//			(String.Equals(container.Action, _context.CurrentAction, StringComparison.CurrentCultureIgnoreCase) &&
-		//			 String.Equals(container.Mode, _context.CurrentMode, StringComparison.CurrentCultureIgnoreCase)) ||
-		//			(container.Action == "" && container.RunType == RunType.OnAction))
-		//		{
+			//foreach (var container in _execExtensionMetaContainers)
+			//{
+			//	if ((_context.CurrentAction == "" && _context.CurrentMode == "" && container.RunType == RunType.DefaultPage) ||
+			//		(String.Equals(container.Action, _context.CurrentAction, StringComparison.CurrentCultureIgnoreCase) &&
+			//		 String.Equals(container.Mode, _context.CurrentMode, StringComparison.CurrentCultureIgnoreCase)) ||
+			//		(container.Action == "" && container.RunType == RunType.OnAction))
+			//	{
 
 
 		//			//			SetExtensionModules(extension);
@@ -164,7 +165,7 @@ namespace AcspNet
 		//			_execExtensionsList.Add(extension);
 		//			//			ExecExtensionsTypes.Add(extension.GetType());
 		//		}
-		//	}
+			//}
 		}
 
 		//private void RunExecutableExtensions()
