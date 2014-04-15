@@ -8,7 +8,7 @@ namespace AcspNet
 	public class AcspHandler// : IAcspProcessor, IAcspProcessorContoller
 	{
 		//private readonly AcspContext _context;
-		//private readonly IList<ControllerMetaContainer> _controllersMetaContainers;
+		private readonly IList<ControllerMetaContainer> _controllersMetaContainers;
 		//private readonly IList<LibExtensionMetaContainer> _libExtensionMetaContainers;
 
 		//private readonly IList<ExecExtension> _execExtensionsList;
@@ -62,14 +62,13 @@ namespace AcspNet
 
 		internal AcspHandler(IList<ControllerMetaContainer> controllersMetaContainers)//, IList<LibExtensionMetaContainer> libExtensionMetaContainers, string currentAction, string currentMode)
 		{
+			_controllersMetaContainers = controllersMetaContainers;
 			//_controllersMetaContainers = new List<ControllerMetaContainer>(controllersMetaContainers.Count);
 
 			//	CreateLibraryExtensionsInstances();
 			//	InitializeLibraryExtensions();
 			//	RunExecutableExtensions();
 
-	
-			//_context = new AcspContext();
 			//_execExtensionMetaContainers = execExtensionMetaContainers;
 			//_libExtensionMetaContainers = libExtensionMetaContainers;
 
@@ -78,8 +77,6 @@ namespace AcspNet
 			//_libExtensionsList = new List<LibExtension>(_libExtensionMetaContainers.Count);
 			//_libExtensionsIsInitializedList = new Dictionary<Type, bool>();
 
-			//_environment = new Environment(_context.SitePhysicalPath, settings, _context.Request.Cookies, _context.Response.Cookies);
-			//_dataLoader = new ExtensionsDataLoader(_environment.ExtensionsDataPath, _context.SitePhysicalPath, _environment.Language, settings.DefaultLanguage);
 			//_stringTable = new StringTable(_dataLoader);
 			//_templateFactory = new TemplateFactory(_environment.TemplatesPhysicalPath, _environment.Language, settings.DefaultLanguage, _environment.TemplatesMemoryCache);
 			//_dataCollector = new DataCollector(_environment.MainContentVariableName, _environment.TitleVariableName, _stringTable);

@@ -24,17 +24,9 @@ namespace AcspNet
 		public string DefaultLanguage { get; private set; }
 
 		/// <summary>
-		/// Extension data directory path, for example: ExtensionsData, default value is "ExtensionsData"
+		/// Extension data directory path, default value is "App_Data"
 		/// </summary>
-		public string DefaultExtensionDataPath { get; private set; }
-
-		/// <summary>
-		/// Site default page
-		/// </summary>
-		/// <value>
-		/// Site default page
-		/// </value>
-		public string IndexPage { get; private set; }
+		public string DefaultDataPath { get; private set; }
 
 		/// <summary>
 		/// Gets or sets the master page template file name
@@ -71,15 +63,12 @@ namespace AcspNet
 		/// <summary>
 		/// Gets or sets a value indicating whether site title postfix should be set automatically
 		/// </summary>
-		/// <value>
-		/// <c>true</c> if [disable automatic site title set]; otherwise, <c>false</c>.
-		/// </value>
 		public bool DisableAutomaticSiteTitleSet { get; private set; }
 
-		/// <summary>
-		/// Gets or sets a value indicating whether internal AcspNet extensions from AcspNet.Extensions.Executable should be disabled
-		/// </summary>
-		public bool DisableAcspInternalExtensions { get; private set; }
+		///// <summary>
+		///// Gets or sets a value indicating whether internal AcspNet extensions from AcspNet.Extensions.Executable should be disabled
+		///// </summary>
+		//public bool DisableAcspInternalExtensions { get; private set; }
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AcspSettings"/> class.
@@ -89,8 +78,7 @@ namespace AcspNet
 			DefaultTitleVariableName = "Title";
 			DefaultMainContentVariableName = "MainContent";
 			DefaultMasterTemplateFileName = "Index.tpl";
-			IndexPage = "Index.aspx";
-			DefaultExtensionDataPath = "ExtensionsData";
+			DefaultDataPath = "App_Data";
 			DefaultLanguage = "en";
 			DefaultStyle = "Main";
 			DefaultTemplatesPath = "Templates";
@@ -109,9 +97,6 @@ namespace AcspNet
 
 		private void LoadSettings(NameValueCollection config)
 		{
-			if (!string.IsNullOrEmpty(config["IndexPage"]))
-				IndexPage = config["IndexPage"];
-
 			if (!string.IsNullOrEmpty(config["DefaultLanguage"]))
 				DefaultLanguage = config["DefaultLanguage"];
 
@@ -138,16 +123,16 @@ namespace AcspNet
 
 		private void LoadExtensionsSettings(NameValueCollection config)
 		{
-			if (!string.IsNullOrEmpty(config["DefaultExtensionDataPath"]))
-				DefaultExtensionDataPath = config["DefaultExtensionDataPath"];
+			if (!string.IsNullOrEmpty(config["DefaultDataPath"]))
+				DefaultDataPath = config["DefaultDataPath"];
 
-			if (!string.IsNullOrEmpty(config["DisableAcspInternalExtensions"]))
-			{
-				bool buffer;
+			//if (!string.IsNullOrEmpty(config["DisableAcspInternalExtensions"]))
+			//{
+			//	bool buffer;
 
-				if (bool.TryParse(config["DisableAcspInternalExtensions"], out buffer))
-					DisableAcspInternalExtensions = buffer;
-			}
+			//	if (bool.TryParse(config["DisableAcspInternalExtensions"], out buffer))
+			//		DisableAcspInternalExtensions = buffer;
+			//}
 		}
 
 		private void LoadVariablesNamesSettings(NameValueCollection config)

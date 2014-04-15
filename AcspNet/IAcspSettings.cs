@@ -6,14 +6,6 @@
 	public interface IAcspSettings : IHideObjectMembers
 	{
 		/// <summary>
-		/// Site default page
-		/// </summary>
-		/// <value>
-		/// Site default page
-		/// </value>
-		string IndexPage { get; }
-
-		/// <summary>
 		/// Default language, for example: "en", "ru", "de" etc., default value is "en"
 		/// </summary>
 		string DefaultLanguage { get; }
@@ -22,10 +14,12 @@
 		/// Default site style
 		/// </summary>
 		string DefaultStyle { get; }
+
 		/// <summary>
 		/// Default templates directory path, for example: Templates, default value is "Templates"
 		/// </summary>
 		string DefaultTemplatesPath { get; }
+
 		/// <summary>
 		/// Gets or sets the master page template file name
 		/// </summary>
@@ -43,13 +37,15 @@
 		bool TemplatesMemoryCache { get; }
 
 		/// <summary>
-		/// Extension data directory path, for example: ExtensionsData, default value is "ExtensionsData"
+		/// Extension data directory path, for example: default value is "App_Data"
 		/// </summary>
-		string DefaultExtensionDataPath { get; }
-		/// <summary>
-		/// Gets or sets a value indicating whether internal AcspNet extensions from AcspNet.Extensions.Executable should be disabled
-		/// </summary>
-		bool DisableAcspInternalExtensions { get; }
+		string DefaultDataPath { get; }
+
+		///// <summary>
+		///// Gets or sets a value indicating whether internal AcspNet extensions from AcspNet.Extensions.Executable should be disabled
+		///// </summary>
+		//bool DisableAcspInternalExtensions { get; }
+
 		/// <summary>
 		/// Gets or sets the master template main content variable name.
 		/// </summary>
@@ -65,12 +61,10 @@
 		/// The title variable name.
 		/// </value>
 		string DefaultTitleVariableName { get; }
+
 		/// <summary>
 		/// Gets or sets a value indicating whether site title postfix should be set automatically
 		/// </summary>
-		/// <value>
-		/// <c>true</c> if [disable automatic site title set]; otherwise, <c>false</c>.
-		/// </value>
 		bool DisableAutomaticSiteTitleSet { get; }
 	}
 }

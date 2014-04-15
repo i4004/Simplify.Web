@@ -116,19 +116,28 @@
     <Compile Include="AcspHandler.cs" />
     <Compile Include="AcspHttpModule.cs" />
     <Compile Include="AcspRouteConfig.cs" />
+    <Compile Include="AcspSettings.cs" />
     <Compile Include="ActionAttribute.cs" />
+    <Compile Include="ContainerBuilder.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="Container.cs" />
     <Compile Include="ControllerFactory.cs" />
     <Compile Include="DefaultDependencyResolver.cs" />
     <Compile Include="DependencyResolver.cs" />
+    <Compile Include="Environment.cs" />
     <Compile Include="EventDependencyResolver.cs" />
     <Compile Include="FileReader.cs" />
     <Compile Include="IAcspContext.cs" />
+    <Compile Include="IAcspSettings.cs" />
+    <Compile Include="IContainerBuilder.cs" />
     <Compile Include="IControllerFactory.cs" />
     <Compile Include="IDependecyResolver.cs" />
+    <Compile Include="IEnvironment.cs" />
     <Compile Include="IFileReader.cs" />
     <Compile Include="IHideObjectMembers.cs" />
+    <Compile Include="ILanguageManager.cs" />
+    <Compile Include="IModulesContainerFactory.cs" />
+    <Compile Include="LanguageManager.cs" />
     <Compile Include="LoadClassesFromAssemblyOfAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -136,6 +145,8 @@
     <Compile Include="ControllerMetaContainer.cs" />
     <Compile Include="ModeAttribute.cs" />
     <Compile Include="DefaultPageAttribute.cs" />
+    <Compile Include="ModulesContainer.cs" />
+    <Compile Include="ModulesContainerFactory.cs" />
     <Compile Include="View.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />

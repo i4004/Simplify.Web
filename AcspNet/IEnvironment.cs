@@ -21,14 +21,9 @@
 		string SiteStyle { get; set; }
 
 		/// <summary>
-		/// Site current language, for example: "en", "ru", "de" etc.
-		/// </summary>
-		string Language { get; }
-
-		/// <summary>
 		/// Site current extensions data directory relative path
 		/// </summary>
-		string ExtensionsDataPath { get; set; }
+		string DataPath { get; set; }
 
 		/// <summary>
 		/// Site templates memory cache status
@@ -61,17 +56,5 @@
 		/// The title variable name.
 		/// </value>
 		string TitleVariableName { get; set; }
-
-		/// <summary>
-		/// Set site cookie language value
-		/// </summary>
-		/// <param name="language">Language code</param>
-		void SetCookieLanguage(string language);
-
-		/// <summary>
-		/// Set language for current request
-		/// </summary>
-		/// <param name="language">Language code</param>
-		void SetCurrentLanguage(string language);
 	}
 }

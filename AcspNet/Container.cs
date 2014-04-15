@@ -39,7 +39,7 @@
 		/// <summary>
 		/// Text and XML files loader.
 		/// </summary>
-		public virtual IFileReader ExtensionsDataLoader { get; internal set; }
+		public virtual IFileReader FileReader { get; internal set; }
 
 		///// <summary>
 		///// Various HTML generation classes
