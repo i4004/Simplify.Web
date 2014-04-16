@@ -16,14 +16,14 @@ namespace AcspNet
 		/// <exception cref="System.ArgumentNullException">value</exception>
 		Assembly MainAssembly { get; set; }
 
-		/// <summary>
-		/// Gets or sets the ACSP settings.
-		/// </summary>
-		/// <value>
-		/// The ACSP settings.
-		/// </value>
-		/// <exception cref="System.ArgumentNullException">value</exception>
-		IAcspSettings Settings { get; set; }
+		///// <summary>
+		///// Gets or sets the ACSP settings.
+		///// </summary>
+		///// <value>
+		///// The ACSP settings.
+		///// </value>
+		///// <exception cref="System.ArgumentNullException">value</exception>
+		//IAcspSettings Settings { get; set; }
 
 		/// <summary>
 		/// Setup ACSP application.

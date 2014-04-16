@@ -111,9 +111,10 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="AcspNet.nuspec" />
+    <Compile Include="AcspApplication.cs" />
     <Compile Include="AcspContext.cs" />
     <Compile Include="AcspException.cs" />
-    <Compile Include="AcspHandler.cs" />
+    <Compile Include="ControllersHandler.cs" />
     <Compile Include="AcspHttpModule.cs" />
     <Compile Include="AcspRouteConfig.cs" />
     <Compile Include="AcspSettings.cs" />
@@ -122,13 +123,14 @@
     <Compile Include="Controller.cs" />
     <Compile Include="Container.cs" />
     <Compile Include="DefaultDependencyResolver.cs" />
-    <Compile Include="DependencyResolver.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="EventDependencyResolver.cs" />
     <Compile Include="FileReader.cs" />
+    <Compile Include="IAcspApplication.cs" />
     <Compile Include="IAcspContext.cs" />
     <Compile Include="IAcspSettings.cs" />
     <Compile Include="IContainerFactory.cs" />
+    <Compile Include="IRoutesProvider.cs" />
     <Compile Include="IDependecyResolver.cs" />
     <Compile Include="IEnvironment.cs" />
     <Compile Include="IFileReader.cs" />
@@ -145,6 +147,7 @@
     <Compile Include="DefaultPageAttribute.cs" />
     <Compile Include="ModulesContainer.cs" />
     <Compile Include="ModulesContainerFactory.cs" />
+    <Compile Include="DefaultRoutesProvider.cs" />
     <Compile Include="View.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
@@ -200,7 +203,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

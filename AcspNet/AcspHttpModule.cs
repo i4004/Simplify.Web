@@ -5,6 +5,20 @@ namespace AcspNet
 {
 	class AcspHttpModule : IHttpModule, IDisposable
 	{
+		private static IRoutesProvider _routesProvider;
+
+		public static IRoutesProvider RoutesProvider
+		{
+			get { return _routesProvider ?? (_routesProvider = new DefaultRoutesProvider()); }
+			set
+			{
+				if (value == null)
+					throw new ArgumentNullException("value");
+
+				_routesProvider = value;
+			}
+		}
+
 		public void Init(HttpApplication application)
 		{
 			application.BeginRequest += ApplicationBeginRequest;
@@ -17,7 +31,7 @@ namespace AcspNet
 			//var context = application.Context;
 			//context.Response.Write("<h1><font color=red>HelloWorldModule: Beginning of Request</font></h1><hr>");
 
-			//var a = RouteTable.Routes.GetRouteData(new HttpContextWrapper(HttpContext.Current));
+			//var a = 
 
 			//context.Response.Write("Hello!");
 			//context.Response.End();

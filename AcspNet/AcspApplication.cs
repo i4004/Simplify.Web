@@ -8,15 +8,15 @@ using System.Web.Routing;
 namespace AcspNet
 {
 	/// <summary>
-	/// Loads and stores ACSP extensions meta information and ACSP settings, creates AcspProcessors for extensions processing
+	/// Loads and stores ACSP controllers and views meta information and ACSP settings, creates AcspProcessors for extensions processing
 	/// </summary>
 	public sealed class AcspApplication : IAcspApplication
 	{
-		private static IAcspApplication CurrentApplication;
+		private static IAcspApplication _currentApplication;
 		private Assembly _mainAssembly;
-		private IAcspSettings _settings;
+		//private IAcspSettings _settings;
 
-		//private List<ExecExtensionMetaContainer> _execExtensionsMetaContainers = new List<ExecExtensionMetaContainer>();
+		private List<ControllerMetaContainer> _controllersMetaContainers = new List<ControllerMetaContainer>();
 		//private List<LibExtensionMetaContainer> _libExtensionsMetaContainers = new List<LibExtensionMetaContainer>();
 
 		//private bool _isSetup;
@@ -32,14 +32,14 @@ namespace AcspNet
 		{
 			get
 			{
-				return CurrentApplication ?? (CurrentApplication = new AcspApplication());
+				return _currentApplication ?? (_currentApplication = new AcspApplication());
 			}
 			set
 			{
 				if (value == null)
 					throw new ArgumentNullException("value");
 
-				CurrentApplication = value;
+				_currentApplication = value;
 			}
 		}
 
@@ -85,26 +85,26 @@ namespace AcspNet
 		//}
 
 		/// <summary>
-		/// Gets or sets the ACSP settings.
-		/// </summary>
-		/// <value>
-		/// The ACSP settings.
-		/// </value>
-		/// <exception cref="System.ArgumentNullException">value</exception>
-		public IAcspSettings Settings
-		{
-			get
-			{
-				return _settings;
-			}
-			set
-			{
-				if (value == null)
-					throw new ArgumentNullException("value");
+		///// Gets or sets the ACSP settings.
+		///// </summary>
+		///// <value>
+		///// The ACSP settings.
+		///// </value>
+		///// <exception cref="System.ArgumentNullException">value</exception>
+		//public IAcspSettings Settings
+		//{
+		//	get
+		//	{
+		//		return _settings;
+		//	}
+		//	set
+		//	{
+		//		if (value == null)
+		//			throw new ArgumentNullException("value");
 
-				_settings = value;
-			}
-		}
+		//		_settings = value;
+		//	}
+		//}
 
 		/// <summary>
 		/// Setup ACSP application.
@@ -114,10 +114,10 @@ namespace AcspNet
 			if (_mainAssembly == null)
 				_mainAssembly = Assembly.GetCallingAssembly();
 
-			if (_settings == null)
-				_settings = new AcspSettings();
+			//if (_settings == null)
+			//	_settings = new AcspSettings();
 
-			//CreateMetaContainers(MainAssembly);
+			CreateMetaContainers(MainAssembly);
 
 			//_isSetup = true;
 		}
@@ -156,13 +156,13 @@ namespace AcspNet
 		//	return _libExtensionsMetaContainers.AsReadOnly();
 		//}
 
-		//private void CreateMetaContainers(Assembly callingAssembly)
-		//{
-		//	var assemblyTypes = callingAssembly.GetTypes();
+		private void CreateMetaContainers(Assembly callingAssembly)
+		{
+			var assemblyTypes = callingAssembly.GetTypes();
 
-		//	var containingClass =
-		//		assemblyTypes.FirstOrDefault(t => t.IsDefined(typeof(LoadExtensionsFromAssemblyOfAttribute), true)) ??
-		//		assemblyTypes.FirstOrDefault(t => t.IsDefined(typeof(LoadIndividualExtensionsAttribute), true));
+			var containingClass =
+				assemblyTypes.FirstOrDefault(t => t.IsDefined(typeof(LoadClassesFromAssemblyOfAttribute), true)) ??
+				assemblyTypes.FirstOrDefault(t => t.IsDefined(typeof(LoadIndividualClassesAttribute), true));
 
 		//	if (containingClass == null)
 		//		throw new AcspException("LoadExtensionsFromAssemblyOf or LoadIndividualExtensionsAttribute attributes are not found in AcspApplication.MainAssembly");
@@ -192,7 +192,7 @@ namespace AcspNet
 		//		throw new Exception("Multiple LoadExtensionsFromAssemblyOf attributes found");
 		//	else if (individualExtensionsAttributes.Length > 1)
 		//		throw new Exception("Multiple LoadIndividualExtensions attributes found");
-		//}
+		}
 
 		//private void LoadExtensionsFromAssemblyOf(params Type[] types)
 		//{

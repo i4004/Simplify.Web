@@ -1,10 +1,14 @@
-﻿namespace AcspNet
+﻿using System;
+
+namespace AcspNet
 {
 	/// <summary>
 	/// Controller meta-data information container
 	/// </summary>
 	public class ControllerMetaContainer
 	{
+		private readonly Type _controllerType; 
+		
 		private readonly string _action;
 		private readonly string _mode;
 		private readonly int _runPriority;
@@ -13,16 +17,29 @@
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ControllerMetaContainer" /> class.
 		/// </summary>
+		/// <param name="controllerType">Type of the controller.</param>
 		/// <param name="action">The action.</param>
 		/// <param name="mode">The mode.</param>
 		/// <param name="runPriority">The run priority.</param>
 		/// <param name="runOnDefaultPage">if set to <c>true</c> then the controller will be launched only on default page.</param>
-		public ControllerMetaContainer(string action, string mode, int runPriority, bool runOnDefaultPage = false)
+		public ControllerMetaContainer(Type controllerType, string action, string mode, int runPriority, bool runOnDefaultPage = false)
 		{
+			_controllerType = controllerType;
 			_action = action;
 			_mode = mode;
 			_runPriority = runPriority;
 			_runOnDefaultPage = runOnDefaultPage;
+		}
+
+		/// <summary>
+		/// Gets the type of the controller.
+		/// </summary>
+		/// <value>
+		/// The type of the extension.
+		/// </value>
+		public Type ControllerType
+		{
+			get { return _controllerType; }
 		}
 
 		/// <summary>
