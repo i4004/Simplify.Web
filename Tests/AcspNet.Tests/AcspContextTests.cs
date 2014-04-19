@@ -11,7 +11,7 @@ namespace AcspNet.Tests
 		public void Constructor_CorrectValues_PropertiesInitializedCorrectly()
 		{
 			var httpContext = AcspTestingHelper.CreateTestHttpContext();
-			var context = new AcspContext(new RouteData(), httpContext.Object);//, AcspTestingHelper.CreateTestHttpRuntime().Object);
+			var context = new AcspContext(new RouteData(), httpContext.Object);
 
 			Assert.IsNotNull(context.HttpContext);
 			Assert.IsNotNull(context.Request);
@@ -20,7 +20,7 @@ namespace AcspNet.Tests
 			Assert.IsNotNull(context.Form);
 			Assert.IsNotNull(context.QueryString);
 			Assert.IsNotNull(context.Session);
-			//Assert.AreEqual("C:/WebSites/TestSite", context.SitePhysicalPath);
+			Assert.AreEqual("C:/WebSites/TestSite", context.SitePhysicalPath);
 			//Assert.AreEqual("/TestSite", context.SiteVirtualPath);
 			//Assert.AreEqual("http://localhost/TestSite/", context.SiteUrl);
 		}
@@ -35,7 +35,7 @@ namespace AcspNet.Tests
 			routeData.Values.Add("mode", "Bar");
 			routeData.Values.Add("id", "5");
 
-			var context = new AcspContext(routeData, httpContext.Object);//, AcspTestingHelper.CreateTestHttpRuntime().Object);
+			var context = new AcspContext(routeData, httpContext.Object);
 
 			Assert.AreEqual("Foo", context.CurrentAction);
 			Assert.AreEqual("Bar", context.CurrentMode);
@@ -51,7 +51,7 @@ namespace AcspNet.Tests
 			httpContext.Object.Request.QueryString.Add("mode", "Bar");
 			httpContext.Object.Request.QueryString.Add("id", "5");
 
-			var context = new AcspContext(new RouteData(), httpContext.Object);//, AcspTestingHelper.CreateTestHttpRuntime().Object);
+			var context = new AcspContext(new RouteData(), httpContext.Object);
 
 			Assert.AreEqual("Foo", context.CurrentAction);
 			Assert.AreEqual("Bar", context.CurrentMode);
@@ -67,7 +67,7 @@ namespace AcspNet.Tests
 			httpContext.Object.Request.QueryString.Add("mode", "Bar");
 			httpContext.Object.Request.QueryString.Add("id", "5");
 
-			var context = new AcspContext(new RouteData(), httpContext.Object);//, AcspTestingHelper.CreateTestHttpRuntime().Object);
+			var context = new AcspContext(new RouteData(), httpContext.Object);
 
 			Assert.AreEqual("?act=Foo&amp;mode=Bar&amp;id=5", context.GetActionModeUrl());
 		}
@@ -80,7 +80,7 @@ namespace AcspNet.Tests
 			httpContext.Object.Request.QueryString.Add("act", "Foo");
 			httpContext.Object.Request.QueryString.Add("id", "5");
 
-			var context = new AcspContext(new RouteData(), httpContext.Object);//, AcspTestingHelper.CreateTestHttpRuntime().Object);
+			var context = new AcspContext(new RouteData(), httpContext.Object);
 
 			Assert.AreEqual("?act=Foo&amp;id=5", context.GetActionModeUrl());
 		}
@@ -90,7 +90,7 @@ namespace AcspNet.Tests
 		{
 			var httpContext = AcspTestingHelper.CreateTestHttpContext();
 
-			var context = new AcspContext(new RouteData(), httpContext.Object);//, AcspTestingHelper.CreateTestHttpRuntime().Object);
+			var context = new AcspContext(new RouteData(), httpContext.Object);
 
 			Assert.AreEqual("", context.GetActionModeUrl());
 		}

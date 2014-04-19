@@ -5,11 +5,10 @@
 	/// </summary>
 	public abstract class Container : IHideObjectMembers
 	{
-		////todo make methods virtual for unit testing like myExtension.Object.Context and var myExtension = new Mock<MyExtension>();
-		///// <summary>
-		///// Current HTTP and ACSP context
-		///// </summary>
-		//public IAcspContext Context { get; internal set; }
+		/// <summary>
+		/// Current HTTP and ACSP context
+		/// </summary>
+		public virtual IAcspContext Context { get; internal set; }
 
 		///// <summary>
 		///// Current ACSP executing processor controller
@@ -61,23 +60,19 @@
 		///// </summary>
 		//public IExtensionsWrapper Extensions { get; internal set; }
 
-		///// <summary>
-		///// Gets library extension instance
-		///// </summary>
-		///// <typeparam name="T">Library extension instance to get</typeparam>
-		///// <returns>Library extension</returns>
-		//public T Get<T>()
-		//	where T : LibExtension
-		//{
-		//	var type = typeof(T);
+		internal virtual ContainerFactory ContainerFactory { get; set; }
 
-		//	if (Processor.LibExtensionsList.All(x => x.GetType() != type))
-		//		throw new AcspException("Extension not found: " + typeof(T).FullName);
+		/// <summary>
+		/// Gets library extension instance
+		/// </summary>
+		/// <typeparam name="T">Library extension instance to get</typeparam>
+		/// <returns>Library extension</returns>
+		public T GetView<T>()
+			where T : View
+		{
+			var type = typeof(T);
 
-		//	if (!Processor.LibExtensionsIsInitializedList.ContainsKey(type))
-		//		throw new AcspException("Attempt to call not initialized library extension '" + type + "'");
-
-		//	return (T)Processor.LibExtensionsList.First(x => x.GetType() == type);
-		//}
+			return (T)ContainerFactory.CreateContainer(type);
+		}
 	}
 }

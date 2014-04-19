@@ -5,7 +5,7 @@ using System.Xml.Linq;
 namespace AcspNet
 {
 	/// <summary>
-	/// Loads text and XML localized files
+	/// Loads text and XML localizable files
 	/// </summary>
 	public sealed class FileReader : IFileReader
 	{

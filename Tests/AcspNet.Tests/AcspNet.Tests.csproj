@@ -102,7 +102,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AcspApplicationTests.cs" />
+    <Compile Include="ControllersMetaStoreTests.cs" />
     <Compile Include="AcspContextTests.cs" />
     <Compile Include="AcspRouteConfigTests.cs" />
     <Compile Include="ContainerFactoryTests.cs" />

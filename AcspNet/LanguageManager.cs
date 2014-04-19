@@ -5,6 +5,9 @@ using System.Web;
 
 namespace AcspNet
 {
+	/// <summary>
+	/// Current language controller and information container
+	/// </summary>
 	public class LanguageManager : ILanguageManager
 	{
 		/// <summary>

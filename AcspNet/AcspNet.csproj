@@ -111,7 +111,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="AcspNet.nuspec" />
-    <Compile Include="AcspApplication.cs" />
+    <Compile Include="ControllersMetaStore.cs" />
     <Compile Include="AcspContext.cs" />
     <Compile Include="AcspException.cs" />
     <Compile Include="ControllersHandler.cs" />
@@ -126,28 +126,26 @@
     <Compile Include="Environment.cs" />
     <Compile Include="EventDependencyResolver.cs" />
     <Compile Include="FileReader.cs" />
-    <Compile Include="IAcspApplication.cs" />
+    <Compile Include="IControllersMetaStore.cs" />
     <Compile Include="IAcspContext.cs" />
     <Compile Include="IAcspSettings.cs" />
     <Compile Include="IContainerFactory.cs" />
-    <Compile Include="IRoutesProvider.cs" />
     <Compile Include="IDependecyResolver.cs" />
     <Compile Include="IEnvironment.cs" />
     <Compile Include="IFileReader.cs" />
     <Compile Include="IHideObjectMembers.cs" />
     <Compile Include="ILanguageManager.cs" />
-    <Compile Include="IModulesContainerFactory.cs" />
+    <Compile Include="ISourceContainerFactory.cs" />
     <Compile Include="LanguageManager.cs" />
-    <Compile Include="LoadClassesFromAssemblyOfAttribute.cs">
+    <Compile Include="LoadControllersFromAssemblyOfAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="LoadIndividualClassesAttribute.cs" />
+    <Compile Include="LoadIndividualControllersAttribute.cs" />
     <Compile Include="ControllerMetaContainer.cs" />
     <Compile Include="ModeAttribute.cs" />
     <Compile Include="DefaultPageAttribute.cs" />
-    <Compile Include="ModulesContainer.cs" />
-    <Compile Include="ModulesContainerFactory.cs" />
-    <Compile Include="DefaultRoutesProvider.cs" />
+    <Compile Include="SourceContainer.cs" />
+    <Compile Include="SourceContainerFactory.cs" />
     <Compile Include="PriorityAttribute.cs" />
     <Compile Include="View.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

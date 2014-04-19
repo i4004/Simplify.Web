@@ -1,28 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace AcspNet
 {
 	/// <summary>
 	/// Creates and executes controllers for current HTTP request
 	/// </summary>
-	public class ControllersHandler// : IAcspProcessor, IAcspProcessorContoller
+	public class ControllersHandler
 	{
-		private readonly IList<ControllerMetaContainer> _controllersMetaContainers;
+		private readonly IControllersMetaStore _controllersMetaStore;
 		private readonly string _currentAction;
 		private readonly string _currentMode;
 		private readonly IContainerFactory _containerFactory;
 
-		private bool _isExecutionStopped;
+		//private bool _isExecutionStopped;
 
-		internal ControllersHandler(IList<ControllerMetaContainer> controllersMetaContainers, string currentAction, string currentMode, IContainerFactory containerFactory)//, IList<LibExtensionMetaContainer> libExtensionMetaContainers)
+		internal ControllersHandler(IControllersMetaStore controllersMetaStore, string currentAction, string currentMode, IContainerFactory containerFactory)
 		{
-			_controllersMetaContainers = controllersMetaContainers;
+			_controllersMetaStore = controllersMetaStore;
 			_currentAction = currentAction;
 			_currentMode = currentMode;
 			_containerFactory = containerFactory;
-
-			CreateControllersInstances();
 		}
 
 		///// <summary>
@@ -37,25 +34,27 @@ namespace AcspNet
 			//		Session.Add(IsNewSessionFieldName, "true");
 		//}
 
-		/// <summary>
-		/// Stop controllers execution
-		/// </summary>
-		private void StopExecution()
-		{
-			_isExecutionStopped = true;
-		}
+		///// <summary>
+		///// Stop controllers execution
+		///// </summary>
+		//private void StopExecution()
+		//{
+		//	_isExecutionStopped = true;
+		//}
 
-		private void CreateControllersInstances()
+		public void CreateAndInvokeControllers()
 		{
-			foreach (var metaContainer in _controllersMetaContainers)
+			var controllersMetaData = _controllersMetaStore.GetControllersMetaData();
+
+			foreach (var metaContainer in controllersMetaData)
 			{
 				if ((_currentAction == "" && _currentMode == "" && metaContainer.RunOnDefaultPage) ||
 					(String.Equals(metaContainer.Action, _currentAction, StringComparison.CurrentCultureIgnoreCase) &&
 					 String.Equals(metaContainer.Mode, _currentMode, StringComparison.CurrentCultureIgnoreCase)) ||
 					(metaContainer.Action == "" && !metaContainer.RunOnDefaultPage))
 				{
-					if (!_isExecutionStopped)
-						_containerFactory.CreateController(metaContainer.ControllerType).Invoke();
+					//if (!_isExecutionStopped)
+						((Controller)_containerFactory.CreateContainer(metaContainer.ControllerType)).Invoke();
 				}
 			}
 		}

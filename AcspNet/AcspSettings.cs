@@ -4,7 +4,7 @@ using System.Configuration;
 namespace AcspNet
 {
 	/// <summary>
-	/// ACSP settings
+	/// AcspNet settings
 	/// </summary>
 	public sealed class AcspSettings : IAcspSettings
 	{
@@ -65,11 +65,6 @@ namespace AcspNet
 		/// </summary>
 		public bool DisableAutomaticSiteTitleSet { get; private set; }
 
-		///// <summary>
-		///// Gets or sets a value indicating whether internal AcspNet extensions from AcspNet.Extensions.Executable should be disabled
-		///// </summary>
-		//public bool DisableAcspInternalExtensions { get; private set; }
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AcspSettings"/> class.
 		/// </summary>
@@ -125,14 +120,6 @@ namespace AcspNet
 		{
 			if (!string.IsNullOrEmpty(config["DefaultDataPath"]))
 				DefaultDataPath = config["DefaultDataPath"];
-
-			//if (!string.IsNullOrEmpty(config["DisableAcspInternalExtensions"]))
-			//{
-			//	bool buffer;
-
-			//	if (bool.TryParse(config["DisableAcspInternalExtensions"], out buffer))
-			//		DisableAcspInternalExtensions = buffer;
-			//}
 		}
 
 		private void LoadVariablesNamesSettings(NameValueCollection config)

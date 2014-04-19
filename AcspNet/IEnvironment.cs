@@ -1,7 +1,7 @@
 ﻿namespace AcspNet
 {
 	/// <summary>
-	/// Represent web-site enviroment properties
+	/// Represent site enviroment properties
 	/// </summary>
 	public interface IEnvironment : IHideObjectMembers
 	{

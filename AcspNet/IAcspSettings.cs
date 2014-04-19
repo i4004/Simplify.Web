@@ -1,7 +1,7 @@
 ﻿namespace AcspNet
 {
 	/// <summary>
-	/// Represent ACSP settings
+	/// Represent AcspNet settings
 	/// </summary>
 	public interface IAcspSettings : IHideObjectMembers
 	{
@@ -40,11 +40,6 @@
 		/// Extension data directory path, for example: default value is "App_Data"
 		/// </summary>
 		string DefaultDataPath { get; }
-
-		///// <summary>
-		///// Gets or sets a value indicating whether internal AcspNet extensions from AcspNet.Extensions.Executable should be disabled
-		///// </summary>
-		//bool DisableAcspInternalExtensions { get; }
 
 		/// <summary>
 		/// Gets or sets the master template main content variable name.

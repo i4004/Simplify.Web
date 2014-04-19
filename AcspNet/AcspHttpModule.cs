@@ -1,24 +1,14 @@
 ﻿using System;
 using System.Web;
+using System.Web.Routing;
 
 namespace AcspNet
 {
+	/// <summary>
+	/// AcspNet HTTP module
+	/// </summary>
 	class AcspHttpModule : IHttpModule, IDisposable
 	{
-		private static IRoutesProvider _routesProvider;
-
-		public static IRoutesProvider RoutesProvider
-		{
-			get { return _routesProvider ?? (_routesProvider = new DefaultRoutesProvider()); }
-			set
-			{
-				if (value == null)
-					throw new ArgumentNullException("value");
-
-				_routesProvider = value;
-			}
-		}
-
 		public void Init(HttpApplication application)
 		{
 			application.BeginRequest += ApplicationBeginRequest;
@@ -27,14 +17,21 @@ namespace AcspNet
 
 		private static void ApplicationBeginRequest(Object source, EventArgs e)
 		{
-			//var application = (HttpApplication)source;
-			//var context = application.Context;
-			//context.Response.Write("<h1><font color=red>HelloWorldModule: Beginning of Request</font></h1><hr>");
+			var application = (HttpApplication)source;
+			var context = application.Context;
 
-			//var a = 
+			var routeData = RouteTable.Routes.GetRouteData(new HttpContextWrapper(HttpContext.Current));
+			var acspContext = new AcspContext(routeData, new HttpContextWrapper(context));
+			var acspSettings = new AcspSettings();
+			var modulesContainerFactory = new SourceContainerFactory(acspContext, acspSettings);
+			var contauinerFactory = new ContainerFactory(modulesContainerFactory.CreateContainer());
+			var controllersHandler = new ControllersHandler(ControllersMetaStore.Current, acspContext.CurrentAction,
+				acspContext.CurrentMode, contauinerFactory);
+
+			controllersHandler.CreateAndInvokeControllers();
 
 			//context.Response.Write("Hello!");
-			//context.Response.End();
+			context.Response.End();
 		}
 
 		// Your EndRequest event handler.

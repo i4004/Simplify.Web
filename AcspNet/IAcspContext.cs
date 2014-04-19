@@ -5,7 +5,7 @@ using System.Web.Routing;
 namespace AcspNet
 {
 	/// <summary>
-	/// Provides current HTTP and ACSP context
+	/// Represent HTTP and ACSP context
 	/// </summary>
 	public interface IAcspContext : IHideObjectMembers
 	{
@@ -77,14 +77,14 @@ namespace AcspNet
 		/// The current mode (?act=someAction&amp;mode=somMode).
 		/// </value>
 		string CurrentID { get; }
-		
-		///// <summary>
-		///// Gets the web-site physical path, for example: C:/inetpub/wwwroot/YourSite
-		///// </summary>
-		///// <value>
-		///// The site physical path.
-		///// </value>
-		//string SitePhysicalPath { get; }
+
+		/// <summary>
+		/// Gets the web-site physical path, for example: C:/inetpub/wwwroot/YourSite
+		/// </summary>
+		/// <value>
+		/// The site physical path.
+		/// </value>
+		string SitePhysicalPath { get; }
 
 		///// <summary>
 		///// Gets the web-site virtual relative path, for example: /site1 if your web-site url is http://yoursite.com/site1/

@@ -1,5 +1,8 @@
 ﻿namespace AcspNet
 {
+	/// <summary>
+	/// Represent current language controller and information container
+	/// </summary>
 	public interface ILanguageManager : IHideObjectMembers
 	{
 		/// <summary>

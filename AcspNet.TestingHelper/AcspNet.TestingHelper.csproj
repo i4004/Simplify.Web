@@ -47,7 +47,6 @@
   <ItemGroup>
     <None Include="AcspNet.TestingHelper.nuspec" />
     <None Include="AcspNet.TestingHelper.snk" />
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
