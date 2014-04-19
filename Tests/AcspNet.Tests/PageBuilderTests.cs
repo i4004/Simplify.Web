@@ -12,19 +12,14 @@ namespace AcspNet.Tests
 		[Test]
 		public void Build_CorrectData_BuildedCorrectly()
 		{
-			var files = new Dictionary<string, MockFileData>();
-
-			files.Add("Templates/Index.tpl", "<html>{Var1}{Var2}</html>");
+			var files = new Dictionary<string, MockFileData> {{"Templates/Index.tpl", "<html>{Var1}{Var2}</html>"}};
 
 			Template.FileSystem = new MockFileSystem(files, "C:/WebSites/FooSite");
 
 			var tf = new TemplateFactory("C:/WebSites/FooSite/Templates", "en", "en");
 			var b = new PageBuilder("Index.tpl", tf);
 
-			var data = new Dictionary<string, string>();
-
-			data.Add("Var1", "data1");
-			data.Add("Var2", "data2");
+			var data = new Dictionary<string, string> {{"Var1", "data1"}, {"Var2", "data2"}};
 
 			var result = b.Buid(data);
 

@@ -36,6 +36,10 @@ namespace AcspNet
 			}
 		}
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ControllersMetaStore"/> class.
+		/// </summary>
+		/// <param name="disableAcspInternalControllers">if set to <c>true</c> [disable acsp internal controllers].</param>
 		public ControllersMetaStore(bool disableAcspInternalControllers = false)
 		{
 			var mainAssembly = Assembly.GetCallingAssembly();

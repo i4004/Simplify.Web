@@ -5,6 +5,10 @@
 	/// </summary>
 	public interface ISourceContainerFactory : IHideObjectMembers
 	{
+		/// <summary>
+		/// Creates the source container.
+		/// </summary>
+		/// <returns></returns>
 		SourceContainer CreateContainer();
 	}
 }

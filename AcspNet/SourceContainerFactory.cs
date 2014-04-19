@@ -20,16 +20,17 @@
 		/// <returns></returns>
 		public SourceContainer CreateContainer()
 		{
-			var container = new SourceContainer();
-			var env = new Environment(_acspContext.SitePhysicalPath, _settings);
-			var languageManager = new LanguageManager(_settings.DefaultLanguage, _acspContext.Request.Cookies,
-				_acspContext.Response.Cookies);
+			var container = new SourceContainer
+			{
+				Context = _acspContext,
+				Environment = new Environment(_acspContext.SitePhysicalPath, _settings),
+				LanguageManager = new LanguageManager(_settings.DefaultLanguage, _acspContext.Request.Cookies, _acspContext.Response.Cookies),
+			};
 
-			var fileReader = new FileReader(env.DataPath, _acspContext.SitePhysicalPath, languageManager.Language, _settings.DefaultLanguage);
-
-			//_stringTable = new StringTable(_dataLoader);
-			//_templateFactory = new TemplateFactory(_environment.TemplatesPhysicalPath, _environment.Language, settings.DefaultLanguage, _environment.TemplatesMemoryCache);
-			//_dataCollector = new DataCollector(_environment.MainContentVariableName, _environment.TitleVariableName, _stringTable);
+			container.FileReader = new FileReader(container.Environment.DataPath, _acspContext.SitePhysicalPath, container.LanguageManager.Language, _settings.DefaultLanguage); ;
+			container.TemplateFactory = new TemplateFactory(container.Environment.TemplatesPhysicalPath, container.LanguageManager.Language, _settings.DefaultLanguage, container.Environment.TemplatesMemoryCache);
+			container.StringTable = new StringTable(container.FileReader);
+			container.DataCollector = new DataCollector(container.Environment.MainContentVariableName, container.Environment.TitleVariableName, container.StringTable);
 
 			//_htmlWrapper = new HtmlWrapper();
 			//_htmlWrapper.ListsGenerator = new ListsGenerator(_stringTable);
@@ -43,9 +44,6 @@
 			//_extensionsWrapper = new ExtensionsWrapper();
 			//_extensionsWrapper.IdVerifier = new IdVerifier(_context.QueryString, _context.Form, _htmlWrapper.MessageBox, _displayer);
 			//_extensionsWrapper.Navigator = new Navigator(_context.Session, _context.Response);
-
-			container.Context = _acspContext;
-			container.FileReader = fileReader;
 
 			return container;
 		}

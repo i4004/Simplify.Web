@@ -10,9 +10,9 @@ namespace AcspNet.Tests
 		[Test]
 		public void Constructor_NoStringTable_NoItemsLoaded()
 		{
-			ExtensionsDataLoader.FileSystem = new MockFileSystem(null, "C:/WebSites/FooSite");;
+			FileReader.FileSystem = new MockFileSystem(null, "C:/WebSites/FooSite");;
 
-			var st = new StringTable(new ExtensionsDataLoader("Test", "Test", "Test", "Test"));
+			var st = new StringTable(new FileReader("Test", "Test", "Test", "Test"));
 			Assert.AreEqual(0, st.Items.Count);
 		}
 
@@ -26,9 +26,9 @@ namespace AcspNet.Tests
 			files.Add("ExtensionsData/StringTable.ru.xml",
 				"<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Заголовок сайта!\" /></items>");
 
-			ExtensionsDataLoader.FileSystem = new MockFileSystem(files, "C:/WebSites/FooSite");
+			FileReader.FileSystem = new MockFileSystem(files, "C:/WebSites/FooSite");
 
-			var st = new StringTable(new ExtensionsDataLoader("ExtensionsData", "C:/WebSites/FooSite", "ru", "en"));
+			var st = new StringTable(new FileReader("ExtensionsData", "C:/WebSites/FooSite", "ru", "en"));
 
 			Assert.AreEqual(5, st.Items.Count);
 			Assert.AreEqual("Information!", st["InfoTitle"]);

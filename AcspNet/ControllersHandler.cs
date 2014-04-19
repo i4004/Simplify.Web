@@ -42,6 +42,9 @@ namespace AcspNet
 		//	_isExecutionStopped = true;
 		//}
 
+		/// <summary>
+		/// Creates and invokes controllers.
+		/// </summary>
 		public void CreateAndInvokeControllers()
 		{
 			var controllersMetaData = _controllersMetaStore.GetControllersMetaData();

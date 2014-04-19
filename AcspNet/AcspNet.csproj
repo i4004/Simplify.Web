@@ -122,7 +122,9 @@
     <Compile Include="ContainerFactory.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="Container.cs" />
+    <Compile Include="DataCollector.cs" />
     <Compile Include="DefaultDependencyResolver.cs" />
+    <Compile Include="Displayer.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="EventDependencyResolver.cs" />
     <Compile Include="FileReader.cs" />
@@ -130,12 +132,17 @@
     <Compile Include="IAcspContext.cs" />
     <Compile Include="IAcspSettings.cs" />
     <Compile Include="IContainerFactory.cs" />
+    <Compile Include="IDataCollector.cs" />
     <Compile Include="IDependecyResolver.cs" />
+    <Compile Include="IDisplayer.cs" />
     <Compile Include="IEnvironment.cs" />
     <Compile Include="IFileReader.cs" />
     <Compile Include="IHideObjectMembers.cs" />
     <Compile Include="ILanguageManager.cs" />
+    <Compile Include="IPageBuilder.cs" />
     <Compile Include="ISourceContainerFactory.cs" />
+    <Compile Include="IStringTable.cs" />
+    <Compile Include="ITemplateFactory.cs" />
     <Compile Include="LanguageManager.cs" />
     <Compile Include="LoadControllersFromAssemblyOfAttribute.cs">
       <SubType>Code</SubType>
@@ -144,9 +151,14 @@
     <Compile Include="ControllerMetaContainer.cs" />
     <Compile Include="ModeAttribute.cs" />
     <Compile Include="DefaultPageAttribute.cs" />
+    <Compile Include="PageBuilder.cs" />
+    <Compile Include="SiteTitleSetter.cs" />
     <Compile Include="SourceContainer.cs" />
     <Compile Include="SourceContainerFactory.cs" />
     <Compile Include="PriorityAttribute.cs" />
+    <Compile Include="StringTable.cs" />
+    <Compile Include="SystemVariablesSetter.cs" />
+    <Compile Include="TemplateFactory.cs" />
     <Compile Include="View.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
@@ -155,19 +167,19 @@
     <None Include="AcspNet.snk" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Simplify.Templates">
+    <Reference Include="Simplify.Templates, Version=1.0.1.0, Culture=neutral, PublicKeyToken=53a766bba578ec8b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Simplify.Templates.1.0.1\lib\net40\Simplify.Templates.dll</HintPath>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="Simplify.Xml">
+    <Reference Include="Simplify.Xml, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bc9f823c6827798e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Simplify.Xml.1.0.0\lib\net40\Simplify.Xml.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.IO.Abstractions">
+    <Reference Include="System.IO.Abstractions, Version=1.4.0.84, Culture=neutral, PublicKeyToken=d480b5b72fb413da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\System.IO.Abstractions.1.4.0.84\lib\net35\System.IO.Abstractions.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
@@ -202,7 +214,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

@@ -2,7 +2,7 @@
 using System.Collections.Specialized;
 using System.Linq;
 using System.Xml.XPath;
-using Simplify.Extensions.Xml;
+using Simplify.Xml;
 
 namespace AcspNet
 {
@@ -11,14 +11,14 @@ namespace AcspNet
 	/// </summary>
 	public sealed class StringTable : IStringTable
 	{
-		private readonly IExtensionsDataLoader _dataLoader;
+		private readonly IFileReader _fileReader;
 
 		/// <summary>
 		/// Load string table with current language
 		/// </summary>
-		internal StringTable(IExtensionsDataLoader dataLoader)
+		internal StringTable(IFileReader fileReader)
 		{
-			_dataLoader = dataLoader;
+			_fileReader = fileReader;
 
 			Load();
 		}
@@ -30,7 +30,7 @@ namespace AcspNet
 		{
 			Items = new StringDictionary();
 
-			var stringTable = _dataLoader.LoadXDocument("StringTable.xml");
+			var stringTable = _fileReader.LoadXDocument("StringTable.xml");
 
 			// Loading current culture strings
 			if (stringTable != null)
@@ -42,10 +42,10 @@ namespace AcspNet
 
 			// Loading default culture strings
 
-			if (_dataLoader.Language == _dataLoader.DefaultLanguage)
+			if (_fileReader.Language == _fileReader.DefaultLanguage)
 				return;
 
-			stringTable = _dataLoader.LoadXDocument("StringTable.xml", _dataLoader.DefaultLanguage);
+			stringTable = _fileReader.LoadXDocument("StringTable.xml", _fileReader.DefaultLanguage);
 
 			if (stringTable != null)
 			{

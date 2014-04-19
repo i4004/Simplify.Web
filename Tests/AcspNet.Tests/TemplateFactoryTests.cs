@@ -14,9 +14,7 @@ namespace AcspNet.Tests
 		[TestFixtureSetUp]
 		public void SetUpFileSystem()
 		{
-			var files = new Dictionary<string, MockFileData>();
-
-			files.Add("Templates/Foo.tpl", "Dummy data");
+			var files = new Dictionary<string, MockFileData> {{"Templates/Foo.tpl", "Dummy data"}};
 
 			Template.FileSystem = new MockFileSystem(files, "C:/WebSites/FooSite");
 		}

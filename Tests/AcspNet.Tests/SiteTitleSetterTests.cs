@@ -7,19 +7,22 @@ namespace AcspNet.Tests
 	[TestFixture]
 	public class SiteTitleSetterTests
 	{
-		private ExtensionsDataLoader _dataLoader;
+		private IFileReader _dataLoader;
 
 		[TestFixtureSetUp]
 		public void SetUpFileSystem()
 		{
-			var files = new Dictionary<string, MockFileData>();
+			var files = new Dictionary<string, MockFileData>
+			{
+				{
+					"ExtensionsData/StringTable.en.xml",
+					"<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Your site title!\" /></items>"
+				}
+			};
 
-			files.Add("ExtensionsData/StringTable.en.xml",
-				"<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Your site title!\" /></items>");
+			FileReader.FileSystem = new MockFileSystem(files, "C:/WebSites/FooSite");
 
-			ExtensionsDataLoader.FileSystem = new MockFileSystem(files, "C:/WebSites/FooSite");
-
-			_dataLoader = new ExtensionsDataLoader("ExtensionsData", "C:/WebSites/FooSite", "en", "en");
+			_dataLoader = new FileReader("ExtensionsData", "C:/WebSites/FooSite", "en", "en");
 		}
 
 		[Test]

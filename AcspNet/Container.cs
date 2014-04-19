@@ -10,35 +10,40 @@
 		/// </summary>
 		public virtual IAcspContext Context { get; internal set; }
 
-		///// <summary>
-		///// Current ACSP executing processor controller
-		///// </summary>
-		//public IAcspProcessorContoller ProcessorContoller { get; internal set; }
+		/// <summary>
+		/// Current request environment data.
+		/// </summary>
+		public virtual IEnvironment Environment { get; internal set; }
 
-		///// <summary>
-		///// Text templates loader.
-		///// </summary>
-		//public ITemplateFactory TemplateFactory { get; internal set; }
-
-		///// <summary>
-		///// Localizable text items string table.
-		///// </summary>
-		//public IStringTable StringTable { get; internal set; }
-
-		///// <summary>
-		///// Web-site master page data collector.
-		///// </summary>
-		//public IDataCollector DataCollector { get; internal set; }
-
-		///// <summary>
-		///// Current request environment data.
-		///// </summary>
-		//public IEnvironment Environment { get; internal set; }
+		/// <summary>
+		/// Current language manager
+		/// </summary>
+		public virtual ILanguageManager LanguageManager { get; internal set; }
 
 		/// <summary>
 		/// Text and XML files loader.
 		/// </summary>
 		public virtual IFileReader FileReader { get; internal set; }
+
+		/// <summary>
+		/// Text templates loader.
+		/// </summary>
+		public virtual ITemplateFactory TemplateFactory { get; internal set; }
+
+		/// <summary>
+		/// Localizable text items string table.
+		/// </summary>
+		public IStringTable StringTable { get; internal set; }
+
+		/// <summary>
+		/// Web-site master page data collector.
+		/// </summary>
+		public IDataCollector DataCollector { get; internal set; }
+		
+		///// <summary>
+		///// Current ACSP executing processor controller
+		///// </summary>
+		//public IAcspProcessorContoller ProcessorContoller { get; internal set; }
 
 		///// <summary>
 		///// Various HTML generation classes

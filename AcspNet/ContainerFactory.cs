@@ -14,7 +14,14 @@ namespace AcspNet
 		{
 			_modulesContainer = modulesContainer;
 		}
-		
+
+		/// <summary>
+		/// Gets or sets the dependency resolver fro container factory.
+		/// </summary>
+		/// <value>
+		/// The dependency resolver.
+		/// </value>
+		/// <exception cref="System.ArgumentNullException">value</exception>
 		public static IDependecyResolver DependencyResolver
 		{
 			get { return _dependencyResolver ?? (_dependencyResolver = new DefaultDependencyResolver()); }
@@ -48,7 +55,13 @@ namespace AcspNet
 		private void FillContainer(Container container)
 		{
 			container.Context = _modulesContainer.Context;
+			container.Environment = _modulesContainer.Environment;
+			container.LanguageManager = _modulesContainer.LanguageManager;
 			container.FileReader = _modulesContainer.FileReader;
+			container.TemplateFactory = _modulesContainer.TemplateFactory;
+			container.StringTable = _modulesContainer.StringTable;
+			container.DataCollector = _modulesContainer.DataCollector;
+
 			container.ContainerFactory = this;
 		}
 	}
