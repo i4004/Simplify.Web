@@ -102,8 +102,8 @@ namespace AcspNet
 
 		private void AddControllerMetaContainer(Type controllerType)
 		{
-			var action = "";
-			var mode = "";
+			string action = null;
+			string mode = null;
 			var priority = 0;
 			var runOnDefaultPage = false;
 

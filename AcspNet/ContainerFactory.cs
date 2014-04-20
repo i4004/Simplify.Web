@@ -5,14 +5,14 @@ namespace AcspNet
 	/// <summary>
 	/// Controlles and views creation factory
 	/// </summary>
-	public class ContainerFactory : IContainerFactory
+	public class ContainerFactory
 	{
 		private static IDependecyResolver _dependencyResolver;
-		private readonly SourceContainer _modulesContainer;
+		private readonly SourceContainer _sourceContainer;
 
-		internal ContainerFactory(SourceContainer modulesContainer)
+		internal ContainerFactory(SourceContainer sourceContainer)
 		{
-			_modulesContainer = modulesContainer;
+			_sourceContainer = sourceContainer;
 		}
 
 		/// <summary>
@@ -39,7 +39,7 @@ namespace AcspNet
 		/// </summary>
 		/// <param name="controllerType">Type of the controller.</param>
 		/// <returns></returns>
-		public Container CreateContainer(Type controllerType)
+		protected virtual Container CreateContainer(Type controllerType)
 		{
 			var controller = (Container)DependencyResolver.Resolve(controllerType);
 
@@ -54,15 +54,17 @@ namespace AcspNet
 		/// <param name="container">The container.</param>
 		private void FillContainer(Container container)
 		{
-			container.Context = _modulesContainer.Context;
-			container.Environment = _modulesContainer.Environment;
-			container.LanguageManager = _modulesContainer.LanguageManager;
-			container.FileReader = _modulesContainer.FileReader;
-			container.TemplateFactory = _modulesContainer.TemplateFactory;
-			container.StringTable = _modulesContainer.StringTable;
-			container.DataCollector = _modulesContainer.DataCollector;
-
-			container.ContainerFactory = this;
+			container.Context = _sourceContainer.Context;
+			container.Environment = _sourceContainer.Environment;
+			container.LanguageManager = _sourceContainer.LanguageManager;
+			container.FileReader = _sourceContainer.FileReader;
+			container.TemplateFactory = _sourceContainer.TemplateFactory;
+			container.StringTable = _sourceContainer.StringTable;
+			container.DataCollector = _sourceContainer.DataCollector;
+			container.Html = _sourceContainer.Html;
+			container.Authentication = _sourceContainer.Authentication;
+			container.Navigator = _sourceContainer.Navigator;
+			container.IdVerifier = _sourceContainer.IdVerifier;
 		}
 	}
 }

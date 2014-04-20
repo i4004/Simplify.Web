@@ -1,4 +1,7 @@
-﻿namespace AcspNet
+﻿using AcspNet.Html;
+using AcspNet.Identity;
+
+namespace AcspNet
 {
 	/// <summary>
 	/// Source containers creation factory
@@ -32,18 +35,17 @@
 			container.StringTable = new StringTable(container.FileReader);
 			container.DataCollector = new DataCollector(container.Environment.MainContentVariableName, container.Environment.TitleVariableName, container.StringTable);
 
-			//_htmlWrapper = new HtmlWrapper();
-			//_htmlWrapper.ListsGenerator = new ListsGenerator(_stringTable);
-			//_htmlWrapper.MessageBox = new MessageBox(_templateFactory, _stringTable, _dataCollector);
+			var htmlWrapper = new HtmlWrapper();
+			htmlWrapper.ListsGenerator = new ListsGenerator(container.StringTable);
+			htmlWrapper.MessageBox = new MessageBox(container.TemplateFactory, container.StringTable, container.DataCollector);
 
-			//_authenticationModule = new AuthenticationModule(_context.Session, _context.Request.Cookies, _context.Response.Cookies);
+			container.Html = htmlWrapper;
 
-			//_pageBuilder = new PageBuilder(_environment.MasterTemplateFileName, _templateFactory);
-			//_displayer = new Displayer(_context.Response);
+			container.Authentication = new Authentication(_acspContext.Session, _acspContext.Request.Cookies,
+				_acspContext.Response.Cookies);
 
-			//_extensionsWrapper = new ExtensionsWrapper();
-			//_extensionsWrapper.IdVerifier = new IdVerifier(_context.QueryString, _context.Form, _htmlWrapper.MessageBox, _displayer);
-			//_extensionsWrapper.Navigator = new Navigator(_context.Session, _context.Response);
+			container.Navigator = new Navigator(_acspContext.Session, _acspContext.Response);
+			container.IdVerifier = new IdVerifier(_acspContext.QueryString, _acspContext.Form, container.Html.MessageBox);
 
 			return container;
 		}

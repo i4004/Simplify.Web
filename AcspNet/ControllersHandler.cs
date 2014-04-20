@@ -10,16 +10,16 @@ namespace AcspNet
 		private readonly IControllersMetaStore _controllersMetaStore;
 		private readonly string _currentAction;
 		private readonly string _currentMode;
-		private readonly IContainerFactory _containerFactory;
+		private readonly IControllerFactory _controllerFactory;
 
 		//private bool _isExecutionStopped;
 
-		internal ControllersHandler(IControllersMetaStore controllersMetaStore, string currentAction, string currentMode, IContainerFactory containerFactory)
+		internal ControllersHandler(IControllersMetaStore controllersMetaStore, string currentAction, string currentMode, IControllerFactory controllerFactory)
 		{
 			_controllersMetaStore = controllersMetaStore;
 			_currentAction = currentAction;
 			_currentMode = currentMode;
-			_containerFactory = containerFactory;
+			_controllerFactory = controllerFactory;
 		}
 
 		///// <summary>
@@ -57,7 +57,7 @@ namespace AcspNet
 					(metaContainer.Action == "" && !metaContainer.RunOnDefaultPage))
 				{
 					//if (!_isExecutionStopped)
-						((Controller)_containerFactory.CreateContainer(metaContainer.ControllerType)).Invoke();
+						_controllerFactory.CreateController(metaContainer.ControllerType).Invoke();
 				}
 			}
 		}

@@ -1,4 +1,4 @@
-﻿namespace AcspNet.Extensions
+﻿namespace AcspNet
 {
 	/// <summary>
 	/// Website navigation manager, controls current user location, link to previous page and link to specified page

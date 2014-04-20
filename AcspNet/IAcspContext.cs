@@ -44,15 +44,10 @@ namespace AcspNet
 		/// </summary>
 		RouteData RouteData { get; }
 
-		///// <summary>
-		///// The stop watch (for web-page build measurement)
-		///// </summary>
-		//Stopwatch StopWatch { get; }
-
-		///// <summary>
-		///// Indicating whether session was created with the current request
-		///// </summary>
-		//bool IsNewSession { get; }
+		/// <summary>
+		/// Indicating whether session was created with the current request
+		/// </summary>
+		bool IsNewSession { get; }
 
 		/// <summary>
 		/// Gets the current web-site request action parameter (/someAction or ?act=someAction).
@@ -86,48 +81,23 @@ namespace AcspNet
 		/// </value>
 		string SitePhysicalPath { get; }
 
-		///// <summary>
-		///// Gets the web-site virtual relative path, for example: /site1 if your web-site url is http://yoursite.com/site1/
-		///// </summary>
-		//string SiteVirtualPath { get; }
-		
-		///// <summary>
-		///// Gets the web-site URL, for example: http://yoursite.com/site1/
-		///// </summary>
-		///// <value>
-		///// The site URL.
-		///// </value>
-		//string SiteUrl { get; }
+		/// <summary>
+		/// Gets the web-site virtual relative path, for example: /site1 if your web-site url is http://yoursite.com/site1/
+		/// </summary>
+		string SiteVirtualPath { get; }
 
-		///// <summary>
-		///// Gets the current executing extensions types.
-		///// </summary>
-		///// <value>
-		///// The current executing extensions types.
-		///// </value>
-		//IList<Type> ExecExtensionsTypes { get; }
-
-		///// <summary>
-		///// Stop ACSP subsequent extensions execution
-		///// </summary>
-		//void StopExtensionsExecution();
-
-		///// <summary>
-		///// Gets library extension instance
-		///// </summary>
-		///// <typeparam name="T">Library extension instance to get</typeparam>
-		///// <returns>Library extension</returns>
-		//T Get<T>() where T : LibExtension;
+		/// <summary>
+		/// Gets the web-site URL, for example: http://yoursite.com/site1/
+		/// </summary>
+		/// <value>
+		/// The site URL.
+		/// </value>
+		string SiteUrl { get; }
 
 		/// <summary>
 		/// Gets current action/mode URL in formal like ?act={0}&amp;mode={1}&amp;id={2}.
 		/// </summary>
 		/// <returns></returns>
 		string GetActionModeUrl();
-
-		///// <summary>
-		///// Redirects a client to a new URL
-		///// </summary>
-		//void Redirect(string url);
 	}
 }

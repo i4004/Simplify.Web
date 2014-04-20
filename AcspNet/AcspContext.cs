@@ -10,6 +10,8 @@ namespace AcspNet
 	/// </summary>
 	public class AcspContext : IAcspContext
 	{
+		public const string IsNewSessionFieldName = "AcspIsNewSession";
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AcspContext" /> class.
 		/// </summary>
@@ -29,14 +31,24 @@ namespace AcspNet
 			CalculateCurrentMode();
 			CalculateCurrentID();
 			CalculateSitePhysicalPath();
-			//CalculateSiteVirualPath();
-			//CalculateSiteUrl();
+			CalculateSiteVirualPath();
+			CalculateSiteUrl();
+
+			if (Session == null || Session[IsNewSessionFieldName] != null) return;
+
+			Session.Add(IsNewSessionFieldName, "false");
+			IsNewSession = true;
 		}
 
 		/// <summary>
 		/// Gets the route data.
 		/// </summary>
 		public RouteData RouteData { get; private set; }
+
+		/// <summary>
+		/// Indicating whether session was created with the current request
+		/// </summary>
+		public bool IsNewSession { get; private set; }
 
 		/// <summary>
 		///  Gets the <see cref="T:System.Web.HttpContextBase"/> object for the current HTTP request.
@@ -67,11 +79,6 @@ namespace AcspNet
 		/// Gets the connection of HTTP post request form variables
 		/// </summary>
 		public NameValueCollection Form { get; private set; }
-
-		///// <summary>
-		///// The HttpRuntime abstration, to work with HttpRuntime functions
-		///// </summary>
-		//public IHttpRuntime HttpRuntime { get; private set; }
 
 		/// <summary>
 		/// Gets the current web-site request action parameter (/someAction or ?act=someAction).
@@ -105,18 +112,18 @@ namespace AcspNet
 		/// </value>
 		public string SitePhysicalPath { get; private set; }
 
-		///// <summary>
-		///// Gets the web-site virtual relative path, for example: /site1 if your web-site url is http://yoursite.com/site1/
-		///// </summary>
-		//public string SiteVirtualPath { get; private set; }
+		/// <summary>
+		/// Gets the web-site virtual relative path, for example: /site1 if your web-site url is http://yoursite.com/site1/
+		/// </summary>
+		public string SiteVirtualPath { get; private set; }
 
-		///// <summary>
-		///// Gets the web-site URL, for example: http://yoursite.com/site1/
-		///// </summary>
-		///// <value>
-		///// The site URL.
-		///// </value>
-		//public string SiteUrl { get; private set; }
+		/// <summary>
+		/// Gets the web-site URL, for example: http://yoursite.com/site1/
+		/// </summary>
+		/// <value>
+		/// The site URL.
+		/// </value>
+		public string SiteUrl { get; private set; }
 
 		/// <summary>
 		/// Gets current action/mode URL in formal like ?act={0}&amp;mode={1}&amp;id={2}.
@@ -184,24 +191,23 @@ namespace AcspNet
 			}
 		}
 
-		//private void CalculateSiteVirualPath()
-		//{
-		//	if (HttpRuntime.AppDomainAppVirtualPath != null)
-		//		SiteVirtualPath = HttpRuntime.AppDomainAppVirtualPath == "/" ? "" : HttpRuntime.AppDomainAppVirtualPath;
-		//}
+		private void CalculateSiteVirualPath()
+		{
+			SiteVirtualPath = Request.ApplicationPath == "/" ? "" : Request.ApplicationPath;
+		}
 
-		//private void CalculateSiteUrl()
-		//{
-		//	if (Request != null && Request.Url != null)
-		//	{
-		//		SiteUrl = String.Format("{0}://{1}{2}",
-		//			Request.Url.Scheme,
-		//			Request.Url.Authority,
-		//			Request.ApplicationPath);
+		private void CalculateSiteUrl()
+		{
+			if (Request != null && Request.Url != null)
+			{
+				SiteUrl = String.Format("{0}://{1}{2}",
+					Request.Url.Scheme,
+					Request.Url.Authority,
+					Request.ApplicationPath);
 
-		//		if (!SiteUrl.EndsWith("/"))
-		//			SiteUrl += "/";
-		//	}
-		//}
+				if (!SiteUrl.EndsWith("/"))
+					SiteUrl += "/";
+			}
+		}
 	}
 }

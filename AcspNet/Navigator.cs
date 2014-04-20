@@ -1,7 +1,7 @@
 using System;
 using System.Web;
 
-namespace AcspNet.Extensions
+namespace AcspNet
 {
 	/// <summary>
 	/// Website navigation manager, controls current user location, link to previous page or link specific page
@@ -68,9 +68,9 @@ namespace AcspNet.Extensions
 		//	Response.Redirect(url, false);
 		//}
 
-		/// <summary>
-		/// Navigates to previous page.
-		/// </summary>
+		///// <summary>
+		///// Navigates to previous page.
+		///// </summary>
 		//public void NavigateToPreviousPage()
 		//{
 		//////	PreviousNavigatedUrl = _manager.Request.RawUrl;

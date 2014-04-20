@@ -3,15 +3,17 @@ using System.Diagnostics;
 using System.IO.Abstractions;
 using System.Web;
 using System.Web.Routing;
+using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
 namespace AcspNet
 {
 	/// <summary>
 	/// AcspNet HTTP module
 	/// </summary>
-	class AcspHttpModule : IHttpModule
+	public class AcspHttpModule : IHttpModule
 	{
 		private static IFileSystem _fileSystemInstance;
+		private static IAcspSettings _settings;
 
 		/// <summary>
 		/// Gets or sets the file system.
@@ -22,7 +24,7 @@ namespace AcspNet
 		/// <exception cref="System.ArgumentNullException"></exception>
 		public static IFileSystem FileSystem
 		{
-			get { return _fileSystemInstance ?? (_fileSystemInstance = new FileSystem()); }
+			get { return _fileSystemInstance; }
 
 			set
 			{
@@ -33,11 +35,52 @@ namespace AcspNet
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the AcspNet settings.
+		/// </summary>
+		/// <value>
+		/// The ACSP settings.
+		/// </value>
+		/// <exception cref="System.ArgumentNullException">value</exception>
+		public static IAcspSettings Settings
+		{
+			get { return _settings; }
+
+			set
+			{
+				if (value == null)
+					throw new ArgumentNullException("value");
+
+				_settings = value;
+			}
+		}
+
+		/// <summary>
+		/// Registers the HTTP module.
+		/// </summary>
+		public static void RegisterHttpModule()
+		{
+			DynamicModuleUtility.RegisterModule(typeof(AcspHttpModule));
+		}
+
+		/// <summary>
+		/// Initializes the specified application.
+		/// </summary>
+		/// <param name="application">The application.</param>
 		public void Init(HttpApplication application)
 		{
+			if (_fileSystemInstance == null)
+				_fileSystemInstance = new FileSystem();
+
+			if (_settings == null)
+				_settings = new AcspSettings();
+
 			application.BeginRequest += ApplicationBeginRequest;
 		}
 
+		/// <summary>
+		/// Disposes of the resources (other than memory) used by the module that implements <see cref="T:System.Web.IHttpModule" />.
+		/// </summary>
 		public void Dispose()
 		{
 		}
@@ -47,11 +90,9 @@ namespace AcspNet
 			var application = (HttpApplication)source;
 			var context = application.Context;
 
-			// Exclude processing for files URLs
-
-			if (FileSystem.File.Exists(context.Request.PhysicalPath))
+			// Exclude processing for file URLs (for css and other files to correctly processed)
+			if (!FileSystem.File.Exists(context.Request.PhysicalPath))
 				ProcessRequest(context);
-
 		}
 
 		private static void ProcessRequest(HttpContext context)
@@ -61,22 +102,28 @@ namespace AcspNet
 
 			var routeData = RouteTable.Routes.GetRouteData(new HttpContextWrapper(HttpContext.Current));
 			var acspContext = new AcspContext(routeData, new HttpContextWrapper(context));
-			var acspSettings = new AcspSettings();
-			var sourceContainer = new SourceContainerFactory(acspContext, acspSettings).CreateContainer();
-			var contauinerFactory = new ContainerFactory(sourceContainer);
-			var controllersHandler = new ControllersHandler(ControllersMetaStore.Current, acspContext.CurrentAction, acspContext.CurrentMode, contauinerFactory);
+
+			var sourceContainer = new SourceContainerFactory(acspContext, Settings).CreateContainer();
+			var viewFactory = new ViewFactory(sourceContainer);
+			var controllerFactory = new ControllerFactory(sourceContainer, viewFactory);
+			var controllersHandler = new ControllersHandler(ControllersMetaStore.Current, acspContext.CurrentAction, acspContext.CurrentMode, controllerFactory);
 
 			controllersHandler.CreateAndInvokeControllers();
 
 			var pageBuilder = new PageBuilder(sourceContainer.Environment.MasterTemplateFileName, sourceContainer.TemplateFactory);
 			var displayer = new Displayer(sourceContainer.Context.Response);
+			var dcSetter = new DataCollectorDataSetter(sourceContainer.DataCollector);
 
-			if (!acspSettings.DisableAutomaticSiteTitleSet)
-				SiteTitleSetter.SetSiteTitleFromStringTable(sourceContainer.DataCollector, acspContext.CurrentAction, acspContext.CurrentMode);
+			if (!Settings.DisableAutomaticSiteTitleSet)
+				dcSetter.SetSiteTitleFromStringTable(acspContext.CurrentAction, acspContext.CurrentMode);
+
+			dcSetter.SetEnvironmentVariables(sourceContainer.Environment);
+			dcSetter.SetContextVariables(acspContext);
+			dcSetter.SetLanguageVariables(sourceContainer.LanguageManager.Language);
 
 			stopWatch.Stop();
 
-			SystemVariablesSetter.Set(sourceContainer.DataCollector, sourceContainer.Environment, acspContext, stopWatch.Elapsed, sourceContainer.LanguageManager.Language);
+			dcSetter.SetExecutionTimeVariable(stopWatch.Elapsed);
 
 			displayer.DisplayNoCache(pageBuilder.Buid(sourceContainer.DataCollector.Items));
 

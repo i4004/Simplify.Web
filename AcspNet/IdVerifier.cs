@@ -1,10 +1,10 @@
 using System.Collections.Specialized;
 using AcspNet.Html;
 
-namespace AcspNet.Extensions
+namespace AcspNet
 {
 	/// <summary>
-	/// Class that is used to parse 'ID' field from request query string or form.
+	/// Class that is used to parse and act on 'ID' field from request query string or form.
 	/// Usable <see cref="StringTable" /> items:
 	/// "NotifyPageDataError"
 	/// </summary>
@@ -13,18 +13,24 @@ namespace AcspNet.Extensions
 		private readonly NameValueCollection _queryString;
 		private readonly NameValueCollection _form;
 		private readonly IMessageBox _messageBox;
-		private readonly IDisplayer _displayer;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="IdVerifier"/> class.
 		/// </summary>
-		internal IdVerifier(NameValueCollection queryString, NameValueCollection form, IMessageBox messageBox, IDisplayer displayer)
+		internal IdVerifier(NameValueCollection queryString, NameValueCollection form, IMessageBox messageBox)
 		{
 			_queryString = queryString;
 			_form = form;
 			_messageBox = messageBox;
-			_displayer = displayer;
 		}
+
+		/// <summary>
+		/// Gets the message box html code to display message box, in case of verify method failed.
+		/// </summary>
+		/// <value>
+		/// The message box to display.
+		/// </value>
+		public string MessageBoxToDisplay { get; private set; }
 
 		/// <summary>
 		/// Verify and get query string "ID" field value and display the <see cref="MessageBox"/> message in case of error
@@ -81,13 +87,13 @@ namespace AcspNet.Extensions
 			var id = _queryString["id"];
 
 			if ((string.IsNullOrEmpty(id)))
-				_displayer.DisplayNoCache(_messageBox.GetInlineSt("NotifyPageDataError", MessageBoxStatus.Error));
+				MessageBoxToDisplay = _messageBox.GetInlineSt("NotifyPageDataError", MessageBoxStatus.Error);
 			else
 			{
 				int parsedID;
 
 				if (!int.TryParse(id, out parsedID))
-					_displayer.DisplayNoCache(_messageBox.GetInlineSt("NotifyPageDataError", MessageBoxStatus.Error));
+					MessageBoxToDisplay = _messageBox.GetInlineSt("NotifyPageDataError", MessageBoxStatus.Error);
 				else
 					return parsedID;
 			}

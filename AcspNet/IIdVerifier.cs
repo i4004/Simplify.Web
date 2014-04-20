@@ -1,6 +1,6 @@
 ﻿using AcspNet.Html;
 
-namespace AcspNet.Extensions
+namespace AcspNet
 {
 	/// <summary>
 	/// Class that is used to parse 'ID' field from request query string or form.
@@ -9,6 +9,14 @@ namespace AcspNet.Extensions
 	/// </summary>
 	public interface IIdVerifier : IHideObjectMembers
 	{
+		/// <summary>
+		/// Gets the message box html code to display message box, in case of verify method failed.
+		/// </summary>
+		/// <value>
+		/// The message box to display.
+		/// </value>
+		string MessageBoxToDisplay { get; }
+
 		/// <summary>
 		/// Verify and get query string "ID" field value and display the <see cref="MessageBox"/> message in case of error
 		/// </summary>
