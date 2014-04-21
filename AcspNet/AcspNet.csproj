@@ -111,12 +111,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Identity\Authentication.cs" />
+    <Compile Include="AjaxAttribute.cs" />
     <Compile Include="Identity\CookieAuthentication.cs" />
     <Compile Include="Identity\IAuthentication.cs" />
     <Compile Include="Identity\IAuthenticationState.cs" />
     <Compile Include="Identity\ICookieAuthentication.cs" />
     <Compile Include="Identity\ISessionAuthentication.cs" />
-    <Compile Include="Identity\OnlyAuthenticatedAttribute.cs" />
+    <Compile Include="Identity\AuthenticationRequiredAttribute.cs" />
     <Compile Include="Identity\SessionAuthentication.cs" />
     <Compile Include="DataCollectorDataSetter.cs" />
     <Compile Include="Html\HtmlWrapper.cs" />

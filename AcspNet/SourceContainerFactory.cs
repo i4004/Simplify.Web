@@ -35,9 +35,11 @@ namespace AcspNet
 			container.StringTable = new StringTable(container.FileReader);
 			container.DataCollector = new DataCollector(container.Environment.MainContentVariableName, container.Environment.TitleVariableName, container.StringTable);
 
-			var htmlWrapper = new HtmlWrapper();
-			htmlWrapper.ListsGenerator = new ListsGenerator(container.StringTable);
-			htmlWrapper.MessageBox = new MessageBox(container.TemplateFactory, container.StringTable, container.DataCollector);
+			var htmlWrapper = new HtmlWrapper
+			{
+				ListsGenerator = new ListsGenerator(container.StringTable),
+				MessageBox = new MessageBox(container.TemplateFactory, container.StringTable, container.DataCollector)
+			};
 
 			container.Html = htmlWrapper;
 

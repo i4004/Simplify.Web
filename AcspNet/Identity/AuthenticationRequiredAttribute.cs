@@ -6,7 +6,7 @@ namespace AcspNet.Identity
 	/// Only authenticated users can execute controller
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class)]
-	public class OnlyAuthenticatedAttribute : Attribute
+	public class AuthenticationRequiredAttribute : Attribute
 	{
 	}
 }

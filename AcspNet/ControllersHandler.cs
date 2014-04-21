@@ -12,8 +12,6 @@ namespace AcspNet
 		private readonly string _currentMode;
 		private readonly IControllerFactory _controllerFactory;
 
-		//private bool _isExecutionStopped;
-
 		internal ControllersHandler(IControllersMetaStore controllersMetaStore, string currentAction, string currentMode, IControllerFactory controllerFactory)
 		{
 			_controllersMetaStore = controllersMetaStore;
@@ -21,26 +19,6 @@ namespace AcspNet
 			_currentMode = currentMode;
 			_controllerFactory = controllerFactory;
 		}
-
-		///// <summary>
-		///// Creates and executes ACSP extensions for current HTTP request
-		///// </summary>
-		//public void Execute()
-		//{
-			//if (!_isExecutionStopped)
-			//	_displayer.DisplayNoCache(_pageBuilder.Buid(_dataCollector.Items));
-
-			//	if (Session[IsNewSessionFieldName] == null)
-			//		Session.Add(IsNewSessionFieldName, "true");
-		//}
-
-		///// <summary>
-		///// Stop controllers execution
-		///// </summary>
-		//private void StopExecution()
-		//{
-		//	_isExecutionStopped = true;
-		//}
 
 		/// <summary>
 		/// Creates and invokes controllers.
@@ -56,8 +34,7 @@ namespace AcspNet
 					 String.Equals(metaContainer.Mode, _currentMode, StringComparison.CurrentCultureIgnoreCase)) ||
 					(metaContainer.Action == "" && !metaContainer.RunOnDefaultPage))
 				{
-					//if (!_isExecutionStopped)
-						_controllerFactory.CreateController(metaContainer.ControllerType).Invoke();
+					_controllerFactory.CreateController(metaContainer.ControllerType).Invoke();
 				}
 			}
 		}
