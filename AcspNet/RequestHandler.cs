@@ -51,31 +51,31 @@ namespace AcspNet
 			stopWatch.Start();
 
 			var routeData = RouteTable.Routes.GetRouteData(new HttpContextWrapper(HttpContext.Current));
-			//var acspContext = new AcspContext(routeData, new HttpContextWrapper(context));
+			var acspContext = new AcspContext(routeData, context);
 
-			//var sourceContainer = new SourceContainerFactory(acspContext, Settings).CreateContainer();
-			//var viewFactory = new ViewFactory(sourceContainer);
-			//var controllerFactory = new ControllerFactory(sourceContainer, viewFactory);
-			//var controllersHandler = new ControllersHandler(ControllersMetaStore.Current, acspContext.CurrentAction, acspContext.CurrentMode, controllerFactory);
+			var sourceContainer = new ModulesContainerFactory(acspContext, Settings).CreateContainer();
+			var viewFactory = new ViewFactory(sourceContainer);
+			var controllerFactory = new ControllerFactory(sourceContainer, viewFactory);
+			var controllersHandler = new ControllersHandler(ControllersMetaStore.Current, controllerFactory, acspContext.CurrentAction, acspContext.CurrentMode);
 
-			//controllersHandler.CreateAndInvokeControllers();
+			controllersHandler.CreateAndInvokeControllers();
 
-			//var pageBuilder = new PageBuilder(sourceContainer.Environment.MasterTemplateFileName, sourceContainer.TemplateFactory);
-			//var displayer = new Displayer(sourceContainer.Context.Response);
-			//var dcSetter = new DataCollectorDataSetter(sourceContainer.DataCollector);
+			var pageBuilder = new PageBuilder(sourceContainer.Environment.MasterTemplateFileName, sourceContainer.TemplateFactory);
+			var displayer = new Displayer(sourceContainer.Context.Response);
+			var dcSetter = new DataCollectorDataSetter(sourceContainer.DataCollector);
 
-			//if (!Settings.DisableAutomaticSiteTitleSet)
-			//	dcSetter.SetSiteTitleFromStringTable(acspContext.CurrentAction, acspContext.CurrentMode);
+			if (!Settings.DisableAutomaticSiteTitleSet)
+				dcSetter.SetSiteTitleFromStringTable(acspContext.CurrentAction, acspContext.CurrentMode);
 
-			//dcSetter.SetEnvironmentVariables(sourceContainer.Environment);
-			//dcSetter.SetContextVariables(acspContext);
-			//dcSetter.SetLanguageVariables(sourceContainer.LanguageManager.Language);
+			dcSetter.SetEnvironmentVariables(sourceContainer.Environment);
+			dcSetter.SetContextVariables(acspContext);
+			dcSetter.SetLanguageVariables(sourceContainer.LanguageManager.Language);
 
-			//stopWatch.Stop();
+			stopWatch.Stop();
 
-			//dcSetter.SetExecutionTimeVariable(stopWatch.Elapsed);
+			dcSetter.SetExecutionTimeVariable(stopWatch.Elapsed);
 
-			//displayer.DisplayNoCache(pageBuilder.Buid(sourceContainer.DataCollector.Items));
+			displayer.DisplayNoCache(pageBuilder.Buid(sourceContainer.DataCollector.Items));
 
 			context.Response.End();
 		}

@@ -156,7 +156,7 @@ namespace AcspNet
 			else
 				action = Request.QueryString["act"];
 
-			CurrentAction = action ?? "";
+			CurrentAction = action;
 		}
 
 		private void CalculateCurrentMode()
@@ -168,7 +168,7 @@ namespace AcspNet
 			else
 				mode = Request.QueryString["mode"];
 
-			CurrentMode = mode ?? "";
+			CurrentMode = mode;
 		}
 
 		private void CalculateCurrentID()
@@ -180,7 +180,7 @@ namespace AcspNet
 			else
 				id = Request.QueryString["id"];
 
-			CurrentID = id ?? "";
+			CurrentID = id;
 		}
 
 		private void CalculateSitePhysicalPath()

@@ -110,6 +110,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DependencyResolver.cs" />
     <Compile Include="RequestHandler.cs" />
     <Compile Include="IRequestHandler.cs" />
     <Compile Include="Identity\Authentication.cs" />
@@ -144,9 +145,7 @@
     <Compile Include="AcspRouteConfig.cs" />
     <Compile Include="AcspSettings.cs" />
     <Compile Include="ActionAttribute.cs" />
-    <Compile Include="ContainerFactory.cs" />
     <Compile Include="Controller.cs" />
-    <Compile Include="Container.cs" />
     <Compile Include="DataCollector.cs" />
     <Compile Include="DefaultDependencyResolver.cs" />
     <Compile Include="Displayer.cs" />
@@ -157,7 +156,6 @@
     <Compile Include="IControllersMetaStore.cs" />
     <Compile Include="IAcspContext.cs" />
     <Compile Include="IAcspSettings.cs" />
-    <Compile Include="IContainerFactory.cs" />
     <Compile Include="IDataCollector.cs" />
     <Compile Include="IDependecyResolver.cs" />
     <Compile Include="IDisplayer.cs" />
@@ -166,7 +164,6 @@
     <Compile Include="IHideObjectMembers.cs" />
     <Compile Include="ILanguageManager.cs" />
     <Compile Include="IPageBuilder.cs" />
-    <Compile Include="ISourceContainerFactory.cs" />
     <Compile Include="IStringTable.cs" />
     <Compile Include="ITemplateFactory.cs" />
     <Compile Include="IViewFactory.cs" />
@@ -179,8 +176,8 @@
     <Compile Include="ModeAttribute.cs" />
     <Compile Include="DefaultPageAttribute.cs" />
     <Compile Include="PageBuilder.cs" />
-    <Compile Include="SourceContainer.cs" />
-    <Compile Include="SourceContainerFactory.cs" />
+    <Compile Include="ModulesContainer.cs" />
+    <Compile Include="ModulesContainerFactory.cs" />
     <Compile Include="PriorityAttribute.cs" />
     <Compile Include="StringTable.cs" />
     <Compile Include="TemplateFactory.cs" />
@@ -196,21 +193,20 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Simplify.Core">
+    <Reference Include="Simplify.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=f9fa937ed2a87692, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Simplify.Core.1.1.0\lib\net40\Simplify.Core.dll</HintPath>
     </Reference>
     <Reference Include="Simplify.Templates, Version=1.0.1.0, Culture=neutral, PublicKeyToken=53a766bba578ec8b, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Simplify.Templates.1.0.1\lib\net40\Simplify.Templates.dll</HintPath>
+      <HintPath>..\packages\Simplify.Templates.1.0.2\lib\net40\Simplify.Templates.dll</HintPath>
     </Reference>
-    <Reference Include="Simplify.Xml, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bc9f823c6827798e, processorArchitecture=MSIL">
+    <Reference Include="Simplify.Xml, Version=1.0.1.0, Culture=neutral, PublicKeyToken=bc9f823c6827798e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Simplify.Xml.1.0.0\lib\net40\Simplify.Xml.dll</HintPath>
+      <HintPath>..\packages\Simplify.Xml.1.0.1\lib\net40\Simplify.Xml.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.IO.Abstractions, Version=1.4.0.84, Culture=neutral, PublicKeyToken=d480b5b72fb413da, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\System.IO.Abstractions.1.4.0.84\lib\net35\System.IO.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />

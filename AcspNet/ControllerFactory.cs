@@ -5,20 +5,15 @@ namespace AcspNet
 	/// <summary>
 	/// Controller factory
 	/// </summary>
-	public class ControllerFactory : ContainerFactory, IControllerFactory
+	public class ControllerFactory : IControllerFactory
 	{
+		private readonly ModulesContainer _sourceContainer;
 		private readonly IViewFactory _viewFactory;
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ControllerFactory"/> class.
-		/// </summary>
-		/// <param name="sourceContainer">The source container.</param>
-		/// <param name="viewFactory">The view factory.</param>
-		internal ControllerFactory(SourceContainer sourceContainer, IViewFactory viewFactory) : base(sourceContainer)
+		
+		internal ControllerFactory(ModulesContainer sourceContainer, IViewFactory viewFactory)
 		{
+			_sourceContainer = sourceContainer;
 			_viewFactory = viewFactory;
-
-			//container.Navigator = new Navigator(_acspContext.Session, _acspContext.Response);
 		}
 
 		/// <summary>
@@ -28,8 +23,19 @@ namespace AcspNet
 		/// <returns></returns>
 		public Controller CreateController(Type controllerType)
 		{
-			var controller = (Controller)base.CreateContainer(controllerType);
+			var controller = (Controller)DependencyResolver.Current.Resolve(controllerType);
 
+			controller.Context = _sourceContainer.Context;
+			controller.Environment = _sourceContainer.Environment;
+			controller.LanguageManager = _sourceContainer.LanguageManager;
+			controller.FileReader = _sourceContainer.FileReader;
+			controller.DataCollector = _sourceContainer.DataCollector;
+			controller.TemplateFactory = _sourceContainer.TemplateFactory;
+			controller.StringTable = _sourceContainer.StringTable;
+			controller.MessageBox = _sourceContainer.MessageBox;
+			controller.Authentication = _sourceContainer.Authentication;
+			controller.Navigator = _sourceContainer.Navigator;
+			controller.IdVerifier = _sourceContainer.IdVerifier;
 			controller.ViewFactory = _viewFactory;
 
 			return controller;

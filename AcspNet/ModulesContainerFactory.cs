@@ -4,14 +4,14 @@ using AcspNet.Identity;
 namespace AcspNet
 {
 	/// <summary>
-	/// Source containers creation factory
+	/// Source container creation factory
 	/// </summary>
-	public class SourceContainerFactory : ISourceContainerFactory
+	internal class ModulesContainerFactory
 	{
 		private readonly IAcspContext _acspContext;
 		private readonly IAcspSettings _settings;
 
-		internal SourceContainerFactory(IAcspContext acspContext, IAcspSettings settings)
+		internal ModulesContainerFactory(IAcspContext acspContext, IAcspSettings settings)
 		{
 			_acspContext = acspContext;
 			_settings = settings;
@@ -21,9 +21,9 @@ namespace AcspNet
 		/// Creates the source container.
 		/// </summary>
 		/// <returns></returns>
-		public SourceContainer CreateContainer()
+		public ModulesContainer CreateContainer()
 		{
-			var container = new SourceContainer
+			var container = new ModulesContainer()
 			{
 				Context = _acspContext,
 				Environment = new Environment(_acspContext.SitePhysicalPath, _settings),
@@ -37,16 +37,17 @@ namespace AcspNet
 
 			var htmlWrapper = new HtmlWrapper
 			{
-				ListsGenerator = new ListsGenerator(container.StringTable),
-				MessageBox = new MessageBox(container.TemplateFactory, container.StringTable, container.DataCollector)
+				ListsGenerator = new ListsGenerator(container.StringTable)
 			};
+
+			container.MessageBox = new MessageBox(container.TemplateFactory, container.StringTable, container.DataCollector);
 
 			container.Html = htmlWrapper;
 
 			container.Authentication = new Authentication(_acspContext.Session, _acspContext.Request.Cookies,
 				_acspContext.Response.Cookies);
 
-			container.IdVerifier = new IdVerifier(_acspContext.QueryString, _acspContext.Form, container.Html.MessageBox);
+			container.IdVerifier = new IdVerifier(_acspContext.QueryString, _acspContext.Form, container.MessageBox);
 
 			return container;
 		}

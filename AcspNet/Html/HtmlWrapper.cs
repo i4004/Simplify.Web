@@ -9,10 +9,5 @@
 		/// HTML comboBox lists generator.
 		/// </summary>
 		public IListsGenerator ListsGenerator { get; internal set; }
-
-		/// <summary>
-		/// The HTML message box.
-		/// </summary>
-		public IMessageBox MessageBox { get; internal set; }
 	}
 }

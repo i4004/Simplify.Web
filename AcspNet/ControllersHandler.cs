@@ -12,7 +12,7 @@ namespace AcspNet
 		private readonly string _currentMode;
 		private readonly IControllerFactory _controllerFactory;
 
-		internal ControllersHandler(IControllersMetaStore controllersMetaStore, string currentAction, string currentMode, IControllerFactory controllerFactory)
+		internal ControllersHandler(IControllersMetaStore controllersMetaStore, IControllerFactory controllerFactory, string currentAction, string currentMode)
 		{
 			_controllersMetaStore = controllersMetaStore;
 			_currentAction = currentAction;
