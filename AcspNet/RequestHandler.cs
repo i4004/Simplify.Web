@@ -58,24 +58,32 @@ namespace AcspNet
 			var controllerFactory = new ControllerFactory(sourceContainer, viewFactory);
 			var controllersHandler = new ControllersHandler(ControllersMetaStore.Current, controllerFactory, acspContext.CurrentAction, acspContext.CurrentMode);
 
-			controllersHandler.CreateAndInvokeControllers();
-
-			var pageBuilder = new PageBuilder(sourceContainer.Environment.MasterTemplateFileName, sourceContainer.TemplateFactory);
 			var displayer = new Displayer(sourceContainer.Context.Response);
-			var dcSetter = new DataCollectorDataSetter(sourceContainer.DataCollector);
 
-			if (!Settings.DisableAutomaticSiteTitleSet)
-				dcSetter.SetSiteTitleFromStringTable(acspContext.CurrentAction, acspContext.CurrentMode);
+			if (controllersHandler.CreateAndInvokeControllers())
+				displayer.DisplayNoCache(controllersHandler.AjaxResult);
+			else
+			{
+				if (acspContext.Request.Url != null)
+					sourceContainer.Navigator.PreviousPageLink = acspContext.Request.Url.AbsoluteUri;
 
-			dcSetter.SetEnvironmentVariables(sourceContainer.Environment);
-			dcSetter.SetContextVariables(acspContext);
-			dcSetter.SetLanguageVariables(sourceContainer.LanguageManager.Language);
+				var pageBuilder = new PageBuilder(sourceContainer.Environment.MasterTemplateFileName,
+					sourceContainer.TemplateFactory);
+				var dcSetter = new DataCollectorDataSetter(sourceContainer.DataCollector);
 
-			stopWatch.Stop();
+				if (!Settings.DisableAutomaticSiteTitleSet)
+					dcSetter.SetSiteTitleFromStringTable(acspContext.CurrentAction, acspContext.CurrentMode);
 
-			dcSetter.SetExecutionTimeVariable(stopWatch.Elapsed);
+				dcSetter.SetEnvironmentVariables(sourceContainer.Environment);
+				dcSetter.SetContextVariables(acspContext);
+				dcSetter.SetLanguageVariables(sourceContainer.LanguageManager.Language);
 
-			displayer.DisplayNoCache(pageBuilder.Buid(sourceContainer.DataCollector.Items));
+				stopWatch.Stop();
+
+				dcSetter.SetExecutionTimeVariable(stopWatch.Elapsed);
+
+				displayer.DisplayNoCache(pageBuilder.Buid(sourceContainer.DataCollector.Items));
+			}
 
 			context.Response.End();
 		}

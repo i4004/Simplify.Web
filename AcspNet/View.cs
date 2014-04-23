@@ -5,7 +5,7 @@ namespace AcspNet
 	/// <summary>
 	/// View base class 
 	/// </summary>
-	public abstract class View : IHideObjectMembers
+	public abstract class View : ViewAccessor
 	{
 		/// <summary>
 		/// Text templates loader.
@@ -21,20 +21,23 @@ namespace AcspNet
 		/// Various HTML generation classes
 		/// </summary>
 		public virtual IHtmlWrapper Html { get; internal set; }
-
-		internal virtual IViewFactory ViewFactory { get; set; }
+		
+		/// <summary>
+		/// Site current language, for example: "en", "ru", "de" etc.
+		/// </summary>
+		public virtual string Language { get; internal set; }
 
 		/// <summary>
-		/// Gets library extension instance
+		/// Gets the web-site virtual relative path, for example: /site1 if your web-site url is http://yoursite.com/site1/
 		/// </summary>
-		/// <typeparam name="T">Library extension instance to get</typeparam>
-		/// <returns>Library extension</returns>
-		public T GetView<T>()
-			where T : View
-		{
-			var type = typeof(T);
+		public virtual string SiteVirtualPath { get; internal set; }
 
-			return (T)ViewFactory.CreateView(type);
-		}
+		/// <summary>
+		/// Gets the web-site URL, for example: http://yoursite.com/site1/
+		/// </summary>
+		/// <value>
+		/// The site URL.
+		/// </value>
+		public virtual string SiteUrl { get; internal set; }
 	}
 }

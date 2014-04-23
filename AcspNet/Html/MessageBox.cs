@@ -38,7 +38,7 @@ namespace AcspNet.Html
 		/// <param name="text">Text of message box</param>
 		/// <param name="status">Status of the information</param>
 		/// <param name="title">Title of message box</param>
-		public void Show(string text, MessageBoxStatus status = MessageBoxStatus.Information, string title = "")
+		public void Show(string text, MessageBoxStatus status = MessageBoxStatus.Error, string title = "")
 		{
 			if(string.IsNullOrEmpty(text))
 				throw new ArgumentNullException("text");
@@ -76,7 +76,7 @@ namespace AcspNet.Html
 		/// <param name="stringTableItemName">Show message from string table item</param>
 		/// <param name="status">Status of the information</param>
 		/// <param name="title">Title of message box</param>
-		public void ShowSt(string stringTableItemName, MessageBoxStatus status = MessageBoxStatus.Information, string title = "")
+		public void ShowSt(string stringTableItemName, MessageBoxStatus status = MessageBoxStatus.Error, string title = "")
 		{
 			Show(_stringTable[stringTableItemName], status, title);
 		}
@@ -87,7 +87,7 @@ namespace AcspNet.Html
 		/// <param name="text">Text of message box</param>
 		/// <param name="status">Status of the information</param>
 		/// <returns>Message box html</returns>
-		public string GetInline(string text, MessageBoxStatus status = MessageBoxStatus.Information)
+		public string GetInline(string text, MessageBoxStatus status = MessageBoxStatus.Error)
 		{
 			if (string.IsNullOrEmpty(text))
 				throw new ArgumentNullException("text");
@@ -119,7 +119,7 @@ namespace AcspNet.Html
 		/// <param name="stringTableItemName">Show message from string table item</param>
 		/// <param name="status">Status of the information</param>
 		/// <returns>Message box html</returns>
-		public string GetInlineSt(string stringTableItemName, MessageBoxStatus status = MessageBoxStatus.Information)
+		public string GetInlineSt(string stringTableItemName, MessageBoxStatus status = MessageBoxStatus.Error)
 		{
 			return GetInline(_stringTable[stringTableItemName], status);
 		}

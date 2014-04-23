@@ -108,7 +108,7 @@ namespace AcspNet.Tests.Html
 			var dc = new Mock<IDataCollector>();
 
 			var mb = new MessageBox(tf.Object, st.Object, dc.Object);
-			Assert.AreEqual("Foo data", mb.GetInline("Foo data"));
+			Assert.AreEqual("Foo data", mb.GetInline("Foo data", MessageBoxStatus.Information));
 		}
 
 		[Test]

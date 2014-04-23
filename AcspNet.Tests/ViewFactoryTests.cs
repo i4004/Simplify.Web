@@ -25,19 +25,31 @@ namespace AcspNet.Tests
 
 			modulesContainer.SetupProperty(x => x.Html, htmlWrapper.Object);
 
+			var languageManager = new Mock<ILanguageManager>();
+			languageManager.SetupGet(x => x.Language).Returns("en");
+			modulesContainer.SetupProperty(x => x.LanguageManager, languageManager.Object);
+
+			var acspContext = new Mock<IAcspContext>();
+			acspContext.SetupGet(x => x.SiteUrl).Returns("foo");
+			acspContext.SetupGet(x => x.SiteVirtualPath).Returns("bar");
+			modulesContainer.SetupProperty(x => x.Context, acspContext.Object);
+
 			// Act
 
 			var factory = new ViewFactory(modulesContainer.Object);
 
-			var controller = factory.CreateView(typeof(TestView));
+			var view = factory.CreateView(typeof(TestView));
 
 			// Assert
 
-			Assert.IsNotNull(controller.StringTable);
-			Assert.IsNotNull(controller.TemplateFactory);
-			Assert.IsNotNull(controller.ViewFactory);
-			Assert.IsNotNull(controller.Html);
-			Assert.IsNotNull(controller.Html.ListsGenerator);
+			Assert.IsNotNull(view.StringTable);
+			Assert.IsNotNull(view.TemplateFactory);
+			Assert.IsNotNull(view.ViewFactory);
+			Assert.IsNotNull(view.Html);
+			Assert.IsNotNull(view.Html.ListsGenerator);
+			Assert.AreEqual("en", view.Language);
+			Assert.AreEqual("foo", view.SiteUrl);
+			Assert.AreEqual("bar", view.SiteVirtualPath);
 		}
 	}
 }

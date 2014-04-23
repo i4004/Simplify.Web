@@ -12,7 +12,8 @@ namespace AcspNet
 		private readonly string _action;
 		private readonly string _mode;
 		private readonly int _runPriority;
-		private readonly bool _runOnDefaultPage;
+		private readonly bool _isDefaultPageController;
+		private readonly bool _isAjaxRequest;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ControllerMetaContainer" /> class.
@@ -21,14 +22,16 @@ namespace AcspNet
 		/// <param name="action">The action.</param>
 		/// <param name="mode">The mode.</param>
 		/// <param name="runPriority">The run priority.</param>
-		/// <param name="runOnDefaultPage">if set to <c>true</c> then the controller will be launched only on default page.</param>
-		public ControllerMetaContainer(Type controllerType, string action, string mode, int runPriority, bool runOnDefaultPage = false)
+		/// <param name="defaultPageController">if set to <c>true</c> then the controller will be launched only on default page.</param>
+		/// <param name="isAjaxRequest">if set to <c>true</c> then indicates what controller handles ajax requests.</param>
+		public ControllerMetaContainer(Type controllerType, string action, string mode, int runPriority, bool defaultPageController = false, bool isAjaxRequest = false)
 		{
 			_controllerType = controllerType;
 			_action = action;
 			_mode = mode;
 			_runPriority = runPriority;
-			_runOnDefaultPage = runOnDefaultPage;
+			_isDefaultPageController = defaultPageController;
+			_isAjaxRequest = isAjaxRequest;
 		}
 
 		/// <summary>
@@ -81,9 +84,17 @@ namespace AcspNet
 		/// <value>
 		///   <c>true</c> if the controller will be run only on default page; otherwise, <c>false</c>.
 		/// </value>
-		public bool RunOnDefaultPage
+		public bool IsDefaultPageController
 		{
-			get { return _runOnDefaultPage; }
+			get { return _isDefaultPageController; }
+		}
+
+		/// <summary>
+		/// Gets a value indicating whether controller is handles ajax request.
+		/// </summary>
+		public bool IsAjaxRequest
+		{
+			get { return _isAjaxRequest; }
 		}
 	}
 }

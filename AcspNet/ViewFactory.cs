@@ -28,6 +28,9 @@ namespace AcspNet
 			view.Html = _sourceContainer.Html;
 
 			view.ViewFactory = this;
+			view.Language = _sourceContainer.LanguageManager.Language;
+			view.SiteUrl = _sourceContainer.Context.SiteUrl;
+			view.SiteVirtualPath = _sourceContainer.Context.SiteVirtualPath;
 
 			return view;
 		}

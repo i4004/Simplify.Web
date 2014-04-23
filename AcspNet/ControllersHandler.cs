@@ -23,20 +23,30 @@ namespace AcspNet
 		/// <summary>
 		/// Creates and invokes controllers.
 		/// </summary>
-		public void CreateAndInvokeControllers()
+		public bool CreateAndInvokeControllers()
 		{
 			var controllersMetaData = _controllersMetaStore.GetControllersMetaData();
 
 			foreach (var metaContainer in controllersMetaData)
 			{
-				if ((_currentAction == "" && _currentMode == "" && metaContainer.RunOnDefaultPage) ||
+				if ((_currentAction == "" && _currentMode == "" && metaContainer.IsDefaultPageController) ||
 					(String.Equals(metaContainer.Action, _currentAction, StringComparison.CurrentCultureIgnoreCase) &&
 					 String.Equals(metaContainer.Mode, _currentMode, StringComparison.CurrentCultureIgnoreCase)) ||
-					(metaContainer.Action == "" && !metaContainer.RunOnDefaultPage))
+					(metaContainer.Action == "" && !metaContainer.IsDefaultPageController))
 				{
-					_controllerFactory.CreateController(metaContainer.ControllerType).Invoke();
+					var controller = _controllerFactory.CreateController(metaContainer.ControllerType);
+					controller.Invoke();
+
+					if (!metaContainer.IsAjaxRequest) continue;
+
+					AjaxResult = controller.AjaxResult;
+					return true;
 				}
 			}
+
+			return false;
 		}
+
+		public string AjaxResult { get; set; }
 	}
 }

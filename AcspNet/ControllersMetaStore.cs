@@ -106,6 +106,7 @@ namespace AcspNet
 			string mode = null;
 			var priority = 0;
 			var runOnDefaultPage = false;
+			var ajaxRequest = false;
 
 			var attributes = controllerType.GetCustomAttributes(typeof(ActionAttribute), false);
 
@@ -127,7 +128,12 @@ namespace AcspNet
 			if (attributes.Length > 0)
 				runOnDefaultPage = true;
 
-			_controllersMetaContainers.Add(new ControllerMetaContainer(controllerType, action, mode, priority, runOnDefaultPage));
+			attributes = controllerType.GetCustomAttributes(typeof(AjaxAttribute), false);
+
+			if (attributes.Length > 0)
+				ajaxRequest = true;
+
+			_controllersMetaContainers.Add(new ControllerMetaContainer(controllerType, action, mode, priority, runOnDefaultPage, ajaxRequest));
 		}
 
 		private void SortControllersMetaContainers()
