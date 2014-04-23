@@ -54,25 +54,8 @@ namespace AcspNet
 		public virtual IAuthentication Authentication { get; internal set; }
 		
 		/// <summary>
-		/// Website navigation manager, controls current user location, link to previous page or link specific page
-		/// </summary>
-		public virtual INavigator Navigator { get; internal set; }
-
-
-		/// <summary>
 		/// Identifier processor that is used to parse and act on 'ID' field from request query string or form.
 		/// </summary>
 		public virtual IIdVerifier IdVerifier { get; internal set; }
-
-		///// <summary>
-		///// Current ACSP executing processor controller
-		///// </summary>
-		//public IAcspProcessorContoller ProcessorContoller { get; internal set; }
-
-
-		///// <summary>
-		///// Current ACSP executing processor controller
-		///// </summary>
-		//internal AcspProcessor Processor { get; set; }
 	}
 }

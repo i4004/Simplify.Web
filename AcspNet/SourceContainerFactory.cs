@@ -46,7 +46,6 @@ namespace AcspNet
 			container.Authentication = new Authentication(_acspContext.Session, _acspContext.Request.Cookies,
 				_acspContext.Response.Cookies);
 
-			container.Navigator = new Navigator(_acspContext.Session, _acspContext.Response);
 			container.IdVerifier = new IdVerifier(_acspContext.QueryString, _acspContext.Form, container.Html.MessageBox);
 
 			return container;

@@ -10,6 +10,9 @@ namespace AcspNet
 	/// </summary>
 	public class AcspContext : IAcspContext
 	{
+		/// <summary>
+		/// The is new session field name
+		/// </summary>
 		public const string IsNewSessionFieldName = "AcspIsNewSession";
 
 		/// <summary>

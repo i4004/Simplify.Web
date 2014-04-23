@@ -21,7 +21,7 @@
 		string SiteStyle { get; set; }
 
 		/// <summary>
-		/// Site current extensions data directory relative path
+		/// Site current data directory relative path
 		/// </summary>
 		string DataPath { get; set; }
 

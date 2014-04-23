@@ -5,6 +5,11 @@ namespace AcspNet
 	/// </summary>
 	public abstract class Controller : Container
 	{
+		/// <summary>
+		/// Website navigation manager, controls current user location, link to previous page or link specific page
+		/// </summary>
+		public virtual INavigator Navigator { get; internal set; }
+
 		internal virtual IViewFactory ViewFactory { get; set; }
 
 		/// <summary>

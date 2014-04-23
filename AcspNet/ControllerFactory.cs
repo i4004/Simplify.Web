@@ -17,6 +17,8 @@ namespace AcspNet
 		internal ControllerFactory(SourceContainer sourceContainer, IViewFactory viewFactory) : base(sourceContainer)
 		{
 			_viewFactory = viewFactory;
+
+			//container.Navigator = new Navigator(_acspContext.Session, _acspContext.Response);
 		}
 
 		/// <summary>

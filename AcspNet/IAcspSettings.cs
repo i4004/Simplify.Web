@@ -37,7 +37,7 @@
 		bool TemplatesMemoryCache { get; }
 
 		/// <summary>
-		/// Extension data directory path, for example: default value is "App_Data"
+		/// Data directory path, for example: default value is "App_Data"
 		/// </summary>
 		string DefaultDataPath { get; }
 

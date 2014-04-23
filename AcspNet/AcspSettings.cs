@@ -24,7 +24,7 @@ namespace AcspNet
 		public string DefaultLanguage { get; private set; }
 
 		/// <summary>
-		/// Extension data directory path, default value is "App_Data"
+		/// Data directory path, default value is "App_Data"
 		/// </summary>
 		public string DefaultDataPath { get; private set; }
 
