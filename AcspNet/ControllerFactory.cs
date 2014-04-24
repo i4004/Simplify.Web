@@ -37,6 +37,7 @@ namespace AcspNet
 			controller.Navigator = _sourceContainer.Navigator;
 			controller.IdVerifier = _sourceContainer.IdVerifier;
 			controller.ViewFactory = _viewFactory;
+			controller.MessagePage = _sourceContainer.MessagePage;
 
 			return controller;
 		}

@@ -64,9 +64,19 @@ namespace AcspNet
 		public virtual INavigator Navigator { get; internal set; }
 
 		/// <summary>
+		/// Gets the message page that is used to display messages to user on a separated site page.
+		/// </summary>
+		public virtual IMessagePage MessagePage { get; internal set; }
+		
+		/// <summary>
 		/// Result for ajax request response
 		/// </summary>
 		public virtual string AjaxResult { get; internal set; }
+
+		/// <summary>
+		/// Stop subsequent controllers execution and disable display data from data collector
+		/// </summary>
+		public virtual bool StopExecution { get; internal set; }
 
 		/// <summary>
 		/// Invokes the controller.

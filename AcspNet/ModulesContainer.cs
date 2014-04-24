@@ -67,5 +67,10 @@ namespace AcspNet
 		/// Various HTML generation classes
 		/// </summary>
 		public virtual IHtmlWrapper Html { get; internal set; }
+
+		/// <summary>
+		/// Gets the message page that is used to display messages to user on a separated site page.
+		/// </summary>
+		public virtual IMessagePage MessagePage { get; internal set; }
 	}
 }

@@ -60,9 +60,11 @@ namespace AcspNet
 
 			var displayer = new Displayer(sourceContainer.Context.Response);
 
-			if (controllersHandler.CreateAndInvokeControllers())
+			var result = controllersHandler.CreateAndInvokeControllers();
+
+			if(result == ControllersHandlerResult.AjaxRequest)
 				displayer.DisplayNoCache(controllersHandler.AjaxResult);
-			else
+			else if(result == ControllersHandlerResult.Ok)
 			{
 				if (acspContext.Request.Url != null)
 					sourceContainer.Navigator.PreviousPageLink = acspContext.Request.Url.AbsoluteUri;

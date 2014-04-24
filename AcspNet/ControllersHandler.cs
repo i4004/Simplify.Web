@@ -23,7 +23,7 @@ namespace AcspNet
 		/// <summary>
 		/// Creates and invokes controllers.
 		/// </summary>
-		public bool CreateAndInvokeControllers()
+		public ControllersHandlerResult CreateAndInvokeControllers()
 		{
 			var controllersMetaData = _controllersMetaStore.GetControllersMetaData();
 
@@ -37,14 +37,20 @@ namespace AcspNet
 					var controller = _controllerFactory.CreateController(metaContainer.ControllerType);
 					controller.Invoke();
 
-					if (!metaContainer.IsAjaxRequest) continue;
 
-					AjaxResult = controller.AjaxResult;
-					return true;
+					// if (HttpContext.Current.Request.HttpMethod == "POST")
+					if (metaContainer.IsAjaxRequest)
+					{
+						AjaxResult = controller.AjaxResult;
+						return ControllersHandlerResult.AjaxRequest;
+					}
+
+					if(controller.StopExecution)
+						return ControllersHandlerResult.StopExecution;
 				}
 			}
 
-			return false;
+			return ControllersHandlerResult.Ok;
 		}
 
 		public string AjaxResult { get; set; }

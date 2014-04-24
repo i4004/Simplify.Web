@@ -48,6 +48,7 @@ namespace AcspNet
 				_acspContext.Response.Cookies);
 
 			container.IdVerifier = new IdVerifier(_acspContext.QueryString, _acspContext.Form, container.MessageBox);
+			container.MessagePage = new MessagePage(container.Navigator);
 
 			return container;
 		}

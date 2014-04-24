@@ -31,6 +31,7 @@ namespace AcspNet.Tests
 			modulesContainer.SetupProperty(x => x.Authentication, new Mock<IAuthentication>().Object);
 			modulesContainer.SetupProperty(x => x.Navigator, new Mock<INavigator>().Object);
 			modulesContainer.SetupProperty(x => x.IdVerifier, new Mock<IIdVerifier>().Object);
+			modulesContainer.SetupProperty(x => x.MessagePage, new Mock<IMessagePage>().Object);
 
 			var viewFactory = new Mock<IViewFactory>();
 
@@ -54,6 +55,7 @@ namespace AcspNet.Tests
 			Assert.IsNotNull(controller.Authentication);
 			Assert.IsNotNull(controller.Navigator);
 			Assert.IsNotNull(controller.IdVerifier);
+			Assert.IsNotNull(controller.MessagePage);
 		}
 	}
 }
