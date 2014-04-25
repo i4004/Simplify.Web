@@ -24,7 +24,8 @@ namespace AcspNet
 		/// <param name="runPriority">The run priority.</param>
 		/// <param name="defaultPageController">if set to <c>true</c> then the controller will be launched only on default page.</param>
 		/// <param name="isAjaxRequest">if set to <c>true</c> then indicates what controller handles ajax requests.</param>
-		public ControllerMetaContainer(Type controllerType, string action, string mode, int runPriority, bool defaultPageController = false, bool isAjaxRequest = false)
+		public ControllerMetaContainer(Type controllerType, string action = null, string mode = null, int runPriority = 0,
+			bool defaultPageController = false, bool isAjaxRequest = false)
 		{
 			_controllerType = controllerType;
 			_action = action;

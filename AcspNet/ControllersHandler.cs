@@ -29,10 +29,10 @@ namespace AcspNet
 
 			foreach (var metaContainer in controllersMetaData)
 			{
-				if ((_currentAction == "" && _currentMode == "" && metaContainer.IsDefaultPageController) ||
+				if ((string.IsNullOrEmpty(_currentAction) && string.IsNullOrEmpty(_currentMode) && metaContainer.IsDefaultPageController) ||
 					(String.Equals(metaContainer.Action, _currentAction, StringComparison.CurrentCultureIgnoreCase) &&
 					 String.Equals(metaContainer.Mode, _currentMode, StringComparison.CurrentCultureIgnoreCase)) ||
-					(metaContainer.Action == "" && !metaContainer.IsDefaultPageController))
+					(string.IsNullOrEmpty(metaContainer.Action) && !metaContainer.IsDefaultPageController))
 				{
 					var controller = _controllerFactory.CreateController(metaContainer.ControllerType);
 					controller.Invoke();

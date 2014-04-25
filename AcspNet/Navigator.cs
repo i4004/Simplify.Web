@@ -18,7 +18,6 @@ namespace AcspNet
 		/// <param name="session">The session.</param>
 		/// <param name="response">The response.</param>
 		/// <param name="request">The request.</param>
-		/// <param name="siteVirtualPath">The site virtual path.</param>
 		internal Navigator(HttpSessionStateBase session, HttpResponseBase response, HttpRequestBase request)
 		{
 			_session = session;
