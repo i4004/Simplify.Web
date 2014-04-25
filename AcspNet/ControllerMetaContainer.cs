@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace AcspNet
 {
@@ -24,9 +25,13 @@ namespace AcspNet
 		/// <param name="runPriority">The run priority.</param>
 		/// <param name="defaultPageController">if set to <c>true</c> then the controller will be launched only on default page.</param>
 		/// <param name="isAjaxRequest">if set to <c>true</c> then indicates what controller handles ajax requests.</param>
+		/// <param name="isHttpGet">if set to <c>true</c> then indicates what controller handler only HTTP GET requests.</param>
+		/// <param name="isHttpPost">if set to <c>true</c>then indicates what controller handler only HTTP POST requests.</param>
 		public ControllerMetaContainer(Type controllerType, string action = null, string mode = null, int runPriority = 0,
-			bool defaultPageController = false, bool isAjaxRequest = false)
+			bool defaultPageController = false, bool isAjaxRequest = false, bool isHttpGet = false, bool isHttpPost = false)
 		{
+			IsHttpGet = isHttpGet;
+			IsHttpPost = isHttpPost;
 			_controllerType = controllerType;
 			_action = action;
 			_mode = mode;
@@ -97,5 +102,8 @@ namespace AcspNet
 		{
 			get { return _isAjaxRequest; }
 		}
+
+		public bool IsHttpGet { get; set; }
+		public bool IsHttpPost { get; set; }
 	}
 }

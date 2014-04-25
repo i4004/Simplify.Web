@@ -150,5 +150,35 @@ namespace AcspNet.Tests
 			factory.Verify(x => x.CreateController(It.IsAny<Type>()), Times.Exactly(1));
 			controller.Verify(x => x.Invoke(), Times.Exactly(1));
 		}
+
+		[Test]
+		public void CreateAndInvokeControllers_HttpGetOnlyController_ErrorReturned()
+		{
+			// Arrange
+
+			var controllers = new List<ControllerMetaContainer>
+			{
+				new ControllerMetaContainer(typeof (TestController), "foo", "bar", 0, false, false, true)
+			};
+
+			var controller = new Mock<Controller>();
+
+			var metaStore = new Mock<IControllersMetaStore>();
+			metaStore.Setup(x => x.GetControllersMetaData()).Returns(controllers);
+
+			var factory = new Mock<IControllerFactory>();
+			factory.Setup(x => x.CreateController(It.IsAny<Type>())).Returns(controller.Object);
+
+			// Act
+
+			var handler = new ControllersHandler(metaStore.Object, factory.Object, "foo", "bar");
+			var result = handler.CreateAndInvokeControllers();
+
+			// Assert
+
+			Assert.AreEqual(ControllersHandlerResult.Error, result);
+			factory.Verify(x => x.CreateController(It.IsAny<Type>()), Times.Never);
+			controller.Verify(x => x.Invoke(), Times.Never);
+		}
 	}
 }

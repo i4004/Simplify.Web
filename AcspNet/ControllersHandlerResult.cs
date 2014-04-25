@@ -4,6 +4,7 @@
 	{
 		Ok,
 		StopExecution,
-		AjaxRequest
+		AjaxRequest,
+		Error
 	}
 }

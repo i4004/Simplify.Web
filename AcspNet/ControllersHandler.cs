@@ -10,13 +10,15 @@ namespace AcspNet
 		private readonly IControllersMetaStore _controllersMetaStore;
 		private readonly string _currentAction;
 		private readonly string _currentMode;
+		private readonly string _httpMethod;
 		private readonly IControllerFactory _controllerFactory;
 
-		internal ControllersHandler(IControllersMetaStore controllersMetaStore, IControllerFactory controllerFactory, string currentAction, string currentMode)
+		internal ControllersHandler(IControllersMetaStore controllersMetaStore, IControllerFactory controllerFactory, string currentAction, string currentMode, string httpMethod = null)
 		{
 			_controllersMetaStore = controllersMetaStore;
 			_currentAction = currentAction;
 			_currentMode = currentMode;
+			_httpMethod = httpMethod;
 			_controllerFactory = controllerFactory;
 		}
 
@@ -34,11 +36,12 @@ namespace AcspNet
 					 String.Equals(metaContainer.Mode, _currentMode, StringComparison.CurrentCultureIgnoreCase)) ||
 					(string.IsNullOrEmpty(metaContainer.Action) && !metaContainer.IsDefaultPageController))
 				{
+					if((metaContainer.IsHttpGet && _httpMethod != "GET") || (metaContainer.IsHttpPost && _httpMethod != "POST"))
+						return ControllersHandlerResult.Error;
+
 					var controller = _controllerFactory.CreateController(metaContainer.ControllerType);
 					controller.Invoke();
-
-
-					// if (HttpContext.Current.Request.HttpMethod == "POST")
+					
 					if (metaContainer.IsAjaxRequest)
 					{
 						AjaxResult = controller.AjaxResult;

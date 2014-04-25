@@ -56,35 +56,42 @@ namespace AcspNet
 			var sourceContainer = new ModulesContainerFactory(acspContext, Settings).CreateContainer();
 			var viewFactory = new ViewFactory(sourceContainer);
 			var controllerFactory = new ControllerFactory(sourceContainer, viewFactory);
-			var controllersHandler = new ControllersHandler(ControllersMetaStore.Current, controllerFactory, acspContext.CurrentAction, acspContext.CurrentMode);
+			var controllersHandler = new ControllersHandler(ControllersMetaStore.Current, controllerFactory,
+				acspContext.CurrentAction, acspContext.CurrentMode,
+				context.Request.HttpMethod);
 
 			var displayer = new Displayer(sourceContainer.Context.Response);
 
 			var result = controllersHandler.CreateAndInvokeControllers();
 
-			if(result == ControllersHandlerResult.AjaxRequest)
-				displayer.DisplayNoCache(controllersHandler.AjaxResult);
-			else if(result == ControllersHandlerResult.Ok)
+			switch (result)
 			{
-				if (acspContext.Request.Url != null)
-					sourceContainer.Navigator.PreviousPageLink = acspContext.Request.Url.AbsoluteUri;
+				case ControllersHandlerResult.Error:
+					return;
+				case ControllersHandlerResult.AjaxRequest:
+					displayer.DisplayNoCache(controllersHandler.AjaxResult);
+					break;
+				case ControllersHandlerResult.Ok:
+					if (acspContext.Request.Url != null)
+						sourceContainer.Navigator.PreviousPageLink = acspContext.Request.Url.AbsoluteUri;
 
-				var pageBuilder = new PageBuilder(sourceContainer.Environment.MasterTemplateFileName,
-					sourceContainer.TemplateFactory);
-				var dcSetter = new DataCollectorDataSetter(sourceContainer.DataCollector);
+					var pageBuilder = new PageBuilder(sourceContainer.Environment.MasterTemplateFileName,
+						sourceContainer.TemplateFactory);
+					var dcSetter = new DataCollectorDataSetter(sourceContainer.DataCollector);
 
-				if (!Settings.DisableAutomaticSiteTitleSet)
-					dcSetter.SetSiteTitleFromStringTable(acspContext.CurrentAction, acspContext.CurrentMode);
+					if (!Settings.DisableAutomaticSiteTitleSet)
+						dcSetter.SetSiteTitleFromStringTable(acspContext.CurrentAction, acspContext.CurrentMode);
 
-				dcSetter.SetEnvironmentVariables(sourceContainer.Environment);
-				dcSetter.SetContextVariables(acspContext);
-				dcSetter.SetLanguageVariables(sourceContainer.LanguageManager.Language);
+					dcSetter.SetEnvironmentVariables(sourceContainer.Environment);
+					dcSetter.SetContextVariables(acspContext);
+					dcSetter.SetLanguageVariables(sourceContainer.LanguageManager.Language);
 
-				stopWatch.Stop();
+					stopWatch.Stop();
 
-				dcSetter.SetExecutionTimeVariable(stopWatch.Elapsed);
+					dcSetter.SetExecutionTimeVariable(stopWatch.Elapsed);
 
-				displayer.DisplayNoCache(pageBuilder.Buid(sourceContainer.DataCollector.Items));
+					displayer.DisplayNoCache(pageBuilder.Buid(sourceContainer.DataCollector.Items));
+					break;
 			}
 
 			context.Response.End();
