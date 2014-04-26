@@ -29,8 +29,8 @@ namespace AcspNet.Tests
 
 			var controllers = new List<ControllerMetaContainer>
 			{
-				new ControllerMetaContainer(typeof (TestController), null, null, 0, true),
-				new ControllerMetaContainer(typeof (TestController), "foo", "bar", 0)
+				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, 0, true)),
+				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters("foo", "bar"))
 			};
 
 			var controller = new Mock<Controller>();
@@ -60,8 +60,7 @@ namespace AcspNet.Tests
 
 			var controllers = new List<ControllerMetaContainer>
 			{
-				new ControllerMetaContainer(typeof (TestController), null, null, 0, true),
-				new ControllerMetaContainer(typeof (TestController), "foo", "bar"),
+				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, 0, true)),
 				new ControllerMetaContainer(typeof (TestController))
 			};
 
@@ -81,8 +80,8 @@ namespace AcspNet.Tests
 			// Assert
 
 			Assert.AreEqual(ControllersHandlerResult.Ok, result);
-			factory.Verify(x => x.CreateController(It.IsAny<Type>()), Times.Exactly(2));
-			controller.Verify(x => x.Invoke(), Times.Exactly(2));
+			factory.Verify(x => x.CreateController(It.IsAny<Type>()), Times.Exactly(1));
+			controller.Verify(x => x.Invoke(), Times.Exactly(1));
 		}
 
 		[Test]
@@ -92,9 +91,9 @@ namespace AcspNet.Tests
 
 			var controllers = new List<ControllerMetaContainer>
 			{
-				new ControllerMetaContainer(typeof (TestController), null, null, -1),
-				new ControllerMetaContainer(typeof (TestController), "foo", "bar", 0, false, true),
-				new ControllerMetaContainer(typeof (TestController), null, null, 1)
+				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, -1)),
+				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters("foo", "bar", 0, false, true)),
+				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, 1))
 			};
 
 			var controller = new Mock<Controller>();
@@ -126,8 +125,8 @@ namespace AcspNet.Tests
 
 			var controllers = new List<ControllerMetaContainer>
 			{
-				new ControllerMetaContainer(typeof (TestController), "foo", "bar"),
-				new ControllerMetaContainer(typeof (TestController), null, null, 1)
+				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters("foo", "bar")),
+				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, 1))
 			};
 
 			var controller = new Mock<Controller>();
@@ -158,7 +157,7 @@ namespace AcspNet.Tests
 
 			var controllers = new List<ControllerMetaContainer>
 			{
-				new ControllerMetaContainer(typeof (TestController), "foo", "bar", 0, false, false, true)
+					new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters("foo", "bar"), new ControllerSecurity(true)),
 			};
 
 			var controller = new Mock<Controller>();

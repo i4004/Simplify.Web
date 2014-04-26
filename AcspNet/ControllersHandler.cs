@@ -31,24 +31,27 @@ namespace AcspNet
 
 			foreach (var metaContainer in controllersMetaData)
 			{
-				if ((string.IsNullOrEmpty(_currentAction) && string.IsNullOrEmpty(_currentMode) && metaContainer.IsDefaultPageController) ||
-					(String.Equals(metaContainer.Action, _currentAction, StringComparison.CurrentCultureIgnoreCase) &&
-					 String.Equals(metaContainer.Mode, _currentMode, StringComparison.CurrentCultureIgnoreCase)) ||
-					(string.IsNullOrEmpty(metaContainer.Action) && !metaContainer.IsDefaultPageController))
+				if ((string.IsNullOrEmpty(_currentAction) && string.IsNullOrEmpty(_currentMode)
+					&& (metaContainer.ExecParameters == null || metaContainer.ExecParameters.IsDefaultPageController))
+					|| (metaContainer.ExecParameters != null && !metaContainer.ExecParameters.IsDefaultPageController
+					&& String.Equals(metaContainer.ExecParameters.Action, _currentAction, StringComparison.CurrentCultureIgnoreCase) &&
+					 String.Equals(metaContainer.ExecParameters.Mode, _currentMode, StringComparison.CurrentCultureIgnoreCase))
+					|| (metaContainer.ExecParameters == null || (string.IsNullOrEmpty(metaContainer.ExecParameters.Action) && !metaContainer.ExecParameters.IsDefaultPageController)))
 				{
-					if((metaContainer.IsHttpGet && _httpMethod != "GET") || (metaContainer.IsHttpPost && _httpMethod != "POST"))
+					if (metaContainer.Security != null &&
+						((metaContainer.Security.IsHttpGet && _httpMethod != "GET") || (metaContainer.Security.IsHttpPost && _httpMethod != "POST")))
 						return ControllersHandlerResult.Error;
 
 					var controller = _controllerFactory.CreateController(metaContainer.ControllerType);
 					controller.Invoke();
-					
-					if (metaContainer.IsAjaxRequest)
+
+					if (metaContainer.ExecParameters != null && metaContainer.ExecParameters.IsAjaxRequest)
 					{
 						AjaxResult = controller.AjaxResult;
 						return ControllersHandlerResult.AjaxRequest;
 					}
 
-					if(controller.StopExecution)
+					if (controller.StopExecution)
 						return ControllersHandlerResult.StopExecution;
 				}
 			}

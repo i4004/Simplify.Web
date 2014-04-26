@@ -56,6 +56,60 @@ namespace AcspNet
 			return _controllersMetaContainers.AsReadOnly();
 		}
 
+		private static ControllerExecParameters GetControllerExecPatameters(Type controllerType)
+		{
+			string action = null;
+			string mode = null;
+			var priority = 0;
+			var runOnDefaultPage = false;
+			var ajaxRequest = false;
+
+			var attributes = controllerType.GetCustomAttributes(typeof(ActionAttribute), false);
+
+			if (attributes.Length > 0)
+				action = ((ActionAttribute)attributes[0]).Action;
+
+			attributes = controllerType.GetCustomAttributes(typeof(ModeAttribute), false);
+
+			if (attributes.Length > 0)
+				mode = ((ModeAttribute)attributes[0]).Mode;
+
+			attributes = controllerType.GetCustomAttributes(typeof(PriorityAttribute), false);
+
+			if (attributes.Length > 0)
+				priority = ((PriorityAttribute)attributes[0]).Priority;
+
+			attributes = controllerType.GetCustomAttributes(typeof(DefaultPageAttribute), false);
+
+			if (attributes.Length > 0)
+				runOnDefaultPage = true;
+
+			attributes = controllerType.GetCustomAttributes(typeof(AjaxAttribute), false);
+
+			if (attributes.Length > 0)
+				ajaxRequest = true;
+
+			return new ControllerExecParameters(action, mode, priority, runOnDefaultPage, ajaxRequest);
+		}
+
+		private static ControllerSecurity GetControllerSecurity(Type controllerType)
+		{
+			var httpGet = false;
+			var httpPost = false;
+
+			var attributes = controllerType.GetCustomAttributes(typeof(ModeAttribute), false);
+
+			if (attributes.Length > 0)
+				httpGet = true;
+
+			attributes = controllerType.GetCustomAttributes(typeof(ActionAttribute), false);
+
+			if (attributes.Length > 0)
+				httpPost = true;
+			
+			return new ControllerSecurity(httpGet, httpPost);
+		}
+
 		private void CreateControllersMetaContainers(Assembly callingAssembly, bool disableAcspInternalControllers)
 		{
 			var assemblyTypes = callingAssembly.GetTypes();
@@ -102,43 +156,13 @@ namespace AcspNet
 
 		private void AddControllerMetaContainer(Type controllerType)
 		{
-			string action = null;
-			string mode = null;
-			var priority = 0;
-			var runOnDefaultPage = false;
-			var ajaxRequest = false;
-
-			var attributes = controllerType.GetCustomAttributes(typeof(ActionAttribute), false);
-
-			if (attributes.Length > 0)
-				action = ((ActionAttribute)attributes[0]).Action;
-
-			attributes = controllerType.GetCustomAttributes(typeof(ModeAttribute), false);
-
-			if (attributes.Length > 0)
-				mode = ((ModeAttribute)attributes[0]).Mode;
-
-			attributes = controllerType.GetCustomAttributes(typeof(PriorityAttribute), false);
-
-			if (attributes.Length > 0)
-				priority = ((PriorityAttribute)attributes[0]).Priority;
-
-			attributes = controllerType.GetCustomAttributes(typeof(DefaultPageAttribute), false);
-
-			if (attributes.Length > 0)
-				runOnDefaultPage = true;
-
-			attributes = controllerType.GetCustomAttributes(typeof(AjaxAttribute), false);
-
-			if (attributes.Length > 0)
-				ajaxRequest = true;
-
-			_controllersMetaContainers.Add(new ControllerMetaContainer(controllerType, action, mode, priority, runOnDefaultPage, ajaxRequest));
+			_controllersMetaContainers.Add(new ControllerMetaContainer(controllerType,
+				GetControllerExecPatameters(controllerType), GetControllerSecurity(controllerType)));
 		}
 
 		private void SortControllersMetaContainers()
 		{
-			_controllersMetaContainers = _controllersMetaContainers.OrderBy(x => x.RunPriority).ToList();
+			_controllersMetaContainers = _controllersMetaContainers.OrderBy(x => x.ExecParameters.RunPriority).ToList();
 		}
 	}
 }
