@@ -68,7 +68,7 @@ namespace AcspNet.Modules
 		{
 			PreviousNavigatedUrl = _request.RawUrl;
 
-			Redirect(string.IsNullOrEmpty(RedirectLink) ? _request.ApplicationPath : PreviousPageLink);
+			Redirect(string.IsNullOrEmpty(PreviousPageLink) ? _request.ApplicationPath : PreviousPageLink);
 		}
 
 		/// <summary>

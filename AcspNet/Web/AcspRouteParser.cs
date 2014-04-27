@@ -19,7 +19,7 @@
 			mode = null;
 			id = null;
 
-			if (string.IsNullOrEmpty(absolutePath))
+			if (string.IsNullOrEmpty(absolutePath) || absolutePath.Length <= virtualPath.Length)
 				return;
 
 			var path = absolutePath.Substring(virtualPath.Length + 1);

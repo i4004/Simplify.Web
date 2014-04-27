@@ -14,9 +14,6 @@ namespace AcspNet.Http
 		private static Lazy<IFileSystem> _fileSystemInstance = new Lazy<IFileSystem>(() => new FileSystem());
 		private static Lazy<IRequestHandler> _requestHandler = new Lazy<IRequestHandler>(() => new AcspRequestHandler());
 
-		//private static readonly object Locker = new object();
-		//private static bool _isApplicationInitialized;
-
 		/// <summary>
 		/// Gets or sets the file system.
 		/// </summary>
@@ -86,18 +83,6 @@ namespace AcspNet.Http
 		public void Init(HttpApplication application)
 		{
 			application.BeginRequest += ApplicationBeginRequest;
-
-			//if (!_isApplicationInitialized)
-			//	lock (Locker)
-			//	{
-			//		if (_isApplicationInitialized)
-			//			return;
-
-			//		//AcspRouteConfig.RegisterRoutes();
-
-			//		_isApplicationInitialized = true;
-			//	}
-
 			application.PreRequestHandlerExecute += PreRequestHandlerExecute;
 		}
 
