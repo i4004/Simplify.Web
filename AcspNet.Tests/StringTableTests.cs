@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
+using AcspNet.Modules;
 using NUnit.Framework;
 
 namespace AcspNet.Tests

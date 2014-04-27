@@ -25,6 +25,7 @@ namespace AcspNet
 
 			view.TemplateFactory = _sourceContainer.TemplateFactory;
 			view.StringTable = _sourceContainer.StringTable;
+			view.FileReader = _sourceContainer.FileReader;
 			view.Html = _sourceContainer.Html;
 
 			view.ViewFactory = this;

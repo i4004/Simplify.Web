@@ -1,5 +1,5 @@
 ﻿using System;
-using AcspNet.Identity;
+using AcspNet.Modules.Identity;
 using NUnit.Framework;
 
 namespace AcspNet.Tests.Identity

@@ -1,4 +1,5 @@
-using AcspNet.Html;
+using AcspNet.Modules;
+using AcspNet.Modules.Html;
 
 namespace AcspNet
 {
@@ -16,7 +17,12 @@ namespace AcspNet
 		/// Localizable text items string table.
 		/// </summary>
 		public virtual IStringTable StringTable { get; internal set; }
-		
+
+		/// <summary>
+		/// Text and XML files loader.
+		/// </summary>
+		public virtual IFileReader FileReader { get; internal set; }
+
 		/// <summary>
 		/// Various HTML generation classes
 		/// </summary>

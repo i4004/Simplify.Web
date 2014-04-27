@@ -1,21 +1,30 @@
-﻿using AcspNet.Tests.TestControllers;
+﻿using AcspNet.Meta;
+using AcspNet.Modules.Controllers;
+using AcspNet.Tests.TestControllers;
 using NUnit.Framework;
 
 namespace AcspNet.Tests
 {
 	[TestFixture]
-	[LoadIndividualControllers(typeof(TestController))]
-	[LoadControllersFromAssemblyOf(typeof(TestController))]
+	[IgnoreControllers(typeof(TestIgnoredController), typeof(MessagePageDisplay))]
 	public class ControllersMetaStoreTests
 	{
 		[Test]
 		public void ControllersMetaStore_Create_ControllersMetaDataLoadedCorrectly()
 		{
+			// Arrange
+
+			ControllersMetaStore.ExcludedAssembliesPrefixes.Remove("AcspNet");
+			ControllersMetaStore.ExcludedAssembliesPrefixes.Add("nunit");
+			ControllersMetaStore.ExcludedAssembliesPrefixes.Add("JetBrains");
+			ControllersMetaStore.ExcludedAssembliesPrefixes.Add("DynamicProxy");
+			ControllersMetaStore.ExcludedAssembliesPrefixes.Add("Moq");
+			ControllersMetaStore.ExcludedAssembliesPrefixes.Add("Anonymously");			
+
 			// Act
 
-			ControllersMetaStore.Current = new ControllersMetaStore();
-
-			var metaData = ControllersMetaStore.Current.GetControllersMetaData();
+			var metaStore = new ControllersMetaStore();
+			var metaData = metaStore.GetControllersMetaData();
 
 			// Assert
 
@@ -27,10 +36,13 @@ namespace AcspNet.Tests
 			Assert.AreEqual("Bar", metaData[0].ExecParameters.Mode);
 			Assert.IsFalse(metaData[0].ExecParameters.IsDefaultPageController);
 			Assert.IsFalse(metaData[0].ExecParameters.IsAjaxRequest);
+			Assert.IsTrue(metaData[0].Security.IsHttpPost);
 
 			Assert.AreEqual("TestController3", metaData[1].ControllerType.Name);
 			Assert.AreEqual(0, metaData[1].ExecParameters.RunPriority);
 			Assert.IsTrue(metaData[1].ExecParameters.IsAjaxRequest);
+			Assert.IsFalse(metaData[1].Security.IsHttpGet);
+			Assert.IsFalse(metaData[1].Security.IsHttpGet);
 
 			Assert.AreEqual("TestController", metaData[2].ControllerType.Name);
 			Assert.AreEqual(1, metaData[2].ExecParameters.RunPriority);
@@ -38,6 +50,7 @@ namespace AcspNet.Tests
 			Assert.AreEqual(null, metaData[2].ExecParameters.Mode);
 			Assert.IsTrue(metaData[2].ExecParameters.IsDefaultPageController);
 			Assert.IsFalse(metaData[2].ExecParameters.IsAjaxRequest);
+			Assert.IsTrue(metaData[2].Security.IsHttpGet);
 		}
 	}
 }

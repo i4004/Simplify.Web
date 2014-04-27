@@ -7,7 +7,7 @@ namespace AcspNet
 	/// </summary>
 	public class DependencyResolver
 	{
-		private static IDependecyResolver _dependencyResolver;
+		private static Lazy<IDependecyResolver> _dependencyResolver = new Lazy<IDependecyResolver>(() => new DefaultDependencyResolver());
 
 		/// <summary>
 		/// Gets or sets the dependency resolver fro container factory.
@@ -18,13 +18,13 @@ namespace AcspNet
 		/// <exception cref="System.ArgumentNullException">value</exception>
 		public static IDependecyResolver Current
 		{
-			get { return _dependencyResolver ?? (_dependencyResolver = new DefaultDependencyResolver()); }
+			get { return _dependencyResolver.Value; }
 			set
 			{
 				if (value == null)
 					throw new ArgumentNullException("value");
 
-				_dependencyResolver = value;
+				_dependencyResolver = new Lazy<IDependecyResolver>(() => value);
 			}
 		}		 
 	}

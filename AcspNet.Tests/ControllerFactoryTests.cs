@@ -1,5 +1,6 @@
-﻿using AcspNet.Html;
-using AcspNet.Identity;
+﻿using AcspNet.Modules;
+using AcspNet.Modules.Html;
+using AcspNet.Modules.Identity;
 using AcspNet.Tests.TestControllers;
 using Moq;
 using NUnit.Framework;

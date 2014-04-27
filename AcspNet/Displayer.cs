@@ -6,7 +6,7 @@ namespace AcspNet
 	/// <summary>
 	/// Displays web-site
 	/// </summary>
-	public class Displayer : IDisplayer
+	public class Displayer
 	{
 		private readonly HttpResponseBase _httpResponse;
 

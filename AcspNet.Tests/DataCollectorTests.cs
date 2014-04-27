@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using AcspNet.Modules;
+using Moq;
 using NUnit.Framework;
 using Simplify.Templates;
 

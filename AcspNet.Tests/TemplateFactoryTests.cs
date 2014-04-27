@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
+using AcspNet.Modules;
 using Moq;
 using NUnit.Framework;
 using Simplify.Templates;

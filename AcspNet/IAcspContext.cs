@@ -40,11 +40,6 @@ namespace AcspNet
 		NameValueCollection Form { get; }
 
 		/// <summary>
-		/// Gets the route data.
-		/// </summary>
-		RouteData RouteData { get; }
-
-		/// <summary>
 		/// Indicating whether session was created with the current request
 		/// </summary>
 		bool IsNewSession { get; }

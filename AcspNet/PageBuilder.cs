@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using AcspNet.Modules;
 
 namespace AcspNet
 {
 	/// <summary>
 	/// Builds (combines) web-site page HTML code
 	/// </summary>
-	public class PageBuilder : IPageBuilder
+	public class PageBuilder
 	{
 		private readonly string _masterTemplateFileName;
 		private readonly ITemplateFactory _templateFactory;

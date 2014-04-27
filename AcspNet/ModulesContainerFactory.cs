@@ -1,5 +1,6 @@
-﻿using AcspNet.Html;
-using AcspNet.Identity;
+﻿using AcspNet.Modules;
+using AcspNet.Modules.Html;
+using AcspNet.Modules.Identity;
 
 namespace AcspNet
 {
@@ -49,6 +50,7 @@ namespace AcspNet
 
 			container.IdVerifier = new IdVerifier(_acspContext.QueryString, _acspContext.Form, container.MessageBox);
 			container.MessagePage = new MessagePage(container.Navigator, _acspContext.Session);
+			container.Navigator = new Navigator(_acspContext.Session, _acspContext.Response, _acspContext.Request);
 
 			return container;
 		}

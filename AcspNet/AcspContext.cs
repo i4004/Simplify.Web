@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Web;
-using System.Web.Routing;
+using AcspNet.Web;
 
 namespace AcspNet
 {
@@ -18,11 +18,9 @@ namespace AcspNet
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AcspContext" /> class.
 		/// </summary>
-		/// <param name="routeData">The current page route data.</param>
 		/// <param name="httpContext">The HTTP context.</param>
-		internal AcspContext(RouteData routeData, HttpContextBase httpContext)
+		internal AcspContext(HttpContextBase httpContext)
 		{
-			RouteData = routeData;
 			HttpContext = httpContext;
 			Request = HttpContext.Request;
 			Response = HttpContext.Response;
@@ -30,23 +28,16 @@ namespace AcspNet
 			QueryString = Request.QueryString;
 			Form = Request.Form;
 
-			CalculateCurrentAction();
-			CalculateCurrentMode();
-			CalculateCurrentID();
 			CalculateSitePhysicalPath();
 			CalculateSiteVirualPath();
 			CalculateSiteUrl();
+			CalculateRequestParameters();
 
 			if (Session == null || Session[IsNewSessionFieldName] != null) return;
 
 			Session.Add(IsNewSessionFieldName, "false");
 			IsNewSession = true;
 		}
-
-		/// <summary>
-		/// Gets the route data.
-		/// </summary>
-		public RouteData RouteData { get; private set; }
 
 		/// <summary>
 		/// Indicating whether session was created with the current request
@@ -147,39 +138,28 @@ namespace AcspNet
 			return url;
 		}
 
-		private void CalculateCurrentAction()
+		private void CalculateRequestParameters()
 		{
-			string action;
+			string action = null;
+			string mode = null;
+			string id = null;
 
-			if (RouteData != null && RouteData.Values.ContainsKey("action"))
-				action = (string)RouteData.Values["action"];
-			else
+			if (Request.Url != null)
+			{
+				AcspRouteParser.ParseRoute(Request.Url.AbsolutePath, SiteVirtualPath, out action, out mode, out id);
+			}
+
+			if(string.IsNullOrEmpty(action))
 				action = Request.QueryString["act"];
 
-			CurrentAction = action;
-		}
-
-		private void CalculateCurrentMode()
-		{
-			string mode;
-
-			if (RouteData != null && RouteData.Values.ContainsKey("mode"))
-				mode = (string)RouteData.Values["mode"];
-			else
+			if (string.IsNullOrEmpty(mode))
 				mode = Request.QueryString["mode"];
 
-			CurrentMode = mode;
-		}
-
-		private void CalculateCurrentID()
-		{
-			string id;
-
-			if (RouteData != null && RouteData.Values.ContainsKey("id"))
-				id = (string)RouteData.Values["id"];
-			else
+			if (string.IsNullOrEmpty(id))
 				id = Request.QueryString["id"];
 
+			CurrentAction = action;
+			CurrentMode = mode;
 			CurrentID = id;
 		}
 

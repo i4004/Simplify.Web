@@ -1,5 +1,6 @@
-﻿using AcspNet.Html;
-using AcspNet.Identity;
+﻿using AcspNet.Modules;
+using AcspNet.Modules.Html;
+using AcspNet.Modules.Identity;
 
 namespace AcspNet
 {
@@ -57,7 +58,7 @@ namespace AcspNet
 		/// Localizable text items string table.
 		/// </summary>
 		public virtual IStringTable StringTable { get; internal set; }
-		
+
 		/// <summary>
 		/// The HTML message box.
 		/// </summary>

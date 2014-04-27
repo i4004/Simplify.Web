@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AcspNet.Meta;
 using AcspNet.Tests.TestControllers;
 using Moq;
 using NUnit.Framework;

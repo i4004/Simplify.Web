@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using AcspNet.Modules;
+using NUnit.Framework;
 
 namespace AcspNet.Tests
 {

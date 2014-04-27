@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web;
+using AcspNet.Modules;
 using NUnit.Framework;
 
 namespace AcspNet.Tests

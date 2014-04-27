@@ -1,4 +1,5 @@
-﻿using AcspNet.Html;
+﻿using AcspNet.Modules;
+using AcspNet.Modules.Html;
 using Moq;
 using NUnit.Framework;
 

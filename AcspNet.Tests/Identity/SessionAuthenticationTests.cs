@@ -1,5 +1,5 @@
 ﻿using System.Web;
-using AcspNet.Identity;
+using AcspNet.Modules.Identity;
 using Moq;
 using NUnit.Framework;
 
