@@ -32,32 +32,75 @@ namespace AcspNet
 
 			foreach (var metaContainer in controllersMetaData)
 			{
-				if ((string.IsNullOrEmpty(_currentAction) && string.IsNullOrEmpty(_currentMode)
-					&& (metaContainer.ExecParameters == null || metaContainer.ExecParameters.IsDefaultPageController))
-					|| (metaContainer.ExecParameters != null && !metaContainer.ExecParameters.IsDefaultPageController
-					&& String.Equals(metaContainer.ExecParameters.Action, _currentAction, StringComparison.CurrentCultureIgnoreCase) &&
-					 String.Equals(metaContainer.ExecParameters.Mode, _currentMode, StringComparison.CurrentCultureIgnoreCase))
-					|| (metaContainer.ExecParameters == null || (string.IsNullOrEmpty(metaContainer.ExecParameters.Action) && !metaContainer.ExecParameters.IsDefaultPageController)))
+				if (!CheckExecRules(metaContainer)) continue;
+
+				if(!CheckSecurityRules(metaContainer))
+					return ControllersHandlerResult.Error;
+
+				var controller = _controllerFactory.CreateController(metaContainer.ControllerType);
+				controller.Invoke();
+
+				if (metaContainer.ExecParameters != null && metaContainer.ExecParameters.IsAjaxRequest)
 				{
-					if (metaContainer.Security != null &&
-						((metaContainer.Security.IsHttpGet && _httpMethod != "GET") || (metaContainer.Security.IsHttpPost && _httpMethod != "POST")))
-						return ControllersHandlerResult.Error;
-
-					var controller = _controllerFactory.CreateController(metaContainer.ControllerType);
-					controller.Invoke();
-
-					if (metaContainer.ExecParameters != null && metaContainer.ExecParameters.IsAjaxRequest)
-					{
-						AjaxResult = controller.AjaxResult;
-						return ControllersHandlerResult.AjaxRequest;
-					}
-
-					if (controller.StopExecution)
-						return ControllersHandlerResult.StopExecution;
+					AjaxResult = controller.AjaxResult;
+					return ControllersHandlerResult.AjaxRequest;
 				}
+
+				if (controller.StopExecution)
+					return ControllersHandlerResult.StopExecution;
 			}
 
 			return ControllersHandlerResult.Ok;
+		}
+
+		private bool CheckExecRules(ControllerMetaContainer metaContainer)
+		{
+			// Is default page
+			if (string.IsNullOrEmpty(_currentAction) && string.IsNullOrEmpty(_currentMode))
+			{
+				// Is any page controller
+				if (metaContainer.ExecParameters == null)
+					return true;
+
+				// Is Default page controller
+				if (metaContainer.ExecParameters.IsDefaultPageController)
+					return true;
+			}
+			else
+			{
+				// Is any page controller
+				if (metaContainer.ExecParameters == null)
+					return true;
+
+				if (!metaContainer.ExecParameters.IsDefaultPageController)
+				{
+					// Is any page controller
+					if (string.IsNullOrEmpty(metaContainer.ExecParameters.Action))
+						return true;
+
+					// Is exact action mode controller and not default page controller
+					if (String.Equals(metaContainer.ExecParameters.Action, _currentAction, StringComparison.CurrentCultureIgnoreCase) &&
+					String.Equals(metaContainer.ExecParameters.Mode, _currentMode, StringComparison.CurrentCultureIgnoreCase))
+						return true;
+				}
+			}
+
+			return false;
+		}
+
+		private bool CheckSecurityRules(ControllerMetaContainer metaContainer)
+		{
+			// If there is no security
+			if (metaContainer.Security == null)
+				return true;
+
+			if (metaContainer.Security.IsHttpGet && _httpMethod != "GET")
+				return false;
+
+			if (metaContainer.Security.IsHttpPost && _httpMethod != "POST")
+				return false;
+
+			return true;
 		}
 
 		public string AjaxResult { get; set; }
