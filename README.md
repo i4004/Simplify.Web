@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/i4004/acspnet.png?label=ready&title=Ready)](https://waffle.io/i4004/acspnet)
 ![ACSP .NET](https://raw.github.com/i4004/AcspNet/master/Images/Icon128x128.png)
 ### For examples see: https://github.com/i4004/AcspNet.Examples
 
