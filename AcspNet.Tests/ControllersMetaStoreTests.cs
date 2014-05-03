@@ -37,12 +37,13 @@ namespace AcspNet.Tests
 			Assert.IsFalse(metaData[0].ExecParameters.IsDefaultPageController);
 			Assert.IsFalse(metaData[0].ExecParameters.IsAjaxRequest);
 			Assert.IsTrue(metaData[0].Security.IsHttpPost);
+			Assert.IsNull(metaData[0].Role);
 
 			Assert.AreEqual("TestController3", metaData[1].ControllerType.Name);
 			Assert.AreEqual(0, metaData[1].ExecParameters.RunPriority);
 			Assert.IsTrue(metaData[1].ExecParameters.IsAjaxRequest);
-			Assert.IsFalse(metaData[1].Security.IsHttpGet);
-			Assert.IsFalse(metaData[1].Security.IsHttpGet);
+			Assert.IsTrue(metaData[1].Role.Is403Handler);
+			Assert.IsTrue(metaData[1].Role.Is404Handler);
 
 			Assert.AreEqual("TestController", metaData[2].ControllerType.Name);
 			Assert.AreEqual(1, metaData[2].ExecParameters.RunPriority);
@@ -51,6 +52,7 @@ namespace AcspNet.Tests
 			Assert.IsTrue(metaData[2].ExecParameters.IsDefaultPageController);
 			Assert.IsFalse(metaData[2].ExecParameters.IsAjaxRequest);
 			Assert.IsTrue(metaData[2].Security.IsHttpGet);
+			Assert.IsNull(metaData[2].Role);
 		}
 	}
 }

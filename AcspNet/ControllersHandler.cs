@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Linq;
 using AcspNet.Meta;
 
@@ -32,11 +33,11 @@ namespace AcspNet
 			var controllersMetaData = _controllersMetaStore.GetControllersMetaData();
 
 			var currentPageControllers = controllersMetaData.Where(IsCurrentPageController);
+			//var preControllers = controllersMetaData.Where();
+			//var postControllers = controllersMetaData.Where();
 
-			if (!currentPageControllers.Any())
-			{
-				
-			}
+			//var noCurrentPageControllers = !currentPageControllers.Any();
+			//var controller404 = controllersMetaData.Where(x => x.ExecParameters != null && x.ExecParameters.Is404Handler);
 
 			//foreach (var metaContainer in controllersMetaData)
 			//{
@@ -58,7 +59,7 @@ namespace AcspNet
 			//		return ControllersHandlerResult.StopExecution;
 			//}
 
-			//return ControllersHandlerResult.Ok;
+			return ControllersHandlerResult.Ok;
 		}
 
 		private bool IsCurrentPageController(ControllerMetaContainer metaContainer)
@@ -83,6 +84,11 @@ namespace AcspNet
 
 			return false;			
 		}
+
+		//private bool IsHttpHandlerController(ControllerMetaContainer metaContainer)
+		//{
+		//	return (metaContainer.ExecParameters != null && metaContainer.ExecParameters.Is404Handler);
+		//}
 
 		//private bool CheckExecRules(ControllerMetaContainer metaContainer)
 		//{

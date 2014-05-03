@@ -184,34 +184,34 @@ namespace AcspNet.Tests
 		[Test]
 		public void CreateAndInvokeControllers_NoPage_404PagesCalled()
 		{
-			// Arrange
+		//	// Arrange
 
-			var controllers = new List<ControllerMetaContainer>
-			{
-				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, -1)),
-				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, 0, false, false, true)),
-				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, 0, false, false, true)),
-				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, 1))
-			};
+		//	var controllers = new List<ControllerMetaContainer>
+		//	{
+		//		new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, -1)),
+		//		new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, 0, false, false, true)),
+		//		new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, 0, false, false, true)),
+		//		new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, 1))
+		//	};
 
-			var controller = new Mock<Controller>();
+		//	var controller = new Mock<Controller>();
 
-			var metaStore = new Mock<IControllersMetaStore>();
-			metaStore.Setup(x => x.GetControllersMetaData()).Returns(controllers);
+		//	var metaStore = new Mock<IControllersMetaStore>();
+		//	metaStore.Setup(x => x.GetControllersMetaData()).Returns(controllers);
 
-			var factory = new Mock<IControllerFactory>();
-			factory.Setup(x => x.CreateController(It.IsAny<Type>())).Returns(controller.Object);
+		//	var factory = new Mock<IControllerFactory>();
+		//	factory.Setup(x => x.CreateController(It.IsAny<Type>())).Returns(controller.Object);
 
-			// Act
+		//	// Act
 
-			var handler = new ControllersHandler(metaStore.Object, factory.Object, "foo", "bar");
-			var result = handler.Execute();
+		//	var handler = new ControllersHandler(metaStore.Object, factory.Object, "foo", "bar");
+		//	var result = handler.Execute();
 
-			// Assert
+		//	// Assert
 
-			Assert.AreEqual(ControllersHandlerResult.Ok, result);
-			factory.Verify(x => x.CreateController(It.IsAny<Type>()), Times.Exactly(4));
-			controller.Verify(x => x.Invoke(), Times.Exactly(4));
+		//	Assert.AreEqual(ControllersHandlerResult.Ok, result);
+		//	factory.Verify(x => x.CreateController(It.IsAny<Type>()), Times.Exactly(4));
+		//	controller.Verify(x => x.Invoke(), Times.Exactly(4));
 		}
 	}
 }

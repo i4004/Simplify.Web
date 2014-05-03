@@ -10,16 +10,14 @@
 		/// <param name="execPriority">The execution priority.</param>
 		/// <param name="defaultPageController">if set to <c>true</c> then the controller will be launched only on default page.</param>
 		/// <param name="isAjaxRequest">if set to <c>true</c> then indicates what controller handles ajax requests.</param>
-		/// <param name="is404Handler">if set to <c>true</c> then indicates what contoller handlers 404 page.</param>
 		public ControllerExecParameters(string action = null, string mode = null, int execPriority = 0,
-			bool defaultPageController = false, bool isAjaxRequest = false, bool is404Handler = false)
+			bool defaultPageController = false, bool isAjaxRequest = false)
 		{
 			Action = action;
 			Mode = mode;
 			RunPriority = execPriority;
 			IsDefaultPageController = defaultPageController;
 			IsAjaxRequest = isAjaxRequest;
-			Is404Handler = is404Handler;
 		}
 
 		/// <summary>
@@ -58,7 +56,5 @@
 		/// Gets a value indicating whether controller is handles ajax request.
 		/// </summary>
 		public bool IsAjaxRequest { get; private set; }
-
-		public bool Is404Handler { get; set; }
 	}
 }

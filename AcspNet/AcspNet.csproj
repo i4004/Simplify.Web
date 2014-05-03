@@ -125,10 +125,12 @@
     <Compile Include="DependencyResolver.cs" />
     <Compile Include="Displayer.cs" />
     <Compile Include="EventDependencyResolver.cs" />
+    <Compile Include="Http403Attribute.cs" />
     <Compile Include="Http404Attribute.cs" />
     <Compile Include="HttpGetAttribute.cs" />
     <Compile Include="HttpPostAttribute.cs" />
     <Compile Include="Http\IRequestHandler.cs" />
+    <Compile Include="Meta\ControllerRole.cs" />
     <Compile Include="Modules\Controllers\MessagePageDisplay.cs" />
     <Compile Include="Modules\DataCollector.cs" />
     <Compile Include="Modules\DataCollectorDataSetter.cs" />
@@ -246,7 +248,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

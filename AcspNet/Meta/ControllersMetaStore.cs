@@ -76,7 +76,9 @@ namespace AcspNet.Meta
 			if (attributes.Length > 0)
 				ajaxRequest = true;
 
-			return new ControllerExecParameters(action, mode, priority, runOnDefaultPage, ajaxRequest);
+			return !string.IsNullOrEmpty(action) || priority != 0 || runOnDefaultPage || ajaxRequest
+				? new ControllerExecParameters(action, mode, priority, runOnDefaultPage, ajaxRequest)
+				: null;
 		}
 
 		private static ControllerSecurity GetControllerSecurity(Type controllerType)
@@ -94,7 +96,25 @@ namespace AcspNet.Meta
 			if (attributes.Length > 0)
 				httpPost = true;
 
-			return new ControllerSecurity(httpGet, httpPost);
+			return httpGet || httpPost ? new ControllerSecurity(httpGet, httpPost) : null;
+		}
+
+		private static ControllerRole GetControllerRole(Type controllerType)
+		{
+			var http403 = false;
+			var http404 = false;
+
+			var attributes = controllerType.GetCustomAttributes(typeof(Http403Attribute), false);
+
+			if (attributes.Length > 0)
+				http403 = true;
+
+			attributes = controllerType.GetCustomAttributes(typeof(Http404Attribute), false);
+
+			if (attributes.Length > 0)
+				http404 = true;
+
+			return http403 || http404 ? new ControllerRole(http403, http404) : null;
 		}
 
 		private void CreateControllersMetaContainers(IEnumerable<Assembly> assemblies, bool disableAcspInternalControllers)
@@ -139,7 +159,7 @@ namespace AcspNet.Meta
 		private void AddControllerMetaContainer(Type controllerType)
 		{
 			_controllersMetaContainers.Add(new ControllerMetaContainer(controllerType,
-				GetControllerExecPatameters(controllerType), GetControllerSecurity(controllerType)));
+				GetControllerExecPatameters(controllerType), GetControllerSecurity(controllerType), GetControllerRole(controllerType)));
 		}
 
 		private void SortControllersMetaContainers()
