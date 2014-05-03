@@ -87,7 +87,7 @@ namespace AcspNet.Http
 			var controllersHandler = new ControllersHandler(MetaStore, controllerFactory,
 				acspContext.CurrentAction, acspContext.CurrentMode, context.Request.HttpMethod);
 
-			var result = controllersHandler.CreateAndInvokeControllers();
+			var result = controllersHandler.Execute();
 
 			switch (result)
 			{

@@ -20,7 +20,7 @@ namespace AcspNet.Tests
 			var handler = new ControllersHandler(metaStore.Object, null, null, null);
 
 			// Assert
-			Assert.AreEqual(ControllersHandlerResult.Ok, handler.CreateAndInvokeControllers());
+			Assert.AreEqual(ControllersHandlerResult.Ok, handler.Execute());
 		}
 
 		[Test]
@@ -45,7 +45,7 @@ namespace AcspNet.Tests
 			// Act
 
 			var handler = new ControllersHandler(metaStore.Object, factory.Object, null, null);
-			var result = handler.CreateAndInvokeControllers();
+			var result = handler.Execute();
 
 			// Assert
 
@@ -76,7 +76,7 @@ namespace AcspNet.Tests
 			// Act
 
 			var handler = new ControllersHandler(metaStore.Object, factory.Object, "foo", "bar");
-			var result = handler.CreateAndInvokeControllers();
+			var result = handler.Execute();
 
 			// Assert
 
@@ -109,7 +109,7 @@ namespace AcspNet.Tests
 			// Act
 
 			var handler = new ControllersHandler(metaStore.Object, factory.Object, "foo", "bar");
-			var result = handler.CreateAndInvokeControllers();
+			var result = handler.Execute();
 
 			// Assert
 
@@ -142,7 +142,7 @@ namespace AcspNet.Tests
 			// Act
 
 			var handler = new ControllersHandler(metaStore.Object, factory.Object, "foo", "bar");
-			var result = handler.CreateAndInvokeControllers();
+			var result = handler.Execute();
 
 			// Assert
 
@@ -172,7 +172,7 @@ namespace AcspNet.Tests
 			// Act
 
 			var handler = new ControllersHandler(metaStore.Object, factory.Object, "foo", "bar");
-			var result = handler.CreateAndInvokeControllers();
+			var result = handler.Execute();
 
 			// Assert
 
@@ -182,15 +182,15 @@ namespace AcspNet.Tests
 		}
 
 		[Test]
-		public void CreateAndInvokeControllers_NoPage_404PageCalled()
+		public void CreateAndInvokeControllers_NoPage_404PagesCalled()
 		{
 			// Arrange
 
 			var controllers = new List<ControllerMetaContainer>
 			{
 				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, -1)),
-				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters("foo", "bar"),
-					new ControllerSecurity(true)),
+				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, 0, false, false, true)),
+				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, 0, false, false, true)),
 				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, 1))
 			};
 
@@ -205,13 +205,13 @@ namespace AcspNet.Tests
 			// Act
 
 			var handler = new ControllersHandler(metaStore.Object, factory.Object, "foo", "bar");
-			var result = handler.CreateAndInvokeControllers();
+			var result = handler.Execute();
 
 			// Assert
 
-			Assert.AreEqual(ControllersHandlerResult.Error, result);
-			factory.Verify(x => x.CreateController(It.IsAny<Type>()), Times.Never);
-			controller.Verify(x => x.Invoke(), Times.Never);
+			Assert.AreEqual(ControllersHandlerResult.Ok, result);
+			factory.Verify(x => x.CreateController(It.IsAny<Type>()), Times.Exactly(4));
+			controller.Verify(x => x.Invoke(), Times.Exactly(4));
 		}
 	}
 }

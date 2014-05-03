@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AcspNet.Meta;
 
 namespace AcspNet
@@ -26,58 +27,53 @@ namespace AcspNet
 		/// <summary>
 		/// Creates and invokes controllers.
 		/// </summary>
-		public ControllersHandlerResult CreateAndInvokeControllers()
+		public ControllersHandlerResult Execute()
 		{
 			var controllersMetaData = _controllersMetaStore.GetControllersMetaData();
 
-			foreach (var metaContainer in controllersMetaData)
+			var currentPageControllers = controllersMetaData.Where(IsCurrentPageController);
+
+			if (!currentPageControllers.Any())
 			{
-				if (!CheckExecRules(metaContainer)) continue;
-
-				if(!CheckSecurityRules(metaContainer))
-					return ControllersHandlerResult.Error;
-
-				var controller = _controllerFactory.CreateController(metaContainer.ControllerType);
-				controller.Invoke();
-
-				if (metaContainer.ExecParameters != null && metaContainer.ExecParameters.IsAjaxRequest)
-				{
-					AjaxResult = controller.AjaxResult;
-					return ControllersHandlerResult.AjaxRequest;
-				}
-
-				if (controller.StopExecution)
-					return ControllersHandlerResult.StopExecution;
+				
 			}
 
-			return ControllersHandlerResult.Ok;
+			//foreach (var metaContainer in controllersMetaData)
+			//{
+			//	if (!CheckExecRules(metaContainer)) continue;
+
+			//	if(!CheckSecurityRules(metaContainer))
+			//		return ControllersHandlerResult.Error;
+
+			//	var controller = _controllerFactory.CreateController(metaContainer.ControllerType);
+			//	controller.Invoke();
+
+			//	if (metaContainer.ExecParameters != null && metaContainer.ExecParameters.IsAjaxRequest)
+			//	{
+			//		AjaxResult = controller.AjaxResult;
+			//		return ControllersHandlerResult.AjaxRequest;
+			//	}
+
+			//	if (controller.StopExecution)
+			//		return ControllersHandlerResult.StopExecution;
+			//}
+
+			//return ControllersHandlerResult.Ok;
 		}
 
-		private bool CheckExecRules(ControllerMetaContainer metaContainer)
+		private bool IsCurrentPageController(ControllerMetaContainer metaContainer)
 		{
 			// Is default page
 			if (string.IsNullOrEmpty(_currentAction) && string.IsNullOrEmpty(_currentMode))
 			{
-				// Is any page controller
-				if (metaContainer.ExecParameters == null)
-					return true;
-
 				// Is Default page controller
 				if (metaContainer.ExecParameters.IsDefaultPageController)
 					return true;
 			}
 			else
 			{
-				// Is any page controller
-				if (metaContainer.ExecParameters == null)
-					return true;
-
 				if (!metaContainer.ExecParameters.IsDefaultPageController)
 				{
-					// Is any page controller
-					if (string.IsNullOrEmpty(metaContainer.ExecParameters.Action))
-						return true;
-
 					// Is exact action mode controller and not default page controller
 					if (String.Equals(metaContainer.ExecParameters.Action, _currentAction, StringComparison.CurrentCultureIgnoreCase) &&
 					String.Equals(metaContainer.ExecParameters.Mode, _currentMode, StringComparison.CurrentCultureIgnoreCase))
@@ -85,8 +81,43 @@ namespace AcspNet
 				}
 			}
 
-			return false;
+			return false;			
 		}
+
+		//private bool CheckExecRules(ControllerMetaContainer metaContainer)
+		//{
+		//	// Is default page
+		//	if (string.IsNullOrEmpty(_currentAction) && string.IsNullOrEmpty(_currentMode))
+		//	{
+		//		// Is any page controller
+		//		if (metaContainer.ExecParameters == null)
+		//			return true;
+
+		//		// Is Default page controller
+		//		if (metaContainer.ExecParameters.IsDefaultPageController)
+		//			return true;
+		//	}
+		//	else
+		//	{
+		//		// Is any page controller
+		//		if (metaContainer.ExecParameters == null)
+		//			return true;
+
+		//		if (!metaContainer.ExecParameters.IsDefaultPageController)
+		//		{
+		//			// Is any page controller
+		//			if (string.IsNullOrEmpty(metaContainer.ExecParameters.Action))
+		//				return true;
+
+		//			// Is exact action mode controller and not default page controller
+		//			if (String.Equals(metaContainer.ExecParameters.Action, _currentAction, StringComparison.CurrentCultureIgnoreCase) &&
+		//			String.Equals(metaContainer.ExecParameters.Mode, _currentMode, StringComparison.CurrentCultureIgnoreCase))
+		//				return true;
+		//		}
+		//	}
+
+		//	return false;
+		//}
 
 		private bool CheckSecurityRules(ControllerMetaContainer metaContainer)
 		{
