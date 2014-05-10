@@ -3,7 +3,7 @@ using AcspNet.Modules.Identity;
 using Moq;
 using NUnit.Framework;
 
-namespace AcspNet.Tests.Identity
+namespace AcspNet.Tests.Modules.Identity
 {
 	[TestFixture]
 	public class SessionAuthenticationTests

@@ -5,7 +5,7 @@ using Moq;
 using NUnit.Framework;
 using Simplify.Templates;
 
-namespace AcspNet.Tests.Html
+namespace AcspNet.Tests.Modules.Html
 {
 	[TestFixture]
 	public class MessageBoxTests

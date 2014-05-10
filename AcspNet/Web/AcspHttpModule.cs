@@ -4,7 +4,7 @@ using System.Web;
 using System.Web.SessionState;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
-namespace AcspNet.Http
+namespace AcspNet.Web
 {
 	/// <summary>
 	/// AcspNet HTTP module

@@ -1,6 +1,6 @@
 ﻿using System.Web;
 
-namespace AcspNet.Http
+namespace AcspNet.Web
 {
 	/// <summary>
 	/// Provides HTTP request handler

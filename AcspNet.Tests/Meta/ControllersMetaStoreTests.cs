@@ -3,7 +3,7 @@ using AcspNet.Modules.Controllers;
 using AcspNet.Tests.TestControllers;
 using NUnit.Framework;
 
-namespace AcspNet.Tests
+namespace AcspNet.Tests.Meta
 {
 	[TestFixture]
 	[IgnoreControllers(typeof(TestIgnoredController), typeof(MessagePageDisplay))]
@@ -35,13 +35,14 @@ namespace AcspNet.Tests
 			Assert.AreEqual("Foo", metaData[0].ExecParameters.Action);
 			Assert.AreEqual("Bar", metaData[0].ExecParameters.Mode);
 			Assert.IsFalse(metaData[0].ExecParameters.IsDefaultPageController);
-			Assert.IsFalse(metaData[0].ExecParameters.IsAjaxRequest);
+			Assert.IsFalse(metaData[0].ExecParameters.IsAjax);
 			Assert.IsTrue(metaData[0].Security.IsHttpPost);
 			Assert.IsNull(metaData[0].Role);
 
 			Assert.AreEqual("TestController3", metaData[1].ControllerType.Name);
 			Assert.AreEqual(0, metaData[1].ExecParameters.RunPriority);
-			Assert.IsTrue(metaData[1].ExecParameters.IsAjaxRequest);
+			Assert.IsTrue(metaData[1].ExecParameters.IsAjax);
+			Assert.IsTrue(metaData[1].Role.Is400Handler);
 			Assert.IsTrue(metaData[1].Role.Is403Handler);
 			Assert.IsTrue(metaData[1].Role.Is404Handler);
 
@@ -50,7 +51,7 @@ namespace AcspNet.Tests
 			Assert.AreEqual(null, metaData[2].ExecParameters.Action);
 			Assert.AreEqual(null, metaData[2].ExecParameters.Mode);
 			Assert.IsTrue(metaData[2].ExecParameters.IsDefaultPageController);
-			Assert.IsFalse(metaData[2].ExecParameters.IsAjaxRequest);
+			Assert.IsFalse(metaData[2].ExecParameters.IsAjax);
 			Assert.IsTrue(metaData[2].Security.IsHttpGet);
 			Assert.IsNull(metaData[2].Role);
 		}

@@ -5,7 +5,7 @@ using Moq;
 using NUnit.Framework;
 using Simplify.Core;
 
-namespace AcspNet.Tests.Identity
+namespace AcspNet.Tests.Modules.Identity
 {
 	[TestFixture]
 	public class CookieAuthenticationTests

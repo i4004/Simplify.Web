@@ -1,5 +1,5 @@
 ﻿using System;
-using System.CodeDom;
+using System.Collections.Generic;
 using System.Linq;
 using AcspNet.Meta;
 
@@ -10,60 +10,112 @@ namespace AcspNet
 	/// </summary>
 	public class ControllersHandler
 	{
-		private readonly IControllersMetaStore _controllersMetaStore;
 		private readonly string _currentAction;
 		private readonly string _currentMode;
 		private readonly string _httpMethod;
 		private readonly IControllerFactory _controllerFactory;
 
+		private readonly IList<ControllerMetaContainer> _controllersMetaData;
+
 		internal ControllersHandler(IControllersMetaStore controllersMetaStore, IControllerFactory controllerFactory, string currentAction, string currentMode, string httpMethod = null)
 		{
-			_controllersMetaStore = controllersMetaStore;
 			_currentAction = currentAction;
 			_currentMode = currentMode;
 			_httpMethod = httpMethod;
 			_controllerFactory = controllerFactory;
+
+			_controllersMetaData = controllersMetaStore.GetControllersMetaData();
 		}
+
+		public string AjaxResult { get; set; }
 
 		/// <summary>
 		/// Creates and invokes controllers.
 		/// </summary>
 		public ControllersHandlerResult Execute()
 		{
-			var controllersMetaData = _controllersMetaStore.GetControllersMetaData();
+			var isAnyCurrentPageControllerCalled = false;
+			var securityControllerCalled = false;
 
-			var currentPageControllers = controllersMetaData.Where(IsCurrentPageController);
-			//var preControllers = controllersMetaData.Where();
-			//var postControllers = controllersMetaData.Where();
+			foreach (var metaContainer in FilterForStandardControllers().Where(ControllerCanBeExecutedOnCurrentPage))
+			{
+				var isCurrentPageController = false;
 
-			//var noCurrentPageControllers = !currentPageControllers.Any();
-			//var controller404 = controllersMetaData.Where(x => x.ExecParameters != null && x.ExecParameters.Is404Handler);
+				if (IsSecurityRulesViolated(metaContainer))
+				{
+					var result = ExecuteHandlerController(HandlerControllerType.Http400Handler);
 
-			//foreach (var metaContainer in controllersMetaData)
-			//{
-			//	if (!CheckExecRules(metaContainer)) continue;
+					if (!result)
+						return ControllersHandlerResult.Http400;
 
-			//	if(!CheckSecurityRules(metaContainer))
-			//		return ControllersHandlerResult.Error;
+					securityControllerCalled = true;
+				}
 
-			//	var controller = _controllerFactory.CreateController(metaContainer.ControllerType);
-			//	controller.Invoke();
+				if (IsSpecificOrDefaultageController(metaContainer))
+					isCurrentPageController = true;
 
-			//	if (metaContainer.ExecParameters != null && metaContainer.ExecParameters.IsAjaxRequest)
-			//	{
-			//		AjaxResult = controller.AjaxResult;
-			//		return ControllersHandlerResult.AjaxRequest;
-			//	}
+				if (securityControllerCalled && isCurrentPageController)
+					continue;
 
-			//	if (controller.StopExecution)
-			//		return ControllersHandlerResult.StopExecution;
-			//}
+				var controller = _controllerFactory.CreateController(metaContainer.ControllerType);
+				controller.Invoke();
 
-			return ControllersHandlerResult.Ok;
+				if (metaContainer.ExecParameters != null && metaContainer.ExecParameters.IsAjax)
+				{
+					AjaxResult = controller.AjaxResult;
+					return ControllersHandlerResult.AjaxRequest;
+				}
+
+				if (controller.StopExecution)
+					return ControllersHandlerResult.StopExecution;
+
+				if (isCurrentPageController)
+					isAnyCurrentPageControllerCalled = true;
+			}
+
+			if (isAnyCurrentPageControllerCalled || securityControllerCalled) return ControllersHandlerResult.Ok;
+
+			return ExecuteHandlerController(HandlerControllerType.Http404Handler) ? ControllersHandlerResult.Ok : ControllersHandlerResult.Http404;
 		}
 
-		private bool IsCurrentPageController(ControllerMetaContainer metaContainer)
+		private bool ExecuteHandlerController(HandlerControllerType controllerType)
 		{
+			ControllerMetaContainer metaContainer = null;
+
+			switch (controllerType)
+			{
+					case HandlerControllerType.Http400Handler:
+						metaContainer = _controllersMetaData.FirstOrDefault(x => x.Role != null && x.Role.Is400Handler);
+						break;
+					case HandlerControllerType.Http403Handler:
+						metaContainer = _controllersMetaData.FirstOrDefault(x => x.Role != null && x.Role.Is403Handler);
+						break;
+					case HandlerControllerType.Http404Handler:
+						metaContainer = _controllersMetaData.FirstOrDefault(x => x.Role != null && x.Role.Is404Handler);
+						break;
+			}
+
+			if (metaContainer == null)
+				return false;
+
+			var controller = _controllerFactory.CreateController(metaContainer.ControllerType);
+			controller.Invoke();
+
+			return true;
+		}
+
+		private IEnumerable<ControllerMetaContainer> FilterForStandardControllers()
+		{
+			return
+				_controllersMetaData.Where(
+					x => x.Role == null || (x.Role.Is400Handler == false && x.Role.Is403Handler == false && x.Role.Is404Handler == false));
+		}
+
+		private bool IsSpecificOrDefaultageController(ControllerMetaContainer metaContainer)
+		{
+			if (metaContainer.ExecParameters == null)
+				return false;
+
 			// Is default page
 			if (string.IsNullOrEmpty(_currentAction) && string.IsNullOrEmpty(_currentMode))
 			{
@@ -82,64 +134,61 @@ namespace AcspNet
 				}
 			}
 
-			return false;			
+			return false;
 		}
 
-		//private bool IsHttpHandlerController(ControllerMetaContainer metaContainer)
-		//{
-		//	return (metaContainer.ExecParameters != null && metaContainer.ExecParameters.Is404Handler);
-		//}
+		private bool ControllerCanBeExecutedOnCurrentPage(ControllerMetaContainer metaContainer)
+		{
+			// Is default page
+			if (string.IsNullOrEmpty(_currentAction) && string.IsNullOrEmpty(_currentMode))
+			{
+				// Is any page controller
+				if (metaContainer.ExecParameters == null)
+					return true;
 
-		//private bool CheckExecRules(ControllerMetaContainer metaContainer)
-		//{
-		//	// Is default page
-		//	if (string.IsNullOrEmpty(_currentAction) && string.IsNullOrEmpty(_currentMode))
-		//	{
-		//		// Is any page controller
-		//		if (metaContainer.ExecParameters == null)
-		//			return true;
+				// Is Default page controller
+				if (metaContainer.ExecParameters.IsDefaultPageController)
+					return true;
 
-		//		// Is Default page controller
-		//		if (metaContainer.ExecParameters.IsDefaultPageController)
-		//			return true;
-		//	}
-		//	else
-		//	{
-		//		// Is any page controller
-		//		if (metaContainer.ExecParameters == null)
-		//			return true;
+				// Is any page controller
+				if (string.IsNullOrEmpty(metaContainer.ExecParameters.Action))
+					return true;
+			}
+			else
+			{
+				// Is any page controller
+				if (metaContainer.ExecParameters == null)
+					return true;
 
-		//		if (!metaContainer.ExecParameters.IsDefaultPageController)
-		//		{
-		//			// Is any page controller
-		//			if (string.IsNullOrEmpty(metaContainer.ExecParameters.Action))
-		//				return true;
+				if (!metaContainer.ExecParameters.IsDefaultPageController)
+				{
+					// Is any page controller
+					if (string.IsNullOrEmpty(metaContainer.ExecParameters.Action))
+						return true;
 
-		//			// Is exact action mode controller and not default page controller
-		//			if (String.Equals(metaContainer.ExecParameters.Action, _currentAction, StringComparison.CurrentCultureIgnoreCase) &&
-		//			String.Equals(metaContainer.ExecParameters.Mode, _currentMode, StringComparison.CurrentCultureIgnoreCase))
-		//				return true;
-		//		}
-		//	}
+					// Is exact action mode controller and not default page controller
+					if (String.Equals(metaContainer.ExecParameters.Action, _currentAction, StringComparison.CurrentCultureIgnoreCase) &&
+					String.Equals(metaContainer.ExecParameters.Mode, _currentMode, StringComparison.CurrentCultureIgnoreCase))
+						return true;
+				}
+			}
 
-		//	return false;
-		//}
+			return false;
+		}
 
-		private bool CheckSecurityRules(ControllerMetaContainer metaContainer)
+		private bool IsSecurityRulesViolated(ControllerMetaContainer metaContainer)
 		{
 			// If there is no security
 			if (metaContainer.Security == null)
-				return true;
+				return false;
 
 			if (metaContainer.Security.IsHttpGet && _httpMethod != "GET")
-				return false;
+				return true;
 
 			if (metaContainer.Security.IsHttpPost && _httpMethod != "POST")
-				return false;
+				return true;
 
-			return true;
+			return false;
 		}
-
-		public string AjaxResult { get; set; }
 	}
 }

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Web;
-using System.Web.Routing;
 using AcspNet.Meta;
 using AcspNet.Modules;
 
-namespace AcspNet.Http
+namespace AcspNet.Web
 {
 	/// <summary>
 	/// HTTP request handler
@@ -42,8 +41,6 @@ namespace AcspNet.Http
 		/// </summary>
 		public AcspRequestHandler()
 		{
-			IsReusable = false;
-
 			if (_settings == null)
 				_settings = new AcspSettings();
 		}
@@ -91,8 +88,6 @@ namespace AcspNet.Http
 
 			switch (result)
 			{
-				case ControllersHandlerResult.Error:
-					return;
 				case ControllersHandlerResult.AjaxRequest:
 					displayer.DisplayNoCache(controllersHandler.AjaxResult);
 					break;
@@ -121,7 +116,5 @@ namespace AcspNet.Http
 
 			context.Response.End();
 		}
-
-		public bool IsReusable { get; private set; }
 	}
 }

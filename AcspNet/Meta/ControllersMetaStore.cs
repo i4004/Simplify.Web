@@ -101,10 +101,16 @@ namespace AcspNet.Meta
 
 		private static ControllerRole GetControllerRole(Type controllerType)
 		{
+			var http400 = false;
 			var http403 = false;
 			var http404 = false;
 
-			var attributes = controllerType.GetCustomAttributes(typeof(Http403Attribute), false);
+			var attributes = controllerType.GetCustomAttributes(typeof(Http400Attribute), false);
+
+			if (attributes.Length > 0)
+				http400 = true;
+
+			attributes = controllerType.GetCustomAttributes(typeof(Http403Attribute), false);
 
 			if (attributes.Length > 0)
 				http403 = true;
@@ -114,7 +120,7 @@ namespace AcspNet.Meta
 			if (attributes.Length > 0)
 				http404 = true;
 
-			return http403 || http404 ? new ControllerRole(http403, http404) : null;
+			return http403 || http404 ? new ControllerRole(http400, http403, http404) : null;
 		}
 
 		private void CreateControllersMetaContainers(IEnumerable<Assembly> assemblies, bool disableAcspInternalControllers)
@@ -164,7 +170,7 @@ namespace AcspNet.Meta
 
 		private void SortControllersMetaContainers()
 		{
-			_controllersMetaContainers = _controllersMetaContainers.OrderBy(x => x.ExecParameters.RunPriority).ToList();
+			_controllersMetaContainers = _controllersMetaContainers.OrderBy(x => x.ExecParameters == null ? 0 : x.ExecParameters.RunPriority).ToList();
 		}
 	}
 }

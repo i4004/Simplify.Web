@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 using System.Web;
 using AcspNet;
-using AcspNet.Http;
+using AcspNet.Web;
 
 [assembly: AssemblyTitle("AcspNet")]
 [assembly: AssemblyDescription("Advanced Controls Site Platform .NET")]

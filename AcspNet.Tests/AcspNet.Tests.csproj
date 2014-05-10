@@ -105,18 +105,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControllersHandlerTests.cs" />
-    <Compile Include="Identity\AuthenticationModuleTests.cs" />
-    <Compile Include="Identity\CookieAuthenticationTests.cs" />
-    <Compile Include="Identity\SessionAuthenticationTests.cs" />
-    <Compile Include="ControllersMetaStoreTests.cs" />
+    <Compile Include="Modules\Identity\AuthenticationModuleTests.cs" />
+    <Compile Include="Modules\Identity\CookieAuthenticationTests.cs" />
+    <Compile Include="Modules\Identity\SessionAuthenticationTests.cs" />
+    <Compile Include="Meta\ControllersMetaStoreTests.cs" />
     <Compile Include="AcspContextTests.cs" />
     <Compile Include="ControllerFactoryTests.cs" />
     <Compile Include="DataCollectorTests.cs" />
     <Compile Include="DisplayerTests.cs" />
     <Compile Include="EnvironmentTests.cs" />
     <Compile Include="FileReaderTests.cs" />
-    <Compile Include="Html\ListsGeneratorTests.cs" />
-    <Compile Include="Html\MessageBoxTests.cs" />
+    <Compile Include="Modules\Html\ListsGeneratorTests.cs" />
+    <Compile Include="Modules\Html\MessageBoxTests.cs" />
     <Compile Include="IdVerifierTests.cs" />
     <Compile Include="LanguageManagerTests.cs" />
     <Compile Include="ModulesContainerFactoryTests.cs" />

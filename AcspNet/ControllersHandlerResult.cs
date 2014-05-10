@@ -5,8 +5,8 @@
 		Ok,
 		StopExecution,
 		AjaxRequest,
-		Error,
-		Http404,
-		Http403
+		Http400,
+		Http403,
+		Http404
 	}
 }

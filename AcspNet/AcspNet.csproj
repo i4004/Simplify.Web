@@ -125,11 +125,13 @@
     <Compile Include="DependencyResolver.cs" />
     <Compile Include="Displayer.cs" />
     <Compile Include="EventDependencyResolver.cs" />
+    <Compile Include="Http400Attribute.cs" />
     <Compile Include="Http403Attribute.cs" />
     <Compile Include="Http404Attribute.cs" />
     <Compile Include="HttpGetAttribute.cs" />
     <Compile Include="HttpPostAttribute.cs" />
-    <Compile Include="Http\IRequestHandler.cs" />
+    <Compile Include="HandlerControllerType.cs" />
+    <Compile Include="Web\IRequestHandler.cs" />
     <Compile Include="Meta\ControllerRole.cs" />
     <Compile Include="Modules\Controllers\MessagePageDisplay.cs" />
     <Compile Include="Modules\DataCollector.cs" />
@@ -145,7 +147,7 @@
     <Compile Include="Modules\Navigator.cs" />
     <Compile Include="Modules\StringTable.cs" />
     <Compile Include="Modules\TemplateFactory.cs" />
-    <Compile Include="Http\AcspRequestHandler.cs" />
+    <Compile Include="Web\AcspRequestHandler.cs" />
     <Compile Include="IAcspContext.cs" />
     <Compile Include="IAcspSettings.cs" />
     <Compile Include="IControllerFactory.cs" />
@@ -188,7 +190,7 @@
     <Compile Include="ViewFactory.cs" />
     <Compile Include="Web\AcspRouteParser.cs" />
     <None Include="AcspNet.nuspec" />
-    <Compile Include="Http\AcspHttpModule.cs">
+    <Compile Include="Web\AcspHttpModule.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

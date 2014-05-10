@@ -2,7 +2,7 @@
 using AcspNet.Modules.Identity;
 using NUnit.Framework;
 
-namespace AcspNet.Tests.Identity
+namespace AcspNet.Tests.Modules.Identity
 {
 	[TestFixture]
 	public class AuthenticationModuleTests

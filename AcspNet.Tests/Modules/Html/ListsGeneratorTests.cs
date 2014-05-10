@@ -6,7 +6,7 @@ using AcspNet.Modules.Html;
 using Moq;
 using NUnit.Framework;
 
-namespace AcspNet.Tests.Html
+namespace AcspNet.Tests.Modules.Html
 {
 	public class ListsGeneratorTests
 	{
