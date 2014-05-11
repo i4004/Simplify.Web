@@ -114,6 +114,15 @@ namespace AcspNet.Web
 
 					displayer.DisplayNoCache(pageBuilder.Buid(sourceContainer.DataCollector.Items));
 					break;
+				case ControllersHandlerResult.Http400:
+					acspContext.Response.StatusCode = 400;
+					break;
+				case ControllersHandlerResult.Http403:
+					acspContext.Response.StatusCode = 403;
+					break;
+				case ControllersHandlerResult.Http404:
+					acspContext.Response.StatusCode = 404;
+					break;
 			}
 
 			context.Response.End();
