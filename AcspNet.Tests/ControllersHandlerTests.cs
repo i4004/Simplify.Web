@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AcspNet.Meta;
+using AcspNet.Modules.Identity;
 using AcspNet.Tests.TestControllers;
 using Moq;
 using NUnit.Framework;
@@ -11,21 +12,22 @@ namespace AcspNet.Tests
 	public class ControllersHandlerTests
 	{
 		[Test]
-		public void CreateAndInvokeControllers_Http404Returned()
+		public void CreateAndInvokeControllers_NoControllers_Http404Returned()
 		{
 			// Arrange
 
 			var metaStore = new Mock<IControllersMetaStore>();
 			metaStore.Setup(x => x.GetControllersMetaData()).Returns(new List<ControllerMetaContainer>());
+			var executionAgent = new Mock<IControllerExecutionAgent>();
 
-			var handler = new ControllersHandler(metaStore.Object, null, null, null);
+			// Act & Assert
 
-			// Assert
+			var handler = new ControllersHandler(metaStore.Object, null, executionAgent.Object);
 			Assert.AreEqual(ControllersHandlerResult.Http404, handler.Execute());
 		}
 
 		[Test]
-		public void CreateAndInvokeControllers_NoCurrentControllers_Http404Returned()
+		public void CreateAndInvokeControllers_NoNonAnyPageControllers_Http404Returned()
 		{
 			// Arrange
 
@@ -42,9 +44,11 @@ namespace AcspNet.Tests
 			var factory = new Mock<IControllerFactory>();
 			factory.Setup(x => x.CreateController(It.IsAny<Type>())).Returns(controller.Object);
 
-			var handler = new ControllersHandler(metaStore.Object, factory.Object, "foo", "bar", null);
+			var executionAgent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object);
 
-			// Assert
+			// Act & Assert
+
+			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent);
 			Assert.AreEqual(ControllersHandlerResult.Http404, handler.Execute());
 		}
 
@@ -71,9 +75,11 @@ namespace AcspNet.Tests
 			var factory = new Mock<IControllerFactory>();
 			factory.Setup(x => x.CreateController(It.IsAny<Type>())).Returns(controller.Object);
 
+			var executionAgent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object);
+
 			// Act
 
-			var handler = new ControllersHandler(metaStore.Object, factory.Object, null, null);
+			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent);
 			var result = handler.Execute();
 
 			// Assert
@@ -106,9 +112,11 @@ namespace AcspNet.Tests
 			var factory = new Mock<IControllerFactory>();
 			factory.Setup(x => x.CreateController(It.IsAny<Type>())).Returns(controller.Object);
 
+			var executionAgent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object, "foo", "bar");
+
 			// Act
 
-			var handler = new ControllersHandler(metaStore.Object, factory.Object, "foo", "bar");
+			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent);
 			var result = handler.Execute();
 
 			// Assert
@@ -139,9 +147,11 @@ namespace AcspNet.Tests
 			var factory = new Mock<IControllerFactory>();
 			factory.Setup(x => x.CreateController(It.IsAny<Type>())).Returns(controller.Object);
 
+			var executionAgent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object, "foo", "bar");
+
 			// Act
 
-			var handler = new ControllersHandler(metaStore.Object, factory.Object, "foo", "bar");
+			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent);
 			var result = handler.Execute();
 
 			// Assert
@@ -172,9 +182,11 @@ namespace AcspNet.Tests
 			var factory = new Mock<IControllerFactory>();
 			factory.Setup(x => x.CreateController(It.IsAny<Type>())).Returns(controller.Object);
 
+			var executionAgent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object, "foo", "bar");
+
 			// Act
 
-			var handler = new ControllersHandler(metaStore.Object, factory.Object, "foo", "bar");
+			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent);
 			var result = handler.Execute();
 
 			// Assert
@@ -185,14 +197,14 @@ namespace AcspNet.Tests
 		}
 
 		[Test]
-		public void CreateAndInvokeControllers_HttpGetOnlyController_ErrorReturned()
+		public void CreateAndInvokeControllers_HttpGetRequestViolated_Http400ControllerInvoked()
 		{
 			// Arrange
 
 			var controllers = new List<ControllerMetaContainer>
 			{
 				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, -1)),
-				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters("foo", "bar"), new ControllerSecurity(true)),
+				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters("foo", "bar"), new ControllerSecurity(false, true)),
 				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters("foo", "bar")),
 				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, 1)),
 				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters()),
@@ -211,9 +223,11 @@ namespace AcspNet.Tests
 			factory.Setup(x => x.CreateController(It.Is<Type>(t => t.Name == "TestController"))).Returns(controller.Object);
 			factory.Setup(x => x.CreateController(It.Is<Type>(t => t.Name == "TestController2"))).Returns(controller2.Object);
 
+			var executionAgent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object, "foo", "bar");
+
 			// Act
 
-			var handler = new ControllersHandler(metaStore.Object, factory.Object, "foo", "bar");
+			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent);
 			var result = handler.Execute();
 
 			// Assert
@@ -225,36 +239,106 @@ namespace AcspNet.Tests
 		}
 
 		[Test]
-		public void CreateAndInvokeControllers_NoPage_404PagesCalled()
+		public void CreateAndInvokeControllers_AuthenticationViolated_Http403ControllerInvoked()
 		{
-		//	// Arrange
+			// Arrange
 
-		//	var controllers = new List<ControllerMetaContainer>
-		//	{
-		//		new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, -1)),
-		//		new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, 0, false, false, true)),
-		//		new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, 0, false, false, true)),
-		//		new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, 1))
-		//	};
+			var controllers = new List<ControllerMetaContainer>
+			{
+				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, -1)),
+				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters("foo", "bar"), new ControllerSecurity(true)),
+				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters("foo", "bar"), new ControllerSecurity(true)),
+				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters(null, null, 1)),
+				new ControllerMetaContainer(typeof (TestController2), null, null, new ControllerRole(false, true))
+			};
 
-		//	var controller = new Mock<Controller>();
+			var controller = new Mock<Controller>();
+			var controller2 = new Mock<Controller>();
 
-		//	var metaStore = new Mock<IControllersMetaStore>();
-		//	metaStore.Setup(x => x.GetControllersMetaData()).Returns(controllers);
+			var metaStore = new Mock<IControllersMetaStore>();
+			metaStore.Setup(x => x.GetControllersMetaData()).Returns(controllers);
 
-		//	var factory = new Mock<IControllerFactory>();
-		//	factory.Setup(x => x.CreateController(It.IsAny<Type>())).Returns(controller.Object);
+			var factory = new Mock<IControllerFactory>();
+			factory.Setup(x => x.CreateController(It.Is<Type>(t => t.Name == "TestController"))).Returns(controller.Object);
+			factory.Setup(x => x.CreateController(It.Is<Type>(t => t.Name == "TestController2"))).Returns(controller2.Object);
 
-		//	// Act
+			var executionAgent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object, "foo", "bar");
 
-		//	var handler = new ControllersHandler(metaStore.Object, factory.Object, "foo", "bar");
-		//	var result = handler.Execute();
+			// Act
 
-		//	// Assert
+			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent);
+			var result = handler.Execute();
 
-		//	Assert.AreEqual(ControllersHandlerResult.Ok, result);
-		//	factory.Verify(x => x.CreateController(It.IsAny<Type>()), Times.Exactly(4));
-		//	controller.Verify(x => x.Invoke(), Times.Exactly(4));
+			// Assert
+
+			Assert.AreEqual(ControllersHandlerResult.Ok, result);
+			factory.Verify(x => x.CreateController(It.IsAny<Type>()), Times.Exactly(3));
+			controller.Verify(x => x.Invoke(), Times.Exactly(2));
+			controller2.Verify(x => x.Invoke(), Times.Once);
+		}
+		
+		[Test]
+		public void CreateAndInvokeControllers_AuthenticationViolatedNoHandler_Http403Returned()
+		{
+			// Arrange
+
+			var controllers = new List<ControllerMetaContainer>
+			{
+				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters("foo", "bar"), new ControllerSecurity(true)),
+			};
+
+			var controller = new Mock<Controller>();
+
+			var metaStore = new Mock<IControllersMetaStore>();
+			metaStore.Setup(x => x.GetControllersMetaData()).Returns(controllers);
+
+			var factory = new Mock<IControllerFactory>();
+			factory.Setup(x => x.CreateController(It.IsAny<Type>())).Returns(controller.Object);
+
+			var executionAgent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object, "foo", "bar");
+
+			// Act
+
+			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent);
+			var result = handler.Execute();
+
+			// Assert
+
+			Assert.AreEqual(ControllersHandlerResult.Http403, result);
+			factory.Verify(x => x.CreateController(It.IsAny<Type>()), Times.Never);
+			controller.Verify(x => x.Invoke(), Times.Never);
+		}
+
+		[Test]
+		public void CreateAndInvokeControllers_SecurityViolatedNoHandler_Http400Returned()
+		{
+			// Arrange
+
+			var controllers = new List<ControllerMetaContainer>
+			{
+				new ControllerMetaContainer(typeof (TestController), new ControllerExecParameters("foo", "bar"), new ControllerSecurity(false, true)),
+			};
+
+			var controller = new Mock<Controller>();
+
+			var metaStore = new Mock<IControllersMetaStore>();
+			metaStore.Setup(x => x.GetControllersMetaData()).Returns(controllers);
+
+			var factory = new Mock<IControllerFactory>();
+			factory.Setup(x => x.CreateController(It.IsAny<Type>())).Returns(controller.Object);
+
+			var executionAgent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object, "foo", "bar");
+
+			// Act
+
+			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent);
+			var result = handler.Execute();
+
+			// Assert
+
+			Assert.AreEqual(ControllersHandlerResult.Http400, result);
+			factory.Verify(x => x.CreateController(It.IsAny<Type>()), Times.Never);
+			controller.Verify(x => x.Invoke(), Times.Never);
 		}
 	}
 }

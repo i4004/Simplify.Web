@@ -117,6 +117,7 @@
     <Compile Include="AjaxAttribute.cs" />
     <Compile Include="AuthenticationRequiredAttribute.cs" />
     <Compile Include="Controller.cs" />
+    <Compile Include="ControllerExecutionAgent.cs" />
     <Compile Include="ControllerFactory.cs" />
     <Compile Include="ControllersHandler.cs" />
     <Compile Include="ControllersHandlerResult.cs" />
@@ -131,6 +132,8 @@
     <Compile Include="HttpGetAttribute.cs" />
     <Compile Include="HttpPostAttribute.cs" />
     <Compile Include="HandlerControllerType.cs" />
+    <Compile Include="IControllerExecutionAgent.cs" />
+    <Compile Include="SecurityViolationResult.cs" />
     <Compile Include="Web\IRequestHandler.cs" />
     <Compile Include="Meta\ControllerRole.cs" />
     <Compile Include="Modules\Controllers\MessagePageDisplay.cs" />
@@ -250,7 +253,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

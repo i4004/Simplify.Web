@@ -81,8 +81,10 @@ namespace AcspNet.Web
 			var viewFactory = new ViewFactory(sourceContainer);
 			var controllerFactory = new ControllerFactory(sourceContainer, viewFactory);
 			var displayer = new Displayer(sourceContainer.Context.Response);
+			var executionAgent = new ControllerExecutionAgent(sourceContainer.Authentication, acspContext.CurrentAction, acspContext.CurrentMode,
+				context.Request.HttpMethod);
 			var controllersHandler = new ControllersHandler(MetaStore, controllerFactory,
-				acspContext.CurrentAction, acspContext.CurrentMode, context.Request.HttpMethod);
+				executionAgent);
 
 			var result = controllersHandler.Execute();
 

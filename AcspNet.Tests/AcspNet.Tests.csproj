@@ -104,6 +104,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControllerExecutionAgentTests.cs" />
     <Compile Include="ControllersHandlerTests.cs" />
     <Compile Include="Modules\Identity\AuthenticationModuleTests.cs" />
     <Compile Include="Modules\Identity\CookieAuthenticationTests.cs" />

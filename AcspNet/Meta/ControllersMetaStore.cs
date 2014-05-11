@@ -83,10 +83,16 @@ namespace AcspNet.Meta
 
 		private static ControllerSecurity GetControllerSecurity(Type controllerType)
 		{
+			var authenticationRequired = false;
 			var httpGet = false;
 			var httpPost = false;
 
-			var attributes = controllerType.GetCustomAttributes(typeof(HttpGetAttribute), false);
+			var attributes = controllerType.GetCustomAttributes(typeof(AuthenticationRequiredAttribute), false);
+
+			if (attributes.Length > 0)
+				authenticationRequired = true;
+			
+			attributes = controllerType.GetCustomAttributes(typeof(HttpGetAttribute), false);
 
 			if (attributes.Length > 0)
 				httpGet = true;
@@ -96,7 +102,7 @@ namespace AcspNet.Meta
 			if (attributes.Length > 0)
 				httpPost = true;
 
-			return httpGet || httpPost ? new ControllerSecurity(httpGet, httpPost) : null;
+			return authenticationRequired || httpGet || httpPost ? new ControllerSecurity(authenticationRequired, httpGet, httpPost) : null;
 		}
 
 		private static ControllerRole GetControllerRole(Type controllerType)
