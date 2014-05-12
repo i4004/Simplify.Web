@@ -72,7 +72,7 @@ namespace AcspNet
 		/// <summary>
 		/// Result for ajax request response
 		/// </summary>
-		public virtual string AjaxResult { get; internal set; }
+		public virtual string AjaxResult { get; set; }
 
 		/// <summary>
 		/// Stop subsequent controllers execution and disable display data from data collector

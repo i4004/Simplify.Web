@@ -27,7 +27,7 @@
 		<file src="bin\release\AcspNet.dll" target="lib\net40" />
 		<file src="bin\release\AcspNet.xml" target="lib\net40" />
 		<file src="bin\release\NugetPackageTemplate\App_Data\StringTable.en.xml" target="content\App_Data\StringTable.en.xml" />
-		<file src="bin\release\NugetPackageTemplate\Styles\Main.css" target="content\Styles\Main.css" />
+		<file src="bin\release\NugetPackageTemplate\Content\Main.css" target="content\Content\Main.css" />
 		<file src="bin\release\NugetPackageTemplate\Templates\AcspNet\MessageBox\ErrorMessageBox.tpl" target="content\Templates\AcspNet\MessageBox\ErrorMessageBox.tpl" />
 		<file src="bin\release\NugetPackageTemplate\Templates\AcspNet\MessageBox\InfoMessageBox.tpl" target="content\Templates\AcspNet\MessageBox\InfoMessageBox.tpl" />
 		<file src="bin\release\NugetPackageTemplate\Templates\AcspNet\MessageBox\InlineErrorMessageBox.tpl" target="content\Templates\AcspNet\MessageBox\InlineErrorMessageBox.tpl" />
