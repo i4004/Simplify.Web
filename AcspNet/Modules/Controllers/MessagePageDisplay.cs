@@ -4,18 +4,20 @@
 	/// Message display page
 	/// </summary>
 	[Action("message")]
-	public sealed class MessagePageDisplay : Controller
+	public class MessagePageDisplay : Controller
 	{
+		/// <summary>
+		/// Invokes the controller.
+		/// </summary>
 		public override void Invoke()
 		{
-			//if (string.IsNullOrEmpty(Extensions.MessagePage.Message))
-			//	Manager.Redirect(AcspNet.Manager.SiteVirtualPath + "/");
-			//else
-			//{
-			//	Html.MessageBox.Show(Extensions.MessagePage.Message, Extensions.MessagePage.MessageStatus);
-
-			//	Extensions.MessagePage.RemoveMessage();
-			//}
+			if (string.IsNullOrEmpty(MessagePage.Message))
+				Navigator.NavigateToDefaultPage();
+			else
+			{
+				MessageBox.Show(MessagePage.Message, MessagePage.MessageStatus);
+				MessagePage.RemoveMessage();
+			}
 		}
 	}
 }

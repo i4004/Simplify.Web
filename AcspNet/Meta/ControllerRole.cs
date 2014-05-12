@@ -18,8 +18,19 @@
 			Is404Handler = is404Handler;
 		}
 
-		public bool Is400Handler { get; set; }
-		public bool Is403Handler { get; set; }
-		public bool Is404Handler { get; set; }
+		/// <summary>
+		/// Gets or sets a value indicating whether controller is HTTP 400 error handler.
+		/// </summary>
+		public bool Is400Handler { get; private set; }
+
+		/// <summary>
+		/// Gets or sets a value indicating whether controller is HTTP 403 error handler.
+		/// </summary>
+		public bool Is403Handler { get; private set; }
+
+		/// <summary>
+		/// Gets or sets a value indicating whether controller is HTTP 404 error handler.
+		/// </summary>
+		public bool Is404Handler { get; private set; }
 	}
 }

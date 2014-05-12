@@ -1,5 +1,8 @@
 ﻿namespace AcspNet.Meta
 {
+	/// <summary>
+	/// Provides controller security information
+	/// </summary>
 	public class ControllerSecurity
 	{
 		/// <summary>
@@ -15,8 +18,19 @@
 			IsHttpPost = isHttpPost;
 		}
 
-		public bool IsAuthenticationRequired { get; set; }
+		/// <summary>
+		/// Gets or sets a value indicating whether authentication required for controller.
+		/// </summary>
+		/// 
+		public bool IsAuthenticationRequired { get; private set; }
+		/// <summary>
+		/// Gets a value indicating whether controller handles only HTTP GET requests.
+		/// </summary>
 		public bool IsHttpGet { get; private set; }
+
+		/// <summary>
+		/// Gets a value indicating whether controller handles only HTTP POST requests.
+		/// </summary>
 		public bool IsHttpPost { get; private set; }		 
 	}
 }

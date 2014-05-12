@@ -1,5 +1,8 @@
 ﻿namespace AcspNet.Meta
 {
+	/// <summary>
+	/// Provides controller execution parameters
+	/// </summary>
 	public class ControllerExecParameters
 	{
 		/// <summary>

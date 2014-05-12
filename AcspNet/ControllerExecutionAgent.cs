@@ -4,6 +4,9 @@ using AcspNet.Modules.Identity;
 
 namespace AcspNet
 {
+	/// <summary>
+	/// Provides controller execution agent
+	/// </summary>
 	public class ControllerExecutionAgent : IControllerExecutionAgent
 	{
 		private readonly string _currentAction;
@@ -11,6 +14,13 @@ namespace AcspNet
 		private readonly string _httpMethod;
 		private readonly IAuthenticationState _authenticationState;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ControllerExecutionAgent"/> class.
+		/// </summary>
+		/// <param name="authenticationState">State of the authentication.</param>
+		/// <param name="currentAction">The current action.</param>
+		/// <param name="currentMode">The current mode.</param>
+		/// <param name="httpMethod">The HTTP method.</param>
 		public ControllerExecutionAgent(IAuthenticationState authenticationState, string currentAction = null, string currentMode = null, string httpMethod = null)
 		{
 			_currentAction = currentAction;
@@ -19,6 +29,11 @@ namespace AcspNet
 			_authenticationState = authenticationState;
 		}
 
+		/// <summary>
+		/// Determines whether controller is not executed on any page.
+		/// </summary>
+		/// <param name="metaContainer">The controller meta container.</param>
+		/// <returns></returns>
 		public bool IsNonAnyPageController(ControllerMetaContainer metaContainer)
 		{
 			if (metaContainer.ExecParameters == null)
@@ -30,6 +45,11 @@ namespace AcspNet
 			return !string.IsNullOrEmpty(metaContainer.ExecParameters.Action);
 		}
 
+		/// <summary>
+		/// Determines whether controller can be executed on current page.
+		/// </summary>
+		/// <param name="metaContainer">The controller meta container.</param>
+		/// <returns></returns>
 		public bool IsControllerCanBeExecutedOnCurrentPage(ControllerMetaContainer metaContainer)
 		{
 			// Is default page
@@ -69,6 +89,11 @@ namespace AcspNet
 			return false;
 		}
 
+		/// <summary>
+		/// Determines whether controller security rules violated.
+		/// </summary>
+		/// <param name="metaContainer">The controller meta container.</param>
+		/// <returns></returns>
 		public SecurityViolationResult IsSecurityRulesViolated(ControllerMetaContainer metaContainer)
 		{
 			// If there is no security

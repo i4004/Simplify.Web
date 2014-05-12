@@ -30,9 +30,19 @@ namespace AcspNet.Meta
 		/// </value>
 		public Type ControllerType { get; private set; }
 
-		public ControllerExecParameters ExecParameters { get; set; }
+		/// <summary>
+		/// Gets the controller execute parameters.
+		/// </summary>
+		public ControllerExecParameters ExecParameters { get; private set; }
 
-		public ControllerSecurity Security { get; set; }
-		public ControllerRole Role { get; set; }
+		/// <summary>
+		/// Gets the controller security information.
+		/// </summary>
+		public ControllerSecurity Security { get; private set; }
+
+		/// <summary>
+		/// Gets the controller role information.
+		/// </summary>
+		public ControllerRole Role { get; private set; }
 	}
 }

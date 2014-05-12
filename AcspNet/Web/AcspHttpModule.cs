@@ -67,13 +67,18 @@ namespace AcspNet.Web
 			((HttpApplication)source).Context.SetSessionStateBehavior(SessionStateBehavior.Required);
 		}
 
-		static void PreRequestHandlerExecute(object sender, EventArgs e)
+		private static void PreRequestHandlerExecute(object sender, EventArgs e)
 		{
 			var context = ((HttpApplication)sender).Context;
 
 			// Exclude processing for file URLs (for css and other files to correctly processed)
-			if (!FileSystem.File.Exists(context.Request.PhysicalPath))
+			if (IsPathForProcessing(context.Request.PhysicalPath))
 				_requestHandler.Value.ProcessRequest(new HttpContextWrapper(context));
+		}
+
+		private static bool IsPathForProcessing(string path)
+		{
+			return !FileSystem.File.Exists(path);
 		}
 
 		/// <summary>
@@ -85,7 +90,7 @@ namespace AcspNet.Web
 			application.BeginRequest += ApplicationBeginRequest;
 			application.PreRequestHandlerExecute += PreRequestHandlerExecute;
 		}
-
+		
 		/// <summary>
 		/// Disposes of the resources (other than memory) used by the module that implements <see cref="T:System.Web.IHttpModule" />.
 		/// </summary>

@@ -22,6 +22,12 @@ namespace AcspNet
 			_controllersMetaData = controllersMetaStore.GetControllersMetaData();
 		}
 
+		/// <summary>
+		/// Gets or sets the ajax result.
+		/// </summary>
+		/// <value>
+		/// The ajax result.
+		/// </value>
 		public string AjaxResult { get; set; }
 
 		/// <summary>

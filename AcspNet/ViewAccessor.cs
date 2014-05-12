@@ -1,5 +1,8 @@
 ﻿namespace AcspNet
 {
+	/// <summary>
+	/// View accessor base class
+	/// </summary>
 	public abstract class ViewAccessor : IHideObjectMembers
 	{
 		internal virtual IViewFactory ViewFactory { get; set; }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using AcspNet.Modules.Controllers;
 
 namespace AcspNet.Meta
 {
@@ -22,6 +23,13 @@ namespace AcspNet.Meta
 			CreateControllersMetaContainers(AppDomain.CurrentDomain.GetAssemblies(), disableAcspInternalControllers);
 		}
 
+		/// <summary>
+		/// Gets or sets the excluded assemblies prefixes.
+		/// </summary>
+		/// <value>
+		/// The excluded assemblies prefixes.
+		/// </value>
+		/// <exception cref="System.ArgumentNullException">value</exception>
 		public static IList<string> ExcludedAssembliesPrefixes
 		{
 			get { return _excludedAssembliesPrefixes; }
@@ -143,9 +151,8 @@ namespace AcspNet.Meta
 				typesToIgnore.AddRange(((IgnoreControllersAttribute)attributes[0]).Types);
 			}
 
-			//// todo
-			////if (!disableAcspInternalControllers)
-			////	types = types.Concat(new List<Type> { typeof(MessagePageDisplay), typeof(ExtensionsProtector) }).ToArray();
+			if (!disableAcspInternalControllers)
+				types = types.Concat(new List<Type> {typeof (MessagePageDisplay)}).ToArray();
 
 			LoadMetaData(types, typesToIgnore);
 			SortControllersMetaContainers();

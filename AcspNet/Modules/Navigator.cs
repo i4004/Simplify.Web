@@ -101,6 +101,9 @@ namespace AcspNet.Modules
 				RedirectLink = _request.Url.AbsoluteUri;
 		}
 
+		/// <summary>
+		/// Redirects the client to default page.
+		/// </summary>
 		public void NavigateToDefaultPage()
 		{
 			Redirect(_request.ApplicationPath);
