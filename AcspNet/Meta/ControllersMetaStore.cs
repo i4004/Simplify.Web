@@ -137,6 +137,18 @@ namespace AcspNet.Meta
 			return http403 || http404 ? new ControllerRole(http400, http403, http404) : null;
 		}
 
+		private static ControllerDataParameters GetControllerDataParameters(Type controllerType)
+		{
+			Type viewModel = null;
+
+			var attributes = controllerType.GetCustomAttributes(typeof(ViewModelAttribute), false);
+
+			if (attributes.Length > 0)
+				viewModel = ((ViewModelAttribute)attributes[0]).ViewModelType;
+
+			return viewModel != null ? new ControllerDataParameters(viewModel) : null;
+		}
+
 		private void CreateControllersMetaContainers(IEnumerable<Assembly> assemblies, bool disableAcspInternalControllers)
 		{
 			var typesToIgnore = new List<Type>();
@@ -178,7 +190,8 @@ namespace AcspNet.Meta
 		private void AddControllerMetaContainer(Type controllerType)
 		{
 			_controllersMetaContainers.Add(new ControllerMetaContainer(controllerType,
-				GetControllerExecPatameters(controllerType), GetControllerSecurity(controllerType), GetControllerRole(controllerType)));
+				GetControllerExecPatameters(controllerType), GetControllerSecurity(controllerType),
+				GetControllerRole(controllerType), GetControllerDataParameters(controllerType)));
 		}
 
 		private void SortControllersMetaContainers()

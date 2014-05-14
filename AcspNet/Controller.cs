@@ -80,6 +80,14 @@ namespace AcspNet
 		public virtual bool StopExecution { get; internal set; }
 
 		/// <summary>
+		/// Gets the controller view model.
+		/// </summary>
+		/// <value>
+		/// The controller view model.
+		/// </value>
+		public virtual object ViewModel { get; internal set; }
+
+		/// <summary>
 		/// Invokes the controller.
 		/// </summary>
 		public virtual void Invoke()

@@ -39,6 +39,7 @@ namespace AcspNet.Tests.Meta
 			Assert.IsTrue(metaData[0].Security.IsHttpPost);
 			Assert.IsFalse(metaData[0].Security.IsAuthenticationRequired);
 			Assert.IsNull(metaData[0].Role);
+			Assert.IsNull(metaData[0].Data);
 
 			Assert.AreEqual("TestController3", metaData[1].ControllerType.Name);
 			Assert.AreEqual(0, metaData[1].ExecParameters.RunPriority);
@@ -47,6 +48,7 @@ namespace AcspNet.Tests.Meta
 			Assert.IsTrue(metaData[1].Role.Is403Handler);
 			Assert.IsTrue(metaData[1].Role.Is404Handler);
 			Assert.IsTrue(metaData[1].Security.IsAuthenticationRequired);
+			Assert.IsNull(metaData[1].Data);
 
 			Assert.AreEqual("TestController", metaData[2].ControllerType.Name);
 			Assert.AreEqual(1, metaData[2].ExecParameters.RunPriority);
@@ -56,6 +58,7 @@ namespace AcspNet.Tests.Meta
 			Assert.IsFalse(metaData[2].ExecParameters.IsAjax);
 			Assert.IsTrue(metaData[2].Security.IsHttpGet);
 			Assert.IsNull(metaData[2].Role);
+			Assert.AreEqual("LoginViewModel", metaData[2].Data.ViewModel.Name);
 		}
 	}
 }

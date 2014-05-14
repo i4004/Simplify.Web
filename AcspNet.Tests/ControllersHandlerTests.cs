@@ -22,7 +22,7 @@ namespace AcspNet.Tests
 
 			// Act & Assert
 
-			var handler = new ControllersHandler(metaStore.Object, null, executionAgent.Object);
+			var handler = new ControllersHandler(metaStore.Object, null, executionAgent.Object, new Mock<IViewModelFactory>().Object);
 			Assert.AreEqual(ControllersHandlerResult.Http404, handler.Execute());
 		}
 
@@ -44,11 +44,11 @@ namespace AcspNet.Tests
 			var factory = new Mock<IControllerFactory>();
 			factory.Setup(x => x.CreateController(It.IsAny<Type>())).Returns(controller.Object);
 
-			var executionAgent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object);
+			var executionAgent = new ControllerExecutor(new Mock<IAuthenticationState>().Object);
 
 			// Act & Assert
 
-			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent);
+			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent, new Mock<IViewModelFactory>().Object);
 			Assert.AreEqual(ControllersHandlerResult.Http404, handler.Execute());
 		}
 
@@ -75,11 +75,11 @@ namespace AcspNet.Tests
 			var factory = new Mock<IControllerFactory>();
 			factory.Setup(x => x.CreateController(It.IsAny<Type>())).Returns(controller.Object);
 
-			var executionAgent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object);
+			var executionAgent = new ControllerExecutor(new Mock<IAuthenticationState>().Object);
 
 			// Act
 
-			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent);
+			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent, new Mock<IViewModelFactory>().Object);
 			var result = handler.Execute();
 
 			// Assert
@@ -112,11 +112,11 @@ namespace AcspNet.Tests
 			var factory = new Mock<IControllerFactory>();
 			factory.Setup(x => x.CreateController(It.IsAny<Type>())).Returns(controller.Object);
 
-			var executionAgent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object, "foo", "bar");
+			var executionAgent = new ControllerExecutor(new Mock<IAuthenticationState>().Object, "foo", "bar");
 
 			// Act
 
-			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent);
+			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent, new Mock<IViewModelFactory>().Object);
 			var result = handler.Execute();
 
 			// Assert
@@ -147,11 +147,11 @@ namespace AcspNet.Tests
 			var factory = new Mock<IControllerFactory>();
 			factory.Setup(x => x.CreateController(It.IsAny<Type>())).Returns(controller.Object);
 
-			var executionAgent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object, "foo", "bar");
+			var executionAgent = new ControllerExecutor(new Mock<IAuthenticationState>().Object, "foo", "bar");
 
 			// Act
 
-			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent);
+			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent, new Mock<IViewModelFactory>().Object);
 			var result = handler.Execute();
 
 			// Assert
@@ -182,11 +182,11 @@ namespace AcspNet.Tests
 			var factory = new Mock<IControllerFactory>();
 			factory.Setup(x => x.CreateController(It.IsAny<Type>())).Returns(controller.Object);
 
-			var executionAgent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object, "foo", "bar");
+			var executionAgent = new ControllerExecutor(new Mock<IAuthenticationState>().Object, "foo", "bar");
 
 			// Act
 
-			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent);
+			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent, new Mock<IViewModelFactory>().Object);
 			var result = handler.Execute();
 
 			// Assert
@@ -223,11 +223,11 @@ namespace AcspNet.Tests
 			factory.Setup(x => x.CreateController(It.Is<Type>(t => t.Name == "TestController"))).Returns(controller.Object);
 			factory.Setup(x => x.CreateController(It.Is<Type>(t => t.Name == "TestController2"))).Returns(controller2.Object);
 
-			var executionAgent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object, "foo", "bar");
+			var executionAgent = new ControllerExecutor(new Mock<IAuthenticationState>().Object, "foo", "bar");
 
 			// Act
 
-			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent);
+			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent, new Mock<IViewModelFactory>().Object);
 			var result = handler.Execute();
 
 			// Assert
@@ -262,11 +262,11 @@ namespace AcspNet.Tests
 			factory.Setup(x => x.CreateController(It.Is<Type>(t => t.Name == "TestController"))).Returns(controller.Object);
 			factory.Setup(x => x.CreateController(It.Is<Type>(t => t.Name == "TestController2"))).Returns(controller2.Object);
 
-			var executionAgent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object, "foo", "bar");
+			var executionAgent = new ControllerExecutor(new Mock<IAuthenticationState>().Object, "foo", "bar");
 
 			// Act
 
-			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent);
+			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent, new Mock<IViewModelFactory>().Object);
 			var result = handler.Execute();
 
 			// Assert
@@ -295,11 +295,11 @@ namespace AcspNet.Tests
 			var factory = new Mock<IControllerFactory>();
 			factory.Setup(x => x.CreateController(It.IsAny<Type>())).Returns(controller.Object);
 
-			var executionAgent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object, "foo", "bar");
+			var executionAgent = new ControllerExecutor(new Mock<IAuthenticationState>().Object, "foo", "bar");
 
 			// Act
 
-			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent);
+			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent, new Mock<IViewModelFactory>().Object);
 			var result = handler.Execute();
 
 			// Assert
@@ -327,11 +327,11 @@ namespace AcspNet.Tests
 			var factory = new Mock<IControllerFactory>();
 			factory.Setup(x => x.CreateController(It.IsAny<Type>())).Returns(controller.Object);
 
-			var executionAgent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object, "foo", "bar");
+			var executionAgent = new ControllerExecutor(new Mock<IAuthenticationState>().Object, "foo", "bar");
 
 			// Act
 
-			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent);
+			var handler = new ControllersHandler(metaStore.Object, factory.Object, executionAgent, new Mock<IViewModelFactory>().Object);
 			var result = handler.Execute();
 
 			// Assert

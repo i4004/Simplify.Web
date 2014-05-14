@@ -4,22 +4,33 @@ using AcspNet.Meta;
 
 namespace AcspNet
 {
+	internal enum SecurityCheckResult
+	{
+		Ok,
+		SecurityControllerCalled,
+		Http400,
+		Http403
+	}
+
+	internal enum ProcessViewModelResult
+	{
+		Ok,
+		Http400
+	}
+
 	/// <summary>
 	/// Creates and executes controllers for current HTTP request
 	/// </summary>
 	public class ControllersHandler
 	{
-		private readonly IControllerFactory _controllerFactory;
+		private readonly IControllerExecutor _controllerExecutor;
 		private readonly IControllerExecutionAgent _executionAgent;
 
-		private readonly IList<ControllerMetaContainer> _controllersMetaData;
-
-		internal ControllersHandler(IControllersMetaStore controllersMetaStore, IControllerFactory controllerFactory, IControllerExecutionAgent executionAgent)
+		internal ControllersHandler(IControllerExecutor controllerExecutor,
+			IControllerExecutionAgent executionAgent)
 		{
-			_controllerFactory = controllerFactory;
+			_controllerExecutor = controllerExecutor;
 			_executionAgent = executionAgent;
-
-			_controllersMetaData = controllersMetaStore.GetControllersMetaData();
 		}
 
 		/// <summary>
@@ -38,93 +49,80 @@ namespace AcspNet
 			var isAnyNonAnyPageControllerCalled = false;
 			var securityControllerCalled = false;
 
-			foreach (var metaContainer in FilterForStandardControllers().Where(_executionAgent.IsControllerCanBeExecutedOnCurrentPage))
-			{
-				var isNonAnyPageController = false;
+			//foreach (var metaContainer in FilterForStandardControllers().Where(_executionAgent.IsControllerCanBeExecutedOnCurrentPage))
+			//{
+			//	var isNonAnyPageController = false;
 
-				if (!securityControllerCalled)
-				{
-					var securityCheckResult = _executionAgent.IsSecurityRulesViolated(metaContainer);
+			//	if (!securityControllerCalled)
+			//	{
+			//		var result = ProcessSecurityChecks(metaContainer);
 
-					if (securityCheckResult == SecurityViolationResult.RequestTypeViolated)
-					{
-						var result = ExecuteHandlerController(HandlerControllerType.Http400Handler);
+			//		switch (result)
+			//		{
+			//			case SecurityCheckResult.Ok:
+			//				securityControllerCalled = true;
+			//				break;
+			//			case SecurityCheckResult.Http400:
+			//				return ControllersHandlerResult.Http400;
+			//			case SecurityCheckResult.Http403:
+			//				return ControllersHandlerResult.Http403;
+			//		}
+			//	}
 
-						if (!result)
-							return ControllersHandlerResult.Http400;
+			//	if (_executionAgent.IsNonAnyPageController(metaContainer))
+			//		isNonAnyPageController = true;
 
-						securityControllerCalled = true;
-					}
+			//	if (metaContainer.Data != null)
+			//	{
+			//		ProcessViewModelResult processViewModelResult;
+			//		var viewMode = ProcessViewModel(metaContainer, out processViewModelResult);
 
-					if (securityCheckResult == SecurityViolationResult.AuthenticationRequired)
-					{
-						var result = ExecuteHandlerController(HandlerControllerType.Http403Handler);
+			//		if (processViewModelResult == ProcessViewModelResult.Http400)
+			//			securityControllerCalled = true;
+			//	}
 
-						if (!result)
-							return ControllersHandlerResult.Http403;
+			//	if (securityControllerCalled && isNonAnyPageController)
+			//		continue;
 
-						securityControllerCalled = true;
-					}
-				}
+			//	var controller = _controllerFactory.CreateController(metaContainer.ControllerType);
 
-				if (_executionAgent.IsNonAnyPageController(metaContainer))
-					isNonAnyPageController = true;
+			//	controller.Invoke();
 
-				if (securityControllerCalled && isNonAnyPageController)
-					continue;
+			//	if (metaContainer.ExecParameters != null && metaContainer.ExecParameters.IsAjax)
+			//	{
+			//		AjaxResult = controller.AjaxResult;
+			//		return ControllersHandlerResult.AjaxRequest;
+			//	}
 
-				var controller = _controllerFactory.CreateController(metaContainer.ControllerType);
-				controller.Invoke();
+			//	if (controller.StopExecution)
+			//		return ControllersHandlerResult.StopExecution;
 
-				if (metaContainer.ExecParameters != null && metaContainer.ExecParameters.IsAjax)
-				{
-					AjaxResult = controller.AjaxResult;
-					return ControllersHandlerResult.AjaxRequest;
-				}
+			//	if (isNonAnyPageController)
+			//		isAnyNonAnyPageControllerCalled = true;
+			//}
 
-				if (controller.StopExecution)
-					return ControllersHandlerResult.StopExecution;
+			//if (isAnyNonAnyPageControllerCalled || securityControllerCalled) return ControllersHandlerResult.Ok;
 
-				if (isNonAnyPageController)
-					isAnyNonAnyPageControllerCalled = true;
-			}
+			//return _controllerExecutor.ExecuteHandlerController(HandlerControllerType.Http404Handler) ? ControllersHandlerResult.Ok : ControllersHandlerResult.Http404;
 
-			if (isAnyNonAnyPageControllerCalled || securityControllerCalled) return ControllersHandlerResult.Ok;
-
-			return ExecuteHandlerController(HandlerControllerType.Http404Handler) ? ControllersHandlerResult.Ok : ControllersHandlerResult.Http404;
+			return ControllersHandlerResult.Ok;
 		}
 
-		private bool ExecuteHandlerController(HandlerControllerType controllerType)
-		{
-			ControllerMetaContainer metaContainer = null;
+		//private object ProcessViewModel(ControllerMetaContainer metaContainer, out ProcessViewModelResult result)
+		//{
+		//	result = ProcessViewModelResult.Ok;
+		//	CreateViewModelResult createViewModelResult;
 
-			switch (controllerType)
-			{
-					case HandlerControllerType.Http400Handler:
-						metaContainer = _controllersMetaData.FirstOrDefault(x => x.Role != null && x.Role.Is400Handler);
-						break;
-					case HandlerControllerType.Http403Handler:
-						metaContainer = _controllersMetaData.FirstOrDefault(x => x.Role != null && x.Role.Is403Handler);
-						break;
-					case HandlerControllerType.Http404Handler:
-						metaContainer = _controllersMetaData.FirstOrDefault(x => x.Role != null && x.Role.Is404Handler);
-						break;
-			}
+		//	var viewModel = _viewModelFactory.CreateViewModel(metaContainer.Data.ViewModel, out createViewModelResult);
 
-			if (metaContainer == null)
-				return false;
+		//	if (createViewModelResult != CreateViewModelResult.BadData) return viewModel;
 
-			var controller = _controllerFactory.CreateController(metaContainer.ControllerType);
-			controller.Invoke();
+		//	var handlerResult = ExecuteHandlerController(HandlerControllerType.Http400Handler);
 
-			return true;
-		}
+		//	if (!handlerResult)
+		//		result = ProcessViewModelResult.Http400;
 
-		private IEnumerable<ControllerMetaContainer> FilterForStandardControllers()
-		{
-			return
-				_controllersMetaData.Where(
-					x => x.Role == null || (x.Role.Is400Handler == false && x.Role.Is403Handler == false && x.Role.Is404Handler == false));
-		}
+		//	return viewModel;
+		//}
 	}
 }

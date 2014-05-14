@@ -4,9 +4,6 @@ using AcspNet.Modules.Identity;
 
 namespace AcspNet
 {
-	/// <summary>
-	/// Provides controller execution agent
-	/// </summary>
 	public class ControllerExecutionAgent : IControllerExecutionAgent
 	{
 		private readonly string _currentAction;
@@ -15,7 +12,7 @@ namespace AcspNet
 		private readonly IAuthenticationState _authenticationState;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ControllerExecutionAgent"/> class.
+		/// Initializes a new instance of the <see cref="ControllerExecutor"/> class.
 		/// </summary>
 		/// <param name="authenticationState">State of the authentication.</param>
 		/// <param name="currentAction">The current action.</param>

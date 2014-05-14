@@ -14,12 +14,15 @@ namespace AcspNet.Meta
 		/// <param name="execParameters">The execution parameters.</param>
 		/// <param name="security">The controller security.</param>
 		/// <param name="role">The controller role.</param>
-		public ControllerMetaContainer(Type controllerType, ControllerExecParameters execParameters = null, ControllerSecurity security = null, ControllerRole role = null)
+		/// <param name="data">The controller data.</param>
+		public ControllerMetaContainer(Type controllerType, ControllerExecParameters execParameters = null,
+			ControllerSecurity security = null, ControllerRole role = null, ControllerDataParameters data = null)
 		{
 			ControllerType = controllerType;
 			ExecParameters = execParameters;
 			Security = security;
 			Role = role;
+			Data = data;
 		}
 
 		/// <summary>
@@ -44,5 +47,10 @@ namespace AcspNet.Meta
 		/// Gets the controller role information.
 		/// </summary>
 		public ControllerRole Role { get; private set; }
+
+		/// <summary>
+		/// Gets the controller data.
+		/// </summary>
+		public ControllerDataParameters Data { get; private set; }
 	}
 }

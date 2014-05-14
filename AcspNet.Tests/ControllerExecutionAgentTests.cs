@@ -13,7 +13,7 @@ namespace AcspNet.Tests
 		{
 			// Arrange
 
-			var agent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object);
+			var agent = new ControllerExecutor(new Mock<IAuthenticationState>().Object);
 			var metaContainer = new ControllerMetaContainer(null,
 				new ControllerExecParameters(null, null, 0, true));
 			var metaContainer2 = new ControllerMetaContainer(null,
@@ -30,7 +30,7 @@ namespace AcspNet.Tests
 		{
 			// Arrange
 
-			var agent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object);
+			var agent = new ControllerExecutor(new Mock<IAuthenticationState>().Object);
 			var metaContainer = new ControllerMetaContainer(null,
 				new ControllerExecParameters("foo", "bar"));
 			var metaContainer2 = new ControllerMetaContainer(null,
@@ -47,7 +47,7 @@ namespace AcspNet.Tests
 		{
 			// Arrange
 
-			var agent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object);
+			var agent = new ControllerExecutor(new Mock<IAuthenticationState>().Object);
 			var metaContainer = new ControllerMetaContainer(null);
 			var metaContainer2 = new ControllerMetaContainer(null, new ControllerExecParameters());
 			var metaContainer3 = new ControllerMetaContainer(null, new ControllerExecParameters(""));
@@ -64,7 +64,7 @@ namespace AcspNet.Tests
 		{
 			// Arrange
 
-			var agent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object);
+			var agent = new ControllerExecutor(new Mock<IAuthenticationState>().Object);
 			var metaContainer = new ControllerMetaContainer(null,
 				new ControllerExecParameters(null, null, 0, true));
 			var metaContainer2 = new ControllerMetaContainer(null,
@@ -88,7 +88,7 @@ namespace AcspNet.Tests
 		{
 			// Arrange
 
-			var agent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object, "foo", "bar");
+			var agent = new ControllerExecutor(new Mock<IAuthenticationState>().Object, "foo", "bar");
 			var metaContainer = new ControllerMetaContainer(null,
 				new ControllerExecParameters(null, null, 0, true));
 			var metaContainer2 = new ControllerMetaContainer(null,
@@ -115,7 +115,7 @@ namespace AcspNet.Tests
 		{
 			// Arrange
 
-			var agent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object, "foo");
+			var agent = new ControllerExecutor(new Mock<IAuthenticationState>().Object, "foo");
 			var metaContainer = new ControllerMetaContainer(null,
 				new ControllerExecParameters("foo", "bar"));
 			var metaContainer2 = new ControllerMetaContainer(null);
@@ -134,7 +134,7 @@ namespace AcspNet.Tests
 		{
 			// Arrange
 
-			var agent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object);
+			var agent = new ControllerExecutor(new Mock<IAuthenticationState>().Object);
 			var metaContainer = new ControllerMetaContainer(null);
 			var metaContainer2 = new ControllerMetaContainer(null, null, new ControllerSecurity());
 
@@ -149,7 +149,7 @@ namespace AcspNet.Tests
 		{
 			// Arrange
 
-			var agent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object);
+			var agent = new ControllerExecutor(new Mock<IAuthenticationState>().Object);
 			var metaContainer = new ControllerMetaContainer(null, null, new ControllerSecurity(true));
 			var metaContainer2 = new ControllerMetaContainer(null, null, new ControllerSecurity(false, true));
 			var metaContainer3 = new ControllerMetaContainer(null, null, new ControllerSecurity(false, false, true));
@@ -166,8 +166,8 @@ namespace AcspNet.Tests
 		{
 			// Arrange
 
-			var agent = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object, null, null, "GET");
-			var agent2 = new ControllerExecutionAgent(new Mock<IAuthenticationState>().Object, null, null, "POST");
+			var agent = new ControllerExecutor(new Mock<IAuthenticationState>().Object, null, null, "GET");
+			var agent2 = new ControllerExecutor(new Mock<IAuthenticationState>().Object, null, null, "POST");
 
 			var metaContainer = new ControllerMetaContainer(null, null, new ControllerSecurity(false, true));
 			var metaContainer2 = new ControllerMetaContainer(null, null, new ControllerSecurity(false, false, true));
@@ -186,7 +186,7 @@ namespace AcspNet.Tests
 			var state = new Mock<IAuthenticationState>();
 			state.SetupGet(x => x.IsAuthenticatedAsUser).Returns(false);
 
-			var agent = new ControllerExecutionAgent(state.Object);
+			var agent = new ControllerExecutor(state.Object);
 
 			var metaContainer = new ControllerMetaContainer(null, null, new ControllerSecurity(true));
 
@@ -203,7 +203,7 @@ namespace AcspNet.Tests
 			var state = new Mock<IAuthenticationState>();
 			state.SetupGet(x => x.IsAuthenticatedAsUser).Returns(true);
 
-			var agent = new ControllerExecutionAgent(state.Object);
+			var agent = new ControllerExecutor(state.Object);
 
 			var metaContainer = new ControllerMetaContainer(null, null, new ControllerSecurity(true));
 
