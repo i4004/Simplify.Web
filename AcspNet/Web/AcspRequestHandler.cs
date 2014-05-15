@@ -82,49 +82,49 @@ namespace AcspNet.Web
 			var viewModelFactory = new ViewModelFactory(acspContext.Request);
 			var controllerFactory = new ControllerFactory(sourceContainer, viewFactory);
 			var displayer = new Displayer(sourceContainer.Context.Response);
-			var executionAgent = new ControllerExecutionAgent(sourceContainer.Authentication, acspContext.CurrentAction, acspContext.CurrentMode,
-				context.Request.HttpMethod);
-			var executor = new ControllerExecutor(executionAgent, controllerFactory, MetaStore);
-			var controllersHandler = new ControllersHandler(executor, executionAgent);
+			//var executionAgent = new ControllerExecutionAgent(sourceContainer.Authentication, acspContext.CurrentAction, acspContext.CurrentMode,
+			//	context.Request.HttpMethod);
+			//var executor = new ControllerExecutor(executionAgent, controllerFactory, MetaStore);
+			//var controllersHandler = new ControllersHandler(executor, executionAgent);
 
-			var result = controllersHandler.Execute();
+			//var result = controllersHandler.Execute();
 
-			switch (result)
-			{
-				case ControllersHandlerResult.AjaxRequest:
-					displayer.DisplayNoCache(controllersHandler.AjaxResult);
-					break;
-				case ControllersHandlerResult.Ok:
-					if (acspContext.Request.Url != null)
-						sourceContainer.Navigator.PreviousPageLink = acspContext.Request.Url.AbsoluteUri;
+			//switch (result)
+			//{
+			//	case ControllersHandlerResult.AjaxRequest:
+			//		displayer.DisplayNoCache(controllersHandler.AjaxResult);
+			//		break;
+			//	case ControllersHandlerResult.Ok:
+			//		if (acspContext.Request.Url != null)
+			//			sourceContainer.Navigator.PreviousPageLink = acspContext.Request.Url.AbsoluteUri;
 
-					var pageBuilder = new PageBuilder(sourceContainer.Environment.MasterTemplateFileName,
-						sourceContainer.TemplateFactory);
-					var dcSetter = new DataCollectorDataSetter(sourceContainer.DataCollector);
+			//		var pageBuilder = new PageBuilder(sourceContainer.Environment.MasterTemplateFileName,
+			//			sourceContainer.TemplateFactory);
+			//		var dcSetter = new DataCollectorDataSetter(sourceContainer.DataCollector);
 
-					if (!Settings.DisableAutomaticSiteTitleSet)
-						dcSetter.SetSiteTitleFromStringTable(acspContext.CurrentAction, acspContext.CurrentMode);
+			//		if (!Settings.DisableAutomaticSiteTitleSet)
+			//			dcSetter.SetSiteTitleFromStringTable(acspContext.CurrentAction, acspContext.CurrentMode);
 
-					dcSetter.SetEnvironmentVariables(sourceContainer.Environment);
-					dcSetter.SetContextVariables(acspContext);
-					dcSetter.SetLanguageVariables(sourceContainer.LanguageManager.Language);
+			//		dcSetter.SetEnvironmentVariables(sourceContainer.Environment);
+			//		dcSetter.SetContextVariables(acspContext);
+			//		dcSetter.SetLanguageVariables(sourceContainer.LanguageManager.Language);
 
-					stopWatch.Stop();
+			//		stopWatch.Stop();
 
-					dcSetter.SetExecutionTimeVariable(stopWatch.Elapsed);
+			//		dcSetter.SetExecutionTimeVariable(stopWatch.Elapsed);
 
-					displayer.DisplayNoCache(pageBuilder.Buid(sourceContainer.DataCollector.Items));
-					break;
-				case ControllersHandlerResult.Http400:
-					acspContext.Response.StatusCode = 400;
-					break;
-				case ControllersHandlerResult.Http403:
-					acspContext.Response.StatusCode = 403;
-					break;
-				case ControllersHandlerResult.Http404:
-					acspContext.Response.StatusCode = 404;
-					break;
-			}
+			//		displayer.DisplayNoCache(pageBuilder.Buid(sourceContainer.DataCollector.Items));
+			//		break;
+			//	case ControllersHandlerResult.Http400:
+			//		acspContext.Response.StatusCode = 400;
+			//		break;
+			//	case ControllersHandlerResult.Http403:
+			//		acspContext.Response.StatusCode = 403;
+			//		break;
+			//	case ControllersHandlerResult.Http404:
+			//		acspContext.Response.StatusCode = 404;
+			//		break;
+			//}
 
 			context.Response.End();
 		}

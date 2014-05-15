@@ -4,13 +4,6 @@ using AcspNet.Meta;
 
 namespace AcspNet
 {
-	internal enum SecurityCheckResult
-	{
-		Ok,
-		SecurityControllerCalled,
-		Http400,
-		Http403
-	}
 
 	internal enum ProcessViewModelResult
 	{
@@ -23,14 +16,19 @@ namespace AcspNet
 	/// </summary>
 	public class ControllersHandler
 	{
-		private readonly IControllerExecutor _controllerExecutor;
-		private readonly IControllerExecutionAgent _executionAgent;
+		//private readonly IControllerExecutor _controllerExecutor;
+		//private readonly IControllerExecutionAgent _executionAgent;
 
-		internal ControllersHandler(IControllerExecutor controllerExecutor,
-			IControllerExecutionAgent executionAgent)
+		private readonly IList<ControllerMetaContainer> _controllersMetaData;
+
+		internal ControllersHandler(/*IControllerExecutor controllerExecutor,
+			IControllerExecutionAgent executionAgent,*/
+			IControllersMetaStore controllersMetaStore)
 		{
-			_controllerExecutor = controllerExecutor;
-			_executionAgent = executionAgent;
+			//_controllerExecutor = controllerExecutor;
+			//_executionAgent = executionAgent;
+
+			_controllersMetaData = controllersMetaStore.GetControllersMetaData();
 		}
 
 		/// <summary>
@@ -46,8 +44,8 @@ namespace AcspNet
 		/// </summary>
 		public ControllersHandlerResult Execute()
 		{
-			var isAnyNonAnyPageControllerCalled = false;
-			var securityControllerCalled = false;
+			//var isAnyNonAnyPageControllerCalled = false;
+			//var securityControllerCalled = false;
 
 			//foreach (var metaContainer in FilterForStandardControllers().Where(_executionAgent.IsControllerCanBeExecutedOnCurrentPage))
 			//{
@@ -123,6 +121,13 @@ namespace AcspNet
 		//		result = ProcessViewModelResult.Http400;
 
 		//	return viewModel;
+		//}
+		
+		//public IEnumerable<ControllerMetaContainer> GetStandardControllers()
+		//{
+		//	return
+		//		_controllersMetaData.Where(
+		//			x => x.Role == null || (x.Role.Is400Handler == false && x.Role.Is403Handler == false && x.Role.Is404Handler == false));
 		//}
 	}
 }
