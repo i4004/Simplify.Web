@@ -121,11 +121,8 @@
     <Compile Include="ControllerFactory.cs" />
     <Compile Include="ControllersHandler.cs" />
     <Compile Include="ControllersHandlerResult.cs" />
-    <Compile Include="DefaultDependencyResolver.cs" />
     <Compile Include="DefaultPageAttribute.cs" />
-    <Compile Include="DependencyResolver.cs" />
     <Compile Include="Displayer.cs" />
-    <Compile Include="EventDependencyResolver.cs" />
     <Compile Include="Http400Attribute.cs" />
     <Compile Include="Http403Attribute.cs" />
     <Compile Include="Http404Attribute.cs" />
@@ -154,7 +151,6 @@
     <Compile Include="IAcspContext.cs" />
     <Compile Include="IAcspSettings.cs" />
     <Compile Include="IControllerFactory.cs" />
-    <Compile Include="IDependecyResolver.cs" />
     <Compile Include="IHideObjectMembers.cs" />
     <Compile Include="IViewFactory.cs" />
     <Compile Include="IgnoreControllersAttribute.cs" />
