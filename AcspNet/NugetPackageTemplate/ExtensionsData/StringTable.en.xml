@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-
-<items>
-	<item name="SiteTitle" value="Your site title!" />
-	<item name="HtmlListDefaultItemLabel" value="Not selected..." />
-	<item name="FormTitleMessageBox" value="Information" />
-</items>

@@ -3,7 +3,7 @@
 namespace AcspNet
 {
 	/// <summary>
-	/// Set extensions execute/initialize Priority
+	/// Set controller execution priority
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class)]
 	public class PriorityAttribute : Attribute
@@ -19,7 +19,7 @@ namespace AcspNet
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PriorityAttribute"/> class.
 		/// </summary>
-		/// <param name="priority">The priority.</param>
+		/// <param name="priority">The execution priority.</param>
 		public PriorityAttribute(int priority)
 		{
 			Priority = priority;

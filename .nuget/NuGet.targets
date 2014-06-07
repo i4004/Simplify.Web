@@ -13,28 +13,41 @@
 		<RequireRestoreConsent Condition=" '$(RequireRestoreConsent)' != 'false' ">true</RequireRestoreConsent>
 
 		<!-- Download NuGet.exe if it does not already exist -->
-		<DownloadNuGetExe Condition=" '$(DownloadNuGetExe)' == '' ">true</DownloadNuGetExe>
+		<DownloadNuGetExe Condition=" '$(DownloadNuGetExe)' == '' ">false</DownloadNuGetExe>
 	</PropertyGroup>
 
 	<ItemGroup Condition=" '$(PackageSources)' == '' ">
-		<!-- Package sources used to restore packages. By default, registered sources under %APPDATA%\NuGet\NuGet.Config will be used -->
-		<!-- The official NuGet package source (https://www.nuget.org/api/v2/) will be excluded if package sources are specified and it does not appear in the list -->
-
 		<PackageSource Include="E:\srv\NugetRepository" />
+		<PackageSource Include="D:\srv\NugetRepository" />
 		<PackageSource Include="https://www.nuget.org/api/v2/" />
 	</ItemGroup>
 
 	<PropertyGroup Condition=" '$(OS)' == 'Windows_NT'">
 		<!-- Windows specific commands -->
 		<NuGetToolsPath>$([System.IO.Path]::Combine($(SolutionDir), ".nuget"))</NuGetToolsPath>
-		<PackagesConfig>$([System.IO.Path]::Combine($(ProjectDir), "packages.config"))</PackagesConfig>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(OS)' != 'Windows_NT'">
 		<!-- We need to launch nuget.exe with the mono command if we're not on windows -->
 		<NuGetToolsPath>$(SolutionDir).nuget</NuGetToolsPath>
-		<PackagesConfig>packages.config</PackagesConfig>
 	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackagesProjectConfig>packages.$(MSBuildProjectName.Replace(' ', '_')).config</PackagesProjectConfig>
+	</PropertyGroup>
+
+	<Choose>
+		<When Condition="Exists('$(PackagesProjectConfig)')">
+			<PropertyGroup>
+				<PackagesConfig>$(PackagesProjectConfig)</PackagesConfig>
+			</PropertyGroup>
+		</When>
+		<When Condition="Exists('packages.config')">
+			<PropertyGroup>
+				<PackagesConfig>packages.config</PackagesConfig>
+			</PropertyGroup>
+		</When>
+	</Choose>
 
 	<PropertyGroup>
 		<!-- NuGet command -->

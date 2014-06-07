@@ -110,125 +110,152 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AcspNetException.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="AcspNetSettings.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="AcspContext.cs" />
+    <Compile Include="AcspException.cs" />
+    <Compile Include="AcspSettings.cs" />
     <Compile Include="ActionAttribute.cs" />
-    <Compile Include="Authentication\AuthenticationModule.cs" />
-    <Compile Include="Authentication\IAuthenticationModule.cs" />
-    <Compile Include="Authentication\Protection.cs" />
-    <Compile Include="Authentication\ProtectionAttribute.cs" />
-    <Compile Include="DataCollector.cs" />
-    <Compile Include="Environment.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ExecExtension.cs" />
-    <Compile Include="ExecExtensionMetaContainer.cs" />
-    <Compile Include="ExtensionMetaContainer.cs" />
-    <Compile Include="ExtensionsBase.cs" />
-    <Compile Include="ExtensionsDataLoader.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Extensions\Executable\ExtensionsProtector.cs" />
-    <Compile Include="Extensions\Executable\MessagePageDisplay.cs" />
-    <Compile Include="Extensions\ExtensionsWrapper.cs" />
-    <Compile Include="Extensions\IIdProcessor.cs" />
-    <Compile Include="Extensions\IMessagePage.cs" />
-    <Compile Include="Extensions\INavigator.cs" />
-    <Compile Include="Extensions\MessagePage.cs" />
-    <Compile Include="Extensions\IdProcessor.cs" />
-    <Compile Include="Extensions\Navigator.cs" />
-    <Compile Include="Html\HtmlWrapper.cs" />
-    <Compile Include="Html\IListsGenerator.cs" />
-    <Compile Include="Html\IMessageBox.cs" />
-    <Compile Include="Html\MessageBox.cs" />
-    <Compile Include="IDataCollector.cs" />
-    <Compile Include="IEnvironment.cs" />
-    <Compile Include="Extensions\IExtensions.cs" />
-    <Compile Include="IExtensionsDataLoader.cs" />
-    <Compile Include="Html\IHtml.cs" />
+    <Compile Include="AjaxAttribute.cs" />
+    <Compile Include="AuthenticationRequiredAttribute.cs" />
+    <Compile Include="Controller.cs" />
+    <Compile Include="ControllerExecutionAgent.cs" />
+    <Compile Include="ControllerFactory.cs" />
+    <Compile Include="ControllersHandler.cs" />
+    <Compile Include="ControllersHandlerResult.cs" />
+    <Compile Include="DefaultDependencyResolver.cs" />
+    <Compile Include="DefaultPageAttribute.cs" />
+    <Compile Include="DependencyResolver.cs" />
+    <Compile Include="Displayer.cs" />
+    <Compile Include="EventDependencyResolver.cs" />
+    <Compile Include="Http400Attribute.cs" />
+    <Compile Include="Http403Attribute.cs" />
+    <Compile Include="Http404Attribute.cs" />
+    <Compile Include="HttpGetAttribute.cs" />
+    <Compile Include="HttpPostAttribute.cs" />
+    <Compile Include="HandlerControllerType.cs" />
+    <Compile Include="IControllerExecutionAgent.cs" />
+    <Compile Include="SecurityViolationResult.cs" />
+    <Compile Include="Web\IRequestHandler.cs" />
+    <Compile Include="Meta\ControllerRole.cs" />
+    <Compile Include="Modules\Controllers\MessagePageDisplay.cs" />
+    <Compile Include="Modules\DataCollector.cs" />
+    <Compile Include="Modules\DataCollectorDataSetter.cs" />
+    <Compile Include="Modules\FileReader.cs" />
+    <Compile Include="Modules\Html\HtmlWrapper.cs" />
+    <Compile Include="Modules\Html\ListsGenerator.cs" />
+    <Compile Include="Modules\Html\MessageBox.cs" />
+    <Compile Include="Modules\Identity\Authentication.cs" />
+    <Compile Include="Modules\Identity\CookieAuthentication.cs" />
+    <Compile Include="Modules\Identity\SessionAuthentication.cs" />
+    <Compile Include="Modules\MessagePage.cs" />
+    <Compile Include="Modules\Navigator.cs" />
+    <Compile Include="Modules\StringTable.cs" />
+    <Compile Include="Modules\TemplateFactory.cs" />
+    <Compile Include="Web\AcspRequestHandler.cs" />
+    <Compile Include="IAcspContext.cs" />
+    <Compile Include="IAcspSettings.cs" />
+    <Compile Include="IControllerFactory.cs" />
+    <Compile Include="IDependecyResolver.cs" />
     <Compile Include="IHideObjectMembers.cs" />
-    <Compile Include="IManager.cs" />
-    <Compile Include="IStringTable.cs" />
-    <Compile Include="ITemplateFactory.cs" />
-    <Compile Include="LibExtension.cs" />
-    <Compile Include="LibExtensionMetaContainer.cs" />
-    <Compile Include="Html\ListsGenerator.cs" />
-    <Compile Include="LoadExtensionsFromAssemblyOfAttribute.cs" />
-    <Compile Include="LoadIndividualExtensionsAttribute.cs" />
-    <Compile Include="Manager.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="IViewFactory.cs" />
+    <Compile Include="IgnoreControllersAttribute.cs" />
+    <Compile Include="Meta\ControllerExecParameters.cs" />
+    <Compile Include="Meta\ControllerMetaContainer.cs" />
+    <Compile Include="Meta\ControllerSecurity.cs" />
+    <Compile Include="Meta\ControllersMetaStore.cs" />
+    <Compile Include="Meta\IControllersMetaStore.cs" />
     <Compile Include="ModeAttribute.cs" />
-    <Compile Include="Web\HttpRuntime.cs" />
-    <Compile Include="Web\IHttpRuntime.cs" />
-    <None Include="AcspNet.nuspec" />
-    <None Include="NugetPackageTemplate\Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="NugetPackageTemplate\index.aspx.cs">
-      <DependentUpon>index.aspx</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Compile Include="ModulesContainer.cs" />
+    <Compile Include="ModulesContainerFactory.cs" />
+    <Compile Include="Modules\Environment.cs" />
+    <Compile Include="Modules\Html\IHtmlWrapper.cs" />
+    <Compile Include="Modules\Html\IListsGenerator.cs" />
+    <Compile Include="Modules\Html\IMessageBox.cs" />
+    <Compile Include="Modules\Html\MessageBoxStatus.cs" />
+    <Compile Include="Modules\IDataCollector.cs" />
+    <Compile Include="Modules\Identity\IAuthentication.cs" />
+    <Compile Include="Modules\Identity\IAuthenticationState.cs" />
+    <Compile Include="Modules\Identity\ICookieAuthentication.cs" />
+    <Compile Include="Modules\Identity\ISessionAuthentication.cs" />
+    <Compile Include="Modules\IdVerifier.cs" />
+    <Compile Include="Modules\IEnvironment.cs" />
+    <Compile Include="Modules\IFileReader.cs" />
+    <Compile Include="Modules\IIdVerifier.cs" />
+    <Compile Include="Modules\ILanguageManager.cs" />
+    <Compile Include="Modules\IMessagePage.cs" />
+    <Compile Include="Modules\INavigator.cs" />
+    <Compile Include="Modules\IStringTable.cs" />
+    <Compile Include="Modules\ITemplateFactory.cs" />
+    <Compile Include="Modules\LanguageManager.cs" />
+    <Compile Include="PageBuilder.cs" />
     <Compile Include="PriorityAttribute.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RouteConfig.cs">
+    <Compile Include="View.cs" />
+    <Compile Include="ViewAccessor.cs" />
+    <Compile Include="ViewFactory.cs" />
+    <Compile Include="Web\AcspRouteParser.cs" />
+    <None Include="AcspNet.nuspec" />
+    <Compile Include="Web\AcspHttpModule.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="RunType.cs" />
-    <Compile Include="RunTypeAttribute.cs" />
-    <Compile Include="StringTable.cs" />
-    <Compile Include="TemplateFactory.cs" />
-    <Compile Include="VersionAttribute.cs" />
-    <None Include="NugetPackageTemplate\index.aspx">
-      <SubType>ASPXCodeBehind</SubType>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="NugetPackageTemplate\App_Data\StringTable.en.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NugetPackageTemplate\Content\Main.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NugetPackageTemplate\Templates\Index.tpl.en.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NugetPackageTemplate\Web.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\ErrorMessageBox.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\OkMessageBox.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\InfoMessageBox.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\InlineErrorMessageBox.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\InlineOkMessageBox.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\InlineInfoMessageBox.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="NugetPackageTemplate\Templates\Index.tpl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AcspNet.snk" />
-    <None Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\ErrorMessageBox.tpl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\InfoMessageBox.tpl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\InlineErrorMessageBox.tpl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\InlineInfoMessageBox.tpl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\InlineOkMessageBox.tpl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\OkMessageBox.tpl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="NugetPackageTemplate\Templates\Index.tpl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="NugetPackageTemplate\Web.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Simplify.Templates">
-      <HintPath>..\packages\Simplify.Templates.1.0.0\lib\net40\Simplify.Templates.dll</HintPath>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Simplify.Xml">
-      <HintPath>..\packages\Simplify.Xml.1.0.0\lib\net40\Simplify.Xml.dll</HintPath>
+    <Reference Include="Simplify.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=f9fa937ed2a87692, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Simplify.Core.1.1.0\lib\net40\Simplify.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Simplify.Templates, Version=1.0.1.0, Culture=neutral, PublicKeyToken=53a766bba578ec8b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Simplify.Templates.1.0.2\lib\net40\Simplify.Templates.dll</HintPath>
+    </Reference>
+    <Reference Include="Simplify.Xml, Version=1.0.1.0, Culture=neutral, PublicKeyToken=bc9f823c6827798e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Simplify.Xml.1.0.1\lib\net40\Simplify.Xml.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.IO.Abstractions, Version=1.4.0.76, Culture=neutral, PublicKeyToken=d480b5b72fb413da, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\System.IO.Abstractions.1.4.0.76\lib\net35\System.IO.Abstractions.dll</HintPath>
+    <Reference Include="System.IO.Abstractions, Version=1.4.0.84, Culture=neutral, PublicKeyToken=d480b5b72fb413da, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Abstractions.1.4.0.84\lib\net35\System.IO.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
@@ -256,20 +283,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="NugetPackageTemplate\ExtensionsData\StringTable.en.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="NugetPackageTemplate\Global.asax">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="NugetPackageTemplate\Styles\Main.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="NugetPackageTemplate\Templates\Index.tpl.en.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
