@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>{Title}</title>
-    <link rel="stylesheet" type="text/css" href="{SV:SiteVirtualPath}/Content/Main.css" />
+    <link rel="stylesheet" type="text/css" href="{~}/Content/Main.css" />
 </head>
 <body>
     {MainContent}
