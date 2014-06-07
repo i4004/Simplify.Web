@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
-		<id>AcspNet.TestingHelpers</id>
+		<id>AcspNet.TestingHelper</id>
 		<version>1.0</version>
-		<title>AcspNet.TestingHelpers</title>
+		<title>AcspNet.TestingHelper</title>
 		<authors>Alexander Krylkov</authors>
 		<owners>Alexander Krylkov</owners>
 		<projectUrl>https://github.com/i4004/AcspNet/tree/master/AcspNet.TestingHelpers</projectUrl>
