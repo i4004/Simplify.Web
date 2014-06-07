@@ -17,9 +17,9 @@
 		<tags>ASP.NET web-framework MVC DI</tags>
 		<dependencies>
 			<group targetFramework=".NETFramework4.0">
-				<dependency id="System.IO.Abstractions" version="1.4.0.76" />
-				<dependency id="Simplify.Xml" version="1.0.0" />
-				<dependency id="Simplify.Templates" version="1.0.0" />
+				<dependency id="System.IO.Abstractions" version="1.4.0.86" />
+				<dependency id="Simplify.Xml" version="1.0.1" />
+				<dependency id="Simplify.Templates" version="1.0.3" />
 			</group>
 		</dependencies>
 	</metadata>

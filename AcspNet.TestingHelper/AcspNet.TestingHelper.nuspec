@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
 		<id>AcspNet.TestingHelpers</id>
-		<version>2.0</version>
+		<version>1.0</version>
 		<title>AcspNet.TestingHelpers</title>
 		<authors>Alexander Krylkov</authors>
 		<owners>Alexander Krylkov</owners>
@@ -14,17 +14,17 @@
 		<releaseNotes></releaseNotes>
 		<copyright>Licensed under LGPL</copyright>
 		<language>en-US</language>
-		<tags>.NET ACSP.NET testing</tags>
+		<tags>ACSP.NET testing</tags>
 		<dependencies>
 			<group targetFramework=".NETFramework4.0">
-				<dependency id="AcspNet" version="3.1.0" />
+				<dependency id="AcspNet" version="4.0.0" />
 				<dependency id="Moq" version="4.2.1402.2112" />
-				<dependency id="System.IO.Abstractions.TestingHelpers" version="1.4.0.76" />
+				<dependency id="System.IO.Abstractions.TestingHelpers" version="1.4.0.86" />
 			</group>
 		</dependencies>
 	</metadata>
 	<files>
-		<file src="bin\release\AcspNet.TestingHelpers.dll" target="lib\net40" />
-		<file src="bin\release\AcspNet.TestingHelpers.xml" target="lib\net40" />
+		<file src="bin\release\AcspNet.TestingHelper.dll" target="lib\net40" />
+		<file src="bin\release\AcspNet.TestingHelper.xml" target="lib\net40" />
 	</files>
 </package>
