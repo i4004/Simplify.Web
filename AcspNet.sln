@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{785266
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet.Examples.Nowin", "Examples\AcspNet.Examples.Nowin\AcspNet.Examples.Nowin.csproj", "{B4BC9D42-F91E-441B-8761-DFA09169C694}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +91,14 @@ Global
 		{FFEC9CC8-C3E7-4DEC-B584-9FE5BAF24F2D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FFEC9CC8-C3E7-4DEC-B584-9FE5BAF24F2D}.Release|x64.ActiveCfg = Release|Any CPU
 		{FFEC9CC8-C3E7-4DEC-B584-9FE5BAF24F2D}.Release|x86.ActiveCfg = Release|Any CPU
+		{B4BC9D42-F91E-441B-8761-DFA09169C694}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4BC9D42-F91E-441B-8761-DFA09169C694}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4BC9D42-F91E-441B-8761-DFA09169C694}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B4BC9D42-F91E-441B-8761-DFA09169C694}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B4BC9D42-F91E-441B-8761-DFA09169C694}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4BC9D42-F91E-441B-8761-DFA09169C694}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4BC9D42-F91E-441B-8761-DFA09169C694}.Release|x64.ActiveCfg = Release|Any CPU
+		{B4BC9D42-F91E-441B-8761-DFA09169C694}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,5 +108,6 @@ Global
 		{203A6546-F37D-4AC9-90A4-039E0CC407BE} = {11330387-2CFF-4DD4-848E-EBFF0BD67AB7}
 		{9D2032E2-6B56-47DD-86AE-901C1B5AF004} = {11330387-2CFF-4DD4-848E-EBFF0BD67AB7}
 		{FFEC9CC8-C3E7-4DEC-B584-9FE5BAF24F2D} = {11330387-2CFF-4DD4-848E-EBFF0BD67AB7}
+		{B4BC9D42-F91E-441B-8761-DFA09169C694} = {11330387-2CFF-4DD4-848E-EBFF0BD67AB7}
 	EndGlobalSection
 EndGlobal
