@@ -93,10 +93,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AcspNet.TestingHelper\AcspNet.TestingHelper.csproj">
-      <Project>{7879cbd5-c738-4980-af9b-bf8b47996355}</Project>
-      <Name>AcspNet.TestingHelper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AcspNet\AcspNet.csproj">
       <Project>{03b0ae6c-88d0-4d7a-8657-57fc4fd2682a}</Project>
       <Name>AcspNet</Name>
