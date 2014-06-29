@@ -8,7 +8,7 @@ namespace AcspNet.Examples.Nowin
 	{
 		public void Configuration(IAppBuilder app)
 		{
-			app.Use(context =>
+			app.Use((context, task) =>
 			{
 				if (context.Request.Path == new PathString("/"))
 				{
