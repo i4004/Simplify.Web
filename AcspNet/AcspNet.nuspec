@@ -2,40 +2,27 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
 		<id>AcspNet</id>
-		<version>4.0.0</version>
+		<version>$version$</version>
 		<title>AcspNet</title>
-		<authors>Alexander Krylkov</authors>
-		<owners>Alexander Krylkov</owners>
+		<authors>$authors$</authors>
+		<owners>$authors$</owners>
 		<projectUrl>https://github.com/i4004/AcspNet</projectUrl>
 		<iconUrl>https://raw.github.com/i4004/AcspNet/master/Images/Icon.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>ACSP.NET is a lightweight ASP.NET web-framework based on MVC.</description>
-		<summary>Lightweight ASP.NET web-framework.</summary>
+		<description>ACSP.NET is a lightweight .NET web-framework based on OWIN.</description>
+		<summary>Lightweight .NET web-framework.</summary>
 		<releaseNotes></releaseNotes>
 		<copyright>Licensed under LGPL</copyright>
 		<language>en-US</language>
-		<tags>ASP.NET web-framework MVC DI</tags>
+		<tags>.NET web-framework MVC DI OWIN</tags>
 		<dependencies>
 			<group targetFramework=".NETFramework4.0">
-				<dependency id="System.IO.Abstractions" version="1.4.0.86" />
-				<dependency id="Simplify.Xml" version="1.0.1" />
-				<dependency id="Simplify.Templates" version="1.0.3" />
+				<dependency id="Owin" version="1.0" />
 			</group>
 		</dependencies>
 	</metadata>
 	<files>
-		<file src="bin\release\AcspNet.dll" target="lib\net40" />
-		<file src="bin\release\AcspNet.xml" target="lib\net40" />
-		<file src="bin\release\NugetPackageTemplate\App_Data\StringTable.en.xml" target="content\App_Data\StringTable.en.xml" />
-		<file src="bin\release\NugetPackageTemplate\Content\Main.css" target="content\Content\Main.css" />
-		<file src="bin\release\NugetPackageTemplate\Templates\AcspNet\MessageBox\ErrorMessageBox.tpl" target="content\Templates\AcspNet\MessageBox\ErrorMessageBox.tpl" />
-		<file src="bin\release\NugetPackageTemplate\Templates\AcspNet\MessageBox\InfoMessageBox.tpl" target="content\Templates\AcspNet\MessageBox\InfoMessageBox.tpl" />
-		<file src="bin\release\NugetPackageTemplate\Templates\AcspNet\MessageBox\InlineErrorMessageBox.tpl" target="content\Templates\AcspNet\MessageBox\InlineErrorMessageBox.tpl" />
-		<file src="bin\release\NugetPackageTemplate\Templates\AcspNet\MessageBox\InlineInfoMessageBox.tpl" target="content\Templates\AcspNet\MessageBox\InlineInfoMessageBox.tpl" />
-		<file src="bin\release\NugetPackageTemplate\Templates\AcspNet\MessageBox\InlineOkMessageBox.tpl" target="content\Templates\AcspNet\MessageBox\InlineOkMessageBox.tpl" />
-		<file src="bin\release\NugetPackageTemplate\Templates\AcspNet\MessageBox\OkMessageBox.tpl" target="content\Templates\AcspNet\MessageBox\OkMessageBox.tpl" />
-		<file src="bin\release\NugetPackageTemplate\Templates\Index.tpl" target="content\Templates\Index.tpl" />
-		<file src="bin\release\NugetPackageTemplate\Templates\Index.tpl.en.xml" target="content\Templates\Index.tpl.en.xml" />
-		<file src="bin\release\NugetPackageTemplate\Web.config" target="content\Web.config" />
+		<file src="bin\release\AcspNet.dll" target="lib\net451" />
+		<file src="bin\release\AcspNet.xml" target="lib\net451" />
 	</files>
 </package>
