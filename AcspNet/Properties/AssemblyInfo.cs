@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Web;
 
 [assembly: AssemblyTitle("AcspNet")]
-[assembly: AssemblyDescription("Advanced Controls Site Platform .NET web framework")]
+[assembly: AssemblyDescription("Lightweight .NET web-framework")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Alexander Krylkov")]
 [assembly: AssemblyProduct("Advanced Controls Site Platform .NET")]
