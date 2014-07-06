@@ -18,6 +18,7 @@
 		<dependencies>
 			<group targetFramework=".NETFramework4.0">
 				<dependency id="Owin" version="1.0" />
+				<dependency id="Microsoft.Owin" version="2.1.0" />
 			</group>
 		</dependencies>
 	</metadata>

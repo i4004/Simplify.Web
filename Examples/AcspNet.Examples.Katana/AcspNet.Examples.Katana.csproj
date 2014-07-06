@@ -69,9 +69,9 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AcspNet.Examples.Domain\AcspNet.Examples.Domain.csproj">
-      <Project>{203a6546-f37d-4ac9-90a4-039e0cc407be}</Project>
-      <Name>AcspNet.Examples.Domain</Name>
+    <ProjectReference Include="..\..\AcspNet\AcspNet.csproj">
+      <Project>{03b0ae6c-88d0-4d7a-8657-57fc4fd2682a}</Project>
+      <Name>AcspNet</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
