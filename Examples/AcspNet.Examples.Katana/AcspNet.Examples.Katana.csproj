@@ -48,6 +48,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="test.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

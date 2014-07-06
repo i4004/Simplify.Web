@@ -14,7 +14,7 @@ namespace AcspNet.Examples
 			app.Run(Invoke);
 		}
 
-		//// Invoked once per request.
+		// Invoked once per request.
 		public Task Invoke(IOwinContext context)
 		{
 			//context.Response.ContentType = "text/plain";

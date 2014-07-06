@@ -5,7 +5,7 @@ namespace AcspNet.Examples.Nowin
 {
 	public class Program
 	{
-		static void Main(string[] args)
+		static void Main()
 		{
 			var options = new StartOptions
 			{
@@ -18,6 +18,6 @@ namespace AcspNet.Examples.Nowin
 				Console.WriteLine("Running a http server on port 8080");
 				Console.ReadKey();
 			}
-		}		 
+		}
 	}
 }

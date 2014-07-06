@@ -2,7 +2,7 @@
 using Microsoft.Owin;
 using Owin;
 
-namespace AcspNet.Examples.Nowin
+namespace AcspNet.Examples.SelfHosted
 {
 	public class Startup
 	{
@@ -13,7 +13,7 @@ namespace AcspNet.Examples.Nowin
 				if (context.Request.Path == new PathString("/"))
 				{
 					context.Response.ContentType = "text/plain";
-					return context.Response.WriteAsync("Hello World Nowin!");
+					return context.Response.WriteAsync("Hello World Self Hosted!");
 				}
 
 				context.Response.StatusCode = 404;
