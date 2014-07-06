@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("AcspNet.Examples.Nowin")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("AcspNet example using Nowin server")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AcspNet.Examples.Nowin")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCompany("Alexander Krylkov")]
+[assembly: AssemblyProduct("Advanced Controls Site Platform .NET")]
+[assembly: AssemblyCopyright("Licensed under LGPL")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("AcspNet.Examples.SelfHosted")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("AcspNet self hosted example")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AcspNet.Examples.SelfHosted")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCompany("Alexander Krylkov")]
+[assembly: AssemblyProduct("Advanced Controls Site Platform .NET")]
+[assembly: AssemblyCopyright("Licensed under LGPL")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

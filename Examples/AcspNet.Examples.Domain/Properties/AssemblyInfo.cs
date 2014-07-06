@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("AcspNet.Examples domain classes")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Alexander Krylkov")]
-[assembly: AssemblyProduct("AcspNet.Examples")]
+[assembly: AssemblyProduct("Advanced Controls Site Platform .NET")]
 [assembly: AssemblyCopyright("Licensed under LGPL")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
