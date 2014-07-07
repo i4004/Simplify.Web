@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AcspNet.Bootstrapper;
 using DryIoc;
 using Microsoft.Owin;
-using Simplify.Core;
 
 namespace AcspNet.Owin
 {
 	/// <summary>
-	/// AcspNet OWIN request handler
+	/// AcspNet engine root
 	/// </summary>
 	public class AcspNetOwinMiddleware : OwinMiddleware
 	{
 		readonly Container _container = new Container();
+		readonly BootstrapperFactory _bootstrapperFactory = new BootstrapperFactory();
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AcspNetOwinMiddleware"/> class.
@@ -20,7 +21,11 @@ namespace AcspNet.Owin
 		public AcspNetOwinMiddleware(OwinMiddleware next)
 			: base(next)
 		{
-			_container.Register<IRequestHandler, RequestHandler>(Reuse.InResolutionScope);
+			var bs = _bootstrapperFactory.GetBootstrapper();
+
+			// Registering all AcspNet pipeline types
+
+			_container.Register(typeof (IRequestHandler), bs.RequestHandlerType, Reuse.InResolutionScope);
 		}
 
 		/// <summary>
