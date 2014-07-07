@@ -21,7 +21,6 @@ namespace AcspNet.Owin
 			: base(next)
 		{
 			_container.Register<IRequestHandler, RequestHandler>(Reuse.InResolutionScope);
-			_container.RegisterAll<IRequestHandler>();
 		}
 
 		/// <summary>
@@ -33,7 +32,7 @@ namespace AcspNet.Owin
 		{
 			try
 			{
-				var request = _container.Resolve<RequestHandler>();
+				var request = _container.Resolve<IRequestHandler>();
 				request.ProcessRequest(context);
 			}
 			catch (Exception e)
