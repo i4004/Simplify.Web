@@ -9,7 +9,10 @@ namespace AcspNet.Examples.SelfHosted
 	{
 		public void Configuration(IAppBuilder app)
 		{
-			DependencyResolver.Current = new EventDependencyResolver(new Container().GetInstance);
+			var container = new Container();
+			container.RegisterLifetimeScope<IRequestHandler, RequestHandler>();
+			DependencyResolver.Current = new EventDependencyResolver(container.GetInstance, container.BeginLifetimeScope);
+
 			app.UseAcspNet();
 		}
 	}

@@ -14,7 +14,7 @@ namespace AcspNet.Owin
 		/// <returns></returns>
 		public static IAppBuilder UseAcspNet(this IAppBuilder builder)
 		{
-			return builder.Use<RequestHandler>();
+			return builder.Use<AcspNetOwinMiddleware>();
 		}		 
 	}
 }

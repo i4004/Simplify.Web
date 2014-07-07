@@ -34,7 +34,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AcspNet\AcspNet.csproj">
+    <ProjectReference Include="..\..\AcspNet\AcspNet.csproj">
       <Project>{03b0ae6c-88d0-4d7a-8657-57fc4fd2682a}</Project>
       <Name>AcspNet</Name>
     </ProjectReference>

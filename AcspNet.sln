@@ -26,7 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{785266
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet.Examples.Nowin", "Examples\AcspNet.Examples.Nowin\AcspNet.Examples.Nowin.csproj", "{B4BC9D42-F91E-441B-8761-DFA09169C694}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet.Examples.SiteCore", "AcspNet.Examples.SiteCore\AcspNet.Examples.SiteCore.csproj", "{64C58056-CFB5-419F-A8E7-65EADA24DFBB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet.Examples.SiteCore", "Examples\AcspNet.Examples.SiteCore\AcspNet.Examples.SiteCore.csproj", "{64C58056-CFB5-419F-A8E7-65EADA24DFBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

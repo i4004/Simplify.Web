@@ -10,6 +10,6 @@
 		/// </summary>
 		public virtual void Invoke()
 		{
-		}		 
+		}
 	}
 }
