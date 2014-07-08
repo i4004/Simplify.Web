@@ -22,6 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
+#pragma warning disable 1591
+
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -70,3 +72,5 @@ namespace DryIoc
         #endregion
     }
 }
+
+#pragma warning restore 1591

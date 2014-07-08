@@ -1,7 +1,7 @@
 ﻿namespace AcspNet
 {
 	/// <summary>
-	/// Controller base class
+	/// AcspNet controller base class
 	/// </summary>
 	public class Controller
 	{

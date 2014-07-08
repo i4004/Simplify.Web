@@ -4,7 +4,7 @@ using Microsoft.Owin;
 namespace AcspNet
 {
 	/// <summary>
-	/// Provides HTTP request handler
+	/// Represent OWIN HTTP request handler
 	/// </summary>
 	public interface IRequestHandler
 	{

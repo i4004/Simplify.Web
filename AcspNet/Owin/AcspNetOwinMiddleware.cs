@@ -21,7 +21,7 @@ namespace AcspNet.Owin
 		public AcspNetOwinMiddleware(OwinMiddleware next)
 			: base(next)
 		{
-			var bs = _bootstrapperFactory.GetBootstrapper();
+			var bs = _bootstrapperFactory.CreateBootstrapper();
 
 			// Registering all AcspNet pipeline types
 

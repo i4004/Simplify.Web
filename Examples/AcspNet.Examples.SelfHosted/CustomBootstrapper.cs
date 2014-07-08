@@ -7,7 +7,7 @@ namespace AcspNet.Examples.SelfHosted
 	{
 		public CustomBootstrapper()
 		{
-			SetRequestHandler<CustomRequestHandler>();
+			SetRequestHandlerType<CustomRequestHandler>();
 		}
 	}
 }

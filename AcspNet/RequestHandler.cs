@@ -4,10 +4,15 @@ using Microsoft.Owin;
 namespace AcspNet
 {
 	/// <summary>
-	/// HTTP request handler
+	/// Provides OWIN HTTP request handler
 	/// </summary>
 	public class RequestHandler : IRequestHandler
 	{
+		/// <summary>
+		/// Processes the OWIN HTTP request.
+		/// </summary>
+		/// <param name="context">The context.</param>
+		/// <returns></returns>
 		public Task ProcessRequest(IOwinContext context)
 		{
 			if (context.Request.Path == new PathString("/"))
