@@ -121,6 +121,7 @@
     <Compile Include="DryIoc\FactoryCompiler.cs" />
     <Compile Include="DryIoc\InternalsVisibleToFactoryCompilerDynamicAssembly.cs" />
     <Compile Include="IRequestHandler.cs" />
+    <Compile Include="Meta\AcspTypesFinder.cs" />
     <Compile Include="Owin\AcspNetOwinMiddleware.cs" />
     <Compile Include="RequestHandler.cs" />
     <None Include="AcspNet.nuspec" />
@@ -167,7 +168,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
