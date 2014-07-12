@@ -2,4 +2,4 @@
 
 [![Stories in Ready](https://badge.waffle.io/i4004/acspnet.png?label=ready&title=Ready)](https://waffle.io/i4004/acspnet)
 
-ACSP.NET is a lightweight .NET web-framework based on OWIN
+ACSP.NET is a lightweight .NET web-framework based on MVC and OWIN
