@@ -124,7 +124,9 @@
     <Compile Include="IRequestHandler.cs" />
     <Compile Include="Meta\AcspTypesFinder.cs" />
     <Compile Include="Owin\AcspNetOwinMiddleware.cs" />
+    <Compile Include="PriorityAttribute.cs" />
     <Compile Include="RequestHandler.cs" />
+    <Compile Include="RouteAttribute.cs" />
     <None Include="AcspNet.nuspec" />
     <Compile Include="Owin\AppBuilderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -183,7 +185,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
