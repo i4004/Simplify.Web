@@ -26,6 +26,7 @@ namespace AcspNet.Owin
 			// Registering all AcspNet pipeline types
 
 			_container.Register(typeof (IRequestHandler), bs.RequestHandlerType, Reuse.InResolutionScope);
+			_container.Register(typeof(IControllerFactory), bs.ControllerFactoryType, Reuse.Singleton);
 		}
 
 		/// <summary>
