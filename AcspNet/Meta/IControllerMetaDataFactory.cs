@@ -1,0 +1,17 @@
+﻿using System;
+
+namespace AcspNet.Meta
+{
+	/// <summary>
+	/// Represent controller meta-data creator
+	/// </summary>
+	public interface IControllerMetaDataFactory
+	{
+		/// <summary>
+		/// Creates the controller meta data.
+		/// </summary>
+		/// <param name="controllerType">Type of the controller.</param>
+		/// <returns></returns>
+		ControllerMetaData CreateControllerMetaData(Type controllerType);
+	}
+}

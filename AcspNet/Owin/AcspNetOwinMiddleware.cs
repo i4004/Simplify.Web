@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AcspNet.Bootstrapper;
 using AcspNet.Diagnostics;
+using AcspNet.Meta;
 using DryIoc;
 using Microsoft.Owin;
 
@@ -28,6 +29,8 @@ namespace AcspNet.Owin
 			_container.Register(typeof (IRequestHandler), bs.RequestHandlerType, Reuse.InResolutionScope);
 			_container.Register(typeof(IControllerFactory), bs.ControllerFactoryType, Reuse.Singleton);
 			_container.Register(typeof(IControllersHandler), bs.ControllersHandlerType, Reuse.InResolutionScope);
+			_container.Register(typeof(IControllerMetaDataFactory), bs.ControllerMetaDataFactoryType, Reuse.Singleton);
+			_container.Register(typeof(IControllersMetaStore), bs.ControllersMetaStoreType, Reuse.Singleton);
 		}
 
 		/// <summary>

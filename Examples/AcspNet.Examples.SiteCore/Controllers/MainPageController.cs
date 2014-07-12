@@ -1,6 +1,5 @@
 ﻿namespace AcspNet.Examples.SiteCore.Controllers
 {
-	//[DefaultPage]
 	[Route("/")]
 	public class MainPageController : Controller
 	{

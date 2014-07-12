@@ -125,9 +125,15 @@
     <Compile Include="DryIoc\InternalsVisibleToFactoryCompilerDynamicAssembly.cs" />
     <Compile Include="IControllerFactory.cs" />
     <Compile Include="IControllersHandler.cs" />
+    <Compile Include="IgnoreControllersAttribute.cs" />
     <Compile Include="IRequestHandler.cs" />
     <Compile Include="Meta\AcspTypesFinder.cs" />
+    <Compile Include="Meta\ControllerExecParameters.cs" />
     <Compile Include="Meta\ControllerMetaData.cs" />
+    <Compile Include="Meta\ControllerMetaDataFactory.cs" />
+    <Compile Include="Meta\ControllersMetaStore.cs" />
+    <Compile Include="Meta\IControllerMetaDataFactory.cs" />
+    <Compile Include="Meta\IControllersMetaStore.cs" />
     <Compile Include="Owin\AcspNetOwinMiddleware.cs" />
     <Compile Include="PriorityAttribute.cs" />
     <Compile Include="RequestHandler.cs" />

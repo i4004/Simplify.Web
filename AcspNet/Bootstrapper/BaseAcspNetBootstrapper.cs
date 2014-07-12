@@ -1,4 +1,5 @@
 ﻿using System;
+using AcspNet.Meta;
 
 namespace AcspNet.Bootstrapper
 {
@@ -10,6 +11,8 @@ namespace AcspNet.Bootstrapper
 		private Type _requestHandlerType;
 		private Type _controllerFactoryType;
 		private Type _controllersHanderType;
+		private Type _controllersMetaStoreType;
+		private Type _controllerMetaDataFactoryType;
 
 		/// <summary>
 		/// Gets the type of the request handler.
@@ -45,6 +48,28 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
+		/// Gets the type of the controllers meta store.
+		/// </summary>
+		/// <value>
+		/// The type of the controllers meta store.
+		/// </value>
+		public Type ControllersMetaStoreType
+		{
+			get { return _controllersMetaStoreType ?? typeof(ControllersMetaStore); }
+		}
+
+		/// <summary>
+		/// Gets the type of the controller meta data factory.
+		/// </summary>
+		/// <value>
+		/// The type of the controller meta data factory.
+		/// </value>
+		public Type ControllerMetaDataFactoryType
+		{
+			get { return _controllerMetaDataFactoryType ?? typeof(ControllerMetaDataFactory); }
+		}
+
+		/// <summary>
 		/// Sets the type of the request handler.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
@@ -72,6 +97,26 @@ namespace AcspNet.Bootstrapper
 			where T : IControllersHandler
 		{
 			_controllersHanderType = typeof(T);
+		}
+		
+		/// <summary>
+		/// Sets the type of the controllers meta store.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetControllersMetaStoreType<T>()
+			where T : IControllersMetaStore
+		{
+			_controllersMetaStoreType = typeof(T);
+		}
+
+		/// <summary>
+		/// Sets the type of the controller meta data factory.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetControllerMetaDataFactoryType<T>()
+			where T : IControllerMetaDataFactory
+		{
+			_controllerMetaDataFactoryType = typeof(T);
 		}
 	}
 }
