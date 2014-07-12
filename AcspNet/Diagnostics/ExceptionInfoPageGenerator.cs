@@ -10,9 +10,12 @@ namespace AcspNet.Diagnostics
 		public static string Generate(Exception e)
 		{
 			if (e == null)
-				return "";
+				return null;
 
 			var trace = new StackTrace(e, true);
+
+			if (trace.FrameCount == 0)
+				return null;
 
 			var fileLineNumber = trace.GetFrame(0).GetFileLineNumber();
 			var fileColumnNumber = trace.GetFrame(0).GetFileColumnNumber();
