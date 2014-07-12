@@ -13,7 +13,6 @@ namespace AcspNet.Owin
 	public class AcspNetOwinMiddleware : OwinMiddleware
 	{
 		private readonly Container _container = new Container();
-		private readonly BootstrapperFactory _bootstrapperFactory = new BootstrapperFactory();
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AcspNetOwinMiddleware"/> class.
@@ -22,7 +21,7 @@ namespace AcspNet.Owin
 		public AcspNetOwinMiddleware(OwinMiddleware next)
 			: base(next)
 		{
-			var bs = _bootstrapperFactory.CreateBootstrapper();
+			var bs = BootstrapperFactory.CreateBootstrapper();
 
 			// Registering all AcspNet pipeline types
 

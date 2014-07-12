@@ -10,7 +10,7 @@ namespace AcspNet.Meta
 	/// </summary>
 	public static class AcspTypesFinder
 	{
-		private static IList<string> _excludedAssembliesPrefixes = new List<string> { "mscorlib", "System", "Microsoft", "AspNet", "AcspNet", "DotNet", "Simplify" };
+		private static readonly IList<string> ExcludedAssembliesPrefixesInstance = new List<string> { "mscorlib", "System", "Microsoft", "AspNet", "AcspNet", "DotNet", "Simplify" };
 
 		private static Assembly[] _currentDomainAssemblies;
 		private static IEnumerable<Type> _currentDomainAssembliesTypes;
@@ -24,14 +24,7 @@ namespace AcspNet.Meta
 		/// <exception cref="System.ArgumentNullException">value</exception>
 		public static IList<string> ExcludedAssembliesPrefixes
 		{
-			get { return _excludedAssembliesPrefixes; }
-			set
-			{
-				if (value == null)
-					throw new ArgumentNullException("value");
-
-				_excludedAssembliesPrefixes = value;
-			}
+			get { return ExcludedAssembliesPrefixesInstance; }
 		}
 
 		private static IEnumerable<Assembly> CurrentDomainAssemblies
@@ -65,6 +58,15 @@ namespace AcspNet.Meta
 			var type = typeof(T);
 
 			return CurrentDomainAssembliesTypes.Where(t => t.BaseType != null && t.BaseType.FullName == type.FullName).ToList();
+		}
+
+		/// <summary>
+		/// Clean up the loaded information about assemblies and types
+		/// </summary>
+		public static void CleanLoadedTypesAndAssenbliesInfo()
+		{
+			_currentDomainAssemblies = null;
+			_currentDomainAssembliesTypes = null;
 		}
 
 		private static IEnumerable<Type> GetAssembliesTypes(IEnumerable<Assembly> assemblies)

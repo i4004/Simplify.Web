@@ -5,8 +5,16 @@ using Simplify.Templates;
 
 namespace AcspNet.Diagnostics
 {
+	/// <summary>
+	/// Provides exception information HTML page generator
+	/// </summary>
 	public static class ExceptionInfoPageGenerator
 	{
+		/// <summary>
+		/// Generates the HTML page with exception information
+		/// </summary>
+		/// <param name="e">Exception to get information from.</param>
+		/// <returns></returns>
 		public static string Generate(Exception e)
 		{
 			if (e == null)

@@ -91,6 +91,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bootstrapper\BootstrapperFactoryTests.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGeneratorTests.cs" />
     <Compile Include="TestEntities\TestBootstrapper.cs" />
     <Compile Include="Meta\AcspTypesFinderTests.cs" />
