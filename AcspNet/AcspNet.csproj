@@ -114,6 +114,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ControllerFactory.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGenerator.cs" />
     <Compile Include="Bootstrapper\BootstrapperFactory.cs" />
     <Compile Include="Bootstrapper\BaseAcspNetBootstrapper.cs" />
@@ -121,8 +122,10 @@
     <Compile Include="DryIoc\Container.cs" />
     <Compile Include="DryIoc\FactoryCompiler.cs" />
     <Compile Include="DryIoc\InternalsVisibleToFactoryCompilerDynamicAssembly.cs" />
+    <Compile Include="IControllerFactory.cs" />
     <Compile Include="IRequestHandler.cs" />
     <Compile Include="Meta\AcspTypesFinder.cs" />
+    <Compile Include="Meta\ControllerMetaData.cs" />
     <Compile Include="Owin\AcspNetOwinMiddleware.cs" />
     <Compile Include="PriorityAttribute.cs" />
     <Compile Include="RequestHandler.cs" />
