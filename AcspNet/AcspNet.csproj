@@ -115,6 +115,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ControllerFactory.cs" />
+    <Compile Include="ControllersHandler.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGenerator.cs" />
     <Compile Include="Bootstrapper\BootstrapperFactory.cs" />
     <Compile Include="Bootstrapper\BaseAcspNetBootstrapper.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="DryIoc\FactoryCompiler.cs" />
     <Compile Include="DryIoc\InternalsVisibleToFactoryCompilerDynamicAssembly.cs" />
     <Compile Include="IControllerFactory.cs" />
+    <Compile Include="IControllersHandler.cs" />
     <Compile Include="IRequestHandler.cs" />
     <Compile Include="Meta\AcspTypesFinder.cs" />
     <Compile Include="Meta\ControllerMetaData.cs" />

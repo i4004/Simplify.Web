@@ -9,6 +9,7 @@ namespace AcspNet.Bootstrapper
 	{
 		private Type _requestHandlerType;
 		private Type _controllerFactoryType;
+		private Type _controllersHanderType;
 
 		/// <summary>
 		/// Gets the type of the request handler.
@@ -33,6 +34,17 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
+		/// Gets the type of the controllers handler.
+		/// </summary>
+		/// <value>
+		/// The type of the controllers handler.
+		/// </value>
+		public Type ControllersHandlerType
+		{
+			get { return _controllersHanderType ?? typeof(ControllersHandler); }
+		}
+
+		/// <summary>
 		/// Sets the type of the request handler.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
@@ -50,6 +62,16 @@ namespace AcspNet.Bootstrapper
 			where T : IControllerFactory
 		{
 			_controllerFactoryType = typeof(T);
+		}
+
+		/// <summary>
+		/// Sets the type of the controllers handler.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetControllersHandlerType<T>()
+			where T : IControllersHandler
+		{
+			_controllersHanderType = typeof(T);
 		}
 	}
 }
