@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AcspNet.Bootstrapper;
+using AcspNet.Diagnostics;
 using DryIoc;
 using Microsoft.Owin;
 
@@ -42,8 +43,7 @@ namespace AcspNet.Owin
 			}
 			catch (Exception e)
 			{
-				Console.WriteLine(e);
-				return context.Response.WriteAsync(e.ToString());
+				return context.Response.WriteAsync(ExceptionInfoPageGenerator.Generate(e));
 			}
 
 			return Task.Delay(0);
