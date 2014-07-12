@@ -93,6 +93,8 @@
   <ItemGroup>
     <Compile Include="Bootstrapper\BootstrapperFactoryTests.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGeneratorTests.cs" />
+    <Compile Include="Meta\ControllersMetaDataFactoryTests.cs" />
+    <Compile Include="Meta\ControllersMetaStoreTests.cs" />
     <Compile Include="TestEntities\TestBootstrapper.cs" />
     <Compile Include="Meta\AcspTypesFinderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
