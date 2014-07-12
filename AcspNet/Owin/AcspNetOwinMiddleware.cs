@@ -11,8 +11,8 @@ namespace AcspNet.Owin
 	/// </summary>
 	public class AcspNetOwinMiddleware : OwinMiddleware
 	{
-		readonly Container _container = new Container();
-		readonly BootstrapperFactory _bootstrapperFactory = new BootstrapperFactory();
+		private readonly Container _container = new Container();
+		private readonly BootstrapperFactory _bootstrapperFactory = new BootstrapperFactory();
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AcspNetOwinMiddleware"/> class.

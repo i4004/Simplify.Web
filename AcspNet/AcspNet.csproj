@@ -140,7 +140,19 @@
     <Reference Include="Simplify.Core">
       <HintPath>..\packages\Simplify.Core.1.2.0\lib\net40\Simplify.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Simplify.Templates">
+      <HintPath>..\packages\Simplify.Templates.1.0.3\lib\net40\Simplify.Templates.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Simplify.Xml">
+      <HintPath>..\packages\Simplify.Xml.1.0.1\lib\net40\Simplify.Xml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.IO.Abstractions">
+      <HintPath>..\packages\System.IO.Abstractions.1.4.0.86\lib\net35\System.IO.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -168,7 +180,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
