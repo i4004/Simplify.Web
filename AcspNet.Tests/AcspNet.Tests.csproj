@@ -92,6 +92,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Diagnostics\ExceptionInfoPageGeneratorTests.cs" />
+    <Compile Include="TestEntities\TestBootstrapper.cs" />
+    <Compile Include="Meta\AcspTypesFinderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

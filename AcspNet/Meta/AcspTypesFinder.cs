@@ -33,12 +33,15 @@ namespace AcspNet.Meta
 
 		public static Type FindTypeDerivedFrom<T>()
 		{
-			//var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-			//var types = GetAssembliesTypes(assemblies);
+			var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+			var types = GetAssembliesTypes(assemblies);
 
-			return null;
+			var type = typeof (T);
+
+			return types.FirstOrDefault(t => t.BaseType != null && t.BaseType.FullName == type.FullName);
 		}
-		private static ICollection<Type> GetAssembliesTypes(IEnumerable<Assembly> assemblies)
+
+		private static IEnumerable<Type> GetAssembliesTypes(IEnumerable<Assembly> assemblies)
 		{
 			var types = new List<Type>();
 
