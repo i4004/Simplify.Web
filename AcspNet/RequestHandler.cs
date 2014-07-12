@@ -8,6 +8,13 @@ namespace AcspNet
 	/// </summary>
 	public class RequestHandler : IRequestHandler
 	{
+		private readonly IControllersHandler _controllersHandler;
+
+		public RequestHandler(IControllersHandler controllersHandler)
+		{
+			_controllersHandler = controllersHandler;
+		}
+
 		/// <summary>
 		/// Processes the OWIN HTTP request.
 		/// </summary>
@@ -15,6 +22,8 @@ namespace AcspNet
 		/// <returns></returns>
 		public Task ProcessRequest(IOwinContext context)
 		{
+			_controllersHandler.Execute();
+
 			return Task.Delay(0);
 		}
 	}
