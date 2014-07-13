@@ -78,6 +78,10 @@
       <Project>{03b0ae6c-88d0-4d7a-8657-57fc4fd2682a}</Project>
       <Name>AcspNet</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AcspNet.Examples.SiteCore\AcspNet.Examples.SiteCore.csproj">
+      <Project>{64c58056-cfb5-419f-a8e7-65eada24dfbb}</Project>
+      <Name>AcspNet.Examples.SiteCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
