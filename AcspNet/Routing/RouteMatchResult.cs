@@ -1,4 +1,4 @@
-﻿namespace AcspNet
+﻿namespace AcspNet.Routing
 {
 	/// <summary>
 	/// Provides HTTP route matching resuklt

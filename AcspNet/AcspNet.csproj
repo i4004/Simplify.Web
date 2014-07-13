@@ -128,8 +128,8 @@
     <Compile Include="IgnoreControllersAttribute.cs" />
     <Compile Include="IHideObjectMembers.cs" />
     <Compile Include="IRequestHandler.cs" />
-    <Compile Include="IRouteMatchResult.cs" />
-    <Compile Include="IRouteParser.cs" />
+    <Compile Include="Routing\IRouteMatchResult.cs" />
+    <Compile Include="Routing\IRouteMatcher.cs" />
     <Compile Include="Meta\AcspTypesFinder.cs" />
     <Compile Include="Meta\ControllerExecParameters.cs" />
     <Compile Include="Meta\ControllerMetaData.cs" />
@@ -141,8 +141,8 @@
     <Compile Include="PriorityAttribute.cs" />
     <Compile Include="RequestHandler.cs" />
     <Compile Include="RouteAttribute.cs" />
-    <Compile Include="RouteMatchResult.cs" />
-    <Compile Include="RouteParser.cs" />
+    <Compile Include="Routing\RouteMatchResult.cs" />
+    <Compile Include="Routing\RouteMatcher.cs" />
     <None Include="AcspNet.nuspec" />
     <Compile Include="Owin\AppBuilderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

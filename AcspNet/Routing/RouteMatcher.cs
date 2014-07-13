@@ -1,9 +1,9 @@
-﻿namespace AcspNet
+﻿namespace AcspNet.Routing
 {
 	/// <summary>
 	/// Provides HTTP route parser and matcher
 	/// </summary>
-	public class RouteParser : IRouteParser
+	public class RouteMatcher : IRouteMatcher
 	{
 		/// <summary>
 		/// Matches the specified route.
