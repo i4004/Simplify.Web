@@ -20,6 +20,9 @@ namespace AcspNet.Bootstrapper
 		private Type _controllersHanderType;
 		private Type _requestHandlerType;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="BaseAcspNetBootstrapper"/> class.
+		/// </summary>
 		public BaseAcspNetBootstrapper()
 		{
 			_container.Register(typeof(IControllerFactory), ControllerFactoryType, Reuse.Singleton);

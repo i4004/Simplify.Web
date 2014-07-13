@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using AcspNet.Bootstrapper;
 using AcspNet.Diagnostics;
-using DryIoc;
 using Microsoft.Owin;
 
 namespace AcspNet.Owin
