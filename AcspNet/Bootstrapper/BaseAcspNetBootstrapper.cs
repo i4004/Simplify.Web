@@ -13,6 +13,7 @@ namespace AcspNet.Bootstrapper
 		private Type _controllerMetaDataFactoryType;
 		private Type _controllersMetaStoreType;
 		private Type _routeMatcherType;
+		private Type _controllersAgentType;
 		private Type _controllersHanderType;
 		private Type _requestHandlerType;
 
@@ -58,6 +59,17 @@ namespace AcspNet.Bootstrapper
 		public Type RouteMatcherType
 		{
 			get { return _routeMatcherType ?? typeof(RouteMatcher); }
+		}
+
+		/// <summary>
+		/// Gets the type of the controllers agent.
+		/// </summary>
+		/// <value>
+		/// The type of the controllers agent.
+		/// </value>
+		public Type ControllersAgentType
+		{
+			get { return _controllersAgentType ?? typeof(ControllersAgent); }
 		}
 
 		/// <summary>
@@ -120,6 +132,16 @@ namespace AcspNet.Bootstrapper
 			where T : IRouteMatcher
 		{
 			_routeMatcherType = typeof(T);
+		}
+
+		/// <summary>
+		/// Sets the type of the controllers agent.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetControllersAgentType<T>()
+			where T : IControllersAgent
+		{
+			_controllersAgentType = typeof(T);
 		}
 
 		/// <summary>
