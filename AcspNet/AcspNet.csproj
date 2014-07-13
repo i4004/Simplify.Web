@@ -123,6 +123,9 @@
     <Compile Include="DryIoc\Container.cs" />
     <Compile Include="DryIoc\FactoryCompiler.cs" />
     <Compile Include="DryIoc\InternalsVisibleToFactoryCompilerDynamicAssembly.cs" />
+    <Compile Include="Http400Attribute.cs" />
+    <Compile Include="Http403Attribute.cs" />
+    <Compile Include="Http404Attribute.cs" />
     <Compile Include="IControllerFactory.cs" />
     <Compile Include="IControllersHandler.cs" />
     <Compile Include="IgnoreControllersAttribute.cs" />
