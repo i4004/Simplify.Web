@@ -8,8 +8,10 @@
 		/// <summary>
 		/// Matches the specified route.
 		/// </summary>
-		/// <param name="route">The route.</param>
+		/// <param name="sourceRoute">The source route.</param>
+		/// <param name="checkingRoute">The checking route.</param>
 		/// <returns></returns>
-		IRouteMatchResult Match(string route);
+		/// <exception cref="System.NotImplementedException"></exception>
+		IRouteMatchResult Match(string sourceRoute, string checkingRoute);
 	}
 }
