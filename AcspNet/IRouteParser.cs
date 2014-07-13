@@ -5,6 +5,11 @@
 	/// </summary>
 	public interface IRouteParser
 	{
-		void ParseRoute(string route);
+		/// <summary>
+		/// Matches the specified route.
+		/// </summary>
+		/// <param name="route">The route.</param>
+		/// <returns></returns>
+		IRouteMatchResult Match(string route);
 	}
 }
