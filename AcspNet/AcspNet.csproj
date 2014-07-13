@@ -114,6 +114,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Ajax.cs" />
     <Compile Include="ControllerFactory.cs" />
     <Compile Include="ControllersHandler.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGenerator.cs" />
@@ -124,7 +125,10 @@
     <Compile Include="DryIoc\FactoryCompiler.cs" />
     <Compile Include="DryIoc\InternalsVisibleToFactoryCompilerDynamicAssembly.cs" />
     <Compile Include="DeleteAttribute.cs" />
+    <Compile Include="HttpFile.cs" />
+    <Compile Include="IControllerResponse.cs" />
     <Compile Include="Meta\ControllerRole.cs" />
+    <Compile Include="TplData.cs" />
     <Compile Include="PutAttribute.cs" />
     <Compile Include="PostAttribute.cs" />
     <Compile Include="Http400Attribute.cs" />
@@ -152,6 +156,7 @@
     <Compile Include="GetAttribute.cs" />
     <Compile Include="Routing\RouteMatchResult.cs" />
     <Compile Include="Routing\RouteMatcher.cs" />
+    <Compile Include="ViewModel.cs" />
     <None Include="AcspNet.nuspec" />
     <Compile Include="Owin\AppBuilderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

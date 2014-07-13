@@ -3,5 +3,9 @@
 	[Get("/")]
 	public class MainPageController : Controller
 	{
+		public override IControllerResponse Invoke()
+		{
+			return new TplData("Hello world!!!");
+		}
 	}
 }

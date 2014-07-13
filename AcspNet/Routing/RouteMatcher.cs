@@ -71,7 +71,7 @@ namespace AcspNet.Routing
 			return new RouteMatchResult(true, sourceRouteValue);
 		}
 
-		public RouteMatchResult CompareTwoPaths(string sourceRoute, string checkingRoute)
+		private static RouteMatchResult CompareTwoPaths(string sourceRoute, string checkingRoute)
 		{
 			return new RouteMatchResult(sourceRoute == checkingRoute);
 		}

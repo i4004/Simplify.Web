@@ -2,6 +2,9 @@
 
 namespace AcspNet.Meta
 {
+	/// <summary>
+	/// Represent controller metadata information
+	/// </summary>
 	public interface IControllerMetaData
 	{
 		/// <summary>

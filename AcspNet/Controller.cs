@@ -8,8 +8,9 @@
 		/// <summary>
 		/// Invokes the controller.
 		/// </summary>
-		public virtual void Invoke()
+		public virtual IControllerResponse Invoke()
 		{
+			return null;
 		}
 	}
 }

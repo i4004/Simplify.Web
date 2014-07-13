@@ -8,6 +8,12 @@ namespace AcspNet
 	[AttributeUsage(AttributeTargets.Class)]
 	public class DeleteAttribute : Attribute
 	{
+		/// <summary>
+		/// Gets the route.
+		/// </summary>
+		/// <value>
+		/// The route.
+		/// </value>
 		public string Route { get; private set; }
 
 		/// <summary>

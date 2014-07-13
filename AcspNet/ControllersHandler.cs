@@ -7,6 +7,10 @@
 	{
 		private readonly IControllerFactory _controllerFactory;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ControllersHandler"/> class.
+		/// </summary>
+		/// <param name="controllerFactory">The controller factory.</param>
 		public ControllersHandler(IControllerFactory controllerFactory)
 		{
 			_controllerFactory = controllerFactory;
