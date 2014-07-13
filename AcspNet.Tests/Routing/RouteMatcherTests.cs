@@ -26,15 +26,23 @@ namespace AcspNet.Tests.Routing
 		}
 
 		[Test]
-		public void Match_EmptyNullString_False()
+		public void Match_EmptyString_False()
 		{
 			// Act
-			var result = _matcher.Match("/test", null);
-			var result2 = _matcher.Match("/test", "");
+			var result = _matcher.Match("/test", "");
 
 			// Assert
 			Assert.IsFalse(result.Success);
-			Assert.IsFalse(result2.Success);
+		}
+
+		[Test]
+		public void Match_NullString_True()
+		{
+			// Act
+			var result = _matcher.Match("/test", null);
+
+			// Assert
+			Assert.IsTrue(result.Success);
 		}
 
 		[Test]
@@ -106,6 +114,27 @@ namespace AcspNet.Tests.Routing
 
 			// Assert
 			Assert.IsFalse(result.Success);
+		}
+
+		[Test]
+		public void Match_ActionAndParameterButNotMatched_False()
+		{
+			// Act
+			var result = _matcher.Match("/user/testuser", "/foo/{userName}");
+
+			// Assert
+			Assert.IsFalse(result.Success);
+		}
+
+		[Test]
+		public void Match_ActionAndParameterUndefinedParameterType_TrueValueAsString()
+		{
+			// Act
+			var result = _matcher.Match("/user/testuser", "/user/{userName:zxc}");
+
+			// Assert
+			Assert.IsTrue(result.Success);
+			Assert.AreEqual("testuser", result.Value);
 		}
 
 		[Test]

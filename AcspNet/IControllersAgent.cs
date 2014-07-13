@@ -20,9 +20,8 @@ namespace AcspNet
 		/// </summary>
 		/// <param name="controllerMetaData">The controller meta data.</param>
 		/// <param name="sourceRoute">The source route.</param>
-		/// <param name="controllerRoute">The controller route.</param>
 		/// <param name="httpMethod">The HTTP method.</param>
 		/// <returns></returns>
-		IRouteMatchResult MatchControllerRoute(IControllerMetaData controllerMetaData, string sourceRoute, string controllerRoute, string httpMethod);
+		IRouteMatchResult MatchControllerRoute(IControllerMetaData controllerMetaData, string sourceRoute, string httpMethod);
 	}
 }

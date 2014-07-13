@@ -14,10 +14,16 @@ namespace AcspNet.Routing
 		/// <param name="sourceRoute">The source route.</param>
 		/// <param name="checkingRoute">The checking route.</param>
 		/// <returns></returns>
-		/// <exception cref="System.NotImplementedException"></exception>
 		public IRouteMatchResult Match(string sourceRoute, string checkingRoute)
 		{
-			if(string.IsNullOrEmpty(sourceRoute) || string.IsNullOrEmpty(checkingRoute))
+			if(string.IsNullOrEmpty(sourceRoute))
+				return new RouteMatchResult();
+
+			// Run on all pages route
+			if(checkingRoute == null)
+				return new RouteMatchResult(true);
+
+			if(checkingRoute == "")
 				return new RouteMatchResult();
 
 			// Slash at the end is not allowed
