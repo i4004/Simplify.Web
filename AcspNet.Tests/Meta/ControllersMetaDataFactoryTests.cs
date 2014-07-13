@@ -23,6 +23,9 @@ namespace AcspNet.Tests.Meta
 			Assert.AreEqual("/testaction1", metaData.ExecParameters.RouteInfo.PostRoute);
 			Assert.AreEqual("/testaction2", metaData.ExecParameters.RouteInfo.PutRoute);
 			Assert.AreEqual("/testaction3", metaData.ExecParameters.RouteInfo.DeleteRoute);
+			Assert.IsTrue(metaData.Role.Is400Handler);
+			Assert.IsTrue(metaData.Role.Is403Handler);
+			Assert.IsTrue(metaData.Role.Is404Handler);
 			Assert.AreEqual(1, metaData.ExecParameters.RunPriority);
 		}
 	}

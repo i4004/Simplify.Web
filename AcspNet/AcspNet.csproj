@@ -124,6 +124,7 @@
     <Compile Include="DryIoc\FactoryCompiler.cs" />
     <Compile Include="DryIoc\InternalsVisibleToFactoryCompilerDynamicAssembly.cs" />
     <Compile Include="DeleteAttribute.cs" />
+    <Compile Include="Meta\ControllerRole.cs" />
     <Compile Include="PutAttribute.cs" />
     <Compile Include="PostAttribute.cs" />
     <Compile Include="Http400Attribute.cs" />

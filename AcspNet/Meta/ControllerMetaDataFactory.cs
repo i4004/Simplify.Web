@@ -14,7 +14,7 @@ namespace AcspNet.Meta
 		/// <returns></returns>
 		public ControllerMetaData CreateControllerMetaData(Type controllerType)
 		{
-			return new ControllerMetaData(controllerType, GetControllerExecPatameters(controllerType));
+			return new ControllerMetaData(controllerType, GetControllerExecPatameters(controllerType), GetControllerRole(controllerType));
 		}
 		
 		private static ControllerExecParameters GetControllerExecPatameters(Type controllerType)
@@ -66,6 +66,30 @@ namespace AcspNet.Meta
 			       || !string.IsNullOrEmpty(deleteRoute)
 				? new ControllerRouteInfo(getRoute, postRoute, putRoute, deleteRoute)
 				: null;
+		}
+
+		private static ControllerRole GetControllerRole(Type controllerType)
+		{
+			var http400 = false;
+			var http403 = false;
+			var http404 = false;
+
+			var attributes = controllerType.GetCustomAttributes(typeof(Http400Attribute), false);
+
+			if (attributes.Length > 0)
+				http400 = true;
+
+			attributes = controllerType.GetCustomAttributes(typeof(Http403Attribute), false);
+
+			if (attributes.Length > 0)
+				http403 = true;
+
+			attributes = controllerType.GetCustomAttributes(typeof(Http404Attribute), false);
+
+			if (attributes.Length > 0)
+				http404 = true;
+
+			return http403 || http404 ? new ControllerRole(http400, http403, http404) : null;
 		}
 	}
 }
