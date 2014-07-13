@@ -2,8 +2,6 @@
 using System.Threading.Tasks;
 using AcspNet.Bootstrapper;
 using AcspNet.Diagnostics;
-using AcspNet.Meta;
-using AcspNet.Routing;
 using DryIoc;
 using Microsoft.Owin;
 
@@ -14,7 +12,7 @@ namespace AcspNet.Owin
 	/// </summary>
 	public class AcspNetOwinMiddleware : OwinMiddleware
 	{
-		private readonly Container _container = new Container();
+		private readonly BaseAcspNetBootstrapper _bootstrapper = BootstrapperFactory.CreateBootstrapper();
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AcspNetOwinMiddleware"/> class.
@@ -23,17 +21,6 @@ namespace AcspNet.Owin
 		public AcspNetOwinMiddleware(OwinMiddleware next)
 			: base(next)
 		{
-			var bs = BootstrapperFactory.CreateBootstrapper();
-
-			// Registering all AcspNet pipeline types
-
-			_container.Register(typeof(IControllerFactory), bs.ControllerFactoryType, Reuse.Singleton);
-			_container.Register(typeof(IControllerMetaDataFactory), bs.ControllerMetaDataFactoryType, Reuse.Singleton);
-			_container.Register(typeof(IControllersMetaStore), bs.ControllersMetaStoreType, Reuse.Singleton);
-			_container.Register(typeof(IRouteMatcher), bs.RouteMatcherType, Reuse.Singleton);
-			_container.Register(typeof(IControllersAgent), bs.ControllersAgentType, Reuse.Singleton);
-			_container.Register(typeof(IControllersHandler), bs.ControllersHandlerType, Reuse.Singleton);
-			_container.Register(typeof(IRequestHandler), bs.RequestHandlerType, Reuse.Singleton);
 		}
 
 		/// <summary>
@@ -45,7 +32,7 @@ namespace AcspNet.Owin
 		{
 			try
 			{
-				var request = _container.Resolve<IRequestHandler>();
+				var request = _bootstrapper.Resolve<IRequestHandler>();
 				request.ProcessRequest(context);
 			}
 			catch (Exception e)

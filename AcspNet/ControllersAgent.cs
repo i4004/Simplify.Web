@@ -16,10 +16,9 @@ namespace AcspNet
 
 		public IEnumerable<IControllerMetaData> GetStandartControllersMetaData()
 		{
-			return
-				_controllersMetaData.Where(
-					x =>
-						x.Role == null || (x.Role.Is400Handler == false && x.Role.Is403Handler == false && x.Role.Is404Handler == false));
+			return _controllersMetaData.Where(
+				x =>
+					x.Role == null || (x.Role.Is400Handler == false && x.Role.Is403Handler == false && x.Role.Is404Handler == false));
 		}
 
 		public IRouteMatchResult MatchControllerRoute(string sourceRoute, string controllerRoute, string httpMethod)

@@ -1,6 +1,7 @@
 ﻿using System;
 using AcspNet.Meta;
 using AcspNet.Routing;
+using DryIoc;
 
 namespace AcspNet.Bootstrapper
 {
@@ -9,6 +10,8 @@ namespace AcspNet.Bootstrapper
 	/// </summary>
 	public class BaseAcspNetBootstrapper
 	{
+		private readonly Container _container = new Container();
+
 		private Type _controllerFactoryType;
 		private Type _controllerMetaDataFactoryType;
 		private Type _controllersMetaStoreType;
@@ -16,6 +19,28 @@ namespace AcspNet.Bootstrapper
 		private Type _controllersAgentType;
 		private Type _controllersHanderType;
 		private Type _requestHandlerType;
+
+		public BaseAcspNetBootstrapper()
+		{
+			_container.Register(typeof(IControllerFactory), ControllerFactoryType, Reuse.Singleton);
+			_container.Register(typeof(IControllerMetaDataFactory), ControllerMetaDataFactoryType, Reuse.Singleton);
+			_container.Register(typeof(IControllersMetaStore), ControllersMetaStoreType, Reuse.Singleton);
+			_container.Register(typeof(IRouteMatcher), RouteMatcherType, Reuse.Singleton);
+			_container.Register(typeof(IControllersAgent), ControllersAgentType, Reuse.Singleton);
+			_container.Register(typeof(IControllersHandler), ControllersHandlerType, Reuse.Singleton);
+			_container.Register(typeof(IRequestHandler), RequestHandlerType, Reuse.Singleton);			
+		}
+
+		/// <summary>
+		/// Gets the container.
+		/// </summary>
+		/// <value>
+		/// The container.
+		/// </value>
+		private Container Container
+		{
+			get { return _container; }
+		}
 
 		/// <summary>
 		/// Gets the type of the controller factory.
@@ -92,6 +117,16 @@ namespace AcspNet.Bootstrapper
 		public Type RequestHandlerType
 		{
 			get { return _requestHandlerType ?? typeof(RequestHandler); }
+		}
+
+		/// <summary>
+		/// Resolves this instance.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <returns></returns>
+		public T Resolve<T>()
+		{
+			return Container.Resolve<T>();
 		}
 
 		/// <summary>
