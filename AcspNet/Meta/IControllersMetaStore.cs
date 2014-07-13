@@ -11,6 +11,6 @@ namespace AcspNet.Meta
 		/// Get controllers meta-data
 		/// </summary>
 		/// <returns></returns>
-		IList<ControllerMetaData> GetControllersMetaData();
+		IList<IControllerMetaData> GetControllersMetaData();
 	}
 }

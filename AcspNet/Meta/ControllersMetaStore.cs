@@ -24,9 +24,9 @@ namespace AcspNet.Meta
 		/// Get controllers meta-data
 		/// </summary>
 		/// <returns></returns>
-		public IList<ControllerMetaData> GetControllersMetaData()
+		public IList<IControllerMetaData> GetControllersMetaData()
 		{
-			var controllersMetaContainers = new List<ControllerMetaData>();
+			var controllersMetaContainers = new List<IControllerMetaData>();
 
 			var types = AcspTypesFinder.FindTypesDerivedFrom<Controller>();
 			var typesToIgnore = new List<Type>();
@@ -44,7 +44,7 @@ namespace AcspNet.Meta
 			return SortControllersMetaContainers(controllersMetaContainers);
 		}
 
-		private void LoadMetaData(ICollection<ControllerMetaData> controllersMetaContainers, IEnumerable<Type> types, IEnumerable<Type> typesToIgnore)
+		private void LoadMetaData(ICollection<IControllerMetaData> controllersMetaContainers, IEnumerable<Type> types, IEnumerable<Type> typesToIgnore)
 		{
 			foreach (var t in types.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.Controller"
 											   && typesToIgnore.All(x => x.FullName != t.FullName) &&
@@ -54,12 +54,12 @@ namespace AcspNet.Meta
 			}
 		}
 
-		private void BuildControllerMetaData(ICollection<ControllerMetaData> controllersMetaContainers, Type controllerType)
+		private void BuildControllerMetaData(ICollection<IControllerMetaData> controllersMetaContainers, Type controllerType)
 		{
 			controllersMetaContainers.Add(_metaDataFactory.CreateControllerMetaData(controllerType));
 		}
 
-		private static IList<ControllerMetaData> SortControllersMetaContainers(IEnumerable<ControllerMetaData> controllersMetaContainers)
+		private static IList<IControllerMetaData> SortControllersMetaContainers(IEnumerable<IControllerMetaData> controllersMetaContainers)
 		{
 			return controllersMetaContainers.OrderBy(x => x.ExecParameters == null ? 0 : x.ExecParameters.RunPriority).ToList();
 		}

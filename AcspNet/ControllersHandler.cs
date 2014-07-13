@@ -1,34 +1,90 @@
-﻿namespace AcspNet
+﻿using System;
+
+namespace AcspNet
 {
 	/// <summary>
 	/// Creates and executes controllers for current request
 	/// </summary>
 	public class ControllersHandler : IControllersHandler
 	{
-		private readonly IControllerFactory _controllerFactory;
+		private readonly IControllersAgent _controllersAgent;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ControllersHandler"/> class.
+		/// Initializes a new instance of the <see cref="ControllersHandler" /> class.
 		/// </summary>
-		/// <param name="controllerFactory">The controller factory.</param>
-		public ControllersHandler(IControllerFactory controllerFactory)
+		public ControllersHandler(IControllersAgent controllersAgent)
 		{
-			_controllerFactory = controllerFactory;
+			_controllersAgent = controllersAgent;
 		}
 
 		/// <summary>
 		/// Creates and invokes controllers instances.
 		/// </summary>
-		public void Execute(string route)
+		/// <param name="route">The route path.</param>
+		/// <param name="method">The HTTP method.</param>
+		/// <returns></returns>
+		public ControllersHandlerResult Execute(string route, string method)
 		{
-			//foreach (var controllerMetaData in _controllersMetaStore.GetControllersMetaData())
+			//var isAnyNonAnyPageControllerCalled = false;
+			//var securityControllerCalled = false;
+
+			//foreach (var metaContainer in GetStandartControllersMetaData())
 			//{
-			//	if (IsControllerCanBeExecutedOnCurrentPage(controllerMetaData, route))
+				//var matcherResult = _routeMatcher.Match(route, metaContainer.)
+			//	var isNonAnyPageController = false;
+
+			//	if (!securityControllerCalled)
 			//	{
-			//		var controller = _controllerFactory.CreateController(controllerMetaData.ControllerType);
-			//		controller.Invoke();
+			//		var securityCheckResult = _executionAgent.IsSecurityRulesViolated(metaContainer);
+
+			//		if (securityCheckResult == SecurityViolationResult.RequestTypeViolated)
+			//		{
+			//			var result = ExecuteHandlerController(HandlerControllerType.Http400Handler);
+
+			//			if (!result)
+			//				return ControllersHandlerResult.Http400;
+
+			//			securityControllerCalled = true;
+			//		}
+
+			//		if (securityCheckResult == SecurityViolationResult.AuthenticationRequired)
+			//		{
+			//			var result = ExecuteHandlerController(HandlerControllerType.Http403Handler);
+
+			//			if (!result)
+			//				return ControllersHandlerResult.Http403;
+
+			//			securityControllerCalled = true;
+			//		}
 			//	}
+
+			//	if (_executionAgent.IsNonAnyPageController(metaContainer))
+			//		isNonAnyPageController = true;
+
+			//	if (securityControllerCalled && isNonAnyPageController)
+			//		continue;
+
+			//	var controller = _controllerFactory.CreateController(metaContainer.ControllerType);
+			//	controller.Invoke();
+
+			//	if (metaContainer.ExecParameters != null && metaContainer.ExecParameters.IsAjax)
+			//	{
+			//		AjaxResult = controller.AjaxResult;
+			//		return ControllersHandlerResult.AjaxRequest;
+			//	}
+
+			//	if (controller.StopExecution)
+			//		return ControllersHandlerResult.StopExecution;
+
+			//	if (isNonAnyPageController)
+			//		isAnyNonAnyPageControllerCalled = true;
 			//}
+
+			//if (isAnyNonAnyPageControllerCalled || securityControllerCalled) return ControllersHandlerResult.Ok;
+
+			//return ExecuteHandlerController(HandlerControllerType.Http404Handler) ? ControllersHandlerResult.Ok : ControllersHandlerResult.Http404;
+
+			throw new NotImplementedException();
 		}
 
 		///// <summary>

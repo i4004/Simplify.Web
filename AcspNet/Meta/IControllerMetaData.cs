@@ -19,5 +19,10 @@ namespace AcspNet.Meta
 		/// Gets the controller execute parameters.
 		/// </summary>
 		ControllerExecParameters ExecParameters { get; }
+
+		/// <summary>
+		/// Gets the controller role information.
+		/// </summary>
+		ControllerRole Role { get; }
 	}
 }

@@ -8,6 +8,9 @@
 		/// <summary>
 		/// Creates and invokes controllers instances.
 		/// </summary>
-		void Execute(string route);
+		/// <param name="route">The route path.</param>
+		/// <param name="method">The HTTP method.</param>
+		/// <returns></returns>
+		ControllersHandlerResult Execute(string route, string method);
 	}
 }
