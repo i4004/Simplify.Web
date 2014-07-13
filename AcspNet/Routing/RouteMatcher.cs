@@ -63,10 +63,7 @@ namespace AcspNet.Routing
 				if (valueType == "int")
 				{
 					int buffer;
-					if (int.TryParse(sourceRouteValue, out buffer))
-						return new RouteMatchResult(true, buffer);
-
-					return new RouteMatchResult();
+					return int.TryParse(sourceRouteValue, out buffer) ? new RouteMatchResult(true, buffer) : new RouteMatchResult();
 				}
 			}
 
