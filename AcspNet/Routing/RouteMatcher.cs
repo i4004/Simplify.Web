@@ -9,6 +9,7 @@ namespace AcspNet.Routing
 	{
 		/// <summary>
 		/// Matches the specified route.
+		/// Only "/", "/action", "/action/{userName}", "/action/{id:int}", "/{id}" etc. route types allowed
 		/// </summary>
 		/// <param name="sourceRoute">The source route.</param>
 		/// <param name="checkingRoute">The checking route.</param>
