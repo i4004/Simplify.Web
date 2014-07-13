@@ -91,11 +91,21 @@ namespace AcspNet.Tests.Routing
 		public void Match_ActionAndParameter_TrueValueParsed()
 		{
 			// Act
-			var result = _matcher.Match("/user/testuser", "/foo/{userName}");
+			var result = _matcher.Match("/user/testuser", "/user/{userName}");
 
 			// Assert
 			Assert.IsTrue(result.Success);
 			Assert.AreEqual("testuser", result.Value);
+		}
+
+		[Test]
+		public void Match_ActionAndTwoParameter_False()
+		{
+			// Act
+			var result = _matcher.Match("/user/testuser", "/foo/{test}/{userName}");
+
+			// Assert
+			Assert.IsFalse(result.Success);
 		}
 
 		[Test]
@@ -118,6 +128,36 @@ namespace AcspNet.Tests.Routing
 			// Assert
 			Assert.IsTrue(result.Success);
 			Assert.AreEqual("foo", result.Value);
+		}
+
+		[Test]
+		public void Match_TwoParameters_False()
+		{
+			// Act
+			var result = _matcher.Match("/foo", "/{test}/{name}");
+
+			// Assert
+			Assert.IsFalse(result.Success);
+		}
+
+		[Test]
+		public void Match_SpecialParameterSymbols_False()
+		{
+			// Act
+			var result = _matcher.Match("/%&{sd231}6^6", "/{name}");
+
+			// Assert
+			Assert.IsFalse(result.Success);
+		}
+
+		[Test]
+		public void Match_BadParameter2_False()
+		{
+			// Act
+			var result = _matcher.Match("/foo", "/name}");
+
+			// Assert
+			Assert.IsFalse(result.Success);
 		}
 	}
 }

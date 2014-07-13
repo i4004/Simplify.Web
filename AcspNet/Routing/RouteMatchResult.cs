@@ -10,7 +10,7 @@
 		/// </summary>
 		/// <param name="matched">if set to <c>true</c> [matched].</param>
 		/// <param name="value">The value.</param>
-		public RouteMatchResult(bool matched, object value)
+		public RouteMatchResult(bool matched = false, object value = null)
 		{
 			Success = matched;
 			Value = value;
