@@ -123,6 +123,9 @@
     <Compile Include="DryIoc\Container.cs" />
     <Compile Include="DryIoc\FactoryCompiler.cs" />
     <Compile Include="DryIoc\InternalsVisibleToFactoryCompilerDynamicAssembly.cs" />
+    <Compile Include="DeleteAttribute.cs" />
+    <Compile Include="PutAttribute.cs" />
+    <Compile Include="PostAttribute.cs" />
     <Compile Include="Http400Attribute.cs" />
     <Compile Include="Http403Attribute.cs" />
     <Compile Include="Http404Attribute.cs" />
@@ -131,6 +134,7 @@
     <Compile Include="IgnoreControllersAttribute.cs" />
     <Compile Include="IHideObjectMembers.cs" />
     <Compile Include="IRequestHandler.cs" />
+    <Compile Include="Meta\ControllerRouteInfo.cs" />
     <Compile Include="Meta\IControllerMetaData.cs" />
     <Compile Include="Routing\IRouteMatchResult.cs" />
     <Compile Include="Routing\IRouteMatcher.cs" />
@@ -144,7 +148,7 @@
     <Compile Include="Owin\AcspNetOwinMiddleware.cs" />
     <Compile Include="PriorityAttribute.cs" />
     <Compile Include="RequestHandler.cs" />
-    <Compile Include="RouteAttribute.cs" />
+    <Compile Include="GetAttribute.cs" />
     <Compile Include="Routing\RouteMatchResult.cs" />
     <Compile Include="Routing\RouteMatcher.cs" />
     <None Include="AcspNet.nuspec" />

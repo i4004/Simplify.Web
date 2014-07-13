@@ -6,23 +6,23 @@
 	public class ControllerExecParameters
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ControllerExecParameters"/> class.
+		/// Initializes a new instance of the <see cref="ControllerExecParameters" /> class.
 		/// </summary>
-		/// <param name="route">The route.</param>
+		/// <param name="routeInfo">The route information.</param>
 		/// <param name="execPriority">The execute priority.</param>
-		public ControllerExecParameters(string route = null, int execPriority = 0)
+		public ControllerExecParameters(ControllerRouteInfo routeInfo = null, int execPriority = 0)
 		{
-			Route = route;
+			RouteInfo = routeInfo;
 			RunPriority = execPriority;
 		}
 
 		/// <summary>
-		/// Gets the route.
+		/// Gets the route information.
 		/// </summary>
 		/// <value>
-		/// The route.
+		/// The route information.
 		/// </value>
-		public string Route { get; private set; }
+		public ControllerRouteInfo RouteInfo { get; private set; }
 
 		/// <summary>
 		/// Gets the run priority.

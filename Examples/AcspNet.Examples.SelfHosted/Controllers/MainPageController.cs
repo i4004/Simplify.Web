@@ -1,6 +1,6 @@
 ﻿namespace AcspNet.Examples.SelfHosted.Controllers
 {
-	[Route("/")]
+	[Get("/")]
 	public class MainPageController : Controller
 	{
 	}
