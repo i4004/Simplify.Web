@@ -33,22 +33,22 @@ namespace AcspNet.Meta
 
 			var ignoreContainingClass = AcspTypesFinder.GetAllTypes().FirstOrDefault(t => t.IsDefined(typeof(IgnoreControllersAttribute), true));
 
-				if (ignoreContainingClass != null)
-				{
-					var attributes = ignoreContainingClass.GetCustomAttributes(typeof(IgnoreControllersAttribute), false);
+			if (ignoreContainingClass != null)
+			{
+				var attributes = ignoreContainingClass.GetCustomAttributes(typeof(IgnoreControllersAttribute), false);
 
-					typesToIgnore.AddRange(((IgnoreControllersAttribute)attributes[0]).Types);
-				}
+				typesToIgnore.AddRange(((IgnoreControllersAttribute)attributes[0]).Types);
+			}
 
-				LoadMetaData(controllersMetaContainers, types, typesToIgnore);
-				return SortControllersMetaContainers(controllersMetaContainers);
+			LoadMetaData(controllersMetaContainers, types, typesToIgnore);
+			return SortControllersMetaContainers(controllersMetaContainers);
 		}
 
 		private void LoadMetaData(ICollection<ControllerMetaData> controllersMetaContainers, IEnumerable<Type> types, IEnumerable<Type> typesToIgnore)
 		{
 			foreach (var t in types.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.Controller"
-			                                   && typesToIgnore.All(x => x.FullName != t.FullName) &&
-			                                   controllersMetaContainers.All(x => x.ControllerType != t)))
+											   && typesToIgnore.All(x => x.FullName != t.FullName) &&
+											   controllersMetaContainers.All(x => x.ControllerType != t)))
 			{
 				BuildControllerMetaData(controllersMetaContainers, t);
 			}

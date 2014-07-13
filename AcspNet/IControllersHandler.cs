@@ -8,6 +8,6 @@
 		/// <summary>
 		/// Creates and invokes controllers instances.
 		/// </summary>
-		void Execute();
+		void Execute(string route);
 	}
 }

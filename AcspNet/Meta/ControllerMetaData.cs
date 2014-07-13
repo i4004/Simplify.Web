@@ -5,7 +5,7 @@ namespace AcspNet.Meta
 	/// <summary>
 	/// Controller meta-data information
 	/// </summary>
-	public class ControllerMetaData
+	public class ControllerMetaData : IControllerMetaData
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ControllerMetaData" /> class.

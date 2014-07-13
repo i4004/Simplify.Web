@@ -8,10 +8,6 @@ namespace AcspNet
 	/// </summary>
 	public class ControllerFactory : IControllerFactory
 	{
-		internal ControllerFactory()
-		{
-		}
-
 		/// <summary>
 		/// Creates the controller.
 		/// </summary>

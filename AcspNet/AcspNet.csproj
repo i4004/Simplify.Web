@@ -128,6 +128,7 @@
     <Compile Include="IgnoreControllersAttribute.cs" />
     <Compile Include="IHideObjectMembers.cs" />
     <Compile Include="IRequestHandler.cs" />
+    <Compile Include="Meta\IControllerMetaData.cs" />
     <Compile Include="Routing\IRouteMatchResult.cs" />
     <Compile Include="Routing\IRouteMatcher.cs" />
     <Compile Include="Meta\AcspTypesFinder.cs" />

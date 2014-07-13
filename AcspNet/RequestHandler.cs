@@ -26,7 +26,7 @@ namespace AcspNet
 		/// <returns></returns>
 		public Task ProcessRequest(IOwinContext context)
 		{
-			_controllersHandler.Execute();
+			_controllersHandler.Execute(context.Request.Path.Value);
 
 			return Task.Delay(0);
 		}

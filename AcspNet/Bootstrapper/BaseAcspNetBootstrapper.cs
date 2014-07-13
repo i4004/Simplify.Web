@@ -1,5 +1,6 @@
 ﻿using System;
 using AcspNet.Meta;
+using AcspNet.Routing;
 
 namespace AcspNet.Bootstrapper
 {
@@ -8,22 +9,12 @@ namespace AcspNet.Bootstrapper
 	/// </summary>
 	public class BaseAcspNetBootstrapper
 	{
-		private Type _requestHandlerType;
 		private Type _controllerFactoryType;
-		private Type _controllersHanderType;
-		private Type _controllersMetaStoreType;
 		private Type _controllerMetaDataFactoryType;
-
-		/// <summary>
-		/// Gets the type of the request handler.
-		/// </summary>
-		/// <value>
-		/// The type of the request handler.
-		/// </value>
-		public Type RequestHandlerType
-		{
-			get { return _requestHandlerType ?? typeof(RequestHandler); }
-		}
+		private Type _controllersMetaStoreType;
+		private Type _routeMatcherType;
+		private Type _controllersHanderType;
+		private Type _requestHandlerType;
 
 		/// <summary>
 		/// Gets the type of the controller factory.
@@ -34,28 +25,6 @@ namespace AcspNet.Bootstrapper
 		public Type ControllerFactoryType
 		{
 			get { return _controllerFactoryType ?? typeof(ControllerFactory); }
-		}
-
-		/// <summary>
-		/// Gets the type of the controllers handler.
-		/// </summary>
-		/// <value>
-		/// The type of the controllers handler.
-		/// </value>
-		public Type ControllersHandlerType
-		{
-			get { return _controllersHanderType ?? typeof(ControllersHandler); }
-		}
-
-		/// <summary>
-		/// Gets the type of the controllers meta store.
-		/// </summary>
-		/// <value>
-		/// The type of the controllers meta store.
-		/// </value>
-		public Type ControllersMetaStoreType
-		{
-			get { return _controllersMetaStoreType ?? typeof(ControllersMetaStore); }
 		}
 
 		/// <summary>
@@ -70,13 +39,47 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
-		/// Sets the type of the request handler.
+		/// Gets the type of the controllers meta store.
 		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		public void SetRequestHandlerType<T>()
-			where T : IRequestHandler
+		/// <value>
+		/// The type of the controllers meta store.
+		/// </value>
+		public Type ControllersMetaStoreType
 		{
-			_requestHandlerType = typeof(T);
+			get { return _controllersMetaStoreType ?? typeof(ControllersMetaStore); }
+		}
+
+		/// <summary>
+		/// Gets the type of the route matcher.
+		/// </summary>
+		/// <value>
+		/// The type of the route matcher.
+		/// </value>
+		public Type RouteMatcherType
+		{
+			get { return _routeMatcherType ?? typeof(RouteMatcher); }
+		}
+
+		/// <summary>
+		/// Gets the type of the controllers handler.
+		/// </summary>
+		/// <value>
+		/// The type of the controllers handler.
+		/// </value>
+		public Type ControllersHandlerType
+		{
+			get { return _controllersHanderType ?? typeof(ControllersHandler); }
+		}
+
+		/// <summary>
+		/// Gets the type of the request handler.
+		/// </summary>
+		/// <value>
+		/// The type of the request handler.
+		/// </value>
+		public Type RequestHandlerType
+		{
+			get { return _requestHandlerType ?? typeof(RequestHandler); }
 		}
 
 		/// <summary>
@@ -90,15 +93,15 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
-		/// Sets the type of the controllers handler.
+		/// Sets the type of the controller meta data factory.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
-		public void SetControllersHandlerType<T>()
-			where T : IControllersHandler
+		public void SetControllerMetaDataFactoryType<T>()
+			where T : IControllerMetaDataFactory
 		{
-			_controllersHanderType = typeof(T);
+			_controllerMetaDataFactoryType = typeof(T);
 		}
-		
+
 		/// <summary>
 		/// Sets the type of the controllers meta store.
 		/// </summary>
@@ -110,13 +113,33 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
-		/// Sets the type of the controller meta data factory.
+		/// Sets the type of the route matcher.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
-		public void SetControllerMetaDataFactoryType<T>()
-			where T : IControllerMetaDataFactory
+		public void SetRouteMatcherType<T>()
+			where T : IRouteMatcher
 		{
-			_controllerMetaDataFactoryType = typeof(T);
+			_routeMatcherType = typeof(T);
+		}
+
+		/// <summary>
+		/// Sets the type of the controllers handler.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetControllersHandlerType<T>()
+			where T : IControllersHandler
+		{
+			_controllersHanderType = typeof(T);
+		}
+
+		/// <summary>
+		/// Sets the type of the request handler.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetRequestHandlerType<T>()
+			where T : IRequestHandler
+		{
+			_requestHandlerType = typeof(T);
 		}
 	}
 }
