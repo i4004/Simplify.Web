@@ -48,6 +48,7 @@ namespace AcspNet.Meta
 
 			return CurrentDomainAssembliesTypes.FirstOrDefault(t => t.BaseType != null && t.BaseType.FullName == type.FullName);
 		}
+
 		/// <summary>
 		/// Finds the all types derived from specified type in current domain assemblies.
 		/// </summary>
@@ -58,6 +59,15 @@ namespace AcspNet.Meta
 			var type = typeof(T);
 
 			return CurrentDomainAssembliesTypes.Where(t => t.BaseType != null && t.BaseType.FullName == type.FullName).ToList();
+		}
+
+		/// <summary>
+		/// Gets all types.
+		/// </summary>
+		/// <returns></returns>
+		public static IList<Type> GetAllTypes()
+		{
+			return CurrentDomainAssembliesTypes.ToList();
 		}
 
 		/// <summary>

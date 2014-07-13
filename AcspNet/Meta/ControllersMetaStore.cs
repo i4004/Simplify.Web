@@ -31,7 +31,7 @@ namespace AcspNet.Meta
 			var types = AcspTypesFinder.FindTypesDerivedFrom<Controller>();
 			var typesToIgnore = new List<Type>();
 
-			var ignoreContainingClass = types.FirstOrDefault(t => t.IsDefined(typeof(IgnoreControllersAttribute), true));
+			var ignoreContainingClass = AcspTypesFinder.GetAllTypes().FirstOrDefault(t => t.IsDefined(typeof(IgnoreControllersAttribute), true));
 
 				if (ignoreContainingClass != null)
 				{

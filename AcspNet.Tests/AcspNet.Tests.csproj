@@ -98,6 +98,7 @@
     <Compile Include="TestEntities\TestBootstrapper.cs" />
     <Compile Include="Meta\AcspTypesFinderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestEntities\TestController3.cs" />
     <Compile Include="TestEntities\TestController2.cs" />
     <Compile Include="TestEntities\TestController1.cs" />
   </ItemGroup>

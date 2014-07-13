@@ -46,9 +46,10 @@ namespace AcspNet.Tests.Meta
 
 			// Assert
 
-			Assert.AreEqual(2, types.Count);
-			Assert.AreEqual("AcspNet.Tests.TestEntities.TestController2", types[0].FullName);
-			Assert.AreEqual("AcspNet.Tests.TestEntities.TestController1", types[1].FullName);
+			Assert.AreEqual(3, types.Count);
+			Assert.AreEqual("AcspNet.Tests.TestEntities.TestController3", types[0].FullName);
+			Assert.AreEqual("AcspNet.Tests.TestEntities.TestController2", types[1].FullName);
+			Assert.AreEqual("AcspNet.Tests.TestEntities.TestController1", types[2].FullName);
 		}
 
 		[Test]

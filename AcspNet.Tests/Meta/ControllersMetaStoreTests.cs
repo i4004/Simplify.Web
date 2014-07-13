@@ -7,10 +7,11 @@ using NUnit.Framework;
 namespace AcspNet.Tests.Meta
 {
 	[TestFixture]
+	[IgnoreControllers(typeof(TestController3))]
 	public class ControllersMetaStoreTests
 	{
 		[Test]
-		public void GetControllersMetaData_LocalControllers_GetAndSortedCorrectly()
+		public void GetControllersMetaData_LocalControllers_GetWthoutIgnoredAndSortedCorrectly()
 		{
 			// Assign
 
