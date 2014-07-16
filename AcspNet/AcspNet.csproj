@@ -193,40 +193,19 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="NugetPackageTemplate\App_Data\StringTable.en.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NugetPackageTemplate\Content\Main.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NugetPackageTemplate\Templates\Index.tpl.en.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NugetPackageTemplate\Web.config">
+    <None Include="NugetPackageTemplate\App_Data\StringTable.en.xml" />
+    <None Include="NugetPackageTemplate\Content\Main.css" />
+    <None Include="NugetPackageTemplate\Templates\Index.tpl.en.xml" />
+    <None Include="NugetPackageTemplate\Web.config">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\ErrorMessageBox.tpl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\OkMessageBox.tpl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\InfoMessageBox.tpl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\InlineErrorMessageBox.tpl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\InlineOkMessageBox.tpl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\InlineInfoMessageBox.tpl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <None Include="NugetPackageTemplate\Templates\Index.tpl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\ErrorMessageBox.tpl" />
+    <None Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\OkMessageBox.tpl" />
+    <None Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\InfoMessageBox.tpl" />
+    <None Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\InlineErrorMessageBox.tpl" />
+    <None Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\InlineOkMessageBox.tpl" />
+    <None Include="NugetPackageTemplate\Templates\AcspNet\MessageBox\InlineInfoMessageBox.tpl" />
+    <None Include="NugetPackageTemplate\Templates\Index.tpl" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -285,7 +264,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
