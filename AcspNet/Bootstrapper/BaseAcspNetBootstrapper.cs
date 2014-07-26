@@ -21,9 +21,9 @@ namespace AcspNet.Bootstrapper
 		private Type _requestHandlerType;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="BaseAcspNetBootstrapper"/> class.
+		/// Registers the types in container.
 		/// </summary>
-		public BaseAcspNetBootstrapper()
+		public void Register()
 		{
 			_container.Register(typeof(IControllerFactory), ControllerFactoryType, Reuse.Singleton);
 			_container.Register(typeof(IControllerMetaDataFactory), ControllerMetaDataFactoryType, Reuse.Singleton);
@@ -31,7 +31,7 @@ namespace AcspNet.Bootstrapper
 			_container.Register(typeof(IRouteMatcher), RouteMatcherType, Reuse.Singleton);
 			_container.Register(typeof(IControllersAgent), ControllersAgentType, Reuse.Singleton);
 			_container.Register(typeof(IControllersHandler), ControllersHandlerType, Reuse.Singleton);
-			_container.Register(typeof(IRequestHandler), RequestHandlerType, Reuse.Singleton);			
+			_container.Register(typeof(IRequestHandler), RequestHandlerType, Reuse.Singleton);
 		}
 
 		/// <summary>

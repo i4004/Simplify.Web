@@ -20,6 +20,7 @@ namespace AcspNet.Owin
 		public AcspNetOwinMiddleware(OwinMiddleware next)
 			: base(next)
 		{
+			_bootstrapper.Register();
 		}
 
 		/// <summary>
