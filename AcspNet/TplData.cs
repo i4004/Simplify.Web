@@ -5,7 +5,7 @@ namespace AcspNet
 	/// <summary>
 	/// Template data result
 	/// </summary>
-	public class TplData : IControllerResponse
+	public class TplData : ControllerResponse
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="TplData"/> class.
@@ -31,7 +31,7 @@ namespace AcspNet
 		/// Processes this response
 		/// </summary>
 		/// <exception cref="System.NotImplementedException"></exception>
-		public void Process()
+		public override void Process()
 		{
 			throw new NotImplementedException();
 		}

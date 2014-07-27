@@ -5,7 +5,7 @@ namespace AcspNet
 	/// <summary>
 	/// Provides Http file response
 	/// </summary>
-	public class HttpFile : IControllerResponse
+	public class HttpFile : ControllerResponse
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="HttpFile"/> class.
@@ -22,7 +22,7 @@ namespace AcspNet
 		/// Processes this response
 		/// </summary>
 		/// <exception cref="System.NotImplementedException"></exception>
-		public void Process()
+		public override void Process()
 		{
 			throw new NotImplementedException();
 		}

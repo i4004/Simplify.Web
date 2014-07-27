@@ -9,7 +9,7 @@ namespace AcspNet
 	public interface IRequestHandler
 	{
 		/// <summary>
-		/// Processes the request.
+		/// Processes the OWIN HTTP request.
 		/// </summary>
 		/// <param name="context">The context.</param>
 		Task ProcessRequest(IOwinContext context);

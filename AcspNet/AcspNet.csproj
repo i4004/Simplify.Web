@@ -116,6 +116,7 @@
   <ItemGroup>
     <Compile Include="Ajax.cs" />
     <Compile Include="ControllerFactory.cs" />
+    <Compile Include="ControllerResponse.cs" />
     <Compile Include="ControllersAgent.cs" />
     <Compile Include="ControllersHandler.cs" />
     <Compile Include="ControllersHandlerResult.cs" />

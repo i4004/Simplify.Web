@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Represent controller response
 	/// </summary>
-	public interface IControllerResponse
+	public interface IControllerResponse : IHideObjectMembers
 	{
 		/// <summary>
 		/// Processes this response
