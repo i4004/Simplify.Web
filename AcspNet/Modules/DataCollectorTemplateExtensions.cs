@@ -3,6 +3,9 @@ using Simplify.Templates;
 
 namespace AcspNet.Modules
 {
+	/// <summary>
+	/// Data collector template extensions
+	/// </summary>
 	public static class DataCollectorTemplateExtensions
 	{
 		/// <summary>

@@ -1,5 +1,8 @@
 ﻿namespace AcspNet
 {
+	/// <summary>
+	/// Represents controller interface
+	/// </summary>
 	public interface IController : IHideObjectMembers
 	{
 		/// <summary>
