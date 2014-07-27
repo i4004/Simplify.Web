@@ -22,7 +22,6 @@
 		/// </summary>
 		/// <param name="data">The data for main content variable.</param>
 		/// <param name="title">The site title.</param>
-		/// <exception cref="System.NotImplementedException"></exception>
 		public TplData(string data, string title)
 		{
 			_data = data;
@@ -32,7 +31,6 @@
 		/// <summary>
 		/// Processes this response
 		/// </summary>
-		/// <exception cref="System.NotImplementedException"></exception>
 		public override void Process()
 		{
 			if (!string.IsNullOrEmpty(_data))

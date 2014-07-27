@@ -134,6 +134,7 @@
     <Compile Include="HttpFile.cs" />
     <Compile Include="IController.cs" />
     <Compile Include="IControllerResponse.cs" />
+    <Compile Include="IControllerResponseProcessor.cs" />
     <Compile Include="IControllersAgent.cs" />
     <Compile Include="IHideObjectMembers.cs" />
     <Compile Include="Meta\ControllerRole.cs" />
