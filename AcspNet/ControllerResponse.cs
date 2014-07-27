@@ -1,10 +1,20 @@
-﻿namespace AcspNet
+﻿using AcspNet.Modules;
+
+namespace AcspNet
 {
 	/// <summary>
 	/// Provides controllers responses base class
 	/// </summary>
 	public abstract class ControllerResponse : IControllerResponse
 	{
+		/// <summary>
+		/// Gets the data collector.
+		/// </summary>
+		/// <value>
+		/// The data collector.
+		/// </value>
+		public IDataCollector DataCollector { get; internal set; }
+
 		/// <summary>
 		/// Processes this response
 		/// </summary>
