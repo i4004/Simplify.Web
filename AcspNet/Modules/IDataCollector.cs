@@ -1,17 +1,10 @@
-﻿using System.Collections.Generic;
-
-namespace AcspNet.Modules
+﻿namespace AcspNet.Modules
 {
 	/// <summary>
 	/// Represents web-site master page data collector
 	/// </summary>
 	public interface IDataCollector : IHideObjectMembers
 	{
-		/// <summary>
-		/// Gets the data collector items which will be inserted into master template file.
-		/// </summary>
-		IDictionary<string, string> Items { get; }
-
 		/// <summary>
 		/// Gets the name of the main content variable.
 		/// </summary>
