@@ -1,19 +1,20 @@
-﻿using System;
-
-namespace AcspNet
+﻿namespace AcspNet
 {
 	/// <summary>
 	/// Template data result
 	/// </summary>
 	public class TplData : ControllerResponse
 	{
+		private readonly string _data;
+		private readonly string _title;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="TplData"/> class.
 		/// </summary>
 		/// <param name="data">The data for main content variable.</param>
 		public TplData(string data)
 		{
-			throw new NotImplementedException();
+			_data = data;
 		}
 
 		/// <summary>
@@ -24,7 +25,8 @@ namespace AcspNet
 		/// <exception cref="System.NotImplementedException"></exception>
 		public TplData(string data, string title)
 		{
-			throw new NotImplementedException();
+			_data = data;
+			_title = title;
 		}
 
 		/// <summary>
@@ -33,7 +35,13 @@ namespace AcspNet
 		/// <exception cref="System.NotImplementedException"></exception>
 		public override void Process()
 		{
-			throw new NotImplementedException();
+			if (!string.IsNullOrEmpty(_data))
+			{
+				DataCollector.Add(_data);
+
+				if (!string.IsNullOrEmpty(_title))
+					DataCollector.AddTitle(_title);
+			}
 		}
 	}
 }

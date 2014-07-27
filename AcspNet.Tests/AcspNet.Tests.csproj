@@ -104,6 +104,7 @@
     <Compile Include="TestEntities\TestController3.cs" />
     <Compile Include="TestEntities\TestController2.cs" />
     <Compile Include="TestEntities\TestController1.cs" />
+    <Compile Include="TplDataTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

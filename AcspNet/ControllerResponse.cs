@@ -13,7 +13,7 @@ namespace AcspNet
 		/// <value>
 		/// The data collector.
 		/// </value>
-		public IDataCollector DataCollector { get; internal set; }
+		public virtual IDataCollector DataCollector { get; internal set; }
 
 		/// <summary>
 		/// Processes this response
