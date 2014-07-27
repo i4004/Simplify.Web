@@ -39,6 +39,7 @@ namespace AcspNet.Tests.Meta
 			// Assign
 
 			AcspTypesFinder.ExcludedAssembliesPrefixes.Remove("AcspNet");
+			AcspTypesFinder.ExcludedAssembliesPrefixes.Add("DynamicProxyGenAssembly2");
 			AcspTypesFinder.CleanLoadedTypesAndAssenbliesInfo();
 
 			// Act
