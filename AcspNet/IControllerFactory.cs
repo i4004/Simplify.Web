@@ -12,6 +12,6 @@ namespace AcspNet
 		/// </summary>
 		/// <param name="controllerType">Type of the controller.</param>
 		/// <returns></returns>
-		Controller CreateController(Type controllerType);
+		IController CreateController(Type controllerType);
 	}
 }

@@ -33,14 +33,12 @@ namespace AcspNet.Owin
 			try
 			{
 				var request = _bootstrapper.Resolve<IRequestHandler>();
-				request.ProcessRequest(context);
+				return request.ProcessRequest(context);
 			}
 			catch (Exception e)
 			{
 				return context.Response.WriteAsync(ExceptionInfoPageGenerator.Generate(e));
 			}
-
-			return Task.Delay(0);
 		}
 	}
 }

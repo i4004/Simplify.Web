@@ -3,7 +3,7 @@
 	/// <summary>
 	/// AcspNet controller base class
 	/// </summary>
-	public class Controller : IHideObjectMembers
+	public class Controller : IController
 	{
 		/// <summary>
 		/// Invokes the controller.

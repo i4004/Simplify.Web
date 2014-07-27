@@ -13,9 +13,9 @@ namespace AcspNet
 		/// </summary>
 		/// <param name="controllerType">Type of the controller.</param>
 		/// <returns></returns>
-		public Controller CreateController(Type controllerType)
+		public IController CreateController(Type controllerType)
 		{
-			var controller = (Controller)DependencyResolver.Current.Resolve(controllerType);
+			var controller = (IController)DependencyResolver.Current.Resolve(controllerType);
 
 			return controller;
 		}

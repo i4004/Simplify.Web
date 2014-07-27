@@ -131,6 +131,7 @@
     <Compile Include="Http400Attribute.cs" />
     <Compile Include="Http403Attribute.cs" />
     <Compile Include="HttpFile.cs" />
+    <Compile Include="IController.cs" />
     <Compile Include="IControllerResponse.cs" />
     <Compile Include="IControllersAgent.cs" />
     <Compile Include="Meta\ControllerRole.cs" />
@@ -219,7 +220,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
