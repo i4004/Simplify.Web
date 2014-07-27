@@ -5,7 +5,7 @@ namespace AcspNet
 	/// <summary>
 	/// Provides view model response
 	/// </summary>
-	public class ViewModel : IControllerResponse
+	public class ViewModel : ControllerResponse
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ViewModel"/> class.
@@ -20,7 +20,7 @@ namespace AcspNet
 		/// Processes this response
 		/// </summary>
 		/// <exception cref="System.NotImplementedException"></exception>
-		public void Process()
+		public override void Process()
 		{
 			throw new NotImplementedException();
 		}
