@@ -10,10 +10,10 @@ namespace AcspNet
 	public interface IControllersAgent
 	{
 		/// <summary>
-		/// Gets the standart controllers meta data.
+		/// Gets the standard controllers meta data.
 		/// </summary>
 		/// <returns></returns>
-		IEnumerable<IControllerMetaData> GetStandartControllersMetaData();
+		IEnumerable<IControllerMetaData> GetStandardControllersMetaData();
 
 		/// <summary>
 		/// Matches the controller route.

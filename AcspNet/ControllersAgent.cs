@@ -25,10 +25,10 @@ namespace AcspNet
 		}
 
 		/// <summary>
-		/// Gets the standart controllers meta data.
+		/// Gets the standard controllers meta data.
 		/// </summary>
 		/// <returns></returns>
-		public IEnumerable<IControllerMetaData> GetStandartControllersMetaData()
+		public IEnumerable<IControllerMetaData> GetStandardControllersMetaData()
 		{
 			return _controllersMetaData.Where(
 				x =>

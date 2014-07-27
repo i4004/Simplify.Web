@@ -27,7 +27,7 @@
 		{
 			var atleastOneControllerMatched = false;
 
-			foreach (var metaData in _agent.GetStandartControllersMetaData())
+			foreach (var metaData in _agent.GetStandardControllersMetaData())
 			{
 				var matcherResult = _agent.MatchControllerRoute(metaData, route, method);
 

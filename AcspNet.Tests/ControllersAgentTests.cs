@@ -23,7 +23,7 @@ namespace AcspNet.Tests
 		}
 
 		[Test]
-		public void GetStandartControllersMetaData_StandartControllerAndAll40xControllers_OnlyStandartReturned()
+		public void GetStandardControllersMetaData_StandartControllerAndAll40xControllers_OnlyStandartReturned()
 		{
 			// Assign
 
@@ -39,7 +39,7 @@ namespace AcspNet.Tests
 			_agent = new ControllersAgent(_metaStore.Object, _routeMatcher);
 
 			// Act
-			var items = _agent.GetStandartControllersMetaData().ToList();
+			var items = _agent.GetStandardControllersMetaData().ToList();
 
 			// Assert
 			Assert.AreEqual(1, items.Count());

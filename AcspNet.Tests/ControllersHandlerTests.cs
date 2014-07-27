@@ -14,8 +14,8 @@ namespace AcspNet.Tests
 		private Mock<IControllersAgent> _agent;
 		private ControllersHandler _handler;
 		private Mock<IControllerFactory> _factory;
-		private Mock<Controller> _controller;
 
+		private Mock<Controller> _controller;
 		private ControllerMetaData _metaData;
 
 		[SetUp]
@@ -23,15 +23,13 @@ namespace AcspNet.Tests
 		{
 			_agent = new Mock<IControllersAgent>();
 			_factory = new Mock<IControllerFactory>();
-
 			_handler = new ControllersHandler(_agent.Object, _factory.Object);
 
 			_controller = new Mock<Controller>();
-
-			_metaData = new ControllerMetaData(typeof(TestController1),
+			_metaData = new ControllerMetaData(typeof (TestController1),
 				new ControllerExecParameters(new ControllerRouteInfo("/foo/bar")));
 
-			_agent.Setup(x => x.GetStandartControllersMetaData()).Returns(() => new List<IControllerMetaData>
+			_agent.Setup(x => x.GetStandardControllersMetaData()).Returns(() => new List<IControllerMetaData>
 			{
 				_metaData
 			});
@@ -42,32 +40,6 @@ namespace AcspNet.Tests
 		}
 
 		[Test]
-		public void CreateAndInvokeControllers_MatchControllerRoute_InvokedWithCorrectParameters()
-		{
-			// Act
-
-			_handler.Execute("/foo/bar", "GET");
-			_agent.Setup(x => x.MatchControllerRoute(It.IsAny<IControllerMetaData>(), It.IsAny<string>(), It.IsAny<string>())).Returns(new RouteMatchResult());
-		
-			// Assert
-
-			_agent.Verify(x => x.GetStandartControllersMetaData());
-			_agent.Verify(x => x.MatchControllerRoute(It.Is<IControllerMetaData>(d => d == _metaData), It.Is<string>(d => d == "/foo/bar"), It.Is<string>(d => d == "GET")));			
-		}
-
-		[Test]
-		public void CreateAndInvokeControllers_ControllerMatched_CreatedCorrectly()
-		{
-			// Act
-
-			_handler.Execute("/foo/bar", "GET");
-
-			// Assert
-
-			_factory.Verify(x => x.CreateController(It.Is<Type>(t => t == typeof(TestController1))), Times.Exactly(1));
-		}
-	
-		[Test]
 		public void CreateAndInvokeControllers_ControllerMatched_InvokedCorrectly()
 		{
 			// Act
@@ -77,6 +49,9 @@ namespace AcspNet.Tests
 			// Assert
 
 			Assert.AreEqual(ControllersHandlerResult.Ok, result);
+			_agent.Verify(x => x.GetStandardControllersMetaData());
+			_agent.Verify(x => x.MatchControllerRoute(It.Is<IControllerMetaData>(d => d == _metaData), It.Is<string>(d => d == "/foo/bar"), It.Is<string>(d => d == "GET")));
+			_factory.Verify(x => x.CreateController(It.Is<Type>(t => t == typeof(TestController1))), Times.Exactly(1));
 			_controller.Verify(x => x.Invoke(), Times.Exactly(1));
 		}
 
@@ -98,7 +73,7 @@ namespace AcspNet.Tests
 		}
 
 		[Test]
-		public void CreateAndInvokeControllers_NoControllersMatched_404ControllerExecuted()
+		public void CreateAndInvokeControllers_NoControllersMatchedButHave404Controller_404ControllerExecuted()
 		{
 			// Assign
 
