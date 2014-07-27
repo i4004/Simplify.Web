@@ -135,7 +135,10 @@
     <Compile Include="IController.cs" />
     <Compile Include="IControllerResponse.cs" />
     <Compile Include="IControllersAgent.cs" />
+    <Compile Include="IHideObjectMembers.cs" />
     <Compile Include="Meta\ControllerRole.cs" />
+    <Compile Include="Modules\DataCollectorTemplateExtensions.cs" />
+    <Compile Include="Modules\IDataCollector.cs" />
     <Compile Include="TplData.cs" />
     <Compile Include="PutAttribute.cs" />
     <Compile Include="PostAttribute.cs" />
@@ -143,7 +146,6 @@
     <Compile Include="IControllerFactory.cs" />
     <Compile Include="IControllersHandler.cs" />
     <Compile Include="IgnoreControllersAttribute.cs" />
-    <Compile Include="IHideObjectMembers.cs" />
     <Compile Include="IRequestHandler.cs" />
     <Compile Include="Meta\ControllerRouteInfo.cs" />
     <Compile Include="Meta\IControllerMetaData.cs" />
