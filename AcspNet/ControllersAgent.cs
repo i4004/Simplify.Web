@@ -73,5 +73,24 @@ namespace AcspNet
 
 			return null;
 		}
+
+		/// <summary>
+		/// Gets the handler controller.
+		/// </summary>
+		/// <param name="controllerType">Type of the controller.</param>
+		/// <returns></returns>
+		public IControllerMetaData GetHandlerController(HandlerControllerType controllerType)
+		{
+			IControllerMetaData metaData = null;
+
+			switch (controllerType)
+			{
+				case HandlerControllerType.Http404Handler:
+					metaData = _controllersMetaData.FirstOrDefault(x => x.Role != null && x.Role.Is404Handler);
+					break;
+			}
+
+			return metaData;
+		}
 	}
 }

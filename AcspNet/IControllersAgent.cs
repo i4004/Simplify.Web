@@ -23,5 +23,12 @@ namespace AcspNet
 		/// <param name="httpMethod">The HTTP method.</param>
 		/// <returns></returns>
 		IRouteMatchResult MatchControllerRoute(IControllerMetaData controllerMetaData, string sourceRoute, string httpMethod);
+
+		/// <summary>
+		/// Gets the handler controller.
+		/// </summary>
+		/// <param name="controllerType">Type of the controller.</param>
+		/// <returns></returns>
+		IControllerMetaData GetHandlerController(HandlerControllerType controllerType);
 	}
 }

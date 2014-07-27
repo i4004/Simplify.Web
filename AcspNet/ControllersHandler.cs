@@ -25,16 +25,29 @@
 		/// <returns></returns>
 		public ControllersHandlerResult Execute(string route, string method)
 		{
+			var atleastOneControllerMatched = false;
+
 			foreach (var metaData in _agent.GetStandartControllersMetaData())
 			{
 				var matcherResult = _agent.MatchControllerRoute(metaData, route, method);
 
 				if (matcherResult.Success)
 				{
+					atleastOneControllerMatched = true;
 					var controller = _factory.CreateController(metaData.ControllerType);
 					controller.Invoke();
 				}
+			}
 
+			if (!atleastOneControllerMatched)
+			{
+				var http404Controller = _agent.GetHandlerController(HandlerControllerType.Http404Handler);
+
+				if (http404Controller == null)
+					return ControllersHandlerResult.Http404;
+				
+				var controller = _factory.CreateController(http404Controller.ControllerType);
+				controller.Invoke();
 			}
 
 			return ControllersHandlerResult.Ok;

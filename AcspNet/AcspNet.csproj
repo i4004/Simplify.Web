@@ -127,6 +127,9 @@
     <Compile Include="DryIoc\FactoryCompiler.cs" />
     <Compile Include="DryIoc\InternalsVisibleToFactoryCompilerDynamicAssembly.cs" />
     <Compile Include="DeleteAttribute.cs" />
+    <Compile Include="HandlerControllerType.cs" />
+    <Compile Include="Http400Attribute.cs" />
+    <Compile Include="Http403Attribute.cs" />
     <Compile Include="HttpFile.cs" />
     <Compile Include="IControllerResponse.cs" />
     <Compile Include="IControllersAgent.cs" />
@@ -134,8 +137,6 @@
     <Compile Include="TplData.cs" />
     <Compile Include="PutAttribute.cs" />
     <Compile Include="PostAttribute.cs" />
-    <Compile Include="Http400Attribute.cs" />
-    <Compile Include="Http403Attribute.cs" />
     <Compile Include="Http404Attribute.cs" />
     <Compile Include="IControllerFactory.cs" />
     <Compile Include="IControllersHandler.cs" />
@@ -218,7 +219,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
