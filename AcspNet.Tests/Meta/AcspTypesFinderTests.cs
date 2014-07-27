@@ -24,7 +24,7 @@ namespace AcspNet.Tests.Meta
 		}
 
 		[Test]
-		public void FindTypeDerivedFrom_TestBootstrapper_NullReturned()
+		public void FindTypeDerivedFrom_NoDerivedTypes_NullReturned()
 		{
 			// Act
 			var type = AcspTypesFinder.FindTypeDerivedFrom<TestBootstrapper>();
@@ -34,7 +34,7 @@ namespace AcspNet.Tests.Meta
 		}
 
 		[Test]
-		public void FindTypesDerivedFrom_Controller_2TestControllersReturned()
+		public void FindTypesDerivedFrom_TypeHave2TypesDerived_2TestControllersReturned()
 		{
 			// Assign
 
@@ -54,7 +54,7 @@ namespace AcspNet.Tests.Meta
 		}
 
 		[Test]
-		public void FindTypesDerivedFrom_TestBootstrapper_NullReturned()
+		public void FindTypesDerivedFrom_NoDerivedTypes_NullReturned()
 		{
 			// Act
 			var types = AcspTypesFinder.FindTypesDerivedFrom<TestBootstrapper>();

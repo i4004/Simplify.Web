@@ -14,7 +14,7 @@ namespace AcspNet.Tests.Routing
 		}
 		
 		[Test]
-		public void Match_SourceEmptyNull_False()
+		public void Match_SourceEmptyAndNull_False()
 		{
 			// Act
 			var result = _matcher.Match(null, "/test");
@@ -26,7 +26,7 @@ namespace AcspNet.Tests.Routing
 		}
 
 		[Test]
-		public void Match_EmptyString_False()
+		public void Match_EmptyStringWithNormalRoute_False()
 		{
 			// Act
 			var result = _matcher.Match("/test", "");
@@ -36,7 +36,7 @@ namespace AcspNet.Tests.Routing
 		}
 
 		[Test]
-		public void Match_NullString_True()
+		public void Match_NullStringWithNormalRoute_True()
 		{
 			// Act
 			var result = _matcher.Match("/test", null);
@@ -46,7 +46,7 @@ namespace AcspNet.Tests.Routing
 		}
 
 		[Test]
-		public void Match_Root_True()
+		public void Match_RootWithRoot_True()
 		{
 			// Act
 			var result = _matcher.Match("/", "/");
@@ -56,7 +56,7 @@ namespace AcspNet.Tests.Routing
 		}
 
 		[Test]
-		public void Match_SingleAction_True()
+		public void Match_SingleActionWithSingleAction_True()
 		{
 			// Act
 			var result = _matcher.Match("/test", "/test");
@@ -66,7 +66,7 @@ namespace AcspNet.Tests.Routing
 		}
 
 		[Test]
-		public void Match_SingleActionSlashInTheEnd_False()
+		public void Match_SingleActionWithSlashInTheEndWithSingleAction_False()
 		{
 			// Act
 			var result = _matcher.Match("/test", "/test/");
@@ -76,7 +76,7 @@ namespace AcspNet.Tests.Routing
 		}
 
 		[Test]
-		public void Match_SingleActionWithoutSlash_True()
+		public void Match_SingleActionWithoutSlashWithSingleAction_True()
 		{
 			// Act
 			var result = _matcher.Match("/test", "test");
@@ -86,7 +86,7 @@ namespace AcspNet.Tests.Routing
 		}
 
 		[Test]
-		public void Match_MultipleActions_True()
+		public void Match_MultipleActionsWithMultipleActions_True()
 		{
 			// Act
 			var result = _matcher.Match("/foo/bar", "/foo/bar");
@@ -96,7 +96,7 @@ namespace AcspNet.Tests.Routing
 		}
 
 		[Test]
-		public void Match_ActionAndParameter_TrueValueParsed()
+		public void Match_ActionAndParameterWithNormal2partsRoute_TrueValueParsed()
 		{
 			// Act
 			var result = _matcher.Match("/user/testuser", "/user/{userName}");
@@ -107,7 +107,7 @@ namespace AcspNet.Tests.Routing
 		}
 
 		[Test]
-		public void Match_ActionAndTwoParameter_False()
+		public void Match_ActionAndTwoParameterWithNormal2partsRoute_False()
 		{
 			// Act
 			var result = _matcher.Match("/user/testuser", "/foo/{test}/{userName}");
@@ -117,7 +117,7 @@ namespace AcspNet.Tests.Routing
 		}
 
 		[Test]
-		public void Match_ActionAndParameterButNotMatched_False()
+		public void Match_ActionAndParameterWithNormal2partsRouteButNotMatched_False()
 		{
 			// Act
 			var result = _matcher.Match("/user/testuser", "/foo/{userName}");
@@ -127,7 +127,7 @@ namespace AcspNet.Tests.Routing
 		}
 
 		[Test]
-		public void Match_ActionAndParameterUndefinedParameterType_TrueValueAsString()
+		public void Match_ActionAndParameterUndefinedParameterTypeWithNormal2partsRoute_TrueValueAsString()
 		{
 			// Act
 			var result = _matcher.Match("/user/testuser", "/user/{userName:zxc}");
@@ -138,7 +138,7 @@ namespace AcspNet.Tests.Routing
 		}
 
 		[Test]
-		public void Match_ActionAndIntParameter_TrueValueParsed()
+		public void Match_ActionAndIntParameterWithNormal2partsRoute_TrueValueParsed()
 		{
 			// Act
 			var result = _matcher.Match("/foo/15", "/foo/{id:int}");
@@ -149,7 +149,7 @@ namespace AcspNet.Tests.Routing
 		}
 
 		[Test]
-		public void Match_Parameter_True()
+		public void Match_ParameterWithSingleActionRoute_True()
 		{
 			// Act
 			var result = _matcher.Match("/foo", "/{name}");
@@ -160,7 +160,7 @@ namespace AcspNet.Tests.Routing
 		}
 
 		[Test]
-		public void Match_TwoParameters_False()
+		public void Match_TwoParametersWithSingleActionRoute_False()
 		{
 			// Act
 			var result = _matcher.Match("/foo", "/{test}/{name}");
@@ -170,7 +170,7 @@ namespace AcspNet.Tests.Routing
 		}
 
 		[Test]
-		public void Match_SpecialParameterSymbols_False()
+		public void Match_ParameterWithSpecialSymbols_False()
 		{
 			// Act
 			var result = _matcher.Match("/%&{sd231}6^6", "/{name}");
@@ -179,8 +179,7 @@ namespace AcspNet.Tests.Routing
 			Assert.IsFalse(result.Success);
 		}
 
-		[Test]
-		public void Match_BadParameter2_False()
+		[Test] public void Match_BadParameterWithWSingleActionRoute_False()
 		{
 			// Act
 			var result = _matcher.Match("/foo", "/name}");
