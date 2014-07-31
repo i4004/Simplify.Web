@@ -19,7 +19,9 @@ namespace AcspNet.Tests.Diagnostics
 			try
 			{
 				string text = null;
-				text.IndexOf("test");
+// ReSharper disable PossibleNullReferenceException
+				text.IndexOf("test", StringComparison.Ordinal);
+// ReSharper restore PossibleNullReferenceException
 			}
 			catch (Exception e)
 			{
