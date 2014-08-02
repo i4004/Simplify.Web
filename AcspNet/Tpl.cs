@@ -1,31 +1,43 @@
-﻿namespace AcspNet
+﻿using Simplify.Templates;
+
+namespace AcspNet
 {
 	/// <summary>
 	/// Template data result
 	/// </summary>
-	public class TplData : ControllerResponse
+	public class Tpl : ControllerResponse
 	{
 		private readonly string _data;
 		private readonly string _title;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="TplData"/> class.
+		/// Initializes a new instance of the <see cref="Tpl"/> class.
 		/// </summary>
 		/// <param name="data">The data for main content variable.</param>
-		public TplData(string data)
+		public Tpl(string data)
 		{
 			_data = data;
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="TplData"/> class.
+		/// Initializes a new instance of the <see cref="Tpl"/> class.
 		/// </summary>
 		/// <param name="data">The data for main content variable.</param>
 		/// <param name="title">The site title.</param>
-		public TplData(string data, string title)
+		public Tpl(string data, string title)
 		{
 			_data = data;
 			_title = title;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Tpl"/> class.
+		/// </summary>
+		/// <param name="template">The template.</param>
+		public Tpl(ITemplate template)
+		{
+			if (template != null)
+				_data = template.Get();
 		}
 
 		/// <summary>

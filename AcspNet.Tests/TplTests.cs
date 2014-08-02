@@ -1,11 +1,12 @@
 ﻿using AcspNet.Modules;
 using Moq;
 using NUnit.Framework;
+using Simplify.Templates;
 
 namespace AcspNet.Tests
 {
 	[TestFixture]
-	public class TplDataTests
+	public class TplTests
 	{
 		Mock<IDataCollector> _dataCollector;
 		
@@ -16,10 +17,10 @@ namespace AcspNet.Tests
 		}
 
 		[Test]
-		public void Process_NullData_NoDataAddedtoDataCollector()
+		public void Process_EmptyData_NoDataAddedtoDataCollector()
 		{
 			// Assign
-			var tplData = new Mock<TplData>(null) { CallBase = true };
+			var tplData = new Mock<Tpl>("") { CallBase = true };
 			tplData.SetupGet(x => x.DataCollector).Returns(_dataCollector.Object);
 
 			// Act
@@ -33,7 +34,7 @@ namespace AcspNet.Tests
 		public void Process_NormalData_DataAddedtoDataCollector()
 		{
 			// Assign
-			var tplData = new Mock<TplData>("test") {CallBase = true};
+			var tplData = new Mock<Tpl>("test") {CallBase = true};
 			tplData.SetupGet(x => x.DataCollector).Returns(_dataCollector.Object);
 			
 			// Act
@@ -44,10 +45,24 @@ namespace AcspNet.Tests
 		}
 
 		[Test]
+		public void Process_NormalTemplate_DataAddedtoDataCollector()
+		{
+			// Assign
+			var tplData = new Mock<Tpl>(new Template("test", false)) { CallBase = true };
+			tplData.SetupGet(x => x.DataCollector).Returns(_dataCollector.Object);
+
+			// Act
+			tplData.Object.Process();
+
+			// Assert
+			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == "test")));
+		}
+		
+		[Test]
 		public void Process_NormalDataAndTitle_DataAddedtoDataCollector()
 		{
 			// Assign
-			var tplData = new Mock<TplData>("test", "foo title") { CallBase = true };
+			var tplData = new Mock<Tpl>("test", "foo title") { CallBase = true };
 			tplData.SetupGet(x => x.DataCollector).Returns(_dataCollector.Object);
 
 			// Act
@@ -62,7 +77,7 @@ namespace AcspNet.Tests
 		public void Process_NormalDataAndNullTitle_NoDataAddedtoDataCollector()
 		{
 			// Assign
-			var tplData = new Mock<TplData>("test", null) { CallBase = true };
+			var tplData = new Mock<Tpl>("test", null) { CallBase = true };
 			tplData.SetupGet(x => x.DataCollector).Returns(_dataCollector.Object);
 
 			// Act

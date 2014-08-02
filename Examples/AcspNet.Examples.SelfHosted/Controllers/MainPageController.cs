@@ -5,7 +5,7 @@
 	{
 		public override IControllerResponse Invoke()
 		{
-			return new TplData("Hello world!!!");
+			return new Tpl("Hello world!!!");
 		}
 	}
 }

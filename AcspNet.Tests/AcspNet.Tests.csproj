@@ -88,7 +88,19 @@
     <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Simplify.Templates, Version=1.0.3.0, Culture=neutral, PublicKeyToken=53a766bba578ec8b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Simplify.Templates.1.0.3\lib\net40\Simplify.Templates.dll</HintPath>
+    </Reference>
+    <Reference Include="Simplify.Xml, Version=1.0.1.0, Culture=neutral, PublicKeyToken=bc9f823c6827798e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Simplify.Xml.1.0.1\lib\net40\Simplify.Xml.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.IO.Abstractions, Version=1.4.0.86, Culture=neutral, PublicKeyToken=d480b5b72fb413da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.IO.Abstractions.1.4.0.86\lib\net35\System.IO.Abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper\BootstrapperFactoryTests.cs" />
@@ -104,7 +116,7 @@
     <Compile Include="TestEntities\TestController3.cs" />
     <Compile Include="TestEntities\TestController2.cs" />
     <Compile Include="TestEntities\TestController1.cs" />
-    <Compile Include="TplDataTests.cs" />
+    <Compile Include="TplTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
