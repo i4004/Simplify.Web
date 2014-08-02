@@ -33,8 +33,7 @@ namespace AcspNet.Bootstrapper
 			DependencyResolver.Container.Register(typeof(IControllersHandler), ControllersHandlerType, Reuse.Singleton);
 			DependencyResolver.Container.Register(typeof(IRequestHandler), RequestHandlerType, Reuse.Singleton);
 
-			// Registering controllers
-
+			// Registering controllers types
 			foreach (var controllerMetaData in DependencyResolver.Container.Resolve<IControllersMetaStore>().ControllersMetaData)
 				DependencyResolver.Container.Register(controllerMetaData.ControllerType);
 		}
