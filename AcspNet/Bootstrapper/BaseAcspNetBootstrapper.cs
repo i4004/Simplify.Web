@@ -23,6 +23,8 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public void Register()
 		{
+			// Registering AcspNet types
+
 			DependencyResolver.Container.Register(typeof(IControllerFactory), ControllerFactoryType, Reuse.Singleton);
 			DependencyResolver.Container.Register(typeof(IControllerMetaDataFactory), ControllerMetaDataFactoryType, Reuse.Singleton);
 			DependencyResolver.Container.Register(typeof(IControllersMetaStore), ControllersMetaStoreType, Reuse.Singleton);
@@ -30,6 +32,11 @@ namespace AcspNet.Bootstrapper
 			DependencyResolver.Container.Register(typeof(IControllersAgent), ControllersAgentType, Reuse.Singleton);
 			DependencyResolver.Container.Register(typeof(IControllersHandler), ControllersHandlerType, Reuse.Singleton);
 			DependencyResolver.Container.Register(typeof(IRequestHandler), RequestHandlerType, Reuse.Singleton);
+
+			// Registering controllers
+
+			foreach (var controllerMetaData in DependencyResolver.Container.Resolve<IControllersMetaStore>().ControllersMetaData)
+				DependencyResolver.Container.Register(controllerMetaData.ControllerType);
 		}
 
 		/// <summary>

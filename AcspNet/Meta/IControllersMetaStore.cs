@@ -8,9 +8,9 @@ namespace AcspNet.Meta
 	public interface IControllersMetaStore
 	{
 		/// <summary>
-		/// Get controllers meta-data
+		/// Current domain controllers meta-data
 		/// </summary>
 		/// <returns></returns>
-		IList<IControllerMetaData> GetControllersMetaData();
+		IList<IControllerMetaData> ControllersMetaData { get; }
 	}
 }

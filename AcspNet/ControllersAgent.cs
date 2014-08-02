@@ -10,8 +10,8 @@ namespace AcspNet
 	/// </summary>
 	public class ControllersAgent : IControllersAgent
 	{
+		private readonly IControllersMetaStore _controllersMetaStore;
 		private readonly IRouteMatcher _routeMatcher;
-		private readonly IList<IControllerMetaData> _controllersMetaData;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ControllersAgent" /> class.
@@ -20,8 +20,8 @@ namespace AcspNet
 		/// <param name="routeMatcher">The route matcher.</param>
 		public ControllersAgent(IControllersMetaStore controllersMetaStore, IRouteMatcher routeMatcher)
 		{
+			_controllersMetaStore = controllersMetaStore;
 			_routeMatcher = routeMatcher;
-			_controllersMetaData = controllersMetaStore.GetControllersMetaData();
 		}
 
 		/// <summary>
@@ -30,7 +30,7 @@ namespace AcspNet
 		/// <returns></returns>
 		public IEnumerable<IControllerMetaData> GetStandardControllersMetaData()
 		{
-			return _controllersMetaData.Where(
+			return _controllersMetaStore.ControllersMetaData.Where(
 				x =>
 					x.Role == null || (x.Role.Is400Handler == false && x.Role.Is403Handler == false && x.Role.Is404Handler == false));
 		}
@@ -86,7 +86,7 @@ namespace AcspNet
 			switch (controllerType)
 			{
 				case HandlerControllerType.Http404Handler:
-					metaData = _controllersMetaData.FirstOrDefault(x => x.Role != null && x.Role.Is404Handler);
+					metaData = _controllersMetaStore.ControllersMetaData.FirstOrDefault(x => x.Role != null && x.Role.Is404Handler);
 					break;
 			}
 

@@ -11,6 +11,8 @@ namespace AcspNet.Meta
 	{
 		private readonly IControllerMetaDataFactory _metaDataFactory;
 
+		private IList<IControllerMetaData> _controllersMetaData;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ControllersMetaStore"/> class.
 		/// </summary>
@@ -24,24 +26,33 @@ namespace AcspNet.Meta
 		/// Get controllers meta-data
 		/// </summary>
 		/// <returns></returns>
-		public IList<IControllerMetaData> GetControllersMetaData()
+		public IList<IControllerMetaData> ControllersMetaData
 		{
-			var controllersMetaContainers = new List<IControllerMetaData>();
-
-			var types = AcspTypesFinder.FindTypesDerivedFrom<Controller>();
-			var typesToIgnore = new List<Type>();
-
-			var ignoreContainingClass = AcspTypesFinder.GetAllTypes().FirstOrDefault(t => t.IsDefined(typeof(IgnoreControllersAttribute), true));
-
-			if (ignoreContainingClass != null)
+			get
 			{
-				var attributes = ignoreContainingClass.GetCustomAttributes(typeof(IgnoreControllersAttribute), false);
+				if (_controllersMetaData != null)
+					return _controllersMetaData;
 
-				typesToIgnore.AddRange(((IgnoreControllersAttribute)attributes[0]).Types);
+				var controllersMetaContainers = new List<IControllerMetaData>();
+
+				var types = AcspTypesFinder.FindTypesDerivedFrom<Controller>();
+				var typesToIgnore = new List<Type>();
+
+				var ignoreContainingClass =
+					AcspTypesFinder.GetAllTypes().FirstOrDefault(t => t.IsDefined(typeof (IgnoreControllersAttribute), true));
+
+				if (ignoreContainingClass != null)
+				{
+					var attributes = ignoreContainingClass.GetCustomAttributes(typeof (IgnoreControllersAttribute), false);
+
+					typesToIgnore.AddRange(((IgnoreControllersAttribute) attributes[0]).Types);
+				}
+
+				LoadMetaData(controllersMetaContainers, types, typesToIgnore);
+				_controllersMetaData = SortControllersMetaContainers(controllersMetaContainers);
+
+				return _controllersMetaData;
 			}
-
-			LoadMetaData(controllersMetaContainers, types, typesToIgnore);
-			return SortControllersMetaContainers(controllersMetaContainers);
 		}
 
 		private void LoadMetaData(ICollection<IControllerMetaData> controllersMetaContainers, IEnumerable<Type> types, IEnumerable<Type> typesToIgnore)

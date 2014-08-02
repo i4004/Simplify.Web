@@ -27,7 +27,7 @@ namespace AcspNet.Tests.Meta
 				.Returns(new ControllerMetaData(typeof (TestController1), new ControllerExecParameters(null, 1)));
 
 			// Act
-			var metaData = store.GetControllersMetaData();
+			var metaData = store.ControllersMetaData;
 
 			Assert.AreEqual(2, metaData.Count);
 			Assert.AreEqual("TestController1", metaData[0].ControllerType.Name);

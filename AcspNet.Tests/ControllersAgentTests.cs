@@ -27,7 +27,7 @@ namespace AcspNet.Tests
 		{
 			// Assign
 
-			_metaStore.Setup(x => x.GetControllersMetaData())
+			_metaStore.SetupGet(x => x.ControllersMetaData)
 				.Returns(new List<IControllerMetaData>
 				{
 					new ControllerMetaData(null),
@@ -141,7 +141,7 @@ namespace AcspNet.Tests
 		{
 			// Assign
 
-			_metaStore.Setup(x => x.GetControllersMetaData()).Returns(new List<IControllerMetaData>());
+			_metaStore.SetupGet(x => x.ControllersMetaData).Returns(new List<IControllerMetaData>());
 			_agent = new ControllersAgent(_metaStore.Object, _routeMatcher);
 
 			// Act & Assert
@@ -153,7 +153,7 @@ namespace AcspNet.Tests
 		{
 			// Assign
 
-			_metaStore.Setup(x => x.GetControllersMetaData()).Returns(new List<IControllerMetaData>
+			_metaStore.SetupGet(x => x.ControllersMetaData).Returns(new List<IControllerMetaData>
 			{
 				new ControllerMetaData(null, null, new ControllerRole(false, false, true))
 			});
