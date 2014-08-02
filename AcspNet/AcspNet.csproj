@@ -141,6 +141,7 @@
     <Compile Include="Modules\DataCollectorTemplateExtensions.cs" />
     <Compile Include="Modules\IDataCollector.cs" />
     <Compile Include="Modules\ITemplateFactory.cs" />
+    <Compile Include="Modules\TemplateFactory.cs" />
     <Compile Include="Tpl.cs" />
     <Compile Include="PutAttribute.cs" />
     <Compile Include="PostAttribute.cs" />

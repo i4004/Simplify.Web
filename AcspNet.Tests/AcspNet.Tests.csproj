@@ -101,6 +101,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\System.IO.Abstractions.1.4.0.86\lib\net35\System.IO.Abstractions.dll</HintPath>
     </Reference>
+    <Reference Include="System.IO.Abstractions.TestingHelpers">
+      <HintPath>..\packages\System.IO.Abstractions.TestingHelpers.1.4.0.86\lib\net35\System.IO.Abstractions.TestingHelpers.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper\BootstrapperFactoryTests.cs" />
@@ -109,6 +112,7 @@
     <Compile Include="Diagnostics\ExceptionInfoPageGeneratorTests.cs" />
     <Compile Include="Meta\ControllersMetaDataFactoryTests.cs" />
     <Compile Include="Meta\ControllersMetaStoreTests.cs" />
+    <Compile Include="Modules\TemplateFactoryTests.cs" />
     <Compile Include="Routing\RouteMatcherTests.cs" />
     <Compile Include="TestEntities\TestBootstrapper.cs" />
     <Compile Include="Meta\AcspTypesFinderTests.cs" />
@@ -127,7 +131,9 @@
       <Name>AcspNet</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

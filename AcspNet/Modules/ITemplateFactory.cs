@@ -3,7 +3,7 @@
 namespace AcspNet.Modules
 {
 	/// <summary>
-	/// Represent text templates loader
+	/// Represent web-site text templates loader
 	/// </summary>
 	public interface ITemplateFactory : IHideObjectMembers
 	{
