@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AcspNet.Bootstrapper;
 using AcspNet.Diagnostics;
+using DryIoc;
 using Microsoft.Owin;
 
 namespace AcspNet.Owin
@@ -32,7 +33,7 @@ namespace AcspNet.Owin
 		{
 			try
 			{
-				var request = _bootstrapper.Resolve<IRequestHandler>();
+				var request = DependencyResolver.Container.Resolve<IRequestHandler>();
 				return request.ProcessRequest(context);
 			}
 			catch (Exception e)

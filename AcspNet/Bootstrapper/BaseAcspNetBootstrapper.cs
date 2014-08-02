@@ -10,8 +10,6 @@ namespace AcspNet.Bootstrapper
 	/// </summary>
 	public class BaseAcspNetBootstrapper
 	{
-		private readonly Container _container = new Container();
-
 		private Type _controllerFactoryType;
 		private Type _controllerMetaDataFactoryType;
 		private Type _controllersMetaStoreType;
@@ -25,24 +23,13 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public void Register()
 		{
-			_container.Register(typeof(IControllerFactory), ControllerFactoryType, Reuse.Singleton);
-			_container.Register(typeof(IControllerMetaDataFactory), ControllerMetaDataFactoryType, Reuse.Singleton);
-			_container.Register(typeof(IControllersMetaStore), ControllersMetaStoreType, Reuse.Singleton);
-			_container.Register(typeof(IRouteMatcher), RouteMatcherType, Reuse.Singleton);
-			_container.Register(typeof(IControllersAgent), ControllersAgentType, Reuse.Singleton);
-			_container.Register(typeof(IControllersHandler), ControllersHandlerType, Reuse.Singleton);
-			_container.Register(typeof(IRequestHandler), RequestHandlerType, Reuse.Singleton);
-		}
-
-		/// <summary>
-		/// Gets the container.
-		/// </summary>
-		/// <value>
-		/// The container.
-		/// </value>
-		private Container Container
-		{
-			get { return _container; }
+			DependencyResolver.Container.Register(typeof(IControllerFactory), ControllerFactoryType, Reuse.Singleton);
+			DependencyResolver.Container.Register(typeof(IControllerMetaDataFactory), ControllerMetaDataFactoryType, Reuse.Singleton);
+			DependencyResolver.Container.Register(typeof(IControllersMetaStore), ControllersMetaStoreType, Reuse.Singleton);
+			DependencyResolver.Container.Register(typeof(IRouteMatcher), RouteMatcherType, Reuse.Singleton);
+			DependencyResolver.Container.Register(typeof(IControllersAgent), ControllersAgentType, Reuse.Singleton);
+			DependencyResolver.Container.Register(typeof(IControllersHandler), ControllersHandlerType, Reuse.Singleton);
+			DependencyResolver.Container.Register(typeof(IRequestHandler), RequestHandlerType, Reuse.Singleton);
 		}
 
 		/// <summary>
@@ -120,16 +107,6 @@ namespace AcspNet.Bootstrapper
 		public Type RequestHandlerType
 		{
 			get { return _requestHandlerType ?? typeof(RequestHandler); }
-		}
-
-		/// <summary>
-		/// Resolves this instance.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <returns></returns>
-		public T Resolve<T>()
-		{
-			return Container.Resolve<T>();
 		}
 
 		/// <summary>

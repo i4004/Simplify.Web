@@ -56,18 +56,6 @@
     <Reference Include="Owin">
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleInjector">
-      <HintPath>..\..\packages\SimpleInjector.2.5.0\lib\net45\SimpleInjector.dll</HintPath>
-    </Reference>
-    <Reference Include="SimpleInjector.Diagnostics">
-      <HintPath>..\..\packages\SimpleInjector.2.5.0\lib\net45\SimpleInjector.Diagnostics.dll</HintPath>
-    </Reference>
-    <Reference Include="SimpleInjector.Extensions.LifetimeScoping">
-      <HintPath>..\..\packages\SimpleInjector.Extensions.LifetimeScoping.2.5.0\lib\net40-client\SimpleInjector.Extensions.LifetimeScoping.dll</HintPath>
-    </Reference>
-    <Reference Include="Simplify.Core">
-      <HintPath>..\..\packages\Simplify.Core.1.2.0\lib\net40\Simplify.Core.dll</HintPath>
-    </Reference>
     <Reference Include="Simplify.Templates, Version=1.0.3.0, Culture=neutral, PublicKeyToken=53a766bba578ec8b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Simplify.Templates.1.0.3\lib\net40\Simplify.Templates.dll</HintPath>

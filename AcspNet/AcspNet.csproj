@@ -120,6 +120,7 @@
     <Compile Include="ControllersAgent.cs" />
     <Compile Include="ControllersHandler.cs" />
     <Compile Include="ControllersHandlerResult.cs" />
+    <Compile Include="DependecyResolver.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGenerator.cs" />
     <Compile Include="Bootstrapper\BootstrapperFactory.cs" />
     <Compile Include="Bootstrapper\BaseAcspNetBootstrapper.cs" />
@@ -180,9 +181,6 @@
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Simplify.Core">
-      <HintPath>..\packages\Simplify.Core.1.2.0\lib\net40\Simplify.Core.dll</HintPath>
     </Reference>
     <Reference Include="Simplify.Templates">
       <HintPath>..\packages\Simplify.Templates.1.0.3\lib\net40\Simplify.Templates.dll</HintPath>

@@ -1,5 +1,5 @@
 ﻿using System;
-using Simplify.Core;
+using DryIoc;
 
 namespace AcspNet
 {
@@ -15,7 +15,7 @@ namespace AcspNet
 		/// <returns></returns>
 		public IController CreateController(Type controllerType)
 		{
-			var controller = (IController)DependencyResolver.Current.Resolve(controllerType);
+			var controller = (IController)DependencyResolver.Container.Resolve(controllerType);
 
 			return controller;
 		}
