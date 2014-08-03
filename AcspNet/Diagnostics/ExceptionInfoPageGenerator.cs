@@ -23,6 +23,8 @@ namespace AcspNet.Diagnostics
 
 			var tpl = Template.FromManifest("Diagnostics.ExceptionInfoPage.html");
 
+			tpl.Set("AcspNetVersion", "5.0");
+
 			if (hideExceptionDetails)
 			{
 				tpl.Set("ExceptionDetails", "");
