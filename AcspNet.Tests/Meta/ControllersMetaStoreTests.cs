@@ -1,4 +1,5 @@
 ﻿using System;
+using AcspNet.Attributes;
 using AcspNet.Meta;
 using AcspNet.Tests.TestEntities;
 using Moq;

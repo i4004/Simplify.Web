@@ -3,7 +3,7 @@ using System.Linq;
 using AcspNet.Meta;
 using AcspNet.Routing;
 
-namespace AcspNet
+namespace AcspNet.Core
 {
 	/// <summary>
 	/// Provides controllers agent

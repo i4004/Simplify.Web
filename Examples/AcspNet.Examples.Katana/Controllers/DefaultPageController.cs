@@ -1,4 +1,7 @@
-﻿namespace AcspNet.Examples.Controllers
+﻿using AcspNet.Attributes;
+using AcspNet.Responses;
+
+namespace AcspNet.Examples.Controllers
 {
 	[Get("/")]
 	public class MainPageController : Controller

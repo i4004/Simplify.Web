@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AcspNet
+namespace AcspNet.Core
 {
 	/// <summary>
 	/// Represent controller factory

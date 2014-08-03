@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AcspNet
+namespace AcspNet.Responses
 {
 	/// <summary>
 	/// Provides Http file response

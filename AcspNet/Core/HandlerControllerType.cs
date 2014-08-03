@@ -1,4 +1,4 @@
-﻿namespace AcspNet
+﻿namespace AcspNet.Core
 {
 	/// <summary>
 	/// Handler controller types

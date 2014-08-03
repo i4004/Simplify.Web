@@ -1,7 +1,7 @@
 ﻿using System;
-using DryIoc;
+using AcspNet.DryIoc;
 
-namespace AcspNet
+namespace AcspNet.Core
 {
 	/// <summary>
 	/// Controller factory

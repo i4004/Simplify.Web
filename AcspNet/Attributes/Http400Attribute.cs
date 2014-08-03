@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AcspNet
+namespace AcspNet.Attributes
 {
 	/// <summary>
 	/// Indicates what controller handles HTTP 400 errors

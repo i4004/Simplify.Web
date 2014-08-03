@@ -1,4 +1,4 @@
-﻿namespace AcspNet
+﻿namespace AcspNet.Core
 {
 	/// <summary>
 	/// Creates and executes controllers for current request

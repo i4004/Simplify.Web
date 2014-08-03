@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using AcspNet.Core;
 using AcspNet.Meta;
 using AcspNet.Routing;
 using AcspNet.Tests.TestEntities;
 using Moq;
 using NUnit.Framework;
 
-namespace AcspNet.Tests
+namespace AcspNet.Tests.Core
 {
 	[TestFixture]
 	public class ControllersHandlerTests

@@ -44,7 +44,7 @@ namespace AcspNet.Diagnostics
 			var positionPrefix = fileLineNumber == 0 && fileColumnNumber == 0 ? "" : String.Format("[{0}:{1}]", fileLineNumber, fileColumnNumber);
 
 			detailsTpl.Set("StackTrace", String.Format("{0} {1} : {2}{3}{4}{5}", positionPrefix, e.GetType(),
-				e.Message, Environment.NewLine + Environment.NewLine, trace, GetInnerExceptionData(1, e.InnerException)).Replace("\r\n", "<br />"));
+				e.Message, System.Environment.NewLine + System.Environment.NewLine, trace, GetInnerExceptionData(1, e.InnerException)).Replace("\r\n", "<br />"));
 
 			tpl.Set("ExceptionDetails", detailsTpl);
 
@@ -68,7 +68,7 @@ namespace AcspNet.Diagnostics
 
 			return String.Format("[Inner Exception{0}]{1} {2} : {3}{4}{5}{6}",
 				levelText, positionPrefix, e.GetType(),
-				e.Message, Environment.NewLine, trace,
+				e.Message, System.Environment.NewLine, trace,
 				GetInnerExceptionData(currentLevel + 1, e.InnerException));
 		}
 	}

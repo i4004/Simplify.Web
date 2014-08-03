@@ -23,13 +23,12 @@ THE SOFTWARE.
 */
 
 using System;
-using System.IO;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Threading;
 
-namespace DryIoc
+namespace AcspNet.DryIoc
 {
     public static partial class FactoryCompiler
     {

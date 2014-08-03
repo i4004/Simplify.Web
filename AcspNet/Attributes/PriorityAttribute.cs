@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AcspNet
+namespace AcspNet.Attributes
 {
 	/// <summary>
 	/// Set controller execution priority

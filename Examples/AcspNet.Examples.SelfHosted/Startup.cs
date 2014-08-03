@@ -1,6 +1,6 @@
-﻿using AcspNet.Meta;
+﻿using AcspNet.DryIoc;
+using AcspNet.Meta;
 using AcspNet.Owin;
-using DryIoc;
 using Owin;
 
 namespace AcspNet.Examples.SelfHosted

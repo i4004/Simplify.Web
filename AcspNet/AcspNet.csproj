@@ -115,12 +115,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AcspNetSettings.cs" />
-    <Compile Include="Ajax.cs" />
-    <Compile Include="ControllerFactory.cs" />
+    <Compile Include="Responses\Ajax.cs" />
+    <Compile Include="Core\ControllerFactory.cs" />
     <Compile Include="ControllerResponse.cs" />
-    <Compile Include="ControllersAgent.cs" />
-    <Compile Include="ControllersHandler.cs" />
-    <Compile Include="ControllersHandlerResult.cs" />
+    <Compile Include="Core\ControllersAgent.cs" />
+    <Compile Include="Core\ControllersHandler.cs" />
+    <Compile Include="Core\ControllersHandlerResult.cs" />
     <Compile Include="DependecyResolver.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGenerator.cs" />
     <Compile Include="Bootstrapper\BootstrapperFactory.cs" />
@@ -128,17 +128,17 @@
     <Compile Include="Controller.cs" />
     <Compile Include="DryIoc\Container.cs" />
     <Compile Include="DryIoc\FactoryCompiler.cs" />
-    <Compile Include="DeleteAttribute.cs" />
+    <Compile Include="Attributes\DeleteAttribute.cs" />
     <Compile Include="DryIoc\InternalsVisibleToDryIocFactoryCompilerDynamicAssembly.cs" />
-    <Compile Include="HandlerControllerType.cs" />
-    <Compile Include="Http400Attribute.cs" />
-    <Compile Include="Http403Attribute.cs" />
-    <Compile Include="HttpFile.cs" />
+    <Compile Include="Core\HandlerControllerType.cs" />
+    <Compile Include="Attributes\Http400Attribute.cs" />
+    <Compile Include="Attributes\Http403Attribute.cs" />
+    <Compile Include="Responses\HttpFile.cs" />
     <Compile Include="IAcspNetSettings.cs" />
     <Compile Include="IController.cs" />
     <Compile Include="IControllerResponse.cs" />
-    <Compile Include="IControllerResponseProcessor.cs" />
-    <Compile Include="IControllersAgent.cs" />
+    <Compile Include="Core\IControllerResponseProcessor.cs" />
+    <Compile Include="Core\IControllersAgent.cs" />
     <Compile Include="IHideObjectMembers.cs" />
     <Compile Include="Meta\ControllerRole.cs" />
     <Compile Include="Modules\DataCollectorTemplateExtensions.cs" />
@@ -147,14 +147,14 @@
     <Compile Include="Modules\IEnvironment.cs" />
     <Compile Include="Modules\ITemplateFactory.cs" />
     <Compile Include="Modules\TemplateFactory.cs" />
-    <Compile Include="Tpl.cs" />
-    <Compile Include="PutAttribute.cs" />
-    <Compile Include="PostAttribute.cs" />
-    <Compile Include="Http404Attribute.cs" />
-    <Compile Include="IControllerFactory.cs" />
-    <Compile Include="IControllersHandler.cs" />
-    <Compile Include="IgnoreControllersAttribute.cs" />
-    <Compile Include="IRequestHandler.cs" />
+    <Compile Include="Responses\Tpl.cs" />
+    <Compile Include="Attributes\PutAttribute.cs" />
+    <Compile Include="Attributes\PostAttribute.cs" />
+    <Compile Include="Attributes\Http404Attribute.cs" />
+    <Compile Include="Core\IControllerFactory.cs" />
+    <Compile Include="Core\IControllersHandler.cs" />
+    <Compile Include="Attributes\IgnoreControllersAttribute.cs" />
+    <Compile Include="Core\IRequestHandler.cs" />
     <Compile Include="Meta\ControllerRouteInfo.cs" />
     <Compile Include="Meta\IControllerMetaData.cs" />
     <Compile Include="Routing\IRouteMatchResult.cs" />
@@ -167,12 +167,12 @@
     <Compile Include="Meta\IControllerMetaDataFactory.cs" />
     <Compile Include="Meta\IControllersMetaStore.cs" />
     <Compile Include="Owin\AcspNetOwinMiddleware.cs" />
-    <Compile Include="PriorityAttribute.cs" />
-    <Compile Include="RequestHandler.cs" />
-    <Compile Include="GetAttribute.cs" />
+    <Compile Include="Attributes\PriorityAttribute.cs" />
+    <Compile Include="Core\RequestHandler.cs" />
+    <Compile Include="Attributes\GetAttribute.cs" />
     <Compile Include="Routing\RouteMatchResult.cs" />
     <Compile Include="Routing\RouteMatcher.cs" />
-    <Compile Include="ViewModel.cs" />
+    <Compile Include="Responses\ViewModel.cs" />
     <None Include="AcspNet.nuspec" />
     <Compile Include="Owin\AppBuilderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -227,6 +227,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Diagnostics\ExceptionIDetails.html" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

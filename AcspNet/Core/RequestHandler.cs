@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Owin;
 
-namespace AcspNet
+namespace AcspNet.Core
 {
 	/// <summary>
 	/// Provides OWIN HTTP request handler

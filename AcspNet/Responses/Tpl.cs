@@ -1,6 +1,6 @@
 ﻿using Simplify.Templates;
 
-namespace AcspNet
+namespace AcspNet.Responses
 {
 	/// <summary>
 	/// Template data result

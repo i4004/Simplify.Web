@@ -32,7 +32,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 
-namespace DryIoc
+namespace AcspNet.DryIoc
 {
     /// <summary>
     /// IoC Container. Documentation is available at https://bitbucket.org/dadhi/dryioc.
@@ -2148,7 +2148,7 @@ when resolving {1}.";
         {
             return x is string ? (string)x
                 : (x is Type ? ((Type)x).Print()
-                : (x is IEnumerable<Type> ? ((IEnumerable)x).Print(";" + Environment.NewLine, ifEmpty: "<empty>")
+                : (x is IEnumerable<Type> ? ((IEnumerable)x).Print(";" + System.Environment.NewLine, ifEmpty: "<empty>")
                 : (x is IEnumerable ? ((IEnumerable)x).Print(ifEmpty: "<empty>")
                 : (string.Empty + x))));
         }

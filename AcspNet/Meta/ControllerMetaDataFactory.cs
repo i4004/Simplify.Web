@@ -1,4 +1,5 @@
 ﻿using System;
+using AcspNet.Attributes;
 
 namespace AcspNet.Meta
 {

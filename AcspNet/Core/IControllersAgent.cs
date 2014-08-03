@@ -2,7 +2,7 @@
 using AcspNet.Meta;
 using AcspNet.Routing;
 
-namespace AcspNet
+namespace AcspNet.Core
 {
 	/// <summary>
 	/// Represent controllers agent

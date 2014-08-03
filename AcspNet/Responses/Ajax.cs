@@ -1,17 +1,17 @@
 ﻿using System;
 
-namespace AcspNet
+namespace AcspNet.Responses
 {
 	/// <summary>
-	/// Provides view model response
+	/// Provides controller Ajax response
 	/// </summary>
-	public class ViewModel : ControllerResponse
+	public class Ajax : ControllerResponse
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ViewModel"/> class.
+		/// Initializes a new instance of the <see cref="Ajax"/> class.
 		/// </summary>
-		/// <param name="viewModel">The view model.</param>
-		public ViewModel(object viewModel)
+		/// <param name="ajaxData">The ajax data.</param>
+		public Ajax(string ajaxData)
 		{
 			throw new NotImplementedException();
 		}

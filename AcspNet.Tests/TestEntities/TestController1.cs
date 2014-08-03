@@ -1,4 +1,6 @@
-﻿namespace AcspNet.Tests.TestEntities
+﻿using AcspNet.Attributes;
+
+namespace AcspNet.Tests.TestEntities
 {
 	[Get("/testaction")]
 	[Post("/testaction1")]

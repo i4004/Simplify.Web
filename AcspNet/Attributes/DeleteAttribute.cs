@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace AcspNet
+namespace AcspNet.Attributes
 {
 	/// <summary>
-	/// Set controller HTTP GET request route path
+	/// Set controller HTTP DELETE request route path
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class)]
-	public class GetAttribute : Attribute
+	public class DeleteAttribute : Attribute
 	{
 		/// <summary>
 		/// Gets the route.
@@ -17,10 +17,10 @@ namespace AcspNet
 		public string Route { get; private set; }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="GetAttribute"/> class.
+		/// Initializes a new instance of the <see cref="DeleteAttribute"/> class.
 		/// </summary>
 		/// <param name="route">The route.</param>
-		public GetAttribute(string route)
+		public DeleteAttribute(string route)
 		{
 			Route = route;
 		}

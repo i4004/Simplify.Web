@@ -1,9 +1,10 @@
 ﻿using AcspNet.Modules;
+using AcspNet.Responses;
 using Moq;
 using NUnit.Framework;
 using Simplify.Templates;
 
-namespace AcspNet.Tests
+namespace AcspNet.Tests.Responses
 {
 	[TestFixture]
 	public class TplTests
