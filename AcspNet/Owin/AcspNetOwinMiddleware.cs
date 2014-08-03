@@ -38,7 +38,7 @@ namespace AcspNet.Owin
 			}
 			catch (Exception e)
 			{
-				return context.Response.WriteAsync(ExceptionInfoPageGenerator.Generate(e));
+				return context.Response.WriteAsync(ExceptionInfoPageGenerator.Generate(e, DependencyResolver.Container.Resolve<IAcspNetSettings>().HideExceptionDetails));
 			}
 		}
 	}

@@ -6,7 +6,7 @@ namespace AcspNet
 	/// <summary>
 	/// AcspNet settings
 	/// </summary>
-	public sealed class AcspSettings : IAcspNetSettings
+	public sealed class AcspNetSettings : IAcspNetSettings
 	{
 		/// <summary>
 		/// Default templates directory path, for example: Templates, default value is "Templates"
@@ -71,9 +71,9 @@ namespace AcspNet
 		public bool HideExceptionDetails { get; private set; }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="AcspSettings"/> class.
+		/// Initializes a new instance of the <see cref="AcspNetSettings"/> class.
 		/// </summary>
-		internal AcspSettings()
+		public AcspNetSettings()
 		{
 			DefaultTitleVariableName = "Title";
 			DefaultMainContentVariableName = "MainContent";

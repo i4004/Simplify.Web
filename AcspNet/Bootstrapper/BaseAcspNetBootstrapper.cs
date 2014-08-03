@@ -10,6 +10,7 @@ namespace AcspNet.Bootstrapper
 	/// </summary>
 	public class BaseAcspNetBootstrapper
 	{
+		private Type _acspNetSettingsType;
 		private Type _controllerFactoryType;
 		private Type _controllerMetaDataFactoryType;
 		private Type _controllersMetaStoreType;
@@ -25,6 +26,7 @@ namespace AcspNet.Bootstrapper
 		{
 			// Registering AcspNet types
 
+			DependencyResolver.Container.Register(typeof(IAcspNetSettings), AcspNetSettingsType, Reuse.Singleton);
 			DependencyResolver.Container.Register(typeof(IControllerFactory), ControllerFactoryType, Reuse.Singleton);
 			DependencyResolver.Container.Register(typeof(IControllerMetaDataFactory), ControllerMetaDataFactoryType, Reuse.Singleton);
 			DependencyResolver.Container.Register(typeof(IControllersMetaStore), ControllersMetaStoreType, Reuse.Singleton);
@@ -36,6 +38,17 @@ namespace AcspNet.Bootstrapper
 			// Registering controllers types
 			foreach (var controllerMetaData in DependencyResolver.Container.Resolve<IControllersMetaStore>().ControllersMetaData)
 				DependencyResolver.Container.Register(controllerMetaData.ControllerType);
+		}
+
+		/// <summary>
+		/// Gets the type of the AcspNet settings.
+		/// </summary>
+		/// <value>
+		/// The type of the AcspNet settings.
+		/// </value>
+		public Type AcspNetSettingsType
+		{
+			get { return _acspNetSettingsType ?? typeof(AcspNetSettings); }
 		}
 
 		/// <summary>
@@ -113,6 +126,16 @@ namespace AcspNet.Bootstrapper
 		public Type RequestHandlerType
 		{
 			get { return _requestHandlerType ?? typeof(RequestHandler); }
+		}
+
+		/// <summary>
+		/// Sets the type of the AcspNet settings.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetAcspNetSettingsType<T>()
+			where T : IAcspNetSettings
+		{
+			_acspNetSettingsType = typeof(T);
 		}
 
 		/// <summary>
