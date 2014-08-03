@@ -14,11 +14,22 @@ namespace AcspNet.Diagnostics
 		/// Generates the HTML page with exception information
 		/// </summary>
 		/// <param name="e">Exception to get information from.</param>
+		/// <param name="hideExceptionDetails">if set to <c>true</c> then exception details will not be shown.</param>
 		/// <returns></returns>
-		public static string Generate(Exception e)
+		public static string Generate(Exception e, bool hideExceptionDetails = false)
 		{
 			if (e == null)
 				return null;
+
+			var tpl = Template.FromManifest("Diagnostics.ExceptionInfoPage.html");
+
+			if (hideExceptionDetails)
+			{
+				tpl.Set("ExceptionDetails", "");
+				return tpl.Get();
+			}
+
+			var detailsTpl = Template.FromManifest("Diagnostics.ExceptionIDetails.html");
 
 			var trace = new StackTrace(e, true);
 
@@ -29,10 +40,11 @@ namespace AcspNet.Diagnostics
 			var fileColumnNumber = trace.GetFrame(0).GetFileColumnNumber();
 
 			var positionPrefix = fileLineNumber == 0 && fileColumnNumber == 0 ? "" : String.Format("[{0}:{1}]", fileLineNumber, fileColumnNumber);
-			var tpl = Template.FromManifest("Diagnostics.ExceptionInfoPage.html");
 
-			tpl.Set("StackTrace", String.Format("{0} {1} : {2}{3}{4}{5}", positionPrefix, e.GetType(),
+			detailsTpl.Set("StackTrace", String.Format("{0} {1} : {2}{3}{4}{5}", positionPrefix, e.GetType(),
 				e.Message, Environment.NewLine, trace, GetInnerExceptionData(1, e.InnerException)).Replace("\r\n", "<br />"));
+
+			tpl.Set("ExceptionDetails", detailsTpl);
 
 			return tpl.Get();
 		}

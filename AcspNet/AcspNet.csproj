@@ -222,6 +222,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Diagnostics\ExceptionInfoPage.html" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Diagnostics\ExceptionIDetails.html" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

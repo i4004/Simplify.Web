@@ -41,5 +41,11 @@ namespace AcspNet.Tests.Diagnostics
 		{
 			Assert.IsNull(ExceptionInfoPageGenerator.Generate(new Exception("test")));
 		}
+
+		[Test]
+		public void Generate_HideDetails_Null()
+		{
+			Assert.IsTrue(ExceptionInfoPageGenerator.Generate(new Exception("test"), true).Contains("html"));
+		}
 	}
 }
