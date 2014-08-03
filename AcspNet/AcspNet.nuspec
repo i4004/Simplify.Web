@@ -15,11 +15,5 @@
 		<copyright>Licensed under LGPL</copyright>
 		<language>en-US</language>
 		<tags>.NET web-framework MVC DI OWIN</tags>
-		<dependencies>
-			<group targetFramework=".NETFramework4.0">
-				<dependency id="Owin" version="1.0" />
-				<dependency id="Microsoft.Owin" version="2.1.0" />
-			</group>
-		</dependencies>
 	</metadata>
 </package>
