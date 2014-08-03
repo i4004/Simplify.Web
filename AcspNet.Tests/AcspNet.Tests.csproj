@@ -108,6 +108,7 @@
     <Compile Include="ControllersAgentTests.cs" />
     <Compile Include="ControllersHandlerTests.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGeneratorTests.cs" />
+    <Compile Include="Modules\EnvironmentTests.cs" />
     <Compile Include="Meta\ControllersMetaDataFactoryTests.cs" />
     <Compile Include="Meta\ControllersMetaStoreTests.cs" />
     <Compile Include="Modules\TemplateFactoryTests.cs" />

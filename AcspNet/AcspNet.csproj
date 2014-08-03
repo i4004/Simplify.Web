@@ -142,7 +142,9 @@
     <Compile Include="IHideObjectMembers.cs" />
     <Compile Include="Meta\ControllerRole.cs" />
     <Compile Include="Modules\DataCollectorTemplateExtensions.cs" />
+    <Compile Include="Modules\Environment.cs" />
     <Compile Include="Modules\IDataCollector.cs" />
+    <Compile Include="Modules\IEnvironment.cs" />
     <Compile Include="Modules\ITemplateFactory.cs" />
     <Compile Include="Modules\TemplateFactory.cs" />
     <Compile Include="Tpl.cs" />
