@@ -114,6 +114,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AcspNetSettings.cs" />
     <Compile Include="Ajax.cs" />
     <Compile Include="ControllerFactory.cs" />
     <Compile Include="ControllerResponse.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Http400Attribute.cs" />
     <Compile Include="Http403Attribute.cs" />
     <Compile Include="HttpFile.cs" />
+    <Compile Include="IAcspNetSettings.cs" />
     <Compile Include="IController.cs" />
     <Compile Include="IControllerResponse.cs" />
     <Compile Include="IControllerResponseProcessor.cs" />
@@ -187,6 +189,7 @@
       <HintPath>..\packages\Simplify.Templates.1.0.4.0\lib\net40\Simplify.Templates.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.IO.Abstractions">
       <HintPath>..\packages\System.IO.Abstractions.1.4.0.86\lib\net35\System.IO.Abstractions.dll</HintPath>
       <Private>True</Private>
