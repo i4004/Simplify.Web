@@ -42,7 +42,7 @@ namespace AcspNet.Bootstrapper
 
 			// Registeting user modules
 
-			DependencyResolver.Container.Register(typeof(IEnvironment), EnvironmentType, Reuse.InCurrentScope);
+			//DependencyResolver.Container.Register(typeof(IEnvironment), EnvironmentType, Reuse.InCurrentScope);
 
 			// Registering controllers types
 			foreach (var controllerMetaData in DependencyResolver.Container.Resolve<IControllersMetaStore>().ControllersMetaData)
