@@ -2,7 +2,9 @@
 using AcspNet.Core;
 using AcspNet.DryIoc;
 using AcspNet.Meta;
+using AcspNet.Modules;
 using AcspNet.Routing;
+using Environment = System.Environment;
 
 namespace AcspNet.Bootstrapper
 {
@@ -20,12 +22,14 @@ namespace AcspNet.Bootstrapper
 		private Type _controllersHanderType;
 		private Type _requestHandlerType;
 
+		private Type _environmentType;
+
 		/// <summary>
 		/// Registers the types in container.
 		/// </summary>
 		public void Register()
 		{
-			// Registering AcspNet types
+			// Registering AcspNet core types
 
 			DependencyResolver.Container.Register(typeof(IAcspNetSettings), AcspNetSettingsType, Reuse.Singleton);
 			DependencyResolver.Container.Register(typeof(IControllerFactory), ControllerFactoryType, Reuse.Singleton);
@@ -35,6 +39,10 @@ namespace AcspNet.Bootstrapper
 			DependencyResolver.Container.Register(typeof(IControllersAgent), ControllersAgentType, Reuse.Singleton);
 			DependencyResolver.Container.Register(typeof(IControllersHandler), ControllersHandlerType, Reuse.Singleton);
 			DependencyResolver.Container.Register(typeof(IRequestHandler), RequestHandlerType, Reuse.Singleton);
+
+			// Registeting user modules
+
+			DependencyResolver.Container.Register(typeof(IEnvironment), EnvironmentType, Reuse.InCurrentScope);
 
 			// Registering controllers types
 			foreach (var controllerMetaData in DependencyResolver.Container.Resolve<IControllersMetaStore>().ControllersMetaData)
@@ -130,6 +138,17 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
+		/// Gets the type of the environment.
+		/// </summary>
+		/// <value>
+		/// The type of the environment.
+		/// </value>
+		public Type EnvironmentType
+		{
+			get { return _environmentType ?? typeof(Environment); }
+		}
+
+		/// <summary>
 		/// Sets the type of the AcspNet settings.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
@@ -207,6 +226,16 @@ namespace AcspNet.Bootstrapper
 			where T : IRequestHandler
 		{
 			_requestHandlerType = typeof(T);
+		}
+
+		/// <summary>
+		/// Sets the type of the environment.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetEnvironmentType<T>()
+			where T : IEnvironment
+		{
+			_environmentType = typeof(T);
 		}
 	}
 }
