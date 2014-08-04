@@ -8,6 +8,11 @@ namespace AcspNet
 	public class Controller : IController
 	{
 		/// <summary>
+		/// Current request environment data.
+		/// </summary>
+		public virtual IEnvironment Environment { get; internal set; }
+
+		/// <summary>
 		/// Web-site master page data collector.
 		/// </summary>
 		public virtual IDataCollector DataCollector { get; internal set; }
