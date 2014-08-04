@@ -7,6 +7,11 @@
 	{
 		private readonly string _sitePhysicalPath;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Environment"/> class.
+		/// </summary>
+		/// <param name="sitePhysicalPath">The site physical path.</param>
+		/// <param name="settings">The settings.</param>
 		public Environment(string sitePhysicalPath, IAcspNetSettings settings)
 		{
 			if (!sitePhysicalPath.EndsWith("/"))
