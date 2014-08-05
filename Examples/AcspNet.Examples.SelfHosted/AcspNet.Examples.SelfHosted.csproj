@@ -43,6 +43,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Templates\Index.tpl" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Owin">

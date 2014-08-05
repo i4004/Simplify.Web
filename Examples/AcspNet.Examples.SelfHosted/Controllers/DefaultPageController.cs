@@ -15,7 +15,10 @@ namespace AcspNet.Examples.SelfHosted.Controllers
 
 		public override IControllerResponse Invoke()
 		{
-			return new Tpl(_foo.Bar());
+			var tpl = TemplateFactory.Load("Index");
+			tpl.Set("MainContent", _foo.Bar());
+
+			return new Tpl(tpl);
 		}
 	}
 }
