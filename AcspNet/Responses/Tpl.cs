@@ -41,16 +41,32 @@ namespace AcspNet.Responses
 		}
 
 		/// <summary>
+		/// Gets the The data for main content variable.
+		/// </summary>
+		public string Data
+		{
+			get { return _data; }
+		}
+
+		/// <summary>
+		/// Gets the site title.
+		/// </summary>
+		public string Title
+		{
+			get { return _title; }
+		}
+
+		/// <summary>
 		/// Processes this response
 		/// </summary>
 		public override void Process()
 		{
-			if (!string.IsNullOrEmpty(_data))
+			if (!string.IsNullOrEmpty(Data))
 			{
-				DataCollector.Add(_data);
+				DataCollector.Add(Data);
 
-				if (!string.IsNullOrEmpty(_title))
-					DataCollector.AddTitle(_title);
+				if (!string.IsNullOrEmpty(Title))
+					DataCollector.AddTitle(Title);
 			}
 		}
 	}
