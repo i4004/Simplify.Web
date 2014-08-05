@@ -5,7 +5,7 @@ namespace AcspNet
 	/// <summary>
 	/// Represents controller interface
 	/// </summary>
-	public interface IController : IHideObjectMembers
+	public interface IController : IViewAccessor
 	{
 		/// <summary>
 		/// Current request environment data.

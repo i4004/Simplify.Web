@@ -5,7 +5,7 @@ namespace AcspNet
 	/// <summary>
 	/// AcspNet controller base class
 	/// </summary>
-	public class Controller : IController
+	public class Controller : ViewAccessor, IController
 	{
 		/// <summary>
 		/// Current request environment data.
