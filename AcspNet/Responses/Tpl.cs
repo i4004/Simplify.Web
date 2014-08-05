@@ -41,6 +41,19 @@ namespace AcspNet.Responses
 		}
 
 		/// <summary>
+		/// Initializes a new instance of the <see cref="Tpl" /> class.
+		/// </summary>
+		/// <param name="template">The template.</param>
+		/// <param name="title">The site title.</param>
+		public Tpl(ITemplate template, string title)
+		{
+			if (template != null)
+				_data = template.Get();
+
+			_title = title;
+		}
+
+		/// <summary>
 		/// Gets the The data for main content variable.
 		/// </summary>
 		public string Data
