@@ -4,11 +4,11 @@ using AcspNet.Responses;
 namespace AcspNet.Examples.SelfHosted.Controllers
 {
 	[Get("/")]
-	public class MainPageController : Controller
+	public class DefaultPageController : Controller
 	{
 		private readonly Foo _foo;
 
-		public MainPageController(Foo foo)
+		public DefaultPageController(Foo foo)
 		{
 			_foo = foo;
 		}
