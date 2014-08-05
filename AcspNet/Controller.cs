@@ -18,6 +18,11 @@ namespace AcspNet
 		public virtual IDataCollector DataCollector { get; internal set; }
 
 		/// <summary>
+		/// Text templates loader.
+		/// </summary>
+		public virtual ITemplateFactory TemplateFactory { get; internal set; }
+
+		/// <summary>
 		/// Invokes the controller.
 		/// </summary>
 		public virtual IControllerResponse Invoke()
