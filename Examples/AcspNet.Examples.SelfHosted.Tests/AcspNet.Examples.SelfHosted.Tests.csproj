@@ -36,11 +36,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AcspNet\AcspNet.csproj">
+    <ProjectReference Include="..\..\AcspNet\AcspNet.csproj">
       <Project>{03b0ae6c-88d0-4d7a-8657-57fc4fd2682a}</Project>
       <Name>AcspNet</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Examples\AcspNet.Examples.SelfHosted\AcspNet.Examples.SelfHosted.csproj">
+    <ProjectReference Include="..\AcspNet.Examples.SelfHosted\AcspNet.Examples.SelfHosted.csproj">
       <Project>{9d2032e2-6b56-47dd-86ae-901c1b5af004}</Project>
       <Name>AcspNet.Examples.SelfHosted</Name>
     </ProjectReference>

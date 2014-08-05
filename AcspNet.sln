@@ -28,7 +28,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet.Examples.Nowin", "E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet.Examples.SiteCore", "Examples\AcspNet.Examples.SiteCore\AcspNet.Examples.SiteCore.csproj", "{64C58056-CFB5-419F-A8E7-65EADA24DFBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet.Examples.SelfHosted.Tests", "AcspNet.Examples.SelfHosted.Tests\AcspNet.Examples.SelfHosted.Tests.csproj", "{7276FFD4-BD6E-41DF-A000-7E6857281A02}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet.Examples.SelfHosted.Tests", "Examples\AcspNet.Examples.SelfHosted.Tests\AcspNet.Examples.SelfHosted.Tests.csproj", "{7276FFD4-BD6E-41DF-A000-7E6857281A02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
