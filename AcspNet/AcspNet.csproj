@@ -120,6 +120,7 @@
     <Compile Include="IView.cs" />
     <Compile Include="IViewAccessor.cs" />
     <Compile Include="Modules\IAcspNetContext.cs" />
+    <Compile Include="Modules\IFileReader.cs" />
     <Compile Include="Responses\Ajax.cs" />
     <Compile Include="Core\ControllerFactory.cs" />
     <Compile Include="ControllerResponse.cs" />
