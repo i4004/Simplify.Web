@@ -8,7 +8,7 @@ namespace AcspNet
 	public interface IView : IViewAccessor
 	{
 		/// <summary>
-		/// Text templates loader.
+		/// Text templates reader.
 		/// </summary>
 		ITemplateFactory TemplateFactory { get; }
 	}
