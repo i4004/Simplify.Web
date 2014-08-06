@@ -8,6 +8,11 @@ namespace AcspNet
 	public interface IController : IViewAccessor
 	{
 		/// <summary>
+		/// Current AcspNet context
+		/// </summary>
+		IAcspNetContext Context { get; }
+
+		/// <summary>
 		/// Current request environment data.
 		/// </summary>
 		IEnvironment Environment { get; }

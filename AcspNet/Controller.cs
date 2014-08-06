@@ -8,6 +8,11 @@ namespace AcspNet
 	public class Controller : ViewAccessor, IController
 	{
 		/// <summary>
+		/// Current AcspNet context
+		/// </summary>
+		public IAcspNetContext Context { get; internal set; }
+
+		/// <summary>
 		/// Current request environment data.
 		/// </summary>
 		public virtual IEnvironment Environment { get; internal set; }
