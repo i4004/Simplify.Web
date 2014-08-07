@@ -3,6 +3,9 @@ branches:
   - master
   - develop
 
+git:
+ depth: 1
+  
 language: c
 
 os:
@@ -15,7 +18,8 @@ env:
   - MONO_VERSION="3.4.0"
 
 before_install:
- - sudo apt-get -d install --force-yes -y mono-complete
+ - sudo apt-get install -qq mono-devel > /dev/null
  
 script:
  - xbuild /p:Platform="Any CPU" /p:Configuration=Release AcspNet.sln
+ 
