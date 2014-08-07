@@ -12,10 +12,10 @@ env:
  global:
   - EnableNuGetPackageRestore=true 
  matrix:
-  - MONO_VERSION="3.2.7"
+  - MONO_VERSION="3.4.0"
 
 before_install:
- - sudo apt-get install cmake mono-devel mono-gmcs
+ - sudo apt-get install -qq mono-devel
  
 script:
  - xbuild /p:Platform="Any CPU" /p:Configuration=Release
