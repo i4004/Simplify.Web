@@ -1,4 +1,7 @@
-language: objective-c
+language: c
+
+os:
+ - linux
 
 env:
  global:
@@ -7,8 +10,7 @@ env:
   - MONO_VERSION="3.2.7"
 
 before_install:
- - wget "http://download.xamarin.com/MonoFrameworkMDK/Macx86/MonoFramework-MDK-${MONO_VERSION}.macos10.xamarin.x86.pkg"
- - sudo installer -pkg "MonoFramework-MDK-${MONO_VERSION}.macos10.xamarin.x86.pkg" -target /
+ - sudo apt-get install cmake mono-devel mono-gmcs
  
 script:
- - xbuild
+ - xbuild /p:Platform="Any CPU" /p:Configuration=Release
