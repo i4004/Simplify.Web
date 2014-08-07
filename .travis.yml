@@ -15,7 +15,7 @@ env:
   - MONO_VERSION="3.4.0"
 
 before_install:
- - sudo apt-get install -qq mono-devel
+ - sudo apt-get -d install --force-yes -y mono-complete
  
 script:
  - xbuild /p:Platform="Any CPU" /p:Configuration=Release AcspNet.sln
