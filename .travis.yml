@@ -22,4 +22,4 @@ before_install:
  - sudo installer -pkg "MonoFramework-MDK-${MONO_VERSION}.macos10.xamarin.x86.pkg" -target /
  
 script:
- - xbuild /p:Platform="Any CPU" /p:Configuration=Release AcspNet.sln
+ - xbuild /p:Platform="Any CPU" /p:Configuration=Release /p:TargetFrameworkProfile="4.5" AcspNet.sln
