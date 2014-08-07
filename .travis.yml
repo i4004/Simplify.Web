@@ -18,4 +18,4 @@ before_install:
  - sudo apt-get install -qq mono-devel
  
 script:
- - xbuild /p:Platform="Any CPU" /p:Configuration=Release
+ - xbuild /p:Platform="Any CPU" /p:Configuration=Release AcspNet.sln
