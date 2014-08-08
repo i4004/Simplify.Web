@@ -10,6 +10,7 @@ using Simplify.Templates;
 namespace AcspNet.Tests.Modules
 {
 	[TestFixture]
+	[Category("Windows")]
 	public class TemplateFactoryTests
 	{
 		[TestFixtureSetUp]
