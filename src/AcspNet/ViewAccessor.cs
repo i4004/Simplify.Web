@@ -14,7 +14,7 @@ namespace AcspNet
 		/// </summary>
 		/// <typeparam name="T">View instance to get</typeparam>
 		/// <returns>View instance</returns>
-		public T View<T>()
+		public T GetView<T>()
 			where T : IView
 		{
 			var type = typeof(T);

@@ -10,7 +10,7 @@
 		/// </summary>
 		/// <typeparam name="T">View instance to get</typeparam>
 		/// <returns>View instance</returns>
-		T View<T>()
+		T GetView<T>()
 			where T : IView;
 	}
 }
