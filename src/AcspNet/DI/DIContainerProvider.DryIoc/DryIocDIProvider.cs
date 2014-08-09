@@ -1,14 +1,12 @@
 ﻿using System;
-using AcspNet.DI;
-using SimpleInjector;
-using SimpleInjector.Extensions.LifetimeScoping;
+using AcspNet.DryIoc;
 
-namespace AcspNet.DIContainerProvider.SimpleInjector
+namespace AcspNet.DI.DIContainerProvider.DryIoc
 {
 	/// <summary>
-	/// Simple Injector DI container provider implementation
+	/// DryIoc DI container provider implementation
 	/// </summary>
-	public class SimpleInjectorDIProvider : IDIContainerProvider
+	public class DryIocDIProvider : IDIContainerProvider
 	{
 		private Container _container;
 
@@ -35,7 +33,7 @@ namespace AcspNet.DIContainerProvider.SimpleInjector
 		/// <returns></returns>
 		public object Resolve(Type serviceType)
 		{
-			return Container.GetInstance(serviceType);
+			return Container.Resolve(serviceType);
 		}
 
 		/// <summary>
@@ -49,41 +47,42 @@ namespace AcspNet.DIContainerProvider.SimpleInjector
 			switch (lifetimeType)
 			{
 				case LifetimeType.Transient:
-					Container.Register(serviceType, implementationType, Lifestyle.Transient);
+					Container.Register(serviceType, implementationType, Reuse.Transient);
 					break;
 
 				case LifetimeType.Singleton:
-					Container.Register(serviceType, implementationType, Lifestyle.Singleton);
+					Container.Register(serviceType, implementationType, Reuse.Singleton);
 					break;
 
 				case LifetimeType.PerLifetimeScope:
-					Container.Register(serviceType, implementationType, new LifetimeScopeLifestyle());
+					Container.Register(serviceType, implementationType, Reuse.InCurrentScope);
 					break;
 			}
 		}
 
 		/// <summary>
-		/// Registers the specified provider.
+		/// Registers the specified concrete type for resolve with delegate for concrete implementaion instance creation.
 		/// </summary>
 		/// <typeparam name="TConcrete">Concrete type.</typeparam>
 		/// <param name="provider">The DI provider.</param>
 		/// <param name="instanceCreator">The instance creator.</param>
 		/// <param name="lifetimeType">Lifetime type of the registering concrete type.</param>
-		public void Register<TConcrete>(IDIContainerProvider provider, Func<TConcrete> instanceCreator, LifetimeType lifetimeType = LifetimeType.Transient)
-			where TConcrete : class 
+		public void Register<TConcrete>(IDIContainerProvider provider, Func<TConcrete> instanceCreator,
+			LifetimeType lifetimeType = LifetimeType.Transient)
+			where TConcrete : class
 		{
 			switch (lifetimeType)
 			{
 				case LifetimeType.Transient:
-					Container.Register(instanceCreator, Lifestyle.Transient);
+					Container.RegisterDelegate(_ => instanceCreator, Reuse.Transient);
 					break;
 
 				case LifetimeType.Singleton:
-					Container.Register(instanceCreator, Lifestyle.Singleton);
+					Container.RegisterDelegate(_ => instanceCreator, Reuse.Singleton);
 					break;
 
 				case LifetimeType.PerLifetimeScope:
-					Container.Register(instanceCreator, new LifetimeScopeLifestyle());
+					Container.RegisterDelegate(_ => instanceCreator, Reuse.InCurrentScope);
 					break;
 			}
 		}
@@ -94,7 +93,7 @@ namespace AcspNet.DIContainerProvider.SimpleInjector
 		/// <returns></returns>
 		public ILifetimeScope BeginLifetimeScope()
 		{
-			return new SimpleInjectorLifetimeScope(this);
+			return new DryIocLifetimeScope(this);
 		}
 	}
 }

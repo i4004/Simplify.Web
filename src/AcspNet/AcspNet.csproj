@@ -117,6 +117,8 @@
     <Compile Include="AcspNetSettings.cs" />
     <Compile Include="Core\IViewFactory.cs" />
     <Compile Include="Core\ViewFactory.cs" />
+    <Compile Include="DI\DIContainerProvider.DryIoc\DryIocDIProvider.cs" />
+    <Compile Include="DI\DIContainerProvider.DryIoc\DryIocLifetimeScope.cs" />
     <Compile Include="DI\DIContainerProviderRegisterExtensions.cs" />
     <Compile Include="DI\IDIContainerProvider.cs" />
     <Compile Include="DI\DIContainerProviderResolveExtensions.cs" />

@@ -23,12 +23,15 @@ namespace AcspNet.DI
 		void Register(Type serviceType, Type implementationType, LifetimeType lifetimeType = LifetimeType.Transient);
 
 		/// <summary>
-		/// Registers the specified service type with delegate for service implementaion instance creation.
+		/// Registers the specified concrete type for resolve with delegate for concrete implementaion instance creation.
 		/// </summary>
-		/// <param name="serviceType">Service type.</param>
+		/// <typeparam name="TConcrete">Concrete type.</typeparam>
+		/// <param name="provider">The DI provider.</param>
 		/// <param name="instanceCreator">The instance creator.</param>
-		/// <param name="lifetimeType">Lifetime type of the registering service type</param>
-		void Register(Type serviceType, Func<object> instanceCreator, LifetimeType lifetimeType = LifetimeType.Transient);
+		/// <param name="lifetimeType">Lifetime type of the registering concrete type.</param>
+		void Register<TConcrete>(IDIContainerProvider provider, Func<TConcrete> instanceCreator,
+			LifetimeType lifetimeType = LifetimeType.Transient)
+			where TConcrete : class;
 
 		/// <summary>
 		/// Begins the lifetime scope.

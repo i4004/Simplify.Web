@@ -37,20 +37,9 @@ namespace AcspNet.DI
 		/// <param name="provider">The DI provider.</param>
 		/// <param name="lifetimeType">Lifetime type of the registering concrete type.</param>
 		public static void Register<TConcrete>(IDIContainerProvider provider, LifetimeType lifetimeType = LifetimeType.Transient)
+			where TConcrete : class
 		{
 			provider.Register(typeof(TConcrete), typeof(TConcrete), lifetimeType);
-		}
-
-		/// <summary>
-		/// Registers the specified concrete type for resolve with delegate for concrete implementaion instance creation.
-		/// </summary>
-		/// <typeparam name="TConcrete">Concrete type.</typeparam>
-		/// <param name="provider">The DI provider.</param>
-		/// <param name="instanceCreator">The instance creator.</param>
-		/// <param name="lifetimeType">Lifetime type of the registering concrete type.</param>
-		public static void Register<TConcrete>(IDIContainerProvider provider, Func<object> instanceCreator, LifetimeType lifetimeType = LifetimeType.Transient)
-		{
-			provider.Register(typeof(TConcrete), instanceCreator, lifetimeType);
 		}
 	}
 }
