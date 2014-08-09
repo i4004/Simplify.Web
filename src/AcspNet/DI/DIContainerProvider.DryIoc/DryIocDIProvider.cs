@@ -66,25 +66,24 @@ namespace AcspNet.DI.DIContainerProvider.DryIoc
 		/// Registers the specified concrete type for resolve with delegate for concrete implementaion instance creation.
 		/// </summary>
 		/// <typeparam name="TConcrete">Concrete type.</typeparam>
-		/// <param name="provider">The DI provider.</param>
 		/// <param name="instanceCreator">The instance creator.</param>
 		/// <param name="lifetimeType">Lifetime type of the registering concrete type.</param>
-		public void Register<TConcrete>(IDIContainerProvider provider, Func<TConcrete> instanceCreator,
+		public void Register<TConcrete>(Func<TConcrete> instanceCreator,
 			LifetimeType lifetimeType = LifetimeType.Transient)
 			where TConcrete : class
 		{
 			switch (lifetimeType)
 			{
 				case LifetimeType.Transient:
-					Container.RegisterDelegate(_ => instanceCreator, Reuse.Transient);
+					Container.RegisterDelegate(_ => instanceCreator(), Reuse.Transient);
 					break;
 
 				case LifetimeType.Singleton:
-					Container.RegisterDelegate(_ => instanceCreator, Reuse.Singleton);
+					Container.RegisterDelegate(_ => instanceCreator(), Reuse.Singleton);
 					break;
 
 				case LifetimeType.PerLifetimeScope:
-					Container.RegisterDelegate(_ => instanceCreator, Reuse.InCurrentScope);
+					Container.RegisterDelegate(_ => instanceCreator(), Reuse.InCurrentScope);
 					break;
 			}
 		}

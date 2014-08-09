@@ -15,8 +15,6 @@ namespace AcspNet.Bootstrapper
 	{
 		private Type _acspNetSettingsType;
 		private Type _controllerFactoryType;
-		private Type _controllerMetaDataFactoryType;
-		private Type _controllersMetaStoreType;
 		private Type _routeMatcherType;
 		private Type _controllersAgentType;
 		private Type _controllersHanderType;
@@ -31,10 +29,10 @@ namespace AcspNet.Bootstrapper
 		{
 			// Registering AcspNet core types
 
+			DIContainer.Current.Register(() => ControllersMetaStore.Current, LifetimeType.Singleton);
+
 			DIContainer.Current.Register<IAcspNetSettings>(AcspNetSettingsType, LifetimeType.Singleton);
 			DIContainer.Current.Register<IControllerFactory>(ControllerFactoryType, LifetimeType.PerLifetimeScope);
-			DIContainer.Current.Register<IControllerMetaDataFactory>(ControllerMetaDataFactoryType, LifetimeType.Singleton);
-			DIContainer.Current.Register<IControllersMetaStore>(ControllersMetaStoreType, LifetimeType.Singleton);
 			DIContainer.Current.Register<IRouteMatcher>(RouteMatcherType, LifetimeType.Singleton);
 			DIContainer.Current.Register<IControllersAgent>(ControllersAgentType, LifetimeType.Singleton);
 			DIContainer.Current.Register<IControllersHandler>(ControllersHandlerType, LifetimeType.Singleton);
@@ -45,7 +43,7 @@ namespace AcspNet.Bootstrapper
 			//DependencyResolver.Container.Register(typeof(IEnvironment), EnvironmentType, Reuse.InCurrentScope);
 
 			// Registering controllers types
-			foreach (var controllerMetaData in DIContainer.Current.Resolve<IControllersMetaStore>().ControllersMetaData)
+			foreach (var controllerMetaData in ControllersMetaStore.Current.ControllersMetaData)
 				DIContainer.Current.Register(controllerMetaData.ControllerType);
 		}
 
@@ -69,28 +67,6 @@ namespace AcspNet.Bootstrapper
 		public Type ControllerFactoryType
 		{
 			get { return _controllerFactoryType ?? typeof(ControllerFactory); }
-		}
-
-		/// <summary>
-		/// Gets the type of the controller meta data factory.
-		/// </summary>
-		/// <value>
-		/// The type of the controller meta data factory.
-		/// </value>
-		public Type ControllerMetaDataFactoryType
-		{
-			get { return _controllerMetaDataFactoryType ?? typeof(ControllerMetaDataFactory); }
-		}
-
-		/// <summary>
-		/// Gets the type of the controllers meta store.
-		/// </summary>
-		/// <value>
-		/// The type of the controllers meta store.
-		/// </value>
-		public Type ControllersMetaStoreType
-		{
-			get { return _controllersMetaStoreType ?? typeof(ControllersMetaStore); }
 		}
 
 		/// <summary>
@@ -166,26 +142,6 @@ namespace AcspNet.Bootstrapper
 			where T : IControllerFactory
 		{
 			_controllerFactoryType = typeof(T);
-		}
-
-		/// <summary>
-		/// Sets the type of the controller meta data factory.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		public void SetControllerMetaDataFactoryType<T>()
-			where T : IControllerMetaDataFactory
-		{
-			_controllerMetaDataFactoryType = typeof(T);
-		}
-
-		/// <summary>
-		/// Sets the type of the controllers meta store.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		public void SetControllersMetaStoreType<T>()
-			where T : IControllersMetaStore
-		{
-			_controllersMetaStoreType = typeof(T);
 		}
 
 		/// <summary>

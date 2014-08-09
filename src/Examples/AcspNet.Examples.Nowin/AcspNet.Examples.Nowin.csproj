@@ -50,10 +50,6 @@
       <Project>{225ca96c-a526-47d7-ac53-470a6a602b13}</Project>
       <Name>AcspNet.DIContainerProvider.SimpleInjector</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AcspNet.Examples.SiteCore\AcspNet.Examples.SiteCore.csproj">
-      <Project>{64c58056-cfb5-419f-a8e7-65eada24dfbb}</Project>
-      <Name>AcspNet.Examples.SiteCore</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

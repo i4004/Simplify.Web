@@ -10,6 +10,26 @@ namespace AcspNet.Meta
 	/// </summary>
 	public class ControllersMetaStore : IControllersMetaStore
 	{
+		private static IControllersMetaStore _current;
+
+		/// <summary>
+		/// The IOC container
+		/// </summary>
+		public static IControllersMetaStore Current
+		{
+			get
+			{
+				return _current ?? (_current = new ControllersMetaStore(new ControllerMetaDataFactory()));
+			}
+			set
+			{
+				if (value == null)
+					throw new ArgumentNullException("value");
+
+				_current = value;
+			}
+		}
+
 		private readonly IControllerMetaDataFactory _metaDataFactory;
 
 		private IList<IControllerMetaData> _controllersMetaData;
