@@ -1,4 +1,5 @@
-﻿using AcspNet.DryIoc;
+﻿using AcspNet.DI;
+using AcspNet.DryIoc;
 using AcspNet.Meta;
 using AcspNet.Owin;
 using Owin;

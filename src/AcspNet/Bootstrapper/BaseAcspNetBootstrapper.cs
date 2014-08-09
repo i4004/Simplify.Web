@@ -1,5 +1,6 @@
 ﻿using System;
 using AcspNet.Core;
+using AcspNet.DI;
 using AcspNet.DryIoc;
 using AcspNet.Meta;
 using AcspNet.Modules;
@@ -32,7 +33,7 @@ namespace AcspNet.Bootstrapper
 			// Registering AcspNet core types
 
 			DependencyResolver.Container.Register(typeof(IAcspNetSettings), AcspNetSettingsType, Reuse.Singleton);
-			DependencyResolver.Container.Register(typeof(IControllerFactory), ControllerFactoryType, Reuse.Singleton);
+			DependencyResolver.Container.Register(typeof(IControllerFactory), ControllerFactoryType, Reuse.InCurrentScope);
 			DependencyResolver.Container.Register(typeof(IControllerMetaDataFactory), ControllerMetaDataFactoryType, Reuse.Singleton);
 			DependencyResolver.Container.Register(typeof(IControllersMetaStore), ControllersMetaStoreType, Reuse.Singleton);
 			DependencyResolver.Container.Register(typeof(IRouteMatcher), RouteMatcherType, Reuse.Singleton);

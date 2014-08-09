@@ -1,6 +1,6 @@
 ﻿using AcspNet.DryIoc;
 
-namespace AcspNet
+namespace AcspNet.DI
 {
 	/// <summary>
 	/// AcspNet IOC container, ambient context to register/resolve objects via DI

@@ -117,6 +117,7 @@
     <Compile Include="AcspNetSettings.cs" />
     <Compile Include="Core\IViewFactory.cs" />
     <Compile Include="Core\ViewFactory.cs" />
+    <Compile Include="DI\DiContainerProvider.cs" />
     <Compile Include="IView.cs" />
     <Compile Include="IViewAccessor.cs" />
     <Compile Include="Modules\IAcspNetContext.cs" />
@@ -127,7 +128,7 @@
     <Compile Include="Core\ControllersAgent.cs" />
     <Compile Include="Core\ControllersHandler.cs" />
     <Compile Include="Core\ControllersHandlerResult.cs" />
-    <Compile Include="DependecyResolver.cs" />
+    <Compile Include="DI\DependecyResolver.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGenerator.cs" />
     <Compile Include="Bootstrapper\BootstrapperFactory.cs" />
     <Compile Include="Bootstrapper\BaseAcspNetBootstrapper.cs" />

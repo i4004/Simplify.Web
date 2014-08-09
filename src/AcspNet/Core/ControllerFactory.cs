@@ -1,4 +1,5 @@
 ﻿using System;
+using AcspNet.DI;
 using AcspNet.DryIoc;
 
 namespace AcspNet.Core
@@ -15,7 +16,9 @@ namespace AcspNet.Core
 		/// <returns></returns>
 		public IController CreateController(Type controllerType)
 		{
-			var controller = (IController)DependencyResolver.Container.Resolve(controllerType);
+			var controller = (Controller)DependencyResolver.Container.Resolve(controllerType);
+
+			controller.Context = null;
 
 			return controller;
 		}

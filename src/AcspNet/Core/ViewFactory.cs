@@ -1,4 +1,5 @@
 ﻿using System;
+using AcspNet.DI;
 using AcspNet.DryIoc;
 
 namespace AcspNet.Core
