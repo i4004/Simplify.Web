@@ -1,6 +1,5 @@
 ﻿using System;
 using AcspNet.DI;
-using AcspNet.DryIoc;
 
 namespace AcspNet.Core
 {
@@ -16,7 +15,7 @@ namespace AcspNet.Core
 		/// <returns></returns>
 		public IView CreateView(Type viewType)
 		{
-			var view = (IView)DependencyResolver.Container.Resolve(viewType);
+			var view = (IView)DIContainer.Current.Resolve(viewType);
 
 			return view;
 		}

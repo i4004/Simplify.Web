@@ -11,9 +11,9 @@
 		/// <typeparam name="T"></typeparam>
 		/// <param name="provider">The DI provider.</param>
 		/// <returns></returns>
-		public static object Resolve<T>(this IDIContainerProvider provider)
+		public static T Resolve<T>(this IDIContainerProvider provider)
 		{
-			return provider.Resolve(typeof (T));
+			return (T)provider.Resolve(typeof (T));
 		}
 	}
 }

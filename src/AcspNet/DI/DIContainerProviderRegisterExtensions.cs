@@ -13,9 +13,21 @@ namespace AcspNet.DI
 		/// <param name="provider">The DI provider.</param>
 		/// <param name="concreteType">Concrete type.</param>
 		/// <param name="lifetimeType">Lifetime type of the registering concrete type.</param>
-		public static void Register(IDIContainerProvider provider, Type concreteType, LifetimeType lifetimeType = LifetimeType.Transient)
+		public static void Register(this IDIContainerProvider provider, Type concreteType, LifetimeType lifetimeType = LifetimeType.Transient)
 		{
 			provider.Register(concreteType, concreteType, lifetimeType);
+		}
+
+		/// <summary>
+		/// Registers the specified service type with corresponding implemetation type.
+		/// </summary>
+		/// <typeparam name="TService">Service type.</typeparam>
+		/// <param name="provider">The DI provider.</param>
+		/// <param name="implementationType">Implementation type.</param>
+		/// <param name="lifetimeType">Lifetime type of the registering service type.</param>
+		public static void Register<TService>(this IDIContainerProvider provider, Type implementationType, LifetimeType lifetimeType = LifetimeType.Transient)
+		{
+			provider.Register(typeof(TService), implementationType, lifetimeType);
 		}
 
 		/// <summary>
@@ -25,7 +37,7 @@ namespace AcspNet.DI
 		/// <typeparam name="TImplementation">Implementation type.</typeparam>
 		/// <param name="provider">The DI provider.</param>
 		/// <param name="lifetimeType">Lifetime type of the registering service type.</param>
-		public static void Register<TService, TImplementation>(IDIContainerProvider provider, LifetimeType lifetimeType = LifetimeType.Transient)
+		public static void Register<TService, TImplementation>(this IDIContainerProvider provider, LifetimeType lifetimeType = LifetimeType.Transient)
 		{
 			provider.Register(typeof(TService), typeof(TImplementation), lifetimeType);
 		}
@@ -36,7 +48,7 @@ namespace AcspNet.DI
 		/// <typeparam name="TConcrete">Concrete type.</typeparam>
 		/// <param name="provider">The DI provider.</param>
 		/// <param name="lifetimeType">Lifetime type of the registering concrete type.</param>
-		public static void Register<TConcrete>(IDIContainerProvider provider, LifetimeType lifetimeType = LifetimeType.Transient)
+		public static void Register<TConcrete>(this IDIContainerProvider provider, LifetimeType lifetimeType = LifetimeType.Transient)
 			where TConcrete : class
 		{
 			provider.Register(typeof(TConcrete), typeof(TConcrete), lifetimeType);

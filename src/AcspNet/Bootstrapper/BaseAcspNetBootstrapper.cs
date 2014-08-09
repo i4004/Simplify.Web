@@ -1,11 +1,10 @@
 ﻿using System;
 using AcspNet.Core;
 using AcspNet.DI;
-using AcspNet.DryIoc;
 using AcspNet.Meta;
 using AcspNet.Modules;
 using AcspNet.Routing;
-using Environment = System.Environment;
+using Environment = AcspNet.Modules.Environment;
 
 namespace AcspNet.Bootstrapper
 {
@@ -32,22 +31,22 @@ namespace AcspNet.Bootstrapper
 		{
 			// Registering AcspNet core types
 
-			DependencyResolver.Container.Register(typeof(IAcspNetSettings), AcspNetSettingsType, Reuse.Singleton);
-			DependencyResolver.Container.Register(typeof(IControllerFactory), ControllerFactoryType, Reuse.InCurrentScope);
-			DependencyResolver.Container.Register(typeof(IControllerMetaDataFactory), ControllerMetaDataFactoryType, Reuse.Singleton);
-			DependencyResolver.Container.Register(typeof(IControllersMetaStore), ControllersMetaStoreType, Reuse.Singleton);
-			DependencyResolver.Container.Register(typeof(IRouteMatcher), RouteMatcherType, Reuse.Singleton);
-			DependencyResolver.Container.Register(typeof(IControllersAgent), ControllersAgentType, Reuse.Singleton);
-			DependencyResolver.Container.Register(typeof(IControllersHandler), ControllersHandlerType, Reuse.Singleton);
-			DependencyResolver.Container.Register(typeof(IRequestHandler), RequestHandlerType, Reuse.Singleton);
+			DIContainer.Current.Register<IAcspNetSettings>(AcspNetSettingsType, LifetimeType.Singleton);
+			DIContainer.Current.Register<IControllerFactory>(ControllerFactoryType, LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<IControllerMetaDataFactory>(ControllerMetaDataFactoryType, LifetimeType.Singleton);
+			DIContainer.Current.Register<IControllersMetaStore>(ControllersMetaStoreType, LifetimeType.Singleton);
+			DIContainer.Current.Register<IRouteMatcher>(RouteMatcherType, LifetimeType.Singleton);
+			DIContainer.Current.Register<IControllersAgent>(ControllersAgentType, LifetimeType.Singleton);
+			DIContainer.Current.Register<IControllersHandler>(ControllersHandlerType, LifetimeType.Singleton);
+			DIContainer.Current.Register<IRequestHandler>(RequestHandlerType, LifetimeType.Singleton);
 
 			// Registeting user modules
 
 			//DependencyResolver.Container.Register(typeof(IEnvironment), EnvironmentType, Reuse.InCurrentScope);
 
 			// Registering controllers types
-			foreach (var controllerMetaData in DependencyResolver.Container.Resolve<IControllersMetaStore>().ControllersMetaData)
-				DependencyResolver.Container.Register(controllerMetaData.ControllerType);
+			foreach (var controllerMetaData in DIContainer.Current.Resolve<IControllersMetaStore>().ControllersMetaData)
+				DIContainer.Current.Register(controllerMetaData.ControllerType);
 		}
 
 		/// <summary>

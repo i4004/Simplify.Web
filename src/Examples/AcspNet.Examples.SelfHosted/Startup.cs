@@ -1,5 +1,4 @@
 ﻿using AcspNet.DI;
-using AcspNet.DryIoc;
 using AcspNet.Meta;
 using AcspNet.Owin;
 using Owin;
@@ -13,7 +12,7 @@ namespace AcspNet.Examples.SelfHosted
 			// Exclude AcspNet from exclude assemblies to be able to load example controllers
 			AcspTypesFinder.ExcludedAssembliesPrefixes.Remove("AcspNet");
 
-			DependencyResolver.Container.Register<Foo>();
+			DIContainer.Current.Register<Foo>();
 
 			app.UseAcspNet();
 		}

@@ -4,7 +4,6 @@ using AcspNet.Bootstrapper;
 using AcspNet.Core;
 using AcspNet.DI;
 using AcspNet.Diagnostics;
-using AcspNet.DryIoc;
 using Microsoft.Owin;
 
 namespace AcspNet.Owin
@@ -33,18 +32,18 @@ namespace AcspNet.Owin
 		/// <returns></returns>
 		public override Task Invoke(IOwinContext context)
 		{
-			using (var scopeContainer = DependencyResolver.Container.OpenScope())
+			using (var scope = DIContainer.Current.BeginLifetimeScope())
 			{
 				try
 				{
-					var request = scopeContainer.Resolve<IRequestHandler>();
+					var request = scope.Container.Resolve<IRequestHandler>();
 					return request.ProcessRequest(context);
 				}
 				catch (Exception e)
 				{
 					return
 						context.Response.WriteAsync(ExceptionInfoPageGenerator.Generate(e,
-							scopeContainer.Resolve<IAcspNetSettings>().HideExceptionDetails));
+							scope.Container.Resolve<IAcspNetSettings>().HideExceptionDetails));
 				}
 			}
 		}

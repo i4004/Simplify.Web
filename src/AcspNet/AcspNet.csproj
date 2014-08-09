@@ -134,7 +134,7 @@
     <Compile Include="Core\ControllersAgent.cs" />
     <Compile Include="Core\ControllersHandler.cs" />
     <Compile Include="Core\ControllersHandlerResult.cs" />
-    <Compile Include="DI\DependecyResolver.cs" />
+    <Compile Include="DI\DIContainer.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGenerator.cs" />
     <Compile Include="Bootstrapper\BootstrapperFactory.cs" />
     <Compile Include="Bootstrapper\BaseAcspNetBootstrapper.cs" />
