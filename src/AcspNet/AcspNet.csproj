@@ -139,7 +139,7 @@
     <Compile Include="Core\HandlerControllerType.cs" />
     <Compile Include="Attributes\Http400Attribute.cs" />
     <Compile Include="Attributes\Http403Attribute.cs" />
-    <Compile Include="Responses\HttpFile.cs" />
+    <Compile Include="Responses\File.cs" />
     <Compile Include="IAcspNetSettings.cs" />
     <Compile Include="IController.cs" />
     <Compile Include="IControllerResponse.cs" />

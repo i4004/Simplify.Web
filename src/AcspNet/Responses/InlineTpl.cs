@@ -3,6 +3,9 @@ using Simplify.Templates;
 
 namespace AcspNet.Responses
 {
+	/// <summary>
+	/// Provides tempate response (puts data to DataCollector specified variable)
+	/// </summary>
 	public class InlineTpl : ControllerResponse
 	{
 		private readonly string _dataCollectorVariableName;
@@ -38,6 +41,9 @@ namespace AcspNet.Responses
 			_data = data;
 		}
 
+		/// <summary>
+		/// Processes this response
+		/// </summary>
 		public override void Process()
 		{
 			DataCollector.Add(_dataCollectorVariableName, _data);

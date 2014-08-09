@@ -3,7 +3,7 @@
 namespace AcspNet.Responses
 {
 	/// <summary>
-	/// Template data result
+	/// Provides template response (puts data to DataCollector)
 	/// </summary>
 	public class Tpl : ControllerResponse
 	{

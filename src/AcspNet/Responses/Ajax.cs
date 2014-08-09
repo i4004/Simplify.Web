@@ -3,7 +3,7 @@
 namespace AcspNet.Responses
 {
 	/// <summary>
-	/// Provides controller Ajax response
+	/// Provides controller Ajax response (send only specified string to response)
 	/// </summary>
 	public class Ajax : ControllerResponse
 	{

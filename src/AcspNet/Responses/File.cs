@@ -3,17 +3,17 @@
 namespace AcspNet.Responses
 {
 	/// <summary>
-	/// Provides Http file response
+	/// Provides Http file response (send file to response)
 	/// </summary>
-	public class HttpFile : ControllerResponse
+	public class File : ControllerResponse
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="HttpFile"/> class.
+		/// Initializes a new instance of the <see cref="File"/> class.
 		/// </summary>
 		/// <param name="contentType">Type of the content.</param>
 		/// <param name="name">The name of the file.</param>
 		/// <param name="data">The data of the file.</param>
-		public HttpFile(string contentType, string name, byte[] data)
+		public File(string contentType, string name, byte[] data)
 		{
 			throw new NotImplementedException();
 		}
