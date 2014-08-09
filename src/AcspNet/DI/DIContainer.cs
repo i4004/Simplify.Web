@@ -23,6 +23,8 @@ namespace AcspNet.DI
 			{
 				if (value == null)
 					throw new ArgumentNullException("value");
+
+				_current = value;
 			}
 		}
 	}

@@ -23,6 +23,8 @@ namespace AcspNet.DI.DIContainerProvider.DryIoc
 			{
 				if (value == null)
 					throw new ArgumentNullException("value");
+
+				_container = value;
 			}
 		}
 

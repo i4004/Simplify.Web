@@ -25,6 +25,8 @@ namespace AcspNet.DIContainerProvider.SimpleInjector
 			{
 				if (value == null)
 					throw new ArgumentNullException("value");
+
+				_container = value;
 			}
 		}
 
