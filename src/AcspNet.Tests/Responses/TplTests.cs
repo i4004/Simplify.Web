@@ -18,21 +18,6 @@ namespace AcspNet.Tests.Responses
 		}
 
 		[Test]
-		public void Process_EmptyData_NoDataAddedtoDataCollector()
-		{
-			// Assign
-
-			var tplData = new Mock<Tpl>("") { CallBase = true };
-			tplData.SetupGet(x => x.DataCollector).Returns(_dataCollector.Object);
-
-			// Act
-			tplData.Object.Process();
-
-			// Assert
-			_dataCollector.Verify(x => x.Add(It.IsAny<string>()), Times.Never);
-		}
-
-		[Test]
 		public void Process_NormalData_DataAddedtoDataCollector()
 		{
 			// Assign
@@ -63,7 +48,7 @@ namespace AcspNet.Tests.Responses
 		}
 
 		[Test]
-		public void Process_NormalTemplateAndtitle_DataAndTitleAddedtoDataCollector()
+		public void Process_NormalTemplateAndTitle_DataAndTitleAddedtoDataCollector()
 		{
 			// Assign
 
@@ -80,7 +65,7 @@ namespace AcspNet.Tests.Responses
 		}
 		
 		[Test]
-		public void Process_NormalDataAndTitle_DataAddedtoDataCollector()
+		public void Process_NormalDataAndTitle_DataAndTitleAddedtoDataCollector()
 		{
 			// Assign
 
@@ -97,7 +82,7 @@ namespace AcspNet.Tests.Responses
 		}
 
 		[Test]
-		public void Process_NormalDataAndNullTitle_NoDataAddedtoDataCollector()
+		public void Process_NormalDataAndNullTitle_DataAddedTitleNotAddedtoDataCollector()
 		{
 			// Assign
 
@@ -109,7 +94,6 @@ namespace AcspNet.Tests.Responses
 
 			// Assert
 
-			_dataCollector.Verify(x => x.Add(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
 			_dataCollector.Verify(x => x.AddTitle(It.IsAny<string>()), Times.Never);
 		}
 	}

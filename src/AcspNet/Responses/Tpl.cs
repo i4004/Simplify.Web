@@ -74,13 +74,10 @@ namespace AcspNet.Responses
 		/// </summary>
 		public override void Process()
 		{
-			if (!string.IsNullOrEmpty(Data))
-			{
-				DataCollector.Add(Data);
+			DataCollector.Add(Data);
 
-				if (!string.IsNullOrEmpty(Title))
-					DataCollector.AddTitle(Title);
-			}
+			if (!string.IsNullOrEmpty(Title))
+				DataCollector.AddTitle(Title);
 		}
 	}
 }
