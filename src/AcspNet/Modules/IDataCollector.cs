@@ -1,4 +1,6 @@
-﻿namespace AcspNet.Modules
+﻿using Simplify.Templates;
+
+namespace AcspNet.Modules
 {
 	/// <summary>
 	/// Represents web-site master page data collector
@@ -37,11 +39,24 @@
 		void Add(string variableName, string value);
 
 		/// <summary>
+		/// Set template variable value with data from template (all occurrences will be replaced)
+		/// </summary>
+		/// <param name="variableName">Variable name in master template file</param>
+		/// <param name="template">The template.</param>
+		void Add(string variableName, ITemplate template);
+
+		/// <summary>
 		/// Set template main content variable value (all occurrences will be replaced)
 		/// </summary>
 		/// <param name="value">Value to set</param>
 		/// <returns></returns>
 		void Add(string value);
+
+		/// <summary>
+		/// Set template main content variable value with data from template (all occurrences will be replaced)
+		/// </summary>
+		/// <param name="template">The template.</param>
+		void Add(ITemplate template);
 
 		/// <summary>
 		/// Set template title variable value (all occurrences will be replaced)
