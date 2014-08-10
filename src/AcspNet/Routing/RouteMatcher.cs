@@ -11,6 +11,10 @@ namespace AcspNet.Routing
 	{
 		private readonly IControllerPathParser _controllerPathParser;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="RouteMatcher"/> class.
+		/// </summary>
+		/// <param name="controllerPathParser">The controller path parser.</param>
 		public RouteMatcher(IControllerPathParser controllerPathParser)
 		{
 			_controllerPathParser = controllerPathParser;
@@ -64,7 +68,7 @@ namespace AcspNet.Routing
 			return new RouteMatchResult(true, routeParameters);
 		}
 
-		private object GetParameterValue(PathParameter pathParameter, string source)
+		private static object GetParameterValue(PathParameter pathParameter, string source)
 		{
 			if (pathParameter.Type == typeof (string))
 				return source;

@@ -4,8 +4,20 @@ using System.Text.RegularExpressions;
 
 namespace AcspNet.Routing
 {
+	/// <summary>
+	/// Provides controller path parser
+	/// </summary>
 	public class ControllerPathParser : IControllerPathParser
 	{
+		/// <summary>
+		/// Parses the specified controller path.
+		/// </summary>
+		/// <param name="controllerPath">The controller path.</param>
+		/// <returns></returns>
+		/// <exception cref="ControllerRouteException">
+		/// Bad controller path:  + controllerPath
+		/// or
+		/// </exception>
 		public IControllerPath Parse(string controllerPath)
 		{
 			var items = controllerPath.Split(new[] {'/'}, StringSplitOptions.RemoveEmptyEntries);
