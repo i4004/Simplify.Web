@@ -132,7 +132,10 @@
     <Compile Include="Meta\IViewsMetaStore.cs" />
     <Compile Include="Meta\ViewsMetaStore.cs" />
     <Compile Include="ModulesAccessor.cs" />
+    <Compile Include="Modules\AcspNetContext.cs" />
+    <Compile Include="Modules\AcspNetContextFactory.cs" />
     <Compile Include="Modules\IAcspNetContext.cs" />
+    <Compile Include="Modules\IAcspNetContextFactory.cs" />
     <Compile Include="Modules\IFileReader.cs" />
     <Compile Include="Responses\Ajax.cs" />
     <Compile Include="Core\ControllerFactory.cs" />

@@ -28,7 +28,7 @@ namespace AcspNet.Core
 		/// <returns></returns>
 		public Task ProcessRequest(IDIContainerProvider containerProvider, IOwinContext context)
 		{
-			_controllersHandler.Execute(containerProvider, context.Request.Path.Value, context.Request.Method);
+			_controllersHandler.Execute(containerProvider, context);
 
 			return Task.Delay(0);
 		}

@@ -1,4 +1,5 @@
 ﻿using AcspNet.DI;
+using Microsoft.Owin;
 
 namespace AcspNet.Core
 {
@@ -11,9 +12,8 @@ namespace AcspNet.Core
 		/// Creates and invokes controllers instances.
 		/// </summary>
 		/// <param name="containerProvider">The DI container provider.</param>
-		/// <param name="route">The route path.</param>
-		/// <param name="method">The HTTP method.</param>
+		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		ControllersHandlerResult Execute(IDIContainerProvider containerProvider, string route, string method);
+		ControllersHandlerResult Execute(IDIContainerProvider containerProvider, IOwinContext context);
 	}
 }

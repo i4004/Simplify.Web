@@ -1,5 +1,6 @@
 ﻿using System;
 using AcspNet.DI;
+using Microsoft.Owin;
 
 namespace AcspNet.Core
 {
@@ -13,7 +14,8 @@ namespace AcspNet.Core
 		/// </summary>
 		/// <param name="containerProvider">The DI container provider.</param>
 		/// <param name="controllerType">Type of the controller.</param>
+		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		IController CreateController(IDIContainerProvider containerProvider, Type controllerType);
+		IController CreateController(IDIContainerProvider containerProvider, Type controllerType, IOwinContext context);
 	}
 }

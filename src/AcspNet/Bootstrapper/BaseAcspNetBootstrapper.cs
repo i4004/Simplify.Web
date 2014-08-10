@@ -21,6 +21,8 @@ namespace AcspNet.Bootstrapper
 		private Type _controllersHanderType;
 		private Type _requestHandlerType;
 
+		private Type _acspNetContextFactoryType;
+
 		/// <summary>
 		/// Registers the types in container.
 		/// </summary>
@@ -41,6 +43,7 @@ namespace AcspNet.Bootstrapper
 
 			// Registeting user modules
 
+			RegisterAcspNetContextFactory();
 			RegisterEnvironment();
 
 			// Registering controllers types
@@ -131,6 +134,17 @@ namespace AcspNet.Bootstrapper
 			get { return _requestHandlerType ?? typeof(RequestHandler); }
 		}
 
+		/// <summary>
+		/// Gets the type of the AcspNet context factory.
+		/// </summary>
+		/// <value>
+		/// The type of the AcspNet context factory.
+		/// </value>
+		public Type AcspNetContextFactoryType
+		{
+			get { return _acspNetContextFactoryType ?? typeof(AcspNetContextFactory); }
+		}
+
 		#endregion
 
 		#region Bootstrapper types override
@@ -203,6 +217,16 @@ namespace AcspNet.Bootstrapper
 			where T : IRequestHandler
 		{
 			_requestHandlerType = typeof(T);
+		}
+
+		/// <summary>
+		/// Sets the AcspNet context factory.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetAcspNetContextFactory<T>()
+			where T : IAcspNetContextFactory
+		{
+			_acspNetContextFactoryType = typeof(T);
 		}
 
 		#endregion
@@ -289,6 +313,14 @@ namespace AcspNet.Bootstrapper
 			DIContainer.Current.Register<IEnvironment>(
 				p => new Environment(AppDomain.CurrentDomain.BaseDirectory, p.Resolve<IAcspNetSettings>()),
 				LifetimeType.PerLifetimeScope);
+		}
+
+		/// <summary>
+		/// Registers the AcspNet context factory.
+		/// </summary>
+		public virtual void RegisterAcspNetContextFactory()
+		{
+			DIContainer.Current.Register<IAcspNetContextFactory>(AcspNetContextFactoryType, LifetimeType.Singleton);
 		}
 
 		#endregion
