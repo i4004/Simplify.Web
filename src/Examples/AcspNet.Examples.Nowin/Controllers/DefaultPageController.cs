@@ -1,4 +1,5 @@
 ﻿using AcspNet.Attributes;
+using AcspNet.Examples.Nowin.Views;
 using AcspNet.Responses;
 
 namespace AcspNet.Examples.Nowin.Controllers
@@ -15,8 +16,9 @@ namespace AcspNet.Examples.Nowin.Controllers
 
 		public override IControllerResponse Invoke()
 		{
+			var view = GetView<DefaultPageView>();
 			var tpl = TemplateFactory.Load("Index");
-			tpl.Set("MainContent", _foo.Bar());
+			tpl.Set("MainContent", view.Get());
 
 			return new Tpl(tpl);
 		}

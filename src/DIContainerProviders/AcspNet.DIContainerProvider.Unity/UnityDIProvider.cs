@@ -61,8 +61,6 @@ namespace AcspNet.DIContainerProvider.Unity
 					Container.RegisterType(serviceType, implementationType, new PerThreadLifetimeManager());
 					break;
 			}
-
-			_container.RegisterType(serviceType, implementationType, new TransientLifetimeManager());
 		}
 
 		/// <summary>
