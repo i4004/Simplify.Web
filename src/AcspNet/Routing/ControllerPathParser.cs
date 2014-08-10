@@ -15,8 +15,7 @@ namespace AcspNet.Routing
 			{
 				if (item.Contains("{") || item.Contains("}") || item.Contains(":"))
 				{
-					//var matches = Regex.Matches(item, @"^{([.]+)|([.]+:[.]+])}$");
-					var matches = Regex.Matches(item, @"^{.+}$");
+					var matches = Regex.Matches(item, @"^{[a-zA-Z0-9:_\-]+}$");
 
 					if (matches.Count == 0)
 						throw new ControllerRouteException("Bad controller path: " + controllerPath);

@@ -21,7 +21,6 @@ namespace AcspNet.Tests.Routing
 			var result = _parser.Parse("/");
 
 			// Assert
-
 			Assert.AreEqual(0, result.Items.Count);
 		}
 
@@ -54,13 +53,6 @@ namespace AcspNet.Tests.Routing
 			Assert.IsNotNull(result.Items[2] as PathSegment);
 			Assert.AreEqual("test", result.Items[2].Name);
 		}
-
-		//[Test]
-		//public void Parse_OneSegmentWithSlashAtTheEnd_ExceptionThown()
-		//{
-		//	// Act
-		//	Assert.Throws<ControllerRouteException>(() => _parser.Parse("/foo/"));
-		//}
 
 		[Test]
 		public void Parse_OneSegmentOneParameter_OneSegmentOneParameter()
@@ -115,6 +107,8 @@ namespace AcspNet.Tests.Routing
 			Assert.Throws<ControllerRouteException>(() => _parser.Parse("/foo/{}"));
 			Assert.Throws<ControllerRouteException>(() => _parser.Parse("/foo/{:}"));
 			Assert.Throws<ControllerRouteException>(() => _parser.Parse("/foo/{{a:int}}"));
+			Assert.Throws<ControllerRouteException>(() => _parser.Parse("/foo/]{a:int{"));
+			Assert.Throws<ControllerRouteException>(() => _parser.Parse("/foo/]{@#$32127!&}"));
 		}
 
 		[Test]
