@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace AcspNet.Meta
 {
+	/// <summary>
+	/// Loads and stores AcspNet views meta information
+	/// </summary>
 	public class ViewsMetaStore : IViewsMetaStore
 	{
 		private static IViewsMetaStore _current;
