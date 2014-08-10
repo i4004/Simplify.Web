@@ -8,6 +8,14 @@ namespace AcspNet
 	public interface IController : IModulesAccessor
 	{
 		/// <summary>
+		/// Gets the route parameters.
+		/// </summary>
+		/// <value>
+		/// The route parameters.
+		/// </value>
+		dynamic RouteParameters { get; }
+
+		/// <summary>
 		/// Current AcspNet context
 		/// </summary>
 		IAcspNetContext Context { get; }

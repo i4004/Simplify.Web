@@ -8,6 +8,14 @@ namespace AcspNet
 	public class Controller : ModulesAccessor, IController
 	{
 		/// <summary>
+		/// Gets the route parameters.
+		/// </summary>
+		/// <value>
+		/// The route parameters.
+		/// </value>
+		public virtual dynamic RouteParameters { get; internal set; }
+
+		/// <summary>
 		/// Current AcspNet context
 		/// </summary>
 		public IAcspNetContext Context { get; internal set; }
@@ -21,7 +29,7 @@ namespace AcspNet
 		/// Text files reader.
 		/// </summary>
 		public virtual IFileReader FileReader { get; internal set; }
-
+		
 		/// <summary>
 		/// Invokes the controller.
 		/// </summary>
