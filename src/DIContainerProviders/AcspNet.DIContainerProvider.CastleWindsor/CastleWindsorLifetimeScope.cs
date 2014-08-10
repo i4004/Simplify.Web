@@ -1,25 +1,25 @@
-﻿using AcspNet.DI;
-using SimpleInjector;
-using SimpleInjector.Extensions.LifetimeScoping;
+﻿using System;
+using AcspNet.DI;
+using Castle.MicroKernel.Lifestyle;
 
-namespace AcspNet.DIContainerProvider.SimpleInjector
+namespace AcspNet.DIContainerProvider.CastleWindsor
 {
 	/// <summary>
-	/// Simple Injector DI provider lifetime scope implementation
+	/// Castle Windsor DI provider lifetime scope implementation
 	/// </summary>
-	public class SimpleInjectorLifetimeScope : ILifetimeScope
+	public class CastleWindsorLifetimeScope : ILifetimeScope
 	{
-		private readonly LifetimeScope _scope;
+		private readonly IDisposable _scope;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="SimpleInjectorLifetimeScope"/> class.
+		/// Initializes a new instance of the <see cref="CastleWindsorLifetimeScope"/> class.
 		/// </summary>
 		/// <param name="provider">The provider.</param>
-		public SimpleInjectorLifetimeScope(SimpleInjectorDIProvider provider)
+		public CastleWindsorLifetimeScope(CastleWindsorDIProvider provider)
 		{
 			Container = provider;
 
-			_scope = provider.Container.BeginLifetimeScope();
+			_scope = provider.Container.BeginScope();
 		}
 
 		/// <summary>

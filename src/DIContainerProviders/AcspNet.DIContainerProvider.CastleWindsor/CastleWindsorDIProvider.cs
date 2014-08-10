@@ -1,25 +1,25 @@
 ﻿using System;
 using AcspNet.DI;
-using SimpleInjector;
-using SimpleInjector.Extensions.LifetimeScoping;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor;
 
-namespace AcspNet.DIContainerProvider.SimpleInjector
+namespace AcspNet.DIContainerProvider.CastleWindsor
 {
 	/// <summary>
-	/// Simple Injector DI container provider implementation
+	/// Castle Windsor container provider implementation
 	/// </summary>
-	public class SimpleInjectorDIProvider : IDIContainerProvider
+	public class CastleWindsorDIProvider : IDIContainerProvider
 	{
-		private Container _container;
+		private WindsorContainer _container;
 
 		/// <summary>
 		/// The IOC container
 		/// </summary>
-		public Container Container
+		public WindsorContainer Container
 		{
 			get
 			{
-				return _container ?? (_container = new Container());
+				return _container ?? (_container = new WindsorContainer());
 			}
 			set
 			{
@@ -37,7 +37,7 @@ namespace AcspNet.DIContainerProvider.SimpleInjector
 		/// <returns></returns>
 		public object Resolve(Type serviceType)
 		{
-			return Container.GetInstance(serviceType);
+			return Container.Resolve(serviceType);
 		}
 
 		/// <summary>
@@ -51,15 +51,15 @@ namespace AcspNet.DIContainerProvider.SimpleInjector
 			switch (lifetimeType)
 			{
 				case LifetimeType.Transient:
-					Container.Register(serviceType, implementationType, Lifestyle.Transient);
+					Container.Register(Component.For(serviceType).ImplementedBy(implementationType).LifestyleTransient());
 					break;
 
 				case LifetimeType.Singleton:
-					Container.Register(serviceType, implementationType, Lifestyle.Singleton);
+					Container.Register(Component.For(serviceType).ImplementedBy(implementationType).LifestyleSingleton());
 					break;
 
 				case LifetimeType.PerLifetimeScope:
-					Container.Register(serviceType, implementationType, new LifetimeScopeLifestyle());
+					Container.Register(Component.For(serviceType).ImplementedBy(implementationType).LifestyleScoped());
 					break;
 			}
 		}
@@ -76,15 +76,15 @@ namespace AcspNet.DIContainerProvider.SimpleInjector
 			switch (lifetimeType)
 			{
 				case LifetimeType.Transient:
-					Container.Register(() => instanceCreator(this), Lifestyle.Transient);
+					Container.Register(Component.For<TService>().UsingFactoryMethod(c => instanceCreator(this)).LifestyleTransient());
 					break;
 
 				case LifetimeType.Singleton:
-					Container.Register(() => instanceCreator(this), Lifestyle.Singleton);
+					Container.Register(Component.For<TService>().UsingFactoryMethod(c => instanceCreator(this)).LifestyleSingleton());
 					break;
 
 				case LifetimeType.PerLifetimeScope:
-					Container.Register(() => instanceCreator(this), new LifetimeScopeLifestyle());
+					Container.Register(Component.For<TService>().UsingFactoryMethod(c => instanceCreator(this)).LifestyleScoped());
 					break;
 			}
 		}
@@ -95,7 +95,7 @@ namespace AcspNet.DIContainerProvider.SimpleInjector
 		/// <returns></returns>
 		public ILifetimeScope BeginLifetimeScope()
 		{
-			return new SimpleInjectorLifetimeScope(this);
+			return new CastleWindsorLifetimeScope(this);
 		}
 	}
 }

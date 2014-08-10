@@ -1,7 +1,7 @@
 ﻿namespace AcspNet.DI.DIContainerProvider.DryIoc
 {
 	/// <summary>
-	/// DryIoc DI provider lifetime scope implemetation
+	/// DryIoc DI provider lifetime scope implementation
 	/// </summary>
 	public class DryIocLifetimeScope : ILifetimeScope
 	{
@@ -13,9 +13,8 @@
 		/// <param name="provider">The provider.</param>
 		public DryIocLifetimeScope(DryIocDIProvider provider)
 		{
-			Container = provider;
-
 			_currentScopeProvider = new DryIocDIProvider { Container = provider.Container.OpenScope() };
+			Container = _currentScopeProvider;
 		}
 
 		/// <summary>

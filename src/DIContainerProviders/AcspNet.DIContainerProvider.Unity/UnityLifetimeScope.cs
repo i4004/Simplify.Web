@@ -1,25 +1,19 @@
 ﻿using AcspNet.DI;
-using SimpleInjector;
-using SimpleInjector.Extensions.LifetimeScoping;
 
-namespace AcspNet.DIContainerProvider.SimpleInjector
+namespace AcspNet.DIContainerProvider.Unity
 {
 	/// <summary>
-	/// Simple Injector DI provider lifetime scope implementation
+	/// Unity DI provider lifetime scope implementation
 	/// </summary>
-	public class SimpleInjectorLifetimeScope : ILifetimeScope
+	public class UnityLifetimeScope : ILifetimeScope
 	{
-		private readonly LifetimeScope _scope;
-
 		/// <summary>
-		/// Initializes a new instance of the <see cref="SimpleInjectorLifetimeScope"/> class.
+		/// Initializes a new instance of the <see cref="UnityLifetimeScope"/> class.
 		/// </summary>
 		/// <param name="provider">The provider.</param>
-		public SimpleInjectorLifetimeScope(SimpleInjectorDIProvider provider)
+		public UnityLifetimeScope(IDIContainerProvider provider)
 		{
 			Container = provider;
-
-			_scope = provider.Container.BeginLifetimeScope();
 		}
 
 		/// <summary>
@@ -35,7 +29,6 @@ namespace AcspNet.DIContainerProvider.SimpleInjector
 		/// </summary>
 		public void Dispose()
 		{
-			_scope.Dispose();
 		}
 	}
 }
