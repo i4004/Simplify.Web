@@ -32,7 +32,7 @@ namespace AcspNet.Bootstrapper
 			DIContainer.Current.Register(() => ControllersMetaStore.Current, LifetimeType.Singleton);
 
 			DIContainer.Current.Register<IAcspNetSettings>(AcspNetSettingsType, LifetimeType.Singleton);
-			DIContainer.Current.Register<IControllerFactory>(ControllerFactoryType, LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<IControllerFactory>(ControllerFactoryType, LifetimeType.Singleton);
 			DIContainer.Current.Register<IRouteMatcher>(RouteMatcherType, LifetimeType.Singleton);
 			DIContainer.Current.Register<IControllersAgent>(ControllersAgentType, LifetimeType.Singleton);
 			DIContainer.Current.Register<IControllersHandler>(ControllersHandlerType, LifetimeType.Singleton);
