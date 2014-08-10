@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AcspNet.Routing
+﻿namespace AcspNet.Routing
 {
 	/// <summary>
 	/// Represent HTTP route parser and matcher
@@ -10,20 +8,10 @@ namespace AcspNet.Routing
 		/// <summary>
 		/// Matches the specified route.
 		/// </summary>
-		/// <param name="sourceRoute">The source route.</param>
-		/// <param name="checkingRoute">The checking route.</param>
+		/// <param name="currentPath">The current path.</param>
+		/// <param name="controllerPath">The controllerPath.</param>
 		/// <returns></returns>
 		/// <exception cref="System.NotImplementedException"></exception>
-		IRouteMatchResult Match(string sourceRoute, string checkingRoute);
-
-		/// <summary>
-		/// Matches the specified route.
-		/// </summary>
-		/// <param name="currentUri">The current URI.</param>
-		/// <param name="controllerRoute">The controller route.</param>
-		/// <param name="siteVirtualPath">The site virtual path.</param>
-		/// <returns></returns>
-		/// <exception cref="System.NotImplementedException"></exception>
-		IRouteMatchResult Match(Uri currentUri, string controllerRoute, string siteVirtualPath);
+		IRouteMatchResult Match(string currentPath, string controllerPath);
 	}
 }

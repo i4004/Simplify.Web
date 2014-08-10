@@ -14,12 +14,14 @@ namespace AcspNet.Tests.Core
 		private ControllersAgent _agent;
 		private Mock<IControllersMetaStore> _metaStore;
 		private IRouteMatcher _routeMatcher;
+		private Mock<IControllerPathParser> _controllerPathParser;
 
 		[SetUp]
 		public void Initialize()
 		{
 			_metaStore = new Mock<IControllersMetaStore>();
-			_routeMatcher = new RouteMatcher();
+			_controllerPathParser = new Mock<IControllerPathParser>();
+			_routeMatcher = new RouteMatcher(_controllerPathParser.Object);
 			_agent = new ControllersAgent(_metaStore.Object, _routeMatcher);
 		}
 

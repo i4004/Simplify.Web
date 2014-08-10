@@ -9,7 +9,7 @@
 		/// Gets a value indicating whether the route was matched successfully
 		/// </summary>
 		/// <value>
-		///   <c>true</c> if the route was matched successfully; otherwise, <c>false</c>.
+		/// <c>true</c> if the route was matched successfully; otherwise, <c>false</c>.
 		/// </value>
 		bool Success { get; }
 

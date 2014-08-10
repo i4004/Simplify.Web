@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace AcspNet.Routing
@@ -8,95 +9,87 @@ namespace AcspNet.Routing
 	/// </summary>
 	public class RouteMatcher : IRouteMatcher
 	{
-		/// <summary>
-		/// Matches the specified route.
-		/// Only "/", "/action", "/action/{userName}", "/action/{id:int}", "/{id}" etc. route types allowed
-		/// </summary>
-		/// <param name="sourceRoute">The source route.</param>
-		/// <param name="checkingRoute">The checking route.</param>
-		/// <returns></returns>
-		public IRouteMatchResult Match(string sourceRoute, string checkingRoute)
+		private readonly IControllerPathParser _controllerPathParser;
+
+		public RouteMatcher(IControllerPathParser controllerPathParser)
 		{
-			if (string.IsNullOrEmpty(sourceRoute))
+			_controllerPathParser = controllerPathParser;
+		}
+
+		/// <summary>
+		/// Matches the current path with controller path.
+		/// Only "/", "/action", "/action/{userName}/{id}", "/action/{id:int}", "/{id}" etc. route types allowed
+		/// </summary>
+		/// <param name="currentPath">The current path.</param>
+		/// <param name="controllerPath">The controllerPath.</param>
+		/// <returns></returns>
+		public IRouteMatchResult Match(string currentPath, string controllerPath)
+		{
+			if (string.IsNullOrEmpty(currentPath))
 				return new RouteMatchResult();
 
 			// Run on all pages route
-			if (checkingRoute == null)
+			if (controllerPath == null)
 				return new RouteMatchResult(true);
 
-			if (checkingRoute == "")
+			if (controllerPath == "")
 				return new RouteMatchResult();
 
 			// Slash at the end is not allowed
-			if (checkingRoute != "/" && checkingRoute.EndsWith("/"))
+			if (controllerPath != "/" && controllerPath.EndsWith("/"))
 				return new RouteMatchResult();
 
 			// Restoring missing slash
-			if (!checkingRoute.StartsWith("/"))
-				checkingRoute = "/" + checkingRoute;
+			if (!controllerPath.StartsWith("/"))
+				controllerPath = "/" + controllerPath;
 
 			// Getting parameter between bracters
-			var matches = Regex.Matches(checkingRoute, @"{([a-zA-Z0-9:_\-]*)}");
+			var matches = Regex.Matches(controllerPath, @"{([a-zA-Z0-9:_\-]*)}");
 
-			// No parameter, simple compare of routes
-			if (matches.Count == 0)
-				return CompareTwoPaths(sourceRoute, checkingRoute);
+			//// No parameter, simple compare of routes
+			//if (matches.Count == 0)
+			//	return CompareTwoPaths(sourceRoute, checkingRoute);
 
-			// Multiple parameters not allowed
-			if (matches.Count > 1)
-				return new RouteMatchResult();
+			//// Multiple parameters not allowed
+			//if (matches.Count > 1)
+			//	return new RouteMatchResult();
 
-			// Getting source string path for compare
+			//// Getting source string path for compare
 
-			var sourceRouteForChecking = sourceRoute.Substring(0, sourceRoute.LastIndexOf('/'));
-			var sourceRouteValue = sourceRoute.Substring(sourceRoute.LastIndexOf('/') + 1);
-			var checkingRouteForChecking = checkingRoute.Substring(0, checkingRoute.LastIndexOf('/'));
+			//var sourceRouteForChecking = sourceRoute.Substring(0, sourceRoute.LastIndexOf('/'));
+			//var sourceRouteValue = sourceRoute.Substring(sourceRoute.LastIndexOf('/') + 1);
+			//var checkingRouteForChecking = checkingRoute.Substring(0, checkingRoute.LastIndexOf('/'));
 
-			// Block restricted characters (route will not match)
-			if (!Regex.Match(sourceRouteValue, @"^[a-zA-Z0-9_\-]+$").Success)
-				return new RouteMatchResult();
+			//// Block restricted characters (route will not match)
+			//if (!Regex.Match(sourceRouteValue, @"^[a-zA-Z0-9_\-]+$").Success)
+			//	return new RouteMatchResult();
 
-			// Comparing routes without value and parameter
-			if (sourceRouteForChecking != checkingRouteForChecking)
-				return new RouteMatchResult();
+			//// Comparing routes without value and parameter
+			//if (sourceRouteForChecking != checkingRouteForChecking)
+			//	return new RouteMatchResult();
 
-			// Checking for specifed parameter type, for example, parameter should be an int
-			var parameterValueMatch = Regex.Match(matches[0].Value, ":(.*)}");
-			if (parameterValueMatch.Success)
-			{
-				var valueType = parameterValueMatch.Groups[1].Value;
+			//// Checking for specifed parameter type, for example, parameter should be an int
+			//var parameterValueMatch = Regex.Match(matches[0].Value, ":(.*)}");
+			//if (parameterValueMatch.Success)
+			//{
+			//	var valueType = parameterValueMatch.Groups[1].Value;
 
-				// Parse and return an integer
-				if (valueType == "int")
-				{
-					int buffer;
-					return int.TryParse(sourceRouteValue, out buffer) ? new RouteMatchResult(true, buffer) : new RouteMatchResult();
-				}
-			}
+			//	// Parse and return an integer
+			//	if (valueType == "int")
+			//	{
+			//		int buffer;
+			//		return int.TryParse(sourceRouteValue, out buffer) ? new RouteMatchResult(true, buffer) : new RouteMatchResult();
+			//	}
+			//}
 
-			// Return string value
-			return new RouteMatchResult(true, sourceRouteValue);
+			//// Return string value
+			//return new RouteMatchResult(true, sourceRouteValue);
+			return null;
 		}
 
-		private static RouteMatchResult CompareTwoPaths(string sourceRoute, string checkingRoute)
-		{
-			return new RouteMatchResult(sourceRoute == checkingRoute);
-		}
-
-		/// <summary>
-		/// Matches the specified route.
-		/// </summary>
-		/// <param name="currentUri">The current URI.</param>
-		/// <param name="controllerRoute">The controller route.</param>
-		/// <param name="siteVirtualPath">The site virtual path.</param>
-		/// <returns></returns>
-		/// <exception cref="System.NotImplementedException"></exception>
-		public IRouteMatchResult Match(Uri currentUri, string controllerRoute, string siteVirtualPath)
-		{
-			throw new NotImplementedException();
-
-			//var x = (IDictionary<string, Object>)RouteParameters;
-			//x.Add("NewProp", string.Empty);
-		}
+		//private static RouteMatchResult CompareTwoPaths(string sourceRoute, string checkingRoute)
+		//{
+		//	return new RouteMatchResult(sourceRoute == checkingRoute);
+		//}
 	}
 }
