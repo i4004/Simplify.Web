@@ -16,6 +16,7 @@ namespace AcspNet.Bootstrapper
 		private Type _acspNetSettingsType;
 		private Type _viewFactoryType;
 		private Type _controllerFactoryType;
+		private Type _controllerPathParserType;
 		private Type _routeMatcherType;
 		private Type _controllersAgentType;
 		private Type _controllersHanderType;
@@ -36,6 +37,7 @@ namespace AcspNet.Bootstrapper
 			RegisterAcspNetSettings();
 			RegisterViewFactory();
 			RegisterControllerFactory();
+			RegisterControllerPathParser();
 			RegisterRouteMatcher();
 			RegisterControllersAgent();
 			RegisterControllersHandler();
@@ -88,6 +90,17 @@ namespace AcspNet.Bootstrapper
 		public Type ControllerFactoryType
 		{
 			get { return _controllerFactoryType ?? typeof(ControllerFactory); }
+		}
+
+		/// <summary>
+		/// Gets the controller path parser.
+		/// </summary>
+		/// <value>
+		/// The controller path parser.
+		/// </value>
+		public Type ControllerPathParser
+		{
+			get { return _controllerPathParserType ?? typeof(ControllerPathParser); }
 		}
 
 		/// <summary>
@@ -179,6 +192,16 @@ namespace AcspNet.Bootstrapper
 			_controllerFactoryType = typeof(T);
 		}
 
+		/// <summary>
+		/// Sets the type of the controller path parser.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetControllerPathParserType<T>()
+		where T : IControllerPathParser
+		{
+			_controllerPathParserType = typeof(T);
+		}
+		
 		/// <summary>
 		/// Sets the type of the route matcher.
 		/// </summary>
@@ -273,6 +296,14 @@ namespace AcspNet.Bootstrapper
 			DIContainer.Current.Register<IControllerFactory>(ControllerFactoryType, LifetimeType.Singleton);
 		}
 
+		/// <summary>
+		/// Registers the controller path parser.
+		/// </summary>
+		public virtual void RegisterControllerPathParser()
+		{
+			DIContainer.Current.Register<IControllerPathParser>(ControllerPathParser, LifetimeType.Singleton);
+		}
+		
 		/// <summary>
 		/// Registers the route matcher.
 		/// </summary>
