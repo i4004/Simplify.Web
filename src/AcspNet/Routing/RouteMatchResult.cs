@@ -1,14 +1,14 @@
 ﻿namespace AcspNet.Routing
 {
 	/// <summary>
-	/// Provides HTTP route matching resuklt
+	/// Provides HTTP route matching result
 	/// </summary>
 	public class RouteMatchResult : IRouteMatchResult
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RouteMatchResult" /> class.
 		/// </summary>
-		/// <param name="matched">if set to <c>true</c> [matched].</param>
+		/// <param name="matched">if set to <c>true</c> then it means what matchind was successull.</param>
 		/// <param name="routeParameters">The route parameters.</param>
 		public RouteMatchResult(bool matched = false, dynamic routeParameters = null)
 		{

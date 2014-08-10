@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using AcspNet.Routing;
 using Moq;
 using NUnit.Framework;
@@ -31,17 +31,7 @@ namespace AcspNet.Tests.Routing
 		}
 
 		[Test]
-		public void Match_EmptyStringWithNormalRouteAnyPageController_False()
-		{
-			// Act
-			var result = _matcher.Match("/test", "");
-
-			// Assert
-			Assert.IsFalse(result.Success);
-		}
-
-		[Test]
-		public void Match_NullStringWithNormalRouteAnyPageController_True()
+		public void Match_SingleSegmentWithNullString_True()
 		{
 			// Act
 			var result = _matcher.Match("/test", null);
@@ -53,6 +43,8 @@ namespace AcspNet.Tests.Routing
 		[Test]
 		public void Match_RootWithRoot_True()
 		{
+			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>())).Returns(new ControllerPath(new List<IPathItem>()));
+
 			// Act
 			var result = _matcher.Match("/", "/");
 
@@ -61,59 +53,107 @@ namespace AcspNet.Tests.Routing
 		}
 
 		[Test]
-		public void Match_SingleActionWithSingleAction_True()
+		public void Match_SingleSegments_True()
 		{
+			// Assign
+			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
+				.Returns(new ControllerPath(new List<IPathItem> {new PathSegment("foo")}));
+
 			// Act
-			var result = _matcher.Match("/test", "/test");
+			var result = _matcher.Match("/foo", "/foo");
 
 			// Assert
 			Assert.IsTrue(result.Success);
 		}
 
 		[Test]
-		public void Match_SingleActionWithSlashInTheEndWithSingleAction_False()
+		public void Match_SingleSegmentsNotMatching_False()
 		{
+			// Assign
+			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
+				.Returns(new ControllerPath(new List<IPathItem> { new PathSegment("bar") }));
+
 			// Act
-			var result = _matcher.Match("/test", "/test/");
+			var result = _matcher.Match("/foo", "/bar");
+
+			// Assert
+			Assert.IsFalse(result.Success);
+		}
+
+
+		[Test]
+		public void Match_MultipleSegmentsWithFirstMatchedSegment_True()
+		{
+			// Assign
+			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
+				.Returns(new ControllerPath(new List<IPathItem> {new PathSegment("foo")}));
+
+			// Act
+			var result = _matcher.Match("/foo/bar/test", "/foo");
+
+			// Assert
+			Assert.IsTrue(result.Success);
+		}
+
+		[Test]
+		public void Match_SingleSegmentsWithMultipleSegments_False()
+		{
+			// Assign
+			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
+				.Returns(
+					new ControllerPath(new List<IPathItem> {new PathSegment("foo"), new PathSegment("bar"), new PathSegment("test")}));
+
+			// Act
+			var result = _matcher.Match("/foo", "/foo/bar/test");
 
 			// Assert
 			Assert.IsFalse(result.Success);
 		}
 
 		[Test]
-		public void Match_SingleActionWithoutSlashWithSingleAction_True()
+		public void Match_TwoSegmentsWithSegmentAndParameter_TrueValueParsed()
 		{
-			// Act
-			var result = _matcher.Match("/test", "test");
+			// Assign
+			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
+				.Returns(new ControllerPath(new List<IPathItem> { new PathSegment("user"), new PathParameter("userName", typeof(string)) }));
 
-			// Assert
-			Assert.IsTrue(result.Success);
-		}
-
-		[Test]
-		public void Match_MultipleActionsWithMultipleActions_True()
-		{
-			// Act
-			var result = _matcher.Match("/foo/bar/test", "/foo/bar/test");
-
-			// Assert
-			Assert.IsTrue(result.Success);
-		}
-
-		[Test]
-		public void Match_ActionAndParameterWithNormal2partsRoute_TrueValueParsed()
-		{
 			// Act
 			var result = _matcher.Match("/user/testuser", "/user/{userName}");
 
 			// Assert
+
 			Assert.IsTrue(result.Success);
 			Assert.AreEqual("testuser", result.RouteParameters.userName);
 		}
 
 		[Test]
-		public void Match_ActionAndTwoParameterWithNormal2partsRoute_False()
+		public void Match_TwoSegmentsWithSegmentAndParameterNotMatched_False()
 		{
+			// Assign
+			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
+				.Returns(new ControllerPath(new List<IPathItem> { new PathSegment("bar"), new PathParameter("userName", typeof(string)) }));
+
+			// Act
+			var result = _matcher.Match("/user/testuser", "/bar/{userName}");
+
+			// Assert
+
+			Assert.IsFalse(result.Success);
+		}
+
+		[Test]
+		public void Match_TwoSegmentsWithOneSegmentAndTwoParameters_False()
+		{
+			// Assign
+			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
+				.Returns(
+					new ControllerPath(new List<IPathItem>
+					{
+						new PathSegment("foo"),
+						new PathParameter("test", typeof (string)),
+						new PathParameter("userName", typeof (string))
+					}));
+
 			// Act
 			var result = _matcher.Match("/user/testuser", "/foo/{test}/{userName}");
 
@@ -122,93 +162,65 @@ namespace AcspNet.Tests.Routing
 		}
 
 		[Test]
-		public void Match_ActionAndParameterWithNormal2partsRouteButNotMatched_False()
+		public void Match_OneSegmentWithOneParameter_True()
 		{
+			// Assign
+			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
+				.Returns(new ControllerPath(new List<IPathItem> { new PathParameter("userName", typeof(string)) }));
+
 			// Act
-			var result = _matcher.Match("/user/testuser", "/foo/{userName}");
+			var result = _matcher.Match("/user", "/{userName}");
 
 			// Assert
-			Assert.IsFalse(result.Success);
-		}
 
-		[Test]
-		public void Match_ActionAndParameterUndefinedParameterTypeWithNormal2partsRoute_ExceptionThrown()
-		{
-			// Act & Assert
-			Assert.Throws<ControllerRouteException>(() => _matcher.Match("/user/testuser", "/user/{userName:zxc}"));
-		}
-
-		[Test]
-		public void Match_ActionAndIntParameterWithNormal2partsRoute_TrueValueParsed()
-		{
-			// Act
-			var result = _matcher.Match("/foo/15", "/foo/{id:int}");
-
-			// Assert
 			Assert.IsTrue(result.Success);
-			Assert.AreEqual(15, result.RouteParameters.id);
+			Assert.AreEqual("user", result.RouteParameters.userName);
 		}
 
 		[Test]
-		public void Match_ParameterWithSingleActionRoute_True()
+		public void Match_ParameterTypeMismach_False()
 		{
-			// Act
-			var result = _matcher.Match("/foo", "/{name}");
+			// Assign
+			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
+				.Returns(new ControllerPath(new List<IPathItem> { new PathParameter("userName", typeof(int)) }));
 
-			// Assert
-			Assert.IsTrue(result.Success);
-			Assert.AreEqual("foo", result.RouteParameters.name);
-		}
-
-		[Test]
-		public void Match_TwoParametersWithSingleActionRoute_False()
-		{
 			// Act
-			var result = _matcher.Match("/foo", "/{test}/{name}");
+			var result = _matcher.Match("/foo/bar", "/foo/{id:int}");
 
 			// Assert
 			Assert.IsFalse(result.Success);
 		}
 
 		[Test]
-		public void Match_ParameterWithSpecialSymbols_False()
+		public void Match_TwoSegmentsWithTwoParameters_TrueParsed()
 		{
-			// Act
-			var result = _matcher.Match("/%&{sd231}6^6", "/{name}");
+			// Assign
+			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
+				.Returns(new ControllerPath(new List<IPathItem> { new PathParameter("test", typeof(string)), new PathParameter("name", typeof(string)) }));
 
-			// Assert
-			Assert.IsFalse(result.Success);
-		}
-
-		[Test]
-		public void Match_BadParameterWithWSingleActionRoute_ExceptionThrown()
-		{
-			// Act & Assert
-			Assert.Throws<ControllerRouteException>(() => _matcher.Match("/foo", "/name}"));
-		}
-
-		[Test]
-		public void Match_TwoParametersWithTwoActions_TrueParsed()
-		{
 			// Act
 			var result = _matcher.Match("/foo/bar", "/{test}/{name}");
 
 			// Assert
-			Assert.IsFalse(result.Success);
+			Assert.IsTrue(result.Success);
 			Assert.AreEqual("foo", result.RouteParameters.test);
 			Assert.AreEqual("bar", result.RouteParameters.name);
 		}
 
 		[Test]
-		public void Match_TwoParametersWithThreeActions_TrueParsed()
+		public void Match_OneSegmentWithOneIntegerParameter_True()
 		{
+			// Assign
+			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
+				.Returns(new ControllerPath(new List<IPathItem> { new PathParameter("id", typeof(int)) }));
+
 			// Act
-			var result = _matcher.Match("/foo/bar/15", "/foo/{name}/{id:int}");
+			var result = _matcher.Match("/15", "/{id}");
 
 			// Assert
-			Assert.IsFalse(result.Success);
-			Assert.AreEqual("bar", result.RouteParameters.test);
-			Assert.AreEqual(15, result.RouteParameters.name);
+
+			Assert.IsTrue(result.Success);
+			Assert.AreEqual(15, result.RouteParameters.id);
 		}
 	}
 }

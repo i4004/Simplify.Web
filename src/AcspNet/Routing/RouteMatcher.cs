@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
+using System.Dynamic;
 
 namespace AcspNet.Routing
 {
@@ -21,7 +21,7 @@ namespace AcspNet.Routing
 		/// Only "/", "/action", "/action/{userName}/{id}", "/action/{id:int}", "/{id}" etc. route types allowed
 		/// </summary>
 		/// <param name="currentPath">The current path.</param>
-		/// <param name="controllerPath">The controllerPath.</param>
+		/// <param name="controllerPath">The controller path.</param>
 		/// <returns></returns>
 		public IRouteMatchResult Match(string currentPath, string controllerPath)
 		{
@@ -29,67 +29,57 @@ namespace AcspNet.Routing
 				return new RouteMatchResult();
 
 			// Run on all pages route
-			if (controllerPath == null)
+			if (string.IsNullOrEmpty(controllerPath))
 				return new RouteMatchResult(true);
 
-			if (controllerPath == "")
+			var controllerPathParsed = _controllerPathParser.Parse(controllerPath);
+			var currentPathItems = currentPath.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+
+			if(currentPathItems.Length < controllerPathParsed.Items.Count)
 				return new RouteMatchResult();
 
-			// Slash at the end is not allowed
-			if (controllerPath != "/" && controllerPath.EndsWith("/"))
-				return new RouteMatchResult();
+			IDictionary<string, Object> routeParameters = new ExpandoObject();
+			
+			for (var i = 0; i < controllerPathParsed.Items.Count; i++)
+			{
+				var currentItem = controllerPathParsed.Items[i];
 
-			// Restoring missing slash
-			if (!controllerPath.StartsWith("/"))
-				controllerPath = "/" + controllerPath;
+				if (currentItem as PathSegment != null)
+				{
+					if (currentItem.Name != currentPathItems[i])
+						return new RouteMatchResult();
+				}
+				else if (currentItem as PathParameter != null)
+				{
+					var value = GetParameterValue((PathParameter)currentItem, currentPathItems[i]);
 
-			// Getting parameter between bracters
-			var matches = Regex.Matches(controllerPath, @"{([a-zA-Z0-9:_\-]*)}");
+					if(value == null)
+						return new RouteMatchResult();
 
-			//// No parameter, simple compare of routes
-			//if (matches.Count == 0)
-			//	return CompareTwoPaths(sourceRoute, checkingRoute);
+					routeParameters.Add(currentItem.Name, value);
+				}
+			}
 
-			//// Multiple parameters not allowed
-			//if (matches.Count > 1)
-			//	return new RouteMatchResult();
-
-			//// Getting source string path for compare
-
-			//var sourceRouteForChecking = sourceRoute.Substring(0, sourceRoute.LastIndexOf('/'));
-			//var sourceRouteValue = sourceRoute.Substring(sourceRoute.LastIndexOf('/') + 1);
-			//var checkingRouteForChecking = checkingRoute.Substring(0, checkingRoute.LastIndexOf('/'));
-
-			//// Block restricted characters (route will not match)
-			//if (!Regex.Match(sourceRouteValue, @"^[a-zA-Z0-9_\-]+$").Success)
-			//	return new RouteMatchResult();
-
-			//// Comparing routes without value and parameter
-			//if (sourceRouteForChecking != checkingRouteForChecking)
-			//	return new RouteMatchResult();
-
-			//// Checking for specifed parameter type, for example, parameter should be an int
-			//var parameterValueMatch = Regex.Match(matches[0].Value, ":(.*)}");
-			//if (parameterValueMatch.Success)
-			//{
-			//	var valueType = parameterValueMatch.Groups[1].Value;
-
-			//	// Parse and return an integer
-			//	if (valueType == "int")
-			//	{
-			//		int buffer;
-			//		return int.TryParse(sourceRouteValue, out buffer) ? new RouteMatchResult(true, buffer) : new RouteMatchResult();
-			//	}
-			//}
-
-			//// Return string value
-			//return new RouteMatchResult(true, sourceRouteValue);
-			return null;
+			// Return string value
+			return new RouteMatchResult(true, routeParameters);
 		}
 
-		//private static RouteMatchResult CompareTwoPaths(string sourceRoute, string checkingRoute)
-		//{
-		//	return new RouteMatchResult(sourceRoute == checkingRoute);
-		//}
+		private object GetParameterValue(PathParameter pathParameter, string source)
+		{
+			if (pathParameter.Type == typeof (string))
+				return source;
+
+			if (pathParameter.Type == typeof (int))
+			{
+				int buffer;
+
+				if(!int.TryParse(source, out buffer))
+					return null;
+
+				return buffer;
+			}
+
+			return null;
+		}
 	}
 }

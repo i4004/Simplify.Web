@@ -22,9 +22,6 @@ namespace AcspNet.Routing
 
 					var subitem = item.Substring(1, item.Length - 2);
 
-					if (subitem.Contains("{") || subitem.Contains("}"))
-						throw new ControllerRouteException("Bad controller path: " + controllerPath);
-
 					if (subitem.Contains(":"))
 					{
 						var parameterData = subitem.Split(':');
