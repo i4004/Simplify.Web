@@ -67,24 +67,39 @@ namespace AcspNet.DIContainerProvider.SimpleInjector
 		/// <summary>
 		/// Registers the specified provider.
 		/// </summary>
-		/// <typeparam name="TConcrete">Concrete type.</typeparam>
+		/// <typeparam name="TService">Concrete type.</typeparam>
 		/// <param name="instanceCreator">The instance creator.</param>
 		/// <param name="lifetimeType">Lifetime type of the registering concrete type.</param>
-		public void Register<TConcrete>(Func<TConcrete> instanceCreator, LifetimeType lifetimeType = LifetimeType.Transient)
-			where TConcrete : class 
+		public void Register<TService>(Func<IDIContainerProvider, TService> instanceCreator, LifetimeType lifetimeType = LifetimeType.Transient)
+			where TService : class
 		{
 			switch (lifetimeType)
 			{
 				case LifetimeType.Transient:
-					Container.Register(instanceCreator, Lifestyle.Transient);
+					Container.Register(() =>
+					{
+						var provider = new SimpleInjectorDIProvider { Container = Container };
+						return instanceCreator(provider);
+					},
+						Lifestyle.Transient);
 					break;
 
 				case LifetimeType.Singleton:
-					Container.Register(instanceCreator, Lifestyle.Singleton);
+					Container.Register(() =>
+					{
+						var provider = new SimpleInjectorDIProvider { Container = Container };
+						return instanceCreator(provider);
+					},
+						Lifestyle.Singleton);
 					break;
 
 				case LifetimeType.PerLifetimeScope:
-					Container.Register(instanceCreator, new LifetimeScopeLifestyle());
+					Container.Register(() =>
+					{
+						var provider = new SimpleInjectorDIProvider { Container = Container };
+						return instanceCreator(provider);
+					},
+						new LifetimeScopeLifestyle());
 					break;
 			}
 		}
