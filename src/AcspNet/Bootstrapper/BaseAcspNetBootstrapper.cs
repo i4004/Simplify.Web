@@ -20,7 +20,7 @@ namespace AcspNet.Bootstrapper
 		private Type _controllersHanderType;
 		private Type _requestHandlerType;
 
-		private Type _environmentType;
+		//private Type _environmentType;
 
 		/// <summary>
 		/// Registers the types in container.
@@ -29,23 +29,24 @@ namespace AcspNet.Bootstrapper
 		{
 			// Registering AcspNet core types
 
-			DIContainer.Current.Register(() => ControllersMetaStore.Current, LifetimeType.Singleton);
-
-			DIContainer.Current.Register<IAcspNetSettings>(AcspNetSettingsType, LifetimeType.Singleton);
-			DIContainer.Current.Register<IControllerFactory>(ControllerFactoryType, LifetimeType.Singleton);
-			DIContainer.Current.Register<IRouteMatcher>(RouteMatcherType, LifetimeType.Singleton);
-			DIContainer.Current.Register<IControllersAgent>(ControllersAgentType, LifetimeType.Singleton);
-			DIContainer.Current.Register<IControllersHandler>(ControllersHandlerType, LifetimeType.Singleton);
-			DIContainer.Current.Register<IRequestHandler>(RequestHandlerType, LifetimeType.Singleton);
+			RegisterControllersMetaStore();
+			RegisterAcspNetSettings();
+			RegisterControllerFactory();
+			RegisterRouteMatcher();
+			RegisterControllersAgent();
+			RegisterControllersHandler();
+			RegisterRequestHandler();
 
 			// Registeting user modules
 
-			//DependencyResolver.Container.Register(typeof(IEnvironment), EnvironmentType, Reuse.InCurrentScope);
+			RegisterEnvironment();
 
 			// Registering controllers types
-			foreach (var controllerMetaData in ControllersMetaStore.Current.ControllersMetaData)
-				DIContainer.Current.Register(controllerMetaData.ControllerType);
+			//foreach (var controllerMetaData in ControllersMetaStore.Current.ControllersMetaData)
+			//	DIContainer.Current.Register(controllerMetaData.ControllerType);
 		}
+
+		#region Bootstrapper types
 
 		/// <summary>
 		/// Gets the type of the AcspNet settings.
@@ -113,16 +114,20 @@ namespace AcspNet.Bootstrapper
 			get { return _requestHandlerType ?? typeof(RequestHandler); }
 		}
 
-		/// <summary>
-		/// Gets the type of the environment.
-		/// </summary>
-		/// <value>
-		/// The type of the environment.
-		/// </value>
-		public Type EnvironmentType
-		{
-			get { return _environmentType ?? typeof(Environment); }
-		}
+		///// <summary>
+		///// Gets the type of the environment.
+		///// </summary>
+		///// <value>
+		///// The type of the environment.
+		///// </value>
+		//public Type EnvironmentType
+		//{
+		//	get { return _environmentType ?? typeof(Environment); }
+		//}
+
+		#endregion
+
+		#region Bootstrapper types override
 
 		/// <summary>
 		/// Sets the type of the AcspNet settings.
@@ -184,14 +189,63 @@ namespace AcspNet.Bootstrapper
 			_requestHandlerType = typeof(T);
 		}
 
-		/// <summary>
-		/// Sets the type of the environment.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		public void SetEnvironmentType<T>()
-			where T : IEnvironment
+		///// <summary>
+		///// Sets the type of the environment.
+		///// </summary>
+		///// <typeparam name="T"></typeparam>
+		//public void SetEnvironmentType<T>()
+		//	where T : IEnvironment
+		//{
+		//	_environmentType = typeof(T);
+		//}
+
+		#endregion
+
+		#region Bootstrapper types registration
+
+		public virtual void RegisterControllersMetaStore()
 		{
-			_environmentType = typeof(T);
+			DIContainer.Current.Register(() => ControllersMetaStore.Current, LifetimeType.Singleton);
 		}
+
+		public virtual void RegisterAcspNetSettings()
+		{
+			DIContainer.Current.Register<IAcspNetSettings>(AcspNetSettingsType, LifetimeType.Singleton);
+		}
+
+		public virtual void RegisterControllerFactory()
+		{
+			DIContainer.Current.Register<IControllerFactory>(ControllerFactoryType, LifetimeType.Singleton);
+		}
+
+		public virtual void RegisterRouteMatcher()
+		{
+			DIContainer.Current.Register<IRouteMatcher>(RouteMatcherType, LifetimeType.Singleton);
+		}
+
+		public virtual void RegisterControllersAgent()
+		{
+			DIContainer.Current.Register<IControllersAgent>(ControllersAgentType, LifetimeType.Singleton);
+		}
+
+		public virtual void RegisterControllersHandler()
+		{
+			DIContainer.Current.Register<IControllersHandler>(ControllersHandlerType, LifetimeType.Singleton);
+		}
+
+		public virtual void RegisterRequestHandler()
+		{
+			DIContainer.Current.Register<IRequestHandler>(RequestHandlerType, LifetimeType.Singleton);
+		}
+
+		public virtual void RegisterEnvironment()
+		{
+			// todo pass scope container to delegate
+			DIContainer.Current.Register<IEnvironment>(
+				() => new Environment(AppDomain.CurrentDomain.BaseDirectory, DIContainer.Current.Resolve<IAcspNetSettings>()),
+				LifetimeType.PerLifetimeScope);
+		}
+
+		#endregion
 	}
 }
