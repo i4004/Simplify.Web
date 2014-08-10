@@ -14,11 +14,11 @@
 		bool Success { get; }
 
 		/// <summary>
-		/// Gets the route parsed dynamic value (if was present).
+		/// Gets the route parsed parameters.
 		/// </summary>
 		/// <value>
-		/// The route parsed dynamic value (if was present).
+		/// The route parsed paramerers.
 		/// </value>
-		object Value { get; }
+		dynamic RouteParameters { get; }
 	}
 }

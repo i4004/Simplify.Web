@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 namespace AcspNet.Routing
 {
@@ -16,14 +17,14 @@ namespace AcspNet.Routing
 		/// <returns></returns>
 		public IRouteMatchResult Match(string sourceRoute, string checkingRoute)
 		{
-			if(string.IsNullOrEmpty(sourceRoute))
+			if (string.IsNullOrEmpty(sourceRoute))
 				return new RouteMatchResult();
 
 			// Run on all pages route
-			if(checkingRoute == null)
+			if (checkingRoute == null)
 				return new RouteMatchResult(true);
 
-			if(checkingRoute == "")
+			if (checkingRoute == "")
 				return new RouteMatchResult();
 
 			// Slash at the end is not allowed
@@ -36,7 +37,7 @@ namespace AcspNet.Routing
 
 			// Getting parameter between bracters
 			var matches = Regex.Matches(checkingRoute, @"{([a-zA-Z0-9:_\-]*)}");
-	
+
 			// No parameter, simple compare of routes
 			if (matches.Count == 0)
 				return CompareTwoPaths(sourceRoute, checkingRoute);
@@ -80,6 +81,22 @@ namespace AcspNet.Routing
 		private static RouteMatchResult CompareTwoPaths(string sourceRoute, string checkingRoute)
 		{
 			return new RouteMatchResult(sourceRoute == checkingRoute);
+		}
+
+		/// <summary>
+		/// Matches the specified route.
+		/// </summary>
+		/// <param name="currentUri">The current URI.</param>
+		/// <param name="controllerRoute">The controller route.</param>
+		/// <param name="siteVirtualPath">The site virtual path.</param>
+		/// <returns></returns>
+		/// <exception cref="System.NotImplementedException"></exception>
+		public IRouteMatchResult Match(Uri currentUri, string controllerRoute, string siteVirtualPath)
+		{
+			throw new NotImplementedException();
+
+			//var x = (IDictionary<string, Object>)RouteParameters;
+			//x.Add("NewProp", string.Empty);
 		}
 	}
 }

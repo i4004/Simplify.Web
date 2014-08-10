@@ -6,14 +6,14 @@
 	public class RouteMatchResult : IRouteMatchResult
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="RouteMatchResult"/> class.
+		/// Initializes a new instance of the <see cref="RouteMatchResult" /> class.
 		/// </summary>
 		/// <param name="matched">if set to <c>true</c> [matched].</param>
-		/// <param name="value">The value.</param>
-		public RouteMatchResult(bool matched = false, object value = null)
+		/// <param name="routeParameters">The route parameters.</param>
+		public RouteMatchResult(bool matched = false, dynamic routeParameters = null)
 		{
 			Success = matched;
-			Value = value;
+			RouteParameters = routeParameters;
 		}
 
 		/// <summary>
@@ -25,11 +25,11 @@
 		public bool Success { get; private set; }
 
 		/// <summary>
-		/// Gets the route parsed dynamic value (if was present).
+		/// Gets the route parsed parameters.
 		/// </summary>
 		/// <value>
-		/// The route parsed dynamic value (if was present).
+		/// The route parsed paramerers.
 		/// </value>
-		public object Value { get; private set; }
+		public dynamic RouteParameters { get; private set; }
 	}
 }
