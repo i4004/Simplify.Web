@@ -1,5 +1,6 @@
 ﻿using System;
 using AcspNet.DI;
+using AcspNet.Modules;
 
 namespace AcspNet.Core
 {
@@ -16,7 +17,9 @@ namespace AcspNet.Core
 		/// <returns></returns>
 		public IView CreateView(IDIContainerProvider containerProvider, Type viewType)
 		{
-			var view = (IView)containerProvider.Resolve(viewType);
+			var view = (View)containerProvider.Resolve(viewType);
+
+			view.Environment = containerProvider.Resolve<IEnvironment>();
 
 			return view;
 		}

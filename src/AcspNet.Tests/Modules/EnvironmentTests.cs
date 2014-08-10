@@ -6,14 +6,19 @@ namespace AcspNet.Tests.Modules
 	[TestFixture]
 	public class EnvironmentTests
 	{
+		AcspNetSettings _settings;
+		
+		[SetUp]
+		public void Initialize()
+		{
+			_settings = new AcspNetSettings();		
+		}
+
 		[Test]
 		public void Constructor_DefaultParamenters_PropertiesSetCorrecly()
 		{
-			// Assign
-			var settings = new AcspNetSettings();
-
 			// Act
-			var env = new Environment("C:/Test", settings);
+			var env = new Environment("C:/Test", _settings);
 
 			// Assert
 
@@ -26,6 +31,16 @@ namespace AcspNet.Tests.Modules
 			Assert.AreEqual("Templates", env.TemplatesPath);
 			Assert.AreEqual("C:/Test/Templates/", env.TemplatesPhysicalPath);
 			Assert.AreEqual("Title", env.TitleVariableName);
+		}
+
+		[Test]
+		public void Constructor_BackslashPath_BackslashAdded()
+		{
+			// Act
+			var env = new Environment(@"C:\Test\", _settings);
+
+			// Assert
+			Assert.AreEqual("C:/Test/Templates/", env.TemplatesPhysicalPath);
 		}
 	}
 }

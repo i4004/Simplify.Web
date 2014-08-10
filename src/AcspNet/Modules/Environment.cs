@@ -14,6 +14,8 @@
 		/// <param name="settings">The settings.</param>
 		public Environment(string sitePhysicalPath, IAcspNetSettings settings)
 		{
+			sitePhysicalPath = sitePhysicalPath.Replace("\\", "/");
+
 			if (!sitePhysicalPath.EndsWith("/"))
 				sitePhysicalPath = sitePhysicalPath + "/";
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using AcspNet.DI;
+using AcspNet.Modules;
 
 namespace AcspNet.Core
 {
@@ -17,6 +18,8 @@ namespace AcspNet.Core
 		public IController CreateController(IDIContainerProvider containerProvider, Type controllerType)
 		{
 			var controller = (Controller)containerProvider.Resolve(controllerType);
+
+			controller.Environment = containerProvider.Resolve<IEnvironment>();
 
 			return controller;
 		}

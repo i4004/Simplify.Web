@@ -8,6 +8,11 @@ namespace AcspNet
 	public interface IView : IViewAccessor
 	{
 		/// <summary>
+		/// Current request environment data.
+		/// </summary>
+		IEnvironment Environment { get; }
+
+		/// <summary>
 		/// Text templates reader.
 		/// </summary>
 		ITemplateFactory TemplateFactory { get; }

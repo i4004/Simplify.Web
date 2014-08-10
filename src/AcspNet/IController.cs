@@ -23,6 +23,16 @@ namespace AcspNet
 		IDataCollector DataCollector { get; }
 
 		/// <summary>
+		/// Text templates reader.
+		/// </summary>
+		ITemplateFactory TemplateFactory { get; }
+
+		/// <summary>
+		/// Text files reader.
+		/// </summary>
+		IFileReader FileReader { get; }
+
+		/// <summary>
 		/// Invokes the controller.
 		/// </summary>
 		IControllerResponse Invoke();

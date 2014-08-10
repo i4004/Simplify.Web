@@ -16,6 +16,11 @@ namespace AcspNet
 		public virtual string Language { get; internal set; }
 
 		/// <summary>
+		/// Current request environment data.
+		/// </summary>
+		public virtual IEnvironment Environment { get; internal set; }
+
+		/// <summary>
 		/// Text templates loader.
 		/// </summary>
 		public virtual ITemplateFactory TemplateFactory { get; internal set; }
