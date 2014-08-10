@@ -11,11 +11,12 @@ namespace AcspNet.Core
 		/// <summary>
 		/// Creates the view.
 		/// </summary>
+		/// <param name="containerProvider">The DI container provider.</param>
 		/// <param name="viewType">Type of the view.</param>
 		/// <returns></returns>
-		public IView CreateView(Type viewType)
+		public IView CreateView(IDIContainerProvider containerProvider, Type viewType)
 		{
-			var view = (IView)DIContainer.Current.Resolve(viewType);
+			var view = (IView)containerProvider.Resolve(viewType);
 
 			return view;
 		}

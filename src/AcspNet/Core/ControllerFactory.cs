@@ -11,11 +11,12 @@ namespace AcspNet.Core
 		/// <summary>
 		/// Creates the controller.
 		/// </summary>
+		/// <param name="containerProvider">The DI container provider.</param>
 		/// <param name="controllerType">Type of the controller.</param>
 		/// <returns></returns>
-		public IController CreateController(Type controllerType)
+		public IController CreateController(IDIContainerProvider containerProvider, Type controllerType)
 		{
-			var controller = (Controller)DIContainer.Current.Resolve(controllerType);
+			var controller = (Controller)containerProvider.Resolve(controllerType);
 
 			return controller;
 		}

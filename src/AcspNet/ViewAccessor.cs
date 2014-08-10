@@ -1,4 +1,5 @@
 ﻿using AcspNet.Core;
+using AcspNet.DI;
 
 namespace AcspNet
 {
@@ -8,7 +9,8 @@ namespace AcspNet
 	public abstract class ViewAccessor : IViewAccessor
 	{
 		internal virtual IViewFactory ViewFactory { get; set; }
-
+		internal virtual IDIContainerProvider ContainerProvider { get; set; }
+		
 		/// <summary>
 		/// Gets view instance
 		/// </summary>
@@ -19,7 +21,7 @@ namespace AcspNet
 		{
 			var type = typeof(T);
 
-			return (T)ViewFactory.CreateView(type);
+			return (T)ViewFactory.CreateView(ContainerProvider, type);
 		}
 	}
 }

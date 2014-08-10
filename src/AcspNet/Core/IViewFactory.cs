@@ -1,4 +1,5 @@
 ﻿using System;
+using AcspNet.DI;
 
 namespace AcspNet.Core
 {
@@ -10,8 +11,9 @@ namespace AcspNet.Core
 		/// <summary>
 		/// Creates the view.
 		/// </summary>
+		/// <param name="containerProvider">The DI container provider.</param>
 		/// <param name="viewType">Type of the view.</param>
 		/// <returns></returns>
-		IView CreateView(Type viewType);
+		IView CreateView(IDIContainerProvider containerProvider, Type viewType);
 	}
 }

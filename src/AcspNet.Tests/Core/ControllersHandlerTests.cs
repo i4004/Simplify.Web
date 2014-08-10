@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AcspNet.Core;
+using AcspNet.DI;
 using AcspNet.Meta;
 using AcspNet.Routing;
 using AcspNet.Tests.TestEntities;
@@ -18,6 +19,8 @@ namespace AcspNet.Tests.Core
 
 		private Mock<Controller> _controller;
 		private ControllerMetaData _metaData;
+
+		private readonly IDIContainerProvider _containerProvider = null;
 
 		[SetUp]
 		public void Initialize()
@@ -37,7 +40,7 @@ namespace AcspNet.Tests.Core
 
 			_agent.Setup(x => x.MatchControllerRoute(It.IsAny<IControllerMetaData>(), It.IsAny<string>(), It.IsAny<string>())).Returns(new RouteMatchResult(true));
 
-			_factory.Setup(x => x.CreateController(It.IsAny<Type>())).Returns(_controller.Object);
+			_factory.Setup(x => x.CreateController(It.IsAny<IDIContainerProvider>(), It.IsAny<Type>())).Returns(_controller.Object);
 		}
 
 		[Test]
@@ -45,14 +48,14 @@ namespace AcspNet.Tests.Core
 		{
 			// Act
 
-			var result = _handler.Execute("/foo/bar", "GET");
+			var result = _handler.Execute(_containerProvider, "/foo/bar", "GET");
 
 			// Assert
 
 			Assert.AreEqual(ControllersHandlerResult.Ok, result);
 			_agent.Verify(x => x.GetStandardControllersMetaData());
 			_agent.Verify(x => x.MatchControllerRoute(It.Is<IControllerMetaData>(d => d == _metaData), It.Is<string>(d => d == "/foo/bar"), It.Is<string>(d => d == "GET")));
-			_factory.Verify(x => x.CreateController(It.Is<Type>(t => t == typeof(TestController1))), Times.Exactly(1));
+			_factory.Verify(x => x.CreateController(It.IsAny<IDIContainerProvider>(), It.Is<Type>(t => t == typeof(TestController1))), Times.Exactly(1));
 			_controller.Verify(x => x.Invoke(), Times.Exactly(1));
 		}
 
@@ -64,13 +67,13 @@ namespace AcspNet.Tests.Core
 	
 			// Act
 
-			var result = _handler.Execute("/foo/test", "GET");
+			var result = _handler.Execute(_containerProvider, "/foo/test", "GET");
 
 			// Assert
 
 			Assert.AreEqual(ControllersHandlerResult.Http404, result);
 			_controller.Verify(x => x.Invoke(), Times.Never);
-			_factory.Verify(x => x.CreateController(It.Is<Type>(t => t == typeof(TestController1))), Times.Never);
+			_factory.Verify(x => x.CreateController(It.IsAny<IDIContainerProvider>(), It.Is<Type>(t => t == typeof(TestController1))), Times.Never);
 		}
 
 		[Test]
@@ -85,13 +88,13 @@ namespace AcspNet.Tests.Core
 
 			// Act
 
-			var result = _handler.Execute("/foo/test", "GET");
+			var result = _handler.Execute(_containerProvider, "/foo/test", "GET");
 
 			// Assert
 
 			Assert.AreEqual(ControllersHandlerResult.Ok, result);
 			_controller.Verify(x => x.Invoke());
-			_factory.Verify(x => x.CreateController(It.Is<Type>(t => t == typeof(TestController2))));
+			_factory.Verify(x => x.CreateController(It.IsAny<IDIContainerProvider>(), It.Is<Type>(t => t == typeof(TestController2))));
 		}
 	}
 }

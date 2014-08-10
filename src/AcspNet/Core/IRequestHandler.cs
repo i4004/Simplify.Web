@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AcspNet.DI;
 using Microsoft.Owin;
 
 namespace AcspNet.Core
@@ -11,7 +12,9 @@ namespace AcspNet.Core
 		/// <summary>
 		/// Processes the OWIN HTTP request.
 		/// </summary>
+		/// <param name="containerProvider">The DI container provider.</param>
 		/// <param name="context">The context.</param>
-		Task ProcessRequest(IOwinContext context);
+		/// <returns></returns>
+		Task ProcessRequest(IDIContainerProvider containerProvider, IOwinContext context);
 	}
 }
