@@ -11,9 +11,20 @@ namespace AcspNet.Meta
 	public class ControllersMetaStore : IControllersMetaStore
 	{
 		private static IControllersMetaStore _current;
-
+		private readonly IControllerMetaDataFactory _metaDataFactory;
+		private IList<IControllerMetaData> _controllersMetaData;
+	
 		/// <summary>
-		/// The IOC container
+		/// Initializes a new instance of the <see cref="ControllersMetaStore"/> class.
+		/// </summary>
+		/// <param name="metaDataFactory">The meta data factory.</param>
+		public ControllersMetaStore(IControllerMetaDataFactory metaDataFactory)
+		{
+			_metaDataFactory = metaDataFactory;
+		}
+		
+		/// <summary>
+		/// Current controllers meta store
 		/// </summary>
 		public static IControllersMetaStore Current
 		{
@@ -28,19 +39,6 @@ namespace AcspNet.Meta
 
 				_current = value;
 			}
-		}
-
-		private readonly IControllerMetaDataFactory _metaDataFactory;
-
-		private IList<IControllerMetaData> _controllersMetaData;
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ControllersMetaStore"/> class.
-		/// </summary>
-		/// <param name="metaDataFactory">The meta data factory.</param>
-		public ControllersMetaStore(IControllerMetaDataFactory metaDataFactory)
-		{
-			_metaDataFactory = metaDataFactory;
 		}
 
 		/// <summary>

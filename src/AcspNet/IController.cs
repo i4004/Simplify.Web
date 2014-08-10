@@ -5,7 +5,7 @@ namespace AcspNet
 	/// <summary>
 	/// Represents controller interface
 	/// </summary>
-	public interface IController : IViewAccessor
+	public interface IController : IModulesAccessor
 	{
 		/// <summary>
 		/// Current AcspNet context
@@ -13,19 +13,9 @@ namespace AcspNet
 		IAcspNetContext Context { get; }
 
 		/// <summary>
-		/// Current request environment data.
-		/// </summary>
-		IEnvironment Environment { get; }
-
-		/// <summary>
 		/// Web-site master page data collector.
 		/// </summary>
 		IDataCollector DataCollector { get; }
-
-		/// <summary>
-		/// Text templates reader.
-		/// </summary>
-		ITemplateFactory TemplateFactory { get; }
 
 		/// <summary>
 		/// Text files reader.

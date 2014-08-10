@@ -14,6 +14,7 @@ namespace AcspNet.Bootstrapper
 	public class BaseAcspNetBootstrapper
 	{
 		private Type _acspNetSettingsType;
+		private Type _viewFactoryType;
 		private Type _controllerFactoryType;
 		private Type _routeMatcherType;
 		private Type _controllersAgentType;
@@ -28,7 +29,10 @@ namespace AcspNet.Bootstrapper
 			// Registering AcspNet core types
 
 			RegisterControllersMetaStore();
+			RegisterViewsMetaStore();
+
 			RegisterAcspNetSettings();
+			RegisterViewFactory();
 			RegisterControllerFactory();
 			RegisterRouteMatcher();
 			RegisterControllersAgent();
@@ -40,8 +44,12 @@ namespace AcspNet.Bootstrapper
 			RegisterEnvironment();
 
 			// Registering controllers types
-			//foreach (var controllerMetaData in ControllersMetaStore.Current.ControllersMetaData)
-			//	DIContainer.Current.Register(controllerMetaData.ControllerType);
+			foreach (var controllerMetaData in ControllersMetaStore.Current.ControllersMetaData)
+				DIContainer.Current.Register(controllerMetaData.ControllerType);
+
+			// Registering views types
+			foreach (var viewType in ViewsMetaStore.Current.ViewsTypes)
+				DIContainer.Current.Register(viewType);
 		}
 
 		#region Bootstrapper types
@@ -55,6 +63,17 @@ namespace AcspNet.Bootstrapper
 		public Type AcspNetSettingsType
 		{
 			get { return _acspNetSettingsType ?? typeof(AcspNetSettings); }
+		}
+
+		/// <summary>
+		/// Gets the type of the view factory.
+		/// </summary>
+		/// <value>
+		/// The type of the view factory.
+		/// </value>
+		public Type ViewFactoryType
+		{
+			get { return _viewFactoryType ?? typeof(ViewFactory); }
 		}
 
 		/// <summary>
@@ -127,6 +146,16 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
+		/// Sets the type of the view factory.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetViewFactoryType<T>()
+			where T : IViewFactory
+		{
+			_viewFactoryType = typeof(T);
+		}
+
+		/// <summary>
 		/// Sets the type of the controller factory.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
@@ -189,11 +218,27 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
+		/// Registers the views meta store.
+		/// </summary>
+		public virtual void RegisterViewsMetaStore()
+		{
+			DIContainer.Current.Register(p => ViewsMetaStore.Current, LifetimeType.Singleton);
+		}
+
+		/// <summary>
 		/// Registers the AcspNet settings.
 		/// </summary>
 		public virtual void RegisterAcspNetSettings()
 		{
 			DIContainer.Current.Register<IAcspNetSettings>(AcspNetSettingsType, LifetimeType.Singleton);
+		}
+
+		/// <summary>
+		/// Registers the view factory.
+		/// </summary>
+		public virtual void RegisterViewFactory()
+		{
+			DIContainer.Current.Register<IViewFactory>(ViewFactoryType, LifetimeType.Singleton);
 		}
 
 		/// <summary>

@@ -1,14 +1,24 @@
 ﻿using System;
 using AcspNet.DI;
-using AcspNet.Modules;
 
 namespace AcspNet.Core
 {
 	/// <summary>
 	/// Controller factory
 	/// </summary>
-	public class ControllerFactory : IControllerFactory
+	public class ControllerFactory : ModulesAccessorFactory, IControllerFactory
 	{
+		private readonly IViewFactory _viewFactory;
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ControllerFactory"/> class.
+		/// </summary>
+		/// <param name="viewFactory">The view factory.</param>
+		public ControllerFactory(IViewFactory viewFactory)
+		{
+			_viewFactory = viewFactory;
+		}
+
 		/// <summary>
 		/// Creates the controller.
 		/// </summary>
@@ -19,7 +29,8 @@ namespace AcspNet.Core
 		{
 			var controller = (Controller)containerProvider.Resolve(controllerType);
 
-			controller.Environment = containerProvider.Resolve<IEnvironment>();
+			ConstructViewAccessor(containerProvider, _viewFactory, controller);
+			ConstructModulesAccessor(containerProvider, controller);
 
 			return controller;
 		}

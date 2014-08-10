@@ -1,13 +1,12 @@
 ﻿using System;
 using AcspNet.DI;
-using AcspNet.Modules;
 
 namespace AcspNet.Core
 {
 	/// <summary>
 	/// View factory
 	/// </summary>
-	public class ViewFactory : IViewFactory
+	public class ViewFactory : ModulesAccessorFactory, IViewFactory
 	{
 		/// <summary>
 		/// Creates the view.
@@ -19,7 +18,8 @@ namespace AcspNet.Core
 		{
 			var view = (View)containerProvider.Resolve(viewType);
 
-			view.Environment = containerProvider.Resolve<IEnvironment>();
+			ConstructViewAccessor(containerProvider, this, view);
+			ConstructModulesAccessor(containerProvider, view);
 
 			return view;
 		}

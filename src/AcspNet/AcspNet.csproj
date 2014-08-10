@@ -116,6 +116,8 @@
   <ItemGroup>
     <Compile Include="AcspNetSettings.cs" />
     <Compile Include="Core\IViewFactory.cs" />
+    <Compile Include="Core\ModulesAccessorFactory.cs" />
+    <Compile Include="Core\ViewAccessorFactory.cs" />
     <Compile Include="Core\ViewFactory.cs" />
     <Compile Include="DI\DIContainerProvider.DryIoc\DryIocDIProvider.cs" />
     <Compile Include="DI\DIContainerProvider.DryIoc\DryIocLifetimeScope.cs" />
@@ -124,8 +126,12 @@
     <Compile Include="DI\DIContainerProviderResolveExtensions.cs" />
     <Compile Include="DI\ILifetimeScope.cs" />
     <Compile Include="DI\LifetimeTypes.cs" />
+    <Compile Include="IModulesAccessor.cs" />
     <Compile Include="IView.cs" />
     <Compile Include="IViewAccessor.cs" />
+    <Compile Include="Meta\IViewsMetaStore.cs" />
+    <Compile Include="Meta\ViewsMetaStore.cs" />
+    <Compile Include="ModulesAccessor.cs" />
     <Compile Include="Modules\IAcspNetContext.cs" />
     <Compile Include="Modules\IFileReader.cs" />
     <Compile Include="Responses\Ajax.cs" />
@@ -248,7 +254,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

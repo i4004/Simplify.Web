@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Controllers\DefaultPageController.cs" />
+    <Compile Include="Views\DefaultPageView.cs" />
     <Compile Include="Foo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
