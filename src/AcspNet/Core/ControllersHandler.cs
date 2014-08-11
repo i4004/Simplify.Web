@@ -37,7 +37,7 @@ namespace AcspNet.Core
 				if (matcherResult.Success)
 				{
 					atleastOneControllerMatched = true;
-					var controller = _factory.CreateController(containerProvider, metaData.ControllerType, context);
+					var controller = _factory.CreateController(containerProvider, metaData.ControllerType, context, matcherResult.RouteParameters);
 					controller.Invoke();
 				}
 			}

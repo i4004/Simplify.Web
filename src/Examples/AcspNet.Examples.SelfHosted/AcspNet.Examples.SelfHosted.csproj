@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Controllers\DefaultPageController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Views\DefaultPageView.cs" />
     <Compile Include="Foo.cs" />
     <Compile Include="Program.cs" />
@@ -48,6 +49,7 @@
     <None Include="Templates\Index.tpl" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin">
       <HintPath>..\..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
       <Private>True</Private>
