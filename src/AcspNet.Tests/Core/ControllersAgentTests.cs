@@ -13,16 +13,14 @@ namespace AcspNet.Tests.Core
 	{
 		private ControllersAgent _agent;
 		private Mock<IControllersMetaStore> _metaStore;
-		private IRouteMatcher _routeMatcher;
-		private Mock<IControllerPathParser> _controllerPathParser;
+		private Mock<IRouteMatcher> _routeMatcher;
 
 		[SetUp]
 		public void Initialize()
 		{
 			_metaStore = new Mock<IControllersMetaStore>();
-			_controllerPathParser = new Mock<IControllerPathParser>();
-			_routeMatcher = new RouteMatcher(_controllerPathParser.Object);
-			_agent = new ControllersAgent(_metaStore.Object, _routeMatcher);
+			_routeMatcher = new Mock<IRouteMatcher>();//_controllerPathParser.Object);
+			_agent = new ControllersAgent(_metaStore.Object, _routeMatcher.Object);
 		}
 
 		[Test]
@@ -39,7 +37,7 @@ namespace AcspNet.Tests.Core
 					new ControllerMetaData(null, null, new ControllerRole(false, false, true))
 				});
 
-			_agent = new ControllersAgent(_metaStore.Object, _routeMatcher);
+			_agent = new ControllersAgent(_metaStore.Object, _routeMatcher.Object);
 
 			// Act
 			var items = _agent.GetStandardControllersMetaData().ToList();
@@ -50,93 +48,85 @@ namespace AcspNet.Tests.Core
 		}
 
 		[Test]
-		public void MatchControllerRoute_NoControllerRouteData_Success()
+		public void MatchControllerRoute_NoControllerRouteData_MatchCalled()
 		{
 			// Act
-			var result = _agent.MatchControllerRoute(
-				new ControllerMetaData(null), "/test", "GET");
+			_agent.MatchControllerRoute(new ControllerMetaData(null), "/foo", "GET");
 
 			// Assert
-			Assert.IsTrue(result.Success);
+			_routeMatcher.Verify(x => x.Match(It.Is<string>(s => s == "/foo"), It.Is<string>(s => s == null)));
 		}
 
 		[Test]
-		public void MatchControllerRoute_GetControllerRouteGetMethodMatched_Success()
+		public void MatchControllerRoute_GetControllerRouteGetMethod_MatchCalled()
 		{
 			// Act
-			var result = _agent.MatchControllerRoute(
-				new ControllerMetaData(null, new ControllerExecParameters(new ControllerRouteInfo("/test"))), "/test", "GET");
+			_agent.MatchControllerRoute(
+				new ControllerMetaData(null, new ControllerExecParameters(new ControllerRouteInfo("/foo"))), "/bar", "GET");
 
 			// Assert
-			Assert.IsTrue(result.Success);
+			_routeMatcher.Verify(x => x.Match(It.Is<string>(s => s == "/bar"), It.Is<string>(s => s == "/foo")));
 		}
 
 		[Test]
-		public void MatchControllerRoute_PostControllerRoutePostMethodMatched_Success()
+		public void MatchControllerRoute_PostControllerRoutePostMethod_MatchCalled()
 		{
 			// Act
-			var result = _agent.MatchControllerRoute(
-				new ControllerMetaData(null, new ControllerExecParameters(new ControllerRouteInfo(null, "/test"))), "/test", "POST");
+			_agent.MatchControllerRoute(
+				new ControllerMetaData(null, new ControllerExecParameters(new ControllerRouteInfo(null, "/foo"))), "/bar", "POST");
 
 			// Assert
-			Assert.IsTrue(result.Success);
+			_routeMatcher.Verify(x => x.Match(It.Is<string>(s => s == "/bar"), It.Is<string>(s => s == "/foo")));
 		}
 
 		[Test]
-		public void MatchControllerRoute_PutControllerRoutePutMethodMatched_Success()
+		public void MatchControllerRoute_PutControllerRoutePutMethod_MatchCalled()
 		{
 			// Act
-			var result = _agent.MatchControllerRoute(
-				new ControllerMetaData(null, new ControllerExecParameters(new ControllerRouteInfo(null, null, "/test"))), "/test",
+			_agent.MatchControllerRoute(
+				new ControllerMetaData(null, new ControllerExecParameters(new ControllerRouteInfo(null, null, "/foo"))), "/bar",
 				"PUT");
 
 			// Assert
-			Assert.IsTrue(result.Success);
+			_routeMatcher.Verify(x => x.Match(It.Is<string>(s => s == "/bar"), It.Is<string>(s => s == "/foo")));
 		}
 
 		[Test]
-		public void MatchControllerRoute_DeleteControllerRouteDeleteMethodMatched_Success()
+		public void MatchControllerRoute_DeleteControllerRouteDeleteMethod_MatchCalled()
 		{
 			// Act
-			var result = _agent.MatchControllerRoute(
-				new ControllerMetaData(null, new ControllerExecParameters(new ControllerRouteInfo(null, null, null, "/test"))),
-				"/test", "DELETE");
+			_agent.MatchControllerRoute(
+				new ControllerMetaData(null, new ControllerExecParameters(new ControllerRouteInfo(null, null, null, "/foo"))),
+				"/bar", "DELETE");
 
 			// Assert
-			Assert.IsTrue(result.Success);
+			_routeMatcher.Verify(x => x.Match(It.Is<string>(s => s == "/bar"), It.Is<string>(s => s == "/foo")));
 		}
 
 		[Test]
-		public void MatchControllerRoute_PostControllerRouteGetMethodMatched_Null()
+		public void MatchControllerRoute_PostControllerRouteGetMethod_MatchNotCalled()
 		{
 			// Act
 			var result = _agent.MatchControllerRoute(
-				new ControllerMetaData(null, new ControllerExecParameters(new ControllerRouteInfo(null, "/test"))), "/test", "GET");
+				new ControllerMetaData(null, new ControllerExecParameters(new ControllerRouteInfo(null, "/foo"))), "/bar", "GET");
 
 			// Assert
+
 			Assert.IsNull(result);
+			_routeMatcher.Verify(x => x.Match(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
 		}
 
 		[Test]
-		public void MatchControllerRoute_GetControllerRouteGetMethodNotMatched_NoSuccess()
+		public void MatchControllerRoute_UndefinedMethod_MatchNotCalled()
 		{
 			// Act
 			var result = _agent.MatchControllerRoute(
-				new ControllerMetaData(null, new ControllerExecParameters(new ControllerRouteInfo("/test"))), "/foo", "GET");
+				new ControllerMetaData(null, new ControllerExecParameters(new ControllerRouteInfo("/foo"))), "/bar", "FOO");
 
 			// Assert
-			Assert.IsFalse(result.Success);
-		}
 
-		[Test]
-		public void MatchControllerRoute_UndefinedMethod_Null()
-		{
-			// Act
-			var result = _agent.MatchControllerRoute(
-				new ControllerMetaData(null, new ControllerExecParameters(new ControllerRouteInfo("/test"))), "/foo", "FOO");
-
-			// Assert
 			Assert.IsNull(result);
+			_routeMatcher.Verify(x => x.Match(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
 		}
 
 		[Test]
@@ -145,7 +135,7 @@ namespace AcspNet.Tests.Core
 			// Assign
 
 			_metaStore.SetupGet(x => x.ControllersMetaData).Returns(new List<IControllerMetaData>());
-			_agent = new ControllersAgent(_metaStore.Object, _routeMatcher);
+			_agent = new ControllersAgent(_metaStore.Object, _routeMatcher.Object);
 
 			// Act & Assert
 			Assert.IsNull(_agent.GetHandlerController(HandlerControllerType.Http404Handler));
@@ -161,7 +151,7 @@ namespace AcspNet.Tests.Core
 				new ControllerMetaData(null, null, new ControllerRole(false, false, true))
 			});
 
-			_agent = new ControllersAgent(_metaStore.Object, _routeMatcher);
+			_agent = new ControllersAgent(_metaStore.Object, _routeMatcher.Object);
 
 			// Act
 
