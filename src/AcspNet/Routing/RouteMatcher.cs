@@ -39,7 +39,7 @@ namespace AcspNet.Routing
 			var controllerPathParsed = _controllerPathParser.Parse(controllerPath);
 			var currentPathItems = currentPath.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
 
-			if(currentPathItems.Length < controllerPathParsed.Items.Count)
+			if(currentPathItems.Length != controllerPathParsed.Items.Count)
 				return new RouteMatchResult();
 
 			IDictionary<string, Object> routeParameters = new ExpandoObject();
