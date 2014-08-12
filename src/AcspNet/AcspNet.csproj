@@ -170,6 +170,9 @@
     <Compile Include="Modules\ITemplateFactory.cs" />
     <Compile Include="Modules\TemplateFactory.cs" />
     <Compile Include="Responses\InlineTpl.cs" />
+    <Compile Include="Responses\MessageBoxInline.cs" />
+    <Compile Include="Responses\MessageBox.cs" />
+    <Compile Include="Responses\MessageBoxStatus.cs" />
     <Compile Include="Responses\Tpl.cs" />
     <Compile Include="Attributes\PutAttribute.cs" />
     <Compile Include="Attributes\PostAttribute.cs" />
@@ -272,7 +275,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
