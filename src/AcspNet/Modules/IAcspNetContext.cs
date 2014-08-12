@@ -8,6 +8,11 @@ namespace AcspNet.Modules
 	public interface IAcspNetContext
 	{
 		/// <summary>
+		/// Site root url, for example: http://mysite.com or http://localhost/mysite/
+		/// </summary>
+		string SiteUrl { get; }
+
+		/// <summary>
 		/// Gets the context for the current HTTP request.
 		/// </summary>
 		IOwinContext Context { get; }

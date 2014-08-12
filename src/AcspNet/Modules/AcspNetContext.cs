@@ -27,7 +27,20 @@ namespace AcspNet.Modules
 				task.Wait();
 				return task.Result;
 			});
+
+			if (string.IsNullOrEmpty(Request.PathBase.Value))
+				SiteUrl = Request.Uri.AbsoluteUri.Substring(0,
+					Request.Uri.AbsoluteUri.IndexOf(Request.Uri.Host, StringComparison.Ordinal) + Request.Uri.Host.Length);
+			else
+				SiteUrl =
+					Request.Uri.AbsoluteUri.Substring(0, Request.Uri.AbsoluteUri.IndexOf(Request.PathBase.Value,
+						StringComparison.Ordinal)) + Request.PathBase.Value + "/";
 		}
+		
+		/// <summary>
+		/// Site root url, for example: http://mysite.com or http://localhost/mysite/
+		/// </summary>
+		public string SiteUrl { get; private set; }
 
 		/// <summary>
 		/// Gets the context for the current HTTP request.

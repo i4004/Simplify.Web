@@ -15,7 +15,7 @@ namespace AcspNet.Tests.Modules
 		}
 
 		[Test]
-		public void Constructor_DefaultParamenters_PropertiesSetCorrecly()
+		public void Constructor_DefaultParameters_PropertiesSetCorrectly()
 		{
 			// Act
 			var env = new Environment("C:/Test", _settings);
