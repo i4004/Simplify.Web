@@ -36,8 +36,8 @@ namespace AcspNet.Owin
 			{
 				try
 				{
-					var request = scope.Container.Resolve<IRequestHandler>();
-					return request.ProcessRequest(scope.Container, context);
+					var requestHandler = scope.Container.Resolve<IRequestHandler>();
+					return requestHandler.ProcessRequest(scope.Container, context);
 				}
 				catch (Exception e)
 				{
