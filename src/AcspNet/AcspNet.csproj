@@ -135,9 +135,9 @@
     <Compile Include="Modules\AcspNetContext.cs" />
     <Compile Include="Modules\ILanguageManagerProvider.cs" />
     <Compile Include="Modules\LanguageManagerProvider.cs" />
-    <Compile Include="Modules\AcspNetContextFactory.cs" />
+    <Compile Include="Modules\AcspNetContextProvider.cs" />
     <Compile Include="Modules\IAcspNetContext.cs" />
-    <Compile Include="Modules\IAcspNetContextFactory.cs" />
+    <Compile Include="Modules\IAcspNetContextProvider.cs" />
     <Compile Include="Modules\IFileReader.cs" />
     <Compile Include="Modules\ILanguageManager.cs" />
     <Compile Include="Modules\LanguageManager.cs" />

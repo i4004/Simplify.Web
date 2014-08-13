@@ -11,17 +11,17 @@ namespace AcspNet.Core
 	public class ControllerFactory : ModulesAccessorFactory, IControllerFactory
 	{
 		private readonly IViewFactory _viewFactory;
-		private readonly IAcspNetContextFactory _contextFactory;
+		private readonly IAcspNetContextProvider _contextProvider;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ControllerFactory" /> class.
 		/// </summary>
 		/// <param name="viewFactory">The view factory.</param>
-		/// <param name="contextFactory">The context factory.</param>
-		public ControllerFactory(IViewFactory viewFactory, IAcspNetContextFactory contextFactory)
+		/// <param name="contextProvider">The context factory.</param>
+		public ControllerFactory(IViewFactory viewFactory, IAcspNetContextProvider contextProvider)
 		{
 			_viewFactory = viewFactory;
-			_contextFactory = contextFactory;
+			_contextProvider = contextProvider;
 		}
 
 		/// <summary>
@@ -40,7 +40,7 @@ namespace AcspNet.Core
 			ConstructModulesAccessor(containerProvider, controller);
 
 			controller.RouteParameters = routeParameters;
-			controller.Context = _contextFactory.Create(context);
+			controller.Context = _contextProvider.Get();
 
 			return controller;
 		}

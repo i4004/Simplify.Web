@@ -3,15 +3,21 @@
 namespace AcspNet.Modules
 {
 	/// <summary>
-	/// Represent AcspNet context factory
+	/// Represent AcspNet context provider
 	/// </summary> 
-	public interface IAcspNetContextFactory
+	public interface IAcspNetContextProvider
 	{
 		/// <summary>
 		/// Creates the AcspNet context.
 		/// </summary>
 		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		IAcspNetContext Create(IOwinContext context);
+		void Setup(IOwinContext context);
+
+		/// <summary>
+		/// Gets the AcspNet context.
+		/// </summary>
+		/// <returns></returns>
+		IAcspNetContext Get();
 	}
 }

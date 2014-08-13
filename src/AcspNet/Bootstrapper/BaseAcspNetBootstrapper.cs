@@ -22,7 +22,7 @@ namespace AcspNet.Bootstrapper
 		private Type _controllersHanderType;
 		private Type _requestHandlerType;
 
-		private Type _acspNetContextFactoryType;
+		private Type _acspNetContextProviderType;
 
 		/// <summary>
 		/// Registers the types in container.
@@ -45,7 +45,7 @@ namespace AcspNet.Bootstrapper
 
 			// Registering user modules
 
-			RegisterAcspNetContextFactory();
+			RegisterAcspNetContextProvider();
 			RegisterLanguageManagerProvider();
 			RegisterEnvironment();
 
@@ -149,14 +149,14 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
-		/// Gets the type of the AcspNet context factory.
+		/// Gets the type of the AcspNet context provider.
 		/// </summary>
 		/// <value>
-		/// The type of the AcspNet context factory.
+		/// The type of the AcspNet context provider.
 		/// </value>
-		public Type AcspNetContextFactoryType
+		public Type AcspNetContextProviderType
 		{
-			get { return _acspNetContextFactoryType ?? typeof(AcspNetContextFactory); }
+			get { return _acspNetContextProviderType ?? typeof(AcspNetContextProvider); }
 		}
 
 		#endregion
@@ -244,13 +244,13 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
-		/// Sets the AcspNet context factory.
+		/// Sets the AcspNet context provider.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
-		public void SetAcspNetContextFactory<T>()
-			where T : IAcspNetContextFactory
+		public void SetAcspNetContextProvider<T>()
+			where T : IAcspNetContextProvider
 		{
-			_acspNetContextFactoryType = typeof(T);
+			_acspNetContextProviderType = typeof(T);
 		}
 
 		#endregion
@@ -348,11 +348,11 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
-		/// Registers the AcspNet context factory.
+		/// Registers the AcspNet context provider.
 		/// </summary>
-		public virtual void RegisterAcspNetContextFactory()
+		public virtual void RegisterAcspNetContextProvider()
 		{
-			DIContainer.Current.Register<IAcspNetContextFactory>(AcspNetContextFactoryType, LifetimeType.Singleton);
+			DIContainer.Current.Register<IAcspNetContextProvider>(AcspNetContextProviderType, LifetimeType.PerLifetimeScope);
 		}
 
 		/// <summary>

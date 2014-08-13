@@ -4,6 +4,7 @@ using AcspNet.Bootstrapper;
 using AcspNet.Core;
 using AcspNet.DI;
 using AcspNet.Diagnostics;
+using AcspNet.Modules;
 using Microsoft.Owin;
 
 namespace AcspNet.Owin
@@ -36,6 +37,16 @@ namespace AcspNet.Owin
 			{
 				try
 				{
+					// Setup providers
+
+					var acspNetContextProvider = scope.Container.Resolve<IAcspNetContextProvider>();
+					var languageManagerProvider = scope.Container.Resolve<ILanguageManagerProvider>();
+
+					acspNetContextProvider.Setup(context);
+					languageManagerProvider.Setup(context);
+
+					// Run request process pipeline
+
 					var requestHandler = scope.Container.Resolve<IRequestHandler>();
 					return requestHandler.ProcessRequest(scope.Container, context);
 				}
