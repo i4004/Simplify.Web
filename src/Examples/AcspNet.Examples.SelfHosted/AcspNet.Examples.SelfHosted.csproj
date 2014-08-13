@@ -83,7 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Styles\Main.css" />
-    <Content Include="test.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AcspNet\AcspNet.csproj">

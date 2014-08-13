@@ -14,7 +14,6 @@ namespace AcspNet.Examples.Nowin
 			AcspTypesFinder.ExcludedAssembliesPrefixes.Remove("AcspNet");
 			
 			DIContainer.Current = new SimpleInjectorDIProvider();
-			DIContainer.Current.Register<Foo>();
 
 			app.UseAcspNet();
 		}
