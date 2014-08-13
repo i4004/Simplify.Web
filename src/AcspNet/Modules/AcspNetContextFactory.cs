@@ -12,7 +12,6 @@ namespace AcspNet.Modules
 		/// </summary>
 		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		/// <exception cref="System.NotImplementedException"></exception>
 		public IAcspNetContext Create(IOwinContext context)
 		{
 			var ascpNetContext = new AcspNetContext(context);

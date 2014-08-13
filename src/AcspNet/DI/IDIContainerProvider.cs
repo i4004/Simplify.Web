@@ -5,7 +5,7 @@ namespace AcspNet.DI
 	/// <summary>
 	/// Represents DI container provider
 	/// </summary>
-	public interface IDIContainerProvider
+	public interface IDIContainerProvider : IHideObjectMembers
 	{
 		/// <summary>
 		/// Resolves the specified type.
