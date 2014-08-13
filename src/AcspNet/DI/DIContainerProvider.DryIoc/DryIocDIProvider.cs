@@ -39,12 +39,12 @@ namespace AcspNet.DI.DIContainerProvider.DryIoc
 		}
 
 		/// <summary>
-		/// Registers the specified service type with corresponding implemetation type.
+		/// Registers the specified service type with corresponding implementation type.
 		/// </summary>
 		/// <param name="serviceType">Service type.</param>
 		/// <param name="implementationType">Implementation type.</param>
 		/// <param name="lifetimeType">Lifetime type of the registering services type.</param>
-		public void Register(Type serviceType, Type implementationType, LifetimeType lifetimeType = LifetimeType.Transient)
+		public void Register(Type serviceType, Type implementationType, LifetimeType lifetimeType = LifetimeType.Singleton)
 		{
 			switch (lifetimeType)
 			{
@@ -63,13 +63,13 @@ namespace AcspNet.DI.DIContainerProvider.DryIoc
 		}
 
 		/// <summary>
-		/// Registers the specified concrete type for resolve with delegate for concrete implementaion instance creation.
+		/// Registers the specified concrete type for resolve with delegate for concrete implementation instance creation.
 		/// </summary>
 		/// <typeparam name="TService">Service type.</typeparam>
 		/// <param name="instanceCreator">The instance creator.</param>
 		/// <param name="lifetimeType">Lifetime type of the registering concrete type.</param>
 		public void Register<TService>(Func<IDIContainerProvider, TService> instanceCreator,
-			LifetimeType lifetimeType = LifetimeType.Transient)
+			LifetimeType lifetimeType = LifetimeType.Singleton)
 			where TService : class 
 		{
 			switch (lifetimeType)

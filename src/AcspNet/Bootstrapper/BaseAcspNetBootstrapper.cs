@@ -51,11 +51,11 @@ namespace AcspNet.Bootstrapper
 
 			// Registering controllers types
 			foreach (var controllerMetaData in ControllersMetaStore.Current.ControllersMetaData)
-				DIContainer.Current.Register(controllerMetaData.ControllerType);
+				DIContainer.Current.Register(controllerMetaData.ControllerType, LifetimeType.Transient);
 
 			// Registering views types
 			foreach (var viewType in ViewsMetaStore.Current.ViewsTypes)
-				DIContainer.Current.Register(viewType);
+				DIContainer.Current.Register(viewType, LifetimeType.Transient);
 		}
 
 		#region Bootstrapper types
@@ -262,7 +262,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterControllersMetaStore()
 		{
-			DIContainer.Current.Register(p => ControllersMetaStore.Current, LifetimeType.Singleton);
+			DIContainer.Current.Register(p => ControllersMetaStore.Current);
 		}
 
 		/// <summary>
@@ -270,7 +270,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterViewsMetaStore()
 		{
-			DIContainer.Current.Register(p => ViewsMetaStore.Current, LifetimeType.Singleton);
+			DIContainer.Current.Register(p => ViewsMetaStore.Current);
 		}
 
 		/// <summary>
@@ -278,7 +278,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterAcspNetSettings()
 		{
-			DIContainer.Current.Register<IAcspNetSettings>(AcspNetSettingsType, LifetimeType.Singleton);
+			DIContainer.Current.Register<IAcspNetSettings>(AcspNetSettingsType);
 		}
 
 		/// <summary>
@@ -286,7 +286,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterViewFactory()
 		{
-			DIContainer.Current.Register<IViewFactory>(ViewFactoryType, LifetimeType.Singleton);
+			DIContainer.Current.Register<IViewFactory>(ViewFactoryType);
 		}
 
 		/// <summary>
@@ -294,7 +294,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterControllerFactory()
 		{
-			DIContainer.Current.Register<IControllerFactory>(ControllerFactoryType, LifetimeType.Singleton);
+			DIContainer.Current.Register<IControllerFactory>(ControllerFactoryType);
 		}
 
 		/// <summary>
@@ -302,7 +302,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterControllerPathParser()
 		{
-			DIContainer.Current.Register<IControllerPathParser>(ControllerPathParser, LifetimeType.Singleton);
+			DIContainer.Current.Register<IControllerPathParser>(ControllerPathParser);
 		}
 		
 		/// <summary>
@@ -310,7 +310,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterRouteMatcher()
 		{
-			DIContainer.Current.Register<IRouteMatcher>(RouteMatcherType, LifetimeType.Singleton);
+			DIContainer.Current.Register<IRouteMatcher>(RouteMatcherType);
 		}
 
 		/// <summary>
@@ -318,7 +318,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterControllersAgent()
 		{
-			DIContainer.Current.Register<IControllersAgent>(ControllersAgentType, LifetimeType.Singleton);
+			DIContainer.Current.Register<IControllersAgent>(ControllersAgentType);
 		}
 
 		/// <summary>
@@ -326,7 +326,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterControllersHandler()
 		{
-			DIContainer.Current.Register<IControllersHandler>(ControllersHandlerType, LifetimeType.Singleton);
+			DIContainer.Current.Register<IControllersHandler>(ControllersHandlerType);
 		}
 
 		/// <summary>
@@ -334,7 +334,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterRequestHandler()
 		{
-			DIContainer.Current.Register<IRequestHandler>(RequestHandlerType, LifetimeType.Singleton);
+			DIContainer.Current.Register<IRequestHandler>(RequestHandlerType);
 		}
 
 		/// <summary>

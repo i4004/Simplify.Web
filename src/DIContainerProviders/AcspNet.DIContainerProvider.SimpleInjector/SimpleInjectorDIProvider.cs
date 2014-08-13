@@ -41,12 +41,12 @@ namespace AcspNet.DIContainerProvider.SimpleInjector
 		}
 
 		/// <summary>
-		/// Registers the specified service type with corresponding implemetation type.
+		/// Registers the specified service type with corresponding implementation type.
 		/// </summary>
 		/// <param name="serviceType">Service type.</param>
 		/// <param name="implementationType">Implementation type.</param>
 		/// <param name="lifetimeType">Lifetime type of the registering services type.</param>
-		public void Register(Type serviceType, Type implementationType, LifetimeType lifetimeType = LifetimeType.Transient)
+		public void Register(Type serviceType, Type implementationType, LifetimeType lifetimeType = LifetimeType.Singleton)
 		{
 			switch (lifetimeType)
 			{
@@ -70,7 +70,7 @@ namespace AcspNet.DIContainerProvider.SimpleInjector
 		/// <typeparam name="TService">Concrete type.</typeparam>
 		/// <param name="instanceCreator">The instance creator.</param>
 		/// <param name="lifetimeType">Lifetime type of the registering concrete type.</param>
-		public void Register<TService>(Func<IDIContainerProvider, TService> instanceCreator, LifetimeType lifetimeType = LifetimeType.Transient)
+		public void Register<TService>(Func<IDIContainerProvider, TService> instanceCreator, LifetimeType lifetimeType = LifetimeType.Singleton)
 			where TService : class
 		{
 			switch (lifetimeType)
