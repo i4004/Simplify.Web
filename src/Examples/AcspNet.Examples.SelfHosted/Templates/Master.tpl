@@ -6,6 +6,8 @@
 	<link rel="stylesheet" type="text/css" href="{~}/Styles/Main.css" />
 </head>
 <body>
+	<script type="text/javascript" src="Scripts/jquery-2.1.1.min.js"></script>
+
 	<div id="header">
 		<h1>Your ACSP.NET application</h1>
 		<div class="menu">
