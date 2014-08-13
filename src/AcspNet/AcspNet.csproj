@@ -133,6 +133,8 @@
     <Compile Include="Meta\ViewsMetaStore.cs" />
     <Compile Include="ModulesAccessor.cs" />
     <Compile Include="Modules\AcspNetContext.cs" />
+    <Compile Include="Modules\ILanguageManagerProvider.cs" />
+    <Compile Include="Modules\LanguageManagerProvider.cs" />
     <Compile Include="Modules\AcspNetContextFactory.cs" />
     <Compile Include="Modules\IAcspNetContext.cs" />
     <Compile Include="Modules\IAcspNetContextFactory.cs" />

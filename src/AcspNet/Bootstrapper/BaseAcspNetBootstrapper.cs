@@ -43,9 +43,10 @@ namespace AcspNet.Bootstrapper
 			RegisterControllersHandler();
 			RegisterRequestHandler();
 
-			// Registeting user modules
+			// Registering user modules
 
 			RegisterAcspNetContextFactory();
+			RegisterLanguageManagerProvider();
 			RegisterEnvironment();
 
 			// Registering controllers types
@@ -352,6 +353,14 @@ namespace AcspNet.Bootstrapper
 		public virtual void RegisterAcspNetContextFactory()
 		{
 			DIContainer.Current.Register<IAcspNetContextFactory>(AcspNetContextFactoryType, LifetimeType.Singleton);
+		}
+
+		/// <summary>
+		/// Registers the language manager provider.
+		/// </summary>
+		public virtual void RegisterLanguageManagerProvider()
+		{
+			DIContainer.Current.Register<ILanguageManagerProvider>(p => new LanguageManagerProvider(p.Resolve<IAcspNetSettings>().DefaultLanguage), LifetimeType.PerLifetimeScope);
 		}
 
 		#endregion
