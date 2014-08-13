@@ -1,5 +1,4 @@
 ﻿using AcspNet.Examples.SelfHosted.Controllers;
-using AcspNet.Examples.SelfHosted.Views;
 using AcspNet.Responses;
 using Moq;
 using NUnit.Framework;
@@ -15,9 +14,8 @@ namespace AcspNet.Examples.SelfHosted.Tests.Controllers
 		{
 			// Assign
 
-			var c = new Mock<DefaultPageController> {CallBase = true};
-			c.Setup(x => x.TemplateFactory.Load(It.IsAny<string>())).Returns(Template.FromString("{MainContent}"));
-			c.Setup(x => x.GetView<DefaultPageView>()).Returns(new DefaultPageView(new Foo()));
+			var c = new Mock<DefaultController> {CallBase = true};
+			c.Setup(x => x.TemplateFactory.Load(It.IsAny<string>())).Returns(Template.FromString("Hello World!!!"));
 
 			// Act
 			var result = c.Object.Invoke();

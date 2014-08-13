@@ -35,9 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Controllers\DefaultPageController.cs" />
-    <Compile Include="Views\DefaultPageView.cs" />
-    <Compile Include="Foo.cs" />
+    <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\HttpErrors\Http404Controller.cs" />
+    <Compile Include="Controllers\Accounts\LoginController.cs" />
+    <Compile Include="Controllers\Static\AboutController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -45,7 +46,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="Templates\Index.tpl" />
+    <None Include="Templates\Default.tpl" />
+    <None Include="Templates\HttpErrors\Http404.tpl" />
+    <None Include="Templates\Master.tpl" />
+    <None Include="Templates\Accounts\LoginPage.tpl" />
+    <None Include="Templates\Static\About.tpl" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -77,6 +82,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Styles\Main.css" />
     <Content Include="test.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +90,9 @@
       <Project>{03b0ae6c-88d0-4d7a-8657-57fc4fd2682a}</Project>
       <Name>AcspNet</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
