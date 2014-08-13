@@ -18,7 +18,7 @@ namespace AcspNet
 		/// <summary>
 		/// Current AcspNet context
 		/// </summary>
-		public IAcspNetContext Context { get; internal set; }
+		public virtual IAcspNetContext Context { get; internal set; }
 
 		/// <summary>
 		/// Web-site master page data collector.
@@ -29,6 +29,16 @@ namespace AcspNet
 		/// Text files reader.
 		/// </summary>
 		public virtual IFileReader FileReader { get; internal set; }
+
+		/// <summary>
+		/// Gets the language manager.
+		/// </summary>
+		/// <value>
+		/// The language manager.
+		/// </value>
+		public virtual ILanguageManager LanguageManager { get; internal set; }
+
+		//public virtual 
 		
 		/// <summary>
 		/// Invokes the controller.

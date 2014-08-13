@@ -1,5 +1,6 @@
 ﻿using System;
 using AcspNet.DI;
+using AcspNet.Modules;
 
 namespace AcspNet.Core
 {
@@ -20,6 +21,8 @@ namespace AcspNet.Core
 
 			ConstructViewAccessor(containerProvider, this, view);
 			ConstructModulesAccessor(containerProvider, view);
+
+			view.Language = containerProvider.Resolve<LanguageManagerProvider>().Get().Language;
 
 			return view;
 		}

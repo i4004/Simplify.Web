@@ -5,5 +5,12 @@
 	/// </summary>
 	public abstract class View : ModulesAccessor, IView
 	{
+		/// <summary>
+		/// Gets the current language.
+		/// </summary>
+		/// <value>
+		/// The current language.
+		/// </value>
+		public virtual string Language { get; internal set; }
 	}
 }

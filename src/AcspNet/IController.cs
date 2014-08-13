@@ -31,6 +31,14 @@ namespace AcspNet
 		IFileReader FileReader { get; }
 
 		/// <summary>
+		/// Gets the language manager.
+		/// </summary>
+		/// <value>
+		/// The language manager.
+		/// </value>
+		ILanguageManager LanguageManager { get; }
+
+		/// <summary>
 		/// Invokes the controller.
 		/// </summary>
 		IControllerResponse Invoke();

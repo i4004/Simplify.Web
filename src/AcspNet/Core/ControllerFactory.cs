@@ -41,6 +41,7 @@ namespace AcspNet.Core
 
 			controller.RouteParameters = routeParameters;
 			controller.Context = _contextProvider.Get();
+			controller.LanguageManager = containerProvider.Resolve<ILanguageManagerProvider>().Get();
 
 			return controller;
 		}
