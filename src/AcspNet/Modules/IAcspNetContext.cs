@@ -5,7 +5,7 @@ namespace AcspNet.Modules
 	/// <summary>
 	/// Represent AcspNet context
 	/// </summary>
-	public interface IAcspNetContext
+	public interface IAcspNetContext : IHideObjectMembers
 	{
 		/// <summary>
 		/// Site root url, for example: http://mysite.com or http://localhost/mysite/
