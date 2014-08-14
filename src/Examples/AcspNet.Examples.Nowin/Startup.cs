@@ -1,6 +1,4 @@
-﻿using AcspNet.DI;
-using AcspNet.DIContainerProvider.SimpleInjector;
-using AcspNet.Meta;
+﻿using AcspNet.Meta;
 using AcspNet.Owin;
 using Owin;
 
@@ -12,8 +10,6 @@ namespace AcspNet.Examples.Nowin
 		{
 			// Exclude AcspNet from exclude assemblies to be able to load example controllers
 			AcspTypesFinder.ExcludedAssembliesPrefixes.Remove("AcspNet");
-			
-			DIContainer.Current = new SimpleInjectorDIProvider();
 
 			app.UseAcspNet();
 		}

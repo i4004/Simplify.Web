@@ -98,6 +98,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Simplify.DI">
+      <HintPath>..\packages\Simplify.DI.1.0.0.0\lib\net45\Simplify.DI.dll</HintPath>
+    </Reference>
     <Reference Include="Simplify.Templates, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Simplify.Templates.1.0.5.0\lib\net45\Simplify.Templates.dll</HintPath>

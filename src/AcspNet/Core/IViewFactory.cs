@@ -1,5 +1,5 @@
 ﻿using System;
-using AcspNet.DI;
+using Simplify.DI;
 
 namespace AcspNet.Core
 {

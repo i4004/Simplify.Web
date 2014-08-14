@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using AcspNet.Core;
-using AcspNet.DI;
 using AcspNet.Meta;
 using AcspNet.Routing;
 using AcspNet.Tests.TestEntities;
 using Microsoft.Owin;
 using Moq;
 using NUnit.Framework;
+using Simplify.DI;
 
 namespace AcspNet.Tests.Core
 {

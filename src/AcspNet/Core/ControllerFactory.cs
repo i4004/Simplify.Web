@@ -1,7 +1,7 @@
 ﻿using System;
-using AcspNet.DI;
 using AcspNet.Modules;
 using Microsoft.Owin;
+using Simplify.DI;
 
 namespace AcspNet.Core
 {

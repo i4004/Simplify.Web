@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using AcspNet.DI;
 using Microsoft.Owin;
+using Simplify.DI;
 
 namespace AcspNet.Core
 {

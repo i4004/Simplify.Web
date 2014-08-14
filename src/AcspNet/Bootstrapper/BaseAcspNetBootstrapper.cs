@@ -1,9 +1,9 @@
 ﻿using System;
 using AcspNet.Core;
-using AcspNet.DI;
 using AcspNet.Meta;
 using AcspNet.Modules;
 using AcspNet.Routing;
+using Simplify.DI;
 using Environment = AcspNet.Modules.Environment;
 
 namespace AcspNet.Bootstrapper

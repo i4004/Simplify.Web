@@ -1,6 +1,6 @@
 ﻿using System;
-using AcspNet.DI;
 using AcspNet.Modules;
+using Simplify.DI;
 
 namespace AcspNet.Core
 {

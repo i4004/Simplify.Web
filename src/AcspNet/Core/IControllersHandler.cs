@@ -1,5 +1,5 @@
-﻿using AcspNet.DI;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
+using Simplify.DI;
 
 namespace AcspNet.Core
 {

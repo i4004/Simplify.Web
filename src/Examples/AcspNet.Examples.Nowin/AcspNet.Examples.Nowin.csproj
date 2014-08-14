@@ -42,10 +42,6 @@
       <Project>{03b0ae6c-88d0-4d7a-8657-57fc4fd2682a}</Project>
       <Name>AcspNet</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DIContainerProviders\AcspNet.DIContainerProvider.SimpleInjector\AcspNet.DIContainerProvider.SimpleInjector.csproj">
-      <Project>{225ca96c-a526-47d7-ac53-470a6a602b13}</Project>
-      <Name>AcspNet.DIContainerProvider.SimpleInjector</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

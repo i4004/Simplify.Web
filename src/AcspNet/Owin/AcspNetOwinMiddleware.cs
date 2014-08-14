@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using AcspNet.Bootstrapper;
 using AcspNet.Core;
-using AcspNet.DI;
 using AcspNet.Diagnostics;
 using AcspNet.Modules;
 using Microsoft.Owin;
+using Simplify.DI;
 
 namespace AcspNet.Owin
 {

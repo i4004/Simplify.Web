@@ -119,13 +119,6 @@
     <Compile Include="Core\ModulesAccessorFactory.cs" />
     <Compile Include="Core\ViewAccessorFactory.cs" />
     <Compile Include="Core\ViewFactory.cs" />
-    <Compile Include="DI\DIContainerProvider.DryIoc\DryIocDIProvider.cs" />
-    <Compile Include="DI\DIContainerProvider.DryIoc\DryIocLifetimeScope.cs" />
-    <Compile Include="DI\DIContainerProviderRegisterExtensions.cs" />
-    <Compile Include="DI\IDIContainerProvider.cs" />
-    <Compile Include="DI\DIContainerProviderResolveExtensions.cs" />
-    <Compile Include="DI\ILifetimeScope.cs" />
-    <Compile Include="DI\LifetimeTypes.cs" />
     <Compile Include="IModulesAccessor.cs" />
     <Compile Include="IView.cs" />
     <Compile Include="IViewAccessor.cs" />
@@ -147,15 +140,11 @@
     <Compile Include="Core\ControllersAgent.cs" />
     <Compile Include="Core\ControllersHandler.cs" />
     <Compile Include="Core\ControllersHandlerResult.cs" />
-    <Compile Include="DI\DIContainer.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGenerator.cs" />
     <Compile Include="Bootstrapper\BootstrapperFactory.cs" />
     <Compile Include="Bootstrapper\BaseAcspNetBootstrapper.cs" />
     <Compile Include="Controller.cs" />
-    <Compile Include="DryIoc\Container.cs" />
-    <Compile Include="DryIoc\FactoryCompiler.cs" />
     <Compile Include="Attributes\DeleteAttribute.cs" />
-    <Compile Include="DryIoc\InternalsVisibleToDryIocFactoryCompilerDynamicAssembly.cs" />
     <Compile Include="Core\HandlerControllerType.cs" />
     <Compile Include="Attributes\Http400Attribute.cs" />
     <Compile Include="Attributes\Http403Attribute.cs" />
@@ -233,6 +222,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Simplify.DI">
+      <HintPath>..\packages\Simplify.DI.1.0.0.0\lib\net45\Simplify.DI.dll</HintPath>
+    </Reference>
     <Reference Include="Simplify.Templates, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Simplify.Templates.1.0.5.0\lib\net45\Simplify.Templates.dll</HintPath>
@@ -281,7 +273,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
