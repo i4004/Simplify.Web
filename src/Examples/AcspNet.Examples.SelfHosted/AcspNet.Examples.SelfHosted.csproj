@@ -51,6 +51,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Styles\Main.scss" />
+    <None Include="Templates\Styles\Main.scss" />
     <None Include="Templates\Default.tpl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -107,11 +108,13 @@
     <Content Include="Scripts\jquery-2.1.1.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styles\Main.css">
+    <Content Include="Styles\Main.css" />
+    <Content Include="Styles\MainOld.css" />
+    <Content Include="Templates\Styles\Main.css">
       <DependentUpon>Main.scss</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styles\MainOld.css" />
+    <Content Include="Templates\Styles\MainOld.css" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AcspNet\AcspNet.csproj">
