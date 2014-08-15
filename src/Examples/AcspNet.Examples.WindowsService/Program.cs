@@ -1,6 +1,5 @@
 ﻿using System.ServiceProcess;
 using Simplify.AutomatedWindowsServices;
-using Simplify.DI;
 
 namespace AcspNet.Examples.WindowsService
 {
@@ -11,9 +10,8 @@ namespace AcspNet.Examples.WindowsService
 #if DEBUG
 			System.Diagnostics.Debugger.Launch();
 #endif
-			DIContainer.Current.Register<WebApplicationStartup>();
 
-			ServiceBase.Run(new BasicServiceHandler<WebApplicationStartup>());
+			ServiceBase.Run(new BasicServiceHandler<WebApplicationStartup>(true));
 		}
 	}
 }
