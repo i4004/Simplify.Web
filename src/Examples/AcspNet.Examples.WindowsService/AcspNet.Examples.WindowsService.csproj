@@ -36,6 +36,16 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Simplify.AutomatedWindowsServices">
+      <HintPath>..\..\packages\Simplify.AutomatedWindowsServices.1.1.1.0\lib\net45\Simplify.AutomatedWindowsServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Simplify.DI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Simplify.DI.1.0.0.0\lib\net45\Simplify.DI.dll</HintPath>
+    </Reference>
+    <Reference Include="Simplify.System">
+      <HintPath>..\..\packages\Simplify.System.1.0.0.0\lib\net45\Simplify.System.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
@@ -45,6 +55,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Install.bat" />
+    <None Include="packages.config" />
     <None Include="Uninstall.bat" />
   </ItemGroup>
   <ItemGroup>
