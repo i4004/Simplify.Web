@@ -1,9 +1,9 @@
 ﻿namespace AcspNet.Core
 {
 	/// <summary>
-	/// Represent controller response processor
+	/// Represent controller response handler
 	/// </summary>
-	public interface IControllerResponseProcessor
+	public interface IControllerResponseHandler
 	{
 		/// <summary>
 		/// Processes the specified response.
