@@ -119,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper\BootstrapperFactoryTests.cs" />
+    <Compile Include="Core\ControllerResponseHandlerTests.cs" />
     <Compile Include="Core\ControllersAgentTests.cs" />
     <Compile Include="Core\ControllersHandlerTests.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGeneratorTests.cs" />
