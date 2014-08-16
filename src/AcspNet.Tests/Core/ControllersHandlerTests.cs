@@ -19,8 +19,11 @@ namespace AcspNet.Tests.Core
 		private ControllersHandler _handler;
 		private Mock<IOwinContext> _context;
 		private Mock<IControllerFactory> _factory;
+		private Mock<IControllerResponseHandler> _controllerResponseHandler;
+
 
 		private Mock<Controller> _controller;
+		private Mock<ControllerResponse> _controllerResponse;
 		private ControllerMetaData _metaData;
 
 		private readonly IDIContainerProvider _containerProvider = null;
@@ -31,11 +34,13 @@ namespace AcspNet.Tests.Core
 		public void Initialize()
 		{
 			_agent = new Mock<IControllersAgent>();
+			_controllerResponseHandler = new Mock<IControllerResponseHandler>();
 			_factory = new Mock<IControllerFactory>();
 			_context = new Mock<IOwinContext>();
-			_handler = new ControllersHandler(_agent.Object, _factory.Object);
+			_handler = new ControllersHandler(_agent.Object, _factory.Object, _controllerResponseHandler.Object);
 
 			_controller = new Mock<Controller>();
+			_controllerResponse = new Mock<ControllerResponse>();
 			_metaData = new ControllerMetaData(typeof(TestController1),
 				new ControllerExecParameters(new ControllerRouteInfo("/foo/bar")));
 
@@ -45,8 +50,9 @@ namespace AcspNet.Tests.Core
 			});
 
 			_agent.Setup(x => x.MatchControllerRoute(It.IsAny<IControllerMetaData>(), It.IsAny<string>(), It.IsAny<string>())).Returns(new RouteMatchResult(true, _routeParameters));
-
 			_factory.Setup(x => x.CreateController(It.IsAny<Type>(), It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>())).Returns(_controller.Object);
+
+			_controller.Setup(x => x.Invoke()).Returns(_controllerResponse.Object);
 		}
 
 		[Test]
@@ -68,6 +74,7 @@ namespace AcspNet.Tests.Core
 			_agent.Verify(x => x.MatchControllerRoute(It.Is<IControllerMetaData>(d => d == _metaData), It.Is<string>(d => d == "/foo/bar"), It.Is<string>(d => d == "GET")));
 			_factory.Verify(x => x.CreateController(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)), Times.Exactly(1));
 			_controller.Verify(x => x.Invoke(), Times.Exactly(1));
+			_controllerResponseHandler.Verify(x => x.Process(It.Is<ControllerResponse>(d => d == _controllerResponse.Object), It.Is<IDIContainerProvider>(d => d == _containerProvider)));
 		}
 
 		[Test]

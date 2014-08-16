@@ -25,7 +25,7 @@ namespace AcspNet.Tests.Core
 			var response = new Mock<ControllerResponse>();
 	
 			// Act
-			_controllerResponseHandler.Process(null, response.Object);
+			_controllerResponseHandler.Process(response.Object, null);
 
 			// Assert
 			response.Verify(x => x.Process());

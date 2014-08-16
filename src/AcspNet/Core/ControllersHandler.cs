@@ -11,14 +11,16 @@ namespace AcspNet.Core
 	{
 		private readonly IControllersAgent _agent;
 		private readonly IControllerFactory _factory;
+		private readonly IControllerResponseHandler _controllerResponseHandler;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ControllersHandler" /> class.
 		/// </summary>
-		public ControllersHandler(IControllersAgent controllersAgent, IControllerFactory controllerFactory)
+		public ControllersHandler(IControllersAgent controllersAgent, IControllerFactory controllerFactory, IControllerResponseHandler controllerResponseHandler)
 		{
 			_agent = controllersAgent;
 			_factory = controllerFactory;
+			_controllerResponseHandler = controllerResponseHandler;
 		}
 
 		/// <summary>
@@ -58,7 +60,7 @@ namespace AcspNet.Core
 		private void ProcessController(Type controllerType, IDIContainerProvider containerProvider, IOwinContext context, dynamic routeParameters = null)
 		{
 			var controller = _factory.CreateController(controllerType, containerProvider, context, routeParameters);
-			controller.Invoke();
+			_controllerResponseHandler.Process(controller.Invoke(), containerProvider);
 		}
 	}
 }
