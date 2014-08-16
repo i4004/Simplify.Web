@@ -21,7 +21,7 @@ namespace AcspNet
 		{
 			var type = typeof(T);
 
-			return (T)ViewFactory.CreateView(ContainerProvider, type);
+			return (T)ViewFactory.CreateView(type, ContainerProvider);
 		}
 	}
 }

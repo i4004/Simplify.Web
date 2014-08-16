@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using System;
+using Microsoft.Owin;
 using Simplify.DI;
 
 namespace AcspNet.Core
@@ -37,8 +38,7 @@ namespace AcspNet.Core
 				if (matcherResult.Success)
 				{
 					atleastOneControllerMatched = true;
-					var controller = _factory.CreateController(containerProvider, metaData.ControllerType, context, matcherResult.RouteParameters);
-					controller.Invoke();
+					ProcessController(metaData.ControllerType, containerProvider, context, matcherResult.RouteParameters);
 				}
 			}
 
@@ -49,11 +49,16 @@ namespace AcspNet.Core
 				if (http404Controller == null)
 					return ControllersHandlerResult.Http404;
 
-				var controller = _factory.CreateController(containerProvider, http404Controller.ControllerType, context);
-				controller.Invoke();
+				ProcessController(http404Controller.ControllerType, containerProvider, context);
 			}
 
 			return ControllersHandlerResult.Ok;
+		}
+
+		private void ProcessController(Type controllerType, IDIContainerProvider containerProvider, IOwinContext context, dynamic routeParameters = null)
+		{
+			var controller = _factory.CreateController(controllerType, containerProvider, context, routeParameters);
+			controller.Invoke();
 		}
 	}
 }

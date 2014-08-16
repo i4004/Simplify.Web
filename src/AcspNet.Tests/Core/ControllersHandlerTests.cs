@@ -46,7 +46,7 @@ namespace AcspNet.Tests.Core
 
 			_agent.Setup(x => x.MatchControllerRoute(It.IsAny<IControllerMetaData>(), It.IsAny<string>(), It.IsAny<string>())).Returns(new RouteMatchResult(true, _routeParameters));
 
-			_factory.Setup(x => x.CreateController(It.IsAny<IDIContainerProvider>(), It.IsAny<Type>(), It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>())).Returns(_controller.Object);
+			_factory.Setup(x => x.CreateController(It.IsAny<Type>(), It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>())).Returns(_controller.Object);
 		}
 
 		[Test]
@@ -66,7 +66,7 @@ namespace AcspNet.Tests.Core
 			Assert.AreEqual(ControllersHandlerResult.Ok, result);
 			_agent.Verify(x => x.GetStandardControllersMetaData());
 			_agent.Verify(x => x.MatchControllerRoute(It.Is<IControllerMetaData>(d => d == _metaData), It.Is<string>(d => d == "/foo/bar"), It.Is<string>(d => d == "GET")));
-			_factory.Verify(x => x.CreateController(It.IsAny<IDIContainerProvider>(), It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)), Times.Exactly(1));
+			_factory.Verify(x => x.CreateController(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)), Times.Exactly(1));
 			_controller.Verify(x => x.Invoke(), Times.Exactly(1));
 		}
 
@@ -87,7 +87,7 @@ namespace AcspNet.Tests.Core
 
 			Assert.AreEqual(ControllersHandlerResult.Http404, result);
 			_controller.Verify(x => x.Invoke(), Times.Never);
-			_factory.Verify(x => x.CreateController(It.IsAny<IDIContainerProvider>(), It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
+			_factory.Verify(x => x.CreateController(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
 		}
 
 		[Test]
@@ -110,7 +110,7 @@ namespace AcspNet.Tests.Core
 
 			Assert.AreEqual(ControllersHandlerResult.Ok, result);
 			_controller.Verify(x => x.Invoke());
-			_factory.Verify(x => x.CreateController(It.IsAny<IDIContainerProvider>(), It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == null)));
+			_factory.Verify(x => x.CreateController(It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == null)));
 		}
 	}
 }

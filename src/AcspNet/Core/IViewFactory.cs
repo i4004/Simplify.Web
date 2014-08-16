@@ -11,9 +11,9 @@ namespace AcspNet.Core
 		/// <summary>
 		/// Creates the view.
 		/// </summary>
-		/// <param name="containerProvider">The DI container provider.</param>
 		/// <param name="viewType">Type of the view.</param>
+		/// <param name="containerProvider">The DI container provider.</param>
 		/// <returns></returns>
-		View CreateView(IDIContainerProvider containerProvider, Type viewType);
+		View CreateView(Type viewType, IDIContainerProvider containerProvider);
 	}
 }
