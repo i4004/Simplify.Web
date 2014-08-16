@@ -43,7 +43,7 @@ namespace AcspNet.Tests.Routing
 		[Test]
 		public void Match_RootWithRoot_True()
 		{
-			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>())).Returns(new ControllerPath(new List<IPathItem>()));
+			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>())).Returns(new ControllerPath(new List<PathItem>()));
 
 			// Act
 			var result = _matcher.Match("/", "/");
@@ -57,7 +57,7 @@ namespace AcspNet.Tests.Routing
 		{
 			// Assign
 			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
-				.Returns(new ControllerPath(new List<IPathItem> {new PathSegment("foo")}));
+				.Returns(new ControllerPath(new List<PathItem> {new PathSegment("foo")}));
 
 			// Act
 			var result = _matcher.Match("/foo", "/foo");
@@ -71,7 +71,7 @@ namespace AcspNet.Tests.Routing
 		{
 			// Assign
 			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
-				.Returns(new ControllerPath(new List<IPathItem> { new PathSegment("bar") }));
+				.Returns(new ControllerPath(new List<PathItem> { new PathSegment("bar") }));
 
 			// Act
 			var result = _matcher.Match("/foo", "/bar");
@@ -85,7 +85,7 @@ namespace AcspNet.Tests.Routing
 		{
 			// Assign
 			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
-				.Returns(new ControllerPath(new List<IPathItem> {new PathSegment("foo")}));
+				.Returns(new ControllerPath(new List<PathItem> {new PathSegment("foo")}));
 
 			// Act
 			var result = _matcher.Match("/foo/bar/test", "/foo");
@@ -100,7 +100,7 @@ namespace AcspNet.Tests.Routing
 			// Assign
 			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
 				.Returns(
-					new ControllerPath(new List<IPathItem> {new PathSegment("foo"), new PathSegment("bar"), new PathSegment("test")}));
+					new ControllerPath(new List<PathItem> {new PathSegment("foo"), new PathSegment("bar"), new PathSegment("test")}));
 
 			// Act
 			var result = _matcher.Match("/foo", "/foo/bar/test");
@@ -114,7 +114,7 @@ namespace AcspNet.Tests.Routing
 		{
 			// Assign
 			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
-				.Returns(new ControllerPath(new List<IPathItem> { new PathSegment("user"), new PathParameter("userName", typeof(string)) }));
+				.Returns(new ControllerPath(new List<PathItem> { new PathSegment("user"), new PathParameter("userName", typeof(string)) }));
 
 			// Act
 			var result = _matcher.Match("/user/testuser", "/user/{userName}");
@@ -130,7 +130,7 @@ namespace AcspNet.Tests.Routing
 		{
 			// Assign
 			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
-				.Returns(new ControllerPath(new List<IPathItem> { new PathSegment("bar"), new PathParameter("userName", typeof(string)) }));
+				.Returns(new ControllerPath(new List<PathItem> { new PathSegment("bar"), new PathParameter("userName", typeof(string)) }));
 
 			// Act
 			var result = _matcher.Match("/user/testuser", "/bar/{userName}");
@@ -146,7 +146,7 @@ namespace AcspNet.Tests.Routing
 			// Assign
 			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
 				.Returns(
-					new ControllerPath(new List<IPathItem>
+					new ControllerPath(new List<PathItem>
 					{
 						new PathSegment("foo"),
 						new PathParameter("test", typeof (string)),
@@ -165,7 +165,7 @@ namespace AcspNet.Tests.Routing
 		{
 			// Assign
 			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
-				.Returns(new ControllerPath(new List<IPathItem> { new PathParameter("userName", typeof(string)) }));
+				.Returns(new ControllerPath(new List<PathItem> { new PathParameter("userName", typeof(string)) }));
 
 			// Act
 			var result = _matcher.Match("/user", "/{userName}");
@@ -181,7 +181,7 @@ namespace AcspNet.Tests.Routing
 		{
 			// Assign
 			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
-				.Returns(new ControllerPath(new List<IPathItem> { new PathParameter("userName", typeof(int)) }));
+				.Returns(new ControllerPath(new List<PathItem> { new PathParameter("userName", typeof(int)) }));
 
 			// Act
 			var result = _matcher.Match("/foo/bar", "/foo/{id:int}");
@@ -195,7 +195,7 @@ namespace AcspNet.Tests.Routing
 		{
 			// Assign
 			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
-				.Returns(new ControllerPath(new List<IPathItem> { new PathParameter("test", typeof(string)), new PathParameter("name", typeof(string)) }));
+				.Returns(new ControllerPath(new List<PathItem> { new PathParameter("test", typeof(string)), new PathParameter("name", typeof(string)) }));
 
 			// Act
 			var result = _matcher.Match("/foo/bar", "/{test}/{name}");
@@ -211,7 +211,7 @@ namespace AcspNet.Tests.Routing
 		{
 			// Assign
 			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
-				.Returns(new ControllerPath(new List<IPathItem> { new PathParameter("id", typeof(int)) }));
+				.Returns(new ControllerPath(new List<PathItem> { new PathParameter("id", typeof(int)) }));
 
 			// Act
 			var result = _matcher.Match("/15", "/{id}");

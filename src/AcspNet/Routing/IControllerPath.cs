@@ -13,6 +13,6 @@ namespace AcspNet.Routing
 		/// <value>
 		/// The controller path items.
 		/// </value>
-		IList<IPathItem> Items { get; }
+		IList<PathItem> Items { get; }
 	}
 }

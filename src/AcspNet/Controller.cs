@@ -5,7 +5,7 @@ namespace AcspNet
 	/// <summary>
 	/// AcspNet controller base class
 	/// </summary>
-	public class Controller : ModulesAccessor, IController
+	public abstract class Controller : ModulesAccessor
 	{
 		/// <summary>
 		/// Gets the route parameters.
@@ -43,7 +43,7 @@ namespace AcspNet
 		/// <summary>
 		/// Invokes the controller.
 		/// </summary>
-		public virtual IControllerResponse Invoke()
+		public virtual ControllerResponse Invoke()
 		{
 			return null;
 		}

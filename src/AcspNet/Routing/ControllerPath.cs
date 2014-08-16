@@ -11,7 +11,7 @@ namespace AcspNet.Routing
 		/// Initializes a new instance of the <see cref="ControllerPath"/> class.
 		/// </summary>
 		/// <param name="items">The items.</param>
-		public ControllerPath(IList<IPathItem> items)
+		public ControllerPath(IList<PathItem> items)
 		{
 			Items = items;
 		}
@@ -22,6 +22,6 @@ namespace AcspNet.Routing
 		/// <value>
 		/// The controller path items.
 		/// </value>
-		public IList<IPathItem> Items { get; private set; }
+		public IList<PathItem> Items { get; private set; }
 	}
 }

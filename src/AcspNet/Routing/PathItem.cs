@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Provides path items base class
 	/// </summary>
-	public abstract class PathItem : IPathItem
+	public abstract class PathItem
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PathItem"/> class.
@@ -20,6 +20,6 @@
 		/// <value>
 		/// The name of path item.
 		/// </value>
-		public string Name { get; private set; }		 
+		public virtual string Name { get; private set; }		 
 	}
 }

@@ -8,6 +8,6 @@
 		/// <summary>
 		/// Builds the controller response properties.
 		/// </summary>
-		void BuildControllerResponseProperties(IControllerResponse controllerResponse);
+		void BuildControllerResponseProperties(ControllerResponse controllerResponse);
 	}
 }

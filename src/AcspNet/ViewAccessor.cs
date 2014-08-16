@@ -6,7 +6,7 @@ namespace AcspNet
 	/// <summary>
 	/// View accessor base class
 	/// </summary>
-	public abstract class ViewAccessor : IViewAccessor
+	public abstract class ViewAccessor
 	{
 		internal virtual IViewFactory ViewFactory { get; set; }
 		internal virtual IDIContainerProvider ContainerProvider { get; set; }
@@ -17,7 +17,7 @@ namespace AcspNet
 		/// <typeparam name="T">View instance to get</typeparam>
 		/// <returns>View instance</returns>
 		public virtual T GetView<T>()
-			where T : IView
+			where T : View
 		{
 			var type = typeof(T);
 

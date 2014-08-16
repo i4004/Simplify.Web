@@ -17,6 +17,6 @@ namespace AcspNet.Core
 		/// <param name="context">The context.</param>
 		/// <param name="routeParameters">The route parameters.</param>
 		/// <returns></returns>
-		IController CreateController(IDIContainerProvider containerProvider, Type controllerType, IOwinContext context, dynamic routeParameters = null);
+		Controller CreateController(IDIContainerProvider containerProvider, Type controllerType, IOwinContext context, dynamic routeParameters = null);
 	}
 }

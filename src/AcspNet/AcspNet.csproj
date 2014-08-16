@@ -122,9 +122,6 @@
     <Compile Include="Core\ModulesAccessorBuilder.cs" />
     <Compile Include="Core\ViewAccessorBuilder.cs" />
     <Compile Include="Core\ViewFactory.cs" />
-    <Compile Include="IModulesAccessor.cs" />
-    <Compile Include="IView.cs" />
-    <Compile Include="IViewAccessor.cs" />
     <Compile Include="Meta\IViewsMetaStore.cs" />
     <Compile Include="Meta\ViewsMetaStore.cs" />
     <Compile Include="ModulesAccessor.cs" />
@@ -153,8 +150,6 @@
     <Compile Include="Attributes\Http403Attribute.cs" />
     <Compile Include="Responses\File.cs" />
     <Compile Include="IAcspNetSettings.cs" />
-    <Compile Include="IController.cs" />
-    <Compile Include="IControllerResponse.cs" />
     <Compile Include="Core\IControllerResponseHandler.cs" />
     <Compile Include="Core\IControllersAgent.cs" />
     <Compile Include="IHideObjectMembers.cs" />
@@ -185,7 +180,6 @@
     <Compile Include="Routing\IControllerPath.cs" />
     <Compile Include="Routing\ControllerRouteException.cs" />
     <Compile Include="Routing\IControllerPathParser.cs" />
-    <Compile Include="Routing\IPathItem.cs" />
     <Compile Include="Routing\IRouteMatchResult.cs" />
     <Compile Include="Routing\IRouteMatcher.cs" />
     <Compile Include="Meta\AcspTypesFinder.cs" />

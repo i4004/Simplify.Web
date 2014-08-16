@@ -14,7 +14,7 @@ namespace AcspNet.Tests.Core
 		public void Initialize()
 		{
 			_controllerResponseBuilder = new Mock<IControllerResponseBuilder>();
-			_controllerResponseHandler = new ControllerResponseHandler();
+			_controllerResponseHandler = new ControllerResponseHandler(_controllerResponseBuilder.Object);
 		}
 
 		[Test]

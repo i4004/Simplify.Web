@@ -9,6 +9,6 @@
 		/// Processes the specified response.
 		/// </summary>
 		/// <param name="response">The response.</param>
-		void Process(IControllerResponse response);
+		void Process(ControllerResponse response);
 	}
 }

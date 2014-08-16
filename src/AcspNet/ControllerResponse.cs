@@ -5,7 +5,7 @@ namespace AcspNet
 	/// <summary>
 	/// Provides controllers responses base class
 	/// </summary>
-	public abstract class ControllerResponse : IControllerResponse
+	public abstract class ControllerResponse
 	{
 		/// <summary>
 		/// Gets the data collector.

@@ -1,4 +1,6 @@
-﻿namespace AcspNet.Core
+﻿using System;
+
+namespace AcspNet.Core
 {
 	/// <summary>
 	/// Provides controller response builder
@@ -9,9 +11,9 @@
 		/// Builds the controller response properties.
 		/// </summary>
 		/// <param name="controllerResponse"></param>
-		public void BuildControllerResponseProperties(IControllerResponse controllerResponse)
+		public void BuildControllerResponseProperties(ControllerResponse controllerResponse)
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 	}
 }

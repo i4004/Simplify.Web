@@ -21,7 +21,7 @@ namespace AcspNet.Routing
 		public IControllerPath Parse(string controllerPath)
 		{
 			var items = controllerPath.Split(new[] {'/'}, StringSplitOptions.RemoveEmptyEntries);
-			var pathItems = new List<IPathItem>();
+			var pathItems = new List<PathItem>();
 
 			foreach (var item in items)
 			{

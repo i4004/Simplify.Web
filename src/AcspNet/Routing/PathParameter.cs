@@ -8,10 +8,10 @@ namespace AcspNet.Routing
 	public class PathParameter : PathItem
 	{
 		/// <summary>
-		/// Gets the type of path paramter.
+		/// Gets the type of path parameter.
 		/// </summary>
 		/// <value>
-		/// The type of path paramter.
+		/// The type of path parameter.
 		/// </value>
 		public Type Type { get; private set; }
 
@@ -19,7 +19,7 @@ namespace AcspNet.Routing
 		/// Initializes a new instance of the <see cref="PathParameter"/> class.
 		/// </summary>
 		/// <param name="name">The name of path parameter.</param>
-		/// <param name="type">The type of path paramter.</param>
+		/// <param name="type">The type of path parameter.</param>
 		public PathParameter(string name, Type type) : base(name)
 		{
 			Type = type;

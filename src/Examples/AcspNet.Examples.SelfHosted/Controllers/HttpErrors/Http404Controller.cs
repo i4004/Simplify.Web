@@ -6,7 +6,7 @@ namespace AcspNet.Examples.SelfHosted.Controllers.HttpErrors
 	[Http404]
 	public class Http404Controller : Controller
 	{
-		public override IControllerResponse Invoke()
+		public override ControllerResponse Invoke()
 		{
 			return new Tpl(TemplateFactory.Load("HttpErrors/Http404"));
 		}
