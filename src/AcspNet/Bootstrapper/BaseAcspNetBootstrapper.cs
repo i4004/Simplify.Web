@@ -19,6 +19,8 @@ namespace AcspNet.Bootstrapper
 		private Type _controllerPathParserType;
 		private Type _routeMatcherType;
 		private Type _controllersAgentType;
+		private Type _controllerResponseBuilderType;
+		private Type _controllerResponseHandlerType;
 		private Type _controllersHanderType;
 		private Type _requestHandlerType;
 
@@ -40,6 +42,8 @@ namespace AcspNet.Bootstrapper
 			RegisterControllerPathParser();
 			RegisterRouteMatcher();
 			RegisterControllersAgent();
+			RegisterControllerResponseBuilder();
+			RegisterControllerResponseHandler();
 			RegisterControllersHandler();
 			RegisterRequestHandler();
 
@@ -124,6 +128,28 @@ namespace AcspNet.Bootstrapper
 		public Type ControllersAgentType
 		{
 			get { return _controllersAgentType ?? typeof(ControllersAgent); }
+		}
+
+		/// <summary>
+		/// Gets the type of the controller response builder.
+		/// </summary>
+		/// <value>
+		/// The type of the controller response builder.
+		/// </value>
+		public Type ControllerResponseBuilderType
+		{
+			get { return _controllerResponseBuilderType ?? typeof(ControllerResponseBuilder); }
+		}
+
+		/// <summary>
+		/// Gets the type of the controller response handler.
+		/// </summary>
+		/// <value>
+		/// The type of the controller response handler.
+		/// </value>
+		public Type ControllerResponseHandlerType
+		{
+			get { return _controllerResponseHandlerType ?? typeof(ControllerResponseHandler); }
 		}
 
 		/// <summary>
@@ -224,6 +250,26 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
+		/// Sets the type of the controller response builder.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetControllerResponseBuilderType<T>()
+			where T : IControllerResponseBuilder
+		{
+			_controllerResponseBuilderType = typeof(T);
+		}
+
+		/// <summary>
+		/// Sets the type of the controller response handler.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetControllerResponseHandlerType<T>()
+			where T : IControllerResponseBuilder
+		{
+			_controllerResponseHandlerType = typeof(T);
+		}
+
+		/// <summary>
 		/// Sets the type of the controllers handler.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
@@ -319,6 +365,22 @@ namespace AcspNet.Bootstrapper
 		public virtual void RegisterControllersAgent()
 		{
 			DIContainer.Current.Register<IControllersAgent>(ControllersAgentType);
+		}
+
+		/// <summary>
+		/// Registers the controller response builder.
+		/// </summary>
+		public virtual void RegisterControllerResponseBuilder()
+		{
+			DIContainer.Current.Register<IControllerResponseBuilder>(ControllerResponseBuilderType);
+		}
+
+		/// <summary>
+		/// Registers the controller response handler.
+		/// </summary>
+		public virtual void RegisterControllerResponseHandler()
+		{
+			DIContainer.Current.Register<IControllerResponseHandler>(ControllerResponseHandlerType);
 		}
 
 		/// <summary>
