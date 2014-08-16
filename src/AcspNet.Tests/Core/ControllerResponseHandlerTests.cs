@@ -1,6 +1,7 @@
 ﻿using AcspNet.Core;
 using Moq;
 using NUnit.Framework;
+using Simplify.DI;
 
 namespace AcspNet.Tests.Core
 {
@@ -18,13 +19,17 @@ namespace AcspNet.Tests.Core
 		}
 
 		[Test]
-		public void Test()
+		public void Process_BuildAndProcessInvoked()
 		{
 			// Assign
+			var response = new Mock<ControllerResponse>();
 	
 			// Act
+			_controllerResponseHandler.Process(null, response.Object);
 
 			// Assert
+			response.Verify(x => x.Process());
+			_controllerResponseBuilder.Verify(x => x.BuildControllerResponseProperties(It.IsAny<IDIContainerProvider>(), It.IsAny<ControllerResponse>()));
 		}
 	}
 }

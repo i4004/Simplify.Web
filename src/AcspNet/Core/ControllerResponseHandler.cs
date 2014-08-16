@@ -1,4 +1,6 @@
-﻿namespace AcspNet.Core
+﻿using Simplify.DI;
+
+namespace AcspNet.Core
 {
 	/// <summary>
 	/// Provides controller response handler
@@ -19,11 +21,12 @@
 		/// <summary>
 		/// Processes the specified response.
 		/// </summary>
+		/// <param name="containerProvider">The DI container provider.</param>
 		/// <param name="response">The response.</param>
-		/// <exception cref="System.NotImplementedException"></exception>
-		public void Process(ControllerResponse response)
+		public void Process(IDIContainerProvider containerProvider, ControllerResponse response)
 		{
-			throw new System.NotImplementedException();
+			_builder.BuildControllerResponseProperties(containerProvider, response);
+			response.Process();
 		}
 	}
 }

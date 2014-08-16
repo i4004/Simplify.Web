@@ -1,4 +1,6 @@
 ﻿using System;
+using AcspNet.Modules;
+using Simplify.DI;
 
 namespace AcspNet.Core
 {
@@ -10,10 +12,11 @@ namespace AcspNet.Core
 		/// <summary>
 		/// Builds the controller response properties.
 		/// </summary>
-		/// <param name="controllerResponse"></param>
-		public void BuildControllerResponseProperties(ControllerResponse controllerResponse)
+		/// <param name="containerProvider">The DI container provider.</param>
+		/// <param name="controllerResponse">The controller response.</param>
+		public void BuildControllerResponseProperties(IDIContainerProvider containerProvider, ControllerResponse controllerResponse)
 		{
-			throw new NotImplementedException();
+			controllerResponse.DataCollector = containerProvider.Resolve<IDataCollector>();
 		}
 	}
 }

@@ -1,4 +1,6 @@
-﻿namespace AcspNet.Core
+﻿using Simplify.DI;
+
+namespace AcspNet.Core
 {
 	/// <summary>
 	/// Represent controller response builder
@@ -8,6 +10,8 @@
 		/// <summary>
 		/// Builds the controller response properties.
 		/// </summary>
-		void BuildControllerResponseProperties(ControllerResponse controllerResponse);
+		/// <param name="containerProvider">The DI container provider.</param>
+		/// <param name="controllerResponse">The controller response.</param>
+		void BuildControllerResponseProperties(IDIContainerProvider containerProvider, ControllerResponse controllerResponse);
 	}
 }
