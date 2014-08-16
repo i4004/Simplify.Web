@@ -4,16 +4,16 @@ using Simplify.DI;
 namespace AcspNet.Core
 {
 	/// <summary>
-	/// Provides factory for ModulesAccessor objects construction
+	/// Provides builder for ModulesAccessor objects
 	/// </summary>
-	public class ModulesAccessorFactory : ViewAccessorFactory
+	public class ModulesAccessorBuilder : ViewAccessorBuilder
 	{
 		/// <summary>
-		/// Constructs the modules accessor.
+		/// Builds the modules accessor properties.
 		/// </summary>
 		/// <param name="containerProvider">The DI container provider.</param>
 		/// <param name="modulesAccessor">The modules accessor.</param>
-		protected void ConstructModulesAccessor(IDIContainerProvider containerProvider, ModulesAccessor modulesAccessor)
+		protected void BuildModulesAccessorProperties(IDIContainerProvider containerProvider, ModulesAccessor modulesAccessor)
 		{
 			modulesAccessor.Environment = containerProvider.Resolve<IEnvironment>();		
 		}

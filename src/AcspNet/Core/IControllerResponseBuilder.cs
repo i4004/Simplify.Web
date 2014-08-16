@@ -6,8 +6,8 @@
 	public interface IControllerResponseBuilder
 	{
 		/// <summary>
-		/// Builds the controller response base properties.
+		/// Builds the controller response properties.
 		/// </summary>
-		void BuildBaseProperties(IControllerResponse controllerResponse);
+		void BuildControllerResponseProperties(IControllerResponse controllerResponse);
 	}
 }

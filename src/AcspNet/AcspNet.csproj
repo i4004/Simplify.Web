@@ -119,8 +119,8 @@
     <Compile Include="Core\ControllerResponseHandler.cs" />
     <Compile Include="Core\IControllerResponseBuilder.cs" />
     <Compile Include="Core\IViewFactory.cs" />
-    <Compile Include="Core\ModulesAccessorFactory.cs" />
-    <Compile Include="Core\ViewAccessorFactory.cs" />
+    <Compile Include="Core\ModulesAccessorBuilder.cs" />
+    <Compile Include="Core\ViewAccessorBuilder.cs" />
     <Compile Include="Core\ViewFactory.cs" />
     <Compile Include="IModulesAccessor.cs" />
     <Compile Include="IView.cs" />
@@ -276,7 +276,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

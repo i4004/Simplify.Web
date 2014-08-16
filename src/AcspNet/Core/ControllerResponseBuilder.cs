@@ -6,10 +6,10 @@
 	public class ControllerResponseBuilder : IControllerResponseBuilder
 	{
 		/// <summary>
-		/// Builds the controller response base properties.
+		/// Builds the controller response properties.
 		/// </summary>
 		/// <param name="controllerResponse"></param>
-		public void BuildBaseProperties(IControllerResponse controllerResponse)
+		public void BuildControllerResponseProperties(IControllerResponse controllerResponse)
 		{
 			throw new System.NotImplementedException();
 		}

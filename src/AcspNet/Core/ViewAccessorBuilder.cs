@@ -3,17 +3,18 @@
 namespace AcspNet.Core
 {
 	/// <summary>
-	/// Provides factory for ViewAccessor objects construction
+	/// Provides builder for ViewAccessor objects construction
 	/// </summary>
-	public abstract class ViewAccessorFactory
+	public abstract class ViewAccessorBuilder
 	{
+
 		/// <summary>
-		/// Constructs the view accessor.
+		/// Builds the view accessor properties.
 		/// </summary>
 		/// <param name="containerProvider">The DI container provider.</param>
 		/// <param name="viewFactory">The view factory.</param>
 		/// <param name="viewAccessor">The view accessor.</param>
-		protected void ConstructViewAccessor(IDIContainerProvider containerProvider, IViewFactory viewFactory, ViewAccessor viewAccessor)
+		protected void BuildViewAccessorProperties(IDIContainerProvider containerProvider, IViewFactory viewFactory, ViewAccessor viewAccessor)
 		{
 			viewAccessor.ContainerProvider = containerProvider;
 			viewAccessor.ViewFactory = viewFactory;		
