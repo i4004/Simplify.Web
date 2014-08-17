@@ -47,6 +47,7 @@ namespace AcspNet.Bootstrapper
 			RegisterControllerResponseHandler();
 			RegisterControllersHandler();
 			RegisterRequestHandler();
+			RegisterStopwatchProvider();
 
 			// Registering user modules
 
