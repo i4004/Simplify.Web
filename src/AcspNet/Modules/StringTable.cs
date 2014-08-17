@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq;
+using System.Xml.XPath;
+using Simplify.Xml;
 
 namespace AcspNet.Modules
 {
@@ -13,20 +18,41 @@ namespace AcspNet.Modules
 		/// Load string table with current language
 		/// </summary>
 		/// <param name="defaultLanguage">The default language.</param>
+		/// <param name="currentLanguage">The current language.</param>
 		/// <param name="fileReader">The file reader.</param>
-		public StringTable(string defaultLanguage, IFileReader fileReader)
+		public StringTable(string defaultLanguage, string currentLanguage, IFileReader fileReader)
 		{
 			_fileReader = fileReader;
 
-			Load();
+			Load(defaultLanguage, currentLanguage);
 		}
 
 		/// <summary>
 		/// Loads string table.
 		/// </summary>
-		private void Load()
+		private void Load(string defaultLanguage, string currentLanguage)
 		{
-			throw new NotImplementedException();
+			IDictionary<string, Object> currentItems = new ExpandoObject();
+			Items = currentItems;
+
+			var stringTable = _fileReader.LoadXDocument("StringTable.xml");
+
+			// Loading current culture strings
+			if (stringTable != null && stringTable.Root != null)
+				foreach (var item in stringTable.Root.XPathSelectElements("item").Where(x => x.HasAttributes))
+					currentItems.Add((string)item.Attribute("name"), string.IsNullOrEmpty(item.Value) ? (string)item.Attribute("value") : item.InnerXml().Trim());
+
+			if (currentLanguage == defaultLanguage)
+				return;
+
+			// Loading default culture strings
+
+			stringTable = _fileReader.LoadXDocument("StringTable.xml", defaultLanguage);
+
+			if (stringTable != null && stringTable.Root != null)
+				foreach (var item in stringTable.Root.XPathSelectElements("item").Where(x => x.HasAttributes))
+					if (!currentItems.ContainsKey((string)item.Attribute("name")))
+						currentItems.Add((string)item.Attribute("name"), string.IsNullOrEmpty(item.Value) ? (string)item.Attribute("value") : item.InnerXml().Trim());
 		}
 
 		/// <summary>
@@ -42,7 +68,10 @@ namespace AcspNet.Modules
 		/// <returns>associated value</returns>
 		public string GetAssociatedValue<T>(T enumValue) where T : struct
 		{
-			throw new NotImplementedException();
+			var currentItems = (IDictionary<string, Object>) Items;
+			var enumItemName = enumValue.GetType().Name + "." + Enum.GetName(typeof (T), enumValue);
+
+			return currentItems.ContainsKey(enumItemName) ? currentItems[enumItemName] as string : null;
 		}
 	}
 }

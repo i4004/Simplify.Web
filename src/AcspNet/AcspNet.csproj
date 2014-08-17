@@ -115,6 +115,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AcspNetSettings.cs" />
+    <Compile Include="App_Packages\Simplify.Xml.Sources.1.0.2.0\XmlExtensions.cs" />
+    <Compile Include="App_Packages\Simplify.Xml.Sources.1.0.2.0\XmlSerializer.cs" />
     <Compile Include="ControllerResponseResult.cs" />
     <Compile Include="Core\ControllerResponseBuilder.cs" />
     <Compile Include="Core\ControllerResponseHandler.cs" />
