@@ -28,7 +28,10 @@ namespace AcspNet.Core
 		/// <returns></returns>
 		public Task ProcessRequest(IDIContainerProvider containerProvider, IOwinContext context)
 		{
-			_controllersHandler.Execute(containerProvider, context);
+			var result = _controllersHandler.Execute(containerProvider, context);
+
+			if (result == ControllersHandlerResult.Http404)
+				context.Response.StatusCode = 404;
 
 			return Task.Delay(0);
 		}

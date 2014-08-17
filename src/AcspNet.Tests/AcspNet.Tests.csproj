@@ -122,6 +122,7 @@
     <Compile Include="Core\ControllerResponseHandlerTests.cs" />
     <Compile Include="Core\ControllersAgentTests.cs" />
     <Compile Include="Core\ControllersHandlerTests.cs" />
+    <Compile Include="Core\RequestHandlerTests.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGeneratorTests.cs" />
     <Compile Include="Modules\AcspNetContextTests.cs" />
     <Compile Include="Modules\DataCollectorTests.cs" />
