@@ -6,7 +6,7 @@
 	public interface IStringTable : IHideObjectMembers
 	{
 		/// <summary>
-		/// List of string table items
+		/// String table items
 		/// </summary>
 		dynamic Items { get; }
 
