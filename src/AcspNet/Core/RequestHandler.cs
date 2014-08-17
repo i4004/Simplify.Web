@@ -10,14 +10,20 @@ namespace AcspNet.Core
 	public class RequestHandler : IRequestHandler
 	{
 		private readonly IControllersHandler _controllersHandler;
+		private readonly IPageBuilder _pageBuilder;
+		private readonly IResponseWriter _responseWriter;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="RequestHandler"/> class.
+		/// Initializes a new instance of the <see cref="RequestHandler" /> class.
 		/// </summary>
 		/// <param name="controllersHandler">The controllers handler.</param>
-		public RequestHandler(IControllersHandler controllersHandler)
+		/// <param name="pageBuilder">The page builder.</param>
+		/// <param name="responseWriter">The response writer.</param>
+		public RequestHandler(IControllersHandler controllersHandler, IPageBuilder pageBuilder, IResponseWriter responseWriter)
 		{
 			_controllersHandler = controllersHandler;
+			_pageBuilder = pageBuilder;
+			_responseWriter = responseWriter;
 		}
 
 		/// <summary>
@@ -30,8 +36,15 @@ namespace AcspNet.Core
 		{
 			var result = _controllersHandler.Execute(containerProvider, context);
 
-			if (result == ControllersHandlerResult.Http404)
-				context.Response.StatusCode = 404;
+			switch (result)
+			{
+				case ControllersHandlerResult.Ok:
+					_responseWriter.Write(_pageBuilder.Build(containerProvider), context.Response);
+					break;
+				case ControllersHandlerResult.Http404:
+					context.Response.StatusCode = 404;
+					break;
+			}
 
 			return Task.Delay(0);
 		}
