@@ -24,6 +24,8 @@ namespace AcspNet.Bootstrapper
 		private Type _controllersHanderType;
 		private Type _requestHandlerType;
 		private Type _stopwatchProviderType;
+		private Type _contextVariablesSetterType;
+		private Type _pageBuilderType;
 
 		private Type _acspNetContextProviderType;
 
@@ -48,6 +50,8 @@ namespace AcspNet.Bootstrapper
 			RegisterControllersHandler();
 			RegisterRequestHandler();
 			RegisterStopwatchProvider();
+			RegisterContextVariablesSetter();
+			RegisterPageBuilder();
 
 			// Registering user modules
 
@@ -191,6 +195,28 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
+		/// Gets the type of the context variables setter.
+		/// </summary>
+		/// <value>
+		/// The type of the context variables setter.
+		/// </value>
+		public Type ContextVariablesSetterType
+		{
+			get { return _contextVariablesSetterType ?? typeof(ContextVariablesSetter); }
+		}
+
+		/// <summary>
+		/// Gets the type of the page builder.
+		/// </summary>
+		/// <value>
+		/// The type of the page builder.
+		/// </value>
+		public Type PageBuilderType
+		{
+			get { return _pageBuilderType ?? typeof(PageBuilder); }
+		}		
+		
+		/// <summary>
 		/// Gets the type of the AcspNet context provider.
 		/// </summary>
 		/// <value>
@@ -316,6 +342,16 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
+		/// Sets the type of the context variables setter.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetContextVariablesSetterType<T>()
+			where T : IContextVariablesSetter
+		{
+			_contextVariablesSetterType = typeof(T);
+		}
+		
+		/// <summary>
 		/// Sets the AcspNet context provider.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
@@ -325,6 +361,16 @@ namespace AcspNet.Bootstrapper
 			_acspNetContextProviderType = typeof(T);
 		}
 
+		/// <summary>
+		/// Sets the page builder.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetPageBuilder<T>()
+			where T : IPageBuilder
+		{
+			_pageBuilderType = typeof(T);
+		}
+		
 		#endregion
 
 		#region Bootstrapper types registration
@@ -431,6 +477,22 @@ namespace AcspNet.Bootstrapper
 		public virtual void RegisterStopwatchProvider()
 		{
 			DIContainer.Current.Register<IStopwatchProvider>(StopwatchProviderType, LifetimeType.PerLifetimeScope);
+		}
+
+		/// <summary>
+		/// Registers the context variables setter.
+		/// </summary>
+		public virtual void RegisterContextVariablesSetter()
+		{
+			DIContainer.Current.Register<IContextVariablesSetter>(ContextVariablesSetterType, LifetimeType.PerLifetimeScope);
+		}
+
+		/// <summary>
+		/// Registers the page builder.
+		/// </summary>
+		public virtual void RegisterPageBuilder()
+		{
+			DIContainer.Current.Register<IPageBuilder>(PageBuilderType, LifetimeType.PerLifetimeScope);
 		}
 
 		/// <summary>
