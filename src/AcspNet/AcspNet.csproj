@@ -118,11 +118,15 @@
     <Compile Include="App_Packages\Simplify.Xml.Sources.1.0.2.0\XmlExtensions.cs" />
     <Compile Include="App_Packages\Simplify.Xml.Sources.1.0.2.0\XmlSerializer.cs" />
     <Compile Include="ControllerResponseResult.cs" />
+    <Compile Include="Core\ContextVariablesSetter.cs" />
     <Compile Include="Core\ControllerResponseBuilder.cs" />
     <Compile Include="Core\ControllerResponseHandler.cs" />
+    <Compile Include="Core\IContextVariablesSetter.cs" />
     <Compile Include="Core\IControllerResponseBuilder.cs" />
+    <Compile Include="Core\IPageBuilder.cs" />
     <Compile Include="Core\IViewFactory.cs" />
     <Compile Include="Core\ModulesAccessorBuilder.cs" />
+    <Compile Include="Core\PageBuilder.cs" />
     <Compile Include="Core\ViewAccessorBuilder.cs" />
     <Compile Include="Core\ViewFactory.cs" />
     <Compile Include="Meta\IViewsMetaStore.cs" />
@@ -276,7 +280,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
