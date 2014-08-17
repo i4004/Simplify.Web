@@ -11,6 +11,14 @@
 		string DefaultLanguage { get; }
 
 		/// <summary>
+		/// Gets a value indicating whether browser language should be accepted
+		/// </summary>
+		/// <value>
+		/// <c>true</c> if  browser language should be accepted; otherwise, <c>false</c>.
+		/// </value>
+		bool AcceptBrowserLanguage { get; }
+
+		/// <summary>
 		/// Default templates directory path, for example: Templates, default value is "Templates"
 		/// </summary>
 		string DefaultTemplatesPath { get; }

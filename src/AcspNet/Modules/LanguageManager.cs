@@ -26,8 +26,9 @@ namespace AcspNet.Modules
 		{
 			_responseCookies = context.Response.Cookies;
 
-			var cookieLanguage = context.Request.Cookies[CookieLanguageFieldName];
-			SetCurrentLanguage(cookieLanguage != null && !string.IsNullOrEmpty(cookieLanguage) ? cookieLanguage : settings.DefaultLanguage);
+			if(!TrySetLanguageFromCookie(context))
+				if(!settings.AcceptBrowserLanguage || (settings.AcceptBrowserLanguage && !TrySetLanguageFromRequestHeader(context)))
+					SetCurrentLanguage(settings.DefaultLanguage);
 		}
 
 		/// <summary>
@@ -44,19 +45,54 @@ namespace AcspNet.Modules
 			if (string.IsNullOrEmpty(language))
 				throw new ArgumentNullException("language");
 
-			_responseCookies.Append(CookieLanguageFieldName, language, new CookieOptions(){Expires = DateTime.Now.AddYears(5)});
+			_responseCookies.Append(CookieLanguageFieldName, language, new CookieOptions{Expires = DateTime.Now.AddYears(5)});
 		}
 
 		/// <summary>
 		/// Set language only for current request
 		/// </summary>
 		/// <param name="language">Language code</param>
-		public void SetCurrentLanguage(string language)
+		public bool SetCurrentLanguage(string language)
 		{
-			Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
-			Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
+			try
+			{
+				Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+				Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
 
-			Language = language;
-		}		 	
+				Language = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
+		}
+
+		private bool TrySetLanguageFromCookie(IOwinContext context)
+		{
+			var cookieLanguage = context.Request.Cookies[CookieLanguageFieldName];
+
+			if (cookieLanguage != null && !string.IsNullOrEmpty(cookieLanguage))
+				return SetCurrentLanguage(cookieLanguage);
+
+			return false;
+		}
+
+		private bool TrySetLanguageFromRequestHeader(IOwinContext context)
+		{
+			var languages = context.Request.Headers.GetValues("Accept-Language");
+
+			if (languages.Count > 0)
+			{
+				var languageString = languages[0];
+
+				var items = languageString.Split(';');
+
+				return SetCurrentLanguage(items[0]);
+			}
+
+			return false;
+		}
 	}
 }

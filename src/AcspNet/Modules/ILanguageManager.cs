@@ -20,6 +20,6 @@
 		/// Set language only for current request
 		/// </summary>
 		/// <param name="language">Language code</param>
-		void SetCurrentLanguage(string language);
+		bool SetCurrentLanguage(string language);
 	}
 }

@@ -21,7 +21,7 @@ namespace AcspNet.Tests.Modules
 			_settings = new Mock<IAcspNetSettings>();
 			_context = new Mock<IOwinContext>();
 
-			_settings.SetupGet(x => x.DefaultLanguage).Returns("ru");
+			_settings.SetupGet(x => x.DefaultLanguage).Returns("en");
 			_headerDictionary = new Mock<IHeaderDictionary>();
 
 			_context.SetupGet(x => x.Request.Cookies).Returns(new RequestCookieCollection(new Dictionary<string, string>()));
@@ -34,7 +34,7 @@ namespace AcspNet.Tests.Modules
 		public void Constructor_NoRequestCookieLanguage_DefaultLanguageSet()
 		{
 			// Assert
-			Assert.AreEqual("ru", _languageManager.Language);
+			Assert.AreEqual("en", _languageManager.Language);
 		}
 
 		[Test]
@@ -76,6 +76,60 @@ namespace AcspNet.Tests.Modules
 
 			// Act
 			_languageManager.SetCookieLanguage("ru");
+		}
+
+		[Test]
+		public void Constructor_HaveBrowserLanguageAndSettingIsEnabledCase1_LanguageSetFromHeader()
+		{
+			// Assign
+
+			_settings.SetupGet(x => x.AcceptBrowserLanguage).Returns(true);
+			var header = new HeaderDictionary(new Dictionary<string, string[]>());
+			header.Append("Accept-Language", "ru-RU");
+			_context.SetupGet(x => x.Request.Headers).Returns(header);
+
+			// Act
+			_languageManager = new LanguageManager(_settings.Object, _context.Object);
+
+			// Assert
+			Assert.AreEqual("ru", _languageManager.Language);
+		}
+
+		[Test]
+		public void Constructor_HaveBrowserLanguageAndSettingIsEnabledCase2_LanguageSetFromHeader()
+		{
+			// Assign
+
+			_settings.SetupGet(x => x.AcceptBrowserLanguage).Returns(true);
+			var header = new HeaderDictionary(new Dictionary<string, string[]>());
+			header.Append("Accept-Language", "ru-RU;q=0.5");
+			_context.SetupGet(x => x.Request.Headers).Returns(header);
+
+			// Act
+			_languageManager = new LanguageManager(_settings.Object, _context.Object);
+
+			// Assert
+			Assert.AreEqual("ru", _languageManager.Language);
+		}
+
+		[Test]
+		public void Constructor_HaveBrowserLanguageAndCookieLanguage_LanguageSetFromCookie()
+		{
+			// Assign
+
+			var cookies = new Dictionary<string, string> { { LanguageManager.CookieLanguageFieldName, "fr" } };
+			_context.SetupGet(x => x.Request.Cookies).Returns(new RequestCookieCollection(cookies));
+
+			_settings.SetupGet(x => x.AcceptBrowserLanguage).Returns(true);
+			var header = new HeaderDictionary(new Dictionary<string, string[]>());
+			header.Append("Accept-Language", "ru-RU");
+			_context.SetupGet(x => x.Request.Headers).Returns(header);
+
+			// Act
+			_languageManager = new LanguageManager(_settings.Object, _context.Object);
+
+			// Assert
+			Assert.AreEqual("fr", _languageManager.Language);
 		}
 	}
 }

@@ -14,6 +14,14 @@ namespace AcspNet
 		public string DefaultLanguage { get; private set; }
 
 		/// <summary>
+		/// Gets a value indicating whether browser language should be accepted
+		/// </summary>
+		/// <value>
+		/// <c>true</c> if  browser language should be accepted; otherwise, <c>false</c>.
+		/// </value>
+		public bool AcceptBrowserLanguage { get; private set; }
+
+		/// <summary>
 		/// Default templates directory path, for example: Templates, default value is "Templates"
 		/// </summary>
 		public string DefaultTemplatesPath { get; private set; }
@@ -109,6 +117,13 @@ namespace AcspNet
 			if (!string.IsNullOrEmpty(config["DefaultLanguage"]))
 				DefaultLanguage = config["DefaultLanguage"];
 
+			if (!string.IsNullOrEmpty(config["AcceptBrowserLanguage"]))
+			{
+				bool buffer;
+
+				if (bool.TryParse(config["AcceptBrowserLanguage"], out buffer))
+					AcceptBrowserLanguage = buffer;
+			}
 		}
 
 		private void LoadTemplatesSettings(NameValueCollection config)
