@@ -12,7 +12,9 @@ namespace AcspNet.Modules
 		/// <summary>
 		/// Load string table with current language
 		/// </summary>
-		internal StringTable(IFileReader fileReader)
+		/// <param name="defaultLanguage">The default language.</param>
+		/// <param name="fileReader">The file reader.</param>
+		public StringTable(string defaultLanguage, IFileReader fileReader)
 		{
 			_fileReader = fileReader;
 
