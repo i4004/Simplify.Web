@@ -40,7 +40,10 @@ namespace AcspNet.Core
 				if (matcherResult.Success)
 				{
 					atleastOneControllerMatched = true;
-					ProcessController(metaData.ControllerType, containerProvider, context, matcherResult.RouteParameters);
+					var result = ProcessController(metaData.ControllerType, containerProvider, context, matcherResult.RouteParameters);
+
+					if(result == ControllerResponseResult.RawOutput)
+						return ControllersHandlerResult.RawOutput;
 				}
 			}
 
@@ -57,10 +60,10 @@ namespace AcspNet.Core
 			return ControllersHandlerResult.Ok;
 		}
 
-		private void ProcessController(Type controllerType, IDIContainerProvider containerProvider, IOwinContext context, dynamic routeParameters = null)
+		private ControllerResponseResult ProcessController(Type controllerType, IDIContainerProvider containerProvider, IOwinContext context, dynamic routeParameters = null)
 		{
 			var controller = _factory.CreateController(controllerType, containerProvider, context, routeParameters);
-			_controllerResponseHandler.Process(controller.Invoke(), containerProvider);
+			return _controllerResponseHandler.Process(controller.Invoke(), containerProvider);
 		}
 	}
 }

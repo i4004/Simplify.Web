@@ -10,7 +10,7 @@
 		/// </summary>
 		Ok,
 		/// <summary>
-		/// Execution should be stopped
+		/// Execution should be stopped, becase raw output will be sent to client
 		/// </summary>
 		RawOutput,
 		/// <summary>

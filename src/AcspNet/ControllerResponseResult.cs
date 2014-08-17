@@ -10,8 +10,8 @@
 		/// </summary>
 		Ok,
 		/// <summary>
-		/// Execution of current request should be stopped
+		/// Execution should be stopped, becase raw output will be sent to client
 		/// </summary>
-		AjaxResponse
+		RawOutput
 	}
 }

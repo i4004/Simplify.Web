@@ -53,18 +53,16 @@ namespace AcspNet.Tests.Core
 			_factory.Setup(x => x.CreateController(It.IsAny<Type>(), It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>())).Returns(_controller.Object);
 
 			_controller.Setup(x => x.Invoke()).Returns(_controllerResponse.Object);
+
+			_context.SetupGet(x => x.Request.Path).Returns(new PathString("/foo/bar"));
+			_context.SetupGet(x => x.Request.Method).Returns("GET");
+
 		}
 
 		[Test]
 		public void CreateAndInvokeControllers_ControllerMatched_InvokedCorrectly()
 		{
-			// Assign
-
-			_context.SetupGet(x => x.Request.Path).Returns(new PathString("/foo/bar"));
-			_context.SetupGet(x => x.Request.Method).Returns("GET");
-
 			// Act
-
 			var result = _handler.Execute(_containerProvider, _context.Object);
 
 			// Assert
@@ -83,7 +81,6 @@ namespace AcspNet.Tests.Core
 			// Assign
 
 			_context.SetupGet(x => x.Request.Path).Returns(new PathString("/foo/test"));
-			_context.SetupGet(x => x.Request.Method).Returns("GET");
 			_agent.Setup(x => x.MatchControllerRoute(It.IsAny<IControllerMetaData>(), It.IsAny<string>(), It.IsAny<string>())).Returns(new RouteMatchResult());
 
 			// Act
@@ -103,7 +100,6 @@ namespace AcspNet.Tests.Core
 			// Assign
 
 			_context.SetupGet(x => x.Request.Path).Returns(new PathString("/foo/test"));
-			_context.SetupGet(x => x.Request.Method).Returns("GET");
 			_agent.Setup(x => x.MatchControllerRoute(It.IsAny<IControllerMetaData>(), It.IsAny<string>(), It.IsAny<string>())).Returns(new RouteMatchResult());
 			_agent.Setup(
 				x => x.GetHandlerController(It.Is<HandlerControllerType>(d => d == HandlerControllerType.Http404Handler)))
@@ -118,6 +114,35 @@ namespace AcspNet.Tests.Core
 			Assert.AreEqual(ControllersHandlerResult.Ok, result);
 			_controller.Verify(x => x.Invoke());
 			_factory.Verify(x => x.CreateController(It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == null)));
+		}
+
+		[Test]
+		public void CreateAndInvokeControllers_TwoControllersFirstWithAjax_SecondSkipped()
+		{
+			// Assign
+
+			_metaData = new ControllerMetaData(typeof(TestController1),
+				new ControllerExecParameters(new ControllerRouteInfo("/foo/bar")));
+
+			_agent.Setup(x => x.GetStandardControllersMetaData()).Returns(() => new List<IControllerMetaData>
+			{
+				_metaData,
+				_metaData
+			});
+
+			_controllerResponseHandler.Setup(x => x.Process(It.IsAny<ControllerResponse>(), It.IsAny<IDIContainerProvider>()))
+				.Returns(ControllerResponseResult.RawOutput);	
+
+			// Act
+
+			var result = _handler.Execute(_containerProvider, _context.Object);
+
+			// Assert
+
+			Assert.AreEqual(ControllersHandlerResult.RawOutput, result);
+			_factory.Verify(x => x.CreateController(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)), Times.Exactly(1));
+			_controller.Verify(x => x.Invoke(), Times.Exactly(1));
+			_controllerResponseHandler.Verify(x => x.Process(It.Is<ControllerResponse>(d => d == _controllerResponse.Object), It.Is<IDIContainerProvider>(d => d == _containerProvider)), Times.Exactly(1));
 		}
 	}
 }
