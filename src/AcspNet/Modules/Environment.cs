@@ -5,8 +5,6 @@
 	/// </summary>
 	public sealed class Environment : IEnvironment
 	{
-		private readonly string _sitePhysicalPath;
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Environment"/> class.
 		/// </summary>
@@ -19,12 +17,21 @@
 			if (!sitePhysicalPath.EndsWith("/"))
 				sitePhysicalPath = sitePhysicalPath + "/";
 
-			_sitePhysicalPath = sitePhysicalPath;
+			SitePhysicalPath = sitePhysicalPath;
 
 			TemplatesPath = settings.DefaultTemplatesPath;
+			DataPath = settings.DefaultDataPath;
 			SiteStyle = settings.DefaultStyle;
 			MasterTemplateFileName = settings.DefaultMasterTemplateFileName;
 		}
+
+		/// <summary>
+		/// Gets the site physical path.
+		/// </summary>
+		/// <value>
+		/// The site physical path.
+		/// </value>
+		public string SitePhysicalPath { get; private set; }
 
 		/// <summary>
 		/// Site current templates directory relative path
@@ -38,7 +45,29 @@
 		{
 			get
 			{
-				return _sitePhysicalPath + TemplatesPath + "/";
+				return SitePhysicalPath + TemplatesPath + "/";
+			}
+		}
+
+		/// <summary>
+		/// Gets the data path.
+		/// </summary>
+		/// <value>
+		/// The data path.
+		/// </value>
+		public string DataPath { get; private set; }
+
+		/// <summary>
+		/// Gets the data physical path.
+		/// </summary>
+		/// <value>
+		/// The data physical path.
+		/// </value>
+		public string DataPhysicalPath
+		{
+			get
+			{
+				return SitePhysicalPath + DataPath + "/";
 			}
 		}
 

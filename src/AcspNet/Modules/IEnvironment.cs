@@ -6,6 +6,14 @@
 	public interface IEnvironment : IHideObjectMembers
 	{
 		/// <summary>
+		/// Gets the site physical path.
+		/// </summary>
+		/// <value>
+		/// The site physical path.
+		/// </value>
+		string SitePhysicalPath { get; }
+
+		/// <summary>
 		/// Site current templates directory relative path
 		/// </summary>
 		string TemplatesPath { get; set; }
@@ -15,6 +23,22 @@
 		/// </summary>
 		string TemplatesPhysicalPath { get; }
 
+		/// <summary>
+		/// Gets the data path.
+		/// </summary>
+		/// <value>
+		/// The data path.
+		/// </value>
+		string DataPath { get; }
+
+		/// <summary>
+		/// Gets the data physical path.
+		/// </summary>
+		/// <value>
+		/// The data physical path.
+		/// </value>
+		string DataPhysicalPath { get; }
+		
 		/// <summary>
 		/// Site current style
 		/// </summary>
