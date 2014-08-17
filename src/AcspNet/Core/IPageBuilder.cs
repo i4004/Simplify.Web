@@ -12,6 +12,6 @@ namespace AcspNet.Core
 		/// </summary>
 		/// <param name="containerProvider">The DI container provider.</param>
 		/// <returns></returns>
-		string Buid(IDIContainerProvider containerProvider);
+		string Build(IDIContainerProvider containerProvider);
 	}
 }

@@ -24,7 +24,7 @@ namespace AcspNet.Core
 		/// </summary>
 		/// <param name="containerProvider">The DI container provider.</param>
 		/// <returns></returns>
-		public string Buid(IDIContainerProvider containerProvider)
+		public string Build(IDIContainerProvider containerProvider)
 		{
 			throw new System.NotImplementedException();
 		}
