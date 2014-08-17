@@ -17,6 +17,7 @@ namespace AcspNet.Core
 		public void BuildControllerResponseProperties(ControllerResponse controllerResponse, IDIContainerProvider containerProvider)
 		{
 			BuildModulesAccessorProperties(controllerResponse, containerProvider);
+
 			controllerResponse.DataCollector = containerProvider.Resolve<IDataCollector>();
 		}
 	}

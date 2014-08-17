@@ -42,6 +42,8 @@ namespace AcspNet.Core
 			controller.RouteParameters = routeParameters;
 			controller.Context = _contextProvider.Get();
 			controller.LanguageManager = containerProvider.Resolve<ILanguageManagerProvider>().Get();
+			controller.DataCollector = containerProvider.Resolve<IDataCollector>();
+			controller.FileReader = containerProvider.Resolve<IFileReader>();
 
 			return controller;
 		}
