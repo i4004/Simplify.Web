@@ -24,7 +24,7 @@ namespace AcspNet.Tests.Modules
 
 			Assert.AreEqual("Main", env.SiteStyle);
 			Assert.AreEqual("Templates", env.TemplatesPath);
-			Assert.AreEqual("Index.tpl", env.MasterTemplateFileName);
+			Assert.AreEqual("Master.tpl", env.MasterTemplateFileName);
 			Assert.AreEqual("Templates", env.TemplatesPath);
 			Assert.AreEqual("C:/Test/Templates/", env.TemplatesPhysicalPath);
 			Assert.AreEqual("App_Data", env.DataPath);

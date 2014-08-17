@@ -92,7 +92,7 @@ namespace AcspNet
 			DefaultLanguage = "en";
 
 			DefaultTemplatesPath = "Templates";
-			DefaultMasterTemplateFileName = "Index.tpl";
+			DefaultMasterTemplateFileName = "Master.tpl";
 			DefaultMainContentVariableName = "MainContent";
 			DefaultTitleVariableName = "Title";
 

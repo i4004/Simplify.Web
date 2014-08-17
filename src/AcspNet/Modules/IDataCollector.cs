@@ -1,4 +1,5 @@
-﻿using Simplify.Templates;
+﻿using System.Collections.Generic;
+using Simplify.Templates;
 
 namespace AcspNet.Modules
 {
@@ -13,6 +14,11 @@ namespace AcspNet.Modules
 		/// <param name="key">Item name</param>
 		/// <returns>Data collector item</returns>
 		string this[string key] { get; }
+
+		/// <summary>
+		/// Gets the data collector items which will be inserted into master template file.
+		/// </summary>
+		IDictionary<string, string> Items { get; }
 
 		/// <summary>
 		///  Set template variable value (all occurrences will be replaced)
