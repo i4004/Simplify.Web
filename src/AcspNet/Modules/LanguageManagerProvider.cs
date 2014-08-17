@@ -7,16 +7,16 @@ namespace AcspNet.Modules
 	/// </summary>
 	public class LanguageManagerProvider : ILanguageManagerProvider
 	{
-		private readonly string _defaultLanguage;
+		private readonly IAcspNetSettings _settings;
 		private ILanguageManager _languageManager;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="LanguageManagerProvider"/> class.
+		/// Initializes a new instance of the <see cref="LanguageManagerProvider" /> class.
 		/// </summary>
-		/// <param name="defaultLanguage">The default language.</param>
-		public LanguageManagerProvider(string defaultLanguage)
+		/// <param name="settings">The settings.</param>
+		public LanguageManagerProvider(IAcspNetSettings settings)
 		{
-			_defaultLanguage = defaultLanguage;
+			_settings = settings;
 		}
 
 		/// <summary>
@@ -26,7 +26,7 @@ namespace AcspNet.Modules
 		public void Setup(IOwinContext context)
 		{
 			if(_languageManager == null)
-				_languageManager = new LanguageManager(_defaultLanguage, context.Request.Cookies, context.Response.Cookies);
+				_languageManager = new LanguageManager(_settings, context);
 		}
 
 		/// <summary>

@@ -11,25 +11,28 @@ namespace AcspNet.Tests.Modules
 	public class LanguageManagerTests
 	{
 		private LanguageManager _languageManager;
-		private RequestCookieCollection _requestCookies;
-		private ResponseCookieCollection _responseCookies;
-
+		private Mock<IAcspNetSettings> _settings;
+		private Mock<IOwinContext> _context;
 		private Mock<IHeaderDictionary> _headerDictionary;
 			
 		[SetUp]
 		public void Initialize()
 		{
-			_headerDictionary = new Mock<IHeaderDictionary>();
-			_requestCookies = new RequestCookieCollection(new Dictionary<string, string>());
-			_responseCookies = new ResponseCookieCollection(_headerDictionary.Object);
+			_settings = new Mock<IAcspNetSettings>();
+			_context = new Mock<IOwinContext>();
 
-			_languageManager = new LanguageManager("ru", _requestCookies, _responseCookies);
+			_settings.SetupGet(x => x.DefaultLanguage).Returns("ru");
+			_headerDictionary = new Mock<IHeaderDictionary>();
+
+			_context.SetupGet(x => x.Request.Cookies).Returns(new RequestCookieCollection(new Dictionary<string, string>()));
+			_context.SetupGet(x => x.Response.Cookies).Returns(new ResponseCookieCollection(_headerDictionary.Object));
+
+			_languageManager = new LanguageManager(_settings.Object, _context.Object);
 		}
 
 		[Test]
 		public void Constructor_NoRequestCookieLanguage_DefaultLanguageSet()
 		{
-
 			// Assert
 			Assert.AreEqual("ru", _languageManager.Language);
 		}
@@ -40,10 +43,11 @@ namespace AcspNet.Tests.Modules
 			// Assign
 
 			var cookies = new Dictionary<string, string> {{LanguageManager.CookieLanguageFieldName, "ru"}};
-			_requestCookies = new RequestCookieCollection(cookies);
+			_context.SetupGet(x => x.Request.Cookies).Returns(new RequestCookieCollection(cookies));
+			_settings.SetupGet(x => x.DefaultLanguage).Returns("en");
 
 			// Act
-			_languageManager = new LanguageManager("en", _requestCookies, _responseCookies);
+			_languageManager = new LanguageManager(_settings.Object, _context.Object);
 
 			// Assert
 			Assert.AreEqual("ru", _languageManager.Language);
@@ -61,7 +65,9 @@ namespace AcspNet.Tests.Modules
 		{
 			// Assign
 
-			_languageManager = new LanguageManager("en", _requestCookies, _responseCookies);
+			_settings.SetupGet(x => x.DefaultLanguage).Returns("en");
+			_languageManager = new LanguageManager(_settings.Object, _context.Object);
+
 			_headerDictionary.Setup(x => x.AppendValues(It.IsAny<string>(), It.IsAny<string>())).Callback<string, string[]>((key, values) =>
 			{
 				Assert.AreEqual("Set-Cookie", key);

@@ -415,7 +415,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterLanguageManagerProvider()
 		{
-			DIContainer.Current.Register<ILanguageManagerProvider>(p => new LanguageManagerProvider(p.Resolve<IAcspNetSettings>().DefaultLanguage), LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<ILanguageManagerProvider>(p => new LanguageManagerProvider(p.Resolve<IAcspNetSettings>()), LifetimeType.PerLifetimeScope);
 		}
 
 		/// <summary>

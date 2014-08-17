@@ -18,17 +18,16 @@ namespace AcspNet.Modules
 		private readonly ResponseCookieCollection _responseCookies;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="LanguageManager"/> class.
+		/// Initializes a new instance of the <see cref="LanguageManager" /> class.
 		/// </summary>
-		/// <param name="defaultLanguage">The default language.</param>
-		/// <param name="requestCookies">The request cookies.</param>
-		/// <param name="responseCookies">The response cookies.</param>
-		public LanguageManager(string defaultLanguage, RequestCookieCollection requestCookies, ResponseCookieCollection responseCookies)
+		/// <param name="settings">The settings.</param>
+		/// <param name="context">The OWIN context.</param>
+		public LanguageManager(IAcspNetSettings settings, IOwinContext context)
 		{
-			_responseCookies = responseCookies;
+			_responseCookies = context.Response.Cookies;
 
-			var cookieLanguage = requestCookies[CookieLanguageFieldName];
-			SetCurrentLanguage(cookieLanguage != null && !string.IsNullOrEmpty(cookieLanguage) ? cookieLanguage : defaultLanguage);
+			var cookieLanguage = context.Request.Cookies[CookieLanguageFieldName];
+			SetCurrentLanguage(cookieLanguage != null && !string.IsNullOrEmpty(cookieLanguage) ? cookieLanguage : settings.DefaultLanguage);
 		}
 
 		/// <summary>
