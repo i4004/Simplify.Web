@@ -124,10 +124,12 @@
     <Compile Include="Core\IContextVariablesSetter.cs" />
     <Compile Include="Core\IControllerResponseBuilder.cs" />
     <Compile Include="Core\IPageBuilder.cs" />
+    <Compile Include="Core\IResponseWriter.cs" />
     <Compile Include="Core\IStopwatchProvider.cs" />
     <Compile Include="Core\IViewFactory.cs" />
     <Compile Include="Core\ModulesAccessorBuilder.cs" />
     <Compile Include="Core\PageBuilder.cs" />
+    <Compile Include="Core\ResponseWriter.cs" />
     <Compile Include="Core\StopwatchProvider.cs" />
     <Compile Include="Core\ViewAccessorBuilder.cs" />
     <Compile Include="Core\ViewFactory.cs" />

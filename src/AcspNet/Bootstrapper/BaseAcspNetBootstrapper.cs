@@ -22,6 +22,7 @@ namespace AcspNet.Bootstrapper
 		private Type _controllerResponseBuilderType;
 		private Type _controllerResponseHandlerType;
 		private Type _controllersHanderType;
+		private Type _responseWriterType;
 		private Type _requestHandlerType;
 		private Type _stopwatchProviderType;
 		private Type _contextVariablesSetterType;
@@ -48,6 +49,7 @@ namespace AcspNet.Bootstrapper
 			RegisterControllerResponseBuilder();
 			RegisterControllerResponseHandler();
 			RegisterControllersHandler();
+			RegisterResponseWriter();
 			RegisterRequestHandler();
 			RegisterStopwatchProvider();
 			RegisterContextVariablesSetter();
@@ -171,6 +173,17 @@ namespace AcspNet.Bootstrapper
 		{
 			get { return _controllersHanderType ?? typeof(ControllersHandler); }
 		}
+
+		/// <summary>
+		/// Gets the type of the response writer.
+		/// </summary>
+		/// <value>
+		/// The type of the response writer.
+		/// </value>
+		public Type ResponseWriterType
+		{
+			get { return _responseWriterType ?? typeof(ResponseWriter); }
+		}		
 
 		/// <summary>
 		/// Gets the type of the request handler.
@@ -322,6 +335,16 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
+		/// Sets the type of the response writer.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetResponseWriterType<T>()
+			where T : IResponseWriter
+		{
+			_responseWriterType = typeof(T);
+		}		
+
+		/// <summary>
 		/// Sets the type of the request handler.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
@@ -463,6 +486,13 @@ namespace AcspNet.Bootstrapper
 			DIContainer.Current.Register<IControllersHandler>(ControllersHandlerType);
 		}
 
+		/// <summary>
+		/// Registers the response writer.
+		/// </summary>
+		public virtual void RegisterResponseWriter()
+		{
+			DIContainer.Current.Register<IControllersHandler>(ResponseWriterType);
+		}
 		/// <summary>
 		/// Registers the request handler.
 		/// </summary>
