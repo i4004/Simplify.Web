@@ -52,6 +52,8 @@ namespace AcspNet.Bootstrapper
 			RegisterAcspNetContextProvider();
 			RegisterLanguageManagerProvider();
 			RegisterEnvironment();
+			RegisterFileReader();
+			RegisterStringTable();
 
 			// Registering controllers types
 			foreach (var controllerMetaData in ControllersMetaStore.Current.ControllersMetaData)
@@ -400,16 +402,6 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
-		/// Registers the environment.
-		/// </summary>
-		public virtual void RegisterEnvironment()
-		{
-			DIContainer.Current.Register<IEnvironment>(
-				p => new Environment(AppDomain.CurrentDomain.BaseDirectory, p.Resolve<IAcspNetSettings>()),
-				LifetimeType.PerLifetimeScope);
-		}
-
-		/// <summary>
 		/// Registers the AcspNet context provider.
 		/// </summary>
 		public virtual void RegisterAcspNetContextProvider()
@@ -423,6 +415,37 @@ namespace AcspNet.Bootstrapper
 		public virtual void RegisterLanguageManagerProvider()
 		{
 			DIContainer.Current.Register<ILanguageManagerProvider>(p => new LanguageManagerProvider(p.Resolve<IAcspNetSettings>().DefaultLanguage), LifetimeType.PerLifetimeScope);
+		}
+
+		/// <summary>
+		/// Registers the environment.
+		/// </summary>
+		public virtual void RegisterEnvironment()
+		{
+			DIContainer.Current.Register<IEnvironment>(
+				p => new Environment(AppDomain.CurrentDomain.BaseDirectory, p.Resolve<IAcspNetSettings>()),
+				LifetimeType.PerLifetimeScope);
+		}
+
+		/// <summary>
+		/// Registers the file reader.
+		/// </summary>
+		public virtual void RegisterFileReader()
+		{
+			DIContainer.Current.Register<IFileReader>(
+				p => new FileReader(p.Resolve<IEnvironment>().DataPhysicalPath, p.Resolve<IAcspNetSettings>().DefaultLanguage,
+					p.Resolve<ILanguageManagerProvider>().Get().Language));
+		}
+
+		/// <summary>
+		/// Registers the string table.
+		/// </summary>
+		public virtual void RegisterStringTable()
+		{
+			DIContainer.Current.Register<IStringTable>(
+				p =>
+					new StringTable(p.Resolve<IAcspNetSettings>().DefaultLanguage, p.Resolve<ILanguageManagerProvider>().Get().Language,
+						p.Resolve<IFileReader>()));
 		}
 
 		#endregion

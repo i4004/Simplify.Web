@@ -129,6 +129,7 @@
     <Compile Include="Meta\ViewsMetaStore.cs" />
     <Compile Include="ModulesAccessor.cs" />
     <Compile Include="Modules\AcspNetContext.cs" />
+    <Compile Include="Modules\FileReader.cs" />
     <Compile Include="Modules\ILanguageManagerProvider.cs" />
     <Compile Include="Modules\IStringTable.cs" />
     <Compile Include="Modules\LanguageManagerProvider.cs" />
@@ -274,7 +275,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
