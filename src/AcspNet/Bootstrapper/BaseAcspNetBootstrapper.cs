@@ -491,7 +491,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterResponseWriter()
 		{
-			DIContainer.Current.Register<IControllersHandler>(ResponseWriterType);
+			DIContainer.Current.Register<IResponseWriter>(ResponseWriterType);
 		}
 		/// <summary>
 		/// Registers the request handler.

@@ -41,6 +41,7 @@ namespace AcspNet.Core
 				case ControllersHandlerResult.Ok:
 					_responseWriter.Write(_pageBuilder.Build(containerProvider), context.Response);
 					break;
+
 				case ControllersHandlerResult.Http404:
 					context.Response.StatusCode = 404;
 					break;
