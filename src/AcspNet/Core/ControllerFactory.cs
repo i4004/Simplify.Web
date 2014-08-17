@@ -10,20 +10,6 @@ namespace AcspNet.Core
 	/// </summary>
 	public class ControllerFactory : ViewAccessorBuilder, IControllerFactory
 	{
-		private readonly IViewFactory _viewFactory;
-		private readonly IAcspNetContextProvider _contextProvider;
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ControllerFactory" /> class.
-		/// </summary>
-		/// <param name="viewFactory">The view factory.</param>
-		/// <param name="contextProvider">The context factory.</param>
-		public ControllerFactory(IViewFactory viewFactory, IAcspNetContextProvider contextProvider)
-		{
-			_viewFactory = viewFactory;
-			_contextProvider = contextProvider;
-		}
-
 		/// <summary>
 		/// Creates the controller.
 		/// </summary>
@@ -37,10 +23,10 @@ namespace AcspNet.Core
 			var controller = (Controller)containerProvider.Resolve(controllerType);
 
 			BuildModulesAccessorProperties(controller, containerProvider);
-			BuildViewAccessorProperties(controller, containerProvider, _viewFactory);
+			BuildViewAccessorProperties(controller, containerProvider, containerProvider.Resolve<IViewFactory>());
 
 			controller.RouteParameters = routeParameters;
-			controller.Context = _contextProvider.Get();
+			controller.Context = containerProvider.Resolve<IAcspNetContextProvider>().Get();
 			controller.LanguageManager = containerProvider.Resolve<ILanguageManagerProvider>().Get();
 			controller.DataCollector = containerProvider.Resolve<IDataCollector>();
 			controller.FileReader = containerProvider.Resolve<IFileReader>();
