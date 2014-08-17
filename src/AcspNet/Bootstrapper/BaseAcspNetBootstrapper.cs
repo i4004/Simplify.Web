@@ -465,7 +465,7 @@ namespace AcspNet.Bootstrapper
 		{
 			DIContainer.Current.Register<IFileReader>(
 				p => new FileReader(p.Resolve<IEnvironment>().DataPhysicalPath, p.Resolve<IAcspNetSettings>().DefaultLanguage,
-					p.Resolve<ILanguageManagerProvider>().Get().Language));
+					p.Resolve<ILanguageManagerProvider>().Get().Language), LifetimeType.PerLifetimeScope);
 		}
 
 		/// <summary>
@@ -476,7 +476,7 @@ namespace AcspNet.Bootstrapper
 			DIContainer.Current.Register<IStringTable>(
 				p =>
 					new StringTable(p.Resolve<IAcspNetSettings>().DefaultLanguage, p.Resolve<ILanguageManagerProvider>().Get().Language,
-						p.Resolve<IFileReader>()));
+						p.Resolve<IFileReader>()), LifetimeType.PerLifetimeScope);
 		}
 
 		/// <summary>
@@ -489,7 +489,7 @@ namespace AcspNet.Bootstrapper
 				var settings = p.Resolve<IAcspNetSettings>();
 
 				return new DataCollector(settings.DefaultMainContentVariableName, settings.DefaultTitleVariableName, p.Resolve<IStringTable>());
-			});
+			}, LifetimeType.PerLifetimeScope);
 		}
 
 		#endregion
