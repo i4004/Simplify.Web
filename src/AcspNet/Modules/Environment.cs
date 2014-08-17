@@ -54,7 +54,7 @@
 		/// <summary>
 		/// Site current data directory relative path
 		/// </summary>
-		public string DataPath { get; set; }
+		public string DataPath { get; internal set; }
 
 		/// <summary>
 		/// Site templates memory cache status
@@ -62,7 +62,7 @@
 		/// <value>
 		/// <c>true</c> if templates memory cache enabled; otherwise, <c>false</c>.
 		/// </value>
-		public bool TemplatesMemoryCache { get; set; }
+		public bool TemplatesMemoryCache { get; internal set; }
 
 		/// <summary>
 		/// Gets or sets the current master page template file name
@@ -78,7 +78,7 @@
 		/// <value>
 		/// The  master template main content variable name.
 		/// </value>
-		public string MainContentVariableName { get; set; }
+		public string MainContentVariableName { get; internal set; }
 
 		/// <summary>
 		/// Gets or sets the current master template title variable name.
@@ -86,6 +86,6 @@
 		/// <value>
 		/// The title variable name.
 		/// </value>
-		public string TitleVariableName { get; set; }
+		public string TitleVariableName { get; internal set; }
 	}
 }
