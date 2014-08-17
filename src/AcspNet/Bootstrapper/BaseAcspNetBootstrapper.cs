@@ -586,6 +586,9 @@ namespace AcspNet.Bootstrapper
 			}, LifetimeType.PerLifetimeScope);
 		}
 
+		/// <summary>
+		/// Registers the template factory.
+		/// </summary>
 		public virtual void RegisterTemplateFactory()
 		{
 			DIContainer.Current.Register<ITemplateFactory>(
