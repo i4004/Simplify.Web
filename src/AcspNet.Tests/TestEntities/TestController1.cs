@@ -12,5 +12,9 @@ namespace AcspNet.Tests.TestEntities
 	[Priority(1)]
 	public class TestController1 : Controller
 	{
+		public override ControllerResponse Invoke()
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }

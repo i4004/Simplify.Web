@@ -17,5 +17,14 @@ namespace AcspNet.Responses
 		{
 			throw new NotImplementedException();
 		}
+
+		/// <summary>
+		/// Processes this response
+		/// </summary>
+		/// <returns></returns>
+		public override ControllerResponseResult Process()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

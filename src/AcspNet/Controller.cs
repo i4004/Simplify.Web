@@ -37,13 +37,10 @@ namespace AcspNet
 		/// Text files reader.
 		/// </summary>
 		public virtual IFileReader FileReader { get; internal set; }
-		
+
 		/// <summary>
 		/// Invokes the controller.
 		/// </summary>
-		public virtual ControllerResponse Invoke()
-		{
-			return null;
-		}
+		public abstract ControllerResponse Invoke();
 	}
 }

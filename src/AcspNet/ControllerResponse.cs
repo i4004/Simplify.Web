@@ -19,9 +19,6 @@ namespace AcspNet
 		/// Processes this response
 		/// </summary>
 		/// <exception cref="System.NotImplementedException"></exception>
-		public virtual ControllerResponseResult Process()
-		{
-			throw new System.NotImplementedException();
-		}
+		public abstract ControllerResponseResult Process();
 	}
 }
