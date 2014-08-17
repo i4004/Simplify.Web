@@ -10,10 +10,10 @@ namespace AcspNet.Core
 		/// <summary>
 		/// Builds the view accessor properties.
 		/// </summary>
+		/// <param name="viewAccessor">The view accessor.</param>
 		/// <param name="containerProvider">The DI container provider.</param>
 		/// <param name="viewFactory">The view factory.</param>
-		/// <param name="viewAccessor">The view accessor.</param>
-		protected void BuildViewAccessorProperties(IDIContainerProvider containerProvider, IViewFactory viewFactory, ViewAccessor viewAccessor)
+		protected void BuildViewAccessorProperties(ViewAccessor viewAccessor, IDIContainerProvider containerProvider, IViewFactory viewFactory)
 		{
 			viewAccessor.ContainerProvider = containerProvider;
 			viewAccessor.ViewFactory = viewFactory;		

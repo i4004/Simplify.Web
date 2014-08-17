@@ -19,8 +19,8 @@ namespace AcspNet.Core
 		{
 			var view = (View)containerProvider.Resolve(viewType);
 
-			BuildModulesAccessorProperties(containerProvider, view);
-			BuildViewAccessorProperties(containerProvider, this, view);
+			BuildModulesAccessorProperties(view, containerProvider);
+			BuildViewAccessorProperties(view, containerProvider, this);
 
 			view.Language = containerProvider.Resolve<LanguageManagerProvider>().Get().Language;
 

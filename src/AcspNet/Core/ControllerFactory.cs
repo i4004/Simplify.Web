@@ -36,8 +36,8 @@ namespace AcspNet.Core
 		{
 			var controller = (Controller)containerProvider.Resolve(controllerType);
 
-			BuildModulesAccessorProperties(containerProvider, controller);
-			BuildViewAccessorProperties(containerProvider, _viewFactory, controller);
+			BuildModulesAccessorProperties(controller, containerProvider);
+			BuildViewAccessorProperties(controller, containerProvider, _viewFactory);
 
 			controller.RouteParameters = routeParameters;
 			controller.Context = _contextProvider.Get();

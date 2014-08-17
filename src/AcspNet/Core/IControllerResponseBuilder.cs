@@ -10,8 +10,8 @@ namespace AcspNet.Core
 		/// <summary>
 		/// Builds the controller response properties.
 		/// </summary>
-		/// <param name="containerProvider">The DI container provider.</param>
 		/// <param name="controllerResponse">The controller response.</param>
-		void BuildControllerResponseProperties(IDIContainerProvider containerProvider, ControllerResponse controllerResponse);
+		/// <param name="containerProvider">The DI container provider.</param>
+		void BuildControllerResponseProperties(ControllerResponse controllerResponse, IDIContainerProvider containerProvider);
 	}
 }

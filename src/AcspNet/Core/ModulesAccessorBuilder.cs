@@ -11,9 +11,9 @@ namespace AcspNet.Core
 		/// <summary>
 		/// Builds the modules accessor properties.
 		/// </summary>
-		/// <param name="containerProvider">The DI container provider.</param>
 		/// <param name="modulesAccessor">The modules accessor.</param>
-		protected void BuildModulesAccessorProperties(IDIContainerProvider containerProvider, ModulesAccessor modulesAccessor)
+		/// <param name="containerProvider">The DI container provider.</param>
+		protected void BuildModulesAccessorProperties(ModulesAccessor modulesAccessor, IDIContainerProvider containerProvider)
 		{
 			modulesAccessor.Environment = containerProvider.Resolve<IEnvironment>();
 

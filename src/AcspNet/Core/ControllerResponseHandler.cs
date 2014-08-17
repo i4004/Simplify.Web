@@ -29,7 +29,7 @@ namespace AcspNet.Core
 			if(response == null)
 				return ControllerResponseResult.Ok;
 
-			_builder.BuildControllerResponseProperties(containerProvider, response);
+			_builder.BuildControllerResponseProperties(response, containerProvider);
 			return response.Process();
 		}
 	}
