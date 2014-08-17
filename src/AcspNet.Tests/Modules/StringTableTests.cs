@@ -99,16 +99,38 @@ namespace AcspNet.Tests.Modules
 		public void GetAssociatedValue_EnumItems_GetCorrectly()
 		{
 			// Assign
+
 			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"FooEnum.FooItem1\" value=\"Foo\" /></items>"));
-
-			// Act
 			_stringTable = new StringTable(_defaultLanguage, _currentLanguage, _fileReader.Object);
-
+			
 			// Act & Assert
 			Assert.AreEqual("Foo", _stringTable.GetAssociatedValue(FooEnum.FooItem1));
 			Assert.IsNull(_stringTable.GetAssociatedValue(FooEnum.FooItem2));
 		}
 
+		[Test]
+		public void GetItem_ItemFound_Returned()
+		{
+			// Assign
+
+			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"FooEnum.FooItem1\" value=\"Foo\" /></items>"));
+			_stringTable = new StringTable(_defaultLanguage, _currentLanguage, _fileReader.Object);
+
+			// Act & Assert
+			Assert.AreEqual("Foo", _stringTable.GetItem("FooEnum.FooItem1"));
+		}
+
+		[Test]
+		public void GetItem_ItemNotFound_Null()
+		{
+			// Assign
+
+			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"FooEnum.FooItem1\" value=\"Foo\" /></items>"));
+			_stringTable = new StringTable(_defaultLanguage, _currentLanguage, _fileReader.Object);
+
+			// Act & Assert
+			Assert.IsNull(_stringTable.GetItem("Foo"));
+		}
 	}
 
 	public enum FooEnum

@@ -17,5 +17,12 @@
 		/// <param name="enumValue">Enum value</param>
 		/// <returns>associated value</returns>
 		string GetAssociatedValue<T>(T enumValue) where T : struct;
+
+		/// <summary>
+		/// Gets the item from string table.
+		/// </summary>
+		/// <param name="itemName">Name of the item.</param>
+		/// <returns></returns>
+		string GetItem(string itemName);
 	}
 }
