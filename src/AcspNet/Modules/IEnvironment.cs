@@ -1,7 +1,7 @@
 ﻿namespace AcspNet.Modules
 {
 	/// <summary>
-	/// Represent site enviroment properties
+	/// Represent site environment properties
 	/// </summary>
 	public interface IEnvironment : IHideObjectMembers
 	{
