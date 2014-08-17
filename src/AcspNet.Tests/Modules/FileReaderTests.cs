@@ -7,6 +7,7 @@ using NUnit.Framework;
 namespace AcspNet.Tests.Modules
 {
 	[TestFixture]
+	[Category("Windows")]
 	public class FileReaderTests
 	{
 		private const string DataPath = "C:/WebSites/FooSite/App_Data";
