@@ -127,6 +127,7 @@
     <Compile Include="Modules\EnvironmentTests.cs" />
     <Compile Include="Meta\ControllersMetaDataFactoryTests.cs" />
     <Compile Include="Meta\ControllersMetaStoreTests.cs" />
+    <Compile Include="Modules\FileReaderTests.cs" />
     <Compile Include="Modules\LanguageManagerTests.cs" />
     <Compile Include="Modules\StringTableTests.cs" />
     <Compile Include="Modules\TemplateFactoryTests.cs" />
