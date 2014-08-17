@@ -42,6 +42,11 @@ namespace AcspNet.Modules
 			return currentItems.ContainsKey(enumItemName) ? currentItems[enumItemName] as string : null;
 		}
 
+		/// <summary>
+		/// Gets the item from string table.
+		/// </summary>
+		/// <param name="itemName">Name of the item.</param>
+		/// <returns></returns>
 		public string GetItem(string itemName)
 		{
 			var currentItems = (IDictionary<string, Object>)Items;
