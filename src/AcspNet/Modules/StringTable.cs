@@ -12,8 +12,6 @@ namespace AcspNet.Modules
 	/// </summary>
 	public sealed class StringTable : IStringTable
 	{
-		private readonly IFileReader _fileReader;
-
 		/// <summary>
 		/// Load string table with current language
 		/// </summary>
@@ -22,37 +20,7 @@ namespace AcspNet.Modules
 		/// <param name="fileReader">The file reader.</param>
 		public StringTable(string defaultLanguage, string currentLanguage, IFileReader fileReader)
 		{
-			_fileReader = fileReader;
-
-			Load(defaultLanguage, currentLanguage);
-		}
-
-		/// <summary>
-		/// Loads string table.
-		/// </summary>
-		private void Load(string defaultLanguage, string currentLanguage)
-		{
-			IDictionary<string, Object> currentItems = new ExpandoObject();
-			Items = currentItems;
-
-			var stringTable = _fileReader.LoadXDocument("StringTable.xml");
-
-			// Loading current culture strings
-			if (stringTable != null && stringTable.Root != null)
-				foreach (var item in stringTable.Root.XPathSelectElements("item").Where(x => x.HasAttributes))
-					currentItems.Add((string)item.Attribute("name"), string.IsNullOrEmpty(item.Value) ? (string)item.Attribute("value") : item.InnerXml().Trim());
-
-			if (currentLanguage == defaultLanguage)
-				return;
-
-			// Loading default culture strings
-
-			stringTable = _fileReader.LoadXDocument("StringTable.xml", defaultLanguage);
-
-			if (stringTable != null && stringTable.Root != null)
-				foreach (var item in stringTable.Root.XPathSelectElements("item").Where(x => x.HasAttributes))
-					if (!currentItems.ContainsKey((string)item.Attribute("name")))
-						currentItems.Add((string)item.Attribute("name"), string.IsNullOrEmpty(item.Value) ? (string)item.Attribute("value") : item.InnerXml().Trim());
+			Load(defaultLanguage, currentLanguage, fileReader);
 		}
 
 		/// <summary>
@@ -72,6 +40,34 @@ namespace AcspNet.Modules
 			var enumItemName = enumValue.GetType().Name + "." + Enum.GetName(typeof (T), enumValue);
 
 			return currentItems.ContainsKey(enumItemName) ? currentItems[enumItemName] as string : null;
+		}
+
+		/// <summary>
+		/// Loads string table.
+		/// </summary>
+		private void Load(string defaultLanguage, string currentLanguage, IFileReader fileReader)
+		{
+			IDictionary<string, Object> currentItems = new ExpandoObject();
+			Items = currentItems;
+
+			var stringTable = fileReader.LoadXDocument("StringTable.xml");
+
+			// Loading current culture strings
+			if (stringTable != null && stringTable.Root != null)
+				foreach (var item in stringTable.Root.XPathSelectElements("item").Where(x => x.HasAttributes))
+					currentItems.Add((string)item.Attribute("name"), string.IsNullOrEmpty(item.Value) ? (string)item.Attribute("value") : item.InnerXml().Trim());
+
+			if (currentLanguage == defaultLanguage)
+				return;
+
+			// Loading default culture strings
+
+			stringTable = fileReader.LoadXDocument("StringTable.xml", defaultLanguage);
+
+			if (stringTable != null && stringTable.Root != null)
+				foreach (var item in stringTable.Root.XPathSelectElements("item").Where(x => x.HasAttributes))
+					if (!currentItems.ContainsKey((string)item.Attribute("name")))
+						currentItems.Add((string)item.Attribute("name"), string.IsNullOrEmpty(item.Value) ? (string)item.Attribute("value") : item.InnerXml().Trim());
 		}
 	}
 }
