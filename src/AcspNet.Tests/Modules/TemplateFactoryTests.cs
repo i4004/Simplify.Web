@@ -13,19 +13,24 @@ namespace AcspNet.Tests.Modules
 	[Category("Windows")]
 	public class TemplateFactoryTests
 	{
+		private Mock<IEnvironment> _environment;
+
 		[TestFixtureSetUp]
-		public void SetUpFileSystem()
+		public void Initialize()
 		{
 			var files = new Dictionary<string, MockFileData> { { "Templates/Foo.tpl", "Dummy data" } };
 
 			Template.FileSystem = new MockFileSystem(files, "C:/WebSites/FooSite");
+
+			_environment = new Mock<IEnvironment>();
+			_environment.SetupGet(x => x.TemplatesPhysicalPath).Returns("C:/WebSites/FooSite/Templates");
 		}
 
 		[Test]
 		public void Load_NullFileName_ArgumentNullExceptionThrown()
 		{
 			// Assign
-			var tf = new TemplateFactory("C:/WebSites/FooSite/Templates", "en", "en");
+			var tf = new TemplateFactory(_environment.Object, "en", "en");
 
 			// Act & Assert
 			Assert.Throws<ArgumentNullException>(() => tf.Load(null));
@@ -35,7 +40,8 @@ namespace AcspNet.Tests.Modules
 		public void Load_NoCache_TemplateLoadedCorrectly()
 		{
 			// Assign
-			var tf = new TemplateFactory("C:/WebSites/FooSite/Templates", "en", "en");
+			_environment.SetupGet(x => x.TemplatesPhysicalPath).Returns("C:/WebSites/FooSite/Templates");
+			var tf = new TemplateFactory(_environment.Object, "en", "en");
 
 			// Act
 			var data = tf.Load("Foo.tpl");
@@ -48,7 +54,7 @@ namespace AcspNet.Tests.Modules
 		public void Load_NameWithoutTpl_TemplateLoadedCorrectly()
 		{
 			// Assign
-			var tf = new TemplateFactory("C:/WebSites/FooSite/Templates", "en", "en");
+			var tf = new TemplateFactory(_environment.Object, "en", "en");
 
 			// Act
 			var data = tf.Load("Foo");
@@ -61,7 +67,7 @@ namespace AcspNet.Tests.Modules
 		public void Load_WithCache_TemplateLoadedCorrectly()
 		{
 			// Assign
-			var tf = new TemplateFactory("C:/WebSites/FooSite/Templates", "en", "en", true);
+			var tf = new TemplateFactory(_environment.Object, "en", "en", true);
 
 			// Act
 			var data = tf.Load("Foo.tpl");

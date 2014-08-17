@@ -63,6 +63,7 @@ namespace AcspNet.Bootstrapper
 			RegisterFileReader();
 			RegisterStringTable();
 			RegisterDataCollector();
+			RegisterTemplateFactory();
 
 			// Registering controllers types
 			foreach (var controllerMetaData in ControllersMetaStore.Current.ControllersMetaData)
@@ -183,7 +184,7 @@ namespace AcspNet.Bootstrapper
 		public Type ResponseWriterType
 		{
 			get { return _responseWriterType ?? typeof(ResponseWriter); }
-		}		
+		}
 
 		/// <summary>
 		/// Gets the type of the request handler.
@@ -195,7 +196,7 @@ namespace AcspNet.Bootstrapper
 		{
 			get { return _requestHandlerType ?? typeof(RequestHandler); }
 		}
-		
+
 		/// <summary>
 		/// Gets the type of the stopwatch provider.
 		/// </summary>
@@ -227,8 +228,8 @@ namespace AcspNet.Bootstrapper
 		public Type PageBuilderType
 		{
 			get { return _pageBuilderType ?? typeof(PageBuilder); }
-		}		
-		
+		}
+
 		/// <summary>
 		/// Gets the type of the AcspNet context provider.
 		/// </summary>
@@ -283,7 +284,7 @@ namespace AcspNet.Bootstrapper
 		{
 			_controllerPathParserType = typeof(T);
 		}
-		
+
 		/// <summary>
 		/// Sets the type of the route matcher.
 		/// </summary>
@@ -342,7 +343,7 @@ namespace AcspNet.Bootstrapper
 			where T : IResponseWriter
 		{
 			_responseWriterType = typeof(T);
-		}		
+		}
 
 		/// <summary>
 		/// Sets the type of the request handler.
@@ -373,7 +374,7 @@ namespace AcspNet.Bootstrapper
 		{
 			_contextVariablesSetterType = typeof(T);
 		}
-		
+
 		/// <summary>
 		/// Sets the AcspNet context provider.
 		/// </summary>
@@ -393,7 +394,7 @@ namespace AcspNet.Bootstrapper
 		{
 			_pageBuilderType = typeof(T);
 		}
-		
+
 		#endregion
 
 		#region Bootstrapper types registration
@@ -445,7 +446,7 @@ namespace AcspNet.Bootstrapper
 		{
 			DIContainer.Current.Register<IControllerPathParser>(ControllerPathParser);
 		}
-		
+
 		/// <summary>
 		/// Registers the route matcher.
 		/// </summary>
@@ -583,6 +584,17 @@ namespace AcspNet.Bootstrapper
 
 				return new DataCollector(settings.DefaultMainContentVariableName, settings.DefaultTitleVariableName, p.Resolve<IStringTable>());
 			}, LifetimeType.PerLifetimeScope);
+		}
+
+		public virtual void RegisterTemplateFactory()
+		{
+			DIContainer.Current.Register<ITemplateFactory>(
+				p =>
+				{
+					var settings = p.Resolve<IAcspNetSettings>();
+
+					return new TemplateFactory(p.Resolve<IEnvironment>(), p.Resolve<ILanguageManagerProvider>().Get().Language, settings.DefaultLanguage, settings.TemplatesMemoryCache);
+				}, LifetimeType.PerLifetimeScope);
 		}
 
 		#endregion

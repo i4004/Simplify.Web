@@ -10,7 +10,7 @@ namespace AcspNet.Modules
 	/// </summary>
 	public sealed class TemplateFactory : ITemplateFactory
 	{
-		private readonly string _templatesPhysicalPath;
+		private readonly IEnvironment _environment;
 		private readonly string _language;
 		private readonly string _defaultLanguage;
 		private readonly bool _templatesMemoryCache;
@@ -22,9 +22,9 @@ namespace AcspNet.Modules
 		/// <summary>
 		/// Initializes a new instance of the <see cref="TemplateFactory"/> class.
 		/// </summary>
-		public TemplateFactory(string templatesPhysicalPath, string language, string defaultLanguage, bool templatesMemoryCache = false)
+		public TemplateFactory(IEnvironment environment, string language, string defaultLanguage, bool templatesMemoryCache = false)
 		{
-			_templatesPhysicalPath = templatesPhysicalPath;
+			_environment = environment;
 			_language = language;
 			_defaultLanguage = defaultLanguage;
 			_templatesMemoryCache = templatesMemoryCache;
@@ -43,7 +43,7 @@ namespace AcspNet.Modules
 			if (!fileName.EndsWith(".tpl"))
 				fileName = fileName + ".tpl";
 
-			var filePath = string.Format("{0}/{1}", _templatesPhysicalPath, fileName);
+			var filePath = string.Format("{0}/{1}", _environment.TemplatesPhysicalPath, fileName);
 
 			if (_templatesMemoryCache)
 			{
