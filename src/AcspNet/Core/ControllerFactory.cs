@@ -8,7 +8,7 @@ namespace AcspNet.Core
 	/// <summary>
 	/// Controller factory
 	/// </summary>
-	public class ControllerFactory : ModulesAccessorBuilder, IControllerFactory
+	public class ControllerFactory : ViewAccessorBuilder, IControllerFactory
 	{
 		private readonly IViewFactory _viewFactory;
 		private readonly IAcspNetContextProvider _contextProvider;
@@ -36,8 +36,8 @@ namespace AcspNet.Core
 		{
 			var controller = (Controller)containerProvider.Resolve(controllerType);
 
-			BuildViewAccessorProperties(containerProvider, _viewFactory, controller);
 			BuildModulesAccessorProperties(containerProvider, controller);
+			BuildViewAccessorProperties(containerProvider, _viewFactory, controller);
 
 			controller.RouteParameters = routeParameters;
 			controller.Context = _contextProvider.Get();

@@ -6,7 +6,7 @@ namespace AcspNet
 	/// <summary>
 	/// View accessor base class
 	/// </summary>
-	public abstract class ViewAccessor
+	public abstract class ViewAccessor : ModulesAccessor
 	{
 		internal virtual IViewFactory ViewFactory { get; set; }
 		internal virtual IDIContainerProvider ContainerProvider { get; set; }

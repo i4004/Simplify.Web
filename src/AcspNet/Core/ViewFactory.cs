@@ -7,7 +7,7 @@ namespace AcspNet.Core
 	/// <summary>
 	/// View factory
 	/// </summary>
-	public class ViewFactory : ModulesAccessorBuilder, IViewFactory
+	public class ViewFactory : ViewAccessorBuilder, IViewFactory
 	{
 		/// <summary>
 		/// Creates the view.
@@ -19,8 +19,8 @@ namespace AcspNet.Core
 		{
 			var view = (View)containerProvider.Resolve(viewType);
 
-			BuildViewAccessorProperties(containerProvider, this, view);
 			BuildModulesAccessorProperties(containerProvider, view);
+			BuildViewAccessorProperties(containerProvider, this, view);
 
 			view.Language = containerProvider.Resolve<LanguageManagerProvider>().Get().Language;
 

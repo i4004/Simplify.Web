@@ -3,7 +3,7 @@
 	/// <summary>
 	/// AcspNet view base class 
 	/// </summary>
-	public abstract class View : ModulesAccessor
+	public abstract class View : ViewAccessor
 	{
 		/// <summary>
 		/// Gets the current language.

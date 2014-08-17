@@ -5,7 +5,7 @@ namespace AcspNet
 	/// <summary>
 	/// Modules accessor base class
 	/// </summary>
-	public abstract class ModulesAccessor : ViewAccessor
+	public abstract class ModulesAccessor
 	{
 		/// <summary>
 		/// Current request environment data.

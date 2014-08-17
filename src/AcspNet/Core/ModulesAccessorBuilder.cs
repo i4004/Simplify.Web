@@ -6,7 +6,7 @@ namespace AcspNet.Core
 	/// <summary>
 	/// Provides builder for ModulesAccessor objects
 	/// </summary>
-	public class ModulesAccessorBuilder : ViewAccessorBuilder
+	public class ModulesAccessorBuilder
 	{
 		/// <summary>
 		/// Builds the modules accessor properties.

@@ -5,7 +5,7 @@ namespace AcspNet
 	/// <summary>
 	/// AcspNet controller base class
 	/// </summary>
-	public abstract class Controller : ModulesAccessor
+	public abstract class Controller : ViewAccessor
 	{
 		/// <summary>
 		/// Gets the route parameters.
