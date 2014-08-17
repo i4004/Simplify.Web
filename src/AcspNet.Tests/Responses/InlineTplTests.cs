@@ -34,10 +34,12 @@ namespace AcspNet.Tests.Responses
 			tplData.SetupGet(x => x.DataCollector).Returns(_dataCollector.Object);
 			
 			// Act
-			tplData.Object.Process();
+			var result = tplData.Object.Process();
 
 			// Assert
+
 			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == "foo"), It.Is<string>(d => d == "test")));
+			Assert.AreEqual(ControllerResponseResult.Ok, result);
 		}
 
 		[Test]

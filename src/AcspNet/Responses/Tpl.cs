@@ -72,12 +72,14 @@ namespace AcspNet.Responses
 		/// <summary>
 		/// Processes this response
 		/// </summary>
-		public override void Process()
+		public override ControllerResponseResult Process()
 		{
 			DataCollector.Add(Data);
 
 			if (!string.IsNullOrEmpty(Title))
 				DataCollector.AddTitle(Title);
+
+			return ControllerResponseResult.Ok;
 		}
 	}
 }

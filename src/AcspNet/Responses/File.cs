@@ -22,7 +22,7 @@ namespace AcspNet.Responses
 		/// Processes this response
 		/// </summary>
 		/// <exception cref="System.NotImplementedException"></exception>
-		public override void Process()
+		public override ControllerResponseResult Process()
 		{
 			throw new NotImplementedException();
 		}

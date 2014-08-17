@@ -44,9 +44,11 @@ namespace AcspNet.Responses
 		/// <summary>
 		/// Processes this response
 		/// </summary>
-		public override void Process()
+		public override ControllerResponseResult Process()
 		{
 			DataCollector.Add(_dataCollectorVariableName, _data);
+
+			return ControllerResponseResult.Ok;
 		}
 	}
 }
