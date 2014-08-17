@@ -19,15 +19,32 @@ namespace AcspNet.Tests.Core
 		}
 
 		[Test]
-		public void Process_BuildAndProcessInvoked()
+		public void Process_NoResponse_BuildAndProcessInvoked()
 		{
 			// Assign
 			var response = new Mock<ControllerResponse>();
 	
 			// Act
-			_controllerResponseHandler.Process(response.Object, null);
+			var result = _controllerResponseHandler.Process(null, null);
 
 			// Assert
+
+			Assert.AreEqual(ControllerResponseResult.Ok, result);
+			_controllerResponseBuilder.Verify(x => x.BuildControllerResponseProperties(It.IsAny<IDIContainerProvider>(), It.IsAny<ControllerResponse>()), Times.Never);
+		}
+
+		[Test]
+		public void Process_NormalResponse_BuildAndProcessInvoked()
+		{
+			// Assign
+			var response = new Mock<ControllerResponse>();
+
+			// Act
+			var result = _controllerResponseHandler.Process(response.Object, null);
+
+			// Assert
+
+			Assert.AreEqual(ControllerResponseResult.Ok, result);
 			response.Verify(x => x.Process());
 			_controllerResponseBuilder.Verify(x => x.BuildControllerResponseProperties(It.IsAny<IDIContainerProvider>(), It.IsAny<ControllerResponse>()));
 		}

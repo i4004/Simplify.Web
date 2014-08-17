@@ -1,4 +1,5 @@
-﻿using Simplify.DI;
+﻿using System;
+using Simplify.DI;
 
 namespace AcspNet.Core
 {
@@ -23,10 +24,13 @@ namespace AcspNet.Core
 		/// </summary>
 		/// <param name="response">The response.</param>
 		/// <param name="containerProvider">The DI container provider.</param>
-		public void Process(ControllerResponse response, IDIContainerProvider containerProvider)
+		public ControllerResponseResult Process(ControllerResponse response, IDIContainerProvider containerProvider)
 		{
+			if(response == null)
+				return ControllerResponseResult.Ok;
+
 			_builder.BuildControllerResponseProperties(containerProvider, response);
-			response.Process();
+			return response.Process();
 		}
 	}
 }

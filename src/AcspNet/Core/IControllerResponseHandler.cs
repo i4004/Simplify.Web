@@ -12,6 +12,6 @@ namespace AcspNet.Core
 		/// </summary>
 		/// <param name="response">The response.</param>
 		/// <param name="containerProvider">The DI container provider.</param>
-		void Process(ControllerResponse response, IDIContainerProvider containerProvider);
+		ControllerResponseResult Process(ControllerResponse response, IDIContainerProvider containerProvider);
 	}
 }
