@@ -54,6 +54,7 @@ namespace AcspNet.Bootstrapper
 			RegisterEnvironment();
 			RegisterFileReader();
 			RegisterStringTable();
+			RegisterDataCollector();
 
 			// Registering controllers types
 			foreach (var controllerMetaData in ControllersMetaStore.Current.ControllersMetaData)
@@ -446,6 +447,19 @@ namespace AcspNet.Bootstrapper
 				p =>
 					new StringTable(p.Resolve<IAcspNetSettings>().DefaultLanguage, p.Resolve<ILanguageManagerProvider>().Get().Language,
 						p.Resolve<IFileReader>()));
+		}
+
+		/// <summary>
+		/// Registers the data collector.
+		/// </summary>
+		public virtual void RegisterDataCollector()
+		{
+			DIContainer.Current.Register<IDataCollector>(p =>
+			{
+				var settings = p.Resolve<IAcspNetSettings>();
+
+				return new DataCollector(settings.DefaultMainContentVariableName, settings.DefaultTitleVariableName, p.Resolve<IStringTable>());
+			});
 		}
 
 		#endregion
