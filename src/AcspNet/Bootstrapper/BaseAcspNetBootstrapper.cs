@@ -23,6 +23,7 @@ namespace AcspNet.Bootstrapper
 		private Type _controllerResponseHandlerType;
 		private Type _controllersHanderType;
 		private Type _requestHandlerType;
+		private Type _stopwatchProviderType;
 
 		private Type _acspNetContextProviderType;
 
@@ -176,6 +177,17 @@ namespace AcspNet.Bootstrapper
 		{
 			get { return _requestHandlerType ?? typeof(RequestHandler); }
 		}
+		
+		/// <summary>
+		/// Gets the type of the stopwatch provider.
+		/// </summary>
+		/// <value>
+		/// The type of the stopwatch provider.
+		/// </value>
+		public Type StopwatchProviderType
+		{
+			get { return _stopwatchProviderType ?? typeof(StopwatchProvider); }
+		}
 
 		/// <summary>
 		/// Gets the type of the AcspNet context provider.
@@ -293,6 +305,16 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
+		/// Sets the type of the stopwatch provider.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetStopwatchProviderType<T>()
+			where T : IStopwatchProvider
+		{
+			_stopwatchProviderType = typeof(T);
+		}
+
+		/// <summary>
 		/// Sets the AcspNet context provider.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
@@ -400,6 +422,14 @@ namespace AcspNet.Bootstrapper
 		public virtual void RegisterRequestHandler()
 		{
 			DIContainer.Current.Register<IRequestHandler>(RequestHandlerType);
+		}
+
+		/// <summary>
+		/// Registers the stopwatch provider.
+		/// </summary>
+		public virtual void RegisterStopwatchProvider()
+		{
+			DIContainer.Current.Register<IStopwatchProvider>(StopwatchProviderType, LifetimeType.PerLifetimeScope);
 		}
 
 		/// <summary>

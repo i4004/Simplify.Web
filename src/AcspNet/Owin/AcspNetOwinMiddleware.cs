@@ -37,6 +37,9 @@ namespace AcspNet.Owin
 			{
 				try
 				{
+					// Starts execution measurement
+					scope.Container.Resolve<IStopwatchProvider>().StartMeasurement();
+
 					// Setup providers
 
 					var acspNetContextProvider = scope.Container.Resolve<IAcspNetContextProvider>();
