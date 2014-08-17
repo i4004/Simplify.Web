@@ -15,7 +15,13 @@ namespace AcspNet.Core
 		/// <param name="modulesAccessor">The modules accessor.</param>
 		protected void BuildModulesAccessorProperties(IDIContainerProvider containerProvider, ModulesAccessor modulesAccessor)
 		{
-			modulesAccessor.Environment = containerProvider.Resolve<IEnvironment>();		
+			modulesAccessor.Environment = containerProvider.Resolve<IEnvironment>();
+
+			var stringTable = containerProvider.Resolve<IStringTable>();
+			modulesAccessor.StringTable = stringTable.Items;
+			modulesAccessor.StringTableManager = stringTable;
+
+			modulesAccessor.TemplateFactory = containerProvider.Resolve<ITemplateFactory>();
 		}
 	}
 }
