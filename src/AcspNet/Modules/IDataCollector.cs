@@ -8,22 +8,6 @@ namespace AcspNet.Modules
 	public interface IDataCollector : IHideObjectMembers
 	{
 		/// <summary>
-		/// Gets the name of the main content variable.
-		/// </summary>
-		/// <value>
-		/// The name of the main content variable.
-		/// </value>
-		string MainContentVariableName { get; }
-
-		/// <summary>
-		/// Gets the name of the title variable.
-		/// </summary>
-		/// <value>
-		/// The name of the title variable.
-		/// </value>
-		string TitleVariableName { get; }
-
-		/// <summary>
 		/// List of data collector items
 		/// </summary>
 		/// <param name="key">Item name</param>

@@ -124,6 +124,7 @@
     <Compile Include="Core\ControllersHandlerTests.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGeneratorTests.cs" />
     <Compile Include="Modules\AcspNetContextTests.cs" />
+    <Compile Include="Modules\DataCollectorTests.cs" />
     <Compile Include="Modules\EnvironmentTests.cs" />
     <Compile Include="Meta\ControllersMetaDataFactoryTests.cs" />
     <Compile Include="Meta\ControllersMetaStoreTests.cs" />
