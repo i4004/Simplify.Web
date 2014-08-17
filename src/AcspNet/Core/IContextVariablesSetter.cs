@@ -1,4 +1,6 @@
-﻿namespace AcspNet.Core
+﻿using Simplify.DI;
+
+namespace AcspNet.Core
 {
 	/// <summary>
 	/// Represent context variables setter
@@ -8,6 +10,7 @@
 		/// <summary>
 		/// Sets the context variables to data collector
 		/// </summary>
-		void SetVariables();
+		/// <param name="containerProvider">The DI container provider.</param>
+		void SetVariables(IDIContainerProvider containerProvider);
 	}
 }

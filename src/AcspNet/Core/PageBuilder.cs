@@ -1,4 +1,5 @@
 ﻿using AcspNet.Modules;
+using Simplify.DI;
 
 namespace AcspNet.Core
 {
@@ -21,8 +22,9 @@ namespace AcspNet.Core
 		/// <summary>
 		/// Buids a web page
 		/// </summary>
+		/// <param name="containerProvider">The DI container provider.</param>
 		/// <returns></returns>
-		public string Buid()
+		public string Buid(IDIContainerProvider containerProvider)
 		{
 			throw new System.NotImplementedException();
 		}

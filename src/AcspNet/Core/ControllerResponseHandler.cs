@@ -1,5 +1,4 @@
-﻿using System;
-using Simplify.DI;
+﻿using Simplify.DI;
 
 namespace AcspNet.Core
 {

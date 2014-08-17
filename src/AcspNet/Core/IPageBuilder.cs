@@ -1,4 +1,6 @@
-﻿namespace AcspNet.Core
+﻿using Simplify.DI;
+
+namespace AcspNet.Core
 {
 	/// <summary>
 	/// Represent web-page builder
@@ -8,7 +10,8 @@
 		/// <summary>
 		/// Buids a web page
 		/// </summary>
+		/// <param name="containerProvider">The DI container provider.</param>
 		/// <returns></returns>
-		string Buid();
+		string Buid(IDIContainerProvider containerProvider);
 	}
 }
