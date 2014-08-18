@@ -43,7 +43,7 @@ namespace AcspNet.Modules
 			if (!fileName.EndsWith(".tpl"))
 				fileName = fileName + ".tpl";
 
-			var filePath = string.Format("{0}/{1}", _environment.TemplatesPhysicalPath, fileName);
+			var filePath = string.Format("{0}{1}", _environment.TemplatesPhysicalPath, fileName);
 
 			if (_templatesMemoryCache)
 			{

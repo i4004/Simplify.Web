@@ -71,16 +71,16 @@ namespace AcspNet.Modules
 			var indexOfPoint = fileName.IndexOf(".", StringComparison.Ordinal);
 
 			if (indexOfPoint == -1)
-				return string.Format("{0}/{1}.{2}", _dataPhysicalPath,
+				return string.Format("{0}{1}.{2}", _dataPhysicalPath,
 							fileName, language);
 
 			var fileNameFirstPart = fileName.Substring(0, indexOfPoint);
 			var fileNameLastPart = fileName.Substring(indexOfPoint, fileName.Length - indexOfPoint);
 
-			var path = string.Format("{0}/{1}.{2}{3}", _dataPhysicalPath, fileNameFirstPart, language, fileNameLastPart);
+			var path = string.Format("{0}{1}.{2}{3}", _dataPhysicalPath, fileNameFirstPart, language, fileNameLastPart);
 
 			return !FileSystem.File.Exists(path)
-				? string.Format("{0}/{1}.{2}{3}", _dataPhysicalPath, fileNameFirstPart, _defaultLanguage,
+				? string.Format("{0}{1}.{2}{3}", _dataPhysicalPath, fileNameFirstPart, _defaultLanguage,
 					fileNameLastPart)
 				: path;
 		}

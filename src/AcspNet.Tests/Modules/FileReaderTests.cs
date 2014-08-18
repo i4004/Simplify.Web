@@ -10,7 +10,7 @@ namespace AcspNet.Tests.Modules
 	[Category("Windows")]
 	public class FileReaderTests
 	{
-		private const string DataPath = "C:/WebSites/FooSite/App_Data";
+		private const string DataPath = "C:/WebSites/FooSite/App_Data/";
 
 		[TestFixtureSetUp]
 		public void SetUpFileSystem()
@@ -25,7 +25,7 @@ namespace AcspNet.Tests.Modules
 				}
 			};
 			
-			FileReader.FileSystem = new MockFileSystem(files, "C:/WebSites/FooSite");
+			FileReader.FileSystem = new MockFileSystem(files, "C:/WebSites/FooSite/");
 		}
 
 		[Test]
