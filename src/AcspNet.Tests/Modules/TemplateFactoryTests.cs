@@ -23,7 +23,7 @@ namespace AcspNet.Tests.Modules
 			Template.FileSystem = new MockFileSystem(files, "C:/WebSites/FooSite");
 
 			_environment = new Mock<IEnvironment>();
-			_environment.SetupGet(x => x.TemplatesPhysicalPath).Returns("C:/WebSites/FooSite/Templates");
+			_environment.SetupGet(x => x.TemplatesPhysicalPath).Returns("C:/WebSites/FooSite/Templates/");
 		}
 
 		[Test]
@@ -40,7 +40,6 @@ namespace AcspNet.Tests.Modules
 		public void Load_NoCache_TemplateLoadedCorrectly()
 		{
 			// Assign
-			_environment.SetupGet(x => x.TemplatesPhysicalPath).Returns("C:/WebSites/FooSite/Templates");
 			var tf = new TemplateFactory(_environment.Object, "en", "en");
 
 			// Act
