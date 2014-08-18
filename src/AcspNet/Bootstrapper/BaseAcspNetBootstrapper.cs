@@ -22,12 +22,11 @@ namespace AcspNet.Bootstrapper
 		private Type _controllerResponseBuilderType;
 		private Type _controllerResponseHandlerType;
 		private Type _controllersHanderType;
+		private Type _pageBuilderType;
 		private Type _responseWriterType;
 		private Type _requestHandlerType;
 		private Type _stopwatchProviderType;
 		private Type _contextVariablesSetterType;
-		private Type _pageBuilderType;
-
 		private Type _acspNetContextProviderType;
 
 		/// <summary>
@@ -49,21 +48,18 @@ namespace AcspNet.Bootstrapper
 			RegisterControllerResponseBuilder();
 			RegisterControllerResponseHandler();
 			RegisterControllersHandler();
+			RegisterEnvironment();
+			RegisterLanguageManagerProvider();
+			RegisterTemplateFactory();
+			RegisterFileReader();
+			RegisterStringTable();
+			RegisterDataCollector();
+			RegisterPageBuilder();
 			RegisterResponseWriter();
 			RegisterRequestHandler();
 			RegisterStopwatchProvider();
 			RegisterContextVariablesSetter();
-			RegisterPageBuilder();
-
-			// Registering user modules
-
 			RegisterAcspNetContextProvider();
-			RegisterLanguageManagerProvider();
-			RegisterEnvironment();
-			RegisterFileReader();
-			RegisterStringTable();
-			RegisterDataCollector();
-			RegisterTemplateFactory();
 
 			// Registering controllers types
 			foreach (var controllerMetaData in ControllersMetaStore.Current.ControllersMetaData)
@@ -174,7 +170,18 @@ namespace AcspNet.Bootstrapper
 		{
 			get { return _controllersHanderType ?? typeof(ControllersHandler); }
 		}
-
+		
+		/// <summary>
+		/// Gets the type of the page builder.
+		/// </summary>
+		/// <value>
+		/// The type of the page builder.
+		/// </value>
+		public Type PageBuilderType
+		{
+			get { return _pageBuilderType ?? typeof(PageBuilder); }
+		}
+		
 		/// <summary>
 		/// Gets the type of the response writer.
 		/// </summary>
@@ -217,17 +224,6 @@ namespace AcspNet.Bootstrapper
 		public Type ContextVariablesSetterType
 		{
 			get { return _contextVariablesSetterType ?? typeof(ContextVariablesSetter); }
-		}
-
-		/// <summary>
-		/// Gets the type of the page builder.
-		/// </summary>
-		/// <value>
-		/// The type of the page builder.
-		/// </value>
-		public Type PageBuilderType
-		{
-			get { return _pageBuilderType ?? typeof(PageBuilder); }
 		}
 
 		/// <summary>
@@ -320,7 +316,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		public void SetControllerResponseHandlerType<T>()
-			where T : IControllerResponseBuilder
+			where T : IControllerResponseHandler
 		{
 			_controllerResponseHandlerType = typeof(T);
 		}
@@ -333,6 +329,16 @@ namespace AcspNet.Bootstrapper
 			where T : IControllersHandler
 		{
 			_controllersHanderType = typeof(T);
+		}
+		
+		/// <summary>
+		/// Sets the page builder.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetPageBuilder<T>()
+			where T : IPageBuilder
+		{
+			_pageBuilderType = typeof(T);
 		}
 
 		/// <summary>
@@ -383,16 +389,6 @@ namespace AcspNet.Bootstrapper
 			where T : IAcspNetContextProvider
 		{
 			_acspNetContextProviderType = typeof(T);
-		}
-
-		/// <summary>
-		/// Sets the page builder.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		public void SetPageBuilder<T>()
-			where T : IPageBuilder
-		{
-			_pageBuilderType = typeof(T);
 		}
 
 		#endregion
@@ -486,52 +482,15 @@ namespace AcspNet.Bootstrapper
 		{
 			DIContainer.Current.Register<IControllersHandler>(ControllersHandlerType);
 		}
-
+		
 		/// <summary>
-		/// Registers the response writer.
+		/// Registers the environment.
 		/// </summary>
-		public virtual void RegisterResponseWriter()
+		public virtual void RegisterEnvironment()
 		{
-			DIContainer.Current.Register<IResponseWriter>(ResponseWriterType);
-		}
-		/// <summary>
-		/// Registers the request handler.
-		/// </summary>
-		public virtual void RegisterRequestHandler()
-		{
-			DIContainer.Current.Register<IRequestHandler>(RequestHandlerType);
-		}
-
-		/// <summary>
-		/// Registers the stopwatch provider.
-		/// </summary>
-		public virtual void RegisterStopwatchProvider()
-		{
-			DIContainer.Current.Register<IStopwatchProvider>(StopwatchProviderType, LifetimeType.PerLifetimeScope);
-		}
-
-		/// <summary>
-		/// Registers the context variables setter.
-		/// </summary>
-		public virtual void RegisterContextVariablesSetter()
-		{
-			DIContainer.Current.Register<IContextVariablesSetter>(ContextVariablesSetterType, LifetimeType.PerLifetimeScope);
-		}
-
-		/// <summary>
-		/// Registers the page builder.
-		/// </summary>
-		public virtual void RegisterPageBuilder()
-		{
-			DIContainer.Current.Register<IPageBuilder>(PageBuilderType, LifetimeType.PerLifetimeScope);
-		}
-
-		/// <summary>
-		/// Registers the AcspNet context provider.
-		/// </summary>
-		public virtual void RegisterAcspNetContextProvider()
-		{
-			DIContainer.Current.Register<IAcspNetContextProvider>(AcspNetContextProviderType, LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<IEnvironment>(
+				p => new Environment(AppDomain.CurrentDomain.BaseDirectory, p.Resolve<IAcspNetSettings>()),
+				LifetimeType.PerLifetimeScope);
 		}
 
 		/// <summary>
@@ -543,15 +502,19 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
-		/// Registers the environment.
+		/// Registers the template factory.
 		/// </summary>
-		public virtual void RegisterEnvironment()
+		public virtual void RegisterTemplateFactory()
 		{
-			DIContainer.Current.Register<IEnvironment>(
-				p => new Environment(AppDomain.CurrentDomain.BaseDirectory, p.Resolve<IAcspNetSettings>()),
-				LifetimeType.PerLifetimeScope);
-		}
+			DIContainer.Current.Register<ITemplateFactory>(
+				p =>
+				{
+					var settings = p.Resolve<IAcspNetSettings>();
 
+					return new TemplateFactory(p.Resolve<IEnvironment>(), p.Resolve<ILanguageManagerProvider>().Get().Language, settings.DefaultLanguage, settings.TemplatesMemoryCache);
+				}, LifetimeType.PerLifetimeScope);
+		}
+		
 		/// <summary>
 		/// Registers the file reader.
 		/// </summary>
@@ -587,17 +550,51 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
-		/// Registers the template factory.
+		/// Registers the page builder.
 		/// </summary>
-		public virtual void RegisterTemplateFactory()
+		public virtual void RegisterPageBuilder()
 		{
-			DIContainer.Current.Register<ITemplateFactory>(
-				p =>
-				{
-					var settings = p.Resolve<IAcspNetSettings>();
+			DIContainer.Current.Register<IPageBuilder>(PageBuilderType, LifetimeType.PerLifetimeScope);
+		}
 
-					return new TemplateFactory(p.Resolve<IEnvironment>(), p.Resolve<ILanguageManagerProvider>().Get().Language, settings.DefaultLanguage, settings.TemplatesMemoryCache);
-				}, LifetimeType.PerLifetimeScope);
+		/// <summary>
+		/// Registers the response writer.
+		/// </summary>
+		public virtual void RegisterResponseWriter()
+		{
+			DIContainer.Current.Register<IResponseWriter>(ResponseWriterType);
+		}
+
+		/// <summary>
+		/// Registers the request handler.
+		/// </summary>
+		public virtual void RegisterRequestHandler()
+		{
+			DIContainer.Current.Register<IRequestHandler>(RequestHandlerType, LifetimeType.PerLifetimeScope);
+		}
+
+		/// <summary>
+		/// Registers the stopwatch provider.
+		/// </summary>
+		public virtual void RegisterStopwatchProvider()
+		{
+			DIContainer.Current.Register<IStopwatchProvider>(StopwatchProviderType, LifetimeType.PerLifetimeScope);
+		}
+
+		/// <summary>
+		/// Registers the context variables setter.
+		/// </summary>
+		public virtual void RegisterContextVariablesSetter()
+		{
+			DIContainer.Current.Register<IContextVariablesSetter>(ContextVariablesSetterType, LifetimeType.PerLifetimeScope);
+		}
+
+		/// <summary>
+		/// Registers the AcspNet context provider.
+		/// </summary>
+		public virtual void RegisterAcspNetContextProvider()
+		{
+			DIContainer.Current.Register<IAcspNetContextProvider>(AcspNetContextProviderType, LifetimeType.PerLifetimeScope);
 		}
 
 		#endregion
