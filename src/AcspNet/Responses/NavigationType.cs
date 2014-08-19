@@ -20,6 +20,10 @@
 		/// <summary>
 		/// The previous page URL with bookmark
 		/// </summary>
-		PreviousPageWithBookmark
+		PreviousPageWithBookmark,
+		/// <summary>
+		/// Navigate to current page (refresh the page)
+		/// </summary>
+		CurrentPage
 	}
 }
