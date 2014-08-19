@@ -36,6 +36,20 @@ namespace AcspNet.Tests.Modules
 			Assert.AreEqual(_owinContext.Object.Response, context.Response);
 			Assert.AreEqual(_owinContext.Object.Request.Query, context.Query);
 			Assert.AreEqual("http://localhost/mywebsite/", context.SiteUrl);
+			Assert.AreEqual("/mywebsite/", context.VirtualPath);
+		}
+
+		[Test]
+		public void Constructor_NoVirtualPath_Empty()
+		{
+			// Assign
+			_owinContext.SetupGet(x => x.Request.PathBase).Returns(new PathString(""));
+
+			// Act
+			var context = new AcspNetContext(_owinContext.Object);
+
+			// Assert
+			Assert.AreEqual("", context.VirtualPath);
 		}
 
 		[Test]

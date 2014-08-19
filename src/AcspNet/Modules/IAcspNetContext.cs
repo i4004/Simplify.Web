@@ -11,6 +11,14 @@ namespace AcspNet.Modules
 		/// Site root url, for example: http://mysite.com or http://localhost/mysite/
 		/// </summary>
 		string SiteUrl { get; }
+		
+		/// <summary>
+		/// Gets the virtual path.
+		/// </summary>
+		/// <value>
+		/// The virtual path.
+		/// </value>
+		string VirtualPath { get; }
 
 		/// <summary>
 		/// Gets the context for the current HTTP request.
