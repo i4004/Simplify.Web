@@ -36,6 +36,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Accounts\ProcessLoginController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HttpErrors\Http404Controller.cs" />
     <Compile Include="Controllers\Accounts\LoginController.cs" />
