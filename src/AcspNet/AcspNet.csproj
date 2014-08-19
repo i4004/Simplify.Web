@@ -140,6 +140,7 @@
     <Compile Include="Modules\DataCollector.cs" />
     <Compile Include="Modules\FileReader.cs" />
     <Compile Include="Modules\ILanguageManagerProvider.cs" />
+    <Compile Include="Modules\INavigator.cs" />
     <Compile Include="Modules\IStringTable.cs" />
     <Compile Include="Modules\LanguageManagerProvider.cs" />
     <Compile Include="Modules\AcspNetContextProvider.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="Modules\IFileReader.cs" />
     <Compile Include="Modules\ILanguageManager.cs" />
     <Compile Include="Modules\LanguageManager.cs" />
+    <Compile Include="Modules\Navigator.cs" />
     <Compile Include="Modules\StringTable.cs" />
     <Compile Include="Responses\Ajax.cs" />
     <Compile Include="Core\ControllerFactory.cs" />
@@ -285,7 +287,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
