@@ -1,20 +1,20 @@
 ﻿namespace AcspNet.Responses
 {
 	/// <summary>
-	/// Navigation types
+	/// Redirection types
 	/// </summary>
-	public enum NavigationType
+	public enum RedirectionType
 	{
 		/// <summary>
-		/// Navigate to default page
+		/// Redirect to default page
 		/// </summary>
 		DefaultPage,
 		/// <summary>
-		/// Navigate to redirect URL specified in Navigator
+		/// Redirect to redirect URL specified in Redirector
 		/// </summary>
 		RedirectUrl,
 		/// <summary>
-		/// Navigate to previous page URL
+		/// Redirect to previous page URL
 		/// </summary>
 		PreviousPage,
 		/// <summary>
@@ -22,7 +22,7 @@
 		/// </summary>
 		PreviousPageWithBookmark,
 		/// <summary>
-		/// Navigate to current page (refresh the page)
+		/// Redirect to current page (refresh the page)
 		/// </summary>
 		CurrentPage
 	}

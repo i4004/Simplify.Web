@@ -140,7 +140,7 @@
     <Compile Include="Modules\DataCollector.cs" />
     <Compile Include="Modules\FileReader.cs" />
     <Compile Include="Modules\ILanguageManagerProvider.cs" />
-    <Compile Include="Modules\INavigator.cs" />
+    <Compile Include="Modules\IRedirector.cs" />
     <Compile Include="Modules\IStringTable.cs" />
     <Compile Include="Modules\LanguageManagerProvider.cs" />
     <Compile Include="Modules\AcspNetContextProvider.cs" />
@@ -149,7 +149,7 @@
     <Compile Include="Modules\IFileReader.cs" />
     <Compile Include="Modules\ILanguageManager.cs" />
     <Compile Include="Modules\LanguageManager.cs" />
-    <Compile Include="Modules\Navigator.cs" />
+    <Compile Include="Modules\Redirector.cs" />
     <Compile Include="Modules\StringTable.cs" />
     <Compile Include="Responses\Ajax.cs" />
     <Compile Include="Core\ControllerFactory.cs" />
@@ -180,8 +180,8 @@
     <Compile Include="Responses\MessageBoxInline.cs" />
     <Compile Include="Responses\MessageBox.cs" />
     <Compile Include="Responses\MessageBoxStatus.cs" />
-    <Compile Include="Responses\Navigate.cs" />
-    <Compile Include="Responses\NavigationType.cs" />
+    <Compile Include="Responses\Redirect.cs" />
+    <Compile Include="Responses\RedirectionType.cs" />
     <Compile Include="Responses\Tpl.cs" />
     <Compile Include="Attributes\PutAttribute.cs" />
     <Compile Include="Attributes\PostAttribute.cs" />
