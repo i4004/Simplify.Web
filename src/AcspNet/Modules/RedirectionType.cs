@@ -1,4 +1,4 @@
-﻿namespace AcspNet.Responses
+﻿namespace AcspNet.Modules
 {
 	/// <summary>
 	/// Redirection types

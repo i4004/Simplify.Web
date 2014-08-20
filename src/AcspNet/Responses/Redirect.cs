@@ -1,4 +1,5 @@
 ﻿using System;
+using AcspNet.Modules;
 
 namespace AcspNet.Responses
 {
