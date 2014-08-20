@@ -8,12 +8,25 @@ namespace AcspNet.Modules
 	/// </summary>
 	public class Redirector : IRedirector
 	{
+		/// <summary>
+		/// The previous page URL cookie field name
+		/// </summary>
 		public const string PreviousPageUrlCookieFieldName = "PreviousPageUrl";
+		/// <summary>
+		/// The redirect URL cookie field name
+		/// </summary>
 		public const string RedirectUrlCookieFieldName = "RedirectUrl";
+		/// <summary>
+		/// The previous navigated URL cookie field name
+		/// </summary>
 		public const string PreviousNavigatedUrlCookieFieldName = "PreviousNavigatedUrl";
 
 		private readonly IAcspNetContext _context;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Redirector"/> class.
+		/// </summary>
+		/// <param name="context">The context.</param>
 		public Redirector(IAcspNetContext context)
 		{
 			_context = context;
