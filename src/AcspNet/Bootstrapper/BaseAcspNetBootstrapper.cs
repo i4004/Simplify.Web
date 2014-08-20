@@ -60,6 +60,7 @@ namespace AcspNet.Bootstrapper
 			RegisterStopwatchProvider();
 			RegisterContextVariablesSetter();
 			RegisterAcspNetContextProvider();
+			RegisterRedirector();
 
 			// Registering controllers types
 			foreach (var controllerMetaData in ControllersMetaStore.Current.ControllersMetaData)
@@ -595,6 +596,14 @@ namespace AcspNet.Bootstrapper
 		public virtual void RegisterAcspNetContextProvider()
 		{
 			DIContainer.Current.Register<IAcspNetContextProvider>(AcspNetContextProviderType, LifetimeType.PerLifetimeScope);
+		}
+
+		/// <summary>
+		/// Registers the redirector.
+		/// </summary>
+		public virtual void RegisterRedirector()
+		{
+			DIContainer.Current.Register<IRedirector>(p => new Redirector(p.Resolve<IAcspNetContextProvider>().Get()), LifetimeType.PerLifetimeScope);			
 		}
 
 		#endregion
