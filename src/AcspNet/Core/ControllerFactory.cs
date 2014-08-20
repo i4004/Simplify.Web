@@ -30,6 +30,7 @@ namespace AcspNet.Core
 			controller.LanguageManager = containerProvider.Resolve<ILanguageManagerProvider>().Get();
 			controller.DataCollector = containerProvider.Resolve<IDataCollector>();
 			controller.FileReader = containerProvider.Resolve<IFileReader>();
+			controller.Redirector = containerProvider.Resolve<IRedirector>();
 
 			return controller;
 		}

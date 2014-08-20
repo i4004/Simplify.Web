@@ -1,5 +1,4 @@
-﻿using System;
-using AcspNet.Modules;
+﻿using AcspNet.Modules;
 using Simplify.DI;
 
 namespace AcspNet.Core
@@ -19,6 +18,7 @@ namespace AcspNet.Core
 			BuildModulesAccessorProperties(controllerResponse, containerProvider);
 
 			controllerResponse.DataCollector = containerProvider.Resolve<IDataCollector>();
+			controllerResponse.Redirector = containerProvider.Resolve<IRedirector>();
 		}
 	}
 }

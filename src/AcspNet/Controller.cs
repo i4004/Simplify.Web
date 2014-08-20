@@ -39,6 +39,14 @@ namespace AcspNet
 		public virtual IFileReader FileReader { get; internal set; }
 
 		/// <summary>
+		/// Gets the redirector.
+		/// </summary>
+		/// <value>
+		/// The redirector.
+		/// </value>
+		public virtual IRedirector Redirector { get; internal set; }
+
+		/// <summary>
 		/// Invokes the controller.
 		/// </summary>
 		public abstract ControllerResponse Invoke();
