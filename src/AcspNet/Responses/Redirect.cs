@@ -42,7 +42,7 @@ namespace AcspNet.Responses
 			else
 				Redirector.Redirect(_redirectionType, _bookmarkName);
 
-			return ControllerResponseResult.Default;
+			return ControllerResponseResult.Redirect;
 		}
 	}
 }
