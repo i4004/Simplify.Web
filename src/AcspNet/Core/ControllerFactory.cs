@@ -18,9 +18,9 @@ namespace AcspNet.Core
 		/// <param name="context">The context.</param>
 		/// <param name="routeParameters">The route parameters.</param>
 		/// <returns></returns>
-		public Controller CreateController(Type controllerType, IDIContainerProvider containerProvider, IOwinContext context, dynamic routeParameters = null)
+		public ControllerBase CreateController(Type controllerType, IDIContainerProvider containerProvider, IOwinContext context, dynamic routeParameters = null)
 		{
-			var controller = (Controller)containerProvider.Resolve(controllerType);
+			var controller = (ControllerBase)containerProvider.Resolve(controllerType);
 
 			BuildModulesAccessorProperties(controller, containerProvider);
 			BuildViewAccessorProperties(controller, containerProvider, containerProvider.Resolve<IViewFactory>());
