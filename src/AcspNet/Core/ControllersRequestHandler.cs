@@ -36,19 +36,18 @@ namespace AcspNet.Core
 			{
 				var matcherResult = _agent.MatchControllerRoute(metaData, context.Request.Path.Value, context.Request.Method);
 
-				if (matcherResult.Success)
-				{
-					var result = _controllersProcessor.Process(metaData.ControllerType, containerProvider, context, matcherResult.RouteParameters);
+				if (!matcherResult.Success) continue;
 
-					if (result == ControllerResponseResult.RawOutput)
-						return ControllersHandlerResult.RawOutput;
+				var result = _controllersProcessor.Process(metaData.ControllerType, containerProvider, context, matcherResult.RouteParameters);
 
-					if(result == ControllerResponseResult.Redirect)
-						return ControllersHandlerResult.Redirect;
+				if (result == ControllerResponseResult.RawOutput)
+					return ControllersHandlerResult.RawOutput;
 
-					if (!_agent.IsAnyPageController(metaData))
-						atleastOneNonAnyPageControllerMatched = true;
-				}
+				if(result == ControllerResponseResult.Redirect)
+					return ControllersHandlerResult.Redirect;
+
+				if (!_agent.IsAnyPageController(metaData))
+					atleastOneNonAnyPageControllerMatched = true;
 			}
 
 			if (!atleastOneNonAnyPageControllerMatched)

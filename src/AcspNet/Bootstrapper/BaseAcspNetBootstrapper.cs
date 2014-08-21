@@ -20,6 +20,7 @@ namespace AcspNet.Bootstrapper
 		private Type _routeMatcherType;
 		private Type _controllersAgentType;
 		private Type _controllerResponseBuilderType;
+		private Type _controllersProcessorType;
 		private Type _controllersRequestHanderType;
 		private Type _pageBuilderType;
 		private Type _responseWriterType;
@@ -45,7 +46,8 @@ namespace AcspNet.Bootstrapper
 			RegisterRouteMatcher();
 			RegisterControllersAgent();
 			RegisterControllerResponseBuilder();
-			RegisterControllersHandler();
+			RegisterControllersProcessor();
+			RegisterControllersRequestHandler();
 			RegisterEnvironment();
 			RegisterLanguageManagerProvider();
 			RegisterTemplateFactory();
@@ -147,6 +149,17 @@ namespace AcspNet.Bootstrapper
 		{
 			get { return _controllerResponseBuilderType ?? typeof(ControllerResponseBuilder); }
 		}
+		
+		/// <summary>
+		/// Gets the type of the controllers processor.
+		/// </summary>
+		/// <value>
+		/// The type of the controllers processor.
+		/// </value>
+		public Type ControllersProcessorType
+		{
+			get { return _controllersProcessorType ?? typeof(ControllersProcessor); }
+		}
 
 		/// <summary>
 		/// Gets the type of the controllers request handler.
@@ -154,7 +167,7 @@ namespace AcspNet.Bootstrapper
 		/// <value>
 		/// The type of the controllers request handler.
 		/// </value>
-		public Type ControllersHandlerType
+		public Type ControllersRequestHandlerType
 		{
 			get { return _controllersRequestHanderType ?? typeof(ControllersRequestHandler); }
 		}
@@ -300,10 +313,20 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
-		/// Sets the type of the controllers handler.
+		/// Sets the type of the controllers processor.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
-		public void SetControllersHandlerType<T>()
+		public void SetControllersProcessorType<T>()
+			where T : IControllersProcessor
+		{
+			_controllersProcessorType = typeof(T);
+		}
+
+		/// <summary>
+		/// Sets the type of the controllers request handler.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetControllersRequestHandlerType<T>()
 			where T : IControllersRequestHandler
 		{
 			_controllersRequestHanderType = typeof(T);
@@ -446,11 +469,19 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
+		/// Registers the controllers processor.
+		/// </summary>
+		public virtual void RegisterControllersProcessor()
+		{
+			DIContainer.Current.Register<IControllersProcessor>(ControllerResponseBuilderType, LifetimeType.PerLifetimeScope);
+		}
+		
+		/// <summary>
 		/// Registers the controllers request handler.
 		/// </summary>
-		public virtual void RegisterControllersHandler()
+		public virtual void RegisterControllersRequestHandler()
 		{
-			DIContainer.Current.Register<IControllersRequestHandler>(ControllersHandlerType);
+			DIContainer.Current.Register<IControllersRequestHandler>(ControllersRequestHandlerType, LifetimeType.PerLifetimeScope);
 		}
 		
 		/// <summary>

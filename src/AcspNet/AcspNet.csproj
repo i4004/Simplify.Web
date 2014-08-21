@@ -121,6 +121,7 @@
     <Compile Include="ControllerBase.cs" />
     <Compile Include="ControllerResponseResult.cs" />
     <Compile Include="Core\ContextVariablesSetter.cs" />
+    <Compile Include="Core\ControllersProcessor.cs" />
     <Compile Include="Core\ControllerResponseBuilder.cs" />
     <Compile Include="Core\IContextVariablesSetter.cs" />
     <Compile Include="Core\IControllerResponseBuilder.cs" />
@@ -288,7 +289,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
