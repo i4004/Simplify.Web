@@ -38,7 +38,7 @@ namespace AcspNet.Core
 		public ControllerResponseResult Process(Type controllerType, IDIContainerProvider containerProvider, IOwinContext context,
 			dynamic routeParameters = null)
 		{
-			var controller = _controllerFactory.CreateController(controllerType, containerProvider, context, routeParameters);
+			ControllerBase controller = _controllerFactory.CreateController(controllerType, containerProvider, context, routeParameters);
 
 			var synController = controller as Controller;
 
