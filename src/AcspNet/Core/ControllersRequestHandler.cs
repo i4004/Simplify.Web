@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 using Simplify.DI;
 
 namespace AcspNet.Core
@@ -10,17 +9,17 @@ namespace AcspNet.Core
 	public class ControllersRequestHandler : IControllersRequestHandler
 	{
 		private readonly IControllersAgent _agent;
-		private readonly IControllerFactory _factory;
-		private readonly IControllerResponseHandler _controllerResponseHandler;
+		private readonly IControllersProcessor _controllersProcessor;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ControllersRequestHandler" /> class.
 		/// </summary>
-		public ControllersRequestHandler(IControllersAgent controllersAgent, IControllerFactory controllerFactory, IControllerResponseHandler controllerResponseHandler)
+		/// <param name="controllersAgent">The controllers agent.</param>
+		/// <param name="controllersProcessor">The controllers processor.</param>
+		public ControllersRequestHandler(IControllersAgent controllersAgent, IControllersProcessor controllersProcessor)
 		{
 			_agent = controllersAgent;
-			_factory = controllerFactory;
-			_controllerResponseHandler = controllerResponseHandler;
+			_controllersProcessor = controllersProcessor;
 		}
 
 		/// <summary>
@@ -31,7 +30,7 @@ namespace AcspNet.Core
 		/// <returns></returns>
 		public ControllersHandlerResult Execute(IDIContainerProvider containerProvider, IOwinContext context)
 		{
-			var atleastOneControllerMatched = false;
+			var atleastOneNonAnyPageControllerMatched = false;
 
 			foreach (var metaData in _agent.GetStandardControllersMetaData())
 			{
@@ -39,31 +38,45 @@ namespace AcspNet.Core
 
 				if (matcherResult.Success)
 				{
-					atleastOneControllerMatched = true;
-					var result = ProcessController(metaData.ControllerType, containerProvider, context, matcherResult.RouteParameters);
+					var result = _controllersProcessor.Process(metaData.ControllerType, containerProvider, context, matcherResult.RouteParameters);
 
-					if(result == ControllerResponseResult.RawOutput)
+					if (result == ControllerResponseResult.RawOutput)
 						return ControllersHandlerResult.RawOutput;
+
+					if(result == ControllerResponseResult.Redirect)
+						return ControllersHandlerResult.Redirect;
+
+					if (!_agent.IsAnyPageController(metaData))
+						atleastOneNonAnyPageControllerMatched = true;
 				}
 			}
 
-			if (!atleastOneControllerMatched)
+			if (!atleastOneNonAnyPageControllerMatched)
 			{
 				var http404Controller = _agent.GetHandlerController(HandlerControllerType.Http404Handler);
 
 				if (http404Controller == null)
 					return ControllersHandlerResult.Http404;
 
-				ProcessController(http404Controller.ControllerType, containerProvider, context);
+				var handlerControllerResult = _controllersProcessor.Process(http404Controller.ControllerType, containerProvider, context);
+
+				if (handlerControllerResult == ControllerResponseResult.RawOutput)
+					return ControllersHandlerResult.RawOutput;
+
+				if (handlerControllerResult == ControllerResponseResult.Redirect)
+					return ControllersHandlerResult.Redirect;
 			}
 
-			return ControllersHandlerResult.Ok;
-		}
+			foreach (var controllerResponseResult in _controllersProcessor.ProcessAsyncControllersResponses(containerProvider))
+			{
+				if (controllerResponseResult == ControllerResponseResult.RawOutput)
+					return ControllersHandlerResult.RawOutput;
 
-		private ControllerResponseResult ProcessController(Type controllerType, IDIContainerProvider containerProvider, IOwinContext context, dynamic routeParameters = null)
-		{
-			var controller = _factory.CreateController(controllerType, containerProvider, context, routeParameters);
-			return _controllerResponseHandler.Process(controller.Invoke(), containerProvider);
+				if (controllerResponseResult == ControllerResponseResult.Redirect)
+					return ControllersHandlerResult.Redirect;
+			}		
+
+			return ControllersHandlerResult.Ok;
 		}
 	}
 }
