@@ -48,7 +48,7 @@ namespace AcspNet.Responses
 		{
 			DataCollector.Add(_dataCollectorVariableName, _data);
 
-			return ControllerResponseResult.Ok;
+			return ControllerResponseResult.Default;
 		}
 	}
 }

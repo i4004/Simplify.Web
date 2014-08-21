@@ -3,49 +3,10 @@
 namespace AcspNet
 {
 	/// <summary>
-	/// AcspNet controller base class
+	/// AcspNet synchronous controllers base class
 	/// </summary>
-	public abstract class Controller : ViewAccessor
+	public abstract class Controller : ControllerBase
 	{
-		/// <summary>
-		/// Gets the route parameters.
-		/// </summary>
-		/// <value>
-		/// The route parameters.
-		/// </value>
-		public virtual dynamic RouteParameters { get; internal set; }
-
-		/// <summary>
-		/// Current AcspNet context
-		/// </summary>
-		public virtual IAcspNetContext Context { get; internal set; }
-		
-		/// <summary>
-		/// Gets the language manager.
-		/// </summary>
-		/// <value>
-		/// The language manager.
-		/// </value>
-		public virtual ILanguageManager LanguageManager { get; internal set; }
-
-		/// <summary>
-		/// Web-site master page data collector.
-		/// </summary>
-		public virtual IDataCollector DataCollector { get; internal set; }
-		
-		/// <summary>
-		/// Text files reader.
-		/// </summary>
-		public virtual IFileReader FileReader { get; internal set; }
-
-		/// <summary>
-		/// Gets the redirector.
-		/// </summary>
-		/// <value>
-		/// The redirector.
-		/// </value>
-		public virtual IRedirector Redirector { get; internal set; }
-
 		/// <summary>
 		/// Invokes the controller.
 		/// </summary>

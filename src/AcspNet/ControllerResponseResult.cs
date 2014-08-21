@@ -8,10 +8,14 @@
 		/// <summary>
 		/// Default result
 		/// </summary>
-		Ok,
+		Default,
 		/// <summary>
 		/// Execution should be stopped, becase raw output will be sent to client
 		/// </summary>
-		RawOutput
+		RawOutput,
+		/// <summary>
+		/// Execution should be stopped, becase client will be redirected to new URL
+		/// </summary>
+		Redirect
 	}
 }

@@ -5,18 +5,18 @@ using Simplify.DI;
 namespace AcspNet.Core
 {
 	/// <summary>
-	/// Creates and executes controllers for current request
+	/// Handler HTTP request for controllers
 	/// </summary>
-	public class ControllersHandler : IControllersHandler
+	public class ControllersRequestHandler : IControllersRequestHandler
 	{
 		private readonly IControllersAgent _agent;
 		private readonly IControllerFactory _factory;
 		private readonly IControllerResponseHandler _controllerResponseHandler;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ControllersHandler" /> class.
+		/// Initializes a new instance of the <see cref="ControllersRequestHandler" /> class.
 		/// </summary>
-		public ControllersHandler(IControllersAgent controllersAgent, IControllerFactory controllerFactory, IControllerResponseHandler controllerResponseHandler)
+		public ControllersRequestHandler(IControllersAgent controllersAgent, IControllerFactory controllerFactory, IControllerResponseHandler controllerResponseHandler)
 		{
 			_agent = controllersAgent;
 			_factory = controllerFactory;

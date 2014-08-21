@@ -79,7 +79,7 @@ namespace AcspNet.Responses
 			if (!string.IsNullOrEmpty(Title))
 				DataCollector.AddTitle(Title);
 
-			return ControllerResponseResult.Ok;
+			return ControllerResponseResult.Default;
 		}
 	}
 }

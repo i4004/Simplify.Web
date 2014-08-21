@@ -20,8 +20,7 @@ namespace AcspNet.Bootstrapper
 		private Type _routeMatcherType;
 		private Type _controllersAgentType;
 		private Type _controllerResponseBuilderType;
-		private Type _controllerResponseHandlerType;
-		private Type _controllersHanderType;
+		private Type _controllersRequestHanderType;
 		private Type _pageBuilderType;
 		private Type _responseWriterType;
 		private Type _requestHandlerType;
@@ -46,7 +45,6 @@ namespace AcspNet.Bootstrapper
 			RegisterRouteMatcher();
 			RegisterControllersAgent();
 			RegisterControllerResponseBuilder();
-			RegisterControllerResponseHandler();
 			RegisterControllersHandler();
 			RegisterEnvironment();
 			RegisterLanguageManagerProvider();
@@ -151,25 +149,14 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
-		/// Gets the type of the controller response handler.
+		/// Gets the type of the controllers request handler.
 		/// </summary>
 		/// <value>
-		/// The type of the controller response handler.
-		/// </value>
-		public Type ControllerResponseHandlerType
-		{
-			get { return _controllerResponseHandlerType ?? typeof(ControllerResponseHandler); }
-		}
-
-		/// <summary>
-		/// Gets the type of the controllers handler.
-		/// </summary>
-		/// <value>
-		/// The type of the controllers handler.
+		/// The type of the controllers request handler.
 		/// </value>
 		public Type ControllersHandlerType
 		{
-			get { return _controllersHanderType ?? typeof(ControllersHandler); }
+			get { return _controllersRequestHanderType ?? typeof(ControllersRequestHandler); }
 		}
 		
 		/// <summary>
@@ -313,23 +300,13 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
-		/// Sets the type of the controller response handler.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		public void SetControllerResponseHandlerType<T>()
-			where T : IControllerResponseHandler
-		{
-			_controllerResponseHandlerType = typeof(T);
-		}
-
-		/// <summary>
 		/// Sets the type of the controllers handler.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		public void SetControllersHandlerType<T>()
-			where T : IControllersHandler
+			where T : IControllersRequestHandler
 		{
-			_controllersHanderType = typeof(T);
+			_controllersRequestHanderType = typeof(T);
 		}
 		
 		/// <summary>
@@ -469,19 +446,11 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
-		/// Registers the controller response handler.
-		/// </summary>
-		public virtual void RegisterControllerResponseHandler()
-		{
-			DIContainer.Current.Register<IControllerResponseHandler>(ControllerResponseHandlerType);
-		}
-
-		/// <summary>
-		/// Registers the controllers handler.
+		/// Registers the controllers request handler.
 		/// </summary>
 		public virtual void RegisterControllersHandler()
 		{
-			DIContainer.Current.Register<IControllersHandler>(ControllersHandlerType);
+			DIContainer.Current.Register<IControllersRequestHandler>(ControllersHandlerType);
 		}
 		
 		/// <summary>

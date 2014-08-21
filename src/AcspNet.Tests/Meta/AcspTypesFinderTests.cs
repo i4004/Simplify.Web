@@ -34,7 +34,7 @@ namespace AcspNet.Tests.Meta
 		}
 
 		[Test]
-		public void FindTypesDerivedFrom_TypeHave2TypesDerived_2TestControllersReturned()
+		public void FindTypesDerivedFrom_TypeHave3TypesDerived_3TestControllersReturned()
 		{
 			// Assign
 
@@ -44,13 +44,15 @@ namespace AcspNet.Tests.Meta
 
 			// Act
 			var types = AcspTypesFinder.FindTypesDerivedFrom<Controller>();
+			var types2 = AcspTypesFinder.FindTypesDerivedFrom<AsyncController>();
 
 			// Assert
 
-			Assert.AreEqual(3, types.Count);
+			Assert.AreEqual(2, types.Count);
+			Assert.AreEqual(1, types2.Count);
+			Assert.AreEqual("AcspNet.Tests.TestEntities.TestController1", types[1].FullName);
 			Assert.AreEqual("AcspNet.Tests.TestEntities.TestController3", types[0].FullName);
-			Assert.AreEqual("AcspNet.Tests.TestEntities.TestController2", types[1].FullName);
-			Assert.AreEqual("AcspNet.Tests.TestEntities.TestController1", types[2].FullName);
+			Assert.AreEqual("AcspNet.Tests.TestEntities.TestController2", types2[0].FullName);
 		}
 
 		[Test]

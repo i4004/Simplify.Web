@@ -39,7 +39,7 @@ namespace AcspNet.Tests.Responses
 			// Assert
 
 			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == "foo"), It.Is<string>(d => d == "test")));
-			Assert.AreEqual(ControllerResponseResult.Ok, result);
+			Assert.AreEqual(ControllerResponseResult.Default, result);
 		}
 
 		[Test]

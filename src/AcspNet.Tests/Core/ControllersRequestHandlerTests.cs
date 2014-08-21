@@ -13,15 +13,14 @@ using Simplify.DI;
 namespace AcspNet.Tests.Core
 {
 	[TestFixture]
-	public class ControllersHandlerTests
+	public class ControllersRequestHandlerTests
 	{
 		private Mock<IControllersAgent> _agent;
-		private ControllersHandler _handler;
+		private ControllersRequestHandler _handler;
 		private Mock<IOwinContext> _context;
 		private Mock<IControllerFactory> _factory;
 		private Mock<IControllerResponseHandler> _controllerResponseHandler;
-
-
+		
 		private Mock<Controller> _controller;
 		private Mock<ControllerResponse> _controllerResponse;
 		private ControllerMetaData _metaData;
@@ -37,7 +36,7 @@ namespace AcspNet.Tests.Core
 			_controllerResponseHandler = new Mock<IControllerResponseHandler>();
 			_factory = new Mock<IControllerFactory>();
 			_context = new Mock<IOwinContext>();
-			_handler = new ControllersHandler(_agent.Object, _factory.Object, _controllerResponseHandler.Object);
+			_handler = new ControllersRequestHandler(_agent.Object, _factory.Object, _controllerResponseHandler.Object);
 
 			_controller = new Mock<Controller>();
 			_controllerResponse = new Mock<ControllerResponse>();
@@ -56,7 +55,6 @@ namespace AcspNet.Tests.Core
 
 			_context.SetupGet(x => x.Request.Path).Returns(new PathString("/foo/bar"));
 			_context.SetupGet(x => x.Request.Method).Returns("GET");
-
 		}
 
 		[Test]

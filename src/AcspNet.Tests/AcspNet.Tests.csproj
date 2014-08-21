@@ -121,9 +121,8 @@
   <ItemGroup>
     <Compile Include="Bootstrapper\BootstrapperFactoryTests.cs" />
     <Compile Include="Core\ContextVariablesSetterTests.cs" />
-    <Compile Include="Core\ControllerResponseHandlerTests.cs" />
     <Compile Include="Core\ControllersAgentTests.cs" />
-    <Compile Include="Core\ControllersHandlerTests.cs" />
+    <Compile Include="Core\ControllersRequestHandlerTests.cs" />
     <Compile Include="Core\PageBuilderTests.cs" />
     <Compile Include="Core\RequestHandlerTests.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGeneratorTests.cs" />
