@@ -43,11 +43,7 @@ namespace AcspNet.Core
 			var synController = controller as Controller;
 
 			if (synController != null)
-			{
-				var response = synController.Invoke();
-
-				return ProcessControllerResponse(response, containerProvider);
-			}
+				return ProcessControllerResponse(synController.Invoke(), containerProvider);
 
 			var asyncController = controller as AsyncController;
 
