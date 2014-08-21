@@ -473,7 +473,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterControllersProcessor()
 		{
-			DIContainer.Current.Register<IControllersProcessor>(ControllerResponseBuilderType, LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<IControllersProcessor>(ControllersProcessorType, LifetimeType.PerLifetimeScope);
 		}
 		
 		/// <summary>
