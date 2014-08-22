@@ -14,16 +14,15 @@ namespace AcspNet.Owin
 	/// </summary>
 	public class AcspNetOwinMiddleware : OwinMiddleware
 	{
-		private readonly BaseAcspNetBootstrapper _bootstrapper = BootstrapperFactory.CreateBootstrapper();
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AcspNetOwinMiddleware"/> class.
 		/// </summary>
-		/// <param name="next"></param>
-		public AcspNetOwinMiddleware(OwinMiddleware next)
+		/// <param name="next">The next middleware.</param>
+		/// <param name="bootstrapper">The bootstrapper.</param>
+		public AcspNetOwinMiddleware(OwinMiddleware next, BaseAcspNetBootstrapper bootstrapper)
 			: base(next)
 		{
-			_bootstrapper.Register();
+			bootstrapper.Register();
 		}
 
 		/// <summary>
