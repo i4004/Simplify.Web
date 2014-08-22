@@ -18,6 +18,6 @@
 
 	{MainContent}
 
-	<div class="GenerationTimeFooter">{LabelGeneratedIn}: {SV:SiteExecutionTime}</div>
+	<div class="GenerationTimeFooter">{LabelExecutionTime}: {SV:SiteExecutionTime}</div>
 </body>
 </html>
