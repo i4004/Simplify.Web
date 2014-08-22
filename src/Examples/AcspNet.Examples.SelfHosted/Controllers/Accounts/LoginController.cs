@@ -7,7 +7,7 @@ using Microsoft.AspNet.Identity;
 
 namespace AcspNet.Examples.SelfHosted.Controllers.Accounts
 {
-	[Get("process-login")]
+	[Get("processlogin")]
 	public class LoginController : Controller
 	{
 		public override ControllerResponse Invoke()
