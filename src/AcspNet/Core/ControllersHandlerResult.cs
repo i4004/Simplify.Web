@@ -24,6 +24,10 @@
 		/// <summary>
 		/// The HTTP 404 error should be sent to response
 		/// </summary>
-		Http404
+		Http404,
+		/// <summary>
+		/// Execution should be stopped, becase client will be redirected to new URL
+		/// </summary>
+		Redirect
 	}
 }

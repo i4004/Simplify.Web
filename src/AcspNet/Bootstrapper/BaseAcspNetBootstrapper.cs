@@ -20,8 +20,8 @@ namespace AcspNet.Bootstrapper
 		private Type _routeMatcherType;
 		private Type _controllersAgentType;
 		private Type _controllerResponseBuilderType;
-		private Type _controllerResponseHandlerType;
-		private Type _controllersHanderType;
+		private Type _controllersProcessorType;
+		private Type _controllersRequestHanderType;
 		private Type _pageBuilderType;
 		private Type _responseWriterType;
 		private Type _requestHandlerType;
@@ -46,8 +46,8 @@ namespace AcspNet.Bootstrapper
 			RegisterRouteMatcher();
 			RegisterControllersAgent();
 			RegisterControllerResponseBuilder();
-			RegisterControllerResponseHandler();
-			RegisterControllersHandler();
+			RegisterControllersProcessor();
+			RegisterControllersRequestHandler();
 			RegisterEnvironment();
 			RegisterLanguageManagerProvider();
 			RegisterTemplateFactory();
@@ -60,6 +60,7 @@ namespace AcspNet.Bootstrapper
 			RegisterStopwatchProvider();
 			RegisterContextVariablesSetter();
 			RegisterAcspNetContextProvider();
+			RegisterRedirector();
 
 			// Registering controllers types
 			foreach (var controllerMetaData in ControllersMetaStore.Current.ControllersMetaData)
@@ -148,27 +149,27 @@ namespace AcspNet.Bootstrapper
 		{
 			get { return _controllerResponseBuilderType ?? typeof(ControllerResponseBuilder); }
 		}
-
+		
 		/// <summary>
-		/// Gets the type of the controller response handler.
+		/// Gets the type of the controllers processor.
 		/// </summary>
 		/// <value>
-		/// The type of the controller response handler.
+		/// The type of the controllers processor.
 		/// </value>
-		public Type ControllerResponseHandlerType
+		public Type ControllersProcessorType
 		{
-			get { return _controllerResponseHandlerType ?? typeof(ControllerResponseHandler); }
+			get { return _controllersProcessorType ?? typeof(ControllersProcessor); }
 		}
 
 		/// <summary>
-		/// Gets the type of the controllers handler.
+		/// Gets the type of the controllers request handler.
 		/// </summary>
 		/// <value>
-		/// The type of the controllers handler.
+		/// The type of the controllers request handler.
 		/// </value>
-		public Type ControllersHandlerType
+		public Type ControllersRequestHandlerType
 		{
-			get { return _controllersHanderType ?? typeof(ControllersHandler); }
+			get { return _controllersRequestHanderType ?? typeof(ControllersRequestHandler); }
 		}
 		
 		/// <summary>
@@ -312,23 +313,23 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
-		/// Sets the type of the controller response handler.
+		/// Sets the type of the controllers processor.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
-		public void SetControllerResponseHandlerType<T>()
-			where T : IControllerResponseHandler
+		public void SetControllersProcessorType<T>()
+			where T : IControllersProcessor
 		{
-			_controllerResponseHandlerType = typeof(T);
+			_controllersProcessorType = typeof(T);
 		}
 
 		/// <summary>
-		/// Sets the type of the controllers handler.
+		/// Sets the type of the controllers request handler.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
-		public void SetControllersHandlerType<T>()
-			where T : IControllersHandler
+		public void SetControllersRequestHandlerType<T>()
+			where T : IControllersRequestHandler
 		{
-			_controllersHanderType = typeof(T);
+			_controllersRequestHanderType = typeof(T);
 		}
 		
 		/// <summary>
@@ -468,19 +469,19 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
-		/// Registers the controller response handler.
+		/// Registers the controllers processor.
 		/// </summary>
-		public virtual void RegisterControllerResponseHandler()
+		public virtual void RegisterControllersProcessor()
 		{
-			DIContainer.Current.Register<IControllerResponseHandler>(ControllerResponseHandlerType);
+			DIContainer.Current.Register<IControllersProcessor>(ControllersProcessorType, LifetimeType.PerLifetimeScope);
 		}
-
+		
 		/// <summary>
-		/// Registers the controllers handler.
+		/// Registers the controllers request handler.
 		/// </summary>
-		public virtual void RegisterControllersHandler()
+		public virtual void RegisterControllersRequestHandler()
 		{
-			DIContainer.Current.Register<IControllersHandler>(ControllersHandlerType);
+			DIContainer.Current.Register<IControllersRequestHandler>(ControllersRequestHandlerType, LifetimeType.PerLifetimeScope);
 		}
 		
 		/// <summary>
@@ -595,6 +596,14 @@ namespace AcspNet.Bootstrapper
 		public virtual void RegisterAcspNetContextProvider()
 		{
 			DIContainer.Current.Register<IAcspNetContextProvider>(AcspNetContextProviderType, LifetimeType.PerLifetimeScope);
+		}
+
+		/// <summary>
+		/// Registers the redirector.
+		/// </summary>
+		public virtual void RegisterRedirector()
+		{
+			DIContainer.Current.Register<IRedirector>(p => new Redirector(p.Resolve<IAcspNetContextProvider>().Get()), LifetimeType.PerLifetimeScope);			
 		}
 
 		#endregion

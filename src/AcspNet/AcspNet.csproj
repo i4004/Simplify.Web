@@ -117,12 +117,15 @@
     <Compile Include="AcspNetSettings.cs" />
     <Compile Include="App_Packages\Simplify.Xml.Sources.1.0.2.0\XmlExtensions.cs" />
     <Compile Include="App_Packages\Simplify.Xml.Sources.1.0.2.0\XmlSerializer.cs" />
+    <Compile Include="AsyncController.cs" />
+    <Compile Include="ControllerBase.cs" />
     <Compile Include="ControllerResponseResult.cs" />
     <Compile Include="Core\ContextVariablesSetter.cs" />
+    <Compile Include="Core\ControllersProcessor.cs" />
     <Compile Include="Core\ControllerResponseBuilder.cs" />
-    <Compile Include="Core\ControllerResponseHandler.cs" />
     <Compile Include="Core\IContextVariablesSetter.cs" />
     <Compile Include="Core\IControllerResponseBuilder.cs" />
+    <Compile Include="Core\IControllersProcessor.cs" />
     <Compile Include="Core\IPageBuilder.cs" />
     <Compile Include="Core\IResponseWriter.cs" />
     <Compile Include="Core\IStopwatchProvider.cs" />
@@ -140,6 +143,7 @@
     <Compile Include="Modules\DataCollector.cs" />
     <Compile Include="Modules\FileReader.cs" />
     <Compile Include="Modules\ILanguageManagerProvider.cs" />
+    <Compile Include="Modules\IRedirector.cs" />
     <Compile Include="Modules\IStringTable.cs" />
     <Compile Include="Modules\LanguageManagerProvider.cs" />
     <Compile Include="Modules\AcspNetContextProvider.cs" />
@@ -148,12 +152,13 @@
     <Compile Include="Modules\IFileReader.cs" />
     <Compile Include="Modules\ILanguageManager.cs" />
     <Compile Include="Modules\LanguageManager.cs" />
+    <Compile Include="Modules\Redirector.cs" />
     <Compile Include="Modules\StringTable.cs" />
     <Compile Include="Responses\Ajax.cs" />
     <Compile Include="Core\ControllerFactory.cs" />
     <Compile Include="ControllerResponse.cs" />
     <Compile Include="Core\ControllersAgent.cs" />
-    <Compile Include="Core\ControllersHandler.cs" />
+    <Compile Include="Core\ControllersRequestHandler.cs" />
     <Compile Include="Core\ControllersHandlerResult.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGenerator.cs" />
     <Compile Include="Bootstrapper\BootstrapperFactory.cs" />
@@ -165,7 +170,6 @@
     <Compile Include="Attributes\Http403Attribute.cs" />
     <Compile Include="Responses\File.cs" />
     <Compile Include="IAcspNetSettings.cs" />
-    <Compile Include="Core\IControllerResponseHandler.cs" />
     <Compile Include="Core\IControllersAgent.cs" />
     <Compile Include="IHideObjectMembers.cs" />
     <Compile Include="Meta\ControllerRole.cs" />
@@ -178,14 +182,14 @@
     <Compile Include="Responses\MessageBoxInline.cs" />
     <Compile Include="Responses\MessageBox.cs" />
     <Compile Include="Responses\MessageBoxStatus.cs" />
-    <Compile Include="Responses\Navigate.cs" />
-    <Compile Include="Responses\NavigationType.cs" />
+    <Compile Include="Responses\Redirect.cs" />
+    <Compile Include="Modules\RedirectionType.cs" />
     <Compile Include="Responses\Tpl.cs" />
     <Compile Include="Attributes\PutAttribute.cs" />
     <Compile Include="Attributes\PostAttribute.cs" />
     <Compile Include="Attributes\Http404Attribute.cs" />
     <Compile Include="Core\IControllerFactory.cs" />
-    <Compile Include="Core\IControllersHandler.cs" />
+    <Compile Include="Core\IControllersRequestHandler.cs" />
     <Compile Include="Attributes\IgnoreControllersAttribute.cs" />
     <Compile Include="Core\IRequestHandler.cs" />
     <Compile Include="Meta\ControllerRouteInfo.cs" />
@@ -285,7 +289,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

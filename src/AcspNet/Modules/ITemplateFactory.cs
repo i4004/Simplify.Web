@@ -1,4 +1,5 @@
-﻿using Simplify.Templates;
+﻿using System.Threading.Tasks;
+using Simplify.Templates;
 
 namespace AcspNet.Modules
 {
@@ -13,5 +14,12 @@ namespace AcspNet.Modules
 		/// <param name="fileName">Template file name</param>
 		/// <returns>Template class with loaded template</returns>
 		ITemplate Load(string fileName);
+
+		/// <summary>
+		/// Load web-site template from a file asynchronously.
+		/// </summary>
+		/// <param name="filename">The filename.</param>
+		/// <returns></returns>
+		Task<ITemplate> LoadAsync(string filename);
 	}
 }

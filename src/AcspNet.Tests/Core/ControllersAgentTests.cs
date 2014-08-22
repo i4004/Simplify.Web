@@ -154,12 +154,41 @@ namespace AcspNet.Tests.Core
 			_agent = new ControllersAgent(_metaStore.Object, _routeMatcher.Object);
 
 			// Act
-
 			var metaData = _agent.GetHandlerController(HandlerControllerType.Http404Handler);
 
 			// Assert
 
 			Assert.IsTrue(metaData.Role.Is404Handler);
+		}
+
+		[Test]
+		public void IsAnyPageController_AnyPageController_True()
+		{
+			// Assign
+			var metaData = new ControllerMetaData(null);
+
+			// Act & Assert
+			Assert.IsTrue(_agent.IsAnyPageController(metaData));
+		}
+
+		[Test]
+		public void IsAnyPageController_404Handler_False()
+		{
+			// Assign
+			var metaData = new ControllerMetaData(null, null, new ControllerRole(false, false, true));
+
+			// Act & Assert
+			Assert.IsFalse(_agent.IsAnyPageController(metaData));
+		}
+
+		[Test]
+		public void IsAnyPageController_NormalController_False()
+		{
+			// Assign
+			var metaData = new ControllerMetaData(null, new ControllerExecParameters(new ControllerRouteInfo("/")));
+
+			// Act & Assert
+			Assert.IsFalse(_agent.IsAnyPageController(metaData));
 		}
 	}
 }

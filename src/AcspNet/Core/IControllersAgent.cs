@@ -30,5 +30,12 @@ namespace AcspNet.Core
 		/// <param name="controllerType">Type of the controller.</param>
 		/// <returns></returns>
 		IControllerMetaData GetHandlerController(HandlerControllerType controllerType);
+
+		/// <summary>
+		/// Determines whether controller can be executed on any page.
+		/// </summary>
+		/// <param name="metaData">The controller meta data.</param>
+		/// <returns></returns>
+		bool IsAnyPageController(IControllerMetaData metaData);
 	}
 }

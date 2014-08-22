@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Simplify.Templates;
 
 namespace AcspNet.Modules
@@ -66,6 +67,16 @@ namespace AcspNet.Modules
 			}
 
 			return new Template(filePath, _language, _defaultLanguage);
+		}
+
+		/// <summary>
+		/// Load web-site template from a file asynchronously.
+		/// </summary>
+		/// <param name="filename">The filename.</param>
+		/// <returns></returns>
+		public Task<ITemplate> LoadAsync(string filename)
+		{
+			return Task.Run(() => Load(filename));
 		}
 
 		private Template TryLoadExistingTemplate(string filePath)

@@ -35,12 +35,22 @@ namespace AcspNet.Modules
 				SiteUrl =
 					Request.Uri.AbsoluteUri.Substring(0, Request.Uri.AbsoluteUri.IndexOf(Request.PathBase.Value,
 						StringComparison.Ordinal)) + Request.PathBase.Value + "/";
+
+			VirtualPath = string.IsNullOrEmpty(Request.PathBase.Value) ? "" : Request.PathBase.Value + "/";
 		}
 		
 		/// <summary>
 		/// Site root url, for example: http://mysite.com or http://localhost/mysite/
 		/// </summary>
 		public string SiteUrl { get; private set; }
+
+		/// <summary>
+		/// Gets the virtual path.
+		/// </summary>
+		/// <value>
+		/// The virtual path.
+		/// </value>
+		public string VirtualPath { get; private set; }
 
 		/// <summary>
 		/// Gets the context for the current HTTP request.

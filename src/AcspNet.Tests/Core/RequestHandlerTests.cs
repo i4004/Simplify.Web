@@ -9,7 +9,7 @@ namespace AcspNet.Tests.Core
 	[TestFixture]
 	public class RequestHandlerTests
 	{
-		private Mock<IControllersHandler> _controllersHandler;
+		private Mock<IControllersRequestHandler> _controllersHandler;
 		private Mock<IPageBuilder> _pageBuilder;
 		private Mock<IResponseWriter> _responseWriter;
 		private RequestHandler _requestHandler;
@@ -18,7 +18,7 @@ namespace AcspNet.Tests.Core
 		[SetUp]
 		public void Initialize()
 		{
-			_controllersHandler = new Mock<IControllersHandler>();
+			_controllersHandler = new Mock<IControllersRequestHandler>();
 			_pageBuilder = new Mock<IPageBuilder>();
 			_responseWriter = new Mock<IResponseWriter>();
 			_requestHandler = new RequestHandler(_controllersHandler.Object, _pageBuilder.Object, _responseWriter.Object);

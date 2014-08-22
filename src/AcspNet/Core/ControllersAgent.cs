@@ -92,5 +92,29 @@ namespace AcspNet.Core
 
 			return metaData;
 		}
+
+		/// <summary>
+		/// Determines whether controller can be executed on any page.
+		/// </summary>
+		/// <param name="metaData">The controller meta data.</param>
+		/// <returns></returns>
+		public bool IsAnyPageController(IControllerMetaData metaData)
+		{
+			if(metaData.Role != null)
+				if(metaData.Role.Is400Handler
+					|| metaData.Role.Is403Handler
+					|| metaData.Role.Is404Handler)
+					return false;
+
+			if(metaData.ExecParameters != null)
+				if(metaData.ExecParameters.RouteInfo != null)
+					if(!string.IsNullOrEmpty(metaData.ExecParameters.RouteInfo.GetRoute)
+						|| !string.IsNullOrEmpty(metaData.ExecParameters.RouteInfo.PostRoute)
+						|| !string.IsNullOrEmpty(metaData.ExecParameters.RouteInfo.PutRoute)
+						|| !string.IsNullOrEmpty(metaData.ExecParameters.RouteInfo.DeleteRoute))
+						return false;
+
+			return true;
+		}
 	}
 }

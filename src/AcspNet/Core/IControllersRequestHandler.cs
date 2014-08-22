@@ -4,9 +4,9 @@ using Simplify.DI;
 namespace AcspNet.Core
 {
 	/// <summary>
-	/// Represents controllers handler
+	/// Represents controllers request handler
 	/// </summary>
-	public interface IControllersHandler
+	public interface IControllersRequestHandler
 	{
 		/// <summary>
 		/// Creates and invokes controllers instances.

@@ -15,10 +15,10 @@ namespace AcspNet.Meta
 		/// <returns></returns>
 		public ControllerMetaData CreateControllerMetaData(Type controllerType)
 		{
-			return new ControllerMetaData(controllerType, GetControllerExecPatameters(controllerType), GetControllerRole(controllerType));
+			return new ControllerMetaData(controllerType, GetControllerExecParameters(controllerType), GetControllerRole(controllerType));
 		}
-		
-		private static ControllerExecParameters GetControllerExecPatameters(Type controllerType)
+
+		private static ControllerExecParameters GetControllerExecParameters(Type controllerType)
 		{
 			var priority = 0;
 
@@ -62,9 +62,9 @@ namespace AcspNet.Meta
 				deleteRoute = ((DeleteAttribute)attributes[0]).Route;
 
 			return !string.IsNullOrEmpty(getRoute)
-			       || !string.IsNullOrEmpty(postRoute)
-			       || !string.IsNullOrEmpty(putRoute)
-			       || !string.IsNullOrEmpty(deleteRoute)
+				   || !string.IsNullOrEmpty(postRoute)
+				   || !string.IsNullOrEmpty(putRoute)
+				   || !string.IsNullOrEmpty(deleteRoute)
 				? new ControllerRouteInfo(getRoute, postRoute, putRoute, deleteRoute)
 				: null;
 		}

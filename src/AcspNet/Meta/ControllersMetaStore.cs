@@ -13,7 +13,7 @@ namespace AcspNet.Meta
 		private static IControllersMetaStore _current;
 		private readonly IControllerMetaDataFactory _metaDataFactory;
 		private IList<IControllerMetaData> _controllersMetaData;
-	
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ControllersMetaStore"/> class.
 		/// </summary>
@@ -22,7 +22,7 @@ namespace AcspNet.Meta
 		{
 			_metaDataFactory = metaDataFactory;
 		}
-		
+
 		/// <summary>
 		/// Current controllers meta store
 		/// </summary>
@@ -55,16 +55,18 @@ namespace AcspNet.Meta
 				var controllersMetaContainers = new List<IControllerMetaData>();
 
 				var types = AcspTypesFinder.FindTypesDerivedFrom<Controller>();
+				types = types.Concat(AcspTypesFinder.FindTypesDerivedFrom<AsyncController>()).ToList();
+
 				var typesToIgnore = new List<Type>();
 
 				var ignoreContainingClass =
-					AcspTypesFinder.GetAllTypes().FirstOrDefault(t => t.IsDefined(typeof (IgnoreControllersAttribute), true));
+					AcspTypesFinder.GetAllTypes().FirstOrDefault(t => t.IsDefined(typeof(IgnoreControllersAttribute), true));
 
 				if (ignoreContainingClass != null)
 				{
-					var attributes = ignoreContainingClass.GetCustomAttributes(typeof (IgnoreControllersAttribute), false);
+					var attributes = ignoreContainingClass.GetCustomAttributes(typeof(IgnoreControllersAttribute), false);
 
-					typesToIgnore.AddRange(((IgnoreControllersAttribute) attributes[0]).Types);
+					typesToIgnore.AddRange(((IgnoreControllersAttribute)attributes[0]).Types);
 				}
 
 				LoadMetaData(controllersMetaContainers, types, typesToIgnore);
@@ -76,8 +78,7 @@ namespace AcspNet.Meta
 
 		private void LoadMetaData(ICollection<IControllerMetaData> controllersMetaContainers, IEnumerable<Type> types, IEnumerable<Type> typesToIgnore)
 		{
-			foreach (var t in types.Where(t => t.BaseType != null && t.BaseType.FullName == "AcspNet.Controller"
-											   && typesToIgnore.All(x => x.FullName != t.FullName) &&
+			foreach (var t in types.Where(t => typesToIgnore.All(x => x.FullName != t.FullName) &&
 											   controllersMetaContainers.All(x => x.ControllerType != t)))
 			{
 				BuildControllerMetaData(controllersMetaContainers, t);

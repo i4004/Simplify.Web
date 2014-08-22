@@ -16,9 +16,16 @@ namespace AcspNet
 		public virtual IDataCollector DataCollector { get; internal set; }
 
 		/// <summary>
+		/// Gets the redirector.
+		/// </summary>
+		/// <value>
+		/// The redirector.
+		/// </value>
+		public virtual IRedirector Redirector { get; internal set; }
+
+		/// <summary>
 		/// Processes this response
 		/// </summary>
-		/// <exception cref="System.NotImplementedException"></exception>
 		public abstract ControllerResponseResult Process();
 	}
 }
