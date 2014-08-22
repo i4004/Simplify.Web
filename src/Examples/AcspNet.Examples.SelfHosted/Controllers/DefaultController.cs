@@ -1,15 +1,14 @@
-﻿using System.Threading.Tasks;
-using AcspNet.Attributes;
+﻿using AcspNet.Attributes;
 using AcspNet.Responses;
 
 namespace AcspNet.Examples.SelfHosted.Controllers
 {
 	[Get("/")]
-	public class DefaultController : AsyncController
+	public class DefaultController : Controller
 	{
-		public override Task<ControllerResponse> Invoke()
+		public override ControllerResponse Invoke()
 		{
-			return Task.FromResult((ControllerResponse)new Tpl(TemplateFactory.Load("Default")));
+			return new Tpl(TemplateFactory.Load("Default"));
 		}
 	}
 }
