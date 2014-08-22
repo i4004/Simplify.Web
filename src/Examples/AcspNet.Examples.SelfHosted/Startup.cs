@@ -17,7 +17,7 @@ namespace AcspNet.Examples.SelfHosted
 			app.UseCookieAuthentication(new CookieAuthenticationOptions
 			{
 				AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-				LoginPath = new PathString("/Account/Login")
+				LoginPath = new PathString("/account/login")
 			});
 
 			app.UseAcspNet();
