@@ -8,6 +8,7 @@ namespace AcspNet.Examples.SelfHosted.Controllers
 	{
 		public override ControllerResponse Invoke()
 		{
+			var user = Context.Context.Authentication.User;
 			return new Tpl(TemplateFactory.Load("Default"));
 		}
 	}

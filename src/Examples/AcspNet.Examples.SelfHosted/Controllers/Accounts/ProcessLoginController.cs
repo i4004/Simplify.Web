@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using AcspNet.Attributes;
+using AcspNet.Modules;
+using AcspNet.Responses;
 using Microsoft.AspNet.Identity;
 
 namespace AcspNet.Examples.SelfHosted.Controllers.Accounts
 {
-	[Get("processLogin")]
+	[Get("process-login")]
 	public class ProcessLoginController : Controller
 	{
 		public override ControllerResponse Invoke()
@@ -21,8 +23,7 @@ namespace AcspNet.Examples.SelfHosted.Controllers.Accounts
 			var authenticationManager = Context.Context.Authentication;
 			authenticationManager.SignIn(id);
 
-			//return new Navigate(NavigationType.PreviousPage);
-			return null;
+			return new Redirect(RedirectionType.PreviousPage);
 		}
 	}
 }
