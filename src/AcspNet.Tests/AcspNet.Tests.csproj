@@ -122,6 +122,7 @@
     <Compile Include="Bootstrapper\BootstrapperFactoryTests.cs" />
     <Compile Include="Core\ContextVariablesSetterTests.cs" />
     <Compile Include="Core\ControllersAgentTests.cs" />
+    <Compile Include="Core\ControllersProcessorTests.cs" />
     <Compile Include="Core\ControllersRequestHandlerTests.cs" />
     <Compile Include="Core\PageBuilderTests.cs" />
     <Compile Include="Core\RequestHandlerTests.cs" />
