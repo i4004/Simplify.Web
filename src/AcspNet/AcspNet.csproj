@@ -134,6 +134,7 @@
     <Compile Include="Core\ModulesAccessorBuilder.cs" />
     <Compile Include="Core\PageBuilder.cs" />
     <Compile Include="Core\ResponseWriter.cs" />
+    <Compile Include="Core\SecurityCheckResult.cs" />
     <Compile Include="Core\StopwatchProvider.cs" />
     <Compile Include="Core\ViewAccessorBuilder.cs" />
     <Compile Include="Core\ViewFactory.cs" />

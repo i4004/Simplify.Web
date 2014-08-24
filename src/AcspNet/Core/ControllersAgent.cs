@@ -124,18 +124,18 @@ namespace AcspNet.Core
 		/// <param name="metaData">The controller meta data.</param>
 		/// <param name="user">The current request user.</param>
 		/// <returns></returns>
-		public bool IsSecurityRulesViolated(ControllerMetaData metaData, ClaimsPrincipal user)
+		public SecurityRuleCheckResult IsSecurityRulesViolated(ControllerMetaData metaData, ClaimsPrincipal user)
 		{
 			if (metaData.Security == null)
-				return false;
+				return SecurityRuleCheckResult.Ok;
 
 			if (!metaData.Security.IsAuthorizationRequired)
-				return false;
+				return SecurityRuleCheckResult.Ok;
 			
 			if (metaData.Security.AllowedUserRoles == null)
-				return user == null;
+				return user == null ? SecurityRuleCheckResult.NotAuthenticated : SecurityRuleCheckResult.Ok;
 
-			return !metaData.Security.AllowedUserRoles.Any(user.IsInRole);
+			return metaData.Security.AllowedUserRoles.Any(user.IsInRole) ? SecurityRuleCheckResult.Ok : SecurityRuleCheckResult.Forbidden;
 		}
 	}
 }

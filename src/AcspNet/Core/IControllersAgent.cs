@@ -45,6 +45,6 @@ namespace AcspNet.Core
 		/// <param name="metaData">The controller meta data.</param>
 		/// <param name="user">The current request user.</param>
 		/// <returns></returns>
-		bool IsSecurityRulesViolated(ControllerMetaData metaData, ClaimsPrincipal user);
+		SecurityRuleCheckResult IsSecurityRulesViolated(ControllerMetaData metaData, ClaimsPrincipal user);
 	}
 }

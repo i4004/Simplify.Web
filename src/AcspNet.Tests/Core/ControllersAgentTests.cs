@@ -194,29 +194,30 @@ namespace AcspNet.Tests.Core
 		}
 
 		[Test]
-		public void IsSecurityRulesViolated_NoSecurityRules_False()
+		public void IsSecurityRulesViolated_NoSecurityRules_Ok()
 		{
 			// Assign
 			var metaData = new ControllerMetaData(null);
 
 			// Act & Assert
-			Assert.IsFalse(_agent.IsSecurityRulesViolated(metaData, null));
+			Assert.AreEqual(SecurityRuleCheckResult.Ok, _agent.IsSecurityRulesViolated(metaData, null));
 		}
 
 		[Test]
-		public void IsSecurityRulesViolated_AuthorizationRequiredNotAuthorized_True()
+		public void IsSecurityRulesViolated_AuthorizationRequiredNotAuthorized_NotAuthenticated()
 		{
 			// Assign
 			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true));
 
 			// Act & Assert
-			Assert.IsTrue(_agent.IsSecurityRulesViolated(metaData, null));
+			Assert.AreEqual(SecurityRuleCheckResult.NotAuthenticated, _agent.IsSecurityRulesViolated(metaData, null));
 		}
 
 		[Test]
-		public void IsSecurityRulesViolated_AuthorizationRequiredAuthorized_False()
+		public void IsSecurityRulesViolated_AuthorizationRequiredAuthorized_Ok()
 		{
 			// Assign
+
 			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true));
 			var claims = new List<Claim>
 			{
@@ -227,13 +228,14 @@ namespace AcspNet.Tests.Core
 			var user = new ClaimsPrincipal(id);
 
 			// Act & Assert
-			Assert.IsFalse(_agent.IsSecurityRulesViolated(metaData, user));
+			Assert.AreEqual(SecurityRuleCheckResult.Ok, _agent.IsSecurityRulesViolated(metaData, user));
 		}
 
 		[Test]
-		public void IsSecurityRulesViolated_AuthorizationRequiredWithGroupAuthorizedNoGroups_True()
+		public void IsSecurityRulesViolated_AuthorizationRequiredWithGroupAuthorizedNoGroups_Forbidden()
 		{
 			// Assign
+
 			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true, "Admin, User"));
 			var claims = new List<Claim>
 			{
@@ -244,13 +246,14 @@ namespace AcspNet.Tests.Core
 			var user = new ClaimsPrincipal(id);
 
 			// Act & Assert
-			Assert.IsTrue(_agent.IsSecurityRulesViolated(metaData, user));
+			Assert.AreEqual(SecurityRuleCheckResult.Forbidden, _agent.IsSecurityRulesViolated(metaData, user));
 		}
 
 		[Test]
-		public void IsSecurityRulesViolated_AuthorizationRequiredWithGroupAuthorizedNotInGroup_True()
+		public void IsSecurityRulesViolated_AuthorizationRequiredWithGroupAuthorizedNotInGroup_Forbidden()
 		{
 			// Assign
+
 			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true, "Admin"));
 			var claims = new List<Claim>
 			{
@@ -262,13 +265,14 @@ namespace AcspNet.Tests.Core
 			var user = new ClaimsPrincipal(id);
 
 			// Act & Assert
-			Assert.IsTrue(_agent.IsSecurityRulesViolated(metaData, user));
+			Assert.AreEqual(SecurityRuleCheckResult.Forbidden, _agent.IsSecurityRulesViolated(metaData, user));
 		}
 
 		[Test]
-		public void IsSecurityRulesViolated_AuthorizationRequiredWithGroupAuthorizedInGroup_False()
+		public void IsSecurityRulesViolated_AuthorizationRequiredWithGroupAuthorizedInGroup_Ok()
 		{
 			// Assign
+
 			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true, "Admin, User"));
 			var claims = new List<Claim>
 			{
@@ -280,7 +284,7 @@ namespace AcspNet.Tests.Core
 			var user = new ClaimsPrincipal(id);
 
 			// Act & Assert
-			Assert.IsFalse(_agent.IsSecurityRulesViolated(metaData, user));
+			Assert.AreEqual(SecurityRuleCheckResult.Ok, _agent.IsSecurityRulesViolated(metaData, user));
 		}
 	}
 }
