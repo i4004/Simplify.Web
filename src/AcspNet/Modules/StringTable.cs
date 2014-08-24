@@ -65,7 +65,7 @@ namespace AcspNet.Modules
 			IDictionary<string, Object> currentItems = new ExpandoObject();
 			Items = currentItems;
 
-			var stringTable = fileReader.LoadXDocument("StringTable.xml");
+			var stringTable = fileReader.LoadXDocument("﻿StringTable.xml");
 
 			// Loading current culture strings
 			if (stringTable != null && stringTable.Root != null)
@@ -77,7 +77,7 @@ namespace AcspNet.Modules
 
 			// Loading default culture strings
 
-			stringTable = fileReader.LoadXDocument("StringTable.xml", defaultLanguage);
+			stringTable = fileReader.LoadXDocument("﻿StringTable.xml", defaultLanguage);
 
 			if (stringTable != null && stringTable.Root != null)
 				foreach (var item in stringTable.Root.XPathSelectElements("item").Where(x => x.HasAttributes))
