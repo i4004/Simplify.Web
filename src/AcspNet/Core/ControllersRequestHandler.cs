@@ -38,6 +38,14 @@ namespace AcspNet.Core
 
 				if (!matcherResult.Success) continue;
 
+				var securityResult = _agent.IsSecurityRulesViolated(metaData, context.Authentication.User);
+
+				if(securityResult == SecurityRuleCheckResult.NotAuthenticated)
+					return ControllersHandlerResult.Http401;
+
+				if(securityResult == SecurityRuleCheckResult.Forbidden)
+					return ProcessForbiddenSecurityRule(containerProvider, context);
+
 				var result = _controllersProcessor.Process(metaData.ControllerType, containerProvider, context, matcherResult.RouteParameters);
 
 				if (result == ControllerResponseResult.RawOutput)
@@ -52,20 +60,34 @@ namespace AcspNet.Core
 
 			if (!atleastOneNonAnyPageControllerMatched)
 			{
-				var http404Controller = _agent.GetHandlerController(HandlerControllerType.Http404Handler);
-
-				if (http404Controller == null)
-					return ControllersHandlerResult.Http404;
-
-				var handlerControllerResult = _controllersProcessor.Process(http404Controller.ControllerType, containerProvider, context);
-
-				if (handlerControllerResult == ControllerResponseResult.RawOutput)
-					return ControllersHandlerResult.RawOutput;
-
-				if (handlerControllerResult == ControllerResponseResult.Redirect)
-					return ControllersHandlerResult.Redirect;
+				var result = ProcessOnlyAnyPageControllersMatched(containerProvider, context);
+				if (result != ControllersHandlerResult.Ok)
+					return result;
 			}
 
+			return ProcessAsyncControllersResponses(containerProvider);
+		}
+
+		private ControllersHandlerResult ProcessOnlyAnyPageControllersMatched(IDIContainerProvider containerProvider, IOwinContext context)
+		{
+			var http404Controller = _agent.GetHandlerController(HandlerControllerType.Http404Handler);
+
+			if (http404Controller == null)
+				return ControllersHandlerResult.Http404;
+
+			var handlerControllerResult = _controllersProcessor.Process(http404Controller.ControllerType, containerProvider, context);
+
+			if (handlerControllerResult == ControllerResponseResult.RawOutput)
+				return ControllersHandlerResult.RawOutput;
+
+			if (handlerControllerResult == ControllerResponseResult.Redirect)
+				return ControllersHandlerResult.Redirect;
+			
+			return ControllersHandlerResult.Ok;
+		}
+
+		private ControllersHandlerResult ProcessAsyncControllersResponses(IDIContainerProvider containerProvider)
+		{
 			foreach (var controllerResponseResult in _controllersProcessor.ProcessAsyncControllersResponses(containerProvider))
 			{
 				if (controllerResponseResult == ControllerResponseResult.RawOutput)
@@ -73,7 +95,25 @@ namespace AcspNet.Core
 
 				if (controllerResponseResult == ControllerResponseResult.Redirect)
 					return ControllersHandlerResult.Redirect;
-			}		
+			}
+
+			return ControllersHandlerResult.Ok;
+		}
+
+		private ControllersHandlerResult ProcessForbiddenSecurityRule(IDIContainerProvider containerProvider, IOwinContext context)
+		{
+			var http403Controller = _agent.GetHandlerController(HandlerControllerType.Http403Handler);
+
+			if (http403Controller == null)
+				return ControllersHandlerResult.Http403;
+
+			var handlerControllerResult = _controllersProcessor.Process(http403Controller.ControllerType, containerProvider, context);
+
+			if (handlerControllerResult == ControllerResponseResult.RawOutput)
+				return ControllersHandlerResult.RawOutput;
+
+			if (handlerControllerResult == ControllerResponseResult.Redirect)
+				return ControllersHandlerResult.Redirect;
 
 			return ControllersHandlerResult.Ok;
 		}

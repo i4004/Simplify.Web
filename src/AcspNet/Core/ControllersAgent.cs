@@ -86,6 +86,10 @@ namespace AcspNet.Core
 
 			switch (controllerType)
 			{
+				case HandlerControllerType.Http403Handler:
+					metaData = _controllersMetaStore.ControllersMetaData.FirstOrDefault(x => x.Role != null && x.Role.Is403Handler);
+					break;
+
 				case HandlerControllerType.Http404Handler:
 					metaData = _controllersMetaStore.ControllersMetaData.FirstOrDefault(x => x.Role != null && x.Role.Is404Handler);
 					break;
@@ -124,7 +128,7 @@ namespace AcspNet.Core
 		/// <param name="metaData">The controller meta data.</param>
 		/// <param name="user">The current request user.</param>
 		/// <returns></returns>
-		public SecurityRuleCheckResult IsSecurityRulesViolated(ControllerMetaData metaData, ClaimsPrincipal user)
+		public SecurityRuleCheckResult IsSecurityRulesViolated(IControllerMetaData metaData, ClaimsPrincipal user)
 		{
 			if (metaData.Security == null)
 				return SecurityRuleCheckResult.Ok;

@@ -24,5 +24,13 @@ namespace AcspNet.Meta
 		/// Gets the controller role information.
 		/// </summary>
 		ControllerRole Role { get; }
+		
+		/// <summary>
+		/// Gets the controller security information.
+		/// </summary>
+		/// <value>
+		/// The controller security information.
+		/// </value>
+		ControllerSecurity Security { get; }
 	}
 }

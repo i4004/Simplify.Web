@@ -18,6 +18,10 @@
 		/// </summary>
 		Http400,
 		/// <summary>
+		/// The HTTP 401 error should be sent to response
+		/// </summary>
+		Http401,
+		/// <summary>
 		/// The HTTP 403 error should be sent to response
 		/// </summary>
 		Http403,

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Security.Claims;
 using AcspNet.Core;
 using AcspNet.Meta;
 using AcspNet.Routing;
 using AcspNet.Tests.TestEntities;
 using Microsoft.Owin;
+using Microsoft.Owin.Security;
 using Moq;
 using NUnit.Framework;
 using Simplify.DI;
@@ -43,8 +45,11 @@ namespace AcspNet.Tests.Core
 				_metaData
 			});
 
+			_agent.Setup(x => x.IsSecurityRulesViolated(It.IsAny<IControllerMetaData>(), It.IsAny<ClaimsPrincipal>())).Returns(SecurityRuleCheckResult.Ok);
+
 			_context.SetupGet(x => x.Request.Path).Returns(new PathString("/foo/bar"));
 			_context.SetupGet(x => x.Request.Method).Returns("GET");
+			_context.SetupGet(x => x.Authentication).Returns(new Mock<IAuthenticationManager>().Object);
 		}
 
 		[Test]
@@ -314,6 +319,65 @@ namespace AcspNet.Tests.Core
 				x =>
 					x.Process(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
 						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)), Times.Exactly(2));
+		}
+
+		[Test]
+		public void Execute_NotAuthenticated_ReturnedHttp401()
+		{
+			// Assign
+			_agent.Setup(x => x.IsSecurityRulesViolated(It.IsAny<IControllerMetaData>(), It.IsAny<ClaimsPrincipal>())).Returns(SecurityRuleCheckResult.NotAuthenticated);
+
+			// Act
+			var result = _handler.Execute(_containerProvider, _context.Object);
+
+			// Assert
+
+			Assert.AreEqual(ControllersHandlerResult.Http401, result);
+			_agent.Setup(x => x.IsSecurityRulesViolated(It.IsAny<IControllerMetaData>(), It.IsAny<ClaimsPrincipal>()));
+		}
+
+		[Test]
+		public void Execute_ForbiddenHave403Controller_403ControllerExecuted()
+		{
+			// Assign
+
+			_agent.Setup(x => x.IsSecurityRulesViolated(It.IsAny<IControllerMetaData>(), It.IsAny<ClaimsPrincipal>())).Returns(SecurityRuleCheckResult.Forbidden);
+			_agent.Setup(
+				x => x.GetHandlerController(It.Is<HandlerControllerType>(d => d == HandlerControllerType.Http403Handler)))
+				.Returns(new ControllerMetaData(typeof(TestController2)));
+
+			// Act
+			var result = _handler.Execute(_containerProvider, _context.Object);
+
+			// Assert
+
+			Assert.AreEqual(ControllersHandlerResult.Ok, result);
+			_controllersProcessor.Verify(x =>
+				x.Process(It.Is<Type>(t => t == typeof (TestController1)), It.IsAny<IDIContainerProvider>(),
+					It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
+			_controllersProcessor.Verify(
+				x =>
+					x.Process(It.Is<Type>(t => t == typeof (TestController2)), It.IsAny<IDIContainerProvider>(),
+						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == null)));
+			_agent.Setup(x => x.IsSecurityRulesViolated(It.IsAny<IControllerMetaData>(), It.IsAny<ClaimsPrincipal>()));
+		}
+
+		[Test]
+		public void Execute_ForbiddenNotHave403Controller_Http403Returned()
+		{
+			// Assign
+			_agent.Setup(x => x.IsSecurityRulesViolated(It.IsAny<IControllerMetaData>(), It.IsAny<ClaimsPrincipal>())).Returns(SecurityRuleCheckResult.Forbidden);
+
+			// Act
+			var result = _handler.Execute(_containerProvider, _context.Object);
+
+			// Assert
+
+			Assert.AreEqual(ControllersHandlerResult.Http403, result);
+			_controllersProcessor.Verify(x =>
+				x.Process(It.Is<Type>(t => t == typeof (TestController1)), It.IsAny<IDIContainerProvider>(),
+					It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
+			_agent.Setup(x => x.IsSecurityRulesViolated(It.IsAny<IControllerMetaData>(), It.IsAny<ClaimsPrincipal>()));
 		}
 	}
 }

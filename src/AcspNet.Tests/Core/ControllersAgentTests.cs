@@ -21,7 +21,7 @@ namespace AcspNet.Tests.Core
 		public void Initialize()
 		{
 			_metaStore = new Mock<IControllersMetaStore>();
-			_routeMatcher = new Mock<IRouteMatcher>();//_controllerPathParser.Object);
+			_routeMatcher = new Mock<IRouteMatcher>();
 			_agent = new ControllersAgent(_metaStore.Object, _routeMatcher.Object);
 		}
 
