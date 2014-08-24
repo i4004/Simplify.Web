@@ -13,6 +13,11 @@ namespace AcspNet.Modules
 	public sealed class StringTable : IStringTable
 	{
 		/// <summary>
+		/// The string table file name
+		/// </summary>
+		public const string StringTableFileName = "StringTable.xml";
+
+		/// <summary>
 		/// Load string table with current language
 		/// </summary>
 		/// <param name="defaultLanguage">The default language.</param>
@@ -65,7 +70,7 @@ namespace AcspNet.Modules
 			IDictionary<string, Object> currentItems = new ExpandoObject();
 			Items = currentItems;
 
-			var stringTable = fileReader.LoadXDocument("﻿StringTable.xml");
+			var stringTable = fileReader.LoadXDocument(StringTableFileName);
 
 			// Loading current culture strings
 			if (stringTable != null && stringTable.Root != null)
@@ -77,7 +82,7 @@ namespace AcspNet.Modules
 
 			// Loading default culture strings
 
-			stringTable = fileReader.LoadXDocument("﻿StringTable.xml", defaultLanguage);
+			stringTable = fileReader.LoadXDocument(StringTableFileName, defaultLanguage);
 
 			if (stringTable != null && stringTable.Root != null)
 				foreach (var item in stringTable.Root.XPathSelectElements("item").Where(x => x.HasAttributes))
