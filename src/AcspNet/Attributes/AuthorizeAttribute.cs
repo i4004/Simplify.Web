@@ -10,18 +10,18 @@ namespace AcspNet.Attributes
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AuthorizeAttribute"/> class.
 		/// </summary>
-		/// <param name="requiredUserRoles">Required user roles.</param>
-		public AuthorizeAttribute(string requiredUserRoles = null)
+		/// <param name="allowedUserRoles">Allowed user roles.</param>
+		public AuthorizeAttribute(string allowedUserRoles = null)
 		{
-			RequiredUserRoles = requiredUserRoles;
+			AllowedUserRoles = allowedUserRoles;
 		}
 
 		/// <summary>
-		/// Gets the required user roles.
+		/// Gets the allowed user roles.
 		/// </summary>
 		/// <value>
-		/// The required user roles.
+		/// The allowed user roles.
 		/// </value>
-		public string RequiredUserRoles { get; private set; }
+		public string AllowedUserRoles { get; private set; }
 	}
 }

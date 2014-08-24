@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Security.Claims;
 using AcspNet.Meta;
 using AcspNet.Routing;
 
@@ -37,5 +38,13 @@ namespace AcspNet.Core
 		/// <param name="metaData">The controller meta data.</param>
 		/// <returns></returns>
 		bool IsAnyPageController(IControllerMetaData metaData);
+
+		/// <summary>
+		/// Determines whether controller security rules violated.
+		/// </summary>
+		/// <param name="metaData">The controller meta data.</param>
+		/// <param name="user">The current request user.</param>
+		/// <returns></returns>
+		bool IsSecurityRulesViolated(ControllerMetaData metaData, ClaimsPrincipal user);
 	}
 }

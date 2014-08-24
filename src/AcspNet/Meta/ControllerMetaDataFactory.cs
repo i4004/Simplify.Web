@@ -103,7 +103,7 @@ namespace AcspNet.Meta
 			if (attributes.Length > 0)
 			{
 				isAuthorizationRequired = true;
-				requiredUserRoles = ((AuthorizeAttribute) attributes[0]).RequiredUserRoles;
+				requiredUserRoles = ((AuthorizeAttribute) attributes[0]).AllowedUserRoles;
 			}
 
 			return isAuthorizationRequired ? new ControllerSecurity(true, requiredUserRoles) : null;

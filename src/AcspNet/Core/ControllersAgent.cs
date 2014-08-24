@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using AcspNet.Meta;
 using AcspNet.Routing;
 
@@ -115,6 +116,26 @@ namespace AcspNet.Core
 						return false;
 
 			return true;
+		}
+
+		/// <summary>
+		/// Determines whether controller security rules violated.
+		/// </summary>
+		/// <param name="metaData">The controller meta data.</param>
+		/// <param name="user">The current request user.</param>
+		/// <returns></returns>
+		public bool IsSecurityRulesViolated(ControllerMetaData metaData, ClaimsPrincipal user)
+		{
+			if (metaData.Security == null)
+				return false;
+
+			if (!metaData.Security.IsAuthorizationRequired)
+				return false;
+			
+			if (metaData.Security.AllowedUserRoles == null)
+				return user == null;
+
+			return !metaData.Security.AllowedUserRoles.Any(user.IsInRole);
 		}
 	}
 }

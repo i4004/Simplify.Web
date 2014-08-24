@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using AcspNet.Core;
 using AcspNet.Meta;
 using AcspNet.Routing;
+using Microsoft.AspNet.Identity;
 using Moq;
 using NUnit.Framework;
 
@@ -189,6 +191,96 @@ namespace AcspNet.Tests.Core
 
 			// Act & Assert
 			Assert.IsFalse(_agent.IsAnyPageController(metaData));
+		}
+
+		[Test]
+		public void IsSecurityRulesViolated_NoSecurityRules_False()
+		{
+			// Assign
+			var metaData = new ControllerMetaData(null);
+
+			// Act & Assert
+			Assert.IsFalse(_agent.IsSecurityRulesViolated(metaData, null));
+		}
+
+		[Test]
+		public void IsSecurityRulesViolated_AuthorizationRequiredNotAuthorized_True()
+		{
+			// Assign
+			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true));
+
+			// Act & Assert
+			Assert.IsTrue(_agent.IsSecurityRulesViolated(metaData, null));
+		}
+
+		[Test]
+		public void IsSecurityRulesViolated_AuthorizationRequiredAuthorized_False()
+		{
+			// Assign
+			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true));
+			var claims = new List<Claim>
+			{
+				new Claim(ClaimTypes.Name, "Foo")
+			};
+
+			var id = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+			var user = new ClaimsPrincipal(id);
+
+			// Act & Assert
+			Assert.IsFalse(_agent.IsSecurityRulesViolated(metaData, user));
+		}
+
+		[Test]
+		public void IsSecurityRulesViolated_AuthorizationRequiredWithGroupAuthorizedNoGroups_True()
+		{
+			// Assign
+			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true, "Admin, User"));
+			var claims = new List<Claim>
+			{
+				new Claim(ClaimTypes.Name, "Foo")
+			};
+
+			var id = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+			var user = new ClaimsPrincipal(id);
+
+			// Act & Assert
+			Assert.IsTrue(_agent.IsSecurityRulesViolated(metaData, user));
+		}
+
+		[Test]
+		public void IsSecurityRulesViolated_AuthorizationRequiredWithGroupAuthorizedNotInGroup_True()
+		{
+			// Assign
+			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true, "Admin"));
+			var claims = new List<Claim>
+			{
+				new Claim(ClaimTypes.Name, "Foo"),
+				new Claim(ClaimTypes.Role, "User")
+			};
+
+			var id = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+			var user = new ClaimsPrincipal(id);
+
+			// Act & Assert
+			Assert.IsTrue(_agent.IsSecurityRulesViolated(metaData, user));
+		}
+
+		[Test]
+		public void IsSecurityRulesViolated_AuthorizationRequiredWithGroupAuthorizedInGroup_False()
+		{
+			// Assign
+			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true, "Admin, User"));
+			var claims = new List<Claim>
+			{
+				new Claim(ClaimTypes.Name, "Foo"),
+				new Claim(ClaimTypes.Role, "User")
+			};
+
+			var id = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+			var user = new ClaimsPrincipal(id);
+
+			// Act & Assert
+			Assert.IsFalse(_agent.IsSecurityRulesViolated(metaData, user));
 		}
 	}
 }

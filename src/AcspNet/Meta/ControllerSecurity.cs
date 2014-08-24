@@ -12,13 +12,13 @@ namespace AcspNet.Meta
 		/// Initializes a new instance of the <see cref="ControllerSecurity" /> class.
 		/// </summary>
 		/// <param name="isAuthorizationRequired">if set to <c>true</c> then indicates whether controller requires user authorization.</param>
-		/// <param name="requiredUserRoles">The required user roles.</param>
-		public ControllerSecurity(bool isAuthorizationRequired = false, string requiredUserRoles = null)
+		/// <param name="allowedUserRoles">The allowed user roles.</param>
+		public ControllerSecurity(bool isAuthorizationRequired = false, string allowedUserRoles = null)
 		{
 			IsAuthorizationRequired = isAuthorizationRequired;
 
-			if(!string.IsNullOrEmpty(requiredUserRoles))
-				RequiredUserRoles = requiredUserRoles.Replace(" ", "").Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
+			if(!string.IsNullOrEmpty(allowedUserRoles))
+				AllowedUserRoles = allowedUserRoles.Replace(" ", "").Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
 		}
 
 		/// <summary>
@@ -30,11 +30,11 @@ namespace AcspNet.Meta
 		public bool IsAuthorizationRequired { get; private set; }
 
 		/// <summary>
-		/// Gets the required user roles.
+		/// Gets the allowed user roles.
 		/// </summary>
 		/// <value>
-		/// The required user roles.
+		/// The allowed user roles.
 		/// </value>
-		public IEnumerable<string> RequiredUserRoles { get; private set; }
+		public IEnumerable<string> AllowedUserRoles { get; private set; }
 	}
 }

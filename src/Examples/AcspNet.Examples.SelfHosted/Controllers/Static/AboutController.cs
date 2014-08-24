@@ -4,6 +4,7 @@ using AcspNet.Responses;
 namespace AcspNet.Examples.SelfHosted.Controllers.Static
 {
 	[Get("about")]
+	[Authorize]
 	public class AboutController : Controller
 	{
 		public override ControllerResponse Invoke()
