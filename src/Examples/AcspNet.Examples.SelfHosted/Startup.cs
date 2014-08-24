@@ -4,6 +4,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using Simplify.DI;
+using Simplify.DI.Provider.SimpleInjector;
 
 namespace AcspNet.Examples.SelfHosted
 {
@@ -14,6 +16,8 @@ namespace AcspNet.Examples.SelfHosted
 			// Exclude AcspNet from exclude assemblies to be able to load example controllers
 			AcspTypesFinder.ExcludedAssembliesPrefixes.Remove("AcspNet");
 
+			DIContainer.Current = new SimpleInjectorDIProvider();
+			
 			app.UseCookieAuthentication(new CookieAuthenticationOptions
 			{
 				AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
