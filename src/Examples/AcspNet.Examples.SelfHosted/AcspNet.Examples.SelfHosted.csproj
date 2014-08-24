@@ -148,6 +148,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\AcspNet.Owin.Security.AesDataProtectorProvider\AcspNet.Owin.Security.AesDataProtectorProvider.csproj">
+      <Project>{ab43300f-837c-4e1d-bdb8-35165a146ca2}</Project>
+      <Name>AcspNet.Owin.Security.AesDataProtectorProvider</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\AcspNet\AcspNet.csproj">
       <Project>{03b0ae6c-88d0-4d7a-8657-57fc4fd2682a}</Project>
       <Name>AcspNet</Name>

@@ -1,5 +1,6 @@
 ﻿using AcspNet.Meta;
 using AcspNet.Owin;
+using AcspNet.Owin.Security.AesDataProtectorProvider;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
@@ -23,6 +24,8 @@ namespace AcspNet.Examples.SelfHosted
 				AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
 				LoginPath = new PathString("/login")
 			});
+
+			app.UseAesDataProtectorProvider();
 
 			app.UseAcspNet();
 		}
