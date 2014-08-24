@@ -1,4 +1,5 @@
-﻿using AcspNet.Meta;
+﻿using System.Linq;
+using AcspNet.Meta;
 using AcspNet.Tests.TestEntities;
 using NUnit.Framework;
 
@@ -14,7 +15,9 @@ namespace AcspNet.Tests.Meta
 			var factory = new ControllerMetaDataFactory();
 
 			// Act
+
 			var metaData = factory.CreateControllerMetaData(typeof (TestController1));
+			var roles = metaData.Security.RequiredUserRoles.ToList();
 
 			// Assert
 
@@ -27,6 +30,10 @@ namespace AcspNet.Tests.Meta
 			Assert.IsTrue(metaData.Role.Is403Handler);
 			Assert.IsTrue(metaData.Role.Is404Handler);
 			Assert.AreEqual(1, metaData.ExecParameters.RunPriority);
+			Assert.IsTrue(metaData.Security.IsAuthorizationRequired);
+			Assert.AreEqual(2 , roles.Count);
+			Assert.AreEqual("Admin", roles[0]);
+			Assert.AreEqual("User", roles[1]);
 		}
 	}
 }

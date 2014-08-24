@@ -3,15 +3,15 @@
 namespace AcspNet.Attributes
 {
 	/// <summary>
-	/// Indicates whether controller requires user authentication
+	/// Indicates whether controller requires user authorization
 	/// </summary>
-	public class AuthenticateAttribute : Attribute
+	public class AuthorizeAttribute : Attribute
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="AuthenticateAttribute"/> class.
+		/// Initializes a new instance of the <see cref="AuthorizeAttribute"/> class.
 		/// </summary>
 		/// <param name="requiredUserRoles">Required user roles.</param>
-		public AuthenticateAttribute(string requiredUserRoles = null)
+		public AuthorizeAttribute(string requiredUserRoles = null)
 		{
 			RequiredUserRoles = requiredUserRoles;
 		}

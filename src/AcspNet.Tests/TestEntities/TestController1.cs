@@ -10,6 +10,7 @@ namespace AcspNet.Tests.TestEntities
 	[Http403]
 	[Http404]
 	[Priority(1)]
+	[Authorize("Admin, User")]
 	public class TestController1 : Controller
 	{
 		public override ControllerResponse Invoke()

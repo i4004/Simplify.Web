@@ -15,7 +15,7 @@ namespace AcspNet.Meta
 		/// <returns></returns>
 		public ControllerMetaData CreateControllerMetaData(Type controllerType)
 		{
-			return new ControllerMetaData(controllerType, GetControllerExecParameters(controllerType), GetControllerRole(controllerType));
+			return new ControllerMetaData(controllerType, GetControllerExecParameters(controllerType), GetControllerRole(controllerType), GetControllerSecurity(controllerType));
 		}
 
 		private static ControllerExecParameters GetControllerExecParameters(Type controllerType)
@@ -91,6 +91,22 @@ namespace AcspNet.Meta
 				http404 = true;
 
 			return http403 || http404 ? new ControllerRole(http400, http403, http404) : null;
+		}
+
+		private static ControllerSecurity GetControllerSecurity(Type controllerType)
+		{
+			var isAuthorizationRequired = false;
+			string requiredUserRoles = null;
+
+			var attributes = controllerType.GetCustomAttributes(typeof(AuthorizeAttribute), false);
+
+			if (attributes.Length > 0)
+			{
+				isAuthorizationRequired = true;
+				requiredUserRoles = ((AuthorizeAttribute) attributes[0]).RequiredUserRoles;
+			}
+
+			return isAuthorizationRequired ? new ControllerSecurity(true, requiredUserRoles) : null;
 		}
 	}
 }

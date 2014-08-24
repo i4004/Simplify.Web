@@ -13,11 +13,13 @@ namespace AcspNet.Meta
 		/// <param name="controllerType">Type of the controller.</param>
 		/// <param name="execParameters">The execute parameters.</param>
 		/// <param name="role">The controller role.</param>
-		public ControllerMetaData(Type controllerType, ControllerExecParameters execParameters = null, ControllerRole role = null)
+		/// <param name="security">The security.</param>
+		public ControllerMetaData(Type controllerType, ControllerExecParameters execParameters = null, ControllerRole role = null, ControllerSecurity security = null)
 		{
 			ControllerType = controllerType;
 			ExecParameters = execParameters;
 			Role = role;
+			Security = security;
 		}
 
 		/// <summary>
@@ -37,5 +39,13 @@ namespace AcspNet.Meta
 		/// Gets the controller role information.
 		/// </summary>
 		public ControllerRole Role { get; private set; }
+
+		/// <summary>
+		/// Gets the controller security information.
+		/// </summary>
+		/// <value>
+		/// The controller security information.
+		/// </value>
+		public ControllerSecurity Security { get; private set; }
 	}
 }

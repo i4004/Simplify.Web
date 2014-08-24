@@ -118,7 +118,7 @@
     <Compile Include="App_Packages\Simplify.Xml.Sources.1.0.2.0\XmlExtensions.cs" />
     <Compile Include="App_Packages\Simplify.Xml.Sources.1.0.2.0\XmlSerializer.cs" />
     <Compile Include="AsyncController.cs" />
-    <Compile Include="Attributes\AuthenticateAttribute.cs" />
+    <Compile Include="Attributes\AuthorizeAttribute.cs" />
     <Compile Include="ControllerBase.cs" />
     <Compile Include="ControllerResponseResult.cs" />
     <Compile Include="Core\ContextVariablesSetter.cs" />
@@ -291,7 +291,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
