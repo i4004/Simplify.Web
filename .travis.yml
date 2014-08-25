@@ -17,9 +17,6 @@ before_install:
  - sudo apt-get update
  - sudo apt-get install mono-devel --force-yes
  - sudo mozroots --import --sync
- - sudo certmgr -ssl https://go.microsoft.com
- - sudo certmgr -ssl https://nugetgallery.blob.core.windows.net
- - sudo certmgr -ssl https://nuget.org
 
 before_script:
  - chmod +x .ci/nunit.sh
