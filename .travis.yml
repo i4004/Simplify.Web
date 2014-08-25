@@ -15,7 +15,7 @@ env:
 before_install:
  - sudo add-apt-repository "deb http://download.mono-project.com/repo/debian wheezy main"
  - sudo apt-get update
- - sudo apt-get install mono-complete
+ - sudo apt-get install mono-complete --force-yes
 
 before_script:
  - chmod +x .ci/nunit.sh
