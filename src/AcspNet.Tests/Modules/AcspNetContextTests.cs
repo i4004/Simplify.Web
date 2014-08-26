@@ -40,6 +40,56 @@ namespace AcspNet.Tests.Modules
 		}
 
 		[Test]
+		public void Constructor_PathWithPort_SetCorrectly()
+		{
+			// Assign
+
+			_owinContext.SetupGet(x => x.Request.Uri).Returns(new Uri("http://localhost:8080"));
+			_owinContext.SetupGet(x => x.Request.PathBase).Returns(new PathString(""));
+
+			// Act
+			var context = new AcspNetContext(_owinContext.Object);
+
+			// Assert
+
+			Assert.AreEqual("http://localhost:8080", context.SiteUrl);
+			Assert.AreEqual("", context.VirtualPath);
+		}
+
+		[Test]
+		public void Constructor_PathWithPortAndQueryString_SetCorrectly()
+		{
+			// Assign
+
+			_owinContext.SetupGet(x => x.Request.Uri).Returns(new Uri("http://localhost:8080?act=test"));
+			_owinContext.SetupGet(x => x.Request.PathBase).Returns(new PathString(""));
+
+			// Act
+			var context = new AcspNetContext(_owinContext.Object);
+
+			// Assert
+
+			Assert.AreEqual("http://localhost:8080", context.SiteUrl);
+			Assert.AreEqual("", context.VirtualPath);
+		}
+
+
+		[Test]
+		public void Constructor_VirtualPathWithPort_SetCorrectly()
+		{
+			// Assign
+			_owinContext.SetupGet(x => x.Request.Uri).Returns(new Uri("http://localhost:8080/mywebsite/"));
+
+			// Act
+			var context = new AcspNetContext(_owinContext.Object);
+
+			// Assert
+
+			Assert.AreEqual("http://localhost:8080/mywebsite/", context.SiteUrl);
+			Assert.AreEqual("/mywebsite/", context.VirtualPath);
+		}
+
+		[Test]
 		public void Constructor_NoVirtualPath_Empty()
 		{
 			// Assign

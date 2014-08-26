@@ -28,13 +28,10 @@ namespace AcspNet.Modules
 				return task.Result;
 			});
 
-			if (string.IsNullOrEmpty(Request.PathBase.Value))
-				SiteUrl = Request.Uri.AbsoluteUri.Substring(0,
-					Request.Uri.AbsoluteUri.IndexOf(Request.Uri.Host, StringComparison.Ordinal) + Request.Uri.Host.Length);
-			else
-				SiteUrl =
-					Request.Uri.AbsoluteUri.Substring(0, Request.Uri.AbsoluteUri.IndexOf(Request.PathBase.Value,
-						StringComparison.Ordinal)) + Request.PathBase.Value + "/";
+			SiteUrl = Request.Uri.Scheme + "://" + Request.Uri.Authority;
+
+			if (!string.IsNullOrEmpty(Request.PathBase.Value))
+				SiteUrl += Request.PathBase.Value + "/";
 
 			VirtualPath = string.IsNullOrEmpty(Request.PathBase.Value) ? "" : Request.PathBase.Value + "/";
 		}
