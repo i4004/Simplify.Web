@@ -232,6 +232,7 @@ namespace AcspNet.Tests.Core
 		}
 
 		[Test]
+		[Category("Windows")]
 		public void IsSecurityRulesViolated_AuthorizationRequiredWithGroupAuthorizedNoGroups_Forbidden()
 		{
 			// Assign
@@ -250,6 +251,7 @@ namespace AcspNet.Tests.Core
 		}
 
 		[Test]
+		[Category("Windows")]
 		public void IsSecurityRulesViolated_AuthorizationRequiredWithGroupAuthorizedNotInGroup_Forbidden()
 		{
 			// Assign
@@ -271,6 +273,7 @@ namespace AcspNet.Tests.Core
 		}
 
 		[Test]
+		[Category("Windows")]
 		public void IsSecurityRulesViolated_AuthorizationRequiredWithGroupAuthorizedInGroup_Ok()
 		{
 			// Assign
