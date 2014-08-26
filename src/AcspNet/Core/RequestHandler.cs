@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AcspNet.Modules;
 using Microsoft.Owin;
 using Simplify.DI;
 
@@ -10,20 +11,17 @@ namespace AcspNet.Core
 	public class RequestHandler : IRequestHandler
 	{
 		private readonly IControllersRequestHandler _controllersRequestHandler;
-		private readonly IPageBuilder _pageBuilder;
-		private readonly IResponseWriter _responseWriter;
+		private readonly IPageProcessor _pageProcessor;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RequestHandler" /> class.
 		/// </summary>
 		/// <param name="controllersRequestHandler">The controllers request handler.</param>
-		/// <param name="pageBuilder">The page builder.</param>
-		/// <param name="responseWriter">The response writer.</param>
-		public RequestHandler(IControllersRequestHandler controllersRequestHandler, IPageBuilder pageBuilder, IResponseWriter responseWriter)
+		/// <param name="pageProcessor">The page processor.</param>
+		public RequestHandler(IControllersRequestHandler controllersRequestHandler, IPageProcessor pageProcessor)
 		{
 			_controllersRequestHandler = controllersRequestHandler;
-			_pageBuilder = pageBuilder;
-			_responseWriter = responseWriter;
+			_pageProcessor = pageProcessor;
 		}
 
 		/// <summary>
@@ -39,7 +37,7 @@ namespace AcspNet.Core
 			switch (result)
 			{
 				case ControllersHandlerResult.Ok:
-					_responseWriter.Write(_pageBuilder.Build(containerProvider), context.Response);
+					_pageProcessor.ProcessPage(containerProvider, context);
 					break;
 
 				case ControllersHandlerResult.Http401:

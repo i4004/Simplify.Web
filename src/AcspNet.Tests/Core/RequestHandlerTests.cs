@@ -10,8 +10,7 @@ namespace AcspNet.Tests.Core
 	public class RequestHandlerTests
 	{
 		private Mock<IControllersRequestHandler> _controllersHandler;
-		private Mock<IPageBuilder> _pageBuilder;
-		private Mock<IResponseWriter> _responseWriter;
+		private Mock<IPageProcessor> _pageProcessor;
 		private RequestHandler _requestHandler;
 		private Mock<IOwinContext> _context;
 		
@@ -19,9 +18,9 @@ namespace AcspNet.Tests.Core
 		public void Initialize()
 		{
 			_controllersHandler = new Mock<IControllersRequestHandler>();
-			_pageBuilder = new Mock<IPageBuilder>();
-			_responseWriter = new Mock<IResponseWriter>();
-			_requestHandler = new RequestHandler(_controllersHandler.Object, _pageBuilder.Object, _responseWriter.Object);
+			_pageProcessor = new Mock<IPageProcessor>();
+			_requestHandler = new RequestHandler(_controllersHandler.Object, _pageProcessor.Object);
+
 			_context = new Mock<IOwinContext>();
 			_context.SetupGet(x => x.Response.StatusCode);
 		}
@@ -32,23 +31,18 @@ namespace AcspNet.Tests.Core
 			// Assign
 
 			_controllersHandler.Setup(x => x.Execute(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(ControllersHandlerResult.Ok);
-			_pageBuilder.Setup(x => x.Build(It.IsAny<IDIContainerProvider>())).Returns("Foo");
 
 			// Act
 			_requestHandler.ProcessRequest(null, _context.Object);
 
 			// Assert
-
-			_pageBuilder.Verify(x => x.Build(It.IsAny<IDIContainerProvider>()));
-			_responseWriter.Verify(x => x.Write(It.Is<string>(d => d == "Foo"), It.Is<IOwinResponse>(d => d == _context.Object.Response)));
+			_pageProcessor.Verify(x => x.ProcessPage(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>()));
 		}
-
-
+		
 		[Test]
 		public void ProcessRequest_RawOutput_NoPageBuildsWithOutput()
 		{
 			// Assign
-
 			_controllersHandler.Setup(x => x.Execute(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(ControllersHandlerResult.RawOutput);
 
 			// Act
@@ -56,8 +50,7 @@ namespace AcspNet.Tests.Core
 
 			// Assert
 
-			_pageBuilder.Verify(x => x.Build(It.IsAny<IDIContainerProvider>()), Times.Never);
-			_responseWriter.Verify(x => x.Write(It.IsAny<string>(), It.IsAny<IOwinResponse>()), Times.Never);
+			_pageProcessor.Verify(x => x.ProcessPage(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>()), Times.Never);
 			_context.VerifySet(x => x.Response.StatusCode = It.IsAny<int>(), Times.Never);
 		}
 		
@@ -98,8 +91,7 @@ namespace AcspNet.Tests.Core
 
 			// Assert
 
-			_pageBuilder.Verify(x => x.Build(It.IsAny<IDIContainerProvider>()), Times.Never);
-			_responseWriter.Verify(x => x.Write(It.IsAny<string>(), It.IsAny<IOwinResponse>()), Times.Never);
+			_pageProcessor.Verify(x => x.ProcessPage(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>()), Times.Never);
 			_context.VerifySet(x => x.Response.StatusCode = It.Is<int>(d => d == 404));
 		}
 	}

@@ -24,6 +24,7 @@ namespace AcspNet.Bootstrapper
 		private Type _controllersRequestHanderType;
 		private Type _pageBuilderType;
 		private Type _responseWriterType;
+		private Type _pageProcessor;
 		private Type _requestHandlerType;
 		private Type _stopwatchProviderType;
 		private Type _contextVariablesSetterType;
@@ -56,6 +57,7 @@ namespace AcspNet.Bootstrapper
 			RegisterDataCollector();
 			RegisterPageBuilder();
 			RegisterResponseWriter();
+			RegisterPageProcessor();
 			RegisterRequestHandler();
 			RegisterStopwatchProvider();
 			RegisterContextVariablesSetter();
@@ -192,6 +194,17 @@ namespace AcspNet.Bootstrapper
 		public Type ResponseWriterType
 		{
 			get { return _responseWriterType ?? typeof(ResponseWriter); }
+		}
+		
+		/// <summary>
+		/// Gets the type of the page processor.
+		/// </summary>
+		/// <value>
+		/// The type of the page processor.
+		/// </value>
+		public Type PageProcessorType
+		{
+			get { return _pageProcessor ?? typeof(PageProcessor); }
 		}
 
 		/// <summary>
@@ -350,6 +363,16 @@ namespace AcspNet.Bootstrapper
 			where T : IResponseWriter
 		{
 			_responseWriterType = typeof(T);
+		}
+
+		/// <summary>
+		/// Sets the type of the page processor.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetPageProcessorType<T>()
+			where T : IPageProcessor
+		{
+			_pageProcessor = typeof(T);
 		}
 
 		/// <summary>
@@ -564,6 +587,14 @@ namespace AcspNet.Bootstrapper
 		public virtual void RegisterResponseWriter()
 		{
 			DIContainer.Current.Register<IResponseWriter>(ResponseWriterType);
+		}
+
+		/// <summary>
+		/// Registers the page processor.
+		/// </summary>
+		public virtual void RegisterPageProcessor()
+		{
+			DIContainer.Current.Register<IPageProcessor>(PageProcessorType, LifetimeType.PerLifetimeScope);
 		}
 
 		/// <summary>
