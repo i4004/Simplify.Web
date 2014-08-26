@@ -1,4 +1,5 @@
-﻿using AcspNet.Core;
+﻿using System.Threading.Tasks;
+using AcspNet.Core;
 using Microsoft.Owin;
 using Moq;
 using NUnit.Framework;
@@ -29,13 +30,16 @@ namespace AcspNet.Tests.Core
 		public void ProcessRequest_Ok_PageBuiltWithOutput()
 		{
 			// Assign
+			var task = Task.Delay(0);
 
 			_controllersHandler.Setup(x => x.Execute(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(ControllersHandlerResult.Ok);
+			_pageProcessor.Setup(x => x.ProcessPage(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(task);
 
 			// Act
-			_requestHandler.ProcessRequest(null, _context.Object);
+			var result = _requestHandler.ProcessRequest(null, _context.Object);
 
 			// Assert
+			Assert.AreEqual(task, result);
 			_pageProcessor.Verify(x => x.ProcessPage(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>()));
 		}
 		

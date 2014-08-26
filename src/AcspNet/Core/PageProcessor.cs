@@ -1,4 +1,5 @@
-﻿using AcspNet.Modules;
+﻿using System.Threading.Tasks;
+using AcspNet.Modules;
 using Microsoft.Owin;
 using Simplify.DI;
 
@@ -31,13 +32,13 @@ namespace AcspNet.Core
 		/// </summary>
 		/// <param name="containerProvider">The DI container provider.</param>
 		/// <param name="context">The context.</param>
-		public void ProcessPage(IDIContainerProvider containerProvider, IOwinContext context)
+		public Task ProcessPage(IDIContainerProvider containerProvider, IOwinContext context)
 		{
 			var task = _responseWriter.Write(_pageBuilder.Build(containerProvider), context.Response);
 
 			_redirector.PreviousPageUrl = context.Request.Uri.AbsoluteUri;
 
-			task.Wait();
+			return task;
 		}
 	}
 }

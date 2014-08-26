@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using System.Threading.Tasks;
+using Microsoft.Owin;
 using Simplify.DI;
 
 namespace AcspNet.Core
@@ -13,6 +14,6 @@ namespace AcspNet.Core
 		/// </summary>
 		/// <param name="containerProvider">The DI container provider.</param>
 		/// <param name="context">The context.</param>
-		void ProcessPage(IDIContainerProvider containerProvider, IOwinContext context);
+		Task ProcessPage(IDIContainerProvider containerProvider, IOwinContext context);
 	}
 }
