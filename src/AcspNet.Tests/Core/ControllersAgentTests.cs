@@ -258,7 +258,9 @@ namespace AcspNet.Tests.Core
 			var claims = new List<Claim>
 			{
 				new Claim(ClaimTypes.Name, "Foo"),
-				new Claim(ClaimTypes.Role, "User")
+				//new Claim(ClaimTypes.Role, "User")
+				// Temporary fix
+				new Claim("http://schemas.microsoft.com/ws/2008/06/identity/claims/role", "User")
 			};
 
 			var id = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
@@ -276,8 +278,10 @@ namespace AcspNet.Tests.Core
 			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true, "Admin, User"));
 			var claims = new List<Claim>
 			{
-				new Claim(ClaimTypes.Name, "Foo"),
-				new Claim(ClaimTypes.Role, "User")
+				new Claim(ClaimTypes.Name, "Foo"),		
+				//new Claim(ClaimTypes.Role, "User")
+				// Temporary fix
+				new Claim("http://schemas.microsoft.com/ws/2008/06/identity/claims/role", "User")
 			};
 
 			var id = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
