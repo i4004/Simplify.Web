@@ -33,9 +33,11 @@ namespace AcspNet.Core
 		/// <param name="context">The context.</param>
 		public void ProcessPage(IDIContainerProvider containerProvider, IOwinContext context)
 		{
-			_responseWriter.Write(_pageBuilder.Build(containerProvider), context.Response);
+			var task = _responseWriter.Write(_pageBuilder.Build(containerProvider), context.Response);
 
 			_redirector.PreviousPageUrl = context.Request.Uri.AbsoluteUri;
+
+			task.Wait();
 		}
 	}
 }
