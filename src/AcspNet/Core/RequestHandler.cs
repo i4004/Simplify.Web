@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using AcspNet.Modules;
 using Microsoft.Owin;
 using Simplify.DI;
 
