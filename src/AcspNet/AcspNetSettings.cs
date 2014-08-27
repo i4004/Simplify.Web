@@ -27,6 +27,7 @@ namespace AcspNet
 		/// Default templates directory path, for example: Templates, default value is "Templates"
 		/// </summary>
 		public string DefaultTemplatesPath { get; private set; }
+
 		/// <summary>
 		/// Gets a value indicating whether templates memory cache enabled or disabled.
 		/// </summary>
@@ -165,7 +166,6 @@ namespace AcspNet
 		{
 			if (!string.IsNullOrEmpty(config["DefaultStyle"]))
 				DefaultStyle = config["DefaultStyle"];
-
 
 			if (!string.IsNullOrEmpty(config["StringTableMemoryCache"]))
 			{

@@ -26,7 +26,6 @@ namespace AcspNet.Bootstrapper
 		private Type _responseWriterType;
 		private Type _pageProcessor;
 		private Type _controllersRequestHandlerType;
-		private Type _staticFilesRequestHandlerType;
 		private Type _requestHandlerType;
 		private Type _stopwatchProviderType;
 		private Type _contextVariablesSetterType;
@@ -221,17 +220,6 @@ namespace AcspNet.Bootstrapper
 		{
 			get { return _controllersRequestHandlerType ?? typeof(ControllersRequestHandler); }
 		}
-
-		/// <summary>
-		/// Gets the type of the static files request handler.
-		/// </summary>
-		/// <value>
-		/// The type of the static files request handler.
-		/// </value>
-		public Type StaticFilesRequestHandlerType
-		{
-			get { return _staticFilesRequestHandlerType ?? typeof(StaticFilesRequestHandler); }
-		}
 		
 		/// <summary>
 		/// Gets the type of the request handler.
@@ -409,16 +397,6 @@ namespace AcspNet.Bootstrapper
 			where T : IControllersRequestHandler
 		{
 			_controllersRequestHandlerType = typeof(T);
-		}
-
-		/// <summary>
-		/// Sets the type of the static files request handler.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		public void SetStaticFilesRequestHandlerType<T>()
-			where T : IStaticFilesRequestHandler
-		{
-			_staticFilesRequestHandlerType = typeof(T);
 		}
 
 		/// <summary>
@@ -656,7 +634,10 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterStaticFilesRequestHandler()
 		{
-			DIContainer.Current.Register<IStaticFilesRequestHandler>(StaticFilesRequestHandlerType, LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<IStaticFilesRequestHandler>(
+				p =>
+					new StaticFilesRequestHandler(p.Resolve<IAcspNetSettings>().StaticFilesPaths,
+						p.Resolve<IEnvironment>().SitePhysicalPath), LifetimeType.PerLifetimeScope);
 		}
 
 		/// <summary>
