@@ -63,7 +63,7 @@ namespace AcspNet.Tests.Core
 
 			// Assert
 
-			Assert.AreEqual(ControllersHandlerResult.Http404, result);
+			Assert.AreEqual(ControllersRequestHandlerResult.Http404, result);
 			_controllersProcessor.Verify(
 				x =>
 					x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
@@ -85,7 +85,7 @@ namespace AcspNet.Tests.Core
 
 			// Assert
 
-			Assert.AreEqual(ControllersHandlerResult.Ok, result);
+			Assert.AreEqual(ControllersRequestHandlerResult.Ok, result);
 			_controllersProcessor.Verify(x =>
 				x.Execute(It.Is<Type>(t => t == typeof (TestController1)), It.IsAny<IDIContainerProvider>(),
 					It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
@@ -115,7 +115,7 @@ namespace AcspNet.Tests.Core
 
 			// Assert
 
-			Assert.AreEqual(ControllersHandlerResult.RawOutput, result);
+			Assert.AreEqual(ControllersRequestHandlerResult.RawOutput, result);
 			_controllersProcessor.Verify(x =>
 				x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
 					It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
@@ -145,7 +145,7 @@ namespace AcspNet.Tests.Core
 
 			// Assert
 
-			Assert.AreEqual(ControllersHandlerResult.Redirect, result);
+			Assert.AreEqual(ControllersRequestHandlerResult.Redirect, result);
 			_controllersProcessor.Verify(x =>
 				x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
 					It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
@@ -171,7 +171,7 @@ namespace AcspNet.Tests.Core
 
 			// Assert
 
-			Assert.AreEqual(ControllersHandlerResult.Ok, result);
+			Assert.AreEqual(ControllersRequestHandlerResult.Ok, result);
 			_agent.Verify(x => x.IsAnyPageController(It.IsAny<IControllerMetaData>()));
 			_controllersProcessor.Verify(x =>
 				x.Execute(It.Is<Type>(t => t == typeof (TestController1)), It.IsAny<IDIContainerProvider>(),
@@ -194,7 +194,7 @@ namespace AcspNet.Tests.Core
 
 			// Assert
 
-			Assert.AreEqual(ControllersHandlerResult.Ok, result);
+			Assert.AreEqual(ControllersRequestHandlerResult.Ok, result);
 			_agent.Verify(x => x.IsAnyPageController(It.IsAny<IControllerMetaData>()));
 			_controllersProcessor.Verify(
 				x =>
@@ -231,7 +231,7 @@ namespace AcspNet.Tests.Core
 
 			// Assert
 
-			Assert.AreEqual(ControllersHandlerResult.RawOutput, result);
+			Assert.AreEqual(ControllersRequestHandlerResult.RawOutput, result);
 			_controllersProcessor.Verify(
 				x =>
 					x.Execute(It.Is<Type>(t => t == typeof (TestController1)), It.IsAny<IDIContainerProvider>(),
@@ -260,7 +260,7 @@ namespace AcspNet.Tests.Core
 
 			// Assert
 
-			Assert.AreEqual(ControllersHandlerResult.Redirect, result);
+			Assert.AreEqual(ControllersRequestHandlerResult.Redirect, result);
 			_controllersProcessor.Verify(
 				x =>
 					x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
@@ -287,7 +287,7 @@ namespace AcspNet.Tests.Core
 
 			// Assert
 
-			Assert.AreEqual(ControllersHandlerResult.RawOutput, result);
+			Assert.AreEqual(ControllersRequestHandlerResult.RawOutput, result);
 			_controllersProcessor.Verify(
 				x =>
 					x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
@@ -314,7 +314,7 @@ namespace AcspNet.Tests.Core
 
 			// Assert
 
-			Assert.AreEqual(ControllersHandlerResult.Redirect, result);
+			Assert.AreEqual(ControllersRequestHandlerResult.Redirect, result);
 			_controllersProcessor.Verify(
 				x =>
 					x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
@@ -332,7 +332,7 @@ namespace AcspNet.Tests.Core
 
 			// Assert
 
-			Assert.AreEqual(ControllersHandlerResult.Http401, result);
+			Assert.AreEqual(ControllersRequestHandlerResult.Http401, result);
 			_agent.Setup(x => x.IsSecurityRulesViolated(It.IsAny<IControllerMetaData>(), It.IsAny<ClaimsPrincipal>()));
 		}
 
@@ -351,7 +351,7 @@ namespace AcspNet.Tests.Core
 
 			// Assert
 
-			Assert.AreEqual(ControllersHandlerResult.Ok, result);
+			Assert.AreEqual(ControllersRequestHandlerResult.Ok, result);
 			_controllersProcessor.Verify(x =>
 				x.Execute(It.Is<Type>(t => t == typeof (TestController1)), It.IsAny<IDIContainerProvider>(),
 					It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
@@ -373,7 +373,7 @@ namespace AcspNet.Tests.Core
 
 			// Assert
 
-			Assert.AreEqual(ControllersHandlerResult.Http403, result);
+			Assert.AreEqual(ControllersRequestHandlerResult.Http403, result);
 			_controllersProcessor.Verify(x =>
 				x.Execute(It.Is<Type>(t => t == typeof (TestController1)), It.IsAny<IDIContainerProvider>(),
 					It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);

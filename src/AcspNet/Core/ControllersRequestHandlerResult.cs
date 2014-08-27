@@ -1,9 +1,9 @@
 ﻿namespace AcspNet.Core
 {
 	/// <summary>
-	/// Controllers handler result types
+	/// Controllers request handler result types
 	/// </summary>
-	public enum ControllersHandlerResult
+	public enum ControllersRequestHandlerResult
 	{
 		/// <summary>
 		/// OK

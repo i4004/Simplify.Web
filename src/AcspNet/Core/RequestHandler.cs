@@ -35,18 +35,18 @@ namespace AcspNet.Core
 
 			switch (result)
 			{
-				case ControllersHandlerResult.Ok:
+				case ControllersRequestHandlerResult.Ok:
 					return _pageProcessor.ProcessPage(containerProvider, context);
 
-				case ControllersHandlerResult.Http401:
+				case ControllersRequestHandlerResult.Http401:
 					context.Response.StatusCode = 401;
 					break;
 
-				case ControllersHandlerResult.Http403:
+				case ControllersRequestHandlerResult.Http403:
 					context.Response.StatusCode = 403;
 					break;
 
-				case ControllersHandlerResult.Http404:
+				case ControllersRequestHandlerResult.Http404:
 					context.Response.StatusCode = 404;
 					break;
 			}

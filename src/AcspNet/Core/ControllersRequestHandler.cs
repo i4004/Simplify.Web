@@ -29,7 +29,7 @@ namespace AcspNet.Core
 		/// <param name="containerProvider">The DI container provider.</param>
 		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		public ControllersHandlerResult ProcessRequest(IDIContainerProvider containerProvider, IOwinContext context)
+		public ControllersRequestHandlerResult ProcessRequest(IDIContainerProvider containerProvider, IOwinContext context)
 		{
 			var atleastOneNonAnyPageControllerMatched = false;
 
@@ -42,14 +42,14 @@ namespace AcspNet.Core
 				var securityResult = _agent.IsSecurityRulesViolated(metaData, context.Authentication.User);
 
 				if(securityResult == SecurityRuleCheckResult.NotAuthenticated)
-					return ControllersHandlerResult.Http401;
+					return ControllersRequestHandlerResult.Http401;
 
 				if(securityResult == SecurityRuleCheckResult.Forbidden)
 					return ProcessForbiddenSecurityRule(containerProvider, context);
 
 				var result = ProcessController(metaData.ControllerType, containerProvider, context, matcherResult.RouteParameters);
 
-				if (result != ControllersHandlerResult.Ok)
+				if (result != ControllersRequestHandlerResult.Ok)
 					return result;
 
 				if (!_agent.IsAnyPageController(metaData))
@@ -59,74 +59,74 @@ namespace AcspNet.Core
 			if (!atleastOneNonAnyPageControllerMatched)
 			{
 				var result = ProcessOnlyAnyPageControllersMatched(containerProvider, context);
-				if (result != ControllersHandlerResult.Ok)
+				if (result != ControllersRequestHandlerResult.Ok)
 					return result;
 			}
 
 			return ProcessAsyncControllersResponses(containerProvider);
 		}
 
-		private ControllersHandlerResult ProcessController(Type controllerType, IDIContainerProvider containerProvider, IOwinContext context, dynamic routeParameters)
+		private ControllersRequestHandlerResult ProcessController(Type controllerType, IDIContainerProvider containerProvider, IOwinContext context, dynamic routeParameters)
 		{
 			var result = _controllerExecutor.Execute(controllerType, containerProvider, context, routeParameters);
 
 			if (result == ControllerResponseResult.RawOutput)
-				return ControllersHandlerResult.RawOutput;
+				return ControllersRequestHandlerResult.RawOutput;
 
 			if (result == ControllerResponseResult.Redirect)
-				return ControllersHandlerResult.Redirect;
+				return ControllersRequestHandlerResult.Redirect;
 
-			return  ControllersHandlerResult.Ok;			
+			return  ControllersRequestHandlerResult.Ok;			
 		}
 
-		private ControllersHandlerResult ProcessOnlyAnyPageControllersMatched(IDIContainerProvider containerProvider, IOwinContext context)
+		private ControllersRequestHandlerResult ProcessOnlyAnyPageControllersMatched(IDIContainerProvider containerProvider, IOwinContext context)
 		{
 			var http404Controller = _agent.GetHandlerController(HandlerControllerType.Http404Handler);
 
 			if (http404Controller == null)
-				return ControllersHandlerResult.Http404;
+				return ControllersRequestHandlerResult.Http404;
 
 			var handlerControllerResult = _controllerExecutor.Execute(http404Controller.ControllerType, containerProvider, context);
 
 			if (handlerControllerResult == ControllerResponseResult.RawOutput)
-				return ControllersHandlerResult.RawOutput;
+				return ControllersRequestHandlerResult.RawOutput;
 
 			if (handlerControllerResult == ControllerResponseResult.Redirect)
-				return ControllersHandlerResult.Redirect;
+				return ControllersRequestHandlerResult.Redirect;
 			
-			return ControllersHandlerResult.Ok;
+			return ControllersRequestHandlerResult.Ok;
 		}
 
-		private ControllersHandlerResult ProcessAsyncControllersResponses(IDIContainerProvider containerProvider)
+		private ControllersRequestHandlerResult ProcessAsyncControllersResponses(IDIContainerProvider containerProvider)
 		{
 			foreach (var controllerResponseResult in _controllerExecutor.ProcessAsyncControllersResponses(containerProvider))
 			{
 				if (controllerResponseResult == ControllerResponseResult.RawOutput)
-					return ControllersHandlerResult.RawOutput;
+					return ControllersRequestHandlerResult.RawOutput;
 
 				if (controllerResponseResult == ControllerResponseResult.Redirect)
-					return ControllersHandlerResult.Redirect;
+					return ControllersRequestHandlerResult.Redirect;
 			}
 
-			return ControllersHandlerResult.Ok;
+			return ControllersRequestHandlerResult.Ok;
 		}
 
-		private ControllersHandlerResult ProcessForbiddenSecurityRule(IDIContainerProvider containerProvider, IOwinContext context)
+		private ControllersRequestHandlerResult ProcessForbiddenSecurityRule(IDIContainerProvider containerProvider, IOwinContext context)
 		{
 			var http403Controller = _agent.GetHandlerController(HandlerControllerType.Http403Handler);
 
 			if (http403Controller == null)
-				return ControllersHandlerResult.Http403;
+				return ControllersRequestHandlerResult.Http403;
 
 			var handlerControllerResult = _controllerExecutor.Execute(http403Controller.ControllerType, containerProvider, context);
 
 			if (handlerControllerResult == ControllerResponseResult.RawOutput)
-				return ControllersHandlerResult.RawOutput;
+				return ControllersRequestHandlerResult.RawOutput;
 
 			if (handlerControllerResult == ControllerResponseResult.Redirect)
-				return ControllersHandlerResult.Redirect;
+				return ControllersRequestHandlerResult.Redirect;
 
-			return ControllersHandlerResult.Ok;
+			return ControllersRequestHandlerResult.Ok;
 		}
 	}
 }

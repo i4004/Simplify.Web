@@ -14,6 +14,6 @@ namespace AcspNet.Core
 		/// <param name="containerProvider">The DI container provider.</param>
 		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		ControllersHandlerResult ProcessRequest(IDIContainerProvider containerProvider, IOwinContext context);
+		ControllersRequestHandlerResult ProcessRequest(IDIContainerProvider containerProvider, IOwinContext context);
 	}
 }
