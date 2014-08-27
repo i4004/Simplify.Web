@@ -141,6 +141,7 @@
     </Content>
     <Content Include="Styles\Main.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <DependentUpon>Main.scss</DependentUpon>
     </Content>
     <Content Include="Styles\MainOld.css" />
     <Content Include="Templates\Master.tpl.en.xml">
