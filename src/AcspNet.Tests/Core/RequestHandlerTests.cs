@@ -12,7 +12,7 @@ namespace AcspNet.Tests.Core
 	{
 		private Mock<IControllersProcessor> _controllersHandler;
 		private Mock<IPageProcessor> _pageProcessor;
-		private RequestHandler _requestHandler;
+		private ControllersRequestHandler _requestHandler;
 		private Mock<IOwinContext> _context;
 		
 		[SetUp]
@@ -20,7 +20,7 @@ namespace AcspNet.Tests.Core
 		{
 			_controllersHandler = new Mock<IControllersProcessor>();
 			_pageProcessor = new Mock<IPageProcessor>();
-			_requestHandler = new RequestHandler(_controllersHandler.Object, _pageProcessor.Object);
+			_requestHandler = new ControllersRequestHandler(_controllersHandler.Object, _pageProcessor.Object);
 
 			_context = new Mock<IOwinContext>();
 			_context.SetupGet(x => x.Response.StatusCode);

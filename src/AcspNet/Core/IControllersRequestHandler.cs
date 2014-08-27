@@ -5,12 +5,12 @@ using Simplify.DI;
 namespace AcspNet.Core
 {
 	/// <summary>
-	/// Represent OWIN HTTP request handler
+	/// Represent controllers HTTP request handler
 	/// </summary>
-	public interface IRequestHandler
+	public interface IControllersRequestHandler
 	{
 		/// <summary>
-		/// Processes the OWIN HTTP request.
+		/// Processes the HTTP request for controllers.
 		/// </summary>
 		/// <param name="containerProvider">The DI container provider.</param>
 		/// <param name="context">The context.</param>

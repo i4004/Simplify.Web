@@ -196,7 +196,7 @@
     <Compile Include="Core\IControllerFactory.cs" />
     <Compile Include="Core\IControllersProcessor.cs" />
     <Compile Include="Attributes\IgnoreControllersAttribute.cs" />
-    <Compile Include="Core\IRequestHandler.cs" />
+    <Compile Include="Core\IControllersRequestHandler.cs" />
     <Compile Include="Meta\ControllerRouteInfo.cs" />
     <Compile Include="Meta\IControllerMetaData.cs" />
     <Compile Include="Routing\ControllerPath.cs" />
@@ -214,7 +214,7 @@
     <Compile Include="Meta\IControllersMetaStore.cs" />
     <Compile Include="Owin\AcspNetOwinMiddleware.cs" />
     <Compile Include="Attributes\PriorityAttribute.cs" />
-    <Compile Include="Core\RequestHandler.cs" />
+    <Compile Include="Core\ControllersRequestHandler.cs" />
     <Compile Include="Attributes\GetAttribute.cs" />
     <Compile Include="Routing\ControllerPathParser.cs" />
     <Compile Include="Routing\PathItem.cs" />

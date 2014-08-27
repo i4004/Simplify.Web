@@ -25,7 +25,7 @@ namespace AcspNet.Bootstrapper
 		private Type _pageBuilderType;
 		private Type _responseWriterType;
 		private Type _pageProcessor;
-		private Type _requestHandlerType;
+		private Type _controllersRequestHandlerType;
 		private Type _stopwatchProviderType;
 		private Type _contextVariablesSetterType;
 		private Type _acspNetContextProviderType;
@@ -58,7 +58,7 @@ namespace AcspNet.Bootstrapper
 			RegisterPageBuilder();
 			RegisterResponseWriter();
 			RegisterPageProcessor();
-			RegisterRequestHandler();
+			RegisterControllersRequestHandler();
 			RegisterStopwatchProvider();
 			RegisterContextVariablesSetter();
 			RegisterAcspNetContextProvider();
@@ -208,14 +208,14 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
-		/// Gets the type of the request handler.
+		/// Gets the type of the controllers request handler.
 		/// </summary>
 		/// <value>
-		/// The type of the request handler.
+		/// The type of the controllers request handler.
 		/// </value>
-		public Type RequestHandlerType
+		public Type ControllersRequestHandlerType
 		{
-			get { return _requestHandlerType ?? typeof(RequestHandler); }
+			get { return _controllersRequestHandlerType ?? typeof(ControllersRequestHandler); }
 		}
 
 		/// <summary>
@@ -376,13 +376,13 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
-		/// Sets the type of the request handler.
+		/// Sets the type of the controllers request handler.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
-		public void SetRequestHandlerType<T>()
-			where T : IRequestHandler
+		public void SetControllersRequestHandlerType<T>()
+			where T : IControllersRequestHandler
 		{
-			_requestHandlerType = typeof(T);
+			_controllersRequestHandlerType = typeof(T);
 		}
 
 		/// <summary>
@@ -598,11 +598,11 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
-		/// Registers the request handler.
+		/// Registers the controllers request handler.
 		/// </summary>
-		public virtual void RegisterRequestHandler()
+		public virtual void RegisterControllersRequestHandler()
 		{
-			DIContainer.Current.Register<IRequestHandler>(RequestHandlerType, LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<IControllersRequestHandler>(ControllersRequestHandlerType, LifetimeType.PerLifetimeScope);
 		}
 
 		/// <summary>
