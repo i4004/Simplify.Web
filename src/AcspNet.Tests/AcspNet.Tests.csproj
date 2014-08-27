@@ -130,6 +130,7 @@
     <Compile Include="Core\PageBuilderTests.cs" />
     <Compile Include="Core\PageProcessorTests.cs" />
     <Compile Include="Core\ControllersRequestHandlerTests.cs" />
+    <Compile Include="Core\RequestHandlerTests.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGeneratorTests.cs" />
     <Compile Include="Modules\AcspNetContextTests.cs" />
     <Compile Include="Modules\DataCollectorTests.cs" />
