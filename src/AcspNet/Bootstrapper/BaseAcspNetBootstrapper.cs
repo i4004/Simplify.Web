@@ -26,6 +26,7 @@ namespace AcspNet.Bootstrapper
 		private Type _responseWriterType;
 		private Type _pageProcessor;
 		private Type _controllersRequestHandlerType;
+		private Type _requestHandlerType;
 		private Type _stopwatchProviderType;
 		private Type _contextVariablesSetterType;
 		private Type _acspNetContextProviderType;
@@ -59,6 +60,7 @@ namespace AcspNet.Bootstrapper
 			RegisterResponseWriter();
 			RegisterPageProcessor();
 			RegisterControllersRequestHandler();
+			RegisterRequestHandler();
 			RegisterStopwatchProvider();
 			RegisterContextVariablesSetter();
 			RegisterAcspNetContextProvider();
@@ -216,6 +218,17 @@ namespace AcspNet.Bootstrapper
 		public Type ControllersRequestHandlerType
 		{
 			get { return _controllersRequestHandlerType ?? typeof(ControllersRequestHandler); }
+		}
+
+		/// <summary>
+		/// Gets the type of the request handler.
+		/// </summary>
+		/// <value>
+		/// The type of the request handler.
+		/// </value>
+		public Type RequestHandlerType
+		{
+			get { return _requestHandlerType ?? typeof(RequestHandler); }
 		}
 
 		/// <summary>
@@ -383,6 +396,16 @@ namespace AcspNet.Bootstrapper
 			where T : IControllersRequestHandler
 		{
 			_controllersRequestHandlerType = typeof(T);
+		}
+		
+		/// <summary>
+		/// Sets the type of the request handler.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetRequestHandlerType<T>()
+			where T : IRequestHandler
+		{
+			_requestHandlerType = typeof(T);
 		}
 
 		/// <summary>
@@ -603,6 +626,14 @@ namespace AcspNet.Bootstrapper
 		public virtual void RegisterControllersRequestHandler()
 		{
 			DIContainer.Current.Register<IControllersRequestHandler>(ControllersRequestHandlerType, LifetimeType.PerLifetimeScope);
+		}
+		
+		/// <summary>
+		/// Registers the request handler.
+		/// </summary>
+		public virtual void RegisterRequestHandler()
+		{
+			DIContainer.Current.Register<IRequestHandler>(RequestHandlerType, LifetimeType.PerLifetimeScope);
 		}
 
 		/// <summary>

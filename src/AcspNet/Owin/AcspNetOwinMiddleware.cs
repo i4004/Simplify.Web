@@ -49,7 +49,7 @@ namespace AcspNet.Owin
 
 					// Run request process pipeline
 
-					var requestHandler = scope.Container.Resolve<IControllersRequestHandler>();
+					var requestHandler = scope.Container.Resolve<IRequestHandler>();
 					return requestHandler.ProcessRequest(scope.Container, context);
 				}
 				catch (Exception e)
