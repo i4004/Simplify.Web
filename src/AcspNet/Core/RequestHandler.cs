@@ -11,6 +11,10 @@ namespace AcspNet.Core
 	{
 		private readonly IControllersRequestHandler _controllersRequestHandler;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="RequestHandler"/> class.
+		/// </summary>
+		/// <param name="controllersRequestHandler">The controllers request handler.</param>
 		public RequestHandler(IControllersRequestHandler controllersRequestHandler)
 		{
 			_controllersRequestHandler = controllersRequestHandler;
