@@ -19,7 +19,7 @@ namespace AcspNet.Tests.Core
 	{
 		private ControllersRequestHandler _handler;
 		private Mock<IControllersAgent> _agent;
-		private Mock<IControllersProcessor> _controllersProcessor;
+		private Mock<IControllerExecutor> _controllersProcessor;
 
 		private readonly IDIContainerProvider _containerProvider = null;
 		private Mock<IOwinContext> _context;
@@ -31,7 +31,7 @@ namespace AcspNet.Tests.Core
 		public void Initialize()
 		{
 			_agent = new Mock<IControllersAgent>();
-			_controllersProcessor = new Mock<IControllersProcessor>();
+			_controllersProcessor = new Mock<IControllerExecutor>();
 			_handler = new ControllersRequestHandler(_agent.Object, _controllersProcessor.Object);
 
 			_context = new Mock<IOwinContext>();
@@ -66,7 +66,7 @@ namespace AcspNet.Tests.Core
 			Assert.AreEqual(ControllersHandlerResult.Http404, result);
 			_controllersProcessor.Verify(
 				x =>
-					x.Process(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
+					x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
 						It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
 		}
 
@@ -87,11 +87,11 @@ namespace AcspNet.Tests.Core
 
 			Assert.AreEqual(ControllersHandlerResult.Ok, result);
 			_controllersProcessor.Verify(x =>
-				x.Process(It.Is<Type>(t => t == typeof (TestController1)), It.IsAny<IDIContainerProvider>(),
+				x.Execute(It.Is<Type>(t => t == typeof (TestController1)), It.IsAny<IDIContainerProvider>(),
 					It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
 
 			_controllersProcessor.Verify(x =>
-				x.Process(It.Is<Type>(t => t == typeof (TestController2)), It.IsAny<IDIContainerProvider>(),
+				x.Execute(It.Is<Type>(t => t == typeof (TestController2)), It.IsAny<IDIContainerProvider>(),
 					It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == null)));
 		}
 
@@ -107,7 +107,7 @@ namespace AcspNet.Tests.Core
 
 			_controllersProcessor.Setup(
 				x =>
-					x.Process(It.Is<Type>(t => t == typeof (TestController2)), It.IsAny<IDIContainerProvider>(),
+					x.Execute(It.Is<Type>(t => t == typeof (TestController2)), It.IsAny<IDIContainerProvider>(),
 						It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>())).Returns(ControllerResponseResult.RawOutput);
 
 			// Act
@@ -117,11 +117,11 @@ namespace AcspNet.Tests.Core
 
 			Assert.AreEqual(ControllersHandlerResult.RawOutput, result);
 			_controllersProcessor.Verify(x =>
-				x.Process(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
+				x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
 					It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
 
 			_controllersProcessor.Verify(x =>
-				x.Process(It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IDIContainerProvider>(),
+				x.Execute(It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IDIContainerProvider>(),
 					It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == null)));
 		}
 
@@ -137,7 +137,7 @@ namespace AcspNet.Tests.Core
 
 			_controllersProcessor.Setup(
 				x =>
-					x.Process(It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IDIContainerProvider>(),
+					x.Execute(It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IDIContainerProvider>(),
 						It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>())).Returns(ControllerResponseResult.Redirect);
 
 			// Act
@@ -147,11 +147,11 @@ namespace AcspNet.Tests.Core
 
 			Assert.AreEqual(ControllersHandlerResult.Redirect, result);
 			_controllersProcessor.Verify(x =>
-				x.Process(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
+				x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
 					It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
 
 			_controllersProcessor.Verify(x =>
-				x.Process(It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IDIContainerProvider>(),
+				x.Execute(It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IDIContainerProvider>(),
 					It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == null)));
 		}
 
@@ -174,12 +174,12 @@ namespace AcspNet.Tests.Core
 			Assert.AreEqual(ControllersHandlerResult.Ok, result);
 			_agent.Verify(x => x.IsAnyPageController(It.IsAny<IControllerMetaData>()));
 			_controllersProcessor.Verify(x =>
-				x.Process(It.Is<Type>(t => t == typeof (TestController1)), It.IsAny<IDIContainerProvider>(),
+				x.Execute(It.Is<Type>(t => t == typeof (TestController1)), It.IsAny<IDIContainerProvider>(),
 					It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()));
 
 			_controllersProcessor.Verify(
 				x =>
-					x.Process(It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IDIContainerProvider>(),
+					x.Execute(It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IDIContainerProvider>(),
 						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == null)));
 		}
 
@@ -198,12 +198,12 @@ namespace AcspNet.Tests.Core
 			_agent.Verify(x => x.IsAnyPageController(It.IsAny<IControllerMetaData>()));
 			_controllersProcessor.Verify(
 				x =>
-					x.Process(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
+					x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
 						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)));
 
 			_controllersProcessor.Verify(
 				x =>
-					x.Process(It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IDIContainerProvider>(),
+					x.Execute(It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IDIContainerProvider>(),
 						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == null)), Times.Never);
 
 			_controllersProcessor.Verify(x => x.ProcessAsyncControllersResponses(It.IsAny<IDIContainerProvider>()));
@@ -223,7 +223,7 @@ namespace AcspNet.Tests.Core
 
 			_controllersProcessor.Setup(
 				x =>
-					x.Process(It.Is<Type>(t => t == typeof (TestController1)), It.IsAny<IDIContainerProvider>(),
+					x.Execute(It.Is<Type>(t => t == typeof (TestController1)), It.IsAny<IDIContainerProvider>(),
 						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters))).Returns(ControllerResponseResult.RawOutput);
 			
 			// Act
@@ -234,7 +234,7 @@ namespace AcspNet.Tests.Core
 			Assert.AreEqual(ControllersHandlerResult.RawOutput, result);
 			_controllersProcessor.Verify(
 				x =>
-					x.Process(It.Is<Type>(t => t == typeof (TestController1)), It.IsAny<IDIContainerProvider>(),
+					x.Execute(It.Is<Type>(t => t == typeof (TestController1)), It.IsAny<IDIContainerProvider>(),
 						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)), Times.Once);
 		}
 
@@ -252,7 +252,7 @@ namespace AcspNet.Tests.Core
 
 			_controllersProcessor.Setup(
 				x =>
-					x.Process(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
+					x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
 						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters))).Returns(ControllerResponseResult.Redirect);
 
 			// Act
@@ -263,7 +263,7 @@ namespace AcspNet.Tests.Core
 			Assert.AreEqual(ControllersHandlerResult.Redirect, result);
 			_controllersProcessor.Verify(
 				x =>
-					x.Process(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
+					x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
 						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)), Times.Once);
 		}
 
@@ -290,7 +290,7 @@ namespace AcspNet.Tests.Core
 			Assert.AreEqual(ControllersHandlerResult.RawOutput, result);
 			_controllersProcessor.Verify(
 				x =>
-					x.Process(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
+					x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
 						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)), Times.Exactly(2));
 		}
 
@@ -317,7 +317,7 @@ namespace AcspNet.Tests.Core
 			Assert.AreEqual(ControllersHandlerResult.Redirect, result);
 			_controllersProcessor.Verify(
 				x =>
-					x.Process(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
+					x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
 						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)), Times.Exactly(2));
 		}
 
@@ -353,11 +353,11 @@ namespace AcspNet.Tests.Core
 
 			Assert.AreEqual(ControllersHandlerResult.Ok, result);
 			_controllersProcessor.Verify(x =>
-				x.Process(It.Is<Type>(t => t == typeof (TestController1)), It.IsAny<IDIContainerProvider>(),
+				x.Execute(It.Is<Type>(t => t == typeof (TestController1)), It.IsAny<IDIContainerProvider>(),
 					It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
 			_controllersProcessor.Verify(
 				x =>
-					x.Process(It.Is<Type>(t => t == typeof (TestController2)), It.IsAny<IDIContainerProvider>(),
+					x.Execute(It.Is<Type>(t => t == typeof (TestController2)), It.IsAny<IDIContainerProvider>(),
 						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == null)));
 			_agent.Setup(x => x.IsSecurityRulesViolated(It.IsAny<IControllerMetaData>(), It.IsAny<ClaimsPrincipal>()));
 		}
@@ -375,7 +375,7 @@ namespace AcspNet.Tests.Core
 
 			Assert.AreEqual(ControllersHandlerResult.Http403, result);
 			_controllersProcessor.Verify(x =>
-				x.Process(It.Is<Type>(t => t == typeof (TestController1)), It.IsAny<IDIContainerProvider>(),
+				x.Execute(It.Is<Type>(t => t == typeof (TestController1)), It.IsAny<IDIContainerProvider>(),
 					It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
 			_agent.Setup(x => x.IsSecurityRulesViolated(It.IsAny<IControllerMetaData>(), It.IsAny<ClaimsPrincipal>()));
 		}

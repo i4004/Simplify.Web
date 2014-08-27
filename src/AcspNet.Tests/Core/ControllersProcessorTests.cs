@@ -12,7 +12,7 @@ namespace AcspNet.Tests.Core
 	[TestFixture]
 	public class ControllersProcessorTests
 	{
-		private ControllersProcessor _processor;
+		private ControllerExecutor _processor;
 		private Mock<IControllerFactory> _controllerFactory;
 		private Mock<IControllerResponseBuilder> _controllerResponseBuilder;
 
@@ -25,7 +25,7 @@ namespace AcspNet.Tests.Core
 		{
 			_controllerFactory = new Mock<IControllerFactory>();
 			_controllerResponseBuilder = new Mock<IControllerResponseBuilder>();
-			_processor = new ControllersProcessor(_controllerFactory.Object, _controllerResponseBuilder.Object);
+			_processor = new ControllerExecutor(_controllerFactory.Object, _controllerResponseBuilder.Object);
 
 			_syncController = new Mock<Controller>();
 			_asyncController = new Mock<AsyncController>();
@@ -41,7 +41,7 @@ namespace AcspNet.Tests.Core
 					x.CreateController(It.IsAny<Type>(), It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>(),
 						It.IsAny<IDictionary<string, Object>>())).Returns(_syncController.Object);
 			// Act
-			var result = _processor.Process(null, null, null);
+			var result = _processor.Execute(null, null, null);
 
 			// Assert
 
@@ -65,7 +65,7 @@ namespace AcspNet.Tests.Core
 					x.CreateController(It.IsAny<Type>(), It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>(),
 						It.IsAny<IDictionary<string, Object>>())).Returns(_syncController.Object);
 			// Act
-			var result = _processor.Process(null, null, null);
+			var result = _processor.Execute(null, null, null);
 
 			// Assert
 
@@ -90,7 +90,7 @@ namespace AcspNet.Tests.Core
 					x.CreateController(It.IsAny<Type>(), It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>(),
 						It.IsAny<IDictionary<string, Object>>())).Returns(_syncController.Object);
 			// Act
-			var result = _processor.Process(null, null, null);
+			var result = _processor.Execute(null, null, null);
 
 			// Assert
 
@@ -115,7 +115,7 @@ namespace AcspNet.Tests.Core
 					x.CreateController(It.IsAny<Type>(), It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>(),
 						It.IsAny<IDictionary<string, Object>>())).Returns(_asyncController.Object);
 			// Act
-			var result = _processor.Process(null, null, null);
+			var result = _processor.Execute(null, null, null);
 
 			// Assert
 

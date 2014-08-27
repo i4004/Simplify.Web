@@ -7,9 +7,9 @@ using Simplify.DI;
 namespace AcspNet.Core
 {
 	/// <summary>
-	/// Provides controllers processor, handles creation and execution of controllers
+	/// Provides controller executor, handles creation and execution of controllers
 	/// </summary>
-	public class ControllersProcessor : IControllersProcessor
+	public class ControllerExecutor : IControllerExecutor
 	{
 		private readonly IControllerFactory _controllerFactory;
 		private readonly IControllerResponseBuilder _controllerResponseBuilder;
@@ -17,25 +17,25 @@ namespace AcspNet.Core
 		private readonly IList<Task<ControllerResponse>> _controllersResponses = new List<Task<ControllerResponse>>();
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ControllersProcessor"/> class.
+		/// Initializes a new instance of the <see cref="ControllerExecutor"/> class.
 		/// </summary>
 		/// <param name="controllerFactory">The controller factory.</param>
 		/// <param name="controllerResponseBuilder">The controller response builder.</param>
-		public ControllersProcessor(IControllerFactory controllerFactory, IControllerResponseBuilder controllerResponseBuilder)
+		public ControllerExecutor(IControllerFactory controllerFactory, IControllerResponseBuilder controllerResponseBuilder)
 		{
 			_controllerFactory = controllerFactory;
 			_controllerResponseBuilder = controllerResponseBuilder;
 		}
-
+		
 		/// <summary>
-		/// Processes the specified controller (creates and executes controller).
+		/// Creates and executes the specified controller.
 		/// </summary>
 		/// <param name="controllerType">Type of the controller.</param>
 		/// <param name="containerProvider">The container provider.</param>
 		/// <param name="context">The context.</param>
 		/// <param name="routeParameters">The route parameters.</param>
 		/// <returns></returns>
-		public ControllerResponseResult Process(Type controllerType, IDIContainerProvider containerProvider, IOwinContext context,
+		public ControllerResponseResult Execute(Type controllerType, IDIContainerProvider containerProvider, IOwinContext context,
 			dynamic routeParameters = null)
 		{
 			ControllerBase controller = _controllerFactory.CreateController(controllerType, containerProvider, context, routeParameters);

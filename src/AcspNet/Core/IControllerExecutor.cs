@@ -6,19 +6,19 @@ using Simplify.DI;
 namespace AcspNet.Core
 {
 	/// <summary>
-	/// Represent controllers processor, handles creation and execution of controllers
+	/// Represent controller executor, handles creation and execution of controllers
 	/// </summary>
-	public interface IControllersProcessor
+	public interface IControllerExecutor
 	{
 		/// <summary>
-		/// Processes the specified controller (creates and executes controller).
+		/// Creates and executes the specified controller.
 		/// </summary>
 		/// <param name="controllerType">Type of the controller.</param>
 		/// <param name="containerProvider">The container provider.</param>
 		/// <param name="context">The context.</param>
 		/// <param name="routeParameters">The route parameters.</param>
 		/// <returns></returns>
-		ControllerResponseResult Process(Type controllerType, IDIContainerProvider containerProvider, IOwinContext context,
+		ControllerResponseResult Execute(Type controllerType, IDIContainerProvider containerProvider, IOwinContext context,
 			dynamic routeParameters = null);
 
 		/// <summary>

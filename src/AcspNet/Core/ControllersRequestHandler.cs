@@ -9,17 +9,17 @@ namespace AcspNet.Core
 	public class ControllersRequestHandler : IControllersRequestHandler
 	{
 		private readonly IControllersAgent _agent;
-		private readonly IControllersProcessor _controllersProcessor;
+		private readonly IControllerExecutor _controllerExecutor;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ControllersRequestHandler" /> class.
 		/// </summary>
 		/// <param name="controllersAgent">The controllers agent.</param>
-		/// <param name="controllersProcessor">The controllers processor.</param>
-		public ControllersRequestHandler(IControllersAgent controllersAgent, IControllersProcessor controllersProcessor)
+		/// <param name="controllerExecutor">The controller executor.</param>
+		public ControllersRequestHandler(IControllersAgent controllersAgent, IControllerExecutor controllerExecutor)
 		{
 			_agent = controllersAgent;
-			_controllersProcessor = controllersProcessor;
+			_controllerExecutor = controllerExecutor;
 		}
 
 		/// <summary>
@@ -46,7 +46,7 @@ namespace AcspNet.Core
 				if(securityResult == SecurityRuleCheckResult.Forbidden)
 					return ProcessForbiddenSecurityRule(containerProvider, context);
 
-				var result = _controllersProcessor.Process(metaData.ControllerType, containerProvider, context, matcherResult.RouteParameters);
+				var result = _controllerExecutor.Execute(metaData.ControllerType, containerProvider, context, matcherResult.RouteParameters);
 
 				if (result == ControllerResponseResult.RawOutput)
 					return ControllersHandlerResult.RawOutput;
@@ -75,7 +75,7 @@ namespace AcspNet.Core
 			if (http404Controller == null)
 				return ControllersHandlerResult.Http404;
 
-			var handlerControllerResult = _controllersProcessor.Process(http404Controller.ControllerType, containerProvider, context);
+			var handlerControllerResult = _controllerExecutor.Execute(http404Controller.ControllerType, containerProvider, context);
 
 			if (handlerControllerResult == ControllerResponseResult.RawOutput)
 				return ControllersHandlerResult.RawOutput;
@@ -88,7 +88,7 @@ namespace AcspNet.Core
 
 		private ControllersHandlerResult ProcessAsyncControllersResponses(IDIContainerProvider containerProvider)
 		{
-			foreach (var controllerResponseResult in _controllersProcessor.ProcessAsyncControllersResponses(containerProvider))
+			foreach (var controllerResponseResult in _controllerExecutor.ProcessAsyncControllersResponses(containerProvider))
 			{
 				if (controllerResponseResult == ControllerResponseResult.RawOutput)
 					return ControllersHandlerResult.RawOutput;
@@ -107,7 +107,7 @@ namespace AcspNet.Core
 			if (http403Controller == null)
 				return ControllersHandlerResult.Http403;
 
-			var handlerControllerResult = _controllersProcessor.Process(http403Controller.ControllerType, containerProvider, context);
+			var handlerControllerResult = _controllerExecutor.Execute(http403Controller.ControllerType, containerProvider, context);
 
 			if (handlerControllerResult == ControllerResponseResult.RawOutput)
 				return ControllersHandlerResult.RawOutput;
