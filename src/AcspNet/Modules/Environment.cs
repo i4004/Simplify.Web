@@ -20,7 +20,7 @@
 			SitePhysicalPath = sitePhysicalPath;
 
 			TemplatesPath = settings.DefaultTemplatesPath;
-			DataPath = settings.DefaultDataPath;
+			DataPath = settings.DataPath;
 			SiteStyle = settings.DefaultStyle;
 			MasterTemplateFileName = settings.DefaultMasterTemplateFileName;
 		}

@@ -1,4 +1,6 @@
-﻿namespace AcspNet
+﻿using System.Collections.Generic;
+
+namespace AcspNet
 {
 	/// <summary>
 	/// Represent AcspNet settings
@@ -58,6 +60,7 @@
 		/// Default site style
 		/// </summary>
 		string DefaultStyle { get; }
+
 		/// <summary>
 		/// Gets a value indicating whether string table memory cache enabled or disabled.
 		/// </summary>
@@ -69,7 +72,15 @@
 		/// <summary>
 		/// Data directory path, for example: default value is "App_Data"
 		/// </summary>
-		string DefaultDataPath { get; }
+		string DataPath { get; }
+
+		/// <summary>
+		/// Gets the static files paths.
+		/// </summary>
+		/// <value>
+		/// The static files paths.
+		/// </value>
+		IList<string> StaticFilesPaths { get; }
 
 		/// <summary>
 		/// Gets or sets a value indicating whether site title postfix should be set automatically

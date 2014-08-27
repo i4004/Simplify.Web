@@ -1,4 +1,6 @@
-﻿using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Configuration;
 
 namespace AcspNet
@@ -72,7 +74,15 @@ namespace AcspNet
 		/// <summary>
 		/// Data directory path, default value is "App_Data"
 		/// </summary>
-		public string DefaultDataPath { get; private set; }
+		public string DataPath { get; private set; }
+
+		/// <summary>
+		/// Gets the static files paths.
+		/// </summary>
+		/// <value>
+		/// The static files paths.
+		/// </value>
+		public IList<string> StaticFilesPaths { get; private set; }
 
 		/// <summary>
 		/// Gets or sets a value indicating whether site title postfix should be set automatically
@@ -98,7 +108,9 @@ namespace AcspNet
 
 			DefaultStyle = "Main";
 
-			DefaultDataPath = "App_Data";
+			DataPath = "App_Data";
+
+			StaticFilesPaths = new List<string> {"Styles", "Scripts", "Content"};
 
 			HideExceptionDetails = false;
 
@@ -164,7 +176,15 @@ namespace AcspNet
 			}
 			
 			if (!string.IsNullOrEmpty(config["DefaultDataPath"]))
-				DefaultDataPath = config["DefaultDataPath"];
+				DataPath = config["DefaultDataPath"];
+
+			if (!string.IsNullOrEmpty(config["StaticFilesPaths"]))
+			{
+				var items = config["StaticFilesPaths"].Replace(" ", "").Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
+
+				foreach (var item in items)
+					StaticFilesPaths.Add(item);
+			}
 
 			if (!string.IsNullOrEmpty(config["DisableAutomaticSiteTitleSet"]))
 			{
