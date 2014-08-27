@@ -163,8 +163,8 @@
     <Compile Include="Core\ControllerFactory.cs" />
     <Compile Include="ControllerResponse.cs" />
     <Compile Include="Core\ControllersAgent.cs" />
-    <Compile Include="Core\ControllersRequestHandler.cs" />
-    <Compile Include="Core\ControllersRequestHandlerResult.cs" />
+    <Compile Include="Core\ControllersProcessor.cs" />
+    <Compile Include="Core\ControllersProcessorResult.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGenerator.cs" />
     <Compile Include="Bootstrapper\BootstrapperFactory.cs" />
     <Compile Include="Bootstrapper\BaseAcspNetBootstrapper.cs" />
@@ -194,7 +194,7 @@
     <Compile Include="Attributes\PostAttribute.cs" />
     <Compile Include="Attributes\Http404Attribute.cs" />
     <Compile Include="Core\IControllerFactory.cs" />
-    <Compile Include="Core\IControllersRequestHandler.cs" />
+    <Compile Include="Core\IControllersProcessor.cs" />
     <Compile Include="Attributes\IgnoreControllersAttribute.cs" />
     <Compile Include="Core\IRequestHandler.cs" />
     <Compile Include="Meta\ControllerRouteInfo.cs" />

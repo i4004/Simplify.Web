@@ -21,7 +21,7 @@ namespace AcspNet.Bootstrapper
 		private Type _controllersAgentType;
 		private Type _controllerResponseBuilderType;
 		private Type _controllerExecutorType;
-		private Type _controllersRequestHanderType;
+		private Type _controllersProcessorType;
 		private Type _pageBuilderType;
 		private Type _responseWriterType;
 		private Type _pageProcessor;
@@ -48,7 +48,7 @@ namespace AcspNet.Bootstrapper
 			RegisterControllersAgent();
 			RegisterControllerResponseBuilder();
 			RegisterControllerExecutor();
-			RegisterControllersRequestHandler();
+			RegisterControllersProcessor();
 			RegisterEnvironment();
 			RegisterLanguageManagerProvider();
 			RegisterTemplateFactory();
@@ -164,14 +164,14 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
-		/// Gets the type of the controllers request handler.
+		/// Gets the type of the controllers processor.
 		/// </summary>
 		/// <value>
-		/// The type of the controllers request handler.
+		/// The type of the controllers processor.
 		/// </value>
-		public Type ControllersRequestHandlerType
+		public Type ControllersProcessorType
 		{
-			get { return _controllersRequestHanderType ?? typeof(ControllersRequestHandler); }
+			get { return _controllersProcessorType ?? typeof(ControllersProcessor); }
 		}
 		
 		/// <summary>
@@ -336,13 +336,13 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
-		/// Sets the type of the controllers request handler.
+		/// Sets the type of the controllers processor.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
-		public void SetControllersRequestHandlerType<T>()
-			where T : IControllersRequestHandler
+		public void SetControllersProcessorType<T>()
+			where T : IControllersProcessor
 		{
-			_controllersRequestHanderType = typeof(T);
+			_controllersProcessorType = typeof(T);
 		}
 		
 		/// <summary>
@@ -500,11 +500,11 @@ namespace AcspNet.Bootstrapper
 		}
 		
 		/// <summary>
-		/// Registers the controllers request handler.
+		/// Registers the controllers processor.
 		/// </summary>
-		public virtual void RegisterControllersRequestHandler()
+		public virtual void RegisterControllersProcessor()
 		{
-			DIContainer.Current.Register<IControllersRequestHandler>(ControllersRequestHandlerType, LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<IControllersProcessor>(ControllersProcessorType, LifetimeType.PerLifetimeScope);
 		}
 		
 		/// <summary>

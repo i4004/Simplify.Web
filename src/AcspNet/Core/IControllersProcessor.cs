@@ -4,16 +4,16 @@ using Simplify.DI;
 namespace AcspNet.Core
 {
 	/// <summary>
-	/// Represents controllers request handler
+	/// Represents controllers processor
 	/// </summary>
-	public interface IControllersRequestHandler
+	public interface IControllersProcessor
 	{
 		/// <summary>
-		/// Process HTTP request to controllers
+		/// Process controllers for current HTTP request
 		/// </summary>
 		/// <param name="containerProvider">The DI container provider.</param>
 		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		ControllersRequestHandlerResult ProcessRequest(IDIContainerProvider containerProvider, IOwinContext context);
+		ControllersProcessorResult ProcessControllers(IDIContainerProvider containerProvider, IOwinContext context);
 	}
 }

@@ -10,7 +10,7 @@ namespace AcspNet.Tests.Core
 	[TestFixture]
 	public class RequestHandlerTests
 	{
-		private Mock<IControllersRequestHandler> _controllersHandler;
+		private Mock<IControllersProcessor> _controllersHandler;
 		private Mock<IPageProcessor> _pageProcessor;
 		private RequestHandler _requestHandler;
 		private Mock<IOwinContext> _context;
@@ -18,7 +18,7 @@ namespace AcspNet.Tests.Core
 		[SetUp]
 		public void Initialize()
 		{
-			_controllersHandler = new Mock<IControllersRequestHandler>();
+			_controllersHandler = new Mock<IControllersProcessor>();
 			_pageProcessor = new Mock<IPageProcessor>();
 			_requestHandler = new RequestHandler(_controllersHandler.Object, _pageProcessor.Object);
 
@@ -32,7 +32,7 @@ namespace AcspNet.Tests.Core
 			// Assign
 			var task = Task.Delay(0);
 
-			_controllersHandler.Setup(x => x.ProcessRequest(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(ControllersRequestHandlerResult.Ok);
+			_controllersHandler.Setup(x => x.ProcessControllers(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(ControllersProcessorResult.Ok);
 			_pageProcessor.Setup(x => x.ProcessPage(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(task);
 
 			// Act
@@ -47,7 +47,7 @@ namespace AcspNet.Tests.Core
 		public void ProcessRequest_RawOutput_NoPageBuildsWithOutput()
 		{
 			// Assign
-			_controllersHandler.Setup(x => x.ProcessRequest(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(ControllersRequestHandlerResult.RawOutput);
+			_controllersHandler.Setup(x => x.ProcessControllers(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(ControllersProcessorResult.RawOutput);
 
 			// Act
 			_requestHandler.ProcessRequest(null, _context.Object);
@@ -62,7 +62,7 @@ namespace AcspNet.Tests.Core
 		public void ProcessRequest_Http401_404StatusCodeSetNoPageBuiltWithOutput()
 		{
 			// Assign
-			_controllersHandler.Setup(x => x.ProcessRequest(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(ControllersRequestHandlerResult.Http401);
+			_controllersHandler.Setup(x => x.ProcessControllers(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(ControllersProcessorResult.Http401);
 
 			// Act
 			_requestHandler.ProcessRequest(null, _context.Object);
@@ -75,7 +75,7 @@ namespace AcspNet.Tests.Core
 		public void ProcessRequest_Http401_403StatusCodeSetNoPageBuiltWithOutput()
 		{
 			// Assign
-			_controllersHandler.Setup(x => x.ProcessRequest(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(ControllersRequestHandlerResult.Http403);
+			_controllersHandler.Setup(x => x.ProcessControllers(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(ControllersProcessorResult.Http403);
 
 			// Act
 			_requestHandler.ProcessRequest(null, _context.Object);
@@ -88,7 +88,7 @@ namespace AcspNet.Tests.Core
 		public void ProcessRequest_Http404_404StatusCodeSetNoPageBuiltWithOutput()
 		{
 			// Assign
-			_controllersHandler.Setup(x => x.ProcessRequest(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(ControllersRequestHandlerResult.Http404);
+			_controllersHandler.Setup(x => x.ProcessControllers(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(ControllersProcessorResult.Http404);
 
 			// Act
 			_requestHandler.ProcessRequest(null, _context.Object);

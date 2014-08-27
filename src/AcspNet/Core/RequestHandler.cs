@@ -9,7 +9,7 @@ namespace AcspNet.Core
 	/// </summary>
 	public class RequestHandler : IRequestHandler
 	{
-		private readonly IControllersRequestHandler _controllersRequestHandler;
+		private readonly IControllersProcessor _controllersRequestHandler;
 		private readonly IPageProcessor _pageProcessor;
 
 		/// <summary>
@@ -17,7 +17,7 @@ namespace AcspNet.Core
 		/// </summary>
 		/// <param name="controllersRequestHandler">The controllers request handler.</param>
 		/// <param name="pageProcessor">The page processor.</param>
-		public RequestHandler(IControllersRequestHandler controllersRequestHandler, IPageProcessor pageProcessor)
+		public RequestHandler(IControllersProcessor controllersRequestHandler, IPageProcessor pageProcessor)
 		{
 			_controllersRequestHandler = controllersRequestHandler;
 			_pageProcessor = pageProcessor;
@@ -31,22 +31,22 @@ namespace AcspNet.Core
 		/// <returns></returns>
 		public Task ProcessRequest(IDIContainerProvider containerProvider, IOwinContext context)
 		{
-			var result = _controllersRequestHandler.ProcessRequest(containerProvider, context);
+			var result = _controllersRequestHandler.ProcessControllers(containerProvider, context);
 
 			switch (result)
 			{
-				case ControllersRequestHandlerResult.Ok:
+				case ControllersProcessorResult.Ok:
 					return _pageProcessor.ProcessPage(containerProvider, context);
 
-				case ControllersRequestHandlerResult.Http401:
+				case ControllersProcessorResult.Http401:
 					context.Response.StatusCode = 401;
 					break;
 
-				case ControllersRequestHandlerResult.Http403:
+				case ControllersProcessorResult.Http403:
 					context.Response.StatusCode = 403;
 					break;
 
-				case ControllersRequestHandlerResult.Http404:
+				case ControllersProcessorResult.Http404:
 					context.Response.StatusCode = 404;
 					break;
 			}
