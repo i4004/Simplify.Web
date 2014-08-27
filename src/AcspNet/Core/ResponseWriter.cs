@@ -17,7 +17,6 @@ namespace AcspNet.Core
 		/// <returns></returns>
 		public Task Write(string data, IOwinResponse response)
 		{
-			response.Expires = new DateTimeOffset(DateTime.Now);
 			return response.WriteAsync(data);
 		}
 	}
