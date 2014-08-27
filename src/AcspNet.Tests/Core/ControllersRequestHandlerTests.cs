@@ -53,13 +53,13 @@ namespace AcspNet.Tests.Core
 		}
 
 		[Test]
-		public void Execute_NoControllersMatchedNo404Controller_404Returned()
+		public void ProcessRequest_NoControllersMatchedNo404Controller_404Returned()
 		{
 			// Assign
 			_agent.Setup(x => x.MatchControllerRoute(It.IsAny<IControllerMetaData>(), It.IsAny<string>(), It.IsAny<string>())).Returns(new RouteMatchResult());
 
 			// Act
-			var result = _handler.Execute(_containerProvider, _context.Object);
+			var result = _handler.ProcessRequest(_containerProvider, _context.Object);
 
 			// Assert
 
@@ -71,7 +71,7 @@ namespace AcspNet.Tests.Core
 		}
 
 		[Test]
-		public void Execute_NoControllersMatchedButHave404Controller_404ControllerExecuted()
+		public void ProcessRequest_NoControllersMatchedButHave404Controller_404ControllerExecuted()
 		{
 			// Assign
 
@@ -81,7 +81,7 @@ namespace AcspNet.Tests.Core
 				.Returns(new ControllerMetaData(typeof(TestController2)));
 
 			// Act
-			var result = _handler.Execute(_containerProvider, _context.Object);
+			var result = _handler.ProcessRequest(_containerProvider, _context.Object);
 
 			// Assert
 
@@ -96,7 +96,7 @@ namespace AcspNet.Tests.Core
 		}
 
 		[Test]
-		public void Execute_NoControllersMatchedButHave404ControllerRawResult_404ControllerExecutedRawReturned()
+		public void ProcessRequest_NoControllersMatchedButHave404ControllerRawResult_404ControllerExecutedRawReturned()
 		{
 			// Assign
 
@@ -111,7 +111,7 @@ namespace AcspNet.Tests.Core
 						It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>())).Returns(ControllerResponseResult.RawOutput);
 
 			// Act
-			var result = _handler.Execute(_containerProvider, _context.Object);
+			var result = _handler.ProcessRequest(_containerProvider, _context.Object);
 
 			// Assert
 
@@ -126,7 +126,7 @@ namespace AcspNet.Tests.Core
 		}
 
 		[Test]
-		public void Execute_NoControllersMatchedButHave404ControllerRedirect_404ControllerExecutedRedirectReturned()
+		public void ProcessRequest_NoControllersMatchedButHave404ControllerRedirect_404ControllerExecutedRedirectReturned()
 		{
 			// Assign
 
@@ -141,7 +141,7 @@ namespace AcspNet.Tests.Core
 						It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>())).Returns(ControllerResponseResult.Redirect);
 
 			// Act
-			var result = _handler.Execute(_containerProvider, _context.Object);
+			var result = _handler.ProcessRequest(_containerProvider, _context.Object);
 
 			// Assert
 
@@ -156,7 +156,7 @@ namespace AcspNet.Tests.Core
 		}
 
 		[Test]
-		public void Execute_OnlyAnyPageControllerMatchedButHave404Controller_404ControllerExecuted()
+		public void ProcessRequest_OnlyAnyPageControllerMatchedButHave404Controller_404ControllerExecuted()
 		{
 			// Assign
 
@@ -167,7 +167,7 @@ namespace AcspNet.Tests.Core
 			_agent.Setup(x => x.IsAnyPageController(It.IsAny<IControllerMetaData>())).Returns(true);
 
 			// Act
-			var result = _handler.Execute(_containerProvider, _context.Object);
+			var result = _handler.ProcessRequest(_containerProvider, _context.Object);
 
 			// Assert
 
@@ -184,13 +184,13 @@ namespace AcspNet.Tests.Core
 		}
 
 		[Test]
-		public void Execute_StandardControllerMatched_Executed()
+		public void ProcessRequest_StandardControllerMatched_Executed()
 		{
 			// Assign
 			_agent.Setup(x => x.IsAnyPageController(It.IsAny<IControllerMetaData>())).Returns(false);
 
 			// Act
-			var result = _handler.Execute(_containerProvider, _context.Object);
+			var result = _handler.ProcessRequest(_containerProvider, _context.Object);
 
 			// Assert
 
@@ -210,7 +210,7 @@ namespace AcspNet.Tests.Core
 		}
 
 		[Test]
-		public void Execute_StandardControllerMatchedReturnsRawData_ReturnedRawDataSubsequentNotExecuted()
+		public void ProcessRequest_StandardControllerMatchedReturnsRawData_ReturnedRawDataSubsequentNotExecuted()
 		{
 			// Assign
 
@@ -227,7 +227,7 @@ namespace AcspNet.Tests.Core
 						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters))).Returns(ControllerResponseResult.RawOutput);
 			
 			// Act
-			var result = _handler.Execute(_containerProvider, _context.Object);
+			var result = _handler.ProcessRequest(_containerProvider, _context.Object);
 
 			// Assert
 
@@ -239,7 +239,7 @@ namespace AcspNet.Tests.Core
 		}
 
 		[Test]
-		public void Execute_StandardControllerMatchedReturnsRedirect_ReturnedRedirectSubsequentNotExecuted()
+		public void ProcessRequest_StandardControllerMatchedReturnsRedirect_ReturnedRedirectSubsequentNotExecuted()
 		{
 			// Assign
 
@@ -256,7 +256,7 @@ namespace AcspNet.Tests.Core
 						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters))).Returns(ControllerResponseResult.Redirect);
 
 			// Act
-			var result = _handler.Execute(_containerProvider, _context.Object);
+			var result = _handler.ProcessRequest(_containerProvider, _context.Object);
 
 			// Assert
 
@@ -268,7 +268,7 @@ namespace AcspNet.Tests.Core
 		}
 
 		[Test]
-		public void Execute_StandardAsyncControllerMatchedReturnsRawData_ReturnedRawDataSubsequentExecuted()
+		public void ProcessRequest_StandardAsyncControllerMatchedReturnsRawData_ReturnedRawDataSubsequentExecuted()
 		{
 			// Assign
 
@@ -283,7 +283,7 @@ namespace AcspNet.Tests.Core
 				.Returns(new List<ControllerResponseResult> {ControllerResponseResult.RawOutput});
 
 			// Act
-			var result = _handler.Execute(_containerProvider, _context.Object);
+			var result = _handler.ProcessRequest(_containerProvider, _context.Object);
 
 			// Assert
 
@@ -295,7 +295,7 @@ namespace AcspNet.Tests.Core
 		}
 
 		[Test]
-		public void Execute_StandardAsyncControllerMatchedReturnsRedirect_ReturnedRedirectSubsequentExecuted()
+		public void ProcessRequest_StandardAsyncControllerMatchedReturnsRedirect_ReturnedRedirectSubsequentExecuted()
 		{
 			// Assign
 
@@ -310,7 +310,7 @@ namespace AcspNet.Tests.Core
 				.Returns(new List<ControllerResponseResult> { ControllerResponseResult.Redirect });
 
 			// Act
-			var result = _handler.Execute(_containerProvider, _context.Object);
+			var result = _handler.ProcessRequest(_containerProvider, _context.Object);
 
 			// Assert
 
@@ -322,13 +322,13 @@ namespace AcspNet.Tests.Core
 		}
 
 		[Test]
-		public void Execute_NotAuthenticated_ReturnedHttp401()
+		public void ProcessRequest_NotAuthenticated_ReturnedHttp401()
 		{
 			// Assign
 			_agent.Setup(x => x.IsSecurityRulesViolated(It.IsAny<IControllerMetaData>(), It.IsAny<ClaimsPrincipal>())).Returns(SecurityRuleCheckResult.NotAuthenticated);
 
 			// Act
-			var result = _handler.Execute(_containerProvider, _context.Object);
+			var result = _handler.ProcessRequest(_containerProvider, _context.Object);
 
 			// Assert
 
@@ -337,7 +337,7 @@ namespace AcspNet.Tests.Core
 		}
 
 		[Test]
-		public void Execute_ForbiddenHave403Controller_403ControllerExecuted()
+		public void ProcessRequest_ForbiddenHave403Controller_403ControllerExecuted()
 		{
 			// Assign
 
@@ -347,7 +347,7 @@ namespace AcspNet.Tests.Core
 				.Returns(new ControllerMetaData(typeof(TestController2)));
 
 			// Act
-			var result = _handler.Execute(_containerProvider, _context.Object);
+			var result = _handler.ProcessRequest(_containerProvider, _context.Object);
 
 			// Assert
 
@@ -363,13 +363,13 @@ namespace AcspNet.Tests.Core
 		}
 
 		[Test]
-		public void Execute_ForbiddenNotHave403Controller_Http403Returned()
+		public void ProcessRequest_ForbiddenNotHave403Controller_Http403Returned()
 		{
 			// Assign
 			_agent.Setup(x => x.IsSecurityRulesViolated(It.IsAny<IControllerMetaData>(), It.IsAny<ClaimsPrincipal>())).Returns(SecurityRuleCheckResult.Forbidden);
 
 			// Act
-			var result = _handler.Execute(_containerProvider, _context.Object);
+			var result = _handler.ProcessRequest(_containerProvider, _context.Object);
 
 			// Assert
 

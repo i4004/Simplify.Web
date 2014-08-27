@@ -31,7 +31,7 @@ namespace AcspNet.Core
 		/// <returns></returns>
 		public Task ProcessRequest(IDIContainerProvider containerProvider, IOwinContext context)
 		{
-			var result = _controllersRequestHandler.Execute(containerProvider, context);
+			var result = _controllersRequestHandler.ProcessRequest(containerProvider, context);
 
 			switch (result)
 			{

@@ -9,11 +9,11 @@ namespace AcspNet.Core
 	public interface IControllersRequestHandler
 	{
 		/// <summary>
-		/// Creates and invokes controllers instances.
+		/// Process HTTP request to controllers
 		/// </summary>
 		/// <param name="containerProvider">The DI container provider.</param>
 		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		ControllersHandlerResult Execute(IDIContainerProvider containerProvider, IOwinContext context);
+		ControllersHandlerResult ProcessRequest(IDIContainerProvider containerProvider, IOwinContext context);
 	}
 }
