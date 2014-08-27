@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO.Abstractions;
 using System.Linq;
 using System.Threading.Tasks;
+using AcspNet.Responses;
 using Microsoft.Owin;
 
 namespace AcspNet.Core
@@ -14,17 +15,20 @@ namespace AcspNet.Core
 	{
 		private readonly IList<string> _staticFilesPaths;
 		private readonly string _sitePhysicalPath;
+		private readonly IResponseWriter _responseWriter;
 		private static IFileSystem _fileSystemInstance;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="StaticFilesRequestHandler"/> class.
+		/// Initializes a new instance of the <see cref="StaticFilesRequestHandler" /> class.
 		/// </summary>
 		/// <param name="staticFilesPaths">The static files paths.</param>
 		/// <param name="sitePhysicalPath">The environment.</param>
-		public StaticFilesRequestHandler(IList<string> staticFilesPaths, string sitePhysicalPath)
+		/// <param name="responseWriter">The response writer.</param>
+		public StaticFilesRequestHandler(IList<string> staticFilesPaths, string sitePhysicalPath, IResponseWriter responseWriter)
 		{
 			_staticFilesPaths = staticFilesPaths;
 			_sitePhysicalPath = sitePhysicalPath;
+			_responseWriter = responseWriter;
 		}
 
 		/// <summary>
@@ -66,7 +70,8 @@ namespace AcspNet.Core
 		/// <returns></returns>
 		public Task ProcessRequest(IOwinContext context)
 		{
-			return Task.Delay(0);
+			var currentPath = context.Request.Path.ToString().Substring(1);
+			return _responseWriter.Write(FileSystem.File.ReadAllText(_sitePhysicalPath + currentPath), context.Response);
 		}
 	}
 }

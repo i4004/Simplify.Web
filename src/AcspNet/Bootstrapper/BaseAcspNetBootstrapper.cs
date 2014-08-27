@@ -637,7 +637,7 @@ namespace AcspNet.Bootstrapper
 			DIContainer.Current.Register<IStaticFilesRequestHandler>(
 				p =>
 					new StaticFilesRequestHandler(p.Resolve<IAcspNetSettings>().StaticFilesPaths,
-						p.Resolve<IEnvironment>().SitePhysicalPath), LifetimeType.PerLifetimeScope);
+						p.Resolve<IEnvironment>().SitePhysicalPath, p.Resolve<IResponseWriter>()), LifetimeType.PerLifetimeScope);
 		}
 
 		/// <summary>
