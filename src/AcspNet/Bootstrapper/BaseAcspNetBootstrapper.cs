@@ -26,6 +26,7 @@ namespace AcspNet.Bootstrapper
 		private Type _responseWriterType;
 		private Type _pageProcessor;
 		private Type _controllersRequestHandlerType;
+		private Type _staticFilesRequestHandlerType;
 		private Type _requestHandlerType;
 		private Type _stopwatchProviderType;
 		private Type _contextVariablesSetterType;
@@ -60,6 +61,7 @@ namespace AcspNet.Bootstrapper
 			RegisterResponseWriter();
 			RegisterPageProcessor();
 			RegisterControllersRequestHandler();
+			RegisterStaticFilesRequestHandler();
 			RegisterRequestHandler();
 			RegisterStopwatchProvider();
 			RegisterContextVariablesSetter();
@@ -220,6 +222,17 @@ namespace AcspNet.Bootstrapper
 			get { return _controllersRequestHandlerType ?? typeof(ControllersRequestHandler); }
 		}
 
+		/// <summary>
+		/// Gets the type of the static files request handler.
+		/// </summary>
+		/// <value>
+		/// The type of the static files request handler.
+		/// </value>
+		public Type StaticFilesRequestHandlerType
+		{
+			get { return _staticFilesRequestHandlerType ?? typeof(StaticFilesRequestHandler); }
+		}
+		
 		/// <summary>
 		/// Gets the type of the request handler.
 		/// </summary>
@@ -397,7 +410,17 @@ namespace AcspNet.Bootstrapper
 		{
 			_controllersRequestHandlerType = typeof(T);
 		}
-		
+
+		/// <summary>
+		/// Sets the type of the static files request handler.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetStaticFilesRequestHandlerType<T>()
+			where T : IStaticFilesRequestHandler
+		{
+			_staticFilesRequestHandlerType = typeof(T);
+		}
+
 		/// <summary>
 		/// Sets the type of the request handler.
 		/// </summary>
@@ -627,7 +650,15 @@ namespace AcspNet.Bootstrapper
 		{
 			DIContainer.Current.Register<IControllersRequestHandler>(ControllersRequestHandlerType, LifetimeType.PerLifetimeScope);
 		}
-		
+
+		/// <summary>
+		/// Registers the static files request handler.
+		/// </summary>
+		public virtual void RegisterStaticFilesRequestHandler()
+		{
+			DIContainer.Current.Register<IStaticFilesRequestHandler>(StaticFilesRequestHandlerType, LifetimeType.PerLifetimeScope);
+		}
+
 		/// <summary>
 		/// Registers the request handler.
 		/// </summary>

@@ -10,14 +10,17 @@ namespace AcspNet.Core
 	public class RequestHandler : IRequestHandler
 	{
 		private readonly IControllersRequestHandler _controllersRequestHandler;
+		private readonly IStaticFilesRequestHandler _staticFilesRequestHandler;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="RequestHandler"/> class.
+		/// Initializes a new instance of the <see cref="RequestHandler" /> class.
 		/// </summary>
 		/// <param name="controllersRequestHandler">The controllers request handler.</param>
-		public RequestHandler(IControllersRequestHandler controllersRequestHandler)
+		/// <param name="staticFilesRequestHandler">The static files request handler.</param>
+		public RequestHandler(IControllersRequestHandler controllersRequestHandler, IStaticFilesRequestHandler staticFilesRequestHandler)
 		{
 			_controllersRequestHandler = controllersRequestHandler;
+			_staticFilesRequestHandler = staticFilesRequestHandler;
 		}
 
 		/// <summary>
@@ -28,7 +31,9 @@ namespace AcspNet.Core
 		/// <returns></returns>
 		public Task ProcessRequest(IDIContainerProvider containerProvider, IOwinContext context)
 		{
-			return _controllersRequestHandler.ProcessRequest(containerProvider, context);
+			return _staticFilesRequestHandler.IsStaticFileRoutePath(context)
+				? _staticFilesRequestHandler.ProcessRequest(context)
+				: _controllersRequestHandler.ProcessRequest(containerProvider, context);
 		}
 	}
 }
