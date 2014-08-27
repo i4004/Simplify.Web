@@ -5,7 +5,7 @@ using System.Xml.Linq;
 namespace AcspNet.Modules
 {
 	/// <summary>
-	/// Provides localizable files reader
+	/// Provides localizable files reader, reads the files from data folder
 	/// </summary>
 	public class FileReader : IFileReader
 	{
