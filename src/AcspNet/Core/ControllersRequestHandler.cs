@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using System;
+using Microsoft.Owin;
 using Simplify.DI;
 
 namespace AcspNet.Core
@@ -46,13 +47,10 @@ namespace AcspNet.Core
 				if(securityResult == SecurityRuleCheckResult.Forbidden)
 					return ProcessForbiddenSecurityRule(containerProvider, context);
 
-				var result = _controllerExecutor.Execute(metaData.ControllerType, containerProvider, context, matcherResult.RouteParameters);
+				var result = ProcessController(metaData.ControllerType, containerProvider, context, matcherResult.RouteParameters);
 
-				if (result == ControllerResponseResult.RawOutput)
-					return ControllersHandlerResult.RawOutput;
-
-				if(result == ControllerResponseResult.Redirect)
-					return ControllersHandlerResult.Redirect;
+				if (result != ControllersHandlerResult.Ok)
+					return result;
 
 				if (!_agent.IsAnyPageController(metaData))
 					atleastOneNonAnyPageControllerMatched = true;
@@ -66,6 +64,19 @@ namespace AcspNet.Core
 			}
 
 			return ProcessAsyncControllersResponses(containerProvider);
+		}
+
+		private ControllersHandlerResult ProcessController(Type controllerType, IDIContainerProvider containerProvider, IOwinContext context, dynamic routeParameters)
+		{
+			var result = _controllerExecutor.Execute(controllerType, containerProvider, context, routeParameters);
+
+			if (result == ControllerResponseResult.RawOutput)
+				return ControllersHandlerResult.RawOutput;
+
+			if (result == ControllerResponseResult.Redirect)
+				return ControllersHandlerResult.Redirect;
+
+			return  ControllersHandlerResult.Ok;			
 		}
 
 		private ControllersHandlerResult ProcessOnlyAnyPageControllersMatched(IDIContainerProvider containerProvider, IOwinContext context)
