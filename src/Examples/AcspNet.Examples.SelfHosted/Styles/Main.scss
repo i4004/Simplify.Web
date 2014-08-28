@@ -7,37 +7,18 @@
 	padding: 0;
 }
 
-div.Header
-{
-}
+@import 'Header';
+@import 'MessageBox';
 
-div.Title
+div.Content
 {
-	padding: 1em;
-	background-color: #c4c4c4;
-	font-size: 2em;
-}
-
-div.Menu
-{
-	background-color: #f4f4f4;
-	/*background: #969696;
-	color: #fff;
-	font-size: 1.3em;
-	line-height: 1em;
 	width: 100%;
-	float: left;
-
-	overflow: auto;*/
+	overflow: auto;
+	height: 400px;
 }
 
-
-div.Menu p.Left
-{	
-	float: left;
-}
-
-div.Menu p.Right
+.ExecutionTimeFooter
 {
-	float: right;
+	text-align: center;
+	margin-top: 1em;
 }

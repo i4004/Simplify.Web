@@ -1,0 +1,1 @@
+﻿Logged as : {UserName} | <a href="{~}/logout">Logout</a>

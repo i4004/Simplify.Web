@@ -11,13 +11,14 @@
 	<div class="Header">
 		<div class="Title">Your ACSP.NET application</div>
 		<div class="Menu">
-			<p class="Left">{SV:SiteUrl}</p>
-			<p class="Right"><a href="{~}/">Home</a> <a href="about">About</a><a href="messagePageExample">Message page example</a></p>
+			<div class="Left"><a href="{~}/">Home</a> <a href="about">About</a><a href="messagePageExample">Message page example</a></div>
+			<div class="Right">{LoginPanel}</div>
 		</div>
 	</div>
+	<div class="Content">
+		<div class="MessageBox">{MainContent}</div>
+	</div>
 
-	{MainContent}
-
-	<div class="GenerationTimeFooter">{LabelExecutionTime}: {SV:SiteExecutionTime}</div>
+	<div class="ExecutionTimeFooter">{LabelExecutionTime}: {SV:SiteExecutionTime}</div>
 </body>
 </html>

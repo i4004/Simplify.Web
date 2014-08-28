@@ -1,10 +1,3 @@
-body {
-  background: #e0e0e0;
-  color: #505050;
-  font: 1em 'Segoe UI', tahoma, arial, helvetica, sans-serif;
-  margin: 1em;
-  padding: 0; }
-
 div.Header div.Title {
   padding: 1em;
   background-color: #c4c4c4;
@@ -28,18 +21,4 @@ div.Header div.Menu {
     text-decoration: none; }
   div.Header div.Menu a:hover {
     color: lightblue; }
-
-div.MessageBox {
-  padding: 5em;
-  font-size: 1.2em;
-  text-align: center; }
-
-div.Content {
-  width: 100%;
-  overflow: auto;
-  height: 400px; }
-
-.ExecutionTimeFooter {
-  text-align: center;
-  margin-top: 1em; }
 
