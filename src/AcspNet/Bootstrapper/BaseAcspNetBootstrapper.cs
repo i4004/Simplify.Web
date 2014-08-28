@@ -2,6 +2,7 @@
 using AcspNet.Core;
 using AcspNet.Meta;
 using AcspNet.Modules;
+using AcspNet.Modules.Html;
 using AcspNet.Routing;
 using Simplify.DI;
 using Environment = AcspNet.Modules.Environment;
@@ -22,6 +23,7 @@ namespace AcspNet.Bootstrapper
 		private Type _controllerResponseBuilderType;
 		private Type _controllerExecutorType;
 		private Type _controllersProcessorType;
+		private Type _messageBoxType;
 		private Type _pageBuilderType;
 		private Type _responseWriterType;
 		private Type _pageProcessor;
@@ -56,6 +58,7 @@ namespace AcspNet.Bootstrapper
 			RegisterFileReader();
 			RegisterStringTable();
 			RegisterDataCollector();
+			RegisterMessageBox();
 			RegisterPageBuilder();
 			RegisterResponseWriter();
 			RegisterPageProcessor();
@@ -175,6 +178,17 @@ namespace AcspNet.Bootstrapper
 		public Type ControllersProcessorType
 		{
 			get { return _controllersProcessorType ?? typeof(ControllersProcessor); }
+		}
+
+		/// <summary>
+		/// Gets the type of the message box.
+		/// </summary>
+		/// <value>
+		/// The type of the message box.
+		/// </value>
+		public Type MessageBoxType
+		{
+			get { return _messageBoxType ?? typeof(MessageBox); }
 		}
 		
 		/// <summary>
@@ -357,6 +371,12 @@ namespace AcspNet.Bootstrapper
 			where T : IControllersProcessor
 		{
 			_controllersProcessorType = typeof(T);
+		}
+
+		public void SetMessageBox<T>()
+			where T : IMessageBox
+		{
+			_messageBoxType = typeof(T);
 		}
 		
 		/// <summary>
@@ -595,6 +615,14 @@ namespace AcspNet.Bootstrapper
 
 				return new DataCollector(settings.DefaultMainContentVariableName, settings.DefaultTitleVariableName, p.Resolve<IStringTable>());
 			}, LifetimeType.PerLifetimeScope);
+		}
+
+		/// <summary>
+		/// Registers the message box.
+		/// </summary>
+		public virtual void RegisterMessageBox()
+		{
+			DIContainer.Current.Register<IMessageBox>(MessageBoxType, LifetimeType.PerLifetimeScope);
 		}
 
 		/// <summary>
