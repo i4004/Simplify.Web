@@ -21,6 +21,8 @@ namespace AcspNet.Tests.Modules
 			_owinContext.SetupGet(x => x.Request.PathBase).Returns(new PathString("/mywebsite"));
 			_owinContext.SetupGet(x => x.Request.Uri).Returns(new Uri("http://localhost/mywebsite/"));
 			_owinContext.SetupGet(x => x.Request.Query).Returns(new ReadableStringCollection(new Dictionary<string, string[]>()));
+			_owinContext.SetupGet(x => x.Request.Headers)
+				.Returns(new HeaderDictionary(new Dictionary<string, string[]>()));
 		}
 
 		[Test]
@@ -37,6 +39,7 @@ namespace AcspNet.Tests.Modules
 			Assert.AreEqual(_owinContext.Object.Request.Query, context.Query);
 			Assert.AreEqual("http://localhost/mywebsite/", context.SiteUrl);
 			Assert.AreEqual("/mywebsite/", context.VirtualPath);
+			Assert.IsFalse(context.IsAjax);
 		}
 
 		[Test]
@@ -148,6 +151,22 @@ namespace AcspNet.Tests.Modules
 			// Assert
 
 			Assert.AreEqual("http://mywebsite.com", context.SiteUrl);
+		}
+
+		[Test]
+		public void Constructor_AjaxRequest_True()
+		{
+			// Assign
+			_owinContext.SetupGet(x => x.Request.Headers)
+				.Returns(new HeaderDictionary(new Dictionary<string, string[]> {{"X-Requested-With", new [] {"test"}}}));
+
+			// Act
+			var context = new AcspNetContext(_owinContext.Object);
+
+			// Assert
+
+			Assert.IsTrue(context.IsAjax);
+
 		}
 	}
 }

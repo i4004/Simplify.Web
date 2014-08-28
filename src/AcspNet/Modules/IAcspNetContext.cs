@@ -44,5 +44,13 @@ namespace AcspNet.Modules
 		/// Gets the form data of post HTTP request.
 		/// </summary>
 		IFormCollection Form { get; }
+		
+		/// <summary>
+		/// Gets a value indicating whether this request is ajax request.
+		/// </summary>
+		/// <value>
+		/// <c>true</c> if current request is ajax request; otherwise, <c>false</c>.
+		/// </value>
+		bool IsAjax { get; }
 	}
 }

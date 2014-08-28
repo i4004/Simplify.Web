@@ -34,6 +34,8 @@ namespace AcspNet.Modules
 				SiteUrl += Request.PathBase.Value + "/";
 
 			VirtualPath = string.IsNullOrEmpty(Request.PathBase.Value) ? "" : Request.PathBase.Value + "/";
+
+			IsAjax = Request.Headers.ContainsKey("X-Requested-With");
 		}
 		
 		/// <summary>
@@ -76,5 +78,13 @@ namespace AcspNet.Modules
 		{
 			get { return _form.Value; }
 		}
+
+		/// <summary>
+		/// Gets a value indicating whether this request is ajax request.
+		/// </summary>
+		/// <value>
+		/// <c>true</c> if current request is ajax request; otherwise, <c>false</c>.
+		/// </value>
+		public bool IsAjax { get; private set; }
 	}
 }
