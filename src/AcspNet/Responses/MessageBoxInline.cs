@@ -8,6 +8,9 @@ namespace AcspNet.Responses
 	/// </summary>
 	public class MessageBoxInline : ControllerResponse
 	{
+		private readonly string _text;
+		private readonly MessageBoxStatus _status;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MessageBox"/> class.
 		/// </summary>
@@ -15,7 +18,8 @@ namespace AcspNet.Responses
 		/// <param name="status">The message box status.</param>
 		public MessageBoxInline(string text, MessageBoxStatus status = MessageBoxStatus.Error)
 		{
-			throw new NotImplementedException();
+			_text = text;
+			_status = status;
 		}
 
 		/// <summary>
@@ -24,7 +28,9 @@ namespace AcspNet.Responses
 		/// <returns></returns>
 		public override ControllerResponseResult Process()
 		{
-			throw new NotImplementedException();
+			ResponseWriter.Write(Html.MessageBox.GetInline(_text, _status), Context.Response);
+
+			return ControllerResponseResult.RawOutput;
 		}
 	}
 }
