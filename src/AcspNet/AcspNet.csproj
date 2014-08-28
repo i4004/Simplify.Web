@@ -192,6 +192,7 @@
     <Compile Include="Modules\ITemplateFactory.cs" />
     <Compile Include="Modules\TemplateFactory.cs" />
     <Compile Include="Responses\InlineTpl.cs" />
+    <Compile Include="Responses\MessageBoxInlineSt.cs" />
     <Compile Include="Responses\MessageBoxSt.cs" />
     <Compile Include="Responses\MessageBoxInline.cs" />
     <Compile Include="Responses\MessageBox.cs" />
