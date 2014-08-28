@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
 using AcspNet.Core;
 using Microsoft.Owin;
@@ -22,12 +21,12 @@ namespace AcspNet.Tests.Core
 		{
 			var files = new Dictionary<string, MockFileData>
 			{
-				{"Foo/Bar.css", "Hello!"}
+				{"Foo/Bar.css", new MockFileData(new byte[]{13})}
 			};
 
 			StaticFilesRequestHandler.FileSystem = new MockFileSystem(files, "C:/WebSites/MySite/");
 		}
-		
+
 		[SetUp]
 		public void Initialize()
 		{
@@ -50,7 +49,7 @@ namespace AcspNet.Tests.Core
 			// Assert
 			Assert.IsTrue(result);
 		}
-		
+
 		[Test]
 		public void IsStaticFileRoutePath_NoMatchedPaths_False()
 		{
@@ -86,7 +85,7 @@ namespace AcspNet.Tests.Core
 			result.Wait();
 
 			// Assert
-			_responseWriter.Verify(x => x.Write(It.Is<string>(d => d == "Hello!"), It.IsAny<IOwinResponse>()));
+			_responseWriter.Verify(x => x.Write(It.Is<byte[]>(d => d[0] == 13), It.IsAny<IOwinResponse>()));
 		}
 	}
 }

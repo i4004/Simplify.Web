@@ -70,7 +70,7 @@ namespace AcspNet.Core
 		public Task ProcessRequest(IOwinContext context)
 		{
 			var currentPath = context.Request.Path.ToString().Substring(1);
-			return _responseWriter.Write(FileSystem.File.ReadAllText(_sitePhysicalPath + currentPath), context.Response);
+			return _responseWriter.Write(FileSystem.File.ReadAllBytes(_sitePhysicalPath + currentPath), context.Response);
 		}
 	}
 }
