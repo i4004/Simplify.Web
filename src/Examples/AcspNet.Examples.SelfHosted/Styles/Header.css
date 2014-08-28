@@ -21,4 +21,8 @@ div.Header div.Menu {
     text-decoration: none; }
   div.Header div.Menu a:hover {
     color: lightblue; }
+div.Header img.Logo {
+  vertical-align: middle;
+  width: 2.5em;
+  margin-right: 0.8em; }
 

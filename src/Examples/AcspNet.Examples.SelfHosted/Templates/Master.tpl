@@ -9,7 +9,7 @@
 	<script type="text/javascript" src="Scripts/jquery-2.1.1.min.js"></script>
 
 	<div class="Header">
-		<div class="Title">Your ACSP.NET application</div>
+		<div class="Title"><img class="Logo" src="Images/Icon.png" alt="AcspNet"> Your ACSP.NET application</div>
 		<div class="Menu">
 			<div class="Left"><a href="{~}/">Home</a> <a href="about">About</a><a href="messagePageExample">Message page example</a></div>
 			<div class="Right">{LoginPanel}</div>
