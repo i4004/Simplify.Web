@@ -9,6 +9,11 @@ namespace AcspNet
 	public abstract class ControllerResponse : ModulesAccessor
 	{
 		/// <summary>
+		/// Current AcspNet context
+		/// </summary>
+		public virtual IAcspNetContext Context { get; internal set; }
+
+		/// <summary>
 		/// Gets the data collector.
 		/// </summary>
 		/// <value>

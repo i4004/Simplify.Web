@@ -17,6 +17,7 @@ namespace AcspNet.Core
 		{
 			BuildModulesAccessorProperties(controllerResponse, containerProvider);
 
+			controllerResponse.Context = containerProvider.Resolve<IAcspNetContext>();
 			controllerResponse.DataCollector = containerProvider.Resolve<IDataCollector>();
 			controllerResponse.Redirector = containerProvider.Resolve<IRedirector>();
 			controllerResponse.ResponseWriter = containerProvider.Resolve<IResponseWriter>();
