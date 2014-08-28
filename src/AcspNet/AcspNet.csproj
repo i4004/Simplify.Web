@@ -151,6 +151,8 @@
     <Compile Include="Modules\AcspNetContext.cs" />
     <Compile Include="Modules\DataCollector.cs" />
     <Compile Include="Modules\FileReader.cs" />
+    <Compile Include="Modules\Html\HtmlWrapper.cs" />
+    <Compile Include="Modules\Html\IHtmlWrapper.cs" />
     <Compile Include="Modules\Html\IMessageBox.cs" />
     <Compile Include="Modules\Html\MessageBox.cs" />
     <Compile Include="Modules\ILanguageManagerProvider.cs" />

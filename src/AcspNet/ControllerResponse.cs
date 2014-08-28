@@ -1,5 +1,6 @@
 ﻿using AcspNet.Core;
 using AcspNet.Modules;
+using AcspNet.Modules.Html;
 
 namespace AcspNet
 {
@@ -36,6 +37,14 @@ namespace AcspNet
 		/// The response writer.
 		/// </value>
 		public virtual IResponseWriter ResponseWriter { get; internal set; }
+		
+		/// <summary>
+		/// Various HTML generation classes container
+		/// </summary>
+		/// <value>
+		/// The various HTML generation classes container
+		/// </value>
+		public virtual IHtmlWrapper Html { get; internal set; }
 
 		/// <summary>
 		/// Processes this response

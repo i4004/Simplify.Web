@@ -1,4 +1,5 @@
 ﻿using AcspNet.Modules;
+using AcspNet.Modules.Html;
 
 namespace AcspNet
 {
@@ -45,5 +46,13 @@ namespace AcspNet
 		/// The redirector.
 		/// </value>
 		public virtual IRedirector Redirector { get; internal set; }
+
+		/// <summary>
+		/// Various HTML generation classes container
+		/// </summary>
+		/// <value>
+		/// The various HTML generation classes container
+		/// </value>
+		public virtual IHtmlWrapper Html { get; internal set; }
 	}
 }

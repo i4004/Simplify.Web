@@ -1,5 +1,6 @@
 ﻿using System;
 using AcspNet.Modules;
+using AcspNet.Modules.Html;
 using Microsoft.Owin;
 using Simplify.DI;
 
@@ -31,6 +32,9 @@ namespace AcspNet.Core
 			controller.DataCollector = containerProvider.Resolve<IDataCollector>();
 			controller.FileReader = containerProvider.Resolve<IFileReader>();
 			controller.Redirector = containerProvider.Resolve<IRedirector>();
+
+			var htmlWrapper = new HtmlWrapper { MessageBox = containerProvider.Resolve<IMessageBox>() };
+			controller.Html = htmlWrapper;
 
 			return controller;
 		}
