@@ -43,7 +43,6 @@ namespace AcspNet.Core
 		/// <param name="sourceRoute">The source route.</param>
 		/// <param name="httpMethod">The HTTP method.</param>
 		/// <returns></returns>
-		/// <exception cref="System.NotImplementedException"></exception>
 		public IRouteMatchResult MatchControllerRoute(IControllerMetaData controllerMetaData, string sourceRoute, string httpMethod)
 		{
 			if (controllerMetaData.ExecParameters == null || controllerMetaData.ExecParameters.RouteInfo == null)

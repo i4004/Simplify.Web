@@ -11,7 +11,6 @@
 		/// <param name="currentPath">The current path.</param>
 		/// <param name="controllerPath">The controller path.</param>
 		/// <returns></returns>
-		/// <exception cref="System.NotImplementedException"></exception>
 		IRouteMatchResult Match(string currentPath, string controllerPath);
 	}
 }
