@@ -145,6 +145,7 @@
     <Compile Include="Modules\TemplateFactoryTests.cs" />
     <Compile Include="Responses\InlineTplTests.cs" />
     <Compile Include="Responses\RedirectTests.cs" />
+    <Compile Include="Responses\AjaxTests.cs" />
     <Compile Include="Routing\ControllerPathParserTests.cs" />
     <Compile Include="Routing\RouteMatcherTests.cs" />
     <Compile Include="TestEntities\TestBootstrapper.cs" />

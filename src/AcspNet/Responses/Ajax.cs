@@ -1,28 +1,29 @@
-﻿using System;
-
-namespace AcspNet.Responses
+﻿namespace AcspNet.Responses
 {
 	/// <summary>
 	/// Provides controller Ajax response (send only specified string to response)
 	/// </summary>
 	public class Ajax : ControllerResponse
 	{
+		private readonly string _ajaxData;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Ajax"/> class.
 		/// </summary>
 		/// <param name="ajaxData">The ajax data.</param>
 		public Ajax(string ajaxData)
 		{
-			throw new NotImplementedException();
+			_ajaxData = ajaxData;
 		}
 
 		/// <summary>
 		/// Processes this response
 		/// </summary>
-		/// <exception cref="System.NotImplementedException"></exception>
 		public override ControllerResponseResult Process()
 		{
-			throw new NotImplementedException();
+			ResponseWriter.Write(_ajaxData, Context.Response);
+
+			return ControllerResponseResult.RawOutput;
 		}
 	}
 }
