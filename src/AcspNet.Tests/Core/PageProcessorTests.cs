@@ -44,7 +44,7 @@ namespace AcspNet.Tests.Core
 			// Assert
 
 			_pageBuilder.Verify(x => x.Build(It.IsAny<IDIContainerProvider>()));
-			_responseWriter.Verify(x => x.Write(It.Is<string>(d => d == "Foo"), It.Is<IOwinResponse>(d => d == _context.Object.Response)));
+			_responseWriter.Verify(x => x.WriteAsync(It.Is<string>(d => d == "Foo"), It.Is<IOwinResponse>(d => d == _context.Object.Response)));
 			_redirector.SetupSet(x => x.PreviousPageUrl = It.Is<string>(d => d == "http://localhost:8080/test"));
 		}
 	}

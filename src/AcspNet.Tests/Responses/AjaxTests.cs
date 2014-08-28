@@ -21,7 +21,7 @@ namespace AcspNet.Tests.Responses
 		}
 
 		[Test]
-		public void Process_NormalData_DataAddedtoDataCollector()
+		public void Process_NormalData_DataWrittenToResponse()
 		{
 			// Assign
 			var ajax = new Mock<Ajax>("test") { CallBase = true };

@@ -85,7 +85,7 @@ namespace AcspNet.Tests.Core
 			result.Wait();
 
 			// Assert
-			_responseWriter.Verify(x => x.Write(It.Is<byte[]>(d => d[0] == 13), It.IsAny<IOwinResponse>()));
+			_responseWriter.Verify(x => x.WriteAsync(It.Is<byte[]>(d => d[0] == 13), It.IsAny<IOwinResponse>()));
 		}
 	}
 }

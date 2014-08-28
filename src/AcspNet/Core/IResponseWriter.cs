@@ -14,7 +14,7 @@ namespace AcspNet.Core
 		/// <param name="data">The data.</param>
 		/// <param name="response">The response.</param>
 		/// <returns></returns>
-		Task Write(string data, IOwinResponse response);
+		void Write(string data, IOwinResponse response);
 
 		/// <summary>
 		/// Writes the specified data.
@@ -22,6 +22,22 @@ namespace AcspNet.Core
 		/// <param name="data">The data.</param>
 		/// <param name="response">The response.</param>
 		/// <returns></returns>
-		Task Write(byte[] data, IOwinResponse response);
+		void Write(byte[] data, IOwinResponse response);
+
+		/// <summary>
+		/// Writes the specified data asynchronously.
+		/// </summary>
+		/// <param name="data">The data.</param>
+		/// <param name="response">The response.</param>
+		/// <returns></returns>
+		Task WriteAsync(string data, IOwinResponse response);
+
+		/// <summary>
+		/// Writes the specified data asynchronously.
+		/// </summary>
+		/// <param name="data">The data.</param>
+		/// <param name="response">The response.</param>
+		/// <returns></returns>
+		Task WriteAsync(byte[] data, IOwinResponse response);
 	}
 }

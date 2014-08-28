@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using AcspNet.Modules;
-using AcspNet.Responses;
 using Microsoft.Owin;
 using Moq;
 using NUnit.Framework;
