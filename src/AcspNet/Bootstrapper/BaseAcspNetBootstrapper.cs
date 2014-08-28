@@ -373,6 +373,10 @@ namespace AcspNet.Bootstrapper
 			_controllersProcessorType = typeof(T);
 		}
 
+		/// <summary>
+		/// Sets the message box.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
 		public void SetMessageBox<T>()
 			where T : IMessageBox
 		{
