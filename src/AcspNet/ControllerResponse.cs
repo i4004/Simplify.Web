@@ -1,4 +1,5 @@
-﻿using AcspNet.Modules;
+﻿using AcspNet.Core;
+using AcspNet.Modules;
 
 namespace AcspNet
 {
@@ -22,6 +23,14 @@ namespace AcspNet
 		/// The redirector.
 		/// </value>
 		public virtual IRedirector Redirector { get; internal set; }
+
+		/// <summary>
+		/// Gets the response writer.
+		/// </summary>
+		/// <value>
+		/// The response writer.
+		/// </value>
+		public virtual IResponseWriter ResponseWriter { get; internal set; }
 
 		/// <summary>
 		/// Processes this response

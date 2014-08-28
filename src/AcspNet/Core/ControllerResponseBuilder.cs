@@ -19,6 +19,7 @@ namespace AcspNet.Core
 
 			controllerResponse.DataCollector = containerProvider.Resolve<IDataCollector>();
 			controllerResponse.Redirector = containerProvider.Resolve<IRedirector>();
+			controllerResponse.ResponseWriter = containerProvider.Resolve<IResponseWriter>();
 		}
 	}
 }
