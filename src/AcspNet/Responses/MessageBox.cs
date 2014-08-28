@@ -8,6 +8,10 @@ namespace AcspNet.Responses
 	/// </summary>
 	public class MessageBox : ControllerResponse
 	{
+		private readonly string _text;
+		private readonly MessageBoxStatus _status;
+		private readonly string _messageBoxTitle;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MessageBox"/> class.
 		/// </summary>
@@ -16,7 +20,9 @@ namespace AcspNet.Responses
 		/// <param name="messageBoxTitle">The message box title.</param>
 		public MessageBox(string text, MessageBoxStatus status = MessageBoxStatus.Error, string messageBoxTitle = null)
 		{
-			throw new NotImplementedException();
+			_text = text;
+			_status = status;
+			_messageBoxTitle = messageBoxTitle;
 		}
 
 		/// <summary>
@@ -25,7 +31,9 @@ namespace AcspNet.Responses
 		/// <returns></returns>
 		public override ControllerResponseResult Process()
 		{
-			throw new NotImplementedException();
+			Html.MessageBox.Show(_text, _status, _messageBoxTitle);
+
+			return ControllerResponseResult.Default;
 		}
 	}
 }
