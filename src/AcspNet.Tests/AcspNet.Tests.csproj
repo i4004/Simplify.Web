@@ -143,6 +143,7 @@
     <Compile Include="Modules\RedirectorTests.cs" />
     <Compile Include="Modules\StringTableTests.cs" />
     <Compile Include="Modules\TemplateFactoryTests.cs" />
+    <Compile Include="Responses\FileTests.cs" />
     <Compile Include="Responses\InlineTplTests.cs" />
     <Compile Include="Responses\RedirectTests.cs" />
     <Compile Include="Responses\AjaxTests.cs" />
