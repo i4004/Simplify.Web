@@ -177,7 +177,7 @@ namespace AcspNet.Tests.Routing
 		}
 
 		[Test]
-		public void Match_ParameterTypeMismach_False()
+		public void Match_ParameterTypeMismatch_False()
 		{
 			// Assign
 			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
@@ -220,6 +220,22 @@ namespace AcspNet.Tests.Routing
 
 			Assert.IsTrue(result.Success);
 			Assert.AreEqual(15, result.RouteParameters.id);
+		}
+
+		[Test]
+		public void Match_OneSegmentWithOneDecimalParameter_True()
+		{
+			// Assign
+			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
+				.Returns(new ControllerPath(new List<PathItem> { new PathParameter("id", typeof(decimal)) }));
+
+			// Act
+			var result = _matcher.Match("/15", "/{id}");
+
+			// Assert
+
+			Assert.IsTrue(result.Success);
+			Assert.AreEqual((decimal)15, result.RouteParameters.id);
 		}
 	}
 }

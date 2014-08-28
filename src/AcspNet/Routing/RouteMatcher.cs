@@ -83,6 +83,16 @@ namespace AcspNet.Routing
 				return buffer;
 			}
 
+			if (pathParameter.Type == typeof(decimal))
+			{
+				decimal buffer;
+
+				if (!decimal.TryParse(source, out buffer))
+					return null;
+
+				return buffer;
+			}
+
 			return null;
 		}
 	}

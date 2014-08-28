@@ -93,7 +93,7 @@ namespace AcspNet.Tests.Routing
 		}
 
 		[Test]
-		public void Parse_BadPatameters_ExceptionThrown()
+		public void Parse_BadParameters_ExceptionThrown()
 		{
 			// Act & Assert
 
@@ -139,5 +139,19 @@ namespace AcspNet.Tests.Routing
 			Assert.AreEqual("bar", result.Items[2].Name);
 		}
 
+
+		[Test]
+		public void Parse_DecimalParameter_Parsed()
+		{
+			// Act
+			var result = _parser.Parse("/{id:decimal}");
+
+			// Assert
+
+			Assert.AreEqual(1, result.Items.Count);
+			Assert.IsNotNull(result.Items[0] as PathParameter);
+			Assert.AreEqual("id", result.Items[0].Name);
+			Assert.AreEqual(typeof(decimal), ((PathParameter)result.Items[0]).Type);
+		}
 	}
 }

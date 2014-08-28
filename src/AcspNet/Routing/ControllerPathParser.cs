@@ -20,7 +20,7 @@ namespace AcspNet.Routing
 		/// </exception>
 		public IControllerPath Parse(string controllerPath)
 		{
-			var items = controllerPath.Split(new[] {'/'}, StringSplitOptions.RemoveEmptyEntries);
+			var items = controllerPath.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
 			var pathItems = new List<PathItem>();
 
 			foreach (var item in items)
@@ -46,7 +46,7 @@ namespace AcspNet.Routing
 						pathItems.Add(new PathParameter(parameterData[0], type));
 					}
 					else
-						pathItems.Add(new PathParameter(subitem, typeof (string)));
+						pathItems.Add(new PathParameter(subitem, typeof(string)));
 				}
 				else
 					pathItems.Add(new PathSegment(item));
@@ -55,10 +55,13 @@ namespace AcspNet.Routing
 			return new ControllerPath(pathItems);
 		}
 
-		private Type ParseParameterType(string typeData)
+		private static Type ParseParameterType(string typeData)
 		{
 			if (typeData == "int")
-				return typeof (int);
+				return typeof(int);
+
+			if (typeData == "decimal")
+				return typeof(decimal);
 
 			return null;
 		}
