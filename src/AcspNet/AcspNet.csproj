@@ -151,6 +151,8 @@
     <Compile Include="Modules\AcspNetContext.cs" />
     <Compile Include="Modules\DataCollector.cs" />
     <Compile Include="Modules\FileReader.cs" />
+    <Compile Include="Modules\Html\IMessageBox.cs" />
+    <Compile Include="Modules\Html\MessageBox.cs" />
     <Compile Include="Modules\ILanguageManagerProvider.cs" />
     <Compile Include="Modules\IRedirector.cs" />
     <Compile Include="Modules\IStringTable.cs" />
@@ -190,7 +192,7 @@
     <Compile Include="Responses\InlineTpl.cs" />
     <Compile Include="Responses\MessageBoxInline.cs" />
     <Compile Include="Responses\MessageBox.cs" />
-    <Compile Include="Responses\MessageBoxStatus.cs" />
+    <Compile Include="Modules\Html\MessageBoxStatus.cs" />
     <Compile Include="Responses\Redirect.cs" />
     <Compile Include="Modules\RedirectionType.cs" />
     <Compile Include="Responses\Tpl.cs" />
@@ -298,7 +300,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

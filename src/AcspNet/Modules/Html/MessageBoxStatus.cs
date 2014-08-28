@@ -1,4 +1,4 @@
-﻿namespace AcspNet.Responses
+﻿namespace AcspNet.Modules.Html
 {
 	/// <summary>
 	/// MessageBox status
