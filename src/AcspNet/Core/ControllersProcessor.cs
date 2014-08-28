@@ -37,7 +37,7 @@ namespace AcspNet.Core
 			{
 				var matcherResult = _agent.MatchControllerRoute(metaData, context.Request.Path.Value, context.Request.Method);
 
-				if (!matcherResult.Success) continue;
+				if (matcherResult == null || !matcherResult.Success) continue;
 
 				var securityResult = _agent.IsSecurityRulesViolated(metaData, context.Authentication.User);
 

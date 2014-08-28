@@ -210,6 +210,43 @@ namespace AcspNet.Tests.Core
 		}
 
 		[Test]
+		public void ProcessRequest_StandardControllersOneIsMatchedNull_ExecutedOnce()
+		{
+			// Assign
+
+			_agent.Setup(x => x.IsAnyPageController(It.IsAny<IControllerMetaData>())).Returns(false);
+			_agent.SetupSequence(
+				x => x.MatchControllerRoute(It.IsAny<IControllerMetaData>(), It.IsAny<string>(), It.IsAny<string>()))
+				.Returns(new RouteMatchResult(true, _routeParameters))
+				.Returns(null);
+			_agent.Setup(x => x.GetStandardControllersMetaData()).Returns(() => new List<IControllerMetaData>
+			{
+				_metaData,
+				_metaData
+			});
+
+			// Act
+			var result = _processor.ProcessControllers(_containerProvider, _context.Object);
+
+			// Assert
+
+			Assert.AreEqual(ControllersProcessorResult.Ok, result);
+			_agent.Verify(x => x.IsAnyPageController(It.IsAny<IControllerMetaData>()), Times.Once);
+			_controllersExecutor.Verify(
+				x =>
+					x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
+						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)), Times.Once);
+
+			_controllersExecutor.Verify(
+				x =>
+					x.Execute(It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IDIContainerProvider>(),
+						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == null)), Times.Never);
+
+			_controllersExecutor.Verify(x => x.ProcessAsyncControllersResponses(It.IsAny<IDIContainerProvider>()), Times.Once);
+		}
+
+
+		[Test]
 		public void ProcessRequest_StandardControllerMatchedReturnsRawData_ReturnedRawDataSubsequentNotExecuted()
 		{
 			// Assign
