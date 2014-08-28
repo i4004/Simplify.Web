@@ -180,6 +180,7 @@ namespace AcspNet
 
 			if (!string.IsNullOrEmpty(config["StaticFilesPaths"]))
 			{
+				StaticFilesPaths.Clear();
 				var items = config["StaticFilesPaths"].Replace(" ", "").Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
 
 				foreach (var item in items)
