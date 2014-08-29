@@ -1,9 +1,9 @@
 body {
-  background: #e0e0e0;
-  color: #505050;
-  font: 1em 'Segoe UI', tahoma, arial, helvetica, sans-serif;
-  margin: 1em;
-  padding: 0; }
+  background: #e0e0e0 !important;
+  color: #505050 !important;
+  font: 1.6em 'Segoe UI', tahoma, arial, helvetica, sans-serif !important;
+  margin: 1em !important;
+  padding: 0 !important; }
 
 div.Header div.Title {
   padding: 1em;
@@ -38,12 +38,19 @@ div.MessageBox {
   font-size: 1.2em;
   text-align: center; }
 
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {
+  border-color: rgba(67, 110, 188, 0.8);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(67, 110, 188, 0.3);
+  outline: 0 none; }
+
 div.Content {
   width: 100%;
   overflow: auto;
-  height: 400px; }
+  min-height: 15em; }
 
 .ExecutionTimeFooter {
+  border-top: 1px solid #969696;
   text-align: center;
-  margin-top: 1em; }
+  margin-top: 1em;
+  padding-top: 0.3em; }
 
