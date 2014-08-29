@@ -23,6 +23,7 @@ namespace AcspNet.Bootstrapper
 		private Type _controllerResponseBuilderType;
 		private Type _controllerExecutorType;
 		private Type _controllersProcessorType;
+		private Type _listsGeneratorType;
 		private Type _messageBoxType;
 		private Type _pageBuilderType;
 		private Type _responseWriterType;
@@ -58,6 +59,7 @@ namespace AcspNet.Bootstrapper
 			RegisterFileReader();
 			RegisterStringTable();
 			RegisterDataCollector();
+			RegisterListsGenerator();
 			RegisterMessageBox();
 			RegisterPageBuilder();
 			RegisterResponseWriter();
@@ -178,6 +180,17 @@ namespace AcspNet.Bootstrapper
 		public Type ControllersProcessorType
 		{
 			get { return _controllersProcessorType ?? typeof(ControllersProcessor); }
+		}
+
+		/// <summary>
+		/// Gets the type of the lists generator.
+		/// </summary>
+		/// <value>
+		/// The type of the lists generator.
+		/// </value>
+		public Type ListsGeneratorType
+		{
+			get { return _listsGeneratorType ?? typeof(ListsGenerator); }
 		}
 
 		/// <summary>
@@ -371,6 +384,16 @@ namespace AcspNet.Bootstrapper
 			where T : IControllersProcessor
 		{
 			_controllersProcessorType = typeof(T);
+		}
+
+		/// <summary>
+		/// Sets the type of the lists generator.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetListsGeneratorType<T>()
+			where T : IListsGenerator
+		{
+			_listsGeneratorType = typeof(T);
 		}
 
 		/// <summary>
@@ -619,6 +642,14 @@ namespace AcspNet.Bootstrapper
 
 				return new DataCollector(settings.DefaultMainContentVariableName, settings.DefaultTitleVariableName, p.Resolve<IStringTable>());
 			}, LifetimeType.PerLifetimeScope);
+		}
+
+		/// <summary>
+		/// Registers the lists generator.
+		/// </summary>
+		public virtual void RegisterListsGenerator()
+		{
+			DIContainer.Current.Register<IListsGenerator>(ListsGeneratorType, LifetimeType.PerLifetimeScope);
 		}
 
 		/// <summary>

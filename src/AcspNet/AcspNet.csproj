@@ -153,7 +153,9 @@
     <Compile Include="Modules\FileReader.cs" />
     <Compile Include="Modules\Html\HtmlWrapper.cs" />
     <Compile Include="Modules\Html\IHtmlWrapper.cs" />
+    <Compile Include="Modules\Html\IListsGenerator.cs" />
     <Compile Include="Modules\Html\IMessageBox.cs" />
+    <Compile Include="Modules\Html\ListsGenerator.cs" />
     <Compile Include="Modules\Html\MessageBox.cs" />
     <Compile Include="Modules\ILanguageManagerProvider.cs" />
     <Compile Include="Modules\IRedirector.cs" />
@@ -299,7 +301,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

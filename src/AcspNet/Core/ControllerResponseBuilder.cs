@@ -23,7 +23,12 @@ namespace AcspNet.Core
 			controllerResponse.Redirector = containerProvider.Resolve<IRedirector>();
 			controllerResponse.ResponseWriter = containerProvider.Resolve<IResponseWriter>();
 
-			var htmlWrapper = new HtmlWrapper {MessageBox = containerProvider.Resolve<IMessageBox>()};
+			var htmlWrapper = new HtmlWrapper
+			{
+				MessageBox = containerProvider.Resolve<IMessageBox>(),
+				ListsGenerator = containerProvider.Resolve<IListsGenerator>()
+			}; 
+			
 			controllerResponse.Html = htmlWrapper;
 		}
 	}

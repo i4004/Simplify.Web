@@ -33,7 +33,12 @@ namespace AcspNet.Core
 			controller.FileReader = containerProvider.Resolve<IFileReader>();
 			controller.Redirector = containerProvider.Resolve<IRedirector>();
 
-			var htmlWrapper = new HtmlWrapper { MessageBox = containerProvider.Resolve<IMessageBox>() };
+			var htmlWrapper = new HtmlWrapper
+			{
+				MessageBox = containerProvider.Resolve<IMessageBox>(),
+				ListsGenerator = containerProvider.Resolve<IListsGenerator>()
+			};
+
 			controller.Html = htmlWrapper;
 
 			return controller;

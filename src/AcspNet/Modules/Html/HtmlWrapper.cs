@@ -12,5 +12,10 @@
 		/// The message box.
 		/// </value>
 		public IMessageBox MessageBox { get; internal set; }
+
+		/// <summary>
+		/// HTML ComboBox lists generator.
+		/// </summary>
+		public IListsGenerator ListsGenerator { get; internal set; }
 	}
 }
