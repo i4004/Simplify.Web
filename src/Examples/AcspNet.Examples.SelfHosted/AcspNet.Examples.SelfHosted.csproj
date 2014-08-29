@@ -50,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Clean.sh" />
     <None Include="packages.config" />
     <None Include="Scripts\jquery-2.1.1.min.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -186,7 +185,6 @@
   <PropertyGroup>
     <PostBuildEvent Condition="'$(OS)' != 'Unix'">if "$(ConfigurationName)" == "Release" (del "$(TargetDir)*.xml"
 del "$(TargetDir)*.config")</PostBuildEvent>
-    <PostBuildEvent Condition="'$(OS)' == 'Unix'">$(ProjectDir)Clean.sh "$(ConfigurationName)" "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
