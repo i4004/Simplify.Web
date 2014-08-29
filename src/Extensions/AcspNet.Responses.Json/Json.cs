@@ -1,4 +1,6 @@
-﻿namespace AcspNet.Responses
+﻿using Newtonsoft.Json;
+
+namespace AcspNet.Responses
 {
 	/// <summary>
 	/// Provides controller JSON response (send only JSON string to response)
@@ -21,15 +23,9 @@
 		/// </summary>
 		public override ControllerResponseResult Process()
 		{
-			//ResponseWriter.Write(_objectToConvert, Context.Response);
+			ResponseWriter.Write(JsonConvert.SerializeObject(_objectToConvert), Context.Response);
 
 			return ControllerResponseResult.RawOutput;
 		}
-
-		//private static string ToJson(object input)
-		//{
-		//	var serializer = new JavaScriptSerializer();
-		//	return serializer.Serialize(input);
-		//}
 	}
 }
