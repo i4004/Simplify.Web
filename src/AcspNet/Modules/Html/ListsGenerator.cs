@@ -118,8 +118,8 @@ namespace AcspNet.Modules.Html
 
 			var month = Convert.ToDateTime("1/1/2010");
 
-			for (var i = 1; i < 13; i++)
-				data += string.Format("<option value='{0}' {2}>{1}</option>", i, month.AddMonths(i).ToString("MMMM"), i == selectedMonth ? "selected='selected'" : "");
+			for (var i = 0; i < 12; i++)
+				data += string.Format("<option value='{0}' {2}>{1}</option>", i + 1, month.AddMonths(i).ToString("MMMM"), i + 1 == selectedMonth ? "selected='selected'" : "");
 
 			return data;
 		}
