@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Simplify.Templates;
 
@@ -15,20 +16,27 @@ namespace AcspNet.Modules
 		private readonly string _language;
 		private readonly string _defaultLanguage;
 		private readonly bool _templatesMemoryCache;
+		private readonly bool _loadTemplatesFromAssembly;
 
 		private readonly IDictionary<KeyValuePair<string, string>, string> _cache = new Dictionary<KeyValuePair<string, string>, string>();
 
 		private readonly object _locker = new object();
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="TemplateFactory"/> class.
+		/// Initializes a new instance of the <see cref="TemplateFactory" /> class.
 		/// </summary>
-		public TemplateFactory(IEnvironment environment, string language, string defaultLanguage, bool templatesMemoryCache = false)
+		/// <param name="environment">The environment.</param>
+		/// <param name="language">The language.</param>
+		/// <param name="defaultLanguage">The default language.</param>
+		/// <param name="templatesMemoryCache">if set to <c>true</c> them loaded templates will be cached in memory.</param>
+		/// <param name="loadTemplatesFromAssembly">if set to <c>true</c> then all templates will be loaded from assembly.</param>
+		public TemplateFactory(IEnvironment environment, string language, string defaultLanguage, bool templatesMemoryCache = false, bool loadTemplatesFromAssembly = false)
 		{
 			_environment = environment;
 			_language = language;
 			_defaultLanguage = defaultLanguage;
 			_templatesMemoryCache = templatesMemoryCache;
+			_loadTemplatesFromAssembly = loadTemplatesFromAssembly;
 		}
 
 		/// <summary>
@@ -44,7 +52,7 @@ namespace AcspNet.Modules
 			if (!fileName.EndsWith(".tpl"))
 				fileName = fileName + ".tpl";
 
-			var filePath = string.Format("{0}{1}", _environment.TemplatesPhysicalPath, fileName);
+			var filePath = !_loadTemplatesFromAssembly ? string.Format("{0}{1}", _environment.TemplatesPhysicalPath, fileName) : fileName;
 
 			if (_templatesMemoryCache)
 			{
@@ -57,11 +65,14 @@ namespace AcspNet.Modules
 				{
 					tpl = TryLoadExistingTemplate(filePath);
 
-					if (tpl != null)
-						return tpl;
+					if (tpl == null)
+					{
+						tpl = !_loadTemplatesFromAssembly
+							? new Template(filePath, _language, _defaultLanguage)
+							: new Template(Assembly.GetCallingAssembly(), filePath.Replace("/", "."), _language, _defaultLanguage);
 
-					tpl = new Template(filePath, _language, _defaultLanguage);
-					_cache.Add(new KeyValuePair<string, string>(filePath, _language), tpl.Get());
+						_cache.Add(new KeyValuePair<string, string>(filePath, _language), tpl.Get());
+					}
 					return tpl;
 				}
 			}

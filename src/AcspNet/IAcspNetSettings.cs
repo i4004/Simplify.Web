@@ -34,6 +34,14 @@ namespace AcspNet
 		bool TemplatesMemoryCache { get; }
 
 		/// <summary>
+		/// Gets a value indicating whether all templates should be loaded from assembly
+		/// </summary>
+		/// <value>
+		/// <c>true</c> if all templates should be loaded from assembly; otherwise, <c>false</c>.
+		/// </value>
+		bool LoadTemplatesFromAssembly { get; }
+
+		/// <summary>
 		/// Gets or sets the master page template file name
 		/// </summary>
 		/// <value>

@@ -606,7 +606,8 @@ namespace AcspNet.Bootstrapper
 				{
 					var settings = p.Resolve<IAcspNetSettings>();
 
-					return new TemplateFactory(p.Resolve<IEnvironment>(), p.Resolve<ILanguageManagerProvider>().Get().Language, settings.DefaultLanguage, settings.TemplatesMemoryCache);
+					return new TemplateFactory(p.Resolve<IEnvironment>(), p.Resolve<ILanguageManagerProvider>().Get().Language,
+						settings.DefaultLanguage, settings.TemplatesMemoryCache, settings.LoadTemplatesFromAssembly);
 				}, LifetimeType.PerLifetimeScope);
 		}
 		

@@ -83,5 +83,18 @@ namespace AcspNet.Tests.Modules
 			// Assert
 			Assert.AreEqual("Dummy data", data.Get());
 		}
+
+		[Test]
+		public void Load_FromManifestEnabled_CalledCorrectlyPathFixedWithDots()
+		{
+			// Assign
+			var tf = new TemplateFactory(_environment.Object, "en", "en", true, true);
+
+			// Act
+			var result = tf.Load("Templates/Test.tpl");
+
+			// Assert
+			Assert.AreEqual("Hello!", result.Get());
+		}
 	}
 }
