@@ -119,7 +119,7 @@ namespace AcspNet
 
 			DataPath = "App_Data";
 
-			StaticFilesPaths = new List<string> {"Styles", "Scripts", "Images", "Content"};
+			StaticFilesPaths = new List<string> {"Styles", "Scripts", "Images", "Content", "fonts"};
 
 			HideExceptionDetails = false;
 
