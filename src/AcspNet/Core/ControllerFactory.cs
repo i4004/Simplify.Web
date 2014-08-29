@@ -1,6 +1,5 @@
 ﻿using System;
 using AcspNet.Modules;
-using AcspNet.Modules.Html;
 using Microsoft.Owin;
 using Simplify.DI;
 
@@ -9,7 +8,7 @@ namespace AcspNet.Core
 	/// <summary>
 	/// Controller factory
 	/// </summary>
-	public class ControllerFactory : ViewAccessorBuilder, IControllerFactory
+	public class ControllerFactory : ActionModulesAccessorBuilder, IControllerFactory
 	{
 		/// <summary>
 		/// Creates the controller.
@@ -23,23 +22,9 @@ namespace AcspNet.Core
 		{
 			var controller = (ControllerBase)containerProvider.Resolve(controllerType);
 
-			BuildModulesAccessorProperties(controller, containerProvider);
-			BuildViewAccessorProperties(controller, containerProvider, containerProvider.Resolve<IViewFactory>());
+			BuildActionModulesAccessorProperties(controller, containerProvider);
 
 			controller.RouteParameters = routeParameters;
-			controller.Context = containerProvider.Resolve<IAcspNetContextProvider>().Get();
-			controller.LanguageManager = containerProvider.Resolve<ILanguageManagerProvider>().Get();
-			controller.DataCollector = containerProvider.Resolve<IDataCollector>();
-			controller.FileReader = containerProvider.Resolve<IFileReader>();
-			controller.Redirector = containerProvider.Resolve<IRedirector>();
-
-			var htmlWrapper = new HtmlWrapper
-			{
-				MessageBox = containerProvider.Resolve<IMessageBox>(),
-				ListsGenerator = containerProvider.Resolve<IListsGenerator>()
-			};
-
-			controller.Html = htmlWrapper;
 
 			return controller;
 		}

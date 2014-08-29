@@ -1,13 +1,11 @@
-﻿using AcspNet.Modules;
-using AcspNet.Modules.Html;
-using Simplify.DI;
+﻿using Simplify.DI;
 
 namespace AcspNet.Core
 {
 	/// <summary>
 	/// Provides controller response builder
 	/// </summary>
-	public class ControllerResponseBuilder : ModulesAccessorBuilder, IControllerResponseBuilder
+	public class ControllerResponseBuilder : ActionModulesAccessorBuilder, IControllerResponseBuilder
 	{
 		/// <summary>
 		/// Builds the controller response properties.
@@ -16,20 +14,9 @@ namespace AcspNet.Core
 		/// <param name="containerProvider">The DI container provider.</param>
 		public void BuildControllerResponseProperties(ControllerResponse controllerResponse, IDIContainerProvider containerProvider)
 		{
-			BuildModulesAccessorProperties(controllerResponse, containerProvider);
+			BuildActionModulesAccessorProperties(controllerResponse, containerProvider);
 
-			controllerResponse.Context = containerProvider.Resolve<IAcspNetContextProvider>().Get();
-			controllerResponse.DataCollector = containerProvider.Resolve<IDataCollector>();
-			controllerResponse.Redirector = containerProvider.Resolve<IRedirector>();
 			controllerResponse.ResponseWriter = containerProvider.Resolve<IResponseWriter>();
-
-			var htmlWrapper = new HtmlWrapper
-			{
-				MessageBox = containerProvider.Resolve<IMessageBox>(),
-				ListsGenerator = containerProvider.Resolve<IListsGenerator>()
-			}; 
-			
-			controllerResponse.Html = htmlWrapper;
 		}
 	}
 }

@@ -1,12 +1,21 @@
 ﻿using AcspNet.Modules;
+using AcspNet.Modules.Html;
 
 namespace AcspNet
 {
 	/// <summary>
 	/// Modules accessor base class
 	/// </summary>
-	public abstract class ModulesAccessor
+	public abstract class ModulesAccessor : ViewAccessor
 	{
+		/// <summary>
+		/// Various HTML generation classes container
+		/// </summary>
+		/// <value>
+		/// The various HTML generation classes container
+		/// </value>
+		public virtual IHtmlWrapper Html { get; internal set; }
+
 		/// <summary>
 		/// Current request environment data.
 		/// </summary>
