@@ -183,8 +183,8 @@
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent Condition="'$(OS)' != 'Unix'">if "$(ConfigurationName)" == "Release" (del "$(TargetDir)*.xml" del "$(TargetDir)*.config")</PostBuildEvent>
+    <PostBuildEvent Condition="'$(OS)' == 'Unix'">if [ "$(ConfigurationName)" == "Release" ]; then rm "$(TargetDir)*.xml" fi</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
