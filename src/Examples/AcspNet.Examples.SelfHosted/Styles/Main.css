@@ -5,30 +5,12 @@ body {
   margin: 1em !important;
   padding: 0 !important; }
 
-div.Header div.Title {
+div.Title {
   padding: 1em;
   background-color: #c4c4c4;
   font-size: 2em; }
-div.Header div.Menu {
-  background: #969696;
-  color: #fff;
-  line-height: 1em;
-  width: 100%;
-  float: left;
-  overflow: auto; }
-  div.Header div.Menu div.Left {
-    float: left;
-    padding: 0.5em; }
-  div.Header div.Menu div.Right {
-    float: right;
-    padding: 0.5em; }
-  div.Header div.Menu a {
-    color: white;
-    margin: 0 0.25em 0 0.25em;
-    text-decoration: none; }
-  div.Header div.Menu a:hover {
-    color: lightblue; }
-div.Header img.Logo {
+
+img.Logo {
   vertical-align: middle;
   width: 2.5em;
   margin-right: 0.8em; }
@@ -38,17 +20,26 @@ div.MessageBox {
   font-size: 1.2em;
   text-align: center; }
 
+.navbar {
+  background: #969696;
+  color: #fff;
+  border: 0;
+  border-radius: 0;
+  box-shadow: 0 1px 1px transparent inset, 0 0 8px transparent; }
+  .navbar a {
+    color: white !important; }
+  .navbar a:hover {
+    color: lightblue !important; }
+
 textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
-  border-color: #969696; }
+  border-color: #969696;
+  border-radius: 0; }
 
 textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {
   border-color: #0d85c9;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(67, 110, 188, 0);
-  outline: 0 none; }
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(67, 110, 188, 0); }
 
 div.Content {
-  width: 100%;
-  overflow: auto;
   min-height: 15em; }
 
 .ExecutionTimeFooter {

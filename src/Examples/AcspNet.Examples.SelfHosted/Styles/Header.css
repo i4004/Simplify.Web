@@ -1,27 +1,9 @@
-div.Header div.Title {
+div.Title {
   padding: 1em;
   background-color: #c4c4c4;
   font-size: 2em; }
-div.Header div.Menu {
-  background: #969696;
-  color: #fff;
-  line-height: 1em;
-  width: 100%;
-  float: left;
-  overflow: auto; }
-  div.Header div.Menu div.Left {
-    float: left;
-    padding: 0.5em; }
-  div.Header div.Menu div.Right {
-    float: right;
-    padding: 0.5em; }
-  div.Header div.Menu a {
-    color: white;
-    margin: 0 0.25em 0 0.25em;
-    text-decoration: none; }
-  div.Header div.Menu a:hover {
-    color: lightblue; }
-div.Header img.Logo {
+
+img.Logo {
   vertical-align: middle;
   width: 2.5em;
   margin-right: 0.8em; }
