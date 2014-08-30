@@ -40,13 +40,13 @@
     <Compile Include="Controllers\Accounts\LogoutController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HttpErrors\Http404Controller.cs" />
-    <Compile Include="Controllers\Accounts\LoginFormController.cs" />
+    <Compile Include="Controllers\Accounts\LoginPageController.cs" />
     <Compile Include="Controllers\Shared\LoginPanelController.cs" />
     <Compile Include="Controllers\Static\AboutController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Views\LoginPanelView.cs" />
+    <Compile Include="Views\Shared\LoggedUserPanelView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -85,10 +85,10 @@
     <None Include="Templates\Accounts\LoginPage.tpl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\Shared\GuestPanel.tpl">
+    <None Include="Templates\Shared\LoginPanel\GuestPanel.tpl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\Shared\LoggedUserPanel.tpl">
+    <None Include="Templates\Shared\LoginPanel\LoggedUserPanel.tpl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Templates\Static\About.tpl">

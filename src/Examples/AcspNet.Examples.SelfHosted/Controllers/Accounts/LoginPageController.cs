@@ -4,7 +4,7 @@ using AcspNet.Responses;
 namespace AcspNet.Examples.SelfHosted.Controllers.Accounts
 {
 	[Get("login")]
-	public class LoginFormController : Controller
+	public class LoginPageController : Controller
 	{
 		public override ControllerResponse Invoke()
 		{
