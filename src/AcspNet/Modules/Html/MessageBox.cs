@@ -44,13 +44,10 @@ namespace AcspNet.Modules.Html
 		/// <param name="text">Text of a message box</param>
 		/// <param name="status">Status of a message box</param>
 		/// <param name="title">Title of a message box</param>
-		public void Show(string text, MessageBoxStatus status = MessageBoxStatus.Error, string title = "")
+		public void Show(string text, MessageBoxStatus status = MessageBoxStatus.Error, string title = null)
 		{
 			if (string.IsNullOrEmpty(text))
 				throw new ArgumentNullException("text");
-
-			if (title == null)
-				throw new ArgumentNullException("title");
 
 			var templateFile = MessageBoxTemplatesPath;
 
@@ -70,10 +67,10 @@ namespace AcspNet.Modules.Html
 			var tpl = _templateFactory.Load(templateFile);
 
 			tpl.Set("Message", text);
-			tpl.Set("Title", title == "" ? _stringTable.GetItem("FormTitleMessageBox") : title);
+			tpl.Set("Title", string.IsNullOrEmpty(title) ? _stringTable.GetItem("FormTitleMessageBox") : title);
 
 			_dataCollector.Add(tpl.Get());
-			_dataCollector.AddTitle(title == "" ? _stringTable.GetItem("FormTitleMessageBox") : title);
+			_dataCollector.AddTitle(string.IsNullOrEmpty(title) ? _stringTable.GetItem("FormTitleMessageBox") : title);
 		}
 
 		/// <summary>
@@ -82,7 +79,7 @@ namespace AcspNet.Modules.Html
 		/// <param name="stringTableItemName">Show message from string table item</param>
 		/// <param name="status">Status of a message box</param>
 		/// <param name="title">Title of a message box</param>
-		public void ShowSt(string stringTableItemName, MessageBoxStatus status = MessageBoxStatus.Error, string title = "")
+		public void ShowSt(string stringTableItemName, MessageBoxStatus status = MessageBoxStatus.Error, string title = null)
 		{
 			Show(_stringTable.GetItem(stringTableItemName), status, title);
 		}

@@ -15,7 +15,6 @@ namespace AcspNet.Tests.Modules.Html
 		{
 			var mb = new MessageBox(null, null, null);
 			Assert.Throws<ArgumentNullException>(() => mb.Show(null));
-			Assert.Throws<ArgumentNullException>(() => mb.Show("test", MessageBoxStatus.Information, null));
 		}
 
 		[Test]

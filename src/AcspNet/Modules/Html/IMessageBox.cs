@@ -23,7 +23,7 @@
 		/// <param name="text">Text of a message box</param>
 		/// <param name="status">Status of a message box</param>
 		/// <param name="title">Title of a message box</param>
-		void Show(string text, MessageBoxStatus status = MessageBoxStatus.Error, string title = "");
+		void Show(string text, MessageBoxStatus status = MessageBoxStatus.Error, string title = null);
 
 		/// <summary>
 		///Generate message box HTML and set to data collector
@@ -31,7 +31,7 @@
 		/// <param name="stringTableItemName">Show message from string table item</param>
 		/// <param name="status">Status of a message box</param>
 		/// <param name="title">Title of a message box</param>
-		void ShowSt(string stringTableItemName, MessageBoxStatus status = MessageBoxStatus.Error, string title = "");
+		void ShowSt(string stringTableItemName, MessageBoxStatus status = MessageBoxStatus.Error, string title = null);
 
 		/// <summary>
 		/// Get inline message box HTML
