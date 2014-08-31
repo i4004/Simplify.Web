@@ -13,7 +13,6 @@
 
 div.Content
 {
-	min-height: 15em;
 }
 
 .ExecutionTimeFooter
@@ -22,4 +21,10 @@ div.Content
 	text-align: center;
 	margin-top: 1em;
 	padding-top: 0.3em;
+}
+
+div.Http404MessageBox
+{
+	color: #0d85c9;
+	padding: 4em 2em 4em 2em;
 }

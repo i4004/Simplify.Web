@@ -40,12 +40,13 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(67, 110, 188, 0);
   color: black; }
 
-div.Content {
-  min-height: 15em; }
-
 .ExecutionTimeFooter {
   border-top: 1px solid #969696;
   text-align: center;
   margin-top: 1em;
   padding-top: 0.3em; }
+
+div.Http404MessageBox {
+  color: #0d85c9;
+  padding: 4em 2em 4em 2em; }
 
