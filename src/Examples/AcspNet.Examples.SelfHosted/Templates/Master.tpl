@@ -4,7 +4,7 @@
 	<meta charset="utf-8" />
 	<title>{Title}</title>
 	<link rel="stylesheet" type="text/css" href="{~}/Content/bootstrap.min.css" />
-	<!--<link rel="stylesheet" type="text/css" href="{~}/Content/bootstrap-theme.css" />-->
+	<link rel="stylesheet" type="text/css" href="{~}/Content/bootstrap-theme.css" />
 	<link rel="stylesheet" type="text/css" href="{~}/Styles/Main.css" />
 </head>
 <body>

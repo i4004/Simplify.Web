@@ -27,5 +27,18 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
 {
 	border-color: #0d85c9;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(67, 110, 188, 0);
-	color: black;
+	color: #0d85c9;
+}
+
+button.btn
+{
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0) inset, 0 0 8px rgba(0, 0, 0, 0);
+	border-color: #969696;
+}
+
+button.btn:hover
+{
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0) inset, 0 0 8px rgba(0, 0, 0, 0);
+	/*border-color: #0d85c9;*/
+	color: #0d85c9;
 }

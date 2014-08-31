@@ -38,7 +38,16 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {
   border-color: #0d85c9;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(67, 110, 188, 0);
-  color: black; }
+  color: #0d85c9; }
+
+button.btn {
+  box-shadow: 0 1px 1px transparent inset, 0 0 8px transparent;
+  border-color: #969696; }
+
+button.btn:hover {
+  box-shadow: 0 1px 1px transparent inset, 0 0 8px transparent;
+  /*border-color: #0d85c9;*/
+  color: #0d85c9; }
 
 .ExecutionTimeFooter {
   border-top: 1px solid #969696;
