@@ -2,4 +2,6 @@
 
 <items>
 	<item name="PageTitleAbout" value="About Page" />
+
+	<item name="Http404Message" value="Oops! Page is not found!" />	
 </items>

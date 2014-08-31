@@ -8,7 +8,7 @@ namespace AcspNet.Examples.SelfHosted.Controllers.HttpErrors
 	{
 		public override ControllerResponse Invoke()
 		{
-			return new Tpl(TemplateFactory.Load("HttpErrors/Http404"));
+			return new MessageBoxSt("Http404Message");
 		}
 	}
 }

@@ -73,10 +73,25 @@
     <None Include="Styles\Header.scss" />
     <None Include="Styles\MessageBox.scss" />
     <None Include="Styles\BootstrapOverride.scss" />
-    <None Include="Templates\Default.tpl">
+    <None Include="Templates\AcspNet\MessageBox\InlineOkMessageBox.tpl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\HttpErrors\Http404.tpl">
+    <None Include="Templates\AcspNet\MessageBox\InlineErrorMessageBox.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\AcspNet\MessageBox\InlineInfoMessageBox.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\AcspNet\MessageBox\OkMessageBox.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\AcspNet\MessageBox\ErrorMessageBox.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\AcspNet\MessageBox\InfoMessageBox.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\Default.tpl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Templates\Master.tpl">
