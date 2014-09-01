@@ -20,13 +20,15 @@ namespace AcspNet.Tests.Core
 		private Mock<ILanguageManager> _languageManager;
 		private Mock<IAcspNetContextProvider> _contextProvider;
 		private Mock<IAcspNetContext> _context;
+		private Mock<IStringTable> _stringTable;
 		private Mock<IStopwatchProvider> _stopwatchProvider;
+		
 
 		[SetUp]
 		public void Initialize()
 		{
 			_dataCollector = new Mock<IDataCollector>();
-			_setter = new ContextVariablesSetter(_dataCollector.Object);
+			_setter = new ContextVariablesSetter(_dataCollector.Object, true);
 			_containerProvider = new Mock<IDIContainerProvider>();
 
 			_environment = new Mock<IEnvironment>();
@@ -34,7 +36,10 @@ namespace AcspNet.Tests.Core
 			_languageManager = new Mock<ILanguageManager>();
 			_contextProvider = new Mock<IAcspNetContextProvider>();
 			_context = new Mock<IAcspNetContext>();
+			_stringTable = new Mock<IStringTable>();
 			_stopwatchProvider = new Mock<IStopwatchProvider>();
+
+			_dataCollector.SetupGet(x => x.TitleVariableName).Returns("Title");
 
 			_environment.SetupGet(x => x.TemplatesPath).Returns("Templates");
 			_environment.SetupGet(x => x.SiteStyle).Returns("Main");
@@ -51,6 +56,7 @@ namespace AcspNet.Tests.Core
 			_containerProvider.Setup(x => x.Resolve(It.Is<Type>(d => d == typeof(IEnvironment)))).Returns(_environment.Object);
 			_containerProvider.Setup(x => x.Resolve(It.Is<Type>(d => d == typeof(ILanguageManagerProvider)))).Returns(_languageManagerProvider.Object);
 			_containerProvider.Setup(x => x.Resolve(It.Is<Type>(d => d == typeof(IAcspNetContextProvider)))).Returns(_contextProvider.Object);
+			_containerProvider.Setup(x => x.Resolve(It.Is<Type>(d => d == typeof(IStringTable)))).Returns(_stringTable.Object);
 			_containerProvider.Setup(x => x.Resolve(It.Is<Type>(d => d == typeof(IStopwatchProvider)))).Returns(_stopwatchProvider.Object);
 		}
 
@@ -69,6 +75,89 @@ namespace AcspNet.Tests.Core
 			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameSiteUrl), It.Is<string>(d => d == "http://localhost/mysite/")));
 			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameSiteVirtualPath), It.Is<string>(d => d == "/mysite")));
 			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameExecutionTime), It.Is<string>(d => d == "01:15:342")));
+			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == "Title"), It.IsAny<string>()), Times.Never);
+		}
+
+		[Test]
+		public void SetVariables_TitleNoTitleInStringTable_AddNotInvoked()
+		{
+			// Assign
+			_setter = new ContextVariablesSetter(_dataCollector.Object, false);
+
+			// Act
+			_setter.SetVariables(_containerProvider.Object);
+
+			// Assert
+			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == "Title"), It.IsAny<string>()), Times.Never);
+		}
+
+		[Test]
+		public void SetVariables_TitleDefaultPage_AddedTitleFromStringTable()
+		{
+			// Assign
+
+			_setter = new ContextVariablesSetter(_dataCollector.Object, false);
+			_stringTable.Setup(x => x.GetItem(It.Is<string>(d => d == ContextVariablesSetter.SiteTitleStringTableVariableName)))
+				.Returns("Test!");
+			_context.SetupGet(x => x.Request.Path).Returns(new PathString("/"));
+
+			// Act
+			_setter.SetVariables(_containerProvider.Object);
+
+			// Assert
+			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == "Title"), It.Is<string>(d => d == "Test!")));
+		}
+
+		[Test]
+		public void SetVariables_TitleDefaultPageWithQueryString_AddedTitleFromStringTable()
+		{
+			// Assign
+
+			_setter = new ContextVariablesSetter(_dataCollector.Object, false);
+			_stringTable.Setup(x => x.GetItem(It.Is<string>(d => d == ContextVariablesSetter.SiteTitleStringTableVariableName)))
+				.Returns("Test!");
+			_context.SetupGet(x => x.Request.Path).Returns(new PathString("/?=lang=ru"));
+
+			// Act
+			_setter.SetVariables(_containerProvider.Object);
+
+			// Assert
+			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == "Title"), It.Is<string>(d => d == "Test!")));
+		}
+
+		[Test]
+		public void SetVariables_TitleSpecificActionNoTitleInDataCollector_AddedTitleFromStringTable()
+		{
+			// Assign
+
+			_setter = new ContextVariablesSetter(_dataCollector.Object, false);
+			_stringTable.Setup(x => x.GetItem(It.Is<string>(d => d == ContextVariablesSetter.SiteTitleStringTableVariableName)))
+				.Returns("Test!");
+			_context.SetupGet(x => x.Request.Path).Returns(new PathString("/foo"));
+
+			// Act
+			_setter.SetVariables(_containerProvider.Object);
+
+			// Assert
+			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == "Title"), It.Is<string>(d => d == "Test!")));
+		}
+
+		[Test]
+		public void SetVariables_TitleSpecificActionNoTitleInDataCollector_TitleAddedAfterDataInDataCollector()
+		{
+			// Assign
+
+			_setter = new ContextVariablesSetter(_dataCollector.Object, false);
+			_stringTable.Setup(x => x.GetItem(It.Is<string>(d => d == ContextVariablesSetter.SiteTitleStringTableVariableName)))
+				.Returns("Test!");
+			_context.SetupGet(x => x.Request.Path).Returns(new PathString("/foo"));
+			_dataCollector.Setup(x => x.IsDataExist(It.Is<string>(d => d == "Title"))).Returns(true);
+
+			// Act
+			_setter.SetVariables(_containerProvider.Object);
+
+			// Assert
+			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == "Title"), It.Is<string>(d => d == " - Test!")));
 		}
 	}
 }

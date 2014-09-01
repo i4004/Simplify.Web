@@ -9,7 +9,6 @@ namespace AcspNet.Modules
 	public class DataCollector : IDataCollector
 	{
 		private readonly string _mainContentVariableName;
-		private readonly string _titleVariableName;
 		private readonly IStringTable _stringTable;
 
 		private readonly IDictionary<string, string> _items = new Dictionary<string, string>();
@@ -23,9 +22,17 @@ namespace AcspNet.Modules
 		public DataCollector(string mainContentVariableName, string titleVariableName, IStringTable stringTable)
 		{
 			_mainContentVariableName = mainContentVariableName;
-			_titleVariableName = titleVariableName;
+			TitleVariableName = titleVariableName;
 			_stringTable = stringTable;
 		}
+
+		/// <summary>
+		/// Gets the name of the title variable.
+		/// </summary>
+		/// <value>
+		/// The name of the title variable.
+		/// </value>
+		public string TitleVariableName { get; private set; }
 
 		/// <summary>
 		/// List of data collector items
@@ -101,7 +108,7 @@ namespace AcspNet.Modules
 		/// <param name="value">Value to set</param>
 		public void AddTitle(string value)
 		{
-			Add(_titleVariableName, value);
+			Add(TitleVariableName, value);
 		}
 
 		/// <summary>

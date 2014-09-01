@@ -31,7 +31,6 @@ namespace AcspNet.Bootstrapper
 		private Type _controllersRequestHandlerType;
 		private Type _requestHandlerType;
 		private Type _stopwatchProviderType;
-		private Type _contextVariablesSetterType;
 		private Type _acspNetContextProviderType;
 
 		/// <summary>
@@ -271,17 +270,6 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
-		/// Gets the type of the context variables setter.
-		/// </summary>
-		/// <value>
-		/// The type of the context variables setter.
-		/// </value>
-		public Type ContextVariablesSetterType
-		{
-			get { return _contextVariablesSetterType ?? typeof(ContextVariablesSetter); }
-		}
-
-		/// <summary>
 		/// Gets the type of the AcspNet context provider.
 		/// </summary>
 		/// <value>
@@ -464,16 +452,6 @@ namespace AcspNet.Bootstrapper
 			where T : IStopwatchProvider
 		{
 			_stopwatchProviderType = typeof(T);
-		}
-
-		/// <summary>
-		/// Sets the type of the context variables setter.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		public void SetContextVariablesSetterType<T>()
-			where T : IContextVariablesSetter
-		{
-			_contextVariablesSetterType = typeof(T);
 		}
 
 		/// <summary>
@@ -725,7 +703,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterContextVariablesSetter()
 		{
-			DIContainer.Current.Register<IContextVariablesSetter>(ContextVariablesSetterType, LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<IContextVariablesSetter>(p => new ContextVariablesSetter(p.Resolve<IDataCollector>(), p.Resolve<IAcspNetSettings>().DisableAutomaticSiteTitleSet), LifetimeType.PerLifetimeScope);
 		}
 
 		/// <summary>

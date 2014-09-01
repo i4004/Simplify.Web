@@ -8,7 +8,6 @@ namespace AcspNet.Core
 	/// </summary>
 	public class ContextVariablesSetter : IContextVariablesSetter
 	{
-
 		/// <summary>
 		/// The site variable name templates dir
 		/// </summary>
@@ -44,16 +43,23 @@ namespace AcspNet.Core
 		/// </summary>
 		public const string VariableNameExecutionTime = "SV:SiteExecutionTime";
 
+		/// <summary>
+		/// The site title string table variable name
+		/// </summary>
+		public const string SiteTitleStringTableVariableName = "SiteTitle";
 
 		private readonly IDataCollector _dataCollector;
+		private readonly bool _disableAutomaticSiteTitleSet;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ContextVariablesSetter"/> class.
+		/// Initializes a new instance of the <see cref="ContextVariablesSetter" /> class.
 		/// </summary>
 		/// <param name="dataCollector">The data collector.</param>
-		public ContextVariablesSetter(IDataCollector dataCollector)
+		/// <param name="disableAutomaticSiteTitleSet">if set to <c>true</c> then automatic site title set will be disabled.</param>
+		public ContextVariablesSetter(IDataCollector dataCollector, bool disableAutomaticSiteTitleSet)
 		{
 			_dataCollector = dataCollector;
+			_disableAutomaticSiteTitleSet = disableAutomaticSiteTitleSet;
 		}
 
 		/// <summary>
@@ -76,7 +82,23 @@ namespace AcspNet.Core
 			_dataCollector.Add(VariableNameSiteUrl, context.SiteUrl);
 			_dataCollector.Add(VariableNameSiteVirtualPath, context.Request.PathBase.Value);
 
+			if (!_disableAutomaticSiteTitleSet)
+				SetSiteTitleFromStringTable(context.Request.Path.Value, containerProvider.Resolve<IStringTable>(), _dataCollector);
+
 			_dataCollector.Add(VariableNameExecutionTime, stopWatchProvider.StopAndGetMeasurement().ToString("mm\\:ss\\:fff"));
+		}
+
+		private void SetSiteTitleFromStringTable(string currentPath, IStringTable stringTable, IDataCollector dataCollector)
+		{
+			var siteTitle = stringTable.GetItem(SiteTitleStringTableVariableName);
+
+			if (string.IsNullOrEmpty(siteTitle))
+				return;
+
+			if (string.IsNullOrEmpty(currentPath) || currentPath == "/" || currentPath.StartsWith("/?") || !_dataCollector.IsDataExist(_dataCollector.TitleVariableName))
+				_dataCollector.Add(_dataCollector.TitleVariableName, siteTitle);
+			else
+				_dataCollector.Add(_dataCollector.TitleVariableName, " - " + siteTitle);
 		}
 	}
 }
