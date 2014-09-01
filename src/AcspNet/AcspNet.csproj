@@ -120,6 +120,7 @@
     <Compile Include="App_Packages\Simplify.Xml.Sources.1.0.2.0\XmlSerializer.cs" />
     <Compile Include="AsyncController.cs" />
     <Compile Include="Attributes\AuthorizeAttribute.cs" />
+    <Compile Include="Attributes\ViewModelAttribute.cs" />
     <Compile Include="ControllerBase.cs" />
     <Compile Include="ControllerResponseResult.cs" />
     <Compile Include="Core\ActionModulesAccessorBuilder.cs" />
@@ -149,6 +150,7 @@
     <Compile Include="Meta\ControllerSecurity.cs" />
     <Compile Include="Meta\IViewsMetaStore.cs" />
     <Compile Include="Meta\ViewsMetaStore.cs" />
+    <Compile Include="ModelBinding\RequiredAttribute.cs" />
     <Compile Include="ModulesAccessor.cs" />
     <Compile Include="Modules\AcspNetContext.cs" />
     <Compile Include="Modules\DataCollector.cs" />
@@ -303,7 +305,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

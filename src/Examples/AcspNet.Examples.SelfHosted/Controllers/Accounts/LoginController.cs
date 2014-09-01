@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using AcspNet.Attributes;
+using AcspNet.Examples.SelfHosted.Models.Accounts;
+using AcspNet.Examples.SelfHosted.Views.Accounts;
 using AcspNet.Modules;
 using AcspNet.Responses;
 using Microsoft.AspNet.Identity;
@@ -8,22 +10,29 @@ using Microsoft.AspNet.Identity;
 namespace AcspNet.Examples.SelfHosted.Controllers.Accounts
 {
 	[Post("login")]
+	[ViewModel(typeof(LoginViewModel))]
 	public class LoginController : Controller
 	{
 		public override ControllerResponse Invoke()
 		{
-			var claims = new List<Claim>
+			var loginModel = (LoginViewModel)Model;
+
+			if (loginModel.Password == "1" && loginModel.UserName == "Foo")
 			{
-				new Claim(ClaimTypes.Name, "Foo"),
-				new Claim(ClaimTypes.Email, "Foobar@gmail.com")
-			};
+				var claims = new List<Claim>
+				{
+					new Claim(ClaimTypes.Name, loginModel.UserName)
+				};
 
-			var id = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+				var id = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
 
-			var authenticationManager = Context.Context.Authentication;
-			authenticationManager.SignIn(id);
+				var authenticationManager = Context.Context.Authentication;
+				authenticationManager.SignIn(id);
 
-			return new Redirect(RedirectionType.PreviousPage);
+				return new Redirect(RedirectionType.PreviousPage);
+			}
+
+			return new Tpl(GetView<LoginView>().Get(loginModel));
 		}
 	}
 }

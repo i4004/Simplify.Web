@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using AcspNet.Attributes;
-using AcspNet.Examples.SelfHosted.Views;
 using AcspNet.Examples.SelfHosted.Views.Shared;
 using AcspNet.Responses;
 

@@ -43,9 +43,11 @@
     <Compile Include="Controllers\Accounts\LoginPageController.cs" />
     <Compile Include="Controllers\Shared\LoginPanelController.cs" />
     <Compile Include="Controllers\Static\AboutController.cs" />
+    <Compile Include="Models\Accounts\LoginViewModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Views\Accounts\LoginView.cs" />
     <Compile Include="Views\Shared\LoggedUserPanelView.cs" />
   </ItemGroup>
   <ItemGroup>

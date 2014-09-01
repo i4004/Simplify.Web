@@ -1,9 +1,9 @@
 ﻿<form class="form-horizontal">
 	<fieldset>
 		<div class="form-group">
-			<label for="EMail" class="control-label col-xs-2">Email</label>
+			<label for="Login" class="control-label col-xs-2">Login</label>
 			<div class="col-xs-10">
-				<input type="email" class="form-control" id="EMail" placeholder="Email">
+				<input type="text" class="form-control" id="Login" placeholder="Login" value="{Login}">
 			</div>
 		</div>
 		<div class="form-group">
@@ -15,7 +15,7 @@
 		<div class="form-group">
 			<div class="col-xs-offset-2 col-xs-10">
 				<div class="checkbox">
-					<label><input type="checkbox"> Remember me</label>
+					<label><input type="checkbox" name="RememberMe" {RememberMe}>Remember me</label>
 				</div>
 			</div>
 		</div>

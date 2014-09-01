@@ -1,6 +1,4 @@
-﻿using AcspNet.Modules;
-
-namespace AcspNet
+﻿namespace AcspNet
 {
 	/// <summary>
 	/// AcspNet controllers base class
@@ -14,5 +12,13 @@ namespace AcspNet
 		/// The route parameters.
 		/// </value>
 		public virtual dynamic RouteParameters { get; internal set; }
+
+		/// <summary>
+		/// Gets the model of current request.
+		/// </summary>
+		/// <value>
+		/// The current request model.
+		/// </value>
+		public virtual object Model { get; internal set; }
 	}
 }

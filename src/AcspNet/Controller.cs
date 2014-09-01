@@ -1,6 +1,4 @@
-﻿using AcspNet.Modules;
-
-namespace AcspNet
+﻿namespace AcspNet
 {
 	/// <summary>
 	/// AcspNet synchronous controllers base class
