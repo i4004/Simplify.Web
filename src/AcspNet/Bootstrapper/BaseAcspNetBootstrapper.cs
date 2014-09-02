@@ -1,6 +1,7 @@
 ﻿using System;
 using AcspNet.Core;
 using AcspNet.Meta;
+using AcspNet.ModelBinding;
 using AcspNet.Modules;
 using AcspNet.Modules.Html;
 using AcspNet.Routing;
@@ -70,6 +71,7 @@ namespace AcspNet.Bootstrapper
 			RegisterContextVariablesSetter();
 			RegisterAcspNetContextProvider();
 			RegisterRedirector();
+			RegisterModelDeserializer();
 
 			// Registering controllers types
 			foreach (var controllerMetaData in ControllersMetaStore.Current.ControllersMetaData)
@@ -720,6 +722,14 @@ namespace AcspNet.Bootstrapper
 		public virtual void RegisterRedirector()
 		{
 			DIContainer.Current.Register<IRedirector>(p => new Redirector(p.Resolve<IAcspNetContextProvider>().Get()), LifetimeType.PerLifetimeScope);			
+		}
+
+		/// <summary>
+		/// Registers the model deserializer.
+		/// </summary>
+		public virtual void RegisterModelDeserializer()
+		{
+			DIContainer.Current.Register<IModelDeserializer>(p => new ModelDeserializer(p.Resolve<IAcspNetContextProvider>().Get().Context), LifetimeType.PerLifetimeScope);			
 		}
 
 		#endregion
