@@ -7,7 +7,7 @@ namespace AcspNet.Examples.SelfHosted.Views.Accounts
 	{
 		public ITemplate Get(LoginViewModel viewModel = null)
 		{
-			return TemplateFactory.Load("Accounts/LoginPage")/*.Set(viewModel)*/;
+			return TemplateFactory.Load("Accounts/LoginPage").Model(viewModel).Set();
 		}
 	}
 }

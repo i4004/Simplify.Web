@@ -1,9 +1,9 @@
 ﻿<form class="form-horizontal">
 	<fieldset>
 		<div class="form-group">
-			<label for="Login" class="control-label col-xs-2">Login</label>
+			<label for="UserName" class="control-label col-xs-2">User name</label>
 			<div class="col-xs-10">
-				<input type="text" class="form-control" id="Login" placeholder="Login" value="{Login}">
+				<input type="text" class="form-control" id="UserName" placeholder="User name" value="{Model.UserName}">
 			</div>
 		</div>
 		<div class="form-group">
@@ -15,7 +15,7 @@
 		<div class="form-group">
 			<div class="col-xs-offset-2 col-xs-10">
 				<div class="checkbox">
-					<label><input type="checkbox" name="RememberMe" {RememberMe}>Remember me</label>
+					<label><input type="checkbox" name="RememberMe" {Model.Rememberme}>Remember me</label>
 				</div>
 			</div>
 		</div>
