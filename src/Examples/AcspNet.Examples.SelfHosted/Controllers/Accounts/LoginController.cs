@@ -10,18 +10,15 @@ using Microsoft.AspNet.Identity;
 namespace AcspNet.Examples.SelfHosted.Controllers.Accounts
 {
 	[Post("login")]
-	[ViewModel(typeof(LoginViewModel))]
-	public class LoginController : Controller
+	public class LoginController : Controller<LoginViewModel>
 	{
 		public override ControllerResponse Invoke()
 		{
-			var loginModel = (LoginViewModel)Model;
-
-			if (loginModel.Password == "1" && loginModel.UserName == "Foo")
+			if (Model.Password == "1" && Model.UserName == "Foo")
 			{
 				var claims = new List<Claim>
 				{
-					new Claim(ClaimTypes.Name, loginModel.UserName)
+					new Claim(ClaimTypes.Name, Model.UserName)
 				};
 
 				var id = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
@@ -32,7 +29,7 @@ namespace AcspNet.Examples.SelfHosted.Controllers.Accounts
 				return new Redirect(RedirectionType.PreviousPage);
 			}
 
-			return new Tpl(GetView<LoginView>().Get(loginModel));
+			return new Tpl(GetView<LoginView>().Get(Model));
 		}
 	}
 }

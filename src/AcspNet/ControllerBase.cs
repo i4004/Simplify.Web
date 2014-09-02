@@ -12,13 +12,5 @@
 		/// The route parameters.
 		/// </value>
 		public virtual dynamic RouteParameters { get; internal set; }
-
-		/// <summary>
-		/// Gets the model of current request.
-		/// </summary>
-		/// <value>
-		/// The current request model.
-		/// </value>
-		public virtual object Model { get; internal set; }
 	}
 }

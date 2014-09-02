@@ -118,9 +118,11 @@
     <Compile Include="ActionModulesAccessor.cs" />
     <Compile Include="App_Packages\Simplify.Xml.Sources.1.0.2.0\XmlExtensions.cs" />
     <Compile Include="App_Packages\Simplify.Xml.Sources.1.0.2.0\XmlSerializer.cs" />
+    <Compile Include="AsyncController{T}.cs" />
     <Compile Include="AsyncController.cs" />
     <Compile Include="Attributes\AuthorizeAttribute.cs" />
-    <Compile Include="Attributes\ViewModelAttribute.cs" />
+    <Compile Include="ModelController{T}.cs" />
+    <Compile Include="Controller{T}.cs" />
     <Compile Include="ControllerBase.cs" />
     <Compile Include="ControllerResponseResult.cs" />
     <Compile Include="Core\ActionModulesAccessorBuilder.cs" />
