@@ -1,6 +1,4 @@
-﻿using System;
-using AcspNet.Modules;
-using Microsoft.Owin;
+﻿using AcspNet.Modules;
 
 namespace AcspNet.ModelBinding
 {
@@ -30,7 +28,7 @@ namespace AcspNet.ModelBinding
 			if (_context.Request.ContentType == "application/x-www-form-urlencoded")
 				return FormDeserializer.Deserialize<T>(_context.Form);
 
-			return default(T);
+			throw new ModelBindingException(string.Format("Undefined request content type for binding: {0}", _context.Request.ContentType));
 		}
 	}
 }
