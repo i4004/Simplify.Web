@@ -1,5 +1,5 @@
 ﻿using AcspNet.Attributes;
-using AcspNet.Examples.SelfHosted.Views.Accounts;
+using AcspNet.Examples.SelfHosted.Models.Accounts;
 using AcspNet.Responses;
 
 namespace AcspNet.Examples.SelfHosted.Controllers.Accounts
@@ -9,7 +9,7 @@ namespace AcspNet.Examples.SelfHosted.Controllers.Accounts
 	{
 		public override ControllerResponse Invoke()
 		{
-			return new Tpl(GetView<LoginView>().Get());
+			return new ViewModel<LoginViewModel>("Accounts/LoginPage");
 		}
 	}
 }

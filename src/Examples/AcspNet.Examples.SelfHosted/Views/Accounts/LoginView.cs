@@ -7,7 +7,11 @@ namespace AcspNet.Examples.SelfHosted.Views.Accounts
 	{
 		public ITemplate Get(LoginViewModel viewModel = null)
 		{
-			return TemplateFactory.Load("Accounts/LoginPage").Model(viewModel).Set();
+			return
+				TemplateFactory.Load("Accounts/LoginPage")
+					.Model(viewModel)
+					.With(x => x.RememberMe, x => x ? "checked='checked'" : "")
+					.Set();
 		}
 	}
 }
