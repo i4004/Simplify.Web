@@ -1,1 +1,1 @@
-﻿Logged as : {UserName} | <a href="{~}/logout">Logout</a>
+﻿<p class="navbar-text">Logged as: {UserName} | <a href="{~}/logout">Logout</a></p>
