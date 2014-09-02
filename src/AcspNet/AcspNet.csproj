@@ -122,6 +122,8 @@
     <Compile Include="AsyncController.cs" />
     <Compile Include="Attributes\AuthorizeAttribute.cs" />
     <Compile Include="AsyncControllerBase.cs" />
+    <Compile Include="ModelBinding\IModelDeserializer.cs" />
+    <Compile Include="ModelBinding\ModelDeserializer.cs" />
     <Compile Include="SyncControllerBase.cs" />
     <Compile Include="Controller{T}.cs" />
     <Compile Include="ControllerBase.cs" />
