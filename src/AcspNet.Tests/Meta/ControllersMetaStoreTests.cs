@@ -23,19 +23,30 @@ namespace AcspNet.Tests.Meta
 			var factory = new Mock<IControllerMetaDataFactory>();
 			var store = new ControllersMetaStore(factory.Object);
 
+			//var a = typeof (TestController4);
+			//var d = a.BaseType.GetGenericTypeDefinition();
+			//var c = typeof(Controller<>);
+			//var b = typeof(TestController1);
+
 			factory.SetupSequence(x => x.CreateControllerMetaData(It.IsAny<Type>()))
-				.Returns(new ControllerMetaData(typeof(TestController1), new ControllerExecParameters(null, 2)))
-				.Returns(new ControllerMetaData(typeof(TestController2), new ControllerExecParameters(null, 1)));
+				.Returns(new ControllerMetaData(typeof (TestController1), new ControllerExecParameters(null, 2)))
+				.Returns(new ControllerMetaData(typeof (TestController2), new ControllerExecParameters(null, 1)))
+				.Returns(new ControllerMetaData(typeof (TestController4)))
+				.Returns(new ControllerMetaData(typeof (TestController5)));
 
 			// Act
 			var metaData = store.ControllersMetaData;
 
-			Assert.AreEqual(2, metaData.Count);
-			Assert.AreEqual("TestController2", metaData[0].ControllerType.Name);
-			Assert.AreEqual("TestController1", metaData[1].ControllerType.Name);
+			Assert.AreEqual(4, metaData.Count);
+			Assert.AreEqual("TestController4", metaData[0].ControllerType.Name);
+			Assert.AreEqual("TestController5", metaData[1].ControllerType.Name);
+			Assert.AreEqual("TestController2", metaData[2].ControllerType.Name);
+			Assert.AreEqual("TestController1", metaData[3].ControllerType.Name);
 
 			factory.Verify(x => x.CreateControllerMetaData(It.Is<Type>(t => t == typeof(TestController1))));
 			factory.Verify(x => x.CreateControllerMetaData(It.Is<Type>(t => t == typeof(TestController2))));
+			factory.Verify(x => x.CreateControllerMetaData(It.Is<Type>(t => t == typeof(TestController4))));
+			factory.Verify(x => x.CreateControllerMetaData(It.Is<Type>(t => t == typeof(TestController5))));
 		}
 	}
 }

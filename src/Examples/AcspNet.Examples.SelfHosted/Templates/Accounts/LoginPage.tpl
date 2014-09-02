@@ -1,4 +1,4 @@
-﻿<form class="form-horizontal">
+﻿<form class="form-horizontal" method="post">
 	<fieldset>
 		<div class="form-group">
 			<label for="UserName" class="control-label col-xs-2">User name</label>

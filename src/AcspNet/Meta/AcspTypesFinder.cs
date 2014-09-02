@@ -44,7 +44,7 @@ namespace AcspNet.Meta
 		/// <returns></returns>
 		public static Type FindTypeDerivedFrom<T>()
 		{
-			var type = typeof (T);
+			var type = typeof(T);
 
 			return CurrentDomainAssembliesTypes.FirstOrDefault(t => t.BaseType != null && t.BaseType.FullName == type.FullName);
 		}
@@ -56,9 +56,21 @@ namespace AcspNet.Meta
 		/// <returns></returns>
 		public static IList<Type> FindTypesDerivedFrom<T>()
 		{
-			var type = typeof(T);
+			return FindTypesDerivedFrom(typeof(T));
+		}
 
-			return CurrentDomainAssembliesTypes.Where(t => t.BaseType != null && t.BaseType.FullName == type.FullName).ToList();
+		/// <summary>
+		/// Finds the all types derived from specified type in current domain assemblies.
+		/// </summary>
+		/// <param name="type">The type.</param>
+		/// <returns></returns>
+		public static IList<Type> FindTypesDerivedFrom(Type type)
+		{
+			return CurrentDomainAssembliesTypes.Where(t => t.BaseType != null
+														   && ((t.BaseType.IsGenericType == false && t.BaseType == type)
+			                                                   ||
+															   (t.BaseType.IsGenericType && t.BaseType.GetGenericTypeDefinition() == type)))
+				.ToList();
 		}
 
 		/// <summary>

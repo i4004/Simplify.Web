@@ -56,6 +56,8 @@ namespace AcspNet.Meta
 
 				var types = AcspTypesFinder.FindTypesDerivedFrom<Controller>();
 				types = types.Concat(AcspTypesFinder.FindTypesDerivedFrom<AsyncController>()).ToList();
+				types = types.Concat(AcspTypesFinder.FindTypesDerivedFrom(typeof(Controller<>))).ToList();
+				types = types.Concat(AcspTypesFinder.FindTypesDerivedFrom(typeof(AsyncController<>))).ToList();
 
 				var typesToIgnore = new List<Type>();
 

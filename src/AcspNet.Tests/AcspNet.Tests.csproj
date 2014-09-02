@@ -158,6 +158,9 @@
     <Compile Include="TestEntities\TestController2.cs" />
     <Compile Include="TestEntities\TestController1.cs" />
     <Compile Include="Responses\TplTests.cs" />
+    <Compile Include="TestEntities\TestController5.cs" />
+    <Compile Include="TestEntities\TestController4.cs" />
+    <Compile Include="TestEntities\TestModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AcspNet\AcspNet.csproj">
