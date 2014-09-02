@@ -729,7 +729,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterModelDeserializer()
 		{
-			DIContainer.Current.Register<IModelDeserializer>(p => new ModelDeserializer(p.Resolve<IAcspNetContextProvider>().Get().Context), LifetimeType.PerLifetimeScope);			
+			DIContainer.Current.Register<IModelDeserializer>(p => new ModelDeserializer(p.Resolve<IAcspNetContextProvider>().Get()), LifetimeType.PerLifetimeScope);			
 		}
 
 		#endregion

@@ -1,4 +1,5 @@
 ﻿using System;
+using AcspNet.Modules;
 using Microsoft.Owin;
 
 namespace AcspNet.ModelBinding
@@ -8,13 +9,15 @@ namespace AcspNet.ModelBinding
 	/// </summary>
 	public class ModelDeserializer : IModelDeserializer
 	{
+		private readonly IAcspNetContext _context;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ModelDeserializer"/> class.
 		/// </summary>
 		/// <param name="context">The context.</param>
-		public ModelDeserializer(IOwinContext context)
+		public ModelDeserializer(IAcspNetContext context)
 		{
-			
+			_context = context;
 		}
 
 		/// <summary>
@@ -24,7 +27,10 @@ namespace AcspNet.ModelBinding
 		/// <returns></returns>
 		public T Deserialize<T>()
 		{
-			throw new NotImplementedException();
+			if (_context.Request.ContentType == "application/x-www-form-urlencoded")
+				return FormDeserializer.Deserialize<T>(_context.Form);
+
+			return default(T);
 		}
 	}
 }

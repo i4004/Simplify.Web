@@ -122,6 +122,7 @@
     <Compile Include="AsyncController.cs" />
     <Compile Include="Attributes\AuthorizeAttribute.cs" />
     <Compile Include="AsyncControllerBase.cs" />
+    <Compile Include="ModelBinding\FormDeserializer.cs" />
     <Compile Include="ModelBinding\IModelDeserializer.cs" />
     <Compile Include="ModelBinding\ModelDeserializer.cs" />
     <Compile Include="SyncControllerBase.cs" />
@@ -310,7 +311,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
