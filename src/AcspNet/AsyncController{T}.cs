@@ -1,16 +1,17 @@
-﻿using System.Threading.Tasks;
-
-namespace AcspNet
+﻿namespace AcspNet
 {
 	/// <summary>
-	/// AcspNet asynchronous controllers class
+	/// AcspNet asynchronous model controllers base class
 	/// </summary>
-	public abstract class AsyncController<T> : ModelController<T>
+	public abstract class AsyncController<T> : AsyncControllerBase
 		where T : class
 	{
 		/// <summary>
-		/// Invokes the controller.
+		/// Gets the model of current request.
 		/// </summary>
-		public abstract Task<ControllerResponse> Invoke();
+		/// <value>
+		/// The current request model.
+		/// </value>
+		public virtual T Model { get; internal set; }
 	}
 }

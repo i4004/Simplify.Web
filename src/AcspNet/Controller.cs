@@ -3,11 +3,7 @@
 	/// <summary>
 	/// AcspNet synchronous controllers base class
 	/// </summary>
-	public abstract class Controller : ControllerBase
+	public abstract class Controller : SyncControllerBase
 	{
-		/// <summary>
-		/// Invokes the controller.
-		/// </summary>
-		public abstract ControllerResponse Invoke();
 	}
 }

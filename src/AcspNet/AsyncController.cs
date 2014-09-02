@@ -1,15 +1,9 @@
-﻿using System.Threading.Tasks;
-
-namespace AcspNet
+﻿namespace AcspNet
 {
 	/// <summary>
-	/// AcspNet asynchronous controllers class
+	/// AcspNet asynchronous controllers base class
 	/// </summary>
-	public abstract class AsyncController : ControllerBase
+	public abstract class AsyncController : AsyncControllerBase
 	{
-		/// <summary>
-		/// Invokes the controller.
-		/// </summary>
-		public abstract Task<ControllerResponse> Invoke();
 	}
 }

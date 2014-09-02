@@ -3,12 +3,15 @@
 	/// <summary>
 	/// AcspNet synchronous model controllers base class
 	/// </summary>
-	public abstract class Controller<T> : ModelController<T>
+	public abstract class Controller<T> : SyncControllerBase
 		where T : class
 	{
 		/// <summary>
-		/// Invokes the controller.
+		/// Gets the model of current request.
 		/// </summary>
-		public abstract ControllerResponse Invoke();
+		/// <value>
+		/// The current request model.
+		/// </value>
+		public virtual T Model { get; internal set; }
 	}
 }

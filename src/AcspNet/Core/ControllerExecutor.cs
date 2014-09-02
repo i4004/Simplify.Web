@@ -40,12 +40,12 @@ namespace AcspNet.Core
 		{
 			ControllerBase controller = _controllerFactory.CreateController(controllerType, containerProvider, context, routeParameters);
 
-			var synController = controller as Controller;
+			var syncController = controller as SyncControllerBase;
 
-			if (synController != null)
-				return ProcessControllerResponse(synController.Invoke(), containerProvider);
+			if (syncController != null)
+				return ProcessControllerResponse(syncController.Invoke(), containerProvider);
 
-			var asyncController = controller as AsyncController;
+			var asyncController = controller as AsyncControllerBase;
 
 			if (asyncController != null)
 			{
