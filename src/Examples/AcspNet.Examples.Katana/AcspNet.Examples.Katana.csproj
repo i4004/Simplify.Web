@@ -83,9 +83,9 @@
       <HintPath>..\..\packages\Simplify.DI.Provider.SimpleInjector.1.0.1.0\lib\net45\Simplify.DI.Provider.SimpleInjector.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Simplify.Templates, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Simplify.Templates.1.0.5.0\lib\net45\Simplify.Templates.dll</HintPath>
+    <Reference Include="Simplify.Templates">
+      <HintPath>..\..\packages\Simplify.Templates.1.1.0.0\lib\net45\Simplify.Templates.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.IO.Abstractions">
       <HintPath>..\..\packages\System.IO.Abstractions.1.4.0.86\lib\net35\System.IO.Abstractions.dll</HintPath>
