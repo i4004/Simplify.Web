@@ -15,7 +15,7 @@
 		<div class="form-group">
 			<div class="col-xs-offset-2 col-xs-10">
 				<div class="checkbox">
-					<label><input type="checkbox" name="RememberMe" {Model.Rememberme}>Remember me</label>
+					<label><input type="checkbox" name="RememberMe" {Model.RememberMe}>Remember me</label>
 				</div>
 			</div>
 		</div>

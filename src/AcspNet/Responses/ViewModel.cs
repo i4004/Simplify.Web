@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Simplify.Templates;
 
 namespace AcspNet.Responses
 {
@@ -8,15 +8,18 @@ namespace AcspNet.Responses
 	public class ViewModel<T> : ControllerResponse
 		where T : class 
 	{
+		private readonly string _templateFileName;
+		private readonly T _viewModel;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ViewModel{T}" /> class.
 		/// </summary>
 		/// <param name="templateFileName">Name of the template file.</param>
 		/// <param name="viewModel">The view model.</param>
-		/// <exception cref="System.NotImplementedException"></exception>
 		public ViewModel(string templateFileName, T viewModel = null)
 		{
-			throw new NotImplementedException();
+			_templateFileName = templateFileName;
+			_viewModel = viewModel;
 		}
 
 		/// <summary>
@@ -25,7 +28,9 @@ namespace AcspNet.Responses
 		/// <exception cref="System.NotImplementedException"></exception>
 		public override ControllerResponseResult Process()
 		{
-			throw new NotImplementedException();
+			DataCollector.Add(TemplateFactory.Load(_templateFileName).Model(_viewModel).Set());
+
+			return ControllerResponseResult.Default;
 		}
 	}
 }
