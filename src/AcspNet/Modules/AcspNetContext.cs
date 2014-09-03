@@ -1,4 +1,6 @@
-﻿using Microsoft.Owin;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.Owin;
 
 namespace AcspNet.Modules
 {
@@ -7,9 +9,7 @@ namespace AcspNet.Modules
 	/// </summary>
 	public class AcspNetContext : IAcspNetContext
 	{
-		private readonly object _locker = new object();
-
-		private IFormCollection _form;
+		private readonly Lazy<IFormCollection> _form;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AcspNetContext"/> class.
@@ -21,6 +21,8 @@ namespace AcspNet.Modules
 			Request = context.Request;
 			Response = context.Response;
 			Query = context.Request.Query;
+
+			_form = new Lazy<IFormCollection>(() => Task.Run(() => context.Request.ReadFormAsync()).Result);
 
 			SiteUrl = Request.Uri.Scheme + "://" + Request.Uri.Authority;
 
@@ -70,18 +72,7 @@ namespace AcspNet.Modules
 		/// </summary>
 		public IFormCollection Form
 		{
-			get
-			{
-				lock (_locker)
-					if (_form == null)
-					{
-						var task = Request.ReadFormAsync();
-						task.Wait();
-						_form = task.Result;
-					}
-
-				return _form;
-			}
+			get { return _form.Value; }
 		}
 
 		/// <summary>
