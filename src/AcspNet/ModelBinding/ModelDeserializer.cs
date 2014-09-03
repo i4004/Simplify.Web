@@ -28,7 +28,7 @@ namespace AcspNet.ModelBinding
 			if (_context.Request.ContentType == "application/x-www-form-urlencoded")
 				return FormDeserializer.Deserialize<T>(_context.Form);
 
-			throw new ModelBindingException(string.Format("Undefined request content type for binding: {0}", _context.Request.ContentType));
+			throw new ModelBindingException(string.Format("Unrecognized request content type for binding: {0}", _context.Request.ContentType));
 		}
 	}
 }

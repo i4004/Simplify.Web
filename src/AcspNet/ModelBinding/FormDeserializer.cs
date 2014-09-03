@@ -60,7 +60,7 @@ namespace AcspNet.ModelBinding
 			{
 				int buffer;
 
-				if (int.TryParse(value, out buffer))
+				if (!int.TryParse(value, out buffer))
 					return null;
 
 				return buffer;
