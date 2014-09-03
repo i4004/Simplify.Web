@@ -11,21 +11,10 @@ ACSP.NET is a lightweight and fast .NET web-framework based on MVC and OWIN
 * Support async controllers
 * Uses fast templates engine ([Simplify.Templates](https://github.com/i4004/Simplify/tree/master/src/Simplify.Templates))
 * Supports controllers which can be run on any page
-* Localization-friendly (suppors templates, string table and data files localization by default)
+* Localization-friendly (supports templates, string table and data files localization by default)
+* Mocking-friendly
 
 ### Examples
-
-#### Default page controller
-```csharp
-[Get("/")]
-public class DefaultController : Controller
-{
-    public override ControllerResponse Invoke()
-    {
-        return new Tpl(TemplateFactory.Load("Default"));
-    }
-}
-```
 
 #### Simple static page controller
 ```csharp
@@ -40,6 +29,7 @@ public class AboutController : Controller
 ```
 
 #### Any page controller with high run priority example
+Runs on any request and adds login panel to a pages
 ```csharp
 [Priority(-1)]
 public class LoginPanelController : AsyncController
@@ -55,21 +45,6 @@ public class LoginPanelController : AsyncController
 
 #### View example
 ```csharp
-public class LoggedUserPanelView : View
-{
-    public async Task<ITemplate> Get(string userName)
-    {
-        var tpl = await TemplateFactory.LoadAsync("Shared/LoginPanel/LoggedUserPanel");
-
-        tpl.Add("UserName", userName);
-
-        return tpl;
-    }
-}
-```
-
-#### Template example
-```html
 public class LoggedUserPanelView : View
 {
     public async Task<ITemplate> Get(string userName)
