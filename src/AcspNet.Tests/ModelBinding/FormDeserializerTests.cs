@@ -11,11 +11,6 @@ namespace AcspNet.Tests.ModelBinding
 	{
 		private IFormCollection _form;
 
-		[SetUp]
-		public void Initialize()
-		{
-		}
-
 		[Test]
 		public void Deserialize_NormalData_Deserialized()
 		{
@@ -79,6 +74,40 @@ namespace AcspNet.Tests.ModelBinding
 			Assert.AreEqual("Foo", obj.Prop1);
 			Assert.AreEqual(0, obj.Prop2);
 			Assert.IsTrue(obj.Prop3);
+		}
+
+
+		[Test]
+		public void Deserialize_RequiredFieldDataTypeMismatch_ExceptionThrown()
+		{
+			// Assign
+
+			var coll = new Dictionary<string, string[]>
+			{
+				{"Prop1", new[] {"test"}},
+			};
+
+			_form = new FormCollection(coll);
+
+			// Act & Assert
+			Assert.Throws<ModelBindingException>(() => FormDeserializer.Deserialize<TestModel2>(_form));
+		}
+
+		[Test]
+		public void Deserialize_UnrecognizedPropertyType_ExceptionThrown()
+		{
+			// Assign
+
+			var coll = new Dictionary<string, string[]>
+			{
+				{"Prop1", new[] {"3"}},
+				{"Prop2", new[] {"asd"}},
+			};
+
+			_form = new FormCollection(coll);
+
+			// Act & Assert
+			Assert.Throws<ModelBindingException>(() => FormDeserializer.Deserialize<TestModel2>(_form));
 		}
 	}
 }

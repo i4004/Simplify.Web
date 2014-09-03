@@ -69,7 +69,7 @@ namespace AcspNet.ModelBinding
 			if (requiredDataType == typeof(bool))
 				return value == "on";
 
-			return value;
+			throw new ModelBindingException(string.Format("Not supported property type: '{0}'", requiredDataType.ToString()));
 		}
 	}
 }
