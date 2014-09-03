@@ -7,6 +7,8 @@ namespace AcspNet.Modules
 	/// </summary>
 	public class AcspNetContext : IAcspNetContext
 	{
+		private readonly object _locker = new object();
+
 		private IFormCollection _form;
 
 		/// <summary>
@@ -70,7 +72,7 @@ namespace AcspNet.Modules
 		{
 			get
 			{
-				lock (_form)
+				lock (_locker)
 					if (_form == null)
 					{
 						var task = Request.ReadFormAsync();
