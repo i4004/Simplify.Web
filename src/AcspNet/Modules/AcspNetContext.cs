@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 
 namespace AcspNet.Modules
 {
@@ -8,7 +7,7 @@ namespace AcspNet.Modules
 	/// </summary>
 	public class AcspNetContext : IAcspNetContext
 	{
-		private readonly Lazy<IFormCollection> _form;
+		private IFormCollection _form;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AcspNetContext"/> class.
@@ -21,13 +20,6 @@ namespace AcspNet.Modules
 			Response = context.Response;
 			Query = context.Request.Query;
 
-			_form = new Lazy<IFormCollection>(() =>
-			{
-				var task = context.Request.ReadFormAsync();
-				task.Wait();
-				return task.Result;
-			});
-
 			SiteUrl = Request.Uri.Scheme + "://" + Request.Uri.Authority;
 
 			if (!string.IsNullOrEmpty(Request.PathBase.Value))
@@ -37,7 +29,7 @@ namespace AcspNet.Modules
 
 			IsAjax = Request.Headers.ContainsKey("X-Requested-With");
 		}
-		
+
 		/// <summary>
 		/// Site root url, for example: http://mysite.com or http://localhost/mysite/
 		/// </summary>
@@ -76,7 +68,18 @@ namespace AcspNet.Modules
 		/// </summary>
 		public IFormCollection Form
 		{
-			get { return _form.Value; }
+			get
+			{
+				lock (_form)
+					if (_form == null)
+					{
+						var task = Request.ReadFormAsync();
+						task.Wait();
+						_form = task.Result;
+					}
+
+				return _form;
+			}
 		}
 
 		/// <summary>
