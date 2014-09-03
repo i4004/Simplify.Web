@@ -1,0 +1,7 @@
+<NUnitProject>
+	<Settings activeconfig="Release"/>
+	<Config name="Release">
+		<assembly path="../src/AcspNet.Tests/bin/Release/AcspNet.Tests.dll"/>
+		<assembly path="../src/Examples/AcspNet.Examples.SelfHosted.Tests/bin/Release/AcspNet.Examples.SelfHosted.Tests.dll"/>
+	</Config>
+</NUnitProject>

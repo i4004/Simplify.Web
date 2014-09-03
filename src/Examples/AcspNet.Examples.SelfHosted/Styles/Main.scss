@@ -1,0 +1,30 @@
+﻿body
+{
+	background: #e0e0e0 !important;
+	color: #505050 !important;
+	font: 1.6em 'Segoe UI', tahoma, arial, helvetica, sans-serif !important;
+	margin: 1em !important;
+	padding: 0 !important;
+}
+
+@import 'Header';
+@import 'MessageBox';
+@import 'BootstrapOverride';
+
+div.Content
+{
+}
+
+.ExecutionTimeFooter
+{
+	border-top: 1px solid #969696;
+	text-align: center;
+	margin-top: 1em;
+	padding-top: 0.3em;
+}
+
+div.Http404MessageBox
+{
+	color: #0d85c9;
+	padding: 4em 2em 4em 2em;
+}

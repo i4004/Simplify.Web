@@ -1,0 +1,25 @@
+﻿using System.Threading.Tasks;
+using Simplify.Templates;
+
+namespace AcspNet.Modules
+{
+	/// <summary>
+	/// Represent web-site text templates loader
+	/// </summary>
+	public interface ITemplateFactory : IHideObjectMembers
+	{
+		/// <summary>
+		/// Load template from a file
+		/// </summary>
+		/// <param name="fileName">Template file name</param>
+		/// <returns>Template class with loaded template</returns>
+		ITemplate Load(string fileName);
+
+		/// <summary>
+		/// Load web-site template from a file asynchronously.
+		/// </summary>
+		/// <param name="filename">The filename.</param>
+		/// <returns></returns>
+		Task<ITemplate> LoadAsync(string filename);
+	}
+}

@@ -1,0 +1,14 @@
+﻿using System.Threading.Tasks;
+
+namespace AcspNet.Tests.TestEntities
+{
+	public class TestController2 : AsyncController
+	{
+#pragma warning disable 1998
+		public override async Task<ControllerResponse> Invoke()
+#pragma warning restore 1998
+		{
+			throw new System.NotImplementedException();
+		}
+	}
+}
