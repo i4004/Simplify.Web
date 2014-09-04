@@ -73,6 +73,7 @@ namespace AcspNet.Modules
 
 						_cache.Add(new KeyValuePair<string, string>(filePath, _language), tpl.Get());
 					}
+
 					return tpl;
 				}
 			}
@@ -90,7 +91,7 @@ namespace AcspNet.Modules
 			return Task.Run(() => Load(filename));
 		}
 
-		private Template TryLoadExistingTemplate(string filePath)
+		private ITemplate TryLoadExistingTemplate(string filePath)
 		{
 			var existingItem = _cache.FirstOrDefault(x => x.Key.Key == filePath && x.Key.Value == _language);
 
