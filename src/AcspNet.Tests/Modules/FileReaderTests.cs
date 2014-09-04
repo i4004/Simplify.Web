@@ -17,7 +17,7 @@ namespace AcspNet.Tests.Modules
 		{
 			var files = new Dictionary<string, MockFileData>
 			{
-				{"App_Data/Foo.en.xml", "Dummy data"},
+				{"App_Data/My.Project/Foo.en.xml", "Dummy data"},
 				{"App_Data/Foo.en", "Dummy data"},
 				{
 					"App_Data/FooX.en.xml",
@@ -53,7 +53,7 @@ namespace AcspNet.Tests.Modules
 			var fileReader = new FileReader(DataPath, "en", "en");
 
 			// Act & Assert
-			Assert.AreEqual("C:/WebSites/FooSite/App_Data/Foo.en.xml", fileReader.GetFilePath("Foo.xml", "en"));
+			Assert.AreEqual("C:/WebSites/FooSite/App_Data/My.Project/Foo.en.xml", fileReader.GetFilePath("My.Project/Foo.xml", "en"));
 		}
 
 		[Test]
@@ -93,7 +93,7 @@ namespace AcspNet.Tests.Modules
 			var fileReader = new FileReader(DataPath, "ru", "en");
 
 			// Act & Assert
-			Assert.AreEqual("C:/WebSites/FooSite/App_Data/Foo.en.xml", fileReader.GetFilePath("Foo.xml"));
+			Assert.AreEqual("C:/WebSites/FooSite/App_Data/My.Project/Foo.en.xml", fileReader.GetFilePath("My.Project/Foo.xml"));
 		}
 
 		[Test]
@@ -103,7 +103,7 @@ namespace AcspNet.Tests.Modules
 			var fileReader = new FileReader(DataPath, "ru", "en");
 
 			// Act & Assert
-			Assert.AreEqual("Dummy data", fileReader.LoadTextDocument("Foo.xml"));
+			Assert.AreEqual("Dummy data", fileReader.LoadTextDocument("My.Project/Foo.xml"));
 		}
 
 		[Test]

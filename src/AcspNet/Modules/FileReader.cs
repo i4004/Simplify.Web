@@ -65,10 +65,10 @@ namespace AcspNet.Modules
 		/// <returns>File path</returns>
 		public string GetFilePath(string fileName, string language)
 		{
-			if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException("extensionsDataFileName");
+			if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException("fileName");
 			if (string.IsNullOrEmpty(language)) throw new ArgumentNullException("language");
 
-			var indexOfPoint = fileName.IndexOf(".", StringComparison.Ordinal);
+			var indexOfPoint = fileName.LastIndexOf(".", StringComparison.Ordinal);
 
 			if (indexOfPoint == -1)
 				return string.Format("{0}{1}.{2}", _dataPhysicalPath,
