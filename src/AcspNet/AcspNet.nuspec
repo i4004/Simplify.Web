@@ -9,8 +9,8 @@
 		<projectUrl>https://github.com/i4004/AcspNet</projectUrl>
 		<iconUrl>https://raw.github.com/i4004/AcspNet/master/Images/Icon.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>ACSP.NET is a lightweight .NET web-framework based on OWIN.</description>
-		<summary>$description$</summary>
+		<description>ACSP.NET is a lightweight and fast .NET web-framework based on MVC and OWIN.</description>
+		<summary>ACSP.NET is a lightweight and fast .NET web-framework based on MVC and OWIN.</summary>
 		<releaseNotes>First alpha version</releaseNotes>
 		<copyright>Licensed under LGPL</copyright>
 		<language>en-US</language>
