@@ -1,6 +1,6 @@
 ﻿body
 {
-	background: #e0e0e0 !important;
+	background: #efefef !important;
 	color: #505050 !important;
 	font: 1.6em 'Segoe UI', tahoma, arial, helvetica, sans-serif !important;
 	margin: 1em !important;
@@ -8,8 +8,9 @@
 }
 
 @import 'Header';
+@import 'Navbar';
+@import 'Forms';
 @import 'MessageBox';
-@import 'BootstrapOverride';
 
 div.Content
 {

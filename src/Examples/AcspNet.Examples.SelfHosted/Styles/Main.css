@@ -1,13 +1,13 @@
 body {
-  background: #e0e0e0 !important;
+  background: #efefef !important;
   color: #505050 !important;
   font: 1.6em 'Segoe UI', tahoma, arial, helvetica, sans-serif !important;
   margin: 1em !important;
   padding: 0 !important; }
 
 div.Title {
-  padding: 1em;
-  background-color: #c4c4c4;
+  padding: 0.5em;
+  background-color: #e8e8e8;
   font-size: 2em; }
 
 img.Logo {
@@ -15,13 +15,8 @@ img.Logo {
   width: 2.5em;
   margin-right: 0.8em; }
 
-div.MessageBox {
-  padding: 4em;
-  font-size: 1.4em;
-  text-align: center; }
-
 .navbar {
-  background: #969696;
+  background: #4a73bc;
   color: #fff;
   border: 0;
   border-radius: 0;
@@ -29,16 +24,16 @@ div.MessageBox {
   .navbar a, .navbar .navbar-text {
     color: white !important; }
   .navbar a:hover {
-    color: lightblue !important; }
+    background-color: #4368ac !important; }
 
 textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
   border-color: #969696;
   border-radius: 0; }
 
 textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {
-  border-color: #0d85c9;
+  border-color: #4a73bc;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(67, 110, 188, 0);
-  color: #0d85c9; }
+  color: #4a73bc; }
 
 button.btn {
   box-shadow: 0 1px 1px transparent inset, 0 0 8px transparent;
@@ -46,8 +41,12 @@ button.btn {
 
 button.btn:hover {
   box-shadow: 0 1px 1px transparent inset, 0 0 8px transparent;
-  /*border-color: #0d85c9;*/
-  color: #0d85c9; }
+  color: #4a73bc; }
+
+div.MessageBox {
+  padding: 4em;
+  font-size: 1.4em;
+  text-align: center; }
 
 .ExecutionTimeFooter {
   border-top: 1px solid #969696;

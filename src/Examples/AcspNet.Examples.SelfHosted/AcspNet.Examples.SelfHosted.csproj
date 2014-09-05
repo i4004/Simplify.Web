@@ -74,7 +74,8 @@
     <None Include="Styles\Main.scss" />
     <None Include="Styles\Header.scss" />
     <None Include="Styles\MessageBox.scss" />
-    <None Include="Styles\BootstrapOverride.scss" />
+    <None Include="Styles\Forms.scss" />
+    <None Include="Styles\Navbar.scss" />
     <None Include="Templates\AcspNet\MessageBox\InlineOkMessageBox.tpl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -209,8 +210,8 @@
     <Content Include="Scripts\jquery-2.1.1.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styles\BootstrapOverride.css">
-      <DependentUpon>BootstrapOverride.scss</DependentUpon>
+    <Content Include="Styles\Forms.css">
+      <DependentUpon>Forms.scss</DependentUpon>
     </Content>
     <Content Include="Styles\Header.css">
       <DependentUpon>Header.scss</DependentUpon>
@@ -221,6 +222,9 @@
     </Content>
     <Content Include="Styles\MessageBox.css">
       <DependentUpon>MessageBox.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\Navbar.css">
+      <DependentUpon>Navbar.scss</DependentUpon>
     </Content>
     <Content Include="Templates\Master.tpl.en.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
