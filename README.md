@@ -6,10 +6,10 @@ ACSP.NET is a lightweight and fast .NET web-framework based on MVC and OWIN
 
 * Based on MVC and MVVM patterns
 * Comes as OWIN middleware
-* Uses switchable IOC container for itself and controllers, views constructor injection ([Simplify.DI](https://github.com/i4004/Simplify/tree/master/src/Simplify.DI))
+* Uses switchable IOC container for itself and controllers, views constructor injection ([Simplify.DI](https://github.com/i4004/Simplify/wiki/Simplify.DI))
 * Mono-friendly
 * Support async controllers
-* Uses fast templates engine ([Simplify.Templates](https://github.com/i4004/Simplify/tree/master/src/Simplify.Templates))
+* Uses fast templates engine ([Simplify.Templates](https://github.com/i4004/Simplify/wiki/Simplify.Templates))
 * Supports controllers which can be run on any page
 * Localization-friendly (supports templates, string table and data files localization by default)
 * Mocking-friendly
