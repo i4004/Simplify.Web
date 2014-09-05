@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AcspNet.Bootstrapper;
 using AcspNet.Core;
 using AcspNet.Diagnostics;
 using AcspNet.Modules;
@@ -18,11 +17,9 @@ namespace AcspNet.Owin
 		/// Initializes a new instance of the <see cref="AcspNetOwinMiddleware"/> class.
 		/// </summary>
 		/// <param name="next">The next middleware.</param>
-		/// <param name="bootstrapper">The bootstrapper.</param>
-		public AcspNetOwinMiddleware(OwinMiddleware next, BaseAcspNetBootstrapper bootstrapper)
+		public AcspNetOwinMiddleware(OwinMiddleware next)
 			: base(next)
 		{
-			bootstrapper.Register();
 		}
 
 		/// <summary>
@@ -43,9 +40,15 @@ namespace AcspNet.Owin
 
 					var acspNetContextProvider = scope.Container.Resolve<IAcspNetContextProvider>();
 					var languageManagerProvider = scope.Container.Resolve<ILanguageManagerProvider>();
+					var templateFactory = scope.Container.Resolve<ITemplateFactory>();
+					var fileReader = scope.Container.Resolve<IFileReader>();
+					var stringTable = scope.Container.Resolve<IStringTable>();
 
 					acspNetContextProvider.Setup(context);
 					languageManagerProvider.Setup(context);
+					templateFactory.Setup();
+					fileReader.Setup();
+					stringTable.Setup();
 
 					// Run request process pipeline
 

@@ -9,6 +9,11 @@ namespace AcspNet.Modules
 	public interface ITemplateFactory : IHideObjectMembers
 	{
 		/// <summary>
+		/// Setups the template factory.
+		/// </summary>
+		void Setup();
+		
+		/// <summary>
 		/// Load template from a file
 		/// </summary>
 		/// <param name="fileName">Template file name</param>

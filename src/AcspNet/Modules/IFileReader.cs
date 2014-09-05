@@ -8,6 +8,11 @@ namespace AcspNet.Modules
 	public interface IFileReader : IHideObjectMembers
 	{
 		/// <summary>
+		/// Setups the file reader.
+		/// </summary>
+		void Setup();
+
+		/// <summary>
 		/// Load xml document from a file
 		/// </summary>
 		/// <param name="fileName">File name</param>

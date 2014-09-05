@@ -586,7 +586,7 @@ namespace AcspNet.Bootstrapper
 				{
 					var settings = p.Resolve<IAcspNetSettings>();
 
-					return new TemplateFactory(p.Resolve<IEnvironment>(), p.Resolve<ILanguageManagerProvider>().Get().Language,
+					return new TemplateFactory(p.Resolve<IEnvironment>(), p.Resolve<ILanguageManagerProvider>(),
 						settings.DefaultLanguage, settings.TemplatesMemoryCache, settings.LoadTemplatesFromAssembly);
 				}, LifetimeType.PerLifetimeScope);
 		}
@@ -598,7 +598,7 @@ namespace AcspNet.Bootstrapper
 		{
 			DIContainer.Current.Register<IFileReader>(
 				p => new FileReader(p.Resolve<IEnvironment>().DataPhysicalPath, p.Resolve<IAcspNetSettings>().DefaultLanguage,
-					p.Resolve<ILanguageManagerProvider>().Get().Language), LifetimeType.PerLifetimeScope);
+					p.Resolve<ILanguageManagerProvider>()), LifetimeType.PerLifetimeScope);
 		}
 
 		/// <summary>
@@ -608,7 +608,7 @@ namespace AcspNet.Bootstrapper
 		{
 			DIContainer.Current.Register<IStringTable>(
 				p =>
-					new StringTable(p.Resolve<IAcspNetSettings>().DefaultLanguage, p.Resolve<ILanguageManagerProvider>().Get().Language,
+					new StringTable(p.Resolve<IAcspNetSettings>().DefaultLanguage, p.Resolve<ILanguageManagerProvider>(),
 						p.Resolve<IFileReader>()), LifetimeType.PerLifetimeScope);
 		}
 

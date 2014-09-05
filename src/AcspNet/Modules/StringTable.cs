@@ -12,6 +12,10 @@ namespace AcspNet.Modules
 	/// </summary>
 	public sealed class StringTable : IStringTable
 	{
+		private readonly string _defaultLanguage;
+		private readonly ILanguageManagerProvider _languageManagerProvider;
+		private readonly IFileReader _fileReader;
+
 		/// <summary>
 		/// The string table file name
 		/// </summary>
@@ -21,17 +25,27 @@ namespace AcspNet.Modules
 		/// Load string table with current language
 		/// </summary>
 		/// <param name="defaultLanguage">The default language.</param>
-		/// <param name="currentLanguage">The current language.</param>
+		/// <param name="languageManagerProvider">The language manager provider.</param>
 		/// <param name="fileReader">The file reader.</param>
-		public StringTable(string defaultLanguage, string currentLanguage, IFileReader fileReader)
+		public StringTable(string defaultLanguage, ILanguageManagerProvider languageManagerProvider, IFileReader fileReader)
 		{
-			Load(defaultLanguage, currentLanguage, fileReader);
+			_defaultLanguage = defaultLanguage;
+			_languageManagerProvider = languageManagerProvider;
+			_fileReader = fileReader;
 		}
 
 		/// <summary>
 		/// String table items
 		/// </summary>
 		public dynamic Items { get; private set; }
+
+		/// <summary>
+		/// Setups this string table.
+		/// </summary>
+		public void Setup()
+		{
+			Load(_defaultLanguage,_languageManagerProvider.Get().Language, _fileReader);
+		}
 
 		/// <summary>
 		/// Get enum associated value from string table by enum type + enum element name

@@ -11,20 +11,22 @@ namespace AcspNet.Modules
 	{
 		private readonly string _dataPhysicalPath;
 		private readonly string _defaultLanguage;
-		private readonly string _currentLanguage;
+		private readonly ILanguageManagerProvider _languageManagerProvider;
 		private static IFileSystem _fileSystemInstance;
 
+		private string _currentLanguage;
+
 		/// <summary>
-		/// Initializes a new instance of the <see cref="FileReader"/> class.
+		/// Initializes a new instance of the <see cref="FileReader" /> class.
 		/// </summary>
 		/// <param name="dataPhysicalPath">The data physical path.</param>
 		/// <param name="defaultLanguage">The default language.</param>
-		/// <param name="currentLanguage">The language.</param>
-		public FileReader(string dataPhysicalPath, string defaultLanguage, string currentLanguage)
+		/// <param name="languageManagerProvider">The language manager provider.</param>
+		public FileReader(string dataPhysicalPath, string defaultLanguage, ILanguageManagerProvider languageManagerProvider)
 		{
 			_dataPhysicalPath = dataPhysicalPath;
 			_defaultLanguage = defaultLanguage;
-			_currentLanguage = currentLanguage;
+			_languageManagerProvider = languageManagerProvider;
 		}
 
 		/// <summary>
@@ -83,6 +85,14 @@ namespace AcspNet.Modules
 				? string.Format("{0}{1}.{2}{3}", _dataPhysicalPath, fileNameFirstPart, _defaultLanguage,
 					fileNameLastPart)
 				: path;
+		}
+
+		/// <summary>
+		/// Setups the file reader.
+		/// </summary>
+		public void Setup()
+		{
+			_currentLanguage = _languageManagerProvider.Get().Language;
 		}
 
 		/// <summary>

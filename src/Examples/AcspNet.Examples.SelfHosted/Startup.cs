@@ -17,7 +17,8 @@ namespace AcspNet.Examples.SelfHosted
 			// Exclude AcspNet from exclude assemblies to be able to load example controllers
 			AcspTypesFinder.ExcludedAssembliesPrefixes.Remove("AcspNet");
 
-			DIContainer.Current = new SimpleInjectorDIProvider();
+			var provider = new SimpleInjectorDIProvider();
+			DIContainer.Current = provider;
 			
 			app.UseCookieAuthentication(new CookieAuthenticationOptions
 			{
@@ -28,6 +29,8 @@ namespace AcspNet.Examples.SelfHosted
 			app.UseAesDataProtectorProvider();
 
 			app.UseAcspNet();
+
+			provider.Container.Verify();
 		}
 	}
 }

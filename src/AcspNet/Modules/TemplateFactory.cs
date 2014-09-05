@@ -13,7 +13,7 @@ namespace AcspNet.Modules
 	public sealed class TemplateFactory : ITemplateFactory
 	{
 		private readonly IEnvironment _environment;
-		private readonly string _language;
+		private readonly ILanguageManagerProvider _languageManagerProvider;
 		private readonly string _defaultLanguage;
 		private readonly bool _templatesMemoryCache;
 		private readonly bool _loadTemplatesFromAssembly;
@@ -22,21 +22,31 @@ namespace AcspNet.Modules
 
 		private readonly object _locker = new object();
 
+		private string _language;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="TemplateFactory" /> class.
 		/// </summary>
 		/// <param name="environment">The environment.</param>
-		/// <param name="language">The language.</param>
+		/// <param name="languageManagerProvider">The language manager provider.</param>
 		/// <param name="defaultLanguage">The default language.</param>
 		/// <param name="templatesMemoryCache">if set to <c>true</c> them loaded templates will be cached in memory.</param>
 		/// <param name="loadTemplatesFromAssembly">if set to <c>true</c> then all templates will be loaded from assembly.</param>
-		public TemplateFactory(IEnvironment environment, string language, string defaultLanguage, bool templatesMemoryCache = false, bool loadTemplatesFromAssembly = false)
+		public TemplateFactory(IEnvironment environment, ILanguageManagerProvider languageManagerProvider, string defaultLanguage, bool templatesMemoryCache = false, bool loadTemplatesFromAssembly = false)
 		{
 			_environment = environment;
-			_language = language;
+			_languageManagerProvider = languageManagerProvider;
 			_defaultLanguage = defaultLanguage;
 			_templatesMemoryCache = templatesMemoryCache;
 			_loadTemplatesFromAssembly = loadTemplatesFromAssembly;
+		}
+
+		/// <summary>
+		/// Setups the template factory.
+		/// </summary>
+		public void Setup()
+		{
+			_language = _languageManagerProvider.Get().Language;
 		}
 
 		/// <summary>
