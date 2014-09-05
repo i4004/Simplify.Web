@@ -7,10 +7,6 @@ namespace AcspNet.Responses
 	/// </summary>
 	public class File : ControllerResponse
 	{
-		private readonly string _outputFileName;
-		private readonly string _contentType;
-		private readonly byte[] _data;
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="File"/> class.
 		/// </summary>
@@ -23,19 +19,43 @@ namespace AcspNet.Responses
 			if (contentType == null) throw new ArgumentNullException("contentType");
 			if (data == null) throw new ArgumentNullException("data");
 
-			_outputFileName = outputFileName;
-			_contentType = contentType;
-			_data = data;
+			OutputFileName = outputFileName;
+			ContentType = contentType;
+			Data = data;
 		}
+
+		/// <summary>
+		/// Gets the name of the output file.
+		/// </summary>
+		/// <value>
+		/// The name of the output file.
+		/// </value>
+		public string OutputFileName { get; private set; }
+
+		/// <summary>
+		/// Gets the type of the content.
+		/// </summary>
+		/// <value>
+		/// The type of the content.
+		/// </value>
+		public string ContentType { get; private set; }
+
+		/// <summary>
+		/// Gets the data.
+		/// </summary>
+		/// <value>
+		/// The data.
+		/// </value>
+		public byte[] Data { get; private set; }
 
 		/// <summary>
 		/// Processes this response
 		/// </summary>
 		public override ControllerResponseResult Process()
 		{
-			Context.Response.Headers.Append("Content-Disposition", "attachment; filename=" + _outputFileName);
-			Context.Response.ContentType = _contentType;
-			Context.Response.Write(_data);
+			Context.Response.Headers.Append("Content-Disposition", "attachment; filename=" + OutputFileName);
+			Context.Response.ContentType = ContentType;
+			Context.Response.Write(Data);
 
 			return ControllerResponseResult.RawOutput;
 		}

@@ -1,5 +1,4 @@
-﻿using System;
-using AcspNet.Modules.Html;
+﻿using AcspNet.Modules.Html;
 
 namespace AcspNet.Responses
 {
@@ -8,9 +7,6 @@ namespace AcspNet.Responses
 	/// </summary>
 	public class MessageBoxInline : ControllerResponse
 	{
-		private readonly string _text;
-		private readonly MessageBoxStatus _status;
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MessageBox"/> class.
 		/// </summary>
@@ -18,9 +14,25 @@ namespace AcspNet.Responses
 		/// <param name="status">The message box status.</param>
 		public MessageBoxInline(string text, MessageBoxStatus status = MessageBoxStatus.Error)
 		{
-			_text = text;
-			_status = status;
+			Text = text;
+			Status = status;
 		}
+
+		/// <summary>
+		/// Gets the text.
+		/// </summary>
+		/// <value>
+		/// The text.
+		/// </value>
+		public string Text { get; private set; }
+
+		/// <summary>
+		/// Gets the status.
+		/// </summary>
+		/// <value>
+		/// The status.
+		/// </value>
+		public MessageBoxStatus Status { get; private set; }
 
 		/// <summary>
 		/// Processes this response
@@ -28,7 +40,7 @@ namespace AcspNet.Responses
 		/// <returns></returns>
 		public override ControllerResponseResult Process()
 		{
-			ResponseWriter.Write(Html.MessageBox.GetInline(_text, _status), Context.Response);
+			ResponseWriter.Write(Html.MessageBox.GetInline(Text, Status), Context.Response);
 
 			return ControllerResponseResult.RawOutput;
 		}

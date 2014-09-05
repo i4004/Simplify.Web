@@ -7,9 +7,6 @@ namespace AcspNet.Responses
 	/// </summary>
 	public class MessageBoxInlineSt : ControllerResponse
 	{
-		private readonly string _stringTableItemName;
-		private readonly MessageBoxStatus _status;
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MessageBox" /> class.
 		/// </summary>
@@ -17,9 +14,25 @@ namespace AcspNet.Responses
 		/// <param name="status">The message box status.</param>
 		public MessageBoxInlineSt(string stringTableItemName, MessageBoxStatus status = MessageBoxStatus.Error)
 		{
-			_stringTableItemName = stringTableItemName;
-			_status = status;
+			StringTableItemName = stringTableItemName;
+			Status = status;
 		}
+
+		/// <summary>
+		/// Gets the name of the string table item.
+		/// </summary>
+		/// <value>
+		/// The name of the string table item.
+		/// </value>
+		public string StringTableItemName { get; private set; }
+
+		/// <summary>
+		/// Gets the status.
+		/// </summary>
+		/// <value>
+		/// The status.
+		/// </value>
+		public MessageBoxStatus Status { get; private set; }
 
 		/// <summary>
 		/// Processes this response
@@ -27,7 +40,7 @@ namespace AcspNet.Responses
 		/// <returns></returns>
 		public override ControllerResponseResult Process()
 		{
-			ResponseWriter.Write(Html.MessageBox.GetInlineSt(_stringTableItemName, _status), Context.Response);
+			ResponseWriter.Write(Html.MessageBox.GetInlineSt(StringTableItemName, Status), Context.Response);
 
 			return ControllerResponseResult.RawOutput;
 		}

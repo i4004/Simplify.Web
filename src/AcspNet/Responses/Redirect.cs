@@ -7,17 +7,13 @@ namespace AcspNet.Responses
 	/// </summary>
 	public class Redirect : ControllerResponse
 	{
-		private readonly RedirectionType _redirectionType;
-		private readonly string _bookmarkName;
-		private readonly string _url;
-
 		/// <summary>
 		/// Redirects the client to specified URL.
 		/// </summary>
 		/// <param name="url">The URL.</param>
 		public Redirect(string url)
 		{
-			_url = url;
+			Url = url;
 		}
 
 		/// <summary>
@@ -27,9 +23,33 @@ namespace AcspNet.Responses
 		/// <param name="bookmarkName">Name of the bookmark.</param>
 		public Redirect(RedirectionType redirectionType, string bookmarkName = null)
 		{
-			_redirectionType = redirectionType;
-			_bookmarkName = bookmarkName;
+			RedirectionType = redirectionType;
+			BookmarkName = bookmarkName;
 		}
+
+		/// <summary>
+		/// Gets the type of the redirection.
+		/// </summary>
+		/// <value>
+		/// The type of the redirection.
+		/// </value>
+		public RedirectionType RedirectionType { get; private set; }
+
+		/// <summary>
+		/// Gets the name of the bookmark.
+		/// </summary>
+		/// <value>
+		/// The name of the bookmark.
+		/// </value>
+		public string BookmarkName { get; private set; }
+
+		/// <summary>
+		/// Gets the URL.
+		/// </summary>
+		/// <value>
+		/// The URL.
+		/// </value>
+		public string Url { get; private set; }
 
 		/// <summary>
 		/// Processes this response
@@ -37,10 +57,10 @@ namespace AcspNet.Responses
 		/// <returns></returns>
 		public override ControllerResponseResult Process()
 		{
-			if (!string.IsNullOrEmpty(_url))
-				Redirector.Redirect(_url);
+			if (!string.IsNullOrEmpty(Url))
+				Redirector.Redirect(Url);
 			else
-				Redirector.Redirect(_redirectionType, _bookmarkName);
+				Redirector.Redirect(RedirectionType, BookmarkName);
 
 			return ControllerResponseResult.Redirect;
 		}

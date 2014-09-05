@@ -7,9 +7,6 @@ namespace AcspNet.Responses
 	/// </summary>
 	public class StaticTpl : ControllerResponse
 	{
-		private readonly string _stringTableTitleItemName;
-		private readonly string _templateFileName;
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Tpl" /> class.
 		/// </summary>
@@ -18,7 +15,7 @@ namespace AcspNet.Responses
 		{
 			if (templateFileName == null) throw new ArgumentNullException("templateFileName");
 
-			_templateFileName = templateFileName;
+			TemplateFileName = templateFileName;
 		}
 
 		/// <summary>
@@ -31,19 +28,35 @@ namespace AcspNet.Responses
 			if (templateFileName == null) throw new ArgumentNullException("templateFileName");
 			if (stringTableTitleItemName == null) throw new ArgumentNullException("stringTableTitleItemName");
 
-			_templateFileName = templateFileName;
-			_stringTableTitleItemName = stringTableTitleItemName;
+			TemplateFileName = templateFileName;
+			StringTableTitleItemName = stringTableTitleItemName;
 		}
+
+		/// <summary>
+		/// Gets the name of the string table title item.
+		/// </summary>
+		/// <value>
+		/// The name of the string table title item.
+		/// </value>
+		public string StringTableTitleItemName { get; private set; }
+
+		/// <summary>
+		/// Gets the name of the template file.
+		/// </summary>
+		/// <value>
+		/// The name of the template file.
+		/// </value>
+		public string TemplateFileName { get; private set; }
 
 		/// <summary>
 		/// Processes this response
 		/// </summary>
 		public override ControllerResponseResult Process()
 		{
-			DataCollector.Add(TemplateFactory.Load(_templateFileName));
+			DataCollector.Add(TemplateFactory.Load(TemplateFileName));
 
-			if (!string.IsNullOrEmpty(_stringTableTitleItemName))
-				DataCollector.AddTitle(StringTableManager.GetItem(_stringTableTitleItemName));
+			if (!string.IsNullOrEmpty(StringTableTitleItemName))
+				DataCollector.AddTitle(StringTableManager.GetItem(StringTableTitleItemName));
 
 			return ControllerResponseResult.Default;
 		}

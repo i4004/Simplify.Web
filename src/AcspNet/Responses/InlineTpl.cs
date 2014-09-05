@@ -8,9 +8,6 @@ namespace AcspNet.Responses
 	/// </summary>
 	public class InlineTpl : ControllerResponse
 	{
-		private readonly string _dataCollectorVariableName;
-		private readonly string _data;
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="InlineTpl"/> class.
 		/// </summary>
@@ -21,10 +18,10 @@ namespace AcspNet.Responses
 			if (string.IsNullOrEmpty(dataCollectorVariableName))
 				throw new ArgumentNullException("dataCollectorVariableName");
 
-			_dataCollectorVariableName = dataCollectorVariableName;
+			DataCollectorVariableName = dataCollectorVariableName;
 
 			if (template != null)
-				_data = template.Get();
+				Data = template.Get();
 		}
 		
 		/// <summary>
@@ -37,16 +34,32 @@ namespace AcspNet.Responses
 			if (string.IsNullOrEmpty(dataCollectorVariableName))
 				throw new ArgumentNullException("dataCollectorVariableName");
 
-			_dataCollectorVariableName = dataCollectorVariableName;
-			_data = data;
+			DataCollectorVariableName = dataCollectorVariableName;
+			Data = data;
 		}
+
+		/// <summary>
+		/// Gets the name of the data collector variable.
+		/// </summary>
+		/// <value>
+		/// The name of the data collector variable.
+		/// </value>
+		public string DataCollectorVariableName { get; private set; }
+
+		/// <summary>
+		/// Gets the data.
+		/// </summary>
+		/// <value>
+		/// The data.
+		/// </value>
+		public string Data { get; private set; }
 
 		/// <summary>
 		/// Processes this response
 		/// </summary>
 		public override ControllerResponseResult Process()
 		{
-			DataCollector.Add(_dataCollectorVariableName, _data);
+			DataCollector.Add(DataCollectorVariableName, Data);
 
 			return ControllerResponseResult.Default;
 		}

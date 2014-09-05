@@ -7,10 +7,6 @@ namespace AcspNet.Responses
 	/// </summary>
 	public class MessageBoxSt : ControllerResponse
 	{
-		private readonly string _stringTableItemName;
-		private readonly MessageBoxStatus _status;
-		private readonly string _messageBoxTitle;
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MessageBox"/> class.
 		/// </summary>
@@ -19,10 +15,34 @@ namespace AcspNet.Responses
 		/// <param name="messageBoxTitle">The message box title.</param>
 		public MessageBoxSt(string stringTableItemName, MessageBoxStatus status = MessageBoxStatus.Error, string messageBoxTitle = null)
 		{
-			_stringTableItemName = stringTableItemName;
-			_status = status;
-			_messageBoxTitle = messageBoxTitle;
+			StringTableItemName = stringTableItemName;
+			Status = status;
+			MessageBoxTitle = messageBoxTitle;
 		}
+
+		/// <summary>
+		/// Gets the name of the string table item.
+		/// </summary>
+		/// <value>
+		/// The name of the string table item.
+		/// </value>
+		public string StringTableItemName { get; private set; }
+
+		/// <summary>
+		/// Gets the status.
+		/// </summary>
+		/// <value>
+		/// The status.
+		/// </value>
+		public MessageBoxStatus Status { get; private set; }
+
+		/// <summary>
+		/// Gets the message box title.
+		/// </summary>
+		/// <value>
+		/// The message box title.
+		/// </value>
+		public string MessageBoxTitle { get; private set; }
 
 		/// <summary>
 		/// Processes this response
@@ -30,7 +50,7 @@ namespace AcspNet.Responses
 		/// <returns></returns>
 		public override ControllerResponseResult Process()
 		{
-			Html.MessageBox.ShowSt(_stringTableItemName, _status, _messageBoxTitle);
+			Html.MessageBox.ShowSt(StringTableItemName, Status, MessageBoxTitle);
 
 			return ControllerResponseResult.Default;
 		}
