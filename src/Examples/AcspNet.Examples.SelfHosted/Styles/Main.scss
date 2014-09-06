@@ -12,8 +12,9 @@
 @import 'Forms';
 @import 'MessageBox';
 
-div.Content
+.content
 {
+	max-width: 400px !important;
 }
 
 .ExecutionTimeFooter

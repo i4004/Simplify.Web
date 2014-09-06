@@ -9,7 +9,7 @@ namespace AcspNet.Examples.SelfHosted.Controllers.Accounts
 	{
 		public override ControllerResponse Invoke()
 		{
-			return new ViewModel<LoginViewModel>("Accounts/LoginPage");
+			return new ViewModel<LoginViewModel>("Accounts/LoginPage", null, "PageTitleLogin");
 		}
 	}
 }

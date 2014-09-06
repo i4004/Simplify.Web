@@ -4,6 +4,7 @@
 	<item name="SiteTitle" value="AcspNet example application" />
 	
 	<item name="PageTitleAbout" value="About Page" />
-	
+	<item name="PageTitleLogin" value="Login" />
+
 	<item name="PageTitle404" value="404 Not Found" />
 </items>

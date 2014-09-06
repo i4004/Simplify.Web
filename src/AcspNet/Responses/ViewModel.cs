@@ -13,10 +13,12 @@ namespace AcspNet.Responses
 		/// </summary>
 		/// <param name="templateFileName">Name of the template file.</param>
 		/// <param name="viewModel">The view model.</param>
-		public ViewModel(string templateFileName, T viewModel = null)
+		/// <param name="stringTableTitleItemName">Name of the string table title item.</param>
+		public ViewModel(string templateFileName, T viewModel = null, string stringTableTitleItemName = null)
 		{
 			TemplateFileName = templateFileName;
 			Model = viewModel;
+			StringTableTitleItemName = stringTableTitleItemName;
 		}
 
 		/// <summary>
@@ -36,12 +38,23 @@ namespace AcspNet.Responses
 		public T Model { get; private set; }
 
 		/// <summary>
+		/// Gets or sets the name of the string table title item.
+		/// </summary>
+		/// <value>
+		/// The name of the string table title item.
+		/// </value>
+		public string StringTableTitleItemName { get; set; }
+
+		/// <summary>
 		/// Processes this response
 		/// </summary>
 		/// <exception cref="System.NotImplementedException"></exception>
 		public override ControllerResponseResult Process()
 		{
 			DataCollector.Add(TemplateFactory.Load(TemplateFileName).Model(Model).Set());
+
+			if (!string.IsNullOrEmpty(StringTableTitleItemName))
+				DataCollector.AddTitle(StringTableManager.GetItem(StringTableTitleItemName));
 
 			return ControllerResponseResult.Default;
 		}

@@ -1,28 +1,18 @@
-﻿<form class="form-horizontal" method="post" id="Form">
-	<fieldset>
+﻿<div class="container" style="max-width: 400px">
+	<form class="form-horizontal" method="post" id="Form">
 		<div class="form-group">
-			<label for="UserName" class="control-label col-xs-2">User name</label>
-			<div class="col-xs-10">
-				<input type="text" class="form-control" id="UserName" name="UserName" placeholder="User name" value="{Model.UserName}" />
+			<input type="text" class="form-control" id="UserName" name="UserName" placeholder="User name" value="{Model.UserName}" />
+		</div>
+		<div class="form-group">
+			<input type="Password" class="form-control" id="Password" name="Password" placeholder="Password" />
+		</div>
+		<div class="form-group">
+			<div class="checkbox">
+				<label><input type="checkbox" name="RememberMe" {model.rememberme} />Remember me</label>
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="inputPassword" class="control-label col-xs-2">Password</label>
-			<div class="col-xs-10">
-				<input type="Password" class="form-control" id="Password" name="Password" placeholder="Password" />
-			</div>
+			<button type="submit" class="btn btn-default">Login</button>
 		</div>
-		<div class="form-group">
-			<div class="col-xs-offset-2 col-xs-10">
-				<div class="checkbox">
-					<label><input type="checkbox" name="RememberMe" {Model.RememberMe}/>Remember me</label>
-				</div>
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-xs-offset-2 col-xs-10">
-				<button type="submit" class="btn btn-default">Login</button>
-			</div>
-		</div>
-	</fieldset>
-</form>
+	</form>
+</div>

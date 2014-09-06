@@ -29,7 +29,7 @@ namespace AcspNet.Examples.SelfHosted.Controllers.Accounts
 				return new Redirect(RedirectionType.PreviousPage);
 			}
 
-			return new Tpl(GetView<LoginView>().Get(Model));
+			return new Tpl(GetView<LoginView>().Get(Model), StringTable.PageTitleLogin);
 		}
 	}
 }
