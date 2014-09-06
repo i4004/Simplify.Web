@@ -129,6 +129,7 @@ namespace AcspNet
 			{
 				LoadLanguageManagerSettings(config);
 				LoadTemplatesSettings(config);
+				LoadCacheSettings(config);
 				LoadOtherSettings(config);
 			}
 		}
@@ -152,14 +153,6 @@ namespace AcspNet
 			if (!string.IsNullOrEmpty(config["DefaultTemplatesPath"]))
 				DefaultTemplatesPath = config["DefaultTemplatesPath"];
 
-			if (!string.IsNullOrEmpty(config["TemplatesMemoryCache"]))
-			{
-				bool buffer;
-
-				if (bool.TryParse(config["TemplatesMemoryCache"], out buffer))
-					TemplatesMemoryCache = buffer;
-			}
-
 			if (!string.IsNullOrEmpty(config["DefaultMasterTemplateFileName"]))
 				DefaultMasterTemplateFileName = config["DefaultMasterTemplateFileName"];
 
@@ -174,14 +167,6 @@ namespace AcspNet
 		{
 			if (!string.IsNullOrEmpty(config["DefaultStyle"]))
 				DefaultStyle = config["DefaultStyle"];
-
-			if (!string.IsNullOrEmpty(config["StringTableMemoryCache"]))
-			{
-				bool buffer;
-
-				if (bool.TryParse(config["StringTableMemoryCache"], out buffer))
-					StringTableMemoryCache = buffer;
-			}
 			
 			if (!string.IsNullOrEmpty(config["DefaultDataPath"]))
 				DataPath = config["DefaultDataPath"];
@@ -209,6 +194,25 @@ namespace AcspNet
 
 				if (bool.TryParse(config["HideExceptionDetails"], out buffer))
 					HideExceptionDetails = buffer;
+			}
+		}
+
+		private void LoadCacheSettings(NameValueCollection config)
+		{
+			if (!string.IsNullOrEmpty(config["TemplatesMemoryCache"]))
+			{
+				bool buffer;
+
+				if (bool.TryParse(config["TemplatesMemoryCache"], out buffer))
+					TemplatesMemoryCache = buffer;
+			}
+
+			if (!string.IsNullOrEmpty(config["StringTableMemoryCache"]))
+			{
+				bool buffer;
+
+				if (bool.TryParse(config["StringTableMemoryCache"], out buffer))
+					StringTableMemoryCache = buffer;
 			}
 		}
 	}
