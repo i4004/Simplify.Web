@@ -8,7 +8,7 @@ namespace AcspNet.Examples.SelfHosted.Controllers
 	{
 		public override ControllerResponse Invoke()
 		{
-			return new Tpl(TemplateFactory.Load("Default"));
+			return new StaticTpl("Default");
 		}
 	}
 }
