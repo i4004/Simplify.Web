@@ -153,6 +153,14 @@ namespace AcspNet
 			if (!string.IsNullOrEmpty(config["DefaultTemplatesPath"]))
 				DefaultTemplatesPath = config["DefaultTemplatesPath"];
 
+			if (!string.IsNullOrEmpty(config["LoadTemplatesFromAssembly"]))
+			{
+				bool buffer;
+
+				if (bool.TryParse(config["LoadTemplatesFromAssembly"], out buffer))
+					LoadTemplatesFromAssembly = buffer;
+			}
+
 			if (!string.IsNullOrEmpty(config["DefaultMasterTemplateFileName"]))
 				DefaultMasterTemplateFileName = config["DefaultMasterTemplateFileName"];
 
