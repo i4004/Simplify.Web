@@ -29,3 +29,16 @@ button.btn:hover
 	transition: background-position 0.2s linear 0s;
 	color: $primary-color-hover-text;
 }
+
+// Checkbox vertical align fix
+input[type="checkbox"]
+{
+	vertical-align: middle;
+	position: relative;
+	bottom: 4px;
+}
+
+label
+{
+	font-weight: normal !important;
+}

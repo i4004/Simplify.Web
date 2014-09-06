@@ -50,6 +50,14 @@ button.btn:hover {
   transition: background-position 0.2s linear 0s;
   color: #3464bc; }
 
+input[type="checkbox"] {
+  vertical-align: middle;
+  position: relative;
+  bottom: 4px; }
+
+label {
+  font-weight: normal !important; }
+
 div.MessageBox {
   padding: 4em;
   font-size: 1.4em;

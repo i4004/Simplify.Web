@@ -7,9 +7,7 @@
 			<input type="Password" class="form-control" id="Password" name="Password" placeholder="Password" />
 		</div>
 		<div class="form-group">
-			<div class="checkbox">
-				<label><input type="checkbox" name="RememberMe" {model.rememberme} />Remember me</label>
-			</div>
+			<label><input type="checkbox" name="RememberMe" {Model.RememberMe} /> Remember me</label>
 		</div>
 		<div class="form-group">
 			<button type="submit" class="btn btn-default">Login</button>
