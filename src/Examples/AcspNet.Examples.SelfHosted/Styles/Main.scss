@@ -19,7 +19,7 @@
 
 .ExecutionTimeFooter
 {
-	border-top: 1px solid #bcbcbc;
+	border-top: $primary-border;
 	text-align: center;
 	margin-top: 1em;
 	padding-top: 0.3em;
@@ -27,6 +27,6 @@
 
 div.Http404MessageBox
 {
-	color: #0d85c9;
+	color: $primary-color-text;
 	padding: 4em 2em 4em 2em;
 }

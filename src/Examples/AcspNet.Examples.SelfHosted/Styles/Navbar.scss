@@ -1,18 +1,30 @@
+@import 'Variables';
+
 .navbar
 {
-	background: #4a73bc;
-	color: #fff;
+	background: $primary-color;
+	color: $primary-opposite-color;
 	border: 0;
 	border-radius: 0;
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0) inset, 0 0 8px rgba(0, 0, 0, 0);
+	box-shadow: $no-box-shadow;
 
 	a, .navbar-text
 	{
-		color: white !important;
+		color: $primary-opposite-color !important;
 	}
 
-	a:hover
+	a:hover, .navbar-toggle:hover, .navbar:focus
 	{
-		background-color: #4368ac !important;
+		background-color: $primary-color-active !important;
+	}
+
+	.navbar-toggle
+	{
+		background-color: $primary-color !important;
+	}
+
+	.icon-bar
+	{
+		background-color: $primary-opposite-color !important;
 	}
 }

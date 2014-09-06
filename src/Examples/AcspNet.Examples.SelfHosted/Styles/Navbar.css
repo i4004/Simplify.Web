@@ -1,11 +1,15 @@
 .navbar {
   background: #4a73bc;
-  color: #fff;
+  color: white;
   border: 0;
   border-radius: 0;
-  box-shadow: 0 1px 1px transparent inset, 0 0 8px transparent; }
+  box-shadow: 0 0; }
   .navbar a, .navbar .navbar-text {
     color: white !important; }
-  .navbar a:hover {
+  .navbar a:hover, .navbar .navbar-toggle:hover, .navbar .navbar:focus {
     background-color: #4368ac !important; }
+  .navbar .navbar-toggle {
+    background-color: #4a73bc !important; }
+  .navbar .icon-bar {
+    background-color: white !important; }
 

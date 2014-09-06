@@ -17,14 +17,18 @@ img.Logo {
 
 .navbar {
   background: #4a73bc;
-  color: #fff;
+  color: white;
   border: 0;
   border-radius: 0;
-  box-shadow: 0 1px 1px transparent inset, 0 0 8px transparent; }
+  box-shadow: 0 0; }
   .navbar a, .navbar .navbar-text {
     color: white !important; }
-  .navbar a:hover {
+  .navbar a:hover, .navbar .navbar-toggle:hover, .navbar .navbar:focus {
     background-color: #4368ac !important; }
+  .navbar .navbar-toggle {
+    background-color: #4a73bc !important; }
+  .navbar .icon-bar {
+    background-color: white !important; }
 
 textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
   border-color: #bcbcbc;
@@ -35,7 +39,7 @@ input[placeholder], input[placeholder][type="password"] {
 
 textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {
   border-color: #4a73bc;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(67, 110, 188, 0); }
+  box-shadow: 0 0; }
 
 button.btn {
   box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2) inset, 0px 1px 2px rgba(0, 0, 0, 0.05);

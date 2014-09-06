@@ -77,6 +77,7 @@
     <None Include="Styles\MessageBox.scss" />
     <None Include="Styles\Forms.scss" />
     <None Include="Styles\Navbar.scss" />
+    <None Include="Styles\Variables.scss" />
     <None Include="Templates\AcspNet\MessageBox\InlineOkMessageBox.tpl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -229,6 +230,9 @@
     </Content>
     <Content Include="Styles\Navbar.css">
       <DependentUpon>Navbar.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\Variables.css">
+      <DependentUpon>Variables.scss</DependentUpon>
     </Content>
     <Content Include="Templates\Master.tpl.en.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
