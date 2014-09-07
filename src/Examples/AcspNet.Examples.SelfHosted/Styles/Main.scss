@@ -1,16 +1,16 @@
-﻿body
+﻿@import 'Header';
+@import 'Navbar';
+@import 'Forms';
+@import 'MessageBox';
+
+body
 {
-	background: #efefef !important;
+	background: $back-color !important;
 	color: #505050 !important;
 	font: 1.6em 'Segoe UI', tahoma, arial, helvetica, sans-serif !important;
 	margin: 1em !important;
 	padding: 0 !important;
 }
-
-@import 'Header';
-@import 'Navbar';
-@import 'Forms';
-@import 'MessageBox';
 
 .content
 {
@@ -27,6 +27,6 @@
 
 div.Http404MessageBox
 {
-	color: $primary-color-text;
+	color: $primary-color-colorized-text;
 	padding: 4em 2em 4em 2em;
 }

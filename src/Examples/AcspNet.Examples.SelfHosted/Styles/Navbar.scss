@@ -3,14 +3,14 @@
 .navbar
 {
 	background: $primary-color;
-	color: $primary-opposite-color;
+	color: $primary-color-opposite;
 	border: 0;
 	border-radius: 0;
 	box-shadow: $no-box-shadow;
 
 	a, .navbar-text
 	{
-		color: $primary-opposite-color !important;
+		color: $primary-color-opposite !important;
 	}
 
 	a:hover, .navbar-toggle:hover, .navbar:focus
@@ -25,6 +25,6 @@
 
 	.icon-bar
 	{
-		background-color: $primary-opposite-color !important;
+		background-color: $primary-color-opposite !important;
 	}
 }

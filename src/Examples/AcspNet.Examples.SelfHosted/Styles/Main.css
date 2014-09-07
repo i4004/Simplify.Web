@@ -1,10 +1,3 @@
-body {
-  background: #efefef !important;
-  color: #505050 !important;
-  font: 1.6em 'Segoe UI', tahoma, arial, helvetica, sans-serif !important;
-  margin: 1em !important;
-  padding: 0 !important; }
-
 div.Title {
   padding: 0.5em;
   background-color: #e5e5e5;
@@ -62,6 +55,19 @@ div.MessageBox {
   padding: 4em;
   font-size: 1.4em;
   text-align: center; }
+
+div.inline-message-box, div.inline-error-message-box {
+  padding: 0.5em; }
+
+div.inline-error-message-box {
+  color: #FF4753; }
+
+body {
+  background: #efefef !important;
+  color: #505050 !important;
+  font: 1.6em 'Segoe UI', tahoma, arial, helvetica, sans-serif !important;
+  margin: 1em !important;
+  padding: 0 !important; }
 
 .content {
   max-width: 400px !important; }
