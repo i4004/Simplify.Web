@@ -2,43 +2,44 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Microsoft.Owin;
 
 namespace AcspNet.ModelBinding
 {
 	/// <summary>
-	/// Provides form data to object deserialization
+	/// Provides list of key value pair to object (model) deserialization
 	/// </summary>
-	public static class FormDeserializer
+	public static class ListModelDeserializer
 	{
 		private static readonly Type RequiredAttributeType = typeof(RequiredAttribute);
 
 		/// <summary>
-		/// Deserializes this instance.
+		/// Deserializes list to model.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <returns></returns>
-		public static T Deserialize<T>(IFormCollection form)
+		public static T Deserialize<T>(IList<KeyValuePair<string, string>> source)
 		{
 			var type = typeof(T);
 
 			var obj = Activator.CreateInstance<T>();
 
 			foreach (var propInfo in type.GetProperties())
-				propInfo.SetValue(obj, ParseProperty(propInfo, form));
+			{
+				var propertyInfo = propInfo;
+				propInfo.SetValue(obj, ParseProperty(propInfo, source.FirstOrDefault(x => x.Key == propertyInfo.Name)));
+			}
 
 			return obj;
 		}
 
-		private static object ParseProperty(PropertyInfo propertyInfo, IEnumerable<KeyValuePair<string, string[]>> form)
+		private static object ParseProperty(PropertyInfo propertyInfo, KeyValuePair<string, string> keyValuePair)
 		{
 			var isRequired = propertyInfo.CustomAttributes.Any(x => x.AttributeType == RequiredAttributeType);
-			var formField = form.FirstOrDefault(x => x.Key == propertyInfo.Name);
 
 			string rawValue = null;
 
-			if (!formField.Equals(default(KeyValuePair<string, string[]>)) && !string.IsNullOrEmpty(formField.Value[0]))
-				rawValue = formField.Value[0];
+			if (!keyValuePair.Equals(default(KeyValuePair<string, string>)) && !string.IsNullOrEmpty(keyValuePair.Value))
+				rawValue = keyValuePair.Value;
 
 			if (isRequired && string.IsNullOrEmpty(rawValue))
 				throw new ModelBindingException(string.Format("Required parameter '{0}' is null or empty", propertyInfo.Name));

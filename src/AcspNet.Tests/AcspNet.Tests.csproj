@@ -133,7 +133,7 @@
     <Compile Include="Core\RequestHandlerTests.cs" />
     <Compile Include="Core\StaticFilesRequestHandlerTest.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGeneratorTests.cs" />
-    <Compile Include="ModelBinding\FormDeserializerTests.cs" />
+    <Compile Include="ModelBinding\ListModelDeserializerTests.cs" />
     <Compile Include="Modules\AcspNetContextTests.cs" />
     <Compile Include="Modules\DataCollectorTests.cs" />
     <Compile Include="Modules\EnvironmentTests.cs" />
