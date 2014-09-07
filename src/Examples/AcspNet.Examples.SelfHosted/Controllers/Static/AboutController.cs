@@ -8,7 +8,7 @@ namespace AcspNet.Examples.SelfHosted.Controllers.Static
 	{
 		public override ControllerResponse Invoke()
 		{
-			return new StaticTpl("Static/About", "PageTitleAbout");
+			return new StaticTpl("Static/About", StringTable.PageTitleAbout);
 		}
 	}
 }

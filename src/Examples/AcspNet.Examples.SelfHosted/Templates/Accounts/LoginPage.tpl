@@ -1,6 +1,9 @@
 ﻿<div class="container" style="max-width: 400px">
 	<form class="form-horizontal" method="post" id="Form">
 		<div class="form-group">
+			{Message}
+		</div>
+		<div class="form-group">
 			<input type="text" class="form-control" id="UserName" name="UserName" placeholder="User name" value="{Model.UserName}" />
 		</div>
 		<div class="form-group">

@@ -8,7 +8,7 @@ namespace AcspNet.Examples.SelfHosted.Controllers.HttpErrors
 	{
 		public override ControllerResponse Invoke()
 		{
-			return new StaticTpl("HttpErrors/Http404", "PageTitle404");
+			return new StaticTpl("HttpErrors/Http404", StringTable.PageTitle404);
 		}
 	}
 }

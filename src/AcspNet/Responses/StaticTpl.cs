@@ -22,14 +22,19 @@ namespace AcspNet.Responses
 		/// Initializes a new instance of the <see cref="Tpl" /> class.
 		/// </summary>
 		/// <param name="templateFileName">Name of the template file.</param>
-		/// <param name="stringTableTitleItemName">Name of the string table title item.</param>
-		public StaticTpl(string templateFileName, string stringTableTitleItemName)
+		/// <param name="title">The title.</param>
+		/// <exception cref="System.ArgumentNullException">
+		/// templateFileName
+		/// or
+		/// title
+		/// </exception>
+		public StaticTpl(string templateFileName, string title)
 		{
 			if (templateFileName == null) throw new ArgumentNullException("templateFileName");
-			if (stringTableTitleItemName == null) throw new ArgumentNullException("stringTableTitleItemName");
+			if (title == null) throw new ArgumentNullException("title");
 
 			TemplateFileName = templateFileName;
-			StringTableTitleItemName = stringTableTitleItemName;
+			Title = title;
 		}
 
 		/// <summary>
@@ -38,7 +43,7 @@ namespace AcspNet.Responses
 		/// <value>
 		/// The name of the string table title item.
 		/// </value>
-		public string StringTableTitleItemName { get; private set; }
+		public string Title { get; private set; }
 
 		/// <summary>
 		/// Gets the name of the template file.
@@ -55,8 +60,8 @@ namespace AcspNet.Responses
 		{
 			DataCollector.Add(TemplateFactory.Load(TemplateFileName));
 
-			if (!string.IsNullOrEmpty(StringTableTitleItemName))
-				DataCollector.AddTitle(StringTableManager.GetItem(StringTableTitleItemName));
+			if (!string.IsNullOrEmpty(Title))
+				DataCollector.AddTitle(Title);
 
 			return ControllerResponseResult.Default;
 		}

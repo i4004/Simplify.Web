@@ -8,16 +8,16 @@ namespace AcspNet.Responses
 	public class MessageBox : ControllerResponse
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="MessageBox"/> class.
+		/// Initializes a new instance of the <see cref="MessageBox" /> class.
 		/// </summary>
 		/// <param name="text">The message box text.</param>
 		/// <param name="status">The message box status.</param>
-		/// <param name="messageBoxTitle">The message box title.</param>
-		public MessageBox(string text, MessageBoxStatus status = MessageBoxStatus.Error, string messageBoxTitle = null)
+		/// <param name="title">The title.</param>
+		public MessageBox(string text, MessageBoxStatus status = MessageBoxStatus.Error, string title = null)
 		{
 			Text = text;
 			Status = status;
-			MessageBoxTitle = messageBoxTitle;
+			Title = title;
 		}
 
 		/// <summary>
@@ -37,12 +37,12 @@ namespace AcspNet.Responses
 		public MessageBoxStatus Status { get; private set; }
 
 		/// <summary>
-		/// Gets the message box title.
+		/// Gets the title.
 		/// </summary>
 		/// <value>
-		/// The message box title.
+		/// The title.
 		/// </value>
-		public string MessageBoxTitle { get; private set; }
+		public string Title { get; private set; }
 
 		/// <summary>
 		/// Processes this response
@@ -50,7 +50,7 @@ namespace AcspNet.Responses
 		/// <returns></returns>
 		public override ControllerResponseResult Process()
 		{
-			Html.MessageBox.Show(Text, Status, MessageBoxTitle);
+			Html.MessageBox.Show(Text, Status, Title);
 
 			return ControllerResponseResult.Default;
 		}
