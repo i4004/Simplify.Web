@@ -79,6 +79,14 @@ namespace AcspNet
 		public IList<string> StaticFilesPaths { get; private set; }
 
 		/// <summary>
+		/// Gets the string table files.
+		/// </summary>
+		/// <value>
+		/// The string table files.
+		/// </value>
+		public IList<string> StringTableFiles { get; private set; }
+
+		/// <summary>
 		/// Gets or sets a value indicating whether site title postfix should be set automatically
 		/// </summary>
 		public bool DisableAutomaticSiteTitleSet { get; private set; }
@@ -123,9 +131,11 @@ namespace AcspNet
 			// Style defaults
 			DefaultStyle = "Main";
 
-			DataPath = "App_Data";
+			// Other defaults
 
+			DataPath = "App_Data";
 			StaticFilesPaths = new List<string> {"Styles", "Scripts", "Images", "Content", "fonts"};
+			StringTableFiles = new List<string> {"StringTable.xml"};
 
 			var config = ConfigurationManager.GetSection("AcspNetSettings") as NameValueCollection;
 
@@ -199,6 +209,15 @@ namespace AcspNet
 
 				foreach (var item in items)
 					StaticFilesPaths.Add(item);
+			}
+
+			if (!string.IsNullOrEmpty(config["StringTableFiles"]))
+			{
+				StringTableFiles.Clear();
+				var items = config["StringTableFiles"].Replace(" ", "").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+				foreach (var item in items)
+					StringTableFiles.Add(item);
 			}
 		}
 
