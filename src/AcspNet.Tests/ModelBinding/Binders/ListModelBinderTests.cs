@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using AcspNet.ModelBinding;
+using AcspNet.ModelBinding.Binders;
 using AcspNet.Tests.TestEntities;
 using NUnit.Framework;
 
-namespace AcspNet.Tests.ModelBinding
+namespace AcspNet.Tests.ModelBinding.Binders
 {
 	[TestFixture]
-	public class ListModelDeserializerTests
+	public class ListModelBinderTests
 	{
 		[Test]
-		public void Deserialize_NormalData_Deserialized()
+		public void Bind_NormalData_Binded()
 		{
 			// Assign
 
@@ -21,7 +22,7 @@ namespace AcspNet.Tests.ModelBinding
 			};
 
 			// Act
-			var obj = ListModelDeserializer.Deserialize<TestModel>(coll);
+			var obj = ListModelBinder.Bind<TestModel>(coll);
 
 			// Assert
 
@@ -31,7 +32,7 @@ namespace AcspNet.Tests.ModelBinding
 		}
 
 		[Test]
-		public void Deserialize_RequiredIsAbsent_ExceptionThrown()
+		public void Bind_RequiredIsAbsent_ExceptionThrown()
 		{
 			// Assign
 
@@ -42,11 +43,11 @@ namespace AcspNet.Tests.ModelBinding
 			};
 
 			// Act & Assert
-			Assert.Throws<ModelBindingException>(() => ListModelDeserializer.Deserialize<TestModel>(coll));
+			Assert.Throws<ModelBindingException>(() => ListModelBinder.Bind<TestModel>(coll));
 		}
 
 		[Test]
-		public void Deserialize_DataTypeMismatch_0()
+		public void Bind_DataTypeMismatch_0()
 		{
 			// Assign
 
@@ -58,7 +59,7 @@ namespace AcspNet.Tests.ModelBinding
 			};
 
 			// Act
-			var obj = ListModelDeserializer.Deserialize<TestModel>(coll);
+			var obj = ListModelBinder.Bind<TestModel>(coll);
 
 			// Assert
 
@@ -69,7 +70,7 @@ namespace AcspNet.Tests.ModelBinding
 
 
 		[Test]
-		public void Deserialize_RequiredFieldDataTypeMismatch_ExceptionThrown()
+		public void Bind_RequiredFieldDataTypeMismatch_ExceptionThrown()
 		{
 			// Assign
 
@@ -79,11 +80,11 @@ namespace AcspNet.Tests.ModelBinding
 			};
 
 			// Act & Assert
-			Assert.Throws<ModelBindingException>(() => ListModelDeserializer.Deserialize<TestModel2>(coll));
+			Assert.Throws<ModelBindingException>(() => ListModelBinder.Bind<TestModel2>(coll));
 		}
 
 		[Test]
-		public void Deserialize_UnrecognizedPropertyType_ExceptionThrown()
+		public void Bind_UnrecognizedPropertyType_ExceptionThrown()
 		{
 			// Assign
 
@@ -94,7 +95,7 @@ namespace AcspNet.Tests.ModelBinding
 			};
 
 			// Act & Assert
-			Assert.Throws<ModelBindingException>(() => ListModelDeserializer.Deserialize<TestModel2>(coll));
+			Assert.Throws<ModelBindingException>(() => ListModelBinder.Bind<TestModel2>(coll));
 		}
 	}
 }

@@ -2,6 +2,7 @@
 using AcspNet.Core;
 using AcspNet.Meta;
 using AcspNet.ModelBinding;
+using AcspNet.ModelBinding.Binders;
 using AcspNet.Modules;
 using AcspNet.Modules.Html;
 using AcspNet.Routing;
@@ -729,7 +730,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterModelDeserializer()
 		{
-			DIContainer.Current.Register<IModelDeserializer>(p => new HttpDataToModelDeserializer(p.Resolve<IAcspNetContextProvider>().Get()), LifetimeType.PerLifetimeScope);			
+			DIContainer.Current.Register<IModelBinder>(p => new HttpDataToModelBinder(p.Resolve<IAcspNetContextProvider>().Get()), LifetimeType.PerLifetimeScope);			
 		}
 
 		#endregion

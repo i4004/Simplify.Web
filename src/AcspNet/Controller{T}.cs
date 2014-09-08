@@ -1,4 +1,4 @@
-﻿using AcspNet.ModelBinding;
+﻿using AcspNet.ModelBinding.Binders;
 using Simplify.DI;
 
 namespace AcspNet
@@ -19,7 +19,7 @@ namespace AcspNet
 		/// </value>
 		public virtual T Model
 		{
-			get { return _model ?? (_model = ContainerProvider.Resolve<IModelDeserializer>().Deserialize<T>()); }
+			get { return _model ?? (_model = ContainerProvider.Resolve<IModelBinder>().Bind<T>()); }
 		}
 	}
 }

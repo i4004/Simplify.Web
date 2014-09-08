@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace AcspNet.ModelBinding
+namespace AcspNet.ModelBinding.Binders
 {
 	/// <summary>
-	/// Provides list of key value pair to object (model) deserialization
+	/// Provides list of key value pair to model binding
 	/// </summary>
-	public static class ListModelDeserializer
+	public static class ListModelBinder
 	{
 		private static readonly Type RequiredAttributeType = typeof(RequiredAttribute);
 
 		/// <summary>
-		/// Deserializes list to model.
+		/// Binds list to model.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <returns></returns>
-		public static T Deserialize<T>(IList<KeyValuePair<string, string>> source)
+		public static T Bind<T>(IList<KeyValuePair<string, string>> source)
 		{
 			var type = typeof(T);
 

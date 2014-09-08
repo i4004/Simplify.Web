@@ -3,10 +3,10 @@
 namespace AcspNet.ModelBinding
 {
 	/// <summary>
-	/// Indicates what this property should be not null or empty
+	/// Indicates what this property should be an email address
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Property)]
-	public class RequiredAttribute : Attribute
+	public class EMailAttribute : Attribute
 	{
 	}
 }
