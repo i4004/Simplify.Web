@@ -15,7 +15,7 @@
 				<li><a href="{~}/messagePageExample">Message page example</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li>{LoginPanel}</li>
+				{LoginPanel}
 			</ul>
 		</div>
 	</div>
