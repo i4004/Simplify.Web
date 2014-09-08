@@ -3,7 +3,7 @@
 namespace AcspNet.ModelBinding
 {
 	/// <summary>
-	/// Sets maximum required property length
+	/// Sets maximum required property length and requires property should be not null or empty
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Property)]
 	public class MaxLengthAttribute : Attribute
