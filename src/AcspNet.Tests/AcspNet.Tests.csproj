@@ -161,6 +161,7 @@
     <Compile Include="Responses\TplTests.cs" />
     <Compile Include="TestEntities\TestController5.cs" />
     <Compile Include="TestEntities\TestController4.cs" />
+    <Compile Include="TestEntities\TestModel3.cs" />
     <Compile Include="TestEntities\TestModel2.cs" />
     <Compile Include="TestEntities\TestModel.cs" />
   </ItemGroup>
