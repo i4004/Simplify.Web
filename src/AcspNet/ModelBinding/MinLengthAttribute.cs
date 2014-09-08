@@ -3,7 +3,7 @@
 namespace AcspNet.ModelBinding
 {
 	/// <summary>
-	/// Sets minimum required property length and requires property should be not null or empty
+	/// Sets minimum required property length
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Property)]
 	public class MinLengthAttribute : Attribute

@@ -3,7 +3,7 @@
 namespace AcspNet.ModelBinding
 {
 	/// <summary>
-	/// Indicates what this property should match regular expression and should be not null or empty
+	/// Indicates what this property should match regular expression
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Property)]
 	public class RegexAttribute : Attribute

@@ -123,9 +123,12 @@
     <Compile Include="AsyncController.cs" />
     <Compile Include="Attributes\AuthorizeAttribute.cs" />
     <Compile Include="AsyncControllerBase.cs" />
+    <Compile Include="ModelBinding\Binders\DataValidator.cs" />
     <Compile Include="ModelBinding\Binders\ListModelBinder.cs" />
     <Compile Include="ModelBinding\Binders\FormModelBinder.cs" />
     <Compile Include="ModelBinding\Binders\IModelBinder.cs" />
+    <Compile Include="ModelBinding\Binders\DataParser.cs" />
+    <Compile Include="ModelBinding\DateTimeFormatAttribute.cs" />
     <Compile Include="ModelBinding\RegexAttribute.cs" />
     <Compile Include="ModelBinding\EMailAttribute.cs" />
     <Compile Include="ModelBinding\MaxLengthAttribute.cs" />
@@ -318,7 +321,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

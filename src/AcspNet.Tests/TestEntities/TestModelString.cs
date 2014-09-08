@@ -2,7 +2,7 @@
 
 namespace AcspNet.Tests.TestEntities
 {
-	public class TestModel3
+	public class TestModelString
 	{
 		[MaxLength(5)]
 		[MinLength(2)]

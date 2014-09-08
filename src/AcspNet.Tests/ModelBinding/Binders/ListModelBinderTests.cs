@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AcspNet.ModelBinding;
 using AcspNet.ModelBinding.Binders;
 using AcspNet.Tests.TestEntities;
@@ -10,102 +11,14 @@ namespace AcspNet.Tests.ModelBinding.Binders
 	public class ListModelBinderTests
 	{
 		[Test]
-		public void Bind_NormalData_Binded()
-		{
-			// Assign
-
-			var coll = new List<KeyValuePair<string, string>>
-			{
-				new KeyValuePair<string, string>("Prop1", "Foo"),
-				new KeyValuePair<string, string>("Prop2", "15"),
-				new KeyValuePair<string, string>("Prop3", "on")
-			};
-
-			// Act
-			var obj = ListModelBinder.Bind<TestModel>(coll);
-
-			// Assert
-
-			Assert.AreEqual("Foo", obj.Prop1);
-			Assert.AreEqual(15, obj.Prop2);
-			Assert.IsTrue(obj.Prop3);
-		}
-
-		[Test]
 		public void Bind_RequiredIsAbsent_ExceptionThrown()
 		{
 			// Assign
 
-			var coll = new List<KeyValuePair<string, string>>
-			{
-				new KeyValuePair<string, string>("Prop2", "15"),
-				new KeyValuePair<string, string>("Prop3", "on")
-			};
+			var coll = new List<KeyValuePair<string, string>>();
 
 			// Act & Assert
-			Assert.Throws<ModelBindingException>(() => ListModelBinder.Bind<TestModel>(coll));
-		}
-
-		[Test]
-		public void Bind_DataTypeMismatch_0()
-		{
-			// Assign
-
-			var coll = new List<KeyValuePair<string, string>>
-			{
-				new KeyValuePair<string, string>("Prop1", "Foo"),
-				new KeyValuePair<string, string>("Prop2", "test"),
-				new KeyValuePair<string, string>("Prop3", "on")
-			};
-
-			// Act
-			var obj = ListModelBinder.Bind<TestModel>(coll);
-
-			// Assert
-
-			Assert.AreEqual("Foo", obj.Prop1);
-			Assert.AreEqual(0, obj.Prop2);
-			Assert.IsTrue(obj.Prop3);
-		}
-
-		[Test]
-		public void Bind_BoolAsTrue_Parsed()
-		{
-			// Assign
-
-			var coll = new List<KeyValuePair<string, string>>
-			{
-				new KeyValuePair<string, string>("Prop1", "Foo"),
-				new KeyValuePair<string, string>("Prop2", "test"),
-				new KeyValuePair<string, string>("Prop3", "trUe")
-			};
-
-			// Act
-			var obj = ListModelBinder.Bind<TestModel>(coll);
-
-			// Assert
-
-			Assert.IsTrue(obj.Prop3);
-		}
-
-		[Test]
-		public void Bind_BoolAsFalse_Parsed()
-		{
-			// Assign
-
-			var coll = new List<KeyValuePair<string, string>>
-			{
-				new KeyValuePair<string, string>("Prop1", "Foo"),
-				new KeyValuePair<string, string>("Prop2", "test"),
-				new KeyValuePair<string, string>("Prop3", "FalsE")
-			};
-
-			// Act
-			var obj = ListModelBinder.Bind<TestModel>(coll);
-
-			// Assert
-
-			Assert.IsFalse(obj.Prop3);
+			Assert.Throws<ModelBindingException>(() => ListModelBinder.Bind<TestModelRequired>(coll));
 		}
 
 		[Test]
@@ -119,86 +32,53 @@ namespace AcspNet.Tests.ModelBinding.Binders
 			};
 
 			// Act & Assert
-			Assert.Throws<ModelBindingException>(() => ListModelBinder.Bind<TestModel2>(coll));
+			Assert.Throws<ModelBindingException>(() => ListModelBinder.Bind<TestModelUndefinedType>(coll));
 		}
 
 		[Test]
-		public void Bind_UnrecognizedPropertyType_ExceptionThrown()
+		public void Bind_Numbers_ParsedCorrectly()
 		{
 			// Assign
 
 			var coll = new List<KeyValuePair<string, string>>
 			{
-				new KeyValuePair<string, string>("Prop1", "3"),
-				new KeyValuePair<string, string>("Prop2", "asd")
+				new KeyValuePair<string, string>("Prop1", "1"),
+				new KeyValuePair<string, string>("Prop2", "2"),
+				new KeyValuePair<string, string>("Prop3", "3"),
+				new KeyValuePair<string, string>("Prop4", "4")
 			};
 
+			// Act
+			var obj = ListModelBinder.Bind<TestModelNumbers>(coll);
+
 			// Act & Assert
-			Assert.Throws<ModelBindingException>(() => ListModelBinder.Bind<TestModel2>(coll));
+			Assert.AreEqual(1, obj.Prop1);
+			Assert.AreEqual(2, obj.Prop2);
+			Assert.AreEqual(3, obj.Prop3);
+			Assert.AreEqual((decimal?)4, obj.Prop4);
 		}
 
 		[Test]
-		public void Bind_MinMaxBelowValue_ExceptionThrown()
+		public void Bind_Bool_ParsedCorrectly()
 		{
 			// Assign
 
 			var coll = new List<KeyValuePair<string, string>>
 			{
-				new KeyValuePair<string, string>("Prop1", "a")
+				new KeyValuePair<string, string>("Prop1", "on"),
+				new KeyValuePair<string, string>("Prop2", "False")
 			};
 
+			// Act
+			var obj = ListModelBinder.Bind<TestModelBool>(coll);
+
 			// Act & Assert
-			Assert.Throws<ModelBindingException>(() => ListModelBinder.Bind<TestModel3>(coll));
+			Assert.IsTrue(obj.Prop1);
+			Assert.IsFalse(obj.Prop2 != null && obj.Prop2.Value);
 		}
 
 		[Test]
-		public void Bind_MinMaxAbowValue_ExceptionThrown()
-		{
-			// Assign
-
-			var coll = new List<KeyValuePair<string, string>>
-			{
-				new KeyValuePair<string, string>("Prop1", "example")
-			};
-
-			// Act & Assert
-			Assert.Throws<ModelBindingException>(() => ListModelBinder.Bind<TestModel3>(coll));
-		}
-
-		[Test]
-		public void Bind_RegexpFalse_ExceptionThrown()
-		{
-			// Assign
-
-			var coll = new List<KeyValuePair<string, string>>
-			{
-				new KeyValuePair<string, string>("Prop1", "test"),
-				new KeyValuePair<string, string>("Prop2", "asFd6"),
-				new KeyValuePair<string, string>("Prop3", "test@test.test")
-			};
-
-			// Act & Assert
-			Assert.Throws<ModelBindingException>(() => ListModelBinder.Bind<TestModel3>(coll));
-		}
-
-		[Test]
-		public void Bind_InvalidEmail_ExceptionThrown()
-		{
-			// Assign
-
-			var coll = new List<KeyValuePair<string, string>>
-			{
-				new KeyValuePair<string, string>("Prop1", "test"),
-				new KeyValuePair<string, string>("Prop2", "asDd"),
-				new KeyValuePair<string, string>("Prop3", "asd@.")
-			};
-
-			// Act & Assert
-			Assert.Throws<ModelBindingException>(() => ListModelBinder.Bind<TestModel3>(coll));
-		}
-
-		[Test]
-		public void Bind_ValidMinMaxRegexEmail_ParsedCorrectly()
+		public void Bind_String_ParsedCorrectly()
 		{
 			// Assign
 
@@ -210,12 +90,32 @@ namespace AcspNet.Tests.ModelBinding.Binders
 			};
 
 			// Act
-			var obj = ListModelBinder.Bind<TestModel3>(coll);
+			var obj = ListModelBinder.Bind<TestModelString>(coll);
 
 			// Act & Assert
 			Assert.AreEqual("test", obj.Prop1);
 			Assert.AreEqual("asDd", obj.Prop2);
 			Assert.AreEqual("test@test.test", obj.Prop3);
+		}
+
+		[Test]
+		public void Bind_DateTimeNormal_Binded()
+		{
+			// Assign
+
+			var coll = new List<KeyValuePair<string, string>>
+			{
+				new KeyValuePair<string, string>("Prop1", "15.03.2014"),
+				new KeyValuePair<string, string>("Prop2", "16.03.2014")
+			};
+
+			// Act
+			var obj = ListModelBinder.Bind<TestModelDateTime>(coll);
+
+			// Assert
+
+			Assert.AreEqual(new DateTime(2014, 03, 15), obj.Prop1);
+			Assert.AreEqual(new DateTime(2014, 03, 16), obj.Prop2);
 		}
 	}
 }
