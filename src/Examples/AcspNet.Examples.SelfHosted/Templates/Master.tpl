@@ -18,9 +18,7 @@
 
 	{Navbar}
 
-	<div class="Content">
-		{MainContent}
-	</div>
+	{MainContent}
 
 	<div class="ExecutionTimeFooter">{LabelExecutionTime}: {SV:SiteExecutionTime}</div>
 </body>

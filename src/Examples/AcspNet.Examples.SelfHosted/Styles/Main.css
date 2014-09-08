@@ -69,9 +69,6 @@ body {
   margin: 1em !important;
   padding: 0 !important; }
 
-.content {
-  max-width: 400px !important; }
-
 .ExecutionTimeFooter {
   border-top: 1px solid #bcbcbc;
   text-align: center;

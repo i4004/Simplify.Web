@@ -44,6 +44,7 @@
     <Compile Include="Controllers\Shared\LoginPanelController.cs" />
     <Compile Include="Controllers\Shared\NavbarController.cs" />
     <Compile Include="Controllers\Static\AboutController.cs" />
+    <Compile Include="Controllers\User\ProfileController.cs" />
     <Compile Include="Models\Accounts\LoginViewModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -118,6 +119,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Templates\Static\About.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\User\Profile.tpl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

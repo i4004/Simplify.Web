@@ -19,6 +19,10 @@
 			<label><input type="checkbox" name="RememberMe" {Model.RememberMe} /> Remember me</label>
 		</div>
 		<div class="form-group">
+			<i>Note: Login: Foo, password: 1</i>
+		</div>
+
+		<div class="form-group">
 			<button type="submit" class="btn btn-default">Login</button>
 		</div>
 	</form>
