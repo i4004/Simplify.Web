@@ -26,14 +26,6 @@ namespace AcspNet
 		string DefaultTemplatesPath { get; }
 
 		/// <summary>
-		/// Gets a value indicating whether templates memory cache enabled or disabled.
-		/// </summary>
-		/// <value>
-		/// <c>true</c> if templates memory cache enabled; otherwise, <c>false</c>.
-		/// </value>
-		bool TemplatesMemoryCache { get; }
-
-		/// <summary>
 		/// Gets a value indicating whether all templates should be loaded from assembly
 		/// </summary>
 		/// <value>
@@ -48,6 +40,7 @@ namespace AcspNet
 		/// The name of the master page template file
 		/// </value>
 		string DefaultMasterTemplateFileName { get; }
+
 		/// <summary>
 		/// Gets or sets the master template main content variable name.
 		/// </summary>
@@ -70,14 +63,6 @@ namespace AcspNet
 		string DefaultStyle { get; }
 
 		/// <summary>
-		/// Gets a value indicating whether string table memory cache enabled or disabled.
-		/// </summary>
-		/// <value>
-		/// <c>true</c> if string table memory cache enabled; otherwise, <c>false</c>.
-		/// </value>
-		bool StringTableMemoryCache { get; }
-
-		/// <summary>
 		/// Data directory path, for example: default value is "App_Data"
 		/// </summary>
 		string DataPath { get; }
@@ -89,7 +74,15 @@ namespace AcspNet
 		/// The static files paths.
 		/// </value>
 		IList<string> StaticFilesPaths { get; }
-
+		
+		/// <summary>
+		/// Gets the string table files.
+		/// </summary>
+		/// <value>
+		/// The string table files.
+		/// </value>
+		IList<string> StringTableFiles { get; }
+		
 		/// <summary>
 		/// Gets or sets a value indicating whether site title postfix should be set automatically
 		/// </summary>
@@ -99,5 +92,21 @@ namespace AcspNet
 		/// Gets a value indicating whether exception details should be hide when some unhandled exception occured.
 		/// </summary>
 		bool HideExceptionDetails { get; }
+
+		/// <summary>
+		/// Gets a value indicating whether templates memory cache enabled or disabled.
+		/// </summary>
+		/// <value>
+		/// <c>true</c> if templates memory cache enabled; otherwise, <c>false</c>.
+		/// </value>
+		bool TemplatesMemoryCache { get; }
+
+		/// <summary>
+		/// Gets a value indicating whether string table memory cache enabled or disabled.
+		/// </summary>
+		/// <value>
+		/// <c>true</c> if string table memory cache enabled; otherwise, <c>false</c>.
+		/// </value>
+		bool StringTableMemoryCache { get; }
 	}
 }

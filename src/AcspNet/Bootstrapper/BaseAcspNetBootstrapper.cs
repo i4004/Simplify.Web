@@ -205,7 +205,7 @@ namespace AcspNet.Bootstrapper
 		{
 			get { return _messageBoxType ?? typeof(MessageBox); }
 		}
-		
+
 		/// <summary>
 		/// Gets the type of the page builder.
 		/// </summary>
@@ -216,7 +216,7 @@ namespace AcspNet.Bootstrapper
 		{
 			get { return _pageBuilderType ?? typeof(PageBuilder); }
 		}
-		
+
 		/// <summary>
 		/// Gets the type of the response writer.
 		/// </summary>
@@ -227,7 +227,7 @@ namespace AcspNet.Bootstrapper
 		{
 			get { return _responseWriterType ?? typeof(ResponseWriter); }
 		}
-		
+
 		/// <summary>
 		/// Gets the type of the page processor.
 		/// </summary>
@@ -249,7 +249,7 @@ namespace AcspNet.Bootstrapper
 		{
 			get { return _controllersRequestHandlerType ?? typeof(ControllersRequestHandler); }
 		}
-		
+
 		/// <summary>
 		/// Gets the type of the request handler.
 		/// </summary>
@@ -396,7 +396,7 @@ namespace AcspNet.Bootstrapper
 		{
 			_messageBoxType = typeof(T);
 		}
-		
+
 		/// <summary>
 		/// Sets the page builder.
 		/// </summary>
@@ -550,7 +550,7 @@ namespace AcspNet.Bootstrapper
 		{
 			DIContainer.Current.Register<IControllerExecutor>(ControllerExecutorType, LifetimeType.PerLifetimeScope);
 		}
-		
+
 		/// <summary>
 		/// Registers the controllers processor.
 		/// </summary>
@@ -558,7 +558,7 @@ namespace AcspNet.Bootstrapper
 		{
 			DIContainer.Current.Register<IControllersProcessor>(ControllersProcessorType, LifetimeType.PerLifetimeScope);
 		}
-		
+
 		/// <summary>
 		/// Registers the environment.
 		/// </summary>
@@ -591,7 +591,7 @@ namespace AcspNet.Bootstrapper
 						settings.DefaultLanguage, settings.TemplatesMemoryCache, settings.LoadTemplatesFromAssembly);
 				}, LifetimeType.PerLifetimeScope);
 		}
-		
+
 		/// <summary>
 		/// Registers the file reader.
 		/// </summary>
@@ -609,8 +609,12 @@ namespace AcspNet.Bootstrapper
 		{
 			DIContainer.Current.Register<IStringTable>(
 				p =>
-					new StringTable(p.Resolve<IAcspNetSettings>().DefaultLanguage, p.Resolve<ILanguageManagerProvider>(),
-						p.Resolve<IFileReader>()), LifetimeType.PerLifetimeScope);
+				{
+					var settings = p.Resolve<IAcspNetSettings>();
+					return new StringTable(settings.StringTableFiles, settings.DefaultLanguage, p.Resolve<ILanguageManagerProvider>(),
+						p.Resolve<IFileReader>());
+
+				}, LifetimeType.PerLifetimeScope);
 		}
 
 		/// <summary>
@@ -722,7 +726,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterRedirector()
 		{
-			DIContainer.Current.Register<IRedirector>(p => new Redirector(p.Resolve<IAcspNetContextProvider>().Get()), LifetimeType.PerLifetimeScope);			
+			DIContainer.Current.Register<IRedirector>(p => new Redirector(p.Resolve<IAcspNetContextProvider>().Get()), LifetimeType.PerLifetimeScope);
 		}
 
 		/// <summary>
@@ -730,7 +734,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterModelDeserializer()
 		{
-			DIContainer.Current.Register<IModelBinder>(p => new HttpDataToModelBinder(p.Resolve<IAcspNetContextProvider>().Get()), LifetimeType.PerLifetimeScope);			
+			DIContainer.Current.Register<IModelBinder>(p => new HttpDataToModelBinder(p.Resolve<IAcspNetContextProvider>().Get()), LifetimeType.PerLifetimeScope);
 		}
 
 		#endregion

@@ -7,6 +7,4 @@
 	<item name="PageTitleLogin" value="Login" />
 
 	<item name="PageTitle404" value="404 Not Found" />
-
-	<item name="WrongUserNameOrPassword" value="Wrong user name or password" />	
 </items>

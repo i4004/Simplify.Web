@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml.Linq;
 using AcspNet.Modules;
 using Moq;
@@ -18,6 +17,8 @@ namespace AcspNet.Tests.Modules
 		private Mock<ILanguageManagerProvider> _languageManagerProvider;
 		private Mock<ILanguageManager> _languageManager;
 
+		private readonly IList<string> _stringTableFiles = new[] {"StringTable.xml"};
+
 		[SetUp]
 		public void Initialize()
 		{
@@ -26,7 +27,7 @@ namespace AcspNet.Tests.Modules
 			_languageManager = new Mock<ILanguageManager>();
 
 			_languageManagerProvider.Setup(x => x.Get()).Returns(_languageManager.Object);
-			_languageManager.SetupGet(x => x.Language).Returns("ru");		
+			_languageManager.SetupGet(x => x.Language).Returns("ru");
 		}
 
 		[Test]
@@ -34,7 +35,7 @@ namespace AcspNet.Tests.Modules
 		{
 			// Act
 
-			_stringTable = new StringTable(DefaultLanguage, _languageManagerProvider.Object, _fileReader.Object);
+			_stringTable = new StringTable(_stringTableFiles, DefaultLanguage, _languageManagerProvider.Object, _fileReader.Object);
 			_stringTable.Setup();
 
 			// Assert
@@ -49,7 +50,7 @@ namespace AcspNet.Tests.Modules
 
 			// Act
 
-			_stringTable = new StringTable(DefaultLanguage, _languageManagerProvider.Object, _fileReader.Object);
+			_stringTable = new StringTable(_stringTableFiles, DefaultLanguage, _languageManagerProvider.Object, _fileReader.Object);
 			_stringTable.Setup();
 
 			// Assert
@@ -66,7 +67,7 @@ namespace AcspNet.Tests.Modules
 
 			// Act
 
-			_stringTable = new StringTable(DefaultLanguage, _languageManagerProvider.Object, _fileReader.Object);
+			_stringTable = new StringTable(_stringTableFiles, DefaultLanguage, _languageManagerProvider.Object, _fileReader.Object);
 			_stringTable.Setup();
 
 			// Assert
@@ -83,7 +84,7 @@ namespace AcspNet.Tests.Modules
 
 			// Act
 
-			_stringTable = new StringTable(DefaultLanguage, _languageManagerProvider.Object, _fileReader.Object);
+			_stringTable = new StringTable(_stringTableFiles, DefaultLanguage, _languageManagerProvider.Object, _fileReader.Object);
 			_stringTable.Setup();
 
 			// Assert
@@ -100,7 +101,7 @@ namespace AcspNet.Tests.Modules
 
 			// Act
 
-			_stringTable = new StringTable(DefaultLanguage, _languageManagerProvider.Object, _fileReader.Object);
+			_stringTable = new StringTable(_stringTableFiles, DefaultLanguage, _languageManagerProvider.Object, _fileReader.Object);
 			_stringTable.Setup();
 
 			// Assert
@@ -115,7 +116,7 @@ namespace AcspNet.Tests.Modules
 			// Assign
 
 			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"FooEnum.FooItem1\" value=\"Foo\" /></items>"));
-			_stringTable = new StringTable(DefaultLanguage, _languageManagerProvider.Object, _fileReader.Object);
+			_stringTable = new StringTable(_stringTableFiles, DefaultLanguage, _languageManagerProvider.Object, _fileReader.Object);
 
 			// Act
 			_stringTable.Setup();
@@ -131,7 +132,7 @@ namespace AcspNet.Tests.Modules
 			// Assign
 
 			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"FooEnum.FooItem1\" value=\"Foo\" /></items>"));
-			_stringTable = new StringTable(DefaultLanguage, _languageManagerProvider.Object, _fileReader.Object);
+			_stringTable = new StringTable(_stringTableFiles, DefaultLanguage, _languageManagerProvider.Object, _fileReader.Object);
 
 			// Act
 			_stringTable.Setup();
@@ -146,7 +147,7 @@ namespace AcspNet.Tests.Modules
 			// Assign
 
 			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"FooEnum.FooItem1\" value=\"Foo\" /></items>"));
-			_stringTable = new StringTable(DefaultLanguage, _languageManagerProvider.Object, _fileReader.Object);
+			_stringTable = new StringTable(_stringTableFiles, DefaultLanguage, _languageManagerProvider.Object, _fileReader.Object);
 
 			// Act
 			_stringTable.Setup();

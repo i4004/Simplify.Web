@@ -12,23 +12,21 @@ namespace AcspNet.Modules
 	/// </summary>
 	public sealed class StringTable : IStringTable
 	{
+		private readonly IList<string> _stringTableFiles;
 		private readonly string _defaultLanguage;
 		private readonly ILanguageManagerProvider _languageManagerProvider;
 		private readonly IFileReader _fileReader;
 
 		/// <summary>
-		/// The string table file name
-		/// </summary>
-		public const string StringTableFileName = "StringTable.xml";
-
-		/// <summary>
 		/// Load string table with current language
 		/// </summary>
+		/// <param name="stringTableFiles">The string table files.</param>
 		/// <param name="defaultLanguage">The default language.</param>
 		/// <param name="languageManagerProvider">The language manager provider.</param>
 		/// <param name="fileReader">The file reader.</param>
-		public StringTable(string defaultLanguage, ILanguageManagerProvider languageManagerProvider, IFileReader fileReader)
+		public StringTable(IList<string> stringTableFiles, string defaultLanguage, ILanguageManagerProvider languageManagerProvider, IFileReader fileReader)
 		{
+			_stringTableFiles = stringTableFiles;
 			_defaultLanguage = defaultLanguage;
 			_languageManagerProvider = languageManagerProvider;
 			_fileReader = fileReader;
@@ -44,7 +42,11 @@ namespace AcspNet.Modules
 		/// </summary>
 		public void Setup()
 		{
-			Load(_defaultLanguage,_languageManagerProvider.Get().Language, _fileReader);
+			IDictionary<string, Object> currentItems = new ExpandoObject();
+			Items = currentItems;
+			
+			foreach (var file in _stringTableFiles)
+				Load(file, _defaultLanguage, _languageManagerProvider.Get().Language, _fileReader, currentItems);
 		}
 
 		/// <summary>
@@ -79,12 +81,9 @@ namespace AcspNet.Modules
 		/// <summary>
 		/// Loads string table.
 		/// </summary>
-		private void Load(string defaultLanguage, string currentLanguage, IFileReader fileReader)
+		private static void Load(string fileName, string defaultLanguage, string currentLanguage, IFileReader fileReader, IDictionary<string, Object> currentItems)
 		{
-			IDictionary<string, Object> currentItems = new ExpandoObject();
-			Items = currentItems;
-
-			var stringTable = fileReader.LoadXDocument(StringTableFileName);
+			var stringTable = fileReader.LoadXDocument(fileName);
 
 			// Loading current culture strings
 			if (stringTable != null && stringTable.Root != null)
@@ -96,7 +95,7 @@ namespace AcspNet.Modules
 
 			// Loading default culture strings
 
-			stringTable = fileReader.LoadXDocument(StringTableFileName, defaultLanguage);
+			stringTable = fileReader.LoadXDocument(fileName, defaultLanguage);
 
 			if (stringTable != null && stringTable.Root != null)
 				foreach (var item in stringTable.Root.XPathSelectElements("item").Where(x => x.HasAttributes))
