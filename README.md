@@ -60,7 +60,7 @@ public class LoggedUserPanelView : View
 
 Status
 ===
- .NET (4.5) .... Mono (3.6.0)
+ .NET (4.5) .... Mono (3.8.0)
 
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/89hirbi3bn5ajkvj)](https://ci.appveyor.com/project/i4004/acspnet)
 [![Travis build status](https://travis-ci.org/i4004/AcspNet.png?branch=master)](https://travis-ci.org/i4004/AcspNet)
