@@ -29,14 +29,6 @@ namespace AcspNet
 		public string DefaultTemplatesPath { get; private set; }
 
 		/// <summary>
-		/// Gets a value indicating whether templates memory cache enabled or disabled.
-		/// </summary>
-		/// <value>
-		/// <c>true</c> if templates memory cache enabled; otherwise, <c>false</c>.
-		/// </value>
-		public bool TemplatesMemoryCache { get; private set; }
-
-		/// <summary>
 		/// Gets a value indicating whether all templates should be loaded from assembly
 		/// </summary>
 		/// <value>
@@ -72,13 +64,6 @@ namespace AcspNet
 		/// Default site style
 		/// </summary>
 		public string DefaultStyle { get; private set; }
-		/// <summary>
-		/// Gets a value indicating whether string table memory cache enabled or disabled.
-		/// </summary>
-		/// <value>
-		/// <c>true</c> if string table memory cache enabled; otherwise, <c>false</c>.
-		/// </value>
-		public bool StringTableMemoryCache { get; private set; }
 
 		/// <summary>
 		/// Data directory path, default value is "App_Data"
@@ -104,34 +89,55 @@ namespace AcspNet
 		public bool HideExceptionDetails { get; private set; }
 
 		/// <summary>
+		/// Gets a value indicating whether templates memory cache enabled or disabled.
+		/// </summary>
+		/// <value>
+		/// <c>true</c> if templates memory cache enabled; otherwise, <c>false</c>.
+		/// </value>
+		public bool TemplatesMemoryCache { get; private set; }
+
+		/// <summary>
+		/// Gets a value indicating whether string table memory cache enabled or disabled.
+		/// </summary>
+		/// <value>
+		/// <c>true</c> if string table memory cache enabled; otherwise, <c>false</c>.
+		/// </value>
+		public bool StringTableMemoryCache { get; private set; }
+
+		/// <summary>
 		/// Initializes a new instance of the <see cref="AcspNetSettings"/> class.
 		/// </summary>
 		public AcspNetSettings()
 		{
+			// Language defaults
 			DefaultLanguage = "en";
 
 			DefaultTemplatesPath = "Templates";
 			DefaultMasterTemplateFileName = "Master.tpl";
+
+			// Data collection defaults
+
 			DefaultMainContentVariableName = "MainContent";
 			DefaultTitleVariableName = "Title";
 
+			// Style defaults
 			DefaultStyle = "Main";
 
 			DataPath = "App_Data";
 
 			StaticFilesPaths = new List<string> {"Styles", "Scripts", "Images", "Content", "fonts"};
 
-			HideExceptionDetails = false;
-
 			var config = ConfigurationManager.GetSection("AcspNetSettings") as NameValueCollection;
 
-			if (config != null)
-			{
-				LoadLanguageManagerSettings(config);
-				LoadTemplatesSettings(config);
-				LoadCacheSettings(config);
-				LoadOtherSettings(config);
-			}
+			if (config == null) return;
+
+			LoadLanguageManagerSettings(config);
+			LoadTemplatesSettings(config);
+			LoadDataCollectorSettings(config);
+			LoadStyleSettings(config);
+			LoadOtherSettings(config);
+			LoadEngineBehaviourSettings(config);
+			LoadCacheSettings(config);
 		}
 
 		private void LoadLanguageManagerSettings(NameValueCollection config)
@@ -163,21 +169,28 @@ namespace AcspNet
 
 			if (!string.IsNullOrEmpty(config["DefaultMasterTemplateFileName"]))
 				DefaultMasterTemplateFileName = config["DefaultMasterTemplateFileName"];
+		}
 
+		private void LoadDataCollectorSettings(NameValueCollection config)
+		{
 			if (!string.IsNullOrEmpty(config["DefaultMainContentVariableName"]))
 				DefaultMainContentVariableName = config["DefaultMainContentVariableName"];
 
 			if (!string.IsNullOrEmpty(config["DefaultTitleVariableName"]))
-				DefaultTitleVariableName = config["DefaultTitleVariableName"];
+				DefaultTitleVariableName = config["DefaultTitleVariableName"];		
 		}
 
-		private void LoadOtherSettings(NameValueCollection config)
+		private void LoadStyleSettings(NameValueCollection config)
 		{
 			if (!string.IsNullOrEmpty(config["DefaultStyle"]))
 				DefaultStyle = config["DefaultStyle"];
 			
-			if (!string.IsNullOrEmpty(config["DefaultDataPath"]))
-				DataPath = config["DefaultDataPath"];
+		}
+
+		private void LoadOtherSettings(NameValueCollection config)
+		{
+			if (!string.IsNullOrEmpty(config["DataPath"]))
+				DataPath = config["DataPath"];
 
 			if (!string.IsNullOrEmpty(config["StaticFilesPaths"]))
 			{
@@ -187,7 +200,10 @@ namespace AcspNet
 				foreach (var item in items)
 					StaticFilesPaths.Add(item);
 			}
+		}
 
+		private void LoadEngineBehaviourSettings(NameValueCollection config)
+		{
 			if (!string.IsNullOrEmpty(config["DisableAutomaticSiteTitleSet"]))
 			{
 				bool buffer;
@@ -202,7 +218,7 @@ namespace AcspNet
 
 				if (bool.TryParse(config["HideExceptionDetails"], out buffer))
 					HideExceptionDetails = buffer;
-			}
+			}	
 		}
 
 		private void LoadCacheSettings(NameValueCollection config)
