@@ -5,8 +5,10 @@
 				<b>Links</b>
 			</div>
 			<ul class="list-group">
-				<li class="list-group-item"><a href="https://github.com/i4004/AcspNet">Project on github</a></li>
-				<li class="list-group-item"><a href="https://www.nuget.org/packages/AcspNet/">Nuget package</a></li>
+				<li class="list-group-item"><a href="https://github.com/i4004/AcspNet/wiki">Wiki</a></li>
+				<li class="list-group-item"><a href="https://github.com/i4004/AcspNet/tree/master/src">Source code</a></li>
+				<li class="list-group-item"><a href="https://github.com/i4004/AcspNet/tree/master/src/Examples">Example applications</a></li>
+				<li class="list-group-item"><a href="https://www.nuget.org/packages?q=acspnet">Nuget package and extensions</a></li>
 			</ul>
 		</div>
 		<div class="col-sm-6">
