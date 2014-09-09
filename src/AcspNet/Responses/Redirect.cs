@@ -21,7 +21,7 @@ namespace AcspNet.Responses
 		/// </summary>
 		/// <param name="redirectionType">Type of the navigation.</param>
 		/// <param name="bookmarkName">Name of the bookmark.</param>
-		public Redirect(RedirectionType redirectionType, string bookmarkName = null)
+		public Redirect(RedirectionType redirectionType = RedirectionType.DefaultPage, string bookmarkName = null)
 		{
 			RedirectionType = redirectionType;
 			BookmarkName = bookmarkName;
