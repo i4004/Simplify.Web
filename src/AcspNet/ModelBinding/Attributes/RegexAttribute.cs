@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AcspNet.ModelBinding
+namespace AcspNet.ModelBinding.Attributes
 {
 	/// <summary>
 	/// Indicates what this property should match regular expression

@@ -4,8 +4,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AcspNet.Response.Json")]
-[assembly: AssemblyDescription("AcspNet JSON controller response")]
+[assembly: AssemblyTitle("AcspNet.Json")]
+[assembly: AssemblyDescription("AcspNet JSON controller response and model binder")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Alexander Krylkov")]
 [assembly: AssemblyProduct("Advanced Controls Site Platform .NET")]

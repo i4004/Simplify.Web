@@ -1,23 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Owin;
 
 namespace AcspNet.ModelBinding.Binders
 {
 	/// <summary>
 	/// Provides HTTP query to model binding
 	/// </summary>
-	public class QueryModelBinder
+	public class QueryModelBinder : IModelBinder
 	{
 		/// <summary>
-		/// Binds the specified query data to model.
+		/// Binds specified HTTP query to model.
 		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="query">The query.</param>
-		/// <returns></returns>
-		public static T Bind<T>(IReadableStringCollection query)
+		/// <typeparam name="T">Model type</typeparam>
+		/// <param name="args">The <see cref="ModelBinderEventArgs{T}" /> instance containing the event data.</param>
+		public void Bind<T>(ModelBinderEventArgs<T> args)
 		{
-			return ListModelBinder.Bind<T>(query.Select(x => new KeyValuePair<string, string>(x.Key, x.Value[0])).ToList());
+			if (args.Context.Request.Method == "GET")
+				args.SetModel(
+					ListModelParser.Parse<T>(
+						args.Context.Query.Select(x => new KeyValuePair<string, string>(x.Key, x.Value[0])).ToList()));
 		}	 
 	}
 }

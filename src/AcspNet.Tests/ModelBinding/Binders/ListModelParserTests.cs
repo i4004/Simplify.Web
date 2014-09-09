@@ -8,21 +8,10 @@ using NUnit.Framework;
 namespace AcspNet.Tests.ModelBinding.Binders
 {
 	[TestFixture]
-	public class ListModelBinderTests
+	public class ListModelParserTests
 	{
 		[Test]
-		public void Bind_RequiredIsAbsent_ExceptionThrown()
-		{
-			// Assign
-
-			var coll = new List<KeyValuePair<string, string>>();
-
-			// Act & Assert
-			Assert.Throws<ModelBindingException>(() => ListModelBinder.Bind<TestModelRequired>(coll));
-		}
-
-		[Test]
-		public void Bind_RequiredFieldDataTypeMismatch_ExceptionThrown()
+		public void Parse_RequiredFieldDataTypeMismatch_ExceptionThrown()
 		{
 			// Assign
 
@@ -32,11 +21,11 @@ namespace AcspNet.Tests.ModelBinding.Binders
 			};
 
 			// Act & Assert
-			Assert.Throws<ModelBindingException>(() => ListModelBinder.Bind<TestModelUndefinedType>(coll));
+			Assert.Throws<ModelBindingException>(() => ListModelParser.Parse<TestModelUndefinedType>(coll));
 		}
 
 		[Test]
-		public void Bind_Numbers_ParsedCorrectly()
+		public void Parse_Numbers_ParsedCorrectly()
 		{
 			// Assign
 
@@ -49,7 +38,7 @@ namespace AcspNet.Tests.ModelBinding.Binders
 			};
 
 			// Act
-			var obj = ListModelBinder.Bind<TestModelNumbers>(coll);
+			var obj = ListModelParser.Parse<TestModelNumbers>(coll);
 
 			// Act & Assert
 			Assert.AreEqual(1, obj.Prop1);
@@ -59,7 +48,7 @@ namespace AcspNet.Tests.ModelBinding.Binders
 		}
 
 		[Test]
-		public void Bind_Bool_ParsedCorrectly()
+		public void Parse_Bool_ParsedCorrectly()
 		{
 			// Assign
 
@@ -70,7 +59,7 @@ namespace AcspNet.Tests.ModelBinding.Binders
 			};
 
 			// Act
-			var obj = ListModelBinder.Bind<TestModelBool>(coll);
+			var obj = ListModelParser.Parse<TestModelBool>(coll);
 
 			// Act & Assert
 			Assert.IsTrue(obj.Prop1);
@@ -78,7 +67,7 @@ namespace AcspNet.Tests.ModelBinding.Binders
 		}
 
 		[Test]
-		public void Bind_String_ParsedCorrectly()
+		public void Parse_String_ParsedCorrectly()
 		{
 			// Assign
 
@@ -90,7 +79,7 @@ namespace AcspNet.Tests.ModelBinding.Binders
 			};
 
 			// Act
-			var obj = ListModelBinder.Bind<TestModelString>(coll);
+			var obj = ListModelParser.Parse<TestModelString>(coll);
 
 			// Act & Assert
 			Assert.AreEqual("test", obj.Prop1);
@@ -99,7 +88,7 @@ namespace AcspNet.Tests.ModelBinding.Binders
 		}
 
 		[Test]
-		public void Bind_DateTimeNormal_Binded()
+		public void Parse_DateTimeNormal_Binded()
 		{
 			// Assign
 
@@ -110,7 +99,7 @@ namespace AcspNet.Tests.ModelBinding.Binders
 			};
 
 			// Act
-			var obj = ListModelBinder.Bind<TestModelDateTime>(coll);
+			var obj = ListModelParser.Parse<TestModelDateTime>(coll);
 
 			// Assert
 

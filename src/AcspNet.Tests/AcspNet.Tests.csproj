@@ -133,8 +133,8 @@
     <Compile Include="Core\RequestHandlerTests.cs" />
     <Compile Include="Core\StaticFilesRequestHandlerTest.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGeneratorTests.cs" />
-    <Compile Include="ModelBinding\Binders\DataParserTests.cs" />
-    <Compile Include="ModelBinding\Binders\ListModelBinderTests.cs" />
+    <Compile Include="ModelBinding\Binders\StringParserTests.cs" />
+    <Compile Include="ModelBinding\Binders\ListModelParserTests.cs" />
     <Compile Include="Modules\AcspNetContextTests.cs" />
     <Compile Include="Modules\DataCollectorTests.cs" />
     <Compile Include="Modules\EnvironmentTests.cs" />

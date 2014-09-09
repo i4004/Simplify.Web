@@ -1,4 +1,5 @@
 ﻿using AcspNet.ModelBinding;
+using AcspNet.ModelBinding.Attributes;
 
 namespace AcspNet.Examples.SelfHosted.Models.Accounts
 {

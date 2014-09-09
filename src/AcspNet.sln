@@ -34,7 +34,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet.Owin.Security.AesDataProtectorProvider", "Extensions\AcspNet.Owin.Security.AesDataProtectorProvider\AcspNet.Owin.Security.AesDataProtectorProvider.csproj", "{AB43300F-837C-4E1D-BDB8-35165A146CA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet.Responses.Json", "Extensions\AcspNet.Responses.Json\AcspNet.Responses.Json.csproj", "{B6A17F27-1C09-4003-9608-72C38B7FD9B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet.Json", "Extensions\AcspNet.Json\AcspNet.Json.csproj", "{B6A17F27-1C09-4003-9608-72C38B7FD9B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

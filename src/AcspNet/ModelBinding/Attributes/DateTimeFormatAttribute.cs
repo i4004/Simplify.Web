@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AcspNet.ModelBinding
+namespace AcspNet.ModelBinding.Attributes
 {
 	/// <summary>
 	/// Sets date time format for parsing

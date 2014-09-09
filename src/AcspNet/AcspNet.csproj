@@ -123,18 +123,22 @@
     <Compile Include="AsyncController.cs" />
     <Compile Include="Attributes\AuthorizeAttribute.cs" />
     <Compile Include="AsyncControllerBase.cs" />
-    <Compile Include="ModelBinding\Binders\DataValidator.cs" />
-    <Compile Include="ModelBinding\Binders\ListModelBinder.cs" />
+    <Compile Include="ModelBinding\IModelValidator.cs" />
+    <Compile Include="ModelBinding\Validation\ObjectPropertiesValidator.cs" />
+    <Compile Include="ModelBinding\IModelBinder.cs" />
+    <Compile Include="ModelBinding\ModelBinderEventArgs.cs" />
+    <Compile Include="ModelBinding\Validation\StringValidator.cs" />
+    <Compile Include="ModelBinding\Binders\ListModelParser.cs" />
     <Compile Include="ModelBinding\Binders\FormModelBinder.cs" />
-    <Compile Include="ModelBinding\Binders\IModelBinder.cs" />
-    <Compile Include="ModelBinding\Binders\DataParser.cs" />
-    <Compile Include="ModelBinding\DateTimeFormatAttribute.cs" />
-    <Compile Include="ModelBinding\RegexAttribute.cs" />
-    <Compile Include="ModelBinding\EMailAttribute.cs" />
-    <Compile Include="ModelBinding\MaxLengthAttribute.cs" />
-    <Compile Include="ModelBinding\MinLengthAttribute.cs" />
+    <Compile Include="ModelBinding\IModelHandler.cs" />
+    <Compile Include="ModelBinding\Binders\StringParser.cs" />
+    <Compile Include="ModelBinding\Attributes\DateTimeFormatAttribute.cs" />
+    <Compile Include="ModelBinding\Attributes\RegexAttribute.cs" />
+    <Compile Include="ModelBinding\Attributes\EMailAttribute.cs" />
+    <Compile Include="ModelBinding\Attributes\MaxLengthAttribute.cs" />
+    <Compile Include="ModelBinding\Attributes\MinLengthAttribute.cs" />
     <Compile Include="ModelBinding\ModelBindingException.cs" />
-    <Compile Include="ModelBinding\Binders\HttpDataToModelBinder.cs" />
+    <Compile Include="ModelBinding\HttpModelHandler.cs" />
     <Compile Include="ModelBinding\Binders\QueryModelBinder.cs" />
     <Compile Include="Responses\StaticTpl.cs" />
     <Compile Include="SyncControllerBase.cs" />
@@ -168,7 +172,7 @@
     <Compile Include="Meta\ControllerSecurity.cs" />
     <Compile Include="Meta\IViewsMetaStore.cs" />
     <Compile Include="Meta\ViewsMetaStore.cs" />
-    <Compile Include="ModelBinding\RequiredAttribute.cs" />
+    <Compile Include="ModelBinding\Attributes\RequiredAttribute.cs" />
     <Compile Include="ModulesAccessor.cs" />
     <Compile Include="Modules\AcspNetContext.cs" />
     <Compile Include="Modules\DataCollector.cs" />
@@ -321,7 +325,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

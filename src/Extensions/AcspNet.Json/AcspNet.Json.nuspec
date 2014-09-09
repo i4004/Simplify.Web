@@ -6,7 +6,7 @@
 		<title>$id$</title>
 		<authors>$author$</authors>
 		<owners>$author$</owners>
-		<projectUrl>https://github.com/i4004/AcspNet/tree/master/src/Extensions/AcspNet.Responses.Json</projectUrl>
+		<projectUrl>https://github.com/i4004/AcspNet/tree/master/src/Extensions/AcspNet.Json</projectUrl>
 		<iconUrl>https://raw.github.com/i4004/AcspNet/master/Images/Icon.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>$description$</description>
@@ -14,6 +14,6 @@
 		<releaseNotes></releaseNotes>
 		<copyright>Licensed under LGPL</copyright>
 		<language>en-US</language>
-		<tags>.NET web-framework MVC DI OWIN</tags>
+		<tags>ACSP.NET JSON</tags>
 	</metadata>
 </package>

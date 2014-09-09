@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Globalization;
 using System.Reflection;
+using AcspNet.ModelBinding.Attributes;
 
 namespace AcspNet.ModelBinding.Binders
 {
 	/// <summary>
-	/// Provides string to type parser
+	/// Provides string to property type object parsing
 	/// </summary>
-	public class DataParser
+	public class StringParser
 	{
 		/// <summary>
 		/// Determine variable type and parses, validates it from string.
@@ -56,11 +57,7 @@ namespace AcspNet.ModelBinding.Binders
 		/// <returns></returns>
 		public static string ParseString(string value, PropertyInfo propertyInfo)
 		{
-			if (string.IsNullOrEmpty(value))
-				return null;
-
-			DataValidator.ValidateString(value, propertyInfo);
-			return value;		
+			return string.IsNullOrEmpty(value) ? null : value;
 		}
 
 		/// <summary>

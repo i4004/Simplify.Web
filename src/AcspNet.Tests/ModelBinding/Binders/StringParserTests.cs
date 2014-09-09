@@ -4,30 +4,30 @@ using NUnit.Framework;
 namespace AcspNet.Tests.ModelBinding.Binders
 {
 	[TestFixture]
-	public class DataParserTests
+	public class StringParserTests
 	{
 		[Test]
 		public void ParseBool_True_True()
 		{
-			Assert.IsTrue(DataParser.ParseBool("True"));
+			Assert.IsTrue(StringParser.ParseBool("True"));
 		}
 
 		[Test]
 		public void ParseBool_False_False()
 		{
-			Assert.IsFalse(DataParser.ParseBool("False"));
+			Assert.IsFalse(StringParser.ParseBool("False"));
 		}
 
 		[Test]
 		public void ParseBool_on_True()
 		{
-			Assert.IsTrue(DataParser.ParseBool("on"));
+			Assert.IsTrue(StringParser.ParseBool("on"));
 		}
 
 		[Test]
 		public void ParseBool_true_True()
 		{
-			Assert.IsTrue(DataParser.ParseBool("true"));
+			Assert.IsTrue(StringParser.ParseBool("true"));
 		}
 	}
 }

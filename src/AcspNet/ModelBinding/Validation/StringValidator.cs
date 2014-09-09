@@ -1,13 +1,14 @@
 ﻿using System.Reflection;
 using System.Text.RegularExpressions;
+using AcspNet.ModelBinding.Attributes;
 using Simplify.String;
 
-namespace AcspNet.ModelBinding.Binders
+namespace AcspNet.ModelBinding.Validation
 {
 	/// <summary>
-	/// Validates value using specified rules in attributes
+	/// Validates string using specified rules in attributes
 	/// </summary>
-	public class DataValidator
+	public class StringValidator
 	{
 		/// <summary>
 		/// Validates the string.
@@ -16,7 +17,7 @@ namespace AcspNet.ModelBinding.Binders
 		/// <param name="propertyInfo">The property information.</param>
 		/// <exception cref="AcspNet.ModelBinding.ModelBindingException">
 		/// </exception>
-		public static void ValidateString(string value, PropertyInfo propertyInfo)
+		public static void Validate(string value, PropertyInfo propertyInfo)
 		{
 			var attributes = propertyInfo.GetCustomAttributes(typeof(MinLengthAttribute), false);
 
