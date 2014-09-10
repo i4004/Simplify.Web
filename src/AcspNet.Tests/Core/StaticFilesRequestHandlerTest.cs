@@ -38,6 +38,7 @@ namespace AcspNet.Tests.Core
 			_context = new Mock<IOwinContext>();
 
 			_context.SetupGet(x => x.Request.Path).Returns(new PathString("/Foo/Bar.css"));
+			_context.SetupGet(x => x.Response).Returns(new Mock<IOwinResponse>().Object);
 		}
 
 		[Test]

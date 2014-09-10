@@ -70,7 +70,20 @@ namespace AcspNet.Core
 		public Task ProcessRequest(IOwinContext context)
 		{
 			var currentPath = context.Request.Path.ToString().Substring(1);
+
+			SetMimeType(context, currentPath);
+
 			return _responseWriter.WriteAsync(FileSystem.File.ReadAllBytes(_sitePhysicalPath + currentPath), context.Response);
+		}
+
+		private void SetMimeType(IOwinContext context, string fileName)
+		{
+			fileName = fileName.ToLower();
+
+			if (fileName.EndsWith(".css"))
+				context.Response.ContentType = "text/css";
+			else if (fileName.EndsWith(".js"))
+				context.Response.ContentType = "text/javascript";
 		}
 	}
 }
