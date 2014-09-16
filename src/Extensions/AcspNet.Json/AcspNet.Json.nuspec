@@ -6,7 +6,7 @@
 		<title>$id$</title>
 		<authors>$author$</authors>
 		<owners>$author$</owners>
-		<projectUrl>https://github.com/i4004/AcspNet/tree/master/src/Extensions/AcspNet.Json</projectUrl>
+		<projectUrl>https://github.com/i4004/AcspNet/wiki/AcspNet.Json</projectUrl>
 		<iconUrl>https://raw.github.com/i4004/AcspNet/master/Images/Icon.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>$description$</description>
