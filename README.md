@@ -25,7 +25,7 @@ public class AboutController : Controller
     public override ControllerResponse Invoke()
     {
         // About.tpl content will be inserted into {MainContent} in Master.tpl
-        return new Tpl(TemplateFactory.Load("Static/About"), StringTable.PageTitleAbout);
+        return new StaticTpl("Static/About", StringTable.PageTitleAbout);
     }
 }
 ```
