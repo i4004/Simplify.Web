@@ -138,6 +138,9 @@ namespace AcspNet.Core
 			if (metaData.Security.AllowedUserRoles == null)
 				return user == null ? SecurityRuleCheckResult.NotAuthenticated : SecurityRuleCheckResult.Ok;
 
+			if(user == null)
+				return SecurityRuleCheckResult.NotAuthenticated;
+
 			return metaData.Security.AllowedUserRoles.Any(user.IsInRole) ? SecurityRuleCheckResult.Ok : SecurityRuleCheckResult.Forbidden;
 		}
 	}

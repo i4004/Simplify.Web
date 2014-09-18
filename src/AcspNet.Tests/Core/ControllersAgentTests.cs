@@ -269,6 +269,17 @@ namespace AcspNet.Tests.Core
 		}
 
 		[Test]
+		public void IsSecurityRulesViolated_AuthorizationRequiredWithGroupNotAuthorized_NotAuthenticated()
+		{
+			// Assign
+
+			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true, "Admin"));
+
+			// Act & Assert
+			Assert.AreEqual(SecurityRuleCheckResult.NotAuthenticated, _agent.IsSecurityRulesViolated(metaData, null));
+		}
+
+		[Test]
 		public void IsSecurityRulesViolated_AuthorizationRequiredWithGroupAuthorizedInGroup_Ok()
 		{
 			// Assign
