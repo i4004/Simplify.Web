@@ -231,7 +231,7 @@
     <Compile Include="Attributes\Http404Attribute.cs" />
     <Compile Include="Core\IControllerFactory.cs" />
     <Compile Include="Core\IControllersProcessor.cs" />
-    <Compile Include="Attributes\IgnoreControllersAttribute.cs" />
+    <Compile Include="IgnoreControllersAttribute.cs" />
     <Compile Include="Core\IControllersRequestHandler.cs" />
     <Compile Include="Meta\ControllerRouteInfo.cs" />
     <Compile Include="Meta\IControllerMetaData.cs" />
@@ -325,7 +325,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

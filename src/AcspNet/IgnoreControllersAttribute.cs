@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AcspNet.Attributes
+namespace AcspNet
 {
 	/// <summary>
 	/// Specify controllers types what should be ignored by AcspNet

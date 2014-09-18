@@ -9,17 +9,17 @@ namespace AcspNet.Core
 	/// </summary>
 	public class ControllersRequestHandler : IControllersRequestHandler
 	{
-		private readonly IControllersProcessor _controllersRequestHandler;
+		private readonly IControllersProcessor _controllersProcessor;
 		private readonly IPageProcessor _pageProcessor;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ControllersRequestHandler" /> class.
 		/// </summary>
-		/// <param name="controllersRequestHandler">The controllers request handler.</param>
+		/// <param name="controllersProcessor">The controllers request handler.</param>
 		/// <param name="pageProcessor">The page processor.</param>
-		public ControllersRequestHandler(IControllersProcessor controllersRequestHandler, IPageProcessor pageProcessor)
+		public ControllersRequestHandler(IControllersProcessor controllersProcessor, IPageProcessor pageProcessor)
 		{
-			_controllersRequestHandler = controllersRequestHandler;
+			_controllersProcessor = controllersProcessor;
 			_pageProcessor = pageProcessor;
 		}
 
@@ -31,7 +31,7 @@ namespace AcspNet.Core
 		/// <returns></returns>
 		public Task ProcessRequest(IDIContainerProvider containerProvider, IOwinContext context)
 		{
-			var result = _controllersRequestHandler.ProcessControllers(containerProvider, context);
+			var result = _controllersProcessor.ProcessControllers(containerProvider, context);
 
 			switch (result)
 			{
