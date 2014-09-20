@@ -88,6 +88,8 @@ public class LoggedUserPanelView : View
 </div>
 ```
 
+### [Detailed documentation](https://github.com/i4004/AcspNet/wiki)
+
 Status
 ===
  .NET (4.5) .... Mono (3.8.0)
