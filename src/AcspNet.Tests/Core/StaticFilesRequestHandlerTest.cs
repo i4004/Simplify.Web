@@ -8,7 +8,6 @@ using NUnit.Framework;
 namespace AcspNet.Tests.Core
 {
 	[TestFixture]
-	[Category("Windows")]
 	public class StaticFilesRequestHandlerTest
 	{
 		private Mock<IResponseWriter> _responseWriter;

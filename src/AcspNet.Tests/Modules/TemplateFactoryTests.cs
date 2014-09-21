@@ -10,7 +10,6 @@ using Simplify.Templates;
 namespace AcspNet.Tests.Modules
 {
 	[TestFixture]
-	[Category("Windows")]
 	public class TemplateFactoryTests
 	{
 		private Mock<IEnvironment> _environment;
