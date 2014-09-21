@@ -79,15 +79,15 @@
     <Reference Include="Simplify.System">
       <HintPath>..\..\packages\Simplify.System.1.0.0.0\lib\net45\Simplify.System.dll</HintPath>
     </Reference>
-    <Reference Include="Simplify.Templates">
-      <HintPath>..\..\packages\Simplify.Templates.1.1.0.0\lib\net45\Simplify.Templates.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Simplify.Templates, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Simplify.Templates.1.1.1.0\lib\net45\Simplify.Templates.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
-    <Reference Include="System.IO.Abstractions, Version=1.4.0.86, Culture=neutral, PublicKeyToken=d480b5b72fb413da, processorArchitecture=MSIL">
+    <Reference Include="System.IO.Abstractions, Version=1.4.0.87, Culture=neutral, PublicKeyToken=d480b5b72fb413da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\System.IO.Abstractions.1.4.0.86\lib\net35\System.IO.Abstractions.dll</HintPath>
+      <HintPath>..\..\packages\System.IO.Abstractions.1.4.0.87\lib\net35\System.IO.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceProcess" />
   </ItemGroup>
