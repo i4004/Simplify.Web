@@ -20,15 +20,15 @@ namespace AcspNet.Tests.Modules
 		{
 			var files = new Dictionary<string, MockFileData>
 			{
-				{"App_Data/My.Project/Foo.en.xml", "Dummy data"},
-				{"App_Data/Foo.en", "Dummy data"},
+				{"C:/WebSites/FooSite/App_Data/My.Project/Foo.en.xml", "Dummy data"},
+				{"C:/WebSites/FooSite/App_Data/Foo.en", "Dummy data"},
 				{
-					"App_Data/FooX.en.xml",
+					"C:/WebSites/FooSite/App_Data/FooX.en.xml",
 					"<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Your site title!\" /></items>"
 				}
 			};
 			
-			FileReader.FileSystem = new MockFileSystem(files, "C:/WebSites/FooSite/");
+			FileReader.FileSystem = new MockFileSystem(files);
 		}
 
 		[SetUp]

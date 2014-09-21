@@ -19,9 +19,9 @@ namespace AcspNet.Tests.Modules
 		[TestFixtureSetUp]
 		public void Initialize()
 		{
-			var files = new Dictionary<string, MockFileData> { { "Templates/Foo.tpl", "Dummy data" } };
+			var files = new Dictionary<string, MockFileData> { { "C:/WebSites/FooSite/Templates/Foo.tpl", "Dummy data" } };
 
-			Template.FileSystem = new MockFileSystem(files, "C:/WebSites/FooSite");
+			Template.FileSystem = new MockFileSystem(files);
 
 			_environment = new Mock<IEnvironment>();
 			_languageManagerProvider = new Mock<ILanguageManagerProvider>();

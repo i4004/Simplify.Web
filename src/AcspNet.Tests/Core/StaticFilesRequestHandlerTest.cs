@@ -20,10 +20,10 @@ namespace AcspNet.Tests.Core
 		{
 			var files = new Dictionary<string, MockFileData>
 			{
-				{"Foo/Bar.css", new MockFileData(new byte[]{13})}
+				{"C:/WebSites/MySite/Foo/Bar.css", new MockFileData(new byte[]{13})}
 			};
 
-			StaticFilesRequestHandler.FileSystem = new MockFileSystem(files, "C:/WebSites/MySite/");
+			StaticFilesRequestHandler.FileSystem = new MockFileSystem(files);
 		}
 
 		[SetUp]
