@@ -14,6 +14,10 @@ ACSP.NET is a lightweight and fast .NET web-framework based on MVC and OWIN
 * Localization-friendly (supports templates, string table and data files localization by default)
 * Mocking-friendly
 
+### Getting started
+
+To get started you can install [visual studio AcspNet project templates](http://visualstudiogallery.msdn.microsoft.com/25a4534d-5a5b-4cce-aecf-523c3679a1c3) and read [this](https://github.com/i4004/AcspNet/wiki/Getting-started) article.
+
 ### Some examples
 
 #### Simple static page controller
