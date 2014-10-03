@@ -12,9 +12,8 @@ namespace AcspNet.Modules
 		private readonly string _dataPhysicalPath;
 		private readonly string _defaultLanguage;
 		private readonly ILanguageManagerProvider _languageManagerProvider;
+		private ILanguageManager _languageManager;
 		private static IFileSystem _fileSystemInstance;
-
-		private string _currentLanguage;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="FileReader" /> class.
@@ -56,7 +55,7 @@ namespace AcspNet.Modules
 		/// <returns>File path</returns>
 		public string GetFilePath(string fileName)
 		{
-			return GetFilePath(fileName, _currentLanguage);
+			return GetFilePath(fileName, _languageManager.Language);
 		}
 
 		/// <summary>
@@ -92,7 +91,7 @@ namespace AcspNet.Modules
 		/// </summary>
 		public void Setup()
 		{
-			_currentLanguage = _languageManagerProvider.Get().Language;
+			_languageManager = _languageManagerProvider.Get();
 		}
 
 		/// <summary>
@@ -104,7 +103,7 @@ namespace AcspNet.Modules
 		/// </returns>
 		public XDocument LoadXDocument(string fileName)
 		{
-			return LoadXDocument(fileName, _currentLanguage);
+			return LoadXDocument(fileName, _languageManager.Language);
 		}
 
 		/// <summary>
@@ -134,7 +133,7 @@ namespace AcspNet.Modules
 		/// </returns>
 		public string LoadTextDocument(string fileName)
 		{
-			return LoadTextDocument(fileName, _currentLanguage);
+			return LoadTextDocument(fileName, _languageManager.Language);
 		}
 
 		/// <summary>

@@ -15,6 +15,7 @@ namespace AcspNet.Modules
 		private readonly IList<string> _stringTableFiles;
 		private readonly string _defaultLanguage;
 		private readonly ILanguageManagerProvider _languageManagerProvider;
+		private ILanguageManager _languageManager;
 		private readonly IFileReader _fileReader;
 
 		/// <summary>
@@ -42,11 +43,21 @@ namespace AcspNet.Modules
 		/// </summary>
 		public void Setup()
 		{
+			_languageManager = _languageManagerProvider.Get();
+
+			Reload();
+		}
+
+		/// <summary>
+		/// Reload string table
+		/// </summary>
+		public void Reload()
+		{
 			IDictionary<string, Object> currentItems = new ExpandoObject();
 			Items = currentItems;
-			
+
 			foreach (var file in _stringTableFiles)
-				Load(file, _defaultLanguage, _languageManagerProvider.Get().Language, _fileReader, currentItems);
+				Load(file, _defaultLanguage, _languageManager.Language, _fileReader, currentItems);
 		}
 
 		/// <summary>
