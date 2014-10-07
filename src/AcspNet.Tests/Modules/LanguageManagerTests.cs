@@ -131,5 +131,21 @@ namespace AcspNet.Tests.Modules
 			// Assert
 			Assert.AreEqual("fr", _languageManager.Language);
 		}
+
+		[Test]
+		public void Constructor_NoBrowserLanguage_DefaultLanguageSet()
+		{
+			// Assign
+
+			_settings.SetupGet(x => x.AcceptBrowserLanguage).Returns(true);
+			var header = new HeaderDictionary(new Dictionary<string, string[]>());
+			_context.SetupGet(x => x.Request.Headers).Returns(header);
+
+			// Act
+			_languageManager = new LanguageManager(_settings.Object, _context.Object);
+
+			// Assert
+			Assert.AreEqual("en", _languageManager.Language);
+		}
 	}
 }

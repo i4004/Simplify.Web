@@ -83,7 +83,7 @@ namespace AcspNet.Modules
 		{
 			var languages = context.Request.Headers.GetValues("Accept-Language");
 
-			if (languages.Count > 0)
+			if (languages != null && languages.Count > 0)
 			{
 				var languageString = languages[0];
 

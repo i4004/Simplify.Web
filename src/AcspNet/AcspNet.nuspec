@@ -11,7 +11,7 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>ACSP.NET is a lightweight and fast .NET web-framework based on MVC and OWIN.</description>
 		<summary>ACSP.NET is a lightweight and fast .NET web-framework based on MVC and OWIN.</summary>
-		<releaseNotes>Setting current request language fixed, upgrade to Simplify.Templates 1.1.1</releaseNotes>
+		<releaseNotes>Language manager bug fixed</releaseNotes>
 		<copyright>Licensed under LGPL</copyright>
 		<language>en-US</language>
 		<tags>.NET web-framework MVC DI OWIN</tags>
