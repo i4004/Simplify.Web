@@ -18,6 +18,7 @@ namespace AcspNet.Tests.Core
 
 		private Mock<IDIContainerProvider> _containerProvider;
 		private Mock<IContextVariablesSetter> _variablesSetter;
+		private Mock<IStringTableItemsSetter> _stringTableItemsSetter;
 		private Mock<IEnvironment> _environment;
 
 		[SetUp]
@@ -28,12 +29,14 @@ namespace AcspNet.Tests.Core
 			_pageBuilder = new PageBuilder(_templatesFactory.Object, _dataCollector.Object);
 
 			_variablesSetter = new Mock<IContextVariablesSetter>();
+			_stringTableItemsSetter = new Mock<IStringTableItemsSetter>();
 			_environment = new Mock<IEnvironment>();
 			_containerProvider = new Mock<IDIContainerProvider>();
 
 			_environment.SetupGet(x => x.MasterTemplateFileName).Returns("Master.tpl");
 
 			_containerProvider.Setup(x => x.Resolve(It.Is<Type>(d => d == typeof(IContextVariablesSetter)))).Returns(_variablesSetter.Object);
+			_containerProvider.Setup(x => x.Resolve(It.Is<Type>(d => d == typeof(IStringTableItemsSetter)))).Returns(_stringTableItemsSetter.Object);
 			_containerProvider.Setup(x => x.Resolve(It.Is<Type>(d => d == typeof(IEnvironment)))).Returns(_environment.Object);
 
 			_templatesFactory.Setup(x => x.Load(It.IsAny<string>())).Returns(Template.FromString("{Foo}"));
