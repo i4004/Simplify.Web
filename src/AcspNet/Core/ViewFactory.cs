@@ -22,6 +22,7 @@ namespace AcspNet.Core
 			BuildModulesAccessorProperties(view, containerProvider);
 
 			view.Language = containerProvider.Resolve<ILanguageManagerProvider>().Get().Language;
+			view.SiteUrl = containerProvider.Resolve<IAcspNetContextProvider>().Get().SiteUrl;
 
 			return view;
 		}

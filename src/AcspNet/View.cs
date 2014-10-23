@@ -12,5 +12,10 @@
 		/// The current language.
 		/// </value>
 		public virtual string Language { get; internal set; }
+
+		/// <summary>
+		/// Site root url, for example: http://mysite.com or http://localhost/mysite/
+		/// </summary>
+		public string SiteUrl { get; internal set; }
 	}
 }
