@@ -9,6 +9,12 @@ using Simplify.DI;
 namespace AcspNet.Owin
 {
 	/// <summary>
+	/// AcspNet catched exceptions delegate
+	/// </summary>
+	/// <param name="e">The e.</param>
+	public delegate void ExceptionEventHandler(Exception e);
+
+	/// <summary>
 	/// AcspNet engine root
 	/// </summary>
 	public class AcspNetOwinMiddleware : OwinMiddleware
@@ -21,6 +27,11 @@ namespace AcspNet.Owin
 			: base(next)
 		{
 		}
+
+		/// <summary>
+		/// Occurs when exception occured and catched by framework.
+		/// </summary>
+		public static event ExceptionEventHandler OnException;
 
 		/// <summary>
 		/// Process an individual request.
@@ -57,6 +68,18 @@ namespace AcspNet.Owin
 				}
 				catch (Exception e)
 				{
+					try
+					{
+						if (OnException != null)
+							OnException(e);
+					}
+					catch (Exception exception)
+					{
+						return
+							context.Response.WriteAsync(ExceptionInfoPageGenerator.Generate(exception,
+								scope.Container.Resolve<IAcspNetSettings>().HideExceptionDetails));
+					}
+
 					return
 						context.Response.WriteAsync(ExceptionInfoPageGenerator.Generate(e,
 							scope.Container.Resolve<IAcspNetSettings>().HideExceptionDetails));

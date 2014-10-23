@@ -1,4 +1,5 @@
-﻿using AcspNet.Attributes;
+﻿using System;
+using AcspNet.Attributes;
 using AcspNet.Responses;
 
 namespace AcspNet.Examples.SelfHosted.Controllers
@@ -8,6 +9,7 @@ namespace AcspNet.Examples.SelfHosted.Controllers
 	{
 		public override ControllerResponse Invoke()
 		{
+			throw new Exception("asd");
 			return new StaticTpl("Default");
 		}
 	}

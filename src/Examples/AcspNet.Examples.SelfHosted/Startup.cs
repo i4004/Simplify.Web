@@ -1,4 +1,5 @@
-﻿using AcspNet.Meta;
+﻿using System;
+using AcspNet.Meta;
 using AcspNet.Owin;
 using AcspNet.Owin.Security.AesDataProtectorProvider;
 using Microsoft.AspNet.Identity;
@@ -31,6 +32,13 @@ namespace AcspNet.Examples.SelfHosted
 			app.UseAcspNet();
 
 			provider.Container.Verify();
+
+			AcspNetOwinMiddleware.OnException += Ex;
+		}
+
+		private static void Ex(Exception e)
+		{
+			
 		}
 	}
 }
