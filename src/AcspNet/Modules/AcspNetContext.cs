@@ -32,7 +32,14 @@ namespace AcspNet.Modules
 			VirtualPath = string.IsNullOrEmpty(Request.PathBase.Value) ? "" : Request.PathBase.Value + "/";
 
 			IsAjax = Request.Headers.ContainsKey("X-Requested-With");
+
+			Route = Request.Path.Value;
 		}
+
+		/// <summary>
+		/// Current web-site route, for example: "/" or "/user/delete/15"
+		/// </summary>
+		public string Route { get; private set; }
 
 		/// <summary>
 		/// Site root url, for example: http://mysite.com or http://localhost/mysite/

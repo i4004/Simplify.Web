@@ -19,6 +19,7 @@ namespace AcspNet.Tests.Modules
 
 			_owinContext.SetupGet(x => x.Response).Returns(new Mock<IOwinResponse>().Object);
 			_owinContext.SetupGet(x => x.Request.PathBase).Returns(new PathString("/mywebsite"));
+			_owinContext.SetupGet(x => x.Request.Path).Returns(new PathString("/"));
 			_owinContext.SetupGet(x => x.Request.Uri).Returns(new Uri("http://localhost/mywebsite/"));
 			_owinContext.SetupGet(x => x.Request.Query).Returns(new ReadableStringCollection(new Dictionary<string, string[]>()));
 			_owinContext.SetupGet(x => x.Request.Headers)
@@ -39,6 +40,7 @@ namespace AcspNet.Tests.Modules
 			Assert.AreEqual(_owinContext.Object.Request.Query, context.Query);
 			Assert.AreEqual("http://localhost/mywebsite/", context.SiteUrl);
 			Assert.AreEqual("/mywebsite/", context.VirtualPath);
+			Assert.AreEqual("/", context.Route);
 			Assert.IsFalse(context.IsAjax);
 		}
 
@@ -167,6 +169,20 @@ namespace AcspNet.Tests.Modules
 
 			Assert.IsTrue(context.IsAjax);
 
+		}
+
+		[Test]
+		public void Constructor_SpecificRoute_SetCorrectly()
+		{
+			// Assign
+			_owinContext.SetupGet(x => x.Request.Path).Returns(new PathString("/test"));
+
+			// Act
+			var context = new AcspNetContext(_owinContext.Object);
+
+			// Assert
+
+			Assert.AreEqual("/test", context.Route);
 		}
 	}
 }
