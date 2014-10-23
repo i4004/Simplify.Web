@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.Reflection;
+using Simplify.System;
 using Simplify.Templates;
 
 namespace AcspNet.Diagnostics
@@ -23,7 +25,7 @@ namespace AcspNet.Diagnostics
 
 			var tpl = Template.FromManifest("Diagnostics.ExceptionInfoPage.html");
 
-			tpl.Set("AcspNetVersion", "5.0");
+			tpl.Set("AcspNetVersion", new AssemblyInfo(Assembly.GetCallingAssembly()).Version);
 
 			if (hideExceptionDetails)
 			{
