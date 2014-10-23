@@ -113,6 +113,14 @@ namespace AcspNet
 		public bool StringTableMemoryCache { get; private set; }
 
 		/// <summary>
+		/// Gets a value indicating whether console tracing is enabled.
+		/// </summary>
+		/// <value>
+		/// <c>true</c> if console tracing is enabled; otherwise, <c>false</c>.
+		/// </value>
+		public bool ConsoleTracing { get; private set; }
+
+		/// <summary>
 		/// Initializes a new instance of the <see cref="AcspNetSettings"/> class.
 		/// </summary>
 		public AcspNetSettings()
@@ -148,6 +156,7 @@ namespace AcspNet
 			LoadOtherSettings(config);
 			LoadEngineBehaviourSettings(config);
 			LoadCacheSettings(config);
+			LoadDiagnosticSettings(config);
 		}
 
 		private void LoadLanguageManagerSettings(NameValueCollection config)
@@ -218,7 +227,7 @@ namespace AcspNet
 
 				foreach (var item in items)
 					StringTableFiles.Add(item);
-			}
+			}		
 		}
 
 		private void LoadEngineBehaviourSettings(NameValueCollection config)
@@ -256,6 +265,17 @@ namespace AcspNet
 
 				if (bool.TryParse(config["StringTableMemoryCache"], out buffer))
 					StringTableMemoryCache = buffer;
+			}
+		}
+		
+		private void LoadDiagnosticSettings(NameValueCollection config)
+		{
+			if (!string.IsNullOrEmpty(config["ConsoleTracing"]))
+			{
+				bool buffer;
+
+				if (bool.TryParse(config["ConsoleTracing"], out buffer))
+					ConsoleTracing = buffer;
 			}
 		}
 	}

@@ -108,5 +108,13 @@ namespace AcspNet
 		/// <c>true</c> if string table memory cache enabled; otherwise, <c>false</c>.
 		/// </value>
 		bool StringTableMemoryCache { get; }
+
+		/// <summary>
+		/// Gets a value indicating whether console tracing is enabled.
+		/// </summary>
+		/// <value>
+		/// <c>true</c> if console tracing is enabled; otherwise, <c>false</c>.
+		/// </value>
+		bool ConsoleTracing { get; }
 	}
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Globalization;
 using System.Threading.Tasks;
 using AcspNet.Core;
 using AcspNet.Diagnostics;
@@ -13,6 +15,11 @@ namespace AcspNet.Owin
 	/// </summary>
 	/// <param name="e">The e.</param>
 	public delegate void ExceptionEventHandler(Exception e);
+
+	/// <summary>
+	/// AcspNet trace delegate
+	/// </summary>
+	public delegate void TraceEventHandler(IOwinContext context);
 
 	/// <summary>
 	/// AcspNet engine root
@@ -34,6 +41,11 @@ namespace AcspNet.Owin
 		public static event ExceptionEventHandler OnException;
 
 		/// <summary>
+		/// Occurs on each request.
+		/// </summary>
+		public static event TraceEventHandler OnTrace;
+
+		/// <summary>
 		/// Process an individual request.
 		/// </summary>
 		/// <param name="context"></param>
@@ -46,6 +58,16 @@ namespace AcspNet.Owin
 				{
 					// Starts execution measurement
 					scope.Container.Resolve<IStopwatchProvider>().StartMeasurement();
+
+					// Tracing
+
+					var settings = scope.Container.Resolve<IAcspNetSettings>();
+
+					if (settings.ConsoleTracing)
+						TraceToConsole(context);
+
+					if (OnTrace != null)
+						OnTrace(context);
 
 					// Setup providers
 
@@ -85,6 +107,11 @@ namespace AcspNet.Owin
 							scope.Container.Resolve<IAcspNetSettings>().HideExceptionDetails));
 				}
 			}
+		}
+
+		private static void TraceToConsole(IOwinContext context)
+		{
+			Trace.WriteLine(string.Format("[{0}] [{1}] {2}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss:fff", CultureInfo.InvariantCulture), context.Request.Method, context.Request.Uri.AbsoluteUri));
 		}
 	}
 }
