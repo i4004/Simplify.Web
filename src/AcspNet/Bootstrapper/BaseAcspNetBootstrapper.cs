@@ -26,9 +26,10 @@ namespace AcspNet.Bootstrapper
 		private Type _controllersProcessorType;
 		private Type _listsGeneratorType;
 		private Type _messageBoxType;
+		private Type _stringTableItemsSetterType;
 		private Type _pageBuilderType;
 		private Type _responseWriterType;
-		private Type _pageProcessor;
+		private Type _pageProcessorType;
 		private Type _controllersRequestHandlerType;
 		private Type _requestHandlerType;
 		private Type _stopwatchProviderType;
@@ -61,6 +62,7 @@ namespace AcspNet.Bootstrapper
 			RegisterDataCollector();
 			RegisterListsGenerator();
 			RegisterMessageBox();
+			RegisterStringTableItemsSetter();
 			RegisterPageBuilder();
 			RegisterResponseWriter();
 			RegisterPageProcessor();
@@ -204,6 +206,17 @@ namespace AcspNet.Bootstrapper
 		{
 			get { return _messageBoxType ?? typeof(MessageBox); }
 		}
+		
+		/// <summary>
+		/// Gets the type of the string table items setter.
+		/// </summary>
+		/// <value>
+		/// The type of the string table items setter.
+		/// </value>
+		public Type StringTableItemsSetterType
+		{
+			get { return _stringTableItemsSetterType ?? typeof(StringTableItemsSetter); }
+		}
 
 		/// <summary>
 		/// Gets the type of the page builder.
@@ -235,7 +248,7 @@ namespace AcspNet.Bootstrapper
 		/// </value>
 		public Type PageProcessorType
 		{
-			get { return _pageProcessor ?? typeof(PageProcessor); }
+			get { return _pageProcessorType ?? typeof(PageProcessor); }
 		}
 
 		/// <summary>
@@ -387,20 +400,30 @@ namespace AcspNet.Bootstrapper
 		}
 
 		/// <summary>
-		/// Sets the message box.
+		/// Sets the message box type.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
-		public void SetMessageBox<T>()
+		public void SetMessageBoxType<T>()
 			where T : IMessageBox
 		{
 			_messageBoxType = typeof(T);
 		}
 
 		/// <summary>
-		/// Sets the page builder.
+		/// Sets the type of the string table items setter.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
-		public void SetPageBuilder<T>()
+		public void SetStringTableItemsSetterType<T>()
+			where T : IStringTableItemsSetter
+		{
+			_stringTableItemsSetterType = typeof(T);
+		}
+
+		/// <summary>
+		/// Sets the page builder type.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetPageBuilderType<T>()
 			where T : IPageBuilder
 		{
 			_pageBuilderType = typeof(T);
@@ -423,7 +446,7 @@ namespace AcspNet.Bootstrapper
 		public void SetPageProcessorType<T>()
 			where T : IPageProcessor
 		{
-			_pageProcessor = typeof(T);
+			_pageProcessorType = typeof(T);
 		}
 
 		/// <summary>
@@ -643,6 +666,14 @@ namespace AcspNet.Bootstrapper
 		public virtual void RegisterMessageBox()
 		{
 			DIContainer.Current.Register<IMessageBox>(MessageBoxType, LifetimeType.PerLifetimeScope);
+		}
+
+		/// <summary>
+		/// Registers the string table items setter.
+		/// </summary>
+		public virtual void RegisterStringTableItemsSetter()
+		{
+			DIContainer.Current.Register<IStringTableItemsSetter>(StringTableItemsSetterType, LifetimeType.PerLifetimeScope);
 		}
 
 		/// <summary>

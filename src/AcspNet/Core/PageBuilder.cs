@@ -29,6 +29,7 @@ namespace AcspNet.Core
 		/// <returns></returns>
 		public string Build(IDIContainerProvider containerProvider)
 		{
+			containerProvider.Resolve<IStringTableItemsSetter>().Set();
 			containerProvider.Resolve<IContextVariablesSetter>().SetVariables(containerProvider);
 
 			var tpl = _templateFactory.Load(containerProvider.Resolve<IEnvironment>().MasterTemplateFileName);
