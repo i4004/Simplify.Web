@@ -11,14 +11,7 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>ACSP.NET is a lightweight and fast .NET web-framework based on MVC and OWIN.</description>
 		<summary>ACSP.NET is a lightweight and fast .NET web-framework based on MVC and OWIN.</summary>
-		<releaseNotes>
-			* String table usage from tpl files like {StringTable.SomeValue}
-			* Ability to trace requests
-			* Ability to process catched exceptions by AcspNet
-			* SiteUrl property in views
-			* Route property in controllers
-			* Upgrade to Simplify.DI 1.0.3.0, Simplify.Templates 1.1.2, System.IO.Abstractions 1.4.0.92
-		</releaseNotes>
+		<releaseNotes>Authentication checking bug fixed</releaseNotes>
 		<copyright>Licensed under LGPL</copyright>
 		<language>en-US</language>
 		<tags>.NET web-framework MVC DI OWIN</tags>

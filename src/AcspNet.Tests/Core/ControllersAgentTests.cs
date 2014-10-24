@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Principal;
 using AcspNet.Core;
 using AcspNet.Meta;
 using AcspNet.Routing;
@@ -296,6 +297,36 @@ namespace AcspNet.Tests.Core
 
 			// Act & Assert
 			Assert.AreEqual(SecurityRuleCheckResult.Ok, _agent.IsSecurityRulesViolated(metaData, user));
+		}
+
+		[Test]
+		public void IsSecurityRulesViolated_UserExistNotAuthenticatedUser_NotAuthenticated()
+		{
+			// Assign
+
+			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true));
+
+			var id = new Mock<IIdentity>();
+			id.Setup(x => x.IsAuthenticated).Returns(false);
+			var user = new ClaimsPrincipal(id.Object);
+
+			// Act & Assert
+			Assert.AreEqual(SecurityRuleCheckResult.NotAuthenticated, _agent.IsSecurityRulesViolated(metaData, user));
+		}
+
+		[Test]
+		public void IsSecurityRulesViolated_UserExistNotAuthenticatedUserWithAllowedUserRoles_NotAuthenticated()
+		{
+			// Assign
+
+			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true, "User"));
+
+			var id = new Mock<IIdentity>();
+			id.Setup(x => x.IsAuthenticated).Returns(false);
+			var user = new ClaimsPrincipal(id.Object);
+
+			// Act & Assert
+			Assert.AreEqual(SecurityRuleCheckResult.NotAuthenticated, _agent.IsSecurityRulesViolated(metaData, user));
 		}
 	}
 }
