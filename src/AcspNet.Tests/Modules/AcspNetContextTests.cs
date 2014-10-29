@@ -39,7 +39,7 @@ namespace AcspNet.Tests.Modules
 			Assert.AreEqual(_owinContext.Object.Response, context.Response);
 			Assert.AreEqual(_owinContext.Object.Request.Query, context.Query);
 			Assert.AreEqual("http://localhost/mywebsite/", context.SiteUrl);
-			Assert.AreEqual("/mywebsite/", context.VirtualPath);
+			Assert.AreEqual("/mywebsite", context.VirtualPath);
 			Assert.AreEqual("/", context.Route);
 			Assert.IsFalse(context.IsAjax);
 		}
@@ -57,7 +57,7 @@ namespace AcspNet.Tests.Modules
 
 			// Assert
 
-			Assert.AreEqual("http://localhost:8080", context.SiteUrl);
+			Assert.AreEqual("http://localhost:8080/", context.SiteUrl);
 			Assert.AreEqual("", context.VirtualPath);
 		}
 
@@ -74,7 +74,7 @@ namespace AcspNet.Tests.Modules
 
 			// Assert
 
-			Assert.AreEqual("http://localhost:8080", context.SiteUrl);
+			Assert.AreEqual("http://localhost:8080/", context.SiteUrl);
 			Assert.AreEqual("", context.VirtualPath);
 		}
 
@@ -91,7 +91,7 @@ namespace AcspNet.Tests.Modules
 			// Assert
 
 			Assert.AreEqual("http://localhost:8080/mywebsite/", context.SiteUrl);
-			Assert.AreEqual("/mywebsite/", context.VirtualPath);
+			Assert.AreEqual("/mywebsite", context.VirtualPath);
 		}
 
 		[Test]
@@ -136,7 +136,7 @@ namespace AcspNet.Tests.Modules
 
 			// Assert
 
-			Assert.AreEqual("http://mywebsite.com", context.SiteUrl);
+			Assert.AreEqual("http://mywebsite.com/", context.SiteUrl);
 		}
 
 		[Test]
@@ -152,7 +152,7 @@ namespace AcspNet.Tests.Modules
 
 			// Assert
 
-			Assert.AreEqual("http://mywebsite.com", context.SiteUrl);
+			Assert.AreEqual("http://mywebsite.com/", context.SiteUrl);
 		}
 
 		[Test]

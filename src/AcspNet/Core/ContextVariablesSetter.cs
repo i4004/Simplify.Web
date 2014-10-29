@@ -80,15 +80,15 @@ namespace AcspNet.Core
 			_dataCollector.Add(VariableNameCurrentLanguageExtension, !string.IsNullOrEmpty(languageManager.Language) ? "." + languageManager.Language : "");
 
 			_dataCollector.Add(VariableNameSiteUrl, context.SiteUrl);
-			_dataCollector.Add(VariableNameSiteVirtualPath, context.Request.PathBase.Value);
+			_dataCollector.Add(VariableNameSiteVirtualPath, context.VirtualPath);
 
 			if (!_disableAutomaticSiteTitleSet)
-				SetSiteTitleFromStringTable(context.Request.Path.Value, containerProvider.Resolve<IStringTable>(), _dataCollector);
+				SetSiteTitleFromStringTable(context.Request.Path.Value, containerProvider.Resolve<IStringTable>());
 
 			_dataCollector.Add(VariableNameExecutionTime, stopWatchProvider.StopAndGetMeasurement().ToString("mm\\:ss\\:fff"));
 		}
 
-		private void SetSiteTitleFromStringTable(string currentPath, IStringTable stringTable, IDataCollector dataCollector)
+		private void SetSiteTitleFromStringTable(string currentPath, IStringTable stringTable)
 		{
 			var siteTitle = stringTable.GetItem(SiteTitleStringTableVariableName);
 

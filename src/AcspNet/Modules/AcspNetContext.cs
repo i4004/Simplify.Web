@@ -24,12 +24,9 @@ namespace AcspNet.Modules
 
 			_form = new Lazy<IFormCollection>(() => Task.Run(() => context.Request.ReadFormAsync()).Result);
 
-			SiteUrl = Request.Uri.Scheme + "://" + Request.Uri.Authority;
+			VirtualPath = string.IsNullOrEmpty(Request.PathBase.Value) ? "" : Request.PathBase.Value;
 
-			if (!string.IsNullOrEmpty(Request.PathBase.Value))
-				SiteUrl += Request.PathBase.Value + "/";
-
-			VirtualPath = string.IsNullOrEmpty(Request.PathBase.Value) ? "" : Request.PathBase.Value + "/";
+			SiteUrl = Request.Uri.Scheme + "://" + Request.Uri.Authority + VirtualPath + "/";
 
 			IsAjax = Request.Headers.ContainsKey("X-Requested-With");
 

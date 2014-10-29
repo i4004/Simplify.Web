@@ -48,6 +48,7 @@ namespace AcspNet.Tests.Core
 			_languageManagerProvider.Setup(x => x.Get()).Returns(_languageManager.Object);
 
 			_context.SetupGet(x => x.SiteUrl).Returns("http://localhost/mysite/");
+			_context.SetupGet(x => x.VirtualPath).Returns("/mysite");
 			_contextProvider.Setup(x => x.Get()).Returns(_context.Object);
 			_context.SetupGet(x => x.Request.PathBase).Returns(new PathString("/mysite"));
 
