@@ -154,6 +154,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Owin.Security.AesDataProtectorProvider">
+      <HintPath>..\..\packages\Owin.Security.AesDataProtectorProvider.1.0.0.0\lib\net45\Owin.Security.AesDataProtectorProvider.dll</HintPath>
+    </Reference>
     <Reference Include="SimpleInjector, Version=2.6.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\SimpleInjector.2.6.0\lib\net45\SimpleInjector.dll</HintPath>
@@ -268,10 +271,6 @@
     <ProjectReference Include="..\..\AcspNet\AcspNet.csproj">
       <Project>{03b0ae6c-88d0-4d7a-8657-57fc4fd2682a}</Project>
       <Name>AcspNet</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Extensions\AcspNet.Owin.Security.AesDataProtectorProvider\AcspNet.Owin.Security.AesDataProtectorProvider.csproj">
-      <Project>{ab43300f-837c-4e1d-bdb8-35165a146ca2}</Project>
-      <Name>AcspNet.Owin.Security.AesDataProtectorProvider</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
