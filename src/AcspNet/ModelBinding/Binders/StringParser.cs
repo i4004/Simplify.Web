@@ -19,32 +19,39 @@ namespace AcspNet.ModelBinding.Binders
 		/// <exception cref="AcspNet.ModelBinding.ModelBindingException"></exception>
 		public static object ParseUndefined(string value, PropertyInfo propertyInfo)
 		{
-			if (propertyInfo.PropertyType == typeof(string))
-				return ParseString(value, propertyInfo);
+			try
+			{
+				if (propertyInfo.PropertyType == typeof(string))
+					return ParseString(value, propertyInfo);
 
-			if (propertyInfo.PropertyType == typeof(int))
-				return ParseInt(value);
+				if (propertyInfo.PropertyType == typeof(int))
+					return ParseInt(value);
 
-			if (propertyInfo.PropertyType == typeof(int?))
-				return ParseNullableInt(value);
+				if (propertyInfo.PropertyType == typeof(int?))
+					return ParseNullableInt(value);
 
-			if (propertyInfo.PropertyType == typeof(bool))
-				return ParseBool(value);
+				if (propertyInfo.PropertyType == typeof(bool))
+					return ParseBool(value);
 
-			if (propertyInfo.PropertyType == typeof(bool?))
-				return ParseNullableBool(value);
+				if (propertyInfo.PropertyType == typeof(bool?))
+					return ParseNullableBool(value);
 
-			if (propertyInfo.PropertyType == typeof(decimal))
-				return ParseDecimal(value);
+				if (propertyInfo.PropertyType == typeof(decimal))
+					return ParseDecimal(value);
 
-			if (propertyInfo.PropertyType == typeof(decimal?))
-				return ParseNullableDecimal(value);
+				if (propertyInfo.PropertyType == typeof(decimal?))
+					return ParseNullableDecimal(value);
 
-			if (propertyInfo.PropertyType == typeof(DateTime))
-				return ParseDateTime(propertyInfo, value);
+				if (propertyInfo.PropertyType == typeof(DateTime))
+					return ParseDateTime(propertyInfo, value);
 
-			if (propertyInfo.PropertyType == typeof(DateTime?))
-				return ParseNullableDateTime(propertyInfo, value);
+				if (propertyInfo.PropertyType == typeof(DateTime?))
+					return ParseNullableDateTime(propertyInfo, value);
+			}
+			catch (ModelBindingException e)
+			{
+				throw new ModelBindingException(string.Format("Property '{0}' parsing failed", propertyInfo.Name), e);
+			}
 
 			throw new ModelBindingException(string.Format("Not supported property type: '{0}'", propertyInfo.PropertyType));
 		}
