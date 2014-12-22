@@ -46,7 +46,7 @@ namespace AcspNet.ModelBinding.Binders
 			if (propertyInfo.PropertyType == typeof(DateTime?))
 				return ParseNullableDateTime(propertyInfo, value);
 
-			throw new ModelBindingException(string.Format("Not supported property type: '{0}'", propertyInfo.PropertyType.ToString()));
+			throw new ModelBindingException(string.Format("Not supported property type: '{0}'", propertyInfo.PropertyType));
 		}
 
 		/// <summary>
@@ -80,7 +80,7 @@ namespace AcspNet.ModelBinding.Binders
 			if (bool.TryParse(value, out buffer))
 				return buffer;
 
-			throw new ModelBindingException(string.Format("Bool property '{0}' parse failed, actual value: '{1}'", value));
+			throw new ModelBindingException(string.Format("Bool property parse failed, actual value: '{0}'", value));
 		}
 
 		/// <summary>
@@ -103,7 +103,7 @@ namespace AcspNet.ModelBinding.Binders
 			if (bool.TryParse(value, out buffer))
 				return buffer;
 
-			throw new ModelBindingException(string.Format("Bool property '{0}' parse failed, actual value: '{1}'", value));
+			throw new ModelBindingException(string.Format("Bool property parse failed, actual value: '{0}'", value));
 		}
 
 		/// <summary>
@@ -122,7 +122,7 @@ namespace AcspNet.ModelBinding.Binders
 			if (int.TryParse(value, out buffer))
 				return buffer;
 
-			throw new ModelBindingException(string.Format("Int property '{0}' parse failed, actual value: '{1}'", value));
+			throw new ModelBindingException(string.Format("Int property parse failed, actual value: '{0}'", value));
 		}
 
 		/// <summary>
@@ -141,7 +141,7 @@ namespace AcspNet.ModelBinding.Binders
 			if (int.TryParse(value, out buffer))
 				return buffer;
 
-			throw new ModelBindingException(string.Format("Int property '{0}' parse failed, actual value: '{1}'", value));
+			throw new ModelBindingException(string.Format("Int property parse failed, actual value: '{0}'", value));
 		}
 
 		/// <summary>
@@ -160,7 +160,7 @@ namespace AcspNet.ModelBinding.Binders
 			if (decimal.TryParse(value, out buffer))
 				return buffer;
 
-			throw new ModelBindingException(string.Format("Decimal property '{0}' parse failed, actual value: '{1}'", value));
+			throw new ModelBindingException(string.Format("Decimal property parse failed, actual value: '{0}'", value));
 		}
 
 		/// <summary>
@@ -179,7 +179,7 @@ namespace AcspNet.ModelBinding.Binders
 			if (decimal.TryParse(value, out buffer))
 				return buffer;
 
-			throw new ModelBindingException(string.Format("Decimal property '{0}' parse failed, actual value: '{1}'", value));
+			throw new ModelBindingException(string.Format("Decimal property parse failed, actual value: '{0}'", value));
 		}
 
 		/// <summary>
