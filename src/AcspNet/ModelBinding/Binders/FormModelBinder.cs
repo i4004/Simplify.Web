@@ -17,7 +17,7 @@ namespace AcspNet.ModelBinding.Binders
 		{
 			if (args.Context.Request.ContentType.Contains("application/x-www-form-urlencoded"))
 				args.SetModel(
-					ListModelParser.Parse<T>(args.Context.Form.Select(x => new KeyValuePair<string, string>(x.Key, x.Value[0])).ToList()));
+					ListModelParser.Parse<T>(args.Context.Form.Select(x => new KeyValuePair<string, string>(x.Key, string.Join(",", x.Value))).ToList()));
 		}
 	}
 }

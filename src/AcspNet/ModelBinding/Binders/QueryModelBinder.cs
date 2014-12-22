@@ -18,7 +18,7 @@ namespace AcspNet.ModelBinding.Binders
 			if (args.Context.Request.Method == "GET")
 				args.SetModel(
 					ListModelParser.Parse<T>(
-						args.Context.Query.Select(x => new KeyValuePair<string, string>(x.Key, x.Value[0])).ToList()));
+						args.Context.Query.Select(x => new KeyValuePair<string, string>(x.Key, string.Join(",", x.Value))).ToList()));
 		}	 
 	}
 }
