@@ -11,7 +11,7 @@ namespace AcspNet.Examples.SelfHosted.Controllers.Accounts
 		{
 			Context.Context.Authentication.SignOut();
 
-			return new Redirect(RedirectionType.DefaultPage);
+			return new Redirect();
 		}
 	}
 }
