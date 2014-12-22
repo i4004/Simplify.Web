@@ -498,7 +498,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterControllersMetaStore()
 		{
-			DIContainer.Current.Register(p => ControllersMetaStore.Current);
+			DIContainer.Current.Register(p => ControllersMetaStore.Current, LifetimeType.Singleton);
 		}
 
 		/// <summary>
@@ -506,7 +506,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterViewsMetaStore()
 		{
-			DIContainer.Current.Register(p => ViewsMetaStore.Current);
+			DIContainer.Current.Register(p => ViewsMetaStore.Current, LifetimeType.Singleton);
 		}
 
 		/// <summary>
@@ -514,7 +514,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterAcspNetSettings()
 		{
-			DIContainer.Current.Register<IAcspNetSettings>(AcspNetSettingsType);
+			DIContainer.Current.Register<IAcspNetSettings>(AcspNetSettingsType, LifetimeType.Singleton);
 		}
 
 		/// <summary>
@@ -522,7 +522,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterViewFactory()
 		{
-			DIContainer.Current.Register<IViewFactory>(ViewFactoryType);
+			DIContainer.Current.Register<IViewFactory>(ViewFactoryType, LifetimeType.Singleton);
 		}
 
 		/// <summary>
@@ -530,7 +530,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterControllerFactory()
 		{
-			DIContainer.Current.Register<IControllerFactory>(ControllerFactoryType);
+			DIContainer.Current.Register<IControllerFactory>(ControllerFactoryType, LifetimeType.Singleton);
 		}
 
 		/// <summary>
@@ -538,7 +538,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterControllerPathParser()
 		{
-			DIContainer.Current.Register<IControllerPathParser>(ControllerPathParser);
+			DIContainer.Current.Register<IControllerPathParser>(ControllerPathParser, LifetimeType.Singleton);
 		}
 
 		/// <summary>
@@ -546,7 +546,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterRouteMatcher()
 		{
-			DIContainer.Current.Register<IRouteMatcher>(RouteMatcherType);
+			DIContainer.Current.Register<IRouteMatcher>(RouteMatcherType, LifetimeType.Singleton);
 		}
 
 		/// <summary>
@@ -554,7 +554,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterControllersAgent()
 		{
-			DIContainer.Current.Register<IControllersAgent>(ControllersAgentType);
+			DIContainer.Current.Register<IControllersAgent>(ControllersAgentType, LifetimeType.Singleton);
 		}
 
 		/// <summary>
@@ -562,7 +562,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterControllerResponseBuilder()
 		{
-			DIContainer.Current.Register<IControllerResponseBuilder>(ControllerResponseBuilderType);
+			DIContainer.Current.Register<IControllerResponseBuilder>(ControllerResponseBuilderType, LifetimeType.Singleton);
 		}
 
 		/// <summary>
@@ -570,7 +570,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterControllerExecutor()
 		{
-			DIContainer.Current.Register<IControllerExecutor>(ControllerExecutorType, LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<IControllerExecutor>(ControllerExecutorType);
 		}
 
 		/// <summary>
@@ -578,7 +578,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterControllersProcessor()
 		{
-			DIContainer.Current.Register<IControllersProcessor>(ControllersProcessorType, LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<IControllersProcessor>(ControllersProcessorType);
 		}
 
 		/// <summary>
@@ -587,8 +587,7 @@ namespace AcspNet.Bootstrapper
 		public virtual void RegisterEnvironment()
 		{
 			DIContainer.Current.Register<IEnvironment>(
-				p => new Environment(AppDomain.CurrentDomain.BaseDirectory, p.Resolve<IAcspNetSettings>()),
-				LifetimeType.PerLifetimeScope);
+				p => new Environment(AppDomain.CurrentDomain.BaseDirectory, p.Resolve<IAcspNetSettings>()));
 		}
 
 		/// <summary>
@@ -596,7 +595,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterLanguageManagerProvider()
 		{
-			DIContainer.Current.Register<ILanguageManagerProvider>(p => new LanguageManagerProvider(p.Resolve<IAcspNetSettings>()), LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<ILanguageManagerProvider>(p => new LanguageManagerProvider(p.Resolve<IAcspNetSettings>()));
 		}
 
 		/// <summary>
@@ -611,7 +610,7 @@ namespace AcspNet.Bootstrapper
 
 					return new TemplateFactory(p.Resolve<IEnvironment>(), p.Resolve<ILanguageManagerProvider>(),
 						settings.DefaultLanguage, settings.TemplatesMemoryCache, settings.LoadTemplatesFromAssembly);
-				}, LifetimeType.PerLifetimeScope);
+				});
 		}
 
 		/// <summary>
@@ -621,7 +620,7 @@ namespace AcspNet.Bootstrapper
 		{
 			DIContainer.Current.Register<IFileReader>(
 				p => new FileReader(p.Resolve<IEnvironment>().DataPhysicalPath, p.Resolve<IAcspNetSettings>().DefaultLanguage,
-					p.Resolve<ILanguageManagerProvider>()), LifetimeType.PerLifetimeScope);
+					p.Resolve<ILanguageManagerProvider>()));
 		}
 
 		/// <summary>
@@ -636,7 +635,7 @@ namespace AcspNet.Bootstrapper
 					return new StringTable(settings.StringTableFiles, settings.DefaultLanguage, p.Resolve<ILanguageManagerProvider>(),
 						p.Resolve<IFileReader>());
 
-				}, LifetimeType.PerLifetimeScope);
+				});
 		}
 
 		/// <summary>
@@ -649,7 +648,7 @@ namespace AcspNet.Bootstrapper
 				var settings = p.Resolve<IAcspNetSettings>();
 
 				return new DataCollector(settings.DefaultMainContentVariableName, settings.DefaultTitleVariableName, p.Resolve<IStringTable>());
-			}, LifetimeType.PerLifetimeScope);
+			});
 		}
 
 		/// <summary>
@@ -657,7 +656,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterListsGenerator()
 		{
-			DIContainer.Current.Register<IListsGenerator>(ListsGeneratorType, LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<IListsGenerator>(ListsGeneratorType);
 		}
 
 		/// <summary>
@@ -665,7 +664,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterMessageBox()
 		{
-			DIContainer.Current.Register<IMessageBox>(MessageBoxType, LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<IMessageBox>(MessageBoxType);
 		}
 
 		/// <summary>
@@ -673,7 +672,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterStringTableItemsSetter()
 		{
-			DIContainer.Current.Register<IStringTableItemsSetter>(StringTableItemsSetterType, LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<IStringTableItemsSetter>(StringTableItemsSetterType);
 		}
 
 		/// <summary>
@@ -681,7 +680,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterPageBuilder()
 		{
-			DIContainer.Current.Register<IPageBuilder>(PageBuilderType, LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<IPageBuilder>(PageBuilderType);
 		}
 
 		/// <summary>
@@ -689,7 +688,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterResponseWriter()
 		{
-			DIContainer.Current.Register<IResponseWriter>(ResponseWriterType);
+			DIContainer.Current.Register<IResponseWriter>(ResponseWriterType, LifetimeType.Singleton);
 		}
 
 		/// <summary>
@@ -697,7 +696,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterPageProcessor()
 		{
-			DIContainer.Current.Register<IPageProcessor>(PageProcessorType, LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<IPageProcessor>(PageProcessorType);
 		}
 
 		/// <summary>
@@ -705,7 +704,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterControllersRequestHandler()
 		{
-			DIContainer.Current.Register<IControllersRequestHandler>(ControllersRequestHandlerType, LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<IControllersRequestHandler>(ControllersRequestHandlerType);
 		}
 
 		/// <summary>
@@ -716,7 +715,7 @@ namespace AcspNet.Bootstrapper
 			DIContainer.Current.Register<IStaticFilesRequestHandler>(
 				p =>
 					new StaticFilesRequestHandler(p.Resolve<IAcspNetSettings>().StaticFilesPaths,
-						p.Resolve<IEnvironment>().SitePhysicalPath, p.Resolve<IResponseWriter>()), LifetimeType.PerLifetimeScope);
+						p.Resolve<IEnvironment>().SitePhysicalPath, p.Resolve<IResponseWriter>()));
 		}
 
 		/// <summary>
@@ -724,7 +723,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterRequestHandler()
 		{
-			DIContainer.Current.Register<IRequestHandler>(RequestHandlerType, LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<IRequestHandler>(RequestHandlerType);
 		}
 
 		/// <summary>
@@ -732,7 +731,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterStopwatchProvider()
 		{
-			DIContainer.Current.Register<IStopwatchProvider>(StopwatchProviderType, LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<IStopwatchProvider>(StopwatchProviderType);
 		}
 
 		/// <summary>
@@ -740,7 +739,9 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterContextVariablesSetter()
 		{
-			DIContainer.Current.Register<IContextVariablesSetter>(p => new ContextVariablesSetter(p.Resolve<IDataCollector>(), p.Resolve<IAcspNetSettings>().DisableAutomaticSiteTitleSet), LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<IContextVariablesSetter>(
+				p =>
+					new ContextVariablesSetter(p.Resolve<IDataCollector>(), p.Resolve<IAcspNetSettings>().DisableAutomaticSiteTitleSet));
 		}
 
 		/// <summary>
@@ -748,7 +749,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterAcspNetContextProvider()
 		{
-			DIContainer.Current.Register<IAcspNetContextProvider>(AcspNetContextProviderType, LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<IAcspNetContextProvider>(AcspNetContextProviderType);
 		}
 
 		/// <summary>
@@ -756,7 +757,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterRedirector()
 		{
-			DIContainer.Current.Register<IRedirector>(p => new Redirector(p.Resolve<IAcspNetContextProvider>().Get()), LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<IRedirector>(p => new Redirector(p.Resolve<IAcspNetContextProvider>().Get()));
 		}
 
 		/// <summary>
@@ -764,7 +765,7 @@ namespace AcspNet.Bootstrapper
 		/// </summary>
 		public virtual void RegisterModelHander()
 		{
-			DIContainer.Current.Register<IModelHandler>(p => new HttpModelHandler(p.Resolve<IAcspNetContextProvider>().Get()), LifetimeType.PerLifetimeScope);
+			DIContainer.Current.Register<IModelHandler>(p => new HttpModelHandler(p.Resolve<IAcspNetContextProvider>().Get()));
 		}
 
 		#endregion
