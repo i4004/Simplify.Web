@@ -9,25 +9,25 @@ namespace AcspNet.Tests.ModelBinding.Binders
 		[Test]
 		public void ParseBool_True_True()
 		{
-			Assert.IsTrue(StringParser.ParseBool("True"));
+			Assert.IsTrue(StringToSpecifiedObjectParser.ParseBool("True"));
 		}
 
 		[Test]
 		public void ParseBool_False_False()
 		{
-			Assert.IsFalse(StringParser.ParseBool("False"));
+			Assert.IsFalse(StringToSpecifiedObjectParser.ParseBool("False"));
 		}
 
 		[Test]
 		public void ParseBool_on_True()
 		{
-			Assert.IsTrue(StringParser.ParseBool("on"));
+			Assert.IsTrue(StringToSpecifiedObjectParser.ParseBool("on"));
 		}
 
 		[Test]
 		public void ParseBool_true_True()
 		{
-			Assert.IsTrue(StringParser.ParseBool("true"));
+			Assert.IsTrue(StringToSpecifiedObjectParser.ParseBool("true"));
 		}
 	}
 }

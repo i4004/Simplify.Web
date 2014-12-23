@@ -11,17 +11,51 @@ namespace AcspNet.Tests.ModelBinding.Binders
 	public class ListModelParserTests
 	{
 		[Test]
+		public void Parse_DefaultKeyValuePair_Null()
+		{
+			// Assign
+
+			var coll = new List<KeyValuePair<string, string[]>>
+			{
+				default(KeyValuePair<string, string[]>)
+			};
+
+			// Act
+			var model = ListToModelParser.Parse<TestModelUndefinedType>(coll);
+
+			// Assert
+			Assert.IsNull(model.Prop1);
+		}
+
+		[Test]
+		public void Parse_EmptyArray_Null()
+		{
+			// Assign
+
+			var coll = new List<KeyValuePair<string, string[]>>
+			{
+				new KeyValuePair<string, string[]>("Prop1", new string[0])
+			};
+
+			// Act
+			var model = ListToModelParser.Parse<TestModelUndefinedType>(coll);
+
+			// Assert
+			Assert.IsNull(model.Prop1);
+		}
+		
+		[Test]
 		public void Parse_RequiredFieldDataTypeMismatch_ExceptionThrown()
 		{
 			// Assign
 
-			var coll = new List<KeyValuePair<string, string>>
+			var coll = new List<KeyValuePair<string, string[]>>
 			{
-				new KeyValuePair<string, string>("Prop1", "test")
+				new KeyValuePair<string, string[]>("Prop1", new []{"test"})
 			};
 
 			// Act & Assert
-			Assert.Throws<ModelBindingException>(() => ListModelParser.Parse<TestModelUndefinedType>(coll));
+			Assert.Throws<ModelBindingException>(() => ListToModelParser.Parse<TestModelUndefinedType>(coll));
 		}
 
 		[Test]
@@ -29,16 +63,16 @@ namespace AcspNet.Tests.ModelBinding.Binders
 		{
 			// Assign
 
-			var coll = new List<KeyValuePair<string, string>>
+			var coll = new List<KeyValuePair<string, string[]>>
 			{
-				new KeyValuePair<string, string>("Prop1", "1"),
-				new KeyValuePair<string, string>("Prop2", "2"),
-				new KeyValuePair<string, string>("Prop3", "3"),
-				new KeyValuePair<string, string>("Prop4", "4")
+				new KeyValuePair<string, string[]>("Prop1", new []{"1"}),
+				new KeyValuePair<string, string[]>("Prop2", new []{"2"}),
+				new KeyValuePair<string, string[]>("Prop3", new []{"3"}),
+				new KeyValuePair<string, string[]>("Prop4", new []{"4"})
 			};
 
 			// Act
-			var obj = ListModelParser.Parse<TestModelNumbers>(coll);
+			var obj = ListToModelParser.Parse<TestModelNumbers>(coll);
 
 			// Act & Assert
 			Assert.AreEqual(1, obj.Prop1);
@@ -52,14 +86,14 @@ namespace AcspNet.Tests.ModelBinding.Binders
 		{
 			// Assign
 
-			var coll = new List<KeyValuePair<string, string>>
+			var coll = new List<KeyValuePair<string, string[]>>
 			{
-				new KeyValuePair<string, string>("Prop1", "on"),
-				new KeyValuePair<string, string>("Prop2", "False")
+				new KeyValuePair<string, string[]>("Prop1", new []{"on"}),
+				new KeyValuePair<string, string[]>("Prop2", new []{"False"})
 			};
 
 			// Act
-			var obj = ListModelParser.Parse<TestModelBool>(coll);
+			var obj = ListToModelParser.Parse<TestModelBool>(coll);
 
 			// Act & Assert
 			Assert.IsTrue(obj.Prop1);
@@ -71,15 +105,15 @@ namespace AcspNet.Tests.ModelBinding.Binders
 		{
 			// Assign
 
-			var coll = new List<KeyValuePair<string, string>>
+			var coll = new List<KeyValuePair<string, string[]>>
 			{
-				new KeyValuePair<string, string>("Prop1", "test"),
-				new KeyValuePair<string, string>("Prop2", "asDd"),
-				new KeyValuePair<string, string>("Prop3", "test@test.test")
+				new KeyValuePair<string, string[]>("Prop1", new []{"test"}),
+				new KeyValuePair<string, string[]>("Prop2", new []{"asDd"}),
+				new KeyValuePair<string, string[]>("Prop3", new []{"test@test.test"})
 			};
 
 			// Act
-			var obj = ListModelParser.Parse<TestModelString>(coll);
+			var obj = ListToModelParser.Parse<TestModelString>(coll);
 
 			// Act & Assert
 			Assert.AreEqual("test", obj.Prop1);
@@ -92,19 +126,38 @@ namespace AcspNet.Tests.ModelBinding.Binders
 		{
 			// Assign
 
-			var coll = new List<KeyValuePair<string, string>>
+			var coll = new List<KeyValuePair<string, string[]>>
 			{
-				new KeyValuePair<string, string>("Prop1", "15.03.2014"),
-				new KeyValuePair<string, string>("Prop2", "16.03.2014")
+				new KeyValuePair<string, string[]>("Prop1", new []{"15.03.2014"}),
+				new KeyValuePair<string, string[]>("Prop2", new []{"16.03.2014"})
 			};
 
 			// Act
-			var obj = ListModelParser.Parse<TestModelDateTime>(coll);
+			var obj = ListToModelParser.Parse<TestModelDateTime>(coll);
 
 			// Assert
 
 			Assert.AreEqual(new DateTime(2014, 03, 15), obj.Prop1);
 			Assert.AreEqual(new DateTime(2014, 03, 16), obj.Prop2);
+		}
+
+		[Test]
+		public void Parse_StringArray_Parsed()
+		{
+			// Assign
+
+			var coll = new List<KeyValuePair<string, string[]>>
+			{
+				new KeyValuePair<string, string[]>("Prop1", new []{"asd", "qwe"})
+			};
+
+			// Act
+			var obj = ListToModelParser.Parse<TestModelStringsList>(coll);
+
+			// Assert
+
+			Assert.AreEqual("asd", obj.Prop1[0]);
+			Assert.AreEqual("qwe", obj.Prop1[1]);
 		}
 	}
 }

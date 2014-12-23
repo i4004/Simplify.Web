@@ -8,7 +8,7 @@ namespace AcspNet.ModelBinding.Binders
 	/// <summary>
 	/// Provides string to property type object parsing
 	/// </summary>
-	public class StringParser
+	public class StringToSpecifiedObjectParser
 	{
 		/// <summary>
 		/// Determine variable type and parses, validates it from string.
@@ -22,7 +22,7 @@ namespace AcspNet.ModelBinding.Binders
 			try
 			{
 				if (propertyInfo.PropertyType == typeof(string))
-					return ParseString(value, propertyInfo);
+					return ParseString(value);
 
 				if (propertyInfo.PropertyType == typeof(int))
 					return ParseInt(value);
@@ -43,10 +43,10 @@ namespace AcspNet.ModelBinding.Binders
 					return ParseNullableDecimal(value);
 
 				if (propertyInfo.PropertyType == typeof(DateTime))
-					return ParseDateTime(propertyInfo, value);
+					return ParseDateTime(value, propertyInfo);
 
 				if (propertyInfo.PropertyType == typeof(DateTime?))
-					return ParseNullableDateTime(propertyInfo, value);
+					return ParseNullableDateTime(value, propertyInfo);
 			}
 			catch (ModelBindingException e)
 			{
@@ -60,9 +60,8 @@ namespace AcspNet.ModelBinding.Binders
 		/// Parses the string.
 		/// </summary>
 		/// <param name="value">The value.</param>
-		/// <param name="propertyInfo">The property information.</param>
 		/// <returns></returns>
-		public static string ParseString(string value, PropertyInfo propertyInfo)
+		public static string ParseString(string value)
 		{
 			return string.IsNullOrEmpty(value) ? null : value;
 		}
@@ -192,12 +191,12 @@ namespace AcspNet.ModelBinding.Binders
 		/// <summary>
 		/// Parses the date time from string.
 		/// </summary>
-		/// <param name="propertyInfo">The property information.</param>
 		/// <param name="value">The value.</param>
+		/// <param name="propertyInfo">The property information.</param>
 		/// <returns></returns>
 		/// <exception cref="AcspNet.ModelBinding.ModelBindingException">
 		/// </exception>
-		public static DateTime ParseDateTime(PropertyInfo propertyInfo, string value)
+		public static DateTime ParseDateTime(string value, PropertyInfo propertyInfo)
 		{
 			if (string.IsNullOrEmpty(value))
 				return default(DateTime);
@@ -224,12 +223,12 @@ namespace AcspNet.ModelBinding.Binders
 		/// <summary>
 		/// Parses the date time from string.
 		/// </summary>
-		/// <param name="propertyInfo">The property information.</param>
 		/// <param name="value">The value.</param>
+		/// <param name="propertyInfo">The property information.</param>
 		/// <returns></returns>
 		/// <exception cref="AcspNet.ModelBinding.ModelBindingException">
 		/// </exception>
-		public static DateTime? ParseNullableDateTime(PropertyInfo propertyInfo, string value)
+		public static DateTime? ParseNullableDateTime(string value, PropertyInfo propertyInfo)
 		{
 			if (string.IsNullOrEmpty(value))
 				return null;

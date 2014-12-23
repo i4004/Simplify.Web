@@ -9,7 +9,7 @@ namespace AcspNet.ModelBinding.Binders
 	public class FormModelBinder : IModelBinder
 	{
 		/// <summary>
-		/// Binds specifed form data to model.
+		/// Binds specified form data to model.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <returns></returns>
@@ -17,7 +17,7 @@ namespace AcspNet.ModelBinding.Binders
 		{
 			if (args.Context.Request.ContentType.Contains("application/x-www-form-urlencoded"))
 				args.SetModel(
-					ListModelParser.Parse<T>(args.Context.Form.Select(x => new KeyValuePair<string, string>(x.Key, string.Join(",", x.Value))).ToList()));
+					ListToModelParser.Parse<T>(args.Context.Form.Select(x => new KeyValuePair<string, string[]>(x.Key, x.Value)).ToList()));
 		}
 	}
 }

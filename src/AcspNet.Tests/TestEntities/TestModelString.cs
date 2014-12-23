@@ -1,5 +1,4 @@
-﻿using AcspNet.ModelBinding;
-using AcspNet.ModelBinding.Attributes;
+﻿using AcspNet.ModelBinding.Attributes;
 
 namespace AcspNet.Tests.TestEntities
 {
