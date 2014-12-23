@@ -37,7 +37,7 @@ namespace AcspNet.ModelBinding.Binders
 
 			return ArrayToSpecifiedListParser.IsTypeValidForParsing(propertyInfo.PropertyType)
 				? ArrayToSpecifiedListParser.ParseUndefined(keyValuePair.Value, propertyInfo)
-				: StringToSpecifiedObjectParser.ParseUndefined(string.Join(",", keyValuePair.Value), propertyInfo);
+				: StringToSpecifiedObjectParser.ParseUndefined(string.Join(",", keyValuePair.Value), propertyInfo.PropertyType, propertyInfo);
 		}
 	}
 }

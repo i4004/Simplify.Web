@@ -14,39 +14,45 @@ namespace AcspNet.ModelBinding.Binders
 		/// Determine variable type and parses, validates it from string.
 		/// </summary>
 		/// <param name="value">The value.</param>
+		/// <param name="parsingType">Type of the parsing.</param>
 		/// <param name="propertyInfo">The property information.</param>
 		/// <returns></returns>
+		/// <exception cref="ModelBindingException">
+		/// </exception>
 		/// <exception cref="AcspNet.ModelBinding.ModelBindingException"></exception>
-		public static object ParseUndefined(string value, PropertyInfo propertyInfo)
+		public static object ParseUndefined(string value, Type parsingType, PropertyInfo propertyInfo)
 		{
 			try
 			{
-				if (propertyInfo.PropertyType == typeof(string))
+				if (parsingType == typeof(string))
 					return ParseString(value);
 
-				if (propertyInfo.PropertyType == typeof(int))
+				if (parsingType == typeof(int))
 					return ParseInt(value);
 
-				if (propertyInfo.PropertyType == typeof(int?))
+				if (parsingType == typeof(int?))
 					return ParseNullableInt(value);
 
-				if (propertyInfo.PropertyType == typeof(bool))
+				if (parsingType == typeof(bool))
 					return ParseBool(value);
 
-				if (propertyInfo.PropertyType == typeof(bool?))
+				if (parsingType == typeof(bool?))
 					return ParseNullableBool(value);
 
-				if (propertyInfo.PropertyType == typeof(decimal))
+				if (parsingType == typeof(decimal))
 					return ParseDecimal(value);
 
-				if (propertyInfo.PropertyType == typeof(decimal?))
+				if (parsingType == typeof(decimal?))
 					return ParseNullableDecimal(value);
 
-				if (propertyInfo.PropertyType == typeof(DateTime))
+				if (parsingType == typeof(DateTime))
 					return ParseDateTime(value, propertyInfo);
 
-				if (propertyInfo.PropertyType == typeof(DateTime?))
+				if (parsingType == typeof(DateTime?))
 					return ParseNullableDateTime(value, propertyInfo);
+
+				if (parsingType.IsEnum)
+					return ParseEnum(value, propertyInfo.PropertyType);
 			}
 			catch (ModelBindingException e)
 			{
@@ -250,6 +256,57 @@ namespace AcspNet.ModelBinding.Binders
 				return buffer;
 
 			throw new ModelBindingException(string.Format("DateTime property '{0}' parsing failed, actual value: '{1}'", propertyInfo.Name, value));
+		}
+
+		/// <summary>
+		/// Parses the enum.
+		/// </summary>
+		/// <param name="value">The value.</param>
+		/// <param name="enumType">Type of the enum.</param>
+		/// <returns></returns>
+		public static object ParseEnum(string value, Type enumType)
+		{
+			return Enum.Parse(enumType, value);
+		}
+
+		/// <summary>
+		/// Determines whether specified type is valid for parsing.
+		/// </summary>
+		/// <param name="type">The type.</param>
+		/// <returns></returns>
+		public static bool IsTypeValidForParsing(Type type)
+		{
+			if (type == typeof (string))
+				return true;
+
+			if (type == typeof(int))
+				return true;
+
+			if (type == typeof(int?))
+				return true;
+
+			if (type == typeof(bool))
+				return true;
+
+			if (type == typeof(bool?))
+				return true;
+
+			if (type == typeof(decimal))
+				return true;
+
+			if (type == typeof(decimal?))
+				return true;
+
+			if (type == typeof(DateTime))
+				return true;
+
+			if (type == typeof(DateTime?))
+				return true;
+
+			if (type.IsEnum)
+				return true;
+
+			return false;
 		}
 	}
 }

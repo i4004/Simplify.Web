@@ -1,4 +1,5 @@
 ﻿using AcspNet.ModelBinding.Binders;
+using AcspNet.Tests.TestEntities;
 using NUnit.Framework;
 
 namespace AcspNet.Tests.ModelBinding.Binders
@@ -28,6 +29,12 @@ namespace AcspNet.Tests.ModelBinding.Binders
 		public void ParseBool_true_True()
 		{
 			Assert.IsTrue(StringToSpecifiedObjectParser.ParseBool("true"));
+		}
+
+		[Test]
+		public void ParseEnum_True_True()
+		{
+			Assert.AreEqual(TestEnum.Value1, StringToSpecifiedObjectParser.ParseEnum("1", typeof(TestEnum)));
 		}
 	}
 }
