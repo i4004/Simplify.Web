@@ -259,7 +259,7 @@ namespace AcspNet.Tests.ModelBinding.Binders.Parsers
 		public void ParseUndefined_DateTime_Parsed()
 		{
 			Assert.AreEqual(new DateTime(2014, 03, 15),
-				StringToSpecifiedObjectParser.ParseUndefined("15.03.2014", typeof (DateTime)));
+				StringToSpecifiedObjectParser.ParseUndefined("2014-03-15T00:00:00.0000000", typeof(DateTime)));
 		}
 
 		[Test]
@@ -297,7 +297,7 @@ namespace AcspNet.Tests.ModelBinding.Binders.Parsers
 		public void ParseUndefined_NullableDateTime_Parsed()
 		{
 			Assert.AreEqual((DateTime?) new DateTime(2014, 03, 15),
-				StringToSpecifiedObjectParser.ParseUndefined("15.03.2014", typeof (DateTime?)));
+				StringToSpecifiedObjectParser.ParseUndefined("2014-03-15T00:00:00.0000000", typeof(DateTime?)));
 		}
 
 		[Test]

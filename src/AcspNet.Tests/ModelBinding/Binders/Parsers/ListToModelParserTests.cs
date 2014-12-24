@@ -66,7 +66,7 @@ namespace AcspNet.Tests.ModelBinding.Binders.Parsers
 			var coll = new List<KeyValuePair<string, string[]>>
 			{
 				new KeyValuePair<string, string[]>("Prop1", new []{"15--2014--03"}),
-				new KeyValuePair<string, string[]>("Prop2", new []{"16.03.2014"})
+				new KeyValuePair<string, string[]>("Prop2", new []{"2014-03-16T00:00:00.0000000"})
 			};
 
 			// Act
