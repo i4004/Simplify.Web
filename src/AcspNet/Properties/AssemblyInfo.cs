@@ -35,8 +35,8 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("5.1.2.0")]
-[assembly: AssemblyFileVersion("5.1.2.0")]
+[assembly: AssemblyVersion("5.2.0.0")]
+[assembly: AssemblyFileVersion("5.2.0.0")]
 
 //[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("AcspNet.Tests, PublicKey=0024000004800000940000000602000000240000525341310004000001000100016562ead4066251f557b8d02830920b28f83288a0f1f262e3c5f06a70aa538dbbed1f24c7f8f3516d6aac8c560d62807fda65a3fad598e35a673952a6a9aaa964df471686af42565567fcd17115e75ca192f343db301cac174425d0bca5b2103fc1a7cb1ecfce8c0e8c1ed1c8c7c80755fd35d644ca81dfd1a832bb74a660be")]
 //[assembly: PreApplicationStartMethod(typeof(AcspHttpModule), "RegisterHttpModule")]
