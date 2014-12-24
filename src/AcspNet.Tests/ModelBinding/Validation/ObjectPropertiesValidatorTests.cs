@@ -24,7 +24,7 @@ namespace AcspNet.Tests.ModelBinding.Validation
 			var model = new TestModelRequired { Prop2 = new List<string>() };
 
 			// Act & Assert
-			Assert.Throws<ModelBindingException>(() => _validator.Validate(model));
+			Assert.Throws<ModelValidationException>(() => _validator.Validate(model));
 		}
 
 		[Test]
@@ -34,7 +34,7 @@ namespace AcspNet.Tests.ModelBinding.Validation
 			var model = new TestModelRequired { Prop1 = "test" };
 
 			// Act & Assert
-			Assert.Throws<ModelBindingException>(() => _validator.Validate(model));
+			Assert.Throws<ModelValidationException>(() => _validator.Validate(model));
 		}
 
 		[Test]

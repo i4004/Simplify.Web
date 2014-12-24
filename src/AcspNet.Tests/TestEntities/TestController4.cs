@@ -1,6 +1,6 @@
 ﻿namespace AcspNet.Tests.TestEntities
 {
-	public class TestController4 : Controller<TestModelString>
+	public class TestController4 : Controller<TestModel>
 	{
 		public override ControllerResponse Invoke()
 		{

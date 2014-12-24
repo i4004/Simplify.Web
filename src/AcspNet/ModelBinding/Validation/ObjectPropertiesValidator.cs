@@ -18,7 +18,7 @@ namespace AcspNet.ModelBinding.Validation
 		/// </summary>
 		/// <typeparam name="T">Model type</typeparam>
 		/// <param name="model">The model.</param>
-		/// <exception cref="ModelBindingException"></exception>
+		/// <exception cref="ModelValidationException"></exception>
 		public void Validate<T>(T model)
 		{
 			var type = typeof(T);
@@ -32,7 +32,7 @@ namespace AcspNet.ModelBinding.Validation
 				if (isRequired &&
 					((isList && !ValidateList(propInfo.GetValue(model)))
 					|| (!isList && !Validate(propInfo.GetValue(model), propInfo))))
-					throw new ModelBindingException(String.Format("Required property '{0}' is null or empty", propInfo.Name));
+					throw new ModelValidationException(String.Format("Required property '{0}' is null or empty", propInfo.Name));
 			}
 		}
 
@@ -42,7 +42,7 @@ namespace AcspNet.ModelBinding.Validation
 		/// <param name="value">The value.</param>
 		/// <param name="propertyInfo">The property information.</param>
 		/// <returns></returns>
-		/// <exception cref="ModelBindingException"></exception>
+		/// <exception cref="ModelValidationException"></exception>
 		private static bool Validate(object value, PropertyInfo propertyInfo)
 		{
 			if (propertyInfo.PropertyType == typeof(string))
@@ -67,7 +67,7 @@ namespace AcspNet.ModelBinding.Validation
 			if (propertyInfo.PropertyType == typeof(DateTime?))
 				return (((DateTime?)value) != null);
 
-			throw new ModelBindingException(string.Format("Not supported property type: '{0}'", propertyInfo.PropertyType));
+			throw new ModelValidationException(string.Format("Not supported property type: '{0}'", propertyInfo.PropertyType));
 		}
 
 		private static bool ValidateList(object value)

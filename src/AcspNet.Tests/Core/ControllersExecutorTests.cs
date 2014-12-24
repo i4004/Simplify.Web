@@ -19,8 +19,8 @@ namespace AcspNet.Tests.Core
 
 		private Mock<Controller> _syncController;
 		private Mock<AsyncController> _asyncController;
-		private Mock<Controller<TestModelString>> _syncModelController;
-		private Mock<AsyncController<TestModelString>> _asyncModelController;
+		private Mock<Controller<TestModel>> _syncModelController;
+		private Mock<AsyncController<TestModel>> _asyncModelController;
 		private Mock<ControllerResponse> _controllerResponse;
 
 		[SetUp]
@@ -32,8 +32,8 @@ namespace AcspNet.Tests.Core
 
 			_syncController = new Mock<Controller>();
 			_asyncController = new Mock<AsyncController>();
-			_syncModelController = new Mock<Controller<TestModelString>>();
-			_asyncModelController = new Mock<AsyncController<TestModelString>>();
+			_syncModelController = new Mock<Controller<TestModel>>();
+			_asyncModelController = new Mock<AsyncController<TestModel>>();
 			_controllerResponse = new Mock<ControllerResponse>();
 		}
 

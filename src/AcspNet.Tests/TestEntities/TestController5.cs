@@ -2,7 +2,7 @@
 
 namespace AcspNet.Tests.TestEntities
 {
-	public class TestController5 : AsyncController<TestModelString>
+	public class TestController5 : AsyncController<TestModel>
 	{
 		public override Task<ControllerResponse> Invoke()
 		{

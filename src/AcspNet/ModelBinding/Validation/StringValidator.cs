@@ -15,7 +15,7 @@ namespace AcspNet.ModelBinding.Validation
 		/// </summary>
 		/// <param name="value">The value.</param>
 		/// <param name="propertyInfo">The property information.</param>
-		/// <exception cref="AcspNet.ModelBinding.ModelBindingException">
+		/// <exception cref="AcspNet.ModelBinding.ModelValidationException">
 		/// </exception>
 		public static void Validate(string value, PropertyInfo propertyInfo)
 		{
@@ -24,8 +24,8 @@ namespace AcspNet.ModelBinding.Validation
 			if (attributes.Length > 0)
 			{
 				var minLength = ((MinLengthAttribute)attributes[0]).MinimumPropertyLength;
-				if (value.Length < minLength)
-					throw new ModelBindingException(string.Format("Property '{0}' required minimum length is '{1}', actual value: '{2}'", propertyInfo.Name, minLength, value));
+				if (string.IsNullOrEmpty(value) || value.Length < minLength)
+					throw new ModelValidationException(string.Format("Property '{0}' required minimum length is '{1}', actual value: '{2}'", propertyInfo.Name, minLength, value));
 			}
 
 			attributes = propertyInfo.GetCustomAttributes(typeof(MaxLengthAttribute), false);
@@ -33,8 +33,8 @@ namespace AcspNet.ModelBinding.Validation
 			if (attributes.Length > 0)
 			{
 				var maxLength = ((MaxLengthAttribute)attributes[0]).MaximumPropertyLength;
-				if (value.Length > maxLength)
-					throw new ModelBindingException(string.Format("Property '{0}' required maximum length is '{1}', actual value: '{2}'", propertyInfo.Name, maxLength, value));
+				if (string.IsNullOrEmpty(value) || value.Length > maxLength)
+					throw new ModelValidationException(string.Format("Property '{0}' required maximum length is '{1}', actual value: '{2}'", propertyInfo.Name, maxLength, value));
 			}
 
 			attributes = propertyInfo.GetCustomAttributes(typeof(EMailAttribute), false);
@@ -42,7 +42,7 @@ namespace AcspNet.ModelBinding.Validation
 			if (attributes.Length > 0)
 			{
 				if (!StringHelper.ValidateEMail(value))
-					throw new ModelBindingException(string.Format("Property '{0}' should be an email, actual value: '{1}'", propertyInfo.Name, value));
+					throw new ModelValidationException(string.Format("Property '{0}' should be an email, actual value: '{1}'", propertyInfo.Name, value));
 			}
 
 			attributes = propertyInfo.GetCustomAttributes(typeof(RegexAttribute), false);
@@ -51,8 +51,8 @@ namespace AcspNet.ModelBinding.Validation
 			{
 				var regexString = ((RegexAttribute)attributes[0]).RegexString;
 
-				if (!Regex.IsMatch(value, regexString))
-					throw new ModelBindingException(string.Format("Property '{0}' regex not matched, actual value: '{1}', pattern: '{2}'", propertyInfo.Name, value, regexString));
+				if (string.IsNullOrEmpty(value) || !Regex.IsMatch(value, regexString))
+					throw new ModelValidationException(string.Format("Property '{0}' regex not matched, actual value: '{1}', pattern: '{2}'", propertyInfo.Name, value, regexString));
 			}
 		}		 
 	}
