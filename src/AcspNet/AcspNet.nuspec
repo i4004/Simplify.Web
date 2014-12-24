@@ -16,6 +16,7 @@
 			+ Possibility to use enum type properties in view models
 			+ Possibility to use 'IList&lt;T&gt;' types in view models
 			+ Possibility to use 'Required' attribute for 'IList&lt;T&gt;' properties in view models
+			+ Possibility to use 'long' type properties in view models
 			+ 'BindProperty' attribute for view models properties
 			+ 'Exclude' attribute for view models properties
 			+ 'IgnoreTypesRegistration' to exclude controller or views from automatic DI container registration
