@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using AcspNet.Core;
 using AcspNet.Meta;
 using AcspNet.ModelBinding;
@@ -75,13 +77,34 @@ namespace AcspNet.Bootstrapper
 			RegisterRedirector();
 			RegisterModelHander();
 
+			var ignoredTypes = GetIgnoredTypes();
+
 			// Registering controllers types
-			foreach (var controllerMetaData in ControllersMetaStore.Current.ControllersMetaData)
+			foreach (var controllerMetaData in ControllersMetaStore.Current.ControllersMetaData
+				.Where(controllerMetaData => ignoredTypes.All(x => x != controllerMetaData.ControllerType)))
+			{
 				DIContainer.Current.Register(controllerMetaData.ControllerType, LifetimeType.Transient);
+			}
 
 			// Registering views types
-			foreach (var viewType in ViewsMetaStore.Current.ViewsTypes)
+			foreach (var viewType in ViewsMetaStore.Current.ViewsTypes.Where(viewType => ignoredTypes.All(x => x != viewType)))
 				DIContainer.Current.Register(viewType, LifetimeType.Transient);
+		}
+
+		private static IEnumerable<Type> GetIgnoredTypes()
+		{
+			var typesToIgnore = new List<Type>();
+
+			var ignoreContainingClass = AcspTypesFinder.GetAllTypes().FirstOrDefault(t => t.IsDefined(typeof(IgnoreTypesRegistrationAttribute), true));
+
+			if (ignoreContainingClass != null)
+			{
+				var attributes = ignoreContainingClass.GetCustomAttributes(typeof(IgnoreTypesRegistrationAttribute), false);
+
+				typesToIgnore.AddRange(((IgnoreTypesRegistrationAttribute)attributes[0]).Types);
+			}
+
+			return typesToIgnore;
 		}
 
 		#region Bootstrapper types
@@ -206,7 +229,7 @@ namespace AcspNet.Bootstrapper
 		{
 			get { return _messageBoxType ?? typeof(MessageBox); }
 		}
-		
+
 		/// <summary>
 		/// Gets the type of the string table items setter.
 		/// </summary>

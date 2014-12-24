@@ -131,6 +131,7 @@
     <Compile Include="AsyncControllerBase.cs" />
     <Compile Include="Core\IStringTableItemsSetter.cs" />
     <Compile Include="Core\StringTableItemsSetter.cs" />
+    <Compile Include="IgnoreTypesRegistrationAttribute.cs" />
     <Compile Include="ModelBinding\Attributes\BindPropertyAttribute.cs" />
     <Compile Include="ModelBinding\Attributes\Exclude.cs" />
     <Compile Include="ModelBinding\Binders\Parsers\ArrayToSpecifiedListParser.cs" />
@@ -337,7 +338,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
