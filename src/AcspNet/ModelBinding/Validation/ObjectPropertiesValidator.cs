@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using AcspNet.ModelBinding.Attributes;
+using AcspNet.ModelBinding.Binders.Parsers;
 
 namespace AcspNet.ModelBinding.Validation
 {
@@ -26,7 +27,11 @@ namespace AcspNet.ModelBinding.Validation
 			{
 				var isRequired = propInfo.CustomAttributes.Any(x => x.AttributeType == RequiredAttributeType);
 
-				if (isRequired && !Validate(propInfo.GetValue(model), propInfo))
+				var isList = ArrayToSpecifiedListParser.IsTypeValidForParsing(propInfo.PropertyType);
+
+				if (isRequired &&
+					((isList && !ValidateList(propInfo.GetValue(model)))
+					|| (!isList && !Validate(propInfo.GetValue(model), propInfo))))
 					throw new ModelBindingException(String.Format("Required property '{0}' is null or empty", propInfo.Name));
 			}
 		}
@@ -50,11 +55,11 @@ namespace AcspNet.ModelBinding.Validation
 			if (propertyInfo.PropertyType == typeof(int?))
 				return ((int?)value) != null;
 
-			if (propertyInfo.PropertyType == typeof (bool?))
-				return (((bool?) value) != null);
+			if (propertyInfo.PropertyType == typeof(bool?))
+				return (((bool?)value) != null);
 
-			if (propertyInfo.PropertyType == typeof (decimal?))
-				return (((decimal?) value) != null);
+			if (propertyInfo.PropertyType == typeof(decimal?))
+				return (((decimal?)value) != null);
 
 			if (propertyInfo.PropertyType == typeof(DateTime))
 				return (((DateTime)value) != default(DateTime));
@@ -62,7 +67,12 @@ namespace AcspNet.ModelBinding.Validation
 			if (propertyInfo.PropertyType == typeof(DateTime?))
 				return (((DateTime?)value) != null);
 
-			throw new ModelBindingException(string.Format("Not supported property type: '{0}'", propertyInfo.PropertyType.ToString()));
+			throw new ModelBindingException(string.Format("Not supported property type: '{0}'", propertyInfo.PropertyType));
+		}
+
+		private static bool ValidateList(object value)
+		{
+			return value != null;
 		}
 	}
 }

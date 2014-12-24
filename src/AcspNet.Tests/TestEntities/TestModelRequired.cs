@@ -1,4 +1,5 @@
-﻿using AcspNet.ModelBinding.Attributes;
+﻿using System.Collections.Generic;
+using AcspNet.ModelBinding.Attributes;
 
 namespace AcspNet.Tests.TestEntities
 {
@@ -6,5 +7,8 @@ namespace AcspNet.Tests.TestEntities
 	{
 		[Required]
 		public string Prop1 { get; set; }
+
+		[Required]
+		public IList<string> Prop2 { get; set; }
 	}
 }
