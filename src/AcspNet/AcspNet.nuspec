@@ -20,7 +20,7 @@
 			+ 'Exclude' attribute for view models properties
 			+ 'IgnoreTypesRegistration' to exclude controller or views from automatic DI container registration
 			* app.UseAcspNet(); exceptions catch by AcspNetOwinMiddleware.OnException
-			* Model bindig multiple property values bug fixed
+			* Model binding multiple property values bug fixed
 		</releaseNotes>
 		<copyright>Licensed under LGPL</copyright>
 		<language>en-US</language>
