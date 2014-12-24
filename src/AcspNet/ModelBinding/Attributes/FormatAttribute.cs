@@ -3,16 +3,16 @@
 namespace AcspNet.ModelBinding.Attributes
 {
 	/// <summary>
-	/// Sets date time format for parsing
+	/// Sets format for parsing (for example, date time format)
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Property)]
-	public class DateTimeFormatAttribute : Attribute
+	public class FormatAttribute : Attribute
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="DateTimeFormatAttribute"/> class.
+		/// Initializes a new instance of the <see cref="FormatAttribute"/> class.
 		/// </summary>
 		/// <param name="format">The format.</param>
-		public DateTimeFormatAttribute(string format)
+		public FormatAttribute(string format)
 		{
 			Format = format;
 		}

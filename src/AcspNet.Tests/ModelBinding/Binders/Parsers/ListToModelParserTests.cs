@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace AcspNet.Tests.ModelBinding.Binders.Parsers
 {
 	[TestFixture]
-	public class ListModelParserTests
+	public class ListToModelParserTests
 	{
 		[Test]
 		public void Parse_DefaultKeyValuePair_Null()
@@ -43,9 +43,9 @@ namespace AcspNet.Tests.ModelBinding.Binders.Parsers
 			// Assert
 			Assert.IsNull(model.Prop1);
 		}
-		
+
 		[Test]
-		public void Parse_RequiredFieldDataTypeMismatch_ExceptionThrown()
+		public void Parse_DataTypeMismatch_ExceptionThrown()
 		{
 			// Assign
 
@@ -59,76 +59,13 @@ namespace AcspNet.Tests.ModelBinding.Binders.Parsers
 		}
 
 		[Test]
-		public void Parse_Numbers_ParsedCorrectly()
-		{
-			// Assign
-
-			var coll = new List<KeyValuePair<string, string[]>>
-			{
-				new KeyValuePair<string, string[]>("Prop1", new []{"1"}),
-				new KeyValuePair<string, string[]>("Prop2", new []{"2"}),
-				new KeyValuePair<string, string[]>("Prop3", new []{"3"}),
-				new KeyValuePair<string, string[]>("Prop4", new []{"4"})
-			};
-
-			// Act
-			var obj = ListToModelParser.Parse<TestModelNumbers>(coll);
-
-			// Act & Assert
-			Assert.AreEqual(1, obj.Prop1);
-			Assert.AreEqual(2, obj.Prop2);
-			Assert.AreEqual(3, obj.Prop3);
-			Assert.AreEqual((decimal?)4, obj.Prop4);
-		}
-
-		[Test]
-		public void Parse_Bool_ParsedCorrectly()
-		{
-			// Assign
-
-			var coll = new List<KeyValuePair<string, string[]>>
-			{
-				new KeyValuePair<string, string[]>("Prop1", new []{"on"}),
-				new KeyValuePair<string, string[]>("Prop2", new []{"False"})
-			};
-
-			// Act
-			var obj = ListToModelParser.Parse<TestModelBool>(coll);
-
-			// Act & Assert
-			Assert.IsTrue(obj.Prop1);
-			Assert.IsFalse(obj.Prop2 != null && obj.Prop2.Value);
-		}
-
-		[Test]
-		public void Parse_String_ParsedCorrectly()
-		{
-			// Assign
-
-			var coll = new List<KeyValuePair<string, string[]>>
-			{
-				new KeyValuePair<string, string[]>("Prop1", new []{"test"}),
-				new KeyValuePair<string, string[]>("Prop2", new []{"asDd"}),
-				new KeyValuePair<string, string[]>("Prop3", new []{"test@test.test"})
-			};
-
-			// Act
-			var obj = ListToModelParser.Parse<TestModelString>(coll);
-
-			// Act & Assert
-			Assert.AreEqual("test", obj.Prop1);
-			Assert.AreEqual("asDd", obj.Prop2);
-			Assert.AreEqual("test@test.test", obj.Prop3);
-		}
-
-		[Test]
 		public void Parse_DateTimeNormal_Binded()
 		{
 			// Assign
 
 			var coll = new List<KeyValuePair<string, string[]>>
 			{
-				new KeyValuePair<string, string[]>("Prop1", new []{"15.03.2014"}),
+				new KeyValuePair<string, string[]>("Prop1", new []{"15--2014--03"}),
 				new KeyValuePair<string, string[]>("Prop2", new []{"16.03.2014"})
 			};
 

@@ -141,7 +141,7 @@
     <Compile Include="ModelBinding\Binders\HttpFormModelBinder.cs" />
     <Compile Include="ModelBinding\IModelHandler.cs" />
     <Compile Include="ModelBinding\Binders\Parsers\StringToSpecifiedObjectParser.cs" />
-    <Compile Include="ModelBinding\Attributes\DateTimeFormatAttribute.cs" />
+    <Compile Include="ModelBinding\Attributes\FormatAttribute.cs" />
     <Compile Include="ModelBinding\Attributes\RegexAttribute.cs" />
     <Compile Include="ModelBinding\Attributes\EMailAttribute.cs" />
     <Compile Include="ModelBinding\Attributes\MaxLengthAttribute.cs" />

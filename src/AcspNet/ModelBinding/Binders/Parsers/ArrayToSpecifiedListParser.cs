@@ -18,33 +18,28 @@ namespace AcspNet.ModelBinding.Binders.Parsers
 		/// <exception cref="ModelBindingException">Exception throws in case of underfined list type</exception>
 		public static bool IsTypeValidForParsing(Type type)
 		{
-			if (!type.IsGenericType || type.GetGenericTypeDefinition() != typeof (IList<>))
+			if (!type.IsGenericType || type.GetGenericTypeDefinition() != typeof(IList<>))
 				return false;
 
 			var genericType = GetGenericListType(type);
 
-			if (genericType != null)
-			{
-				if (!StringToSpecifiedObjectParser.IsTypeValidForParsing(genericType))
-					throw new ModelBindingException(string.Format("Not supported list property type of: '{0}'", genericType));
+			if (!StringToSpecifiedObjectParser.IsTypeValidForParsing(genericType))
+				throw new ModelBindingException(string.Format("Not supported list property type of: '{0}'", genericType));
 
-				return true;
-			}
-
-			return false;
+			return true;
 		}
 
 		/// <summary>
 		/// Parses the undefined values types from string array to list.
 		/// </summary>
 		/// <param name="values">The values.</param>
-		/// <param name="propertyInfo">The property information.</param>
+		/// <param name="type">The type.</param>
+		/// <param name="format">The format.</param>
 		/// <returns></returns>
-		/// <exception cref="ModelBindingException">
-		/// </exception>
-		public static object ParseUndefined(string[] values, PropertyInfo propertyInfo)
+		/// <exception cref="ModelBindingException"></exception>
+		public static object ParseUndefined(string[] values, Type type, string format = null)
 		{
-			var parsingType = GetGenericListType(propertyInfo.PropertyType);
+			var parsingType = GetGenericListType(type);
 
 			if (parsingType == typeof(string))
 				return values.Select(StringToSpecifiedObjectParser.ParseString).ToList();
@@ -63,29 +58,35 @@ namespace AcspNet.ModelBinding.Binders.Parsers
 
 			if (parsingType == typeof(decimal))
 				return values.Select(StringToSpecifiedObjectParser.ParseDecimal).ToList();
-			
+
 			if (parsingType == typeof(decimal?))
 				return values.Select(StringToSpecifiedObjectParser.ParseNullableDecimal).ToList();
-			
+
+			if (parsingType == typeof(long))
+				return values.Select(StringToSpecifiedObjectParser.ParseLong).ToList();
+
+			if (parsingType == typeof(long?))
+				return values.Select(StringToSpecifiedObjectParser.ParseNullableLong).ToList();
+
 			if (parsingType == typeof(DateTime))
-				return values.Select(x => StringToSpecifiedObjectParser.ParseDateTime(x, propertyInfo)).ToList();
+				return values.Select(x => StringToSpecifiedObjectParser.ParseDateTime(x, format)).ToList();
 
 			if (parsingType == typeof(DateTime?))
-				return values.Select(x => StringToSpecifiedObjectParser.ParseNullableDateTime(x, propertyInfo)).ToList();
+				return values.Select(x => StringToSpecifiedObjectParser.ParseNullableDateTime(x, format)).ToList();
 
 			if (parsingType.IsEnum)
 			{
-				var listType = typeof (List<>).MakeGenericType(parsingType);
+				var listType = typeof(List<>).MakeGenericType(parsingType);
 				var list = Activator.CreateInstance(listType);
 				var methodInfo = listType.GetMethod("Add");
 
 				foreach (var value in values)
-					methodInfo.Invoke(list, new[] {StringToSpecifiedObjectParser.ParseEnum(value, parsingType)});
+					methodInfo.Invoke(list, new[] { StringToSpecifiedObjectParser.ParseEnum(value, parsingType) });
 
 				return list;
 			}
 
-			throw new ModelBindingException(string.Format("Not supported property type: '{0}'", propertyInfo.PropertyType));
+			throw new ModelBindingException(string.Format("Array parsing failed, not supported type: '{0}'", type));
 		}
 
 		/// <summary>

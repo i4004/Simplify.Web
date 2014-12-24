@@ -36,11 +36,8 @@ namespace AcspNet.Tests.ModelBinding.Binders.Parsers
 		[Test]
 		public void ParseUndefined_EnumList_ParsedCorrectly()
 		{
-			// Assign
-			var propertyInfo = typeof (TestModelEnumList).GetProperties()[0];
-
 			// Act
-			var result = (IList<TestEnum>)ArrayToSpecifiedListParser.ParseUndefined(new []{"2", "1"}, propertyInfo);
+			var result = (IList<TestEnum>)ArrayToSpecifiedListParser.ParseUndefined(new[] { "2", "1" }, typeof(IList<TestEnum>));
 
 			// Assert
 

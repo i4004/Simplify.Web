@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using AcspNet.ModelBinding.Attributes;
 
 namespace AcspNet.ModelBinding.Binders.Parsers
 {
@@ -36,8 +37,19 @@ namespace AcspNet.ModelBinding.Binders.Parsers
 				return null;
 
 			return ArrayToSpecifiedListParser.IsTypeValidForParsing(propertyInfo.PropertyType)
-				? ArrayToSpecifiedListParser.ParseUndefined(keyValuePair.Value, propertyInfo)
-				: StringToSpecifiedObjectParser.ParseUndefined(string.Join(",", keyValuePair.Value), propertyInfo.PropertyType, propertyInfo);
+				? ArrayToSpecifiedListParser.ParseUndefined(keyValuePair.Value, propertyInfo.PropertyType, TryGetFormat(propertyInfo))
+				: StringToSpecifiedObjectParser.ParseUndefined(string.Join(",", keyValuePair.Value), propertyInfo.PropertyType, TryGetFormat(propertyInfo));
+		}
+
+		private static string TryGetFormat(PropertyInfo propertyInfo)
+		{
+			var attributes = propertyInfo.GetCustomAttributes(typeof(FormatAttribute), false);
+
+			if (attributes.Length == 0) return null;
+
+			var format = ((FormatAttribute)attributes[0]).Format;
+
+			return format;
 		}
 	}
 }

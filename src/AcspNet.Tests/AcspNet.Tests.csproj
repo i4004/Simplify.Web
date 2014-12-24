@@ -135,8 +135,8 @@
     <Compile Include="Core\StaticFilesRequestHandlerTest.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGeneratorTests.cs" />
     <Compile Include="ModelBinding\Binders\Parsers\ArrayToSpecifiedListParserTests.cs" />
-    <Compile Include="ModelBinding\Binders\Parsers\StringParserTests.cs" />
-    <Compile Include="ModelBinding\Binders\Parsers\ListModelParserTests.cs" />
+    <Compile Include="ModelBinding\Binders\Parsers\StringToSpecifiedObjectParserTests.cs" />
+    <Compile Include="ModelBinding\Binders\Parsers\ListToModelParserTests.cs" />
     <Compile Include="Modules\AcspNetContextTests.cs" />
     <Compile Include="Modules\DataCollectorTests.cs" />
     <Compile Include="Modules\EnvironmentTests.cs" />
@@ -165,10 +165,7 @@
     <Compile Include="TestEntities\TestController5.cs" />
     <Compile Include="TestEntities\TestController4.cs" />
     <Compile Include="TestEntities\TestEnum.cs" />
-    <Compile Include="TestEntities\TestModelEnumList.cs" />
-    <Compile Include="TestEntities\TestModelBool.cs" />
     <Compile Include="TestEntities\TestModelStringsList.cs" />
-    <Compile Include="TestEntities\TestModelNumbers.cs" />
     <Compile Include="TestEntities\TestModelDateTime.cs" />
     <Compile Include="TestEntities\TestModelUndefinedType.cs" />
     <Compile Include="TestEntities\TestModelRequired.cs" />
