@@ -4,7 +4,7 @@ namespace AcspNet.Tests.TestEntities
 {
 	public class TestModelWithExcludedProperty
 	{
-		[Exclude]
+		[ExcludeAttribute]
 		public string Prop1 { get; set; }		 
 	}
 }

@@ -61,7 +61,7 @@ namespace AcspNet.ModelBinding.Binders.Parsers
 
 		private static bool IsExcluded(PropertyInfo propertyInfo)
 		{
-			return propertyInfo.GetCustomAttributes(typeof(Exclude), false).Length != 0;
+			return propertyInfo.GetCustomAttributes(typeof(ExcludeAttribute), false).Length != 0;
 		}
 	}
 }

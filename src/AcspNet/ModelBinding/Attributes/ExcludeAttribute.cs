@@ -6,7 +6,7 @@ namespace AcspNet.ModelBinding.Attributes
 	/// Indicates what this property should be excluded from model binding
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Property)]
-	public class Exclude : Attribute
+	public class ExcludeAttribute : Attribute
 	{
 	}
 }
