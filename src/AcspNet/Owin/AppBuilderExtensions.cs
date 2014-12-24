@@ -1,4 +1,5 @@
-﻿using AcspNet.Bootstrapper;
+﻿using System;
+using AcspNet.Bootstrapper;
 using Owin;
 
 namespace AcspNet.Owin
@@ -15,8 +16,17 @@ namespace AcspNet.Owin
 		/// <returns></returns>
 		public static IAppBuilder UseAcspNet(this IAppBuilder builder)
 		{
-			BootstrapperFactory.CreateBootstrapper().Register();
-			return builder.Use<AcspNetOwinMiddleware>();
+			try
+			{
+				BootstrapperFactory.CreateBootstrapper().Register();
+				return builder.Use<AcspNetOwinMiddleware>();
+			}
+			catch (Exception e)
+			{
+				AcspNetOwinMiddleware.ProcessOnException(e);
+
+				throw;
+			}
 		}
 	}
 }

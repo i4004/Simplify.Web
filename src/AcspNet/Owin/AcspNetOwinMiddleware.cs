@@ -92,8 +92,7 @@ namespace AcspNet.Owin
 				{
 					try
 					{
-						if (OnException != null)
-							OnException(e);
+						ProcessOnException(e);
 					}
 					catch (Exception exception)
 					{
@@ -107,6 +106,14 @@ namespace AcspNet.Owin
 							scope.Container.Resolve<IAcspNetSettings>().HideExceptionDetails));
 				}
 			}
+		}
+
+		internal static bool ProcessOnException(Exception e)
+		{
+			if (OnException == null) return false;
+
+			OnException(e);
+			return true;
 		}
 
 		private static void TraceToConsole(IOwinContext context)
