@@ -25,7 +25,7 @@ namespace AcspNet.ModelBinding.Binders.Parsers
 			foreach (var propInfo in type.GetProperties())
 			{
 				var propertyInfo = propInfo;
-				propInfo.SetValue(obj, ParseProperty(propInfo, source.FirstOrDefault(x => x.Key == propertyInfo.Name)));
+				propInfo.SetValue(obj, ParseProperty(propInfo, source.FirstOrDefault(x => x.Key == (GetBindPropertyName(propertyInfo) ?? propertyInfo.Name))));
 			}
 
 			return obj;
@@ -45,11 +45,14 @@ namespace AcspNet.ModelBinding.Binders.Parsers
 		{
 			var attributes = propertyInfo.GetCustomAttributes(typeof(FormatAttribute), false);
 
-			if (attributes.Length == 0) return null;
+			return attributes.Length == 0 ? null : ((FormatAttribute)attributes[0]).Format;
+		}
 
-			var format = ((FormatAttribute)attributes[0]).Format;
+		private static string GetBindPropertyName(PropertyInfo propertyInfo)
+		{
+			var attributes = propertyInfo.GetCustomAttributes(typeof(BindPropertyAttribute), false);
 
-			return format;
+			return attributes.Length == 0 ? null : ((BindPropertyAttribute)attributes[0]).FieldName;
 		}
 	}
 }

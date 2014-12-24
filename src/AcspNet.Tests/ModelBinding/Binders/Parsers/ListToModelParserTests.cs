@@ -96,5 +96,23 @@ namespace AcspNet.Tests.ModelBinding.Binders.Parsers
 			Assert.AreEqual("asd", obj.Prop1[0]);
 			Assert.AreEqual("qwe", obj.Prop1[1]);
 		}
+
+		[Test]
+		public void Parse_WithBindProperty_Parsed()
+		{
+			// Assign
+
+			var coll = new List<KeyValuePair<string, string[]>>
+			{
+				new KeyValuePair<string, string[]>("Prop1", new []{"test1"}),
+				new KeyValuePair<string, string[]>("Prop2", new []{"test2"})
+			};
+
+			// Act
+			var obj = ListToModelParser.Parse<TestModelWithBindProperty>(coll);
+
+			// Assert
+			Assert.AreEqual("test2", obj.Prop1);
+		}
 	}
 }
