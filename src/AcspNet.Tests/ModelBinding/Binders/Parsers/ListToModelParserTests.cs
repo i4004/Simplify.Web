@@ -114,5 +114,22 @@ namespace AcspNet.Tests.ModelBinding.Binders.Parsers
 			// Assert
 			Assert.AreEqual("test2", obj.Prop1);
 		}
+
+		[Test]
+		public void Parse_WithExcludedProperty_Ignored()
+		{
+			// Assign
+
+			var coll = new List<KeyValuePair<string, string[]>>
+			{
+				new KeyValuePair<string, string[]>("Prop1", new []{"test"})
+			};
+
+			// Act
+			var obj = ListToModelParser.Parse<TestModelWithExcludedProperty>(coll);
+
+			// Assert
+			Assert.IsNull(obj.Prop1);
+		}
 	}
 }

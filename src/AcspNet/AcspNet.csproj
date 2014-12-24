@@ -132,6 +132,7 @@
     <Compile Include="Core\IStringTableItemsSetter.cs" />
     <Compile Include="Core\StringTableItemsSetter.cs" />
     <Compile Include="ModelBinding\Attributes\BindPropertyAttribute.cs" />
+    <Compile Include="ModelBinding\Attributes\Exclude.cs" />
     <Compile Include="ModelBinding\Binders\Parsers\ArrayToSpecifiedListParser.cs" />
     <Compile Include="ModelBinding\IModelValidator.cs" />
     <Compile Include="ModelBinding\ModelValidationException.cs" />

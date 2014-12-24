@@ -168,6 +168,7 @@
     <Compile Include="TestEntities\TestController4.cs" />
     <Compile Include="TestEntities\TestEnum.cs" />
     <Compile Include="TestEntities\TestModelEMail.cs" />
+    <Compile Include="TestEntities\TestModelWithExcludedProperty.cs" />
     <Compile Include="TestEntities\TestModelWithBindProperty.cs" />
     <Compile Include="TestEntities\TestModelMaxLength.cs" />
     <Compile Include="TestEntities\TestModelMinLength.cs" />

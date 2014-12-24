@@ -25,6 +25,10 @@ namespace AcspNet.ModelBinding.Binders.Parsers
 			foreach (var propInfo in type.GetProperties())
 			{
 				var propertyInfo = propInfo;
+
+				if (IsExcluded(propertyInfo))
+					continue;
+
 				propInfo.SetValue(obj, ParseProperty(propInfo, source.FirstOrDefault(x => x.Key == (GetBindPropertyName(propertyInfo) ?? propertyInfo.Name))));
 			}
 
@@ -53,6 +57,11 @@ namespace AcspNet.ModelBinding.Binders.Parsers
 			var attributes = propertyInfo.GetCustomAttributes(typeof(BindPropertyAttribute), false);
 
 			return attributes.Length == 0 ? null : ((BindPropertyAttribute)attributes[0]).FieldName;
+		}
+
+		private static bool IsExcluded(PropertyInfo propertyInfo)
+		{
+			return propertyInfo.GetCustomAttributes(typeof(Exclude), false).Length != 0;
 		}
 	}
 }
