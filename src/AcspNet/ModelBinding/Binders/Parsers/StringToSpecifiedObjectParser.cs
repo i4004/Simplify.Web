@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Reflection;
 using AcspNet.ModelBinding.Attributes;
 
-namespace AcspNet.ModelBinding.Binders
+namespace AcspNet.ModelBinding.Binders.Parsers
 {
 	/// <summary>
 	/// Provides string to property type object parsing

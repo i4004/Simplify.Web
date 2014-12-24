@@ -14,8 +14,8 @@ namespace AcspNet.ModelBinding
 	{
 		private static readonly IList<Type> ModelBindersTypesInstance = new List<Type>
 		{
-			typeof (QueryModelBinder),
-			typeof (FormModelBinder)
+			typeof (HttpQueryModelBinder),
+			typeof (HttpFormModelBinder)
 		};
 
 		private static readonly IList<Type> ModelValidatorTypesInstance = new List<Type>

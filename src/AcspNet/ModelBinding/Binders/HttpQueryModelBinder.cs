@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AcspNet.ModelBinding.Binders.Parsers;
 
 namespace AcspNet.ModelBinding.Binders
 {
 	/// <summary>
 	/// Provides HTTP query to model binding
 	/// </summary>
-	public class QueryModelBinder : IModelBinder
+	public class HttpQueryModelBinder : IModelBinder
 	{
 		/// <summary>
 		/// Binds specified HTTP query to model.

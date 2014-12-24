@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace AcspNet.ModelBinding.Binders
+namespace AcspNet.ModelBinding.Binders.Parsers
 {
 	/// <summary>
 	/// Provides string array to list parsing

@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AcspNet.ModelBinding.Binders.Parsers;
 
 namespace AcspNet.ModelBinding.Binders
 {
 	/// <summary>
 	/// Provides form data to object (model) binding
 	/// </summary>
-	public class FormModelBinder : IModelBinder
+	public class HttpFormModelBinder : IModelBinder
 	{
 		/// <summary>
 		/// Binds specified form data to model.

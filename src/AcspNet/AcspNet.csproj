@@ -131,16 +131,16 @@
     <Compile Include="AsyncControllerBase.cs" />
     <Compile Include="Core\IStringTableItemsSetter.cs" />
     <Compile Include="Core\StringTableItemsSetter.cs" />
-    <Compile Include="ModelBinding\Binders\ArrayToSpecifiedListParser.cs" />
+    <Compile Include="ModelBinding\Binders\Parsers\ArrayToSpecifiedListParser.cs" />
     <Compile Include="ModelBinding\IModelValidator.cs" />
     <Compile Include="ModelBinding\Validation\ObjectPropertiesValidator.cs" />
     <Compile Include="ModelBinding\IModelBinder.cs" />
     <Compile Include="ModelBinding\ModelBinderEventArgs.cs" />
     <Compile Include="ModelBinding\Validation\StringValidator.cs" />
-    <Compile Include="ModelBinding\Binders\ListToModelParser.cs" />
-    <Compile Include="ModelBinding\Binders\FormModelBinder.cs" />
+    <Compile Include="ModelBinding\Binders\Parsers\ListToModelParser.cs" />
+    <Compile Include="ModelBinding\Binders\HttpFormModelBinder.cs" />
     <Compile Include="ModelBinding\IModelHandler.cs" />
-    <Compile Include="ModelBinding\Binders\StringToSpecifiedObjectParser.cs" />
+    <Compile Include="ModelBinding\Binders\Parsers\StringToSpecifiedObjectParser.cs" />
     <Compile Include="ModelBinding\Attributes\DateTimeFormatAttribute.cs" />
     <Compile Include="ModelBinding\Attributes\RegexAttribute.cs" />
     <Compile Include="ModelBinding\Attributes\EMailAttribute.cs" />
@@ -148,7 +148,7 @@
     <Compile Include="ModelBinding\Attributes\MinLengthAttribute.cs" />
     <Compile Include="ModelBinding\ModelBindingException.cs" />
     <Compile Include="ModelBinding\HttpModelHandler.cs" />
-    <Compile Include="ModelBinding\Binders\QueryModelBinder.cs" />
+    <Compile Include="ModelBinding\Binders\HttpQueryModelBinder.cs" />
     <Compile Include="Responses\StaticTpl.cs" />
     <Compile Include="SyncControllerBase.cs" />
     <Compile Include="Controller{T}.cs" />
@@ -334,7 +334,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
