@@ -1,7 +1,7 @@
 .NET (4.5) [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/89hirbi3bn5ajkvj)](https://ci.appveyor.com/project/i4004/acspnet) Mono (3.8.0) [![Travis build status](https://travis-ci.org/i4004/AcspNet.png?branch=master)](https://travis-ci.org/i4004/AcspNet)
 
 [![Nuget version](http://img.shields.io/badge/nuget-v5.2.0-blue.png)](https://www.nuget.org/packages/AcspNet/)
-[![NuGet Status](http://nugetstatus.com/Simplify.DI.Provider.SimpleInjector.png)](http://nugetstatus.com/packages/Simplify.DI.Provider.SimpleInjector)
+[![NuGet Status](http://nugetstatus.com/AcspNet.png)](http://nugetstatus.com/packages/AcspNet)
 [![Stories in Ready](https://badge.waffle.io/i4004/acspnet.png?label=ready&title=Ready)](https://waffle.io/i4004/acspnet)
 
 ---
