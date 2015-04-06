@@ -8,7 +8,7 @@
 
 ![ACSP .NET](https://raw.github.com/i4004/AcspNet/master/Images/Icon128x128.png)
 
-ACSP.NET (Advanced Controls Site Platform .NET) is a lightweight and fast .NET web-framework based on MVC and OWIN
+ACSP.NET (Advanced Controls Site Platform .NET) is a lightweight and fast server-side .NET web-framework based on MVC and OWIN
 
 ### Main features
 
