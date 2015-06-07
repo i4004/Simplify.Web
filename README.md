@@ -1,16 +1,28 @@
-.NET (4.5) [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/89hirbi3bn5ajkvj)](https://ci.appveyor.com/project/i4004/acspnet) Mono (3.8.0) [![Travis build status](https://travis-ci.org/i4004/AcspNet.png?branch=master)](https://travis-ci.org/i4004/AcspNet)
-
-[![Nuget version](http://img.shields.io/badge/nuget-v5.2.0-blue.png)](https://www.nuget.org/packages/AcspNet/)
-[![NuGet Status](http://nugetstatus.com/AcspNet.png)](http://nugetstatus.com/packages/AcspNet)
-[![Stories in Ready](https://badge.waffle.io/i4004/acspnet.png?label=ready&title=Ready)](https://waffle.io/i4004/acspnet)
-
----
-
 ![ACSP .NET](https://raw.github.com/i4004/AcspNet/master/Images/Icon128x128.png)
 
 ACSP.NET (Advanced Controls Site Platform .NET) is a lightweight and fast server-side .NET web-framework based on MVC and OWIN
 
-### Main features
+## Package status
+
+| Latest version | [![Nuget version](http://img.shields.io/badge/nuget-v5.2.0-blue.png)](https://www.nuget.org/packages/AcspNet/) |
+| :------ | :------: |
+| **Dependencies** | [![NuGet Status](http://nugetstatus.com/AcspNet.png)](http://nugetstatus.com/packages/AcspNet) |
+
+
+## Issues status
+
+| Ready issues |
+| :------ |
+| [![Stories in Ready](https://badge.waffle.io/i4004/acspnet.png?label=ready&title=Ready)](https://waffle.io/i4004/acspnet) |
+
+## Build status
+
+| Platform | Status of last build |
+| :------ | :------: |
+| **.NET (4.5)** | [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/89hirbi3bn5ajkvj/branch/master?svg=true)](https://ci.appveyor.com/project/i4004/acspnet) |
+| **Mono (3.8.0)** | [![Travis build status](https://travis-ci.org/i4004/AcspNet.png?branch=master)](https://travis-ci.org/i4004/AcspNet) |
+
+## Main features
 
 * Based on MVC and MVVM patterns
 * Comes as OWIN middleware
@@ -22,11 +34,11 @@ ACSP.NET (Advanced Controls Site Platform .NET) is a lightweight and fast server
 * Localization-friendly (supports templates, string table and data files localization by default)
 * Mocking-friendly
 
-### Getting started
+## Getting started
 
 To get started you can install [visual studio AcspNet project templates](http://visualstudiogallery.msdn.microsoft.com/25a4534d-5a5b-4cce-aecf-523c3679a1c3) and read [this](https://github.com/i4004/AcspNet/wiki/Getting-started) article.
 
-### Some examples
+## Some examples
 
 #### Simple static page controller
 ```csharp
