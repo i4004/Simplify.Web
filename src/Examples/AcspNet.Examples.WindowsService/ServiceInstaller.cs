@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
-using Simplify.AutomatedWindowsServices;
+using Simplify.WindowsServices;
 
 namespace AcspNet.Examples.WindowsService
 {

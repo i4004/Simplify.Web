@@ -1,5 +1,5 @@
 ﻿using System.ServiceProcess;
-using Simplify.AutomatedWindowsServices;
+using Simplify.WindowsServices;
 
 namespace AcspNet.Examples.WindowsService
 {
