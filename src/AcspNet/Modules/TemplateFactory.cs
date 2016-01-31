@@ -12,16 +12,15 @@ namespace AcspNet.Modules
 	/// </summary>
 	public sealed class TemplateFactory : ITemplateFactory
 	{
+		private static readonly IDictionary<KeyValuePair<string, string>, string> Cache = new Dictionary<KeyValuePair<string, string>, string>();
+		private static readonly object Locker = new object();
+
 		private readonly IEnvironment _environment;
 		private readonly ILanguageManagerProvider _languageManagerProvider;
 		private ILanguageManager _languageManager;
 		private readonly string _defaultLanguage;
 		private readonly bool _templatesMemoryCache;
 		private readonly bool _loadTemplatesFromAssembly;
-
-		private readonly IDictionary<KeyValuePair<string, string>, string> _cache = new Dictionary<KeyValuePair<string, string>, string>();
-
-		private readonly object _locker = new object();
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="TemplateFactory" /> class.
@@ -56,38 +55,36 @@ namespace AcspNet.Modules
 		public ITemplate Load(string fileName)
 		{
 			if (string.IsNullOrEmpty(fileName))
-				throw new ArgumentNullException("fileName");
+				throw new ArgumentNullException(nameof(fileName));
 
 			if (!fileName.EndsWith(".tpl"))
 				fileName = fileName + ".tpl";
 
-			var filePath = !_loadTemplatesFromAssembly ? string.Format("{0}{1}", _environment.TemplatesPhysicalPath, fileName) : fileName;
+			var filePath = !_loadTemplatesFromAssembly ? $"{_environment.TemplatesPhysicalPath}{fileName}" : fileName;
 
-			if (_templatesMemoryCache)
+			if (!_templatesMemoryCache)
+				return new Template(filePath, _languageManager.Language, _defaultLanguage);
+
+			var tpl = TryLoadExistingTemplate(filePath);
+
+			if (tpl != null)
+				return tpl;
+
+			lock (Locker)
 			{
-				var tpl = TryLoadExistingTemplate(filePath);
+				tpl = TryLoadExistingTemplate(filePath);
 
 				if (tpl != null)
 					return tpl;
 
-				lock (_locker)
-				{
-					tpl = TryLoadExistingTemplate(filePath);
+				tpl = !_loadTemplatesFromAssembly
+					? new Template(filePath, _languageManager.Language, _defaultLanguage)
+					: new Template(Assembly.GetCallingAssembly(), filePath.Replace("/", "."), _languageManager.Language, _defaultLanguage);
 
-					if (tpl == null)
-					{
-						tpl = !_loadTemplatesFromAssembly
-							? new Template(filePath, _languageManager.Language, _defaultLanguage)
-							: new Template(Assembly.GetCallingAssembly(), filePath.Replace("/", "."), _languageManager.Language, _defaultLanguage);
+				Cache.Add(new KeyValuePair<string, string>(filePath, _languageManager.Language), tpl.Get());
 
-						_cache.Add(new KeyValuePair<string, string>(filePath, _languageManager.Language), tpl.Get());
-					}
-
-					return tpl;
-				}
+				return tpl;
 			}
-
-			return new Template(filePath, _languageManager.Language, _defaultLanguage);
 		}
 
 		/// <summary>
@@ -102,7 +99,8 @@ namespace AcspNet.Modules
 
 		private ITemplate TryLoadExistingTemplate(string filePath)
 		{
-			var existingItem = _cache.FirstOrDefault(x => x.Key.Key == filePath && x.Key.Value == _languageManager.Language);
+			// ReSharper disable once InconsistentlySynchronizedField
+			var existingItem = Cache.FirstOrDefault(x => x.Key.Key == filePath && x.Key.Value == _languageManager.Language);
 
 			if (!existingItem.Equals(default(KeyValuePair<KeyValuePair<string, string>, string>)))
 				return new Template(existingItem.Value, false);
