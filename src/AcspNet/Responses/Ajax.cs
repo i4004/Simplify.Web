@@ -20,14 +20,15 @@
 		/// <value>
 		/// The ajax data.
 		/// </value>
-		public string AjaxData { get; private set; }
+		public string AjaxData { get; }
 
 		/// <summary>
 		/// Processes this response
 		/// </summary>
 		public override ControllerResponseResult Process()
 		{
-			ResponseWriter.Write(AjaxData, Context.Response);
+			if(AjaxData != null)
+				ResponseWriter.Write(AjaxData, Context.Response);
 
 			return ControllerResponseResult.RawOutput;
 		}
