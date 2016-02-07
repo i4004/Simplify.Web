@@ -656,7 +656,7 @@ namespace AcspNet.Bootstrapper
 				{
 					var settings = p.Resolve<IAcspNetSettings>();
 					return new StringTable(settings.StringTableFiles, settings.DefaultLanguage, p.Resolve<ILanguageManagerProvider>(),
-						p.Resolve<IFileReader>());
+						p.Resolve<IFileReader>(), settings.StringTableMemoryCache);
 
 				});
 		}
