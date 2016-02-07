@@ -16,11 +16,6 @@
 		void Setup();
 
 		/// <summary>
-		/// Reload string table
-		/// </summary>
-		void Reload();
-
-		/// <summary>
 		/// Get enum associated value from string table by enum type + enum element name
 		/// </summary>
 		/// <typeparam name="T">Enum</typeparam>

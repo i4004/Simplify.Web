@@ -12,6 +12,8 @@ namespace AcspNet.Modules
 	/// </summary>
 	public sealed class StringTable : IStringTable
 	{
+		//private static readonly IDictionary<string, IDictionary<string, object>> Cache = new Dictionary<string, IDictionary<string, object>>();
+
 		private readonly IList<string> _stringTableFiles;
 		private readonly string _defaultLanguage;
 		private readonly ILanguageManagerProvider _languageManagerProvider;
@@ -25,7 +27,7 @@ namespace AcspNet.Modules
 		/// <param name="defaultLanguage">The default language.</param>
 		/// <param name="languageManagerProvider">The language manager provider.</param>
 		/// <param name="fileReader">The file reader.</param>
-		public StringTable(IList<string> stringTableFiles, string defaultLanguage, ILanguageManagerProvider languageManagerProvider, IFileReader fileReader)
+		public StringTable(IList<string> stringTableFiles, string defaultLanguage, ILanguageManagerProvider languageManagerProvider, IFileReader fileReader)//, bool memoryCache = false)
 		{
 			_stringTableFiles = stringTableFiles;
 			_defaultLanguage = defaultLanguage;
@@ -45,19 +47,7 @@ namespace AcspNet.Modules
 		{
 			_languageManager = _languageManagerProvider.Get();
 
-			Reload();
-		}
-
-		/// <summary>
-		/// Reload string table
-		/// </summary>
-		public void Reload()
-		{
-			IDictionary<string, object> currentItems = new ExpandoObject();
-			Items = currentItems;
-
-			foreach (var file in _stringTableFiles)
-				Load(file, _defaultLanguage, _languageManager.Language, _fileReader, currentItems);
+			TryLoad();
 		}
 
 		/// <summary>
@@ -87,6 +77,15 @@ namespace AcspNet.Modules
 				return currentItems[itemName] as string;
 
 			return null;
+		}
+
+		private void TryLoad()
+		{
+			IDictionary<string, object> currentItems = new ExpandoObject();
+			Items = currentItems;
+
+			foreach (var file in _stringTableFiles)
+				Load(file, _defaultLanguage, _languageManager.Language, _fileReader, currentItems);
 		}
 
 		/// <summary>
