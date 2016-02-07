@@ -88,11 +88,7 @@ namespace AcspNet.Modules
 			var fileNameFirstPart = fileName.Substring(0, indexOfPoint);
 			var fileNameLastPart = fileName.Substring(indexOfPoint, fileName.Length - indexOfPoint);
 
-			var path = $"{_dataPhysicalPath}{fileNameFirstPart}.{language}{fileNameLastPart}";
-
-			return !FileSystem.File.Exists(path)
-				? $"{_dataPhysicalPath}{fileNameFirstPart}.{_defaultLanguage}{fileNameLastPart}"
-				: path;
+			return $"{_dataPhysicalPath}{fileNameFirstPart}.{language}{fileNameLastPart}";
 		}
 
 		/// <summary>
@@ -127,12 +123,13 @@ namespace AcspNet.Modules
 		/// </returns>
 		public XDocument LoadXDocument(string fileName, string language, bool memoryCache = false)
 		{
-			if (!fileName.EndsWith(".xml"))
-				fileName = fileName + ".xml";
+			throw new NotImplementedException();
+			//if (!fileName.EndsWith(".xml"))
+			//	fileName = fileName + ".xml";
 
-			var filePath = GetFilePath(fileName, language);
+			//var filePath = GetFilePath(fileName, language);
 
-			return FileSystem.File.Exists(filePath) ? XDocument.Parse(FileSystem.File.ReadAllText(filePath)) : null;
+			//return FileSystem.File.Exists(filePath) ? XDocument.Parse(FileSystem.File.ReadAllText(filePath)) : null;
 		}
 
 		/// <summary>
@@ -159,15 +156,21 @@ namespace AcspNet.Modules
 		/// </returns>
 		public string LoadTextDocument(string fileName, string language, bool memoryCache = false)
 		{
-			throw new NotImplementedException();
-			//	if (!memoryCache)
-			//	{
-			//		var filePath = GetFilePath(fileName, language);
+			if (!memoryCache)
+			{
+				var filePath = GetFilePath(fileName, language);
 
-			//		return !FileSystem.File.Exists(filePath)
-			//			? null
-			//			: FileSystem.File.ReadAllText(filePath);
-			//	}
+				if (FileSystem.File.Exists(filePath))
+					return FileSystem.File.ReadAllText(filePath);
+
+				filePath = GetFilePath(fileName, _defaultLanguage);
+
+				return !FileSystem.File.Exists(filePath)
+					? null
+					: FileSystem.File.ReadAllText(filePath);
+			}
+
+			throw new NotImplementedException();
 
 			//	string data;
 
