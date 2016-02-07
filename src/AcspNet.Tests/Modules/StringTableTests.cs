@@ -155,6 +155,26 @@ namespace AcspNet.Tests.Modules
 			// Act & Assert
 			Assert.IsNull(_stringTable.GetItem("Foo"));
 		}
+
+		[Test]
+		public void Constructor_CacheEnabled_LoadedFromCacheSecondTime()
+		{
+			// Assign
+			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Your site title!\" /></items>"));
+
+			// Act
+
+			_stringTable = new StringTable(_stringTableFiles, DefaultLanguage, _languageManagerProvider.Object, _fileReader.Object, true);
+			_stringTable.Setup();
+
+			_stringTable = new StringTable(_stringTableFiles, DefaultLanguage, _languageManagerProvider.Object, _fileReader.Object, true);
+			_stringTable.Setup();
+
+			// Assert
+
+			_fileReader.Verify(x => x.LoadXDocument(It.IsAny<string>()), Times.Once);
+			Assert.AreEqual("Your site title!", _stringTable.Items.SiteTitle);
+		}
 	}
 
 	public enum FooEnum
