@@ -90,6 +90,9 @@ namespace AcspNet.Tests.Modules
 			Assert.AreEqual("Dummy data", data.Get());
 
 			// Assign
+
+			tf = new TemplateFactory(_environment.Object, _languageManagerProvider.Object, "en", true);
+			tf.Setup();
 			Template.FileSystem = new Mock<IFileSystem>().Object;
 
 			// Act
