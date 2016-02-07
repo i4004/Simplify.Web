@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO.Abstractions;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace AcspNet.Modules
@@ -10,15 +11,15 @@ namespace AcspNet.Modules
 	/// </summary>
 	public class FileReader : IFileReader
 	{
-		private static readonly IDictionary<string, string> TextCache = new Dictionary<string, string>();
-		private static readonly IDictionary<string, string> XmlCache = new Dictionary<string, string>();
-		private static readonly object Locker = new object();
+		//private static readonly IDictionary<KeyValuePair<string, string>, string> TextCache = new Dictionary<KeyValuePair<string, string>, string>();
+		//private static readonly IDictionary<string, string> XmlCache = new Dictionary<string, string>();
+		//private static readonly object Locker = new object();
 
 
 		private readonly string _dataPhysicalPath;
 		private readonly string _defaultLanguage;
 		private readonly ILanguageManagerProvider _languageManagerProvider;
-		private readonly bool _disableCache;
+		//private readonly bool _disableCache;
 
 		private ILanguageManager _languageManager;
 		private static IFileSystem _fileSystemInstance;
@@ -29,13 +30,13 @@ namespace AcspNet.Modules
 		/// <param name="dataPhysicalPath">The data physical path.</param>
 		/// <param name="defaultLanguage">The default language.</param>
 		/// <param name="languageManagerProvider">The language manager provider.</param>
-		/// <param name="disableCache">if set to <c>true</c> [disable cache].</param>
+		/// <param name="disableCache">Disable FileReader cache.</param>
 		public FileReader(string dataPhysicalPath, string defaultLanguage, ILanguageManagerProvider languageManagerProvider, bool disableCache = false)
 		{
 			_dataPhysicalPath = dataPhysicalPath;
 			_defaultLanguage = defaultLanguage;
 			_languageManagerProvider = languageManagerProvider;
-			_disableCache = disableCache;
+			//_disableCache = disableCache;
 		}
 
 		/// <summary>
@@ -106,10 +107,11 @@ namespace AcspNet.Modules
 		/// Load xml document from a file
 		/// </summary>
 		/// <param name="fileName">File name</param>
+		/// <param name="memoryCache">Load file from memory cache if possible.</param>
 		/// <returns>
 		/// Xml document
 		/// </returns>
-		public XDocument LoadXDocument(string fileName)
+		public XDocument LoadXDocument(string fileName, bool memoryCache = false)
 		{
 			return LoadXDocument(fileName, _languageManager.Language);
 		}
@@ -119,10 +121,11 @@ namespace AcspNet.Modules
 		/// </summary>
 		/// <param name="fileName">File name</param>
 		/// <param name="language">File language</param>
+		/// <param name="memoryCache">Load file from memory cache if possible.</param>
 		/// <returns>
 		/// Xml document
 		/// </returns>
-		public XDocument LoadXDocument(string fileName, string language)
+		public XDocument LoadXDocument(string fileName, string language, bool memoryCache = false)
 		{
 			if (!fileName.EndsWith(".xml"))
 				fileName = fileName + ".xml";
@@ -136,12 +139,13 @@ namespace AcspNet.Modules
 		/// Load text from a extension data file
 		/// </summary>
 		/// <param name="fileName">File name</param>
+		/// <param name="memoryCache">Load file from memory cache if possible.</param>
 		/// <returns>
 		/// Text from a file
 		/// </returns>
-		public string LoadTextDocument(string fileName)
+		public string LoadTextDocument(string fileName, bool memoryCache = false)
 		{
-			return LoadTextDocument(fileName, _languageManager.Language);
+			return LoadTextDocument(fileName, _languageManager.Language, memoryCache);
 		}
 
 		/// <summary>
@@ -149,14 +153,56 @@ namespace AcspNet.Modules
 		/// </summary>
 		/// <param name="fileName">File name</param>
 		/// <param name="language">File language</param>
+		/// <param name="memoryCache">Load file from memory cache if possible.</param>
 		/// <returns>
 		/// Text from a file
 		/// </returns>
-		public string LoadTextDocument(string fileName, string language)
+		public string LoadTextDocument(string fileName, string language, bool memoryCache = false)
 		{
-			var filePath = GetFilePath(fileName, language);
+			throw new NotImplementedException();
+			//	if (!memoryCache)
+			//	{
+			//		var filePath = GetFilePath(fileName, language);
 
-			return !FileSystem.File.Exists(filePath) ? null : FileSystem.File.ReadAllText(GetFilePath(fileName, language));
+			//		return !FileSystem.File.Exists(filePath)
+			//			? null
+			//			: FileSystem.File.ReadAllText(filePath);
+			//	}
+
+			//	string data;
+
+			//	if (TryToLoadTextDocumentFromCache(fileName, language, out data))
+			//		return data;
+
+			//	lock (Locker)
+			//	{
+			//		if (TryToLoadTextDocumentFromCache(fileName, language, out data))
+			//			return data;
+
+			//		var filePath = GetFilePath(fileName, language);
+
+			//		data = !FileSystem.File.Exists(filePath) ? null : FileSystem.File.ReadAllText(GetFilePath(fileName, language));
+
+			//		TextCache.Add(new KeyValuePair<string, string>(fileName, language), data);
+			//	}
 		}
+
+		//private bool TryToLoadTextDocumentFromCache(string fileName, string language, out string data)
+		//{
+		//	data = null;
+
+		//	var cacheItem = TextCache.FirstOrDefault(x => x.Key.Key == fileName && x.Key.Value == language);
+
+		//	if (cacheItem.Equals(default(KeyValuePair<KeyValuePair<string, string>, string>)))
+		//		return false;
+
+		//	cacheItem = TextCache.FirstOrDefault(x => x.Key.Key == fileName && x.Key.Value == _defaultLanguage);
+
+		//	if (cacheItem.Equals(default(KeyValuePair<KeyValuePair<string, string>, string>)))
+		//		return false;
+
+		//	data = cacheItem.Value;
+		//	return true;
+		//}
 	}
 }

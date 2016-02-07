@@ -46,7 +46,7 @@ namespace AcspNet.Tests.Modules
 		public void Constructor_StringTableFound_ItemsLoadedCorrectly()
 		{
 			// Assign
-			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Your site title!\" /></items>"));
+			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>(), It.IsAny<bool>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Your site title!\" /></items>"));
 
 			// Act
 
@@ -63,7 +63,7 @@ namespace AcspNet.Tests.Modules
 			// Assign
 
 			_languageManager.SetupGet(x => x.Language).Returns("en");
-			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Your site title!\" /></items>"));
+			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>(), It.IsAny<bool>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Your site title!\" /></items>"));
 
 			// Act
 
@@ -71,7 +71,7 @@ namespace AcspNet.Tests.Modules
 			_stringTable.Setup();
 
 			// Assert
-			_fileReader.Verify(x => x.LoadXDocument(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+			_fileReader.Verify(x => x.LoadXDocument(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>()), Times.Never);
 		}
 
 		[Test]
@@ -79,8 +79,8 @@ namespace AcspNet.Tests.Modules
 		{
 			// Assign
 
-			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>())).Returns((XDocument)null);
-			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>(), It.Is<string>(d => d == DefaultLanguage))).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Your site title!\" /></items>"));
+			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>(), It.IsAny<bool>())).Returns((XDocument)null);
+			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>(), It.Is<string>(d => d == DefaultLanguage), It.IsAny<bool>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Your site title!\" /></items>"));
 
 			// Act
 
@@ -96,8 +96,8 @@ namespace AcspNet.Tests.Modules
 		{
 			// Assign
 
-			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"Item1\" value=\"Foo\" /></items>"));
-			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>(), It.Is<string>(d => d == DefaultLanguage))).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"Item1\" value=\"FooDef\" /><item name=\"Item2\" value=\"BarDef\" /></items>"));
+			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>(), It.IsAny<bool>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"Item1\" value=\"Foo\" /></items>"));
+			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>(), It.Is<string>(d => d == DefaultLanguage), It.IsAny<bool>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"Item1\" value=\"FooDef\" /><item name=\"Item2\" value=\"BarDef\" /></items>"));
 
 			// Act
 
@@ -115,7 +115,7 @@ namespace AcspNet.Tests.Modules
 		{
 			// Assign
 
-			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"FooEnum.FooItem1\" value=\"Foo\" /></items>"));
+			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>(), It.IsAny<bool>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"FooEnum.FooItem1\" value=\"Foo\" /></items>"));
 			_stringTable = new StringTable(_stringTableFiles, DefaultLanguage, _languageManagerProvider.Object, _fileReader.Object);
 
 			// Act
@@ -131,7 +131,7 @@ namespace AcspNet.Tests.Modules
 		{
 			// Assign
 
-			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"FooEnum.FooItem1\" value=\"Foo\" /></items>"));
+			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>(), It.IsAny<bool>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"FooEnum.FooItem1\" value=\"Foo\" /></items>"));
 			_stringTable = new StringTable(_stringTableFiles, DefaultLanguage, _languageManagerProvider.Object, _fileReader.Object);
 
 			// Act
@@ -146,7 +146,7 @@ namespace AcspNet.Tests.Modules
 		{
 			// Assign
 
-			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"FooEnum.FooItem1\" value=\"Foo\" /></items>"));
+			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>(), It.IsAny<bool>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"FooEnum.FooItem1\" value=\"Foo\" /></items>"));
 			_stringTable = new StringTable(_stringTableFiles, DefaultLanguage, _languageManagerProvider.Object, _fileReader.Object);
 
 			// Act
@@ -160,7 +160,7 @@ namespace AcspNet.Tests.Modules
 		public void Constructor_CacheEnabled_LoadedFromCacheSecondTime()
 		{
 			// Assign
-			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Your site title!\" /></items>"));
+			_fileReader.Setup(x => x.LoadXDocument(It.IsAny<string>(), It.IsAny<bool>())).Returns(XDocument.Parse("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Your site title!\" /></items>"));
 
 			// Act
 
@@ -172,7 +172,7 @@ namespace AcspNet.Tests.Modules
 
 			// Assert
 
-			_fileReader.Verify(x => x.LoadXDocument(It.IsAny<string>()), Times.Once);
+			_fileReader.Verify(x => x.LoadXDocument(It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
 			Assert.AreEqual("Your site title!", _stringTable.Items.SiteTitle);
 		}
 	}
