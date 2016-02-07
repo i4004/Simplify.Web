@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO.Abstractions;
 using System.Xml.Linq;
 
@@ -9,9 +10,16 @@ namespace AcspNet.Modules
 	/// </summary>
 	public class FileReader : IFileReader
 	{
+		private static readonly IDictionary<string, string> TextCache = new Dictionary<string, string>();
+		private static readonly IDictionary<string, string> XmlCache = new Dictionary<string, string>();
+		private static readonly object Locker = new object();
+
+
 		private readonly string _dataPhysicalPath;
 		private readonly string _defaultLanguage;
 		private readonly ILanguageManagerProvider _languageManagerProvider;
+		private readonly bool _disableCache;
+
 		private ILanguageManager _languageManager;
 		private static IFileSystem _fileSystemInstance;
 
@@ -21,11 +29,13 @@ namespace AcspNet.Modules
 		/// <param name="dataPhysicalPath">The data physical path.</param>
 		/// <param name="defaultLanguage">The default language.</param>
 		/// <param name="languageManagerProvider">The language manager provider.</param>
-		public FileReader(string dataPhysicalPath, string defaultLanguage, ILanguageManagerProvider languageManagerProvider)
+		/// <param name="disableCache">if set to <c>true</c> [disable cache].</param>
+		public FileReader(string dataPhysicalPath, string defaultLanguage, ILanguageManagerProvider languageManagerProvider, bool disableCache = false)
 		{
 			_dataPhysicalPath = dataPhysicalPath;
 			_defaultLanguage = defaultLanguage;
 			_languageManagerProvider = languageManagerProvider;
+			_disableCache = disableCache;
 		}
 
 		/// <summary>
