@@ -53,7 +53,7 @@ namespace AcspNet.Modules
 		/// </summary>
 		public void Reload()
 		{
-			IDictionary<string, Object> currentItems = new ExpandoObject();
+			IDictionary<string, object> currentItems = new ExpandoObject();
 			Items = currentItems;
 
 			foreach (var file in _stringTableFiles)
@@ -68,7 +68,7 @@ namespace AcspNet.Modules
 		/// <returns>associated value</returns>
 		public string GetAssociatedValue<T>(T enumValue) where T : struct
 		{
-			var currentItems = (IDictionary<string, Object>) Items;
+			var currentItems = (IDictionary<string, object>) Items;
 			var enumItemName = enumValue.GetType().Name + "." + Enum.GetName(typeof (T), enumValue);
 
 			return currentItems.ContainsKey(enumItemName) ? currentItems[enumItemName] as string : null;
@@ -81,7 +81,7 @@ namespace AcspNet.Modules
 		/// <returns></returns>
 		public string GetItem(string itemName)
 		{
-			var currentItems = (IDictionary<string, Object>)Items;
+			var currentItems = (IDictionary<string, object>)Items;
 
 			if (currentItems.ContainsKey(itemName))
 				return currentItems[itemName] as string;
@@ -92,12 +92,12 @@ namespace AcspNet.Modules
 		/// <summary>
 		/// Loads string table.
 		/// </summary>
-		private static void Load(string fileName, string defaultLanguage, string currentLanguage, IFileReader fileReader, IDictionary<string, Object> currentItems)
+		private static void Load(string fileName, string defaultLanguage, string currentLanguage, IFileReader fileReader, IDictionary<string, object> currentItems)
 		{
 			var stringTable = fileReader.LoadXDocument(fileName);
 
 			// Loading current culture strings
-			if (stringTable != null && stringTable.Root != null)
+			if (stringTable?.Root != null)
 				foreach (var item in stringTable.Root.XPathSelectElements("item").Where(x => x.HasAttributes))
 					currentItems.Add((string)item.Attribute("name"), string.IsNullOrEmpty(item.Value) ? (string)item.Attribute("value") : item.InnerXml().Trim());
 
@@ -108,10 +108,11 @@ namespace AcspNet.Modules
 
 			stringTable = fileReader.LoadXDocument(fileName, defaultLanguage);
 
-			if (stringTable != null && stringTable.Root != null)
-				foreach (var item in stringTable.Root.XPathSelectElements("item").Where(x => x.HasAttributes))
-					if (!currentItems.ContainsKey((string)item.Attribute("name")))
-						currentItems.Add((string)item.Attribute("name"), string.IsNullOrEmpty(item.Value) ? (string)item.Attribute("value") : item.InnerXml().Trim());
+			if (stringTable?.Root == null)
+				return;
+
+			foreach (var item in stringTable.Root.XPathSelectElements("item").Where(x => x.HasAttributes && !currentItems.ContainsKey((string)x.Attribute("name"))))
+				currentItems.Add((string)item.Attribute("name"), string.IsNullOrEmpty(item.Value) ? (string)item.Attribute("value") : item.InnerXml().Trim());
 		}
 	}
 }
