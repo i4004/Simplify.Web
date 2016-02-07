@@ -66,23 +66,21 @@ namespace AcspNet.Modules
 		/// <returns>File path</returns>
 		public string GetFilePath(string fileName, string language)
 		{
-			if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException("fileName");
-			if (string.IsNullOrEmpty(language)) throw new ArgumentNullException("language");
+			if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException(nameof(fileName));
+			if (string.IsNullOrEmpty(language)) throw new ArgumentNullException(nameof(language));
 
 			var indexOfPoint = fileName.LastIndexOf(".", StringComparison.Ordinal);
 
 			if (indexOfPoint == -1)
-				return string.Format("{0}{1}.{2}", _dataPhysicalPath,
-							fileName, language);
+				return $"{_dataPhysicalPath}{fileName}.{language}";
 
 			var fileNameFirstPart = fileName.Substring(0, indexOfPoint);
 			var fileNameLastPart = fileName.Substring(indexOfPoint, fileName.Length - indexOfPoint);
 
-			var path = string.Format("{0}{1}.{2}{3}", _dataPhysicalPath, fileNameFirstPart, language, fileNameLastPart);
+			var path = $"{_dataPhysicalPath}{fileNameFirstPart}.{language}{fileNameLastPart}";
 
 			return !FileSystem.File.Exists(path)
-				? string.Format("{0}{1}.{2}{3}", _dataPhysicalPath, fileNameFirstPart, _defaultLanguage,
-					fileNameLastPart)
+				? $"{_dataPhysicalPath}{fileNameFirstPart}.{_defaultLanguage}{fileNameLastPart}"
 				: path;
 		}
 
