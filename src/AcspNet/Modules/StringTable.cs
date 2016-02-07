@@ -12,13 +12,15 @@ namespace AcspNet.Modules
 	/// </summary>
 	public sealed class StringTable : IStringTable
 	{
-		//private static readonly IDictionary<string, IDictionary<string, object>> Cache = new Dictionary<string, IDictionary<string, object>>();
+		private static readonly IDictionary<string, IDictionary<string, object>> Cache = new Dictionary<string, IDictionary<string, object>>();
+		private static readonly object Locker = new object();
 
 		private readonly IList<string> _stringTableFiles;
 		private readonly string _defaultLanguage;
 		private readonly ILanguageManagerProvider _languageManagerProvider;
 		private ILanguageManager _languageManager;
 		private readonly IFileReader _fileReader;
+		private readonly bool _memoryCache;
 
 		/// <summary>
 		/// Load string table with current language
@@ -27,12 +29,14 @@ namespace AcspNet.Modules
 		/// <param name="defaultLanguage">The default language.</param>
 		/// <param name="languageManagerProvider">The language manager provider.</param>
 		/// <param name="fileReader">The file reader.</param>
-		public StringTable(IList<string> stringTableFiles, string defaultLanguage, ILanguageManagerProvider languageManagerProvider, IFileReader fileReader)//, bool memoryCache = false)
+		/// <param name="memoryCache">Enable memory cache.</param>
+		public StringTable(IList<string> stringTableFiles, string defaultLanguage, ILanguageManagerProvider languageManagerProvider, IFileReader fileReader, bool memoryCache = false)
 		{
 			_stringTableFiles = stringTableFiles;
 			_defaultLanguage = defaultLanguage;
 			_languageManagerProvider = languageManagerProvider;
 			_fileReader = fileReader;
+			_memoryCache = memoryCache;
 		}
 
 		/// <summary>
@@ -81,11 +85,43 @@ namespace AcspNet.Modules
 
 		private void TryLoad()
 		{
+			if (!_memoryCache)
+			{
+				Items = Load();
+				return;
+			}
+
+			if (TryGetStringTableFromCache())
+				return;
+
+			lock (Locker)
+			{
+				if (TryGetStringTableFromCache())
+					return;
+
+				var currentItems = Load();
+				Cache.Add(_languageManager.Language, currentItems);
+				Items = currentItems;
+			}
+		}
+
+		private bool TryGetStringTableFromCache()
+		{
+			if (!Cache.ContainsKey(_languageManager.Language)) return false;
+
+			Items = Cache[_languageManager.Language];
+
+			return true;
+		}
+
+		private IDictionary<string, object>  Load()
+		{
 			IDictionary<string, object> currentItems = new ExpandoObject();
-			Items = currentItems;
 
 			foreach (var file in _stringTableFiles)
 				Load(file, _defaultLanguage, _languageManager.Language, _fileReader, currentItems);
+
+			return currentItems;
 		}
 
 		/// <summary>
