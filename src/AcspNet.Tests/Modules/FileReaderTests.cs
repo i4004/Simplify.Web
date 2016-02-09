@@ -28,6 +28,7 @@ namespace AcspNet.Tests.Modules
 			_fs.Setup(x => x.File.ReadAllText(It.Is<string>(d => d == "C:/WebSites/FooSite/App_Data/Foo.en.txt")))
 				.Returns("Dummy");
 
+			// ReSharper disable once StringLiteralTypo
 			_fs.Setup(x => x.File.ReadAllText(It.Is<string>(d => d == "C:/WebSites/FooSite/App_Data/Foo.ru.txt")))
 				.Returns("Тест");
 
@@ -63,13 +64,26 @@ namespace AcspNet.Tests.Modules
 		}
 
 		[Test]
-		public void GetFilePath_PathIsCorrect()
+		public void GetFilePath_CommonFile_PathIsCorrect()
+		{
+			// Assign
+
+			_languageManager.SetupGet(x => x.Language).Returns("en");
+			var fileReader = new FileReader(DataPath, "en", _languageManagerProvider.Object);
+			fileReader.Setup();
+
+			// Act & Assert
+			Assert.AreEqual("C:/WebSites/FooSite/App_Data/My.Project/Foo.en.xml", fileReader.GetFilePath("My.Project/Foo.xml"));
+		}
+
+		[Test]
+		public void GetFilePath_FileWithoutExtension_PathIsCorrect()
 		{
 			// Assign
 			var fileReader = new FileReader(DataPath, "en", _languageManagerProvider.Object);
 
 			// Act & Assert
-			Assert.AreEqual("C:/WebSites/FooSite/App_Data/My.Project/Foo.en.xml", fileReader.GetFilePath("My.Project/Foo.xml", "en"));
+			Assert.AreEqual("C:/WebSites/FooSite/App_Data/MyProject/Foo.en", fileReader.GetFilePath("MyProject/Foo", "en"));
 		}
 
 		[Test]
