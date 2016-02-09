@@ -85,7 +85,7 @@ namespace AcspNet.Tests.Modules
 		}
 
 		[Test]
-		public void LoadTextDocument_DefaultFileExist_DefaultDocumentLoaded()
+		public void LoadTextDocument_FileNotExistButDefaultFileExist_DefaultDocumentLoaded()
 		{
 			// Assign
 
