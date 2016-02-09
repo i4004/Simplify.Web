@@ -11,9 +11,9 @@ namespace AcspNet.Modules
 	/// </summary>
 	public class FileReader : IFileReader
 	{
-		//private static readonly IDictionary<KeyValuePair<string, string>, string> TextCache = new Dictionary<KeyValuePair<string, string>, string>();
+		private static readonly IDictionary<KeyValuePair<string, string>, string> TextCache = new Dictionary<KeyValuePair<string, string>, string>();
 		//private static readonly IDictionary<string, string> XmlCache = new Dictionary<string, string>();
-		//private static readonly object Locker = new object();
+		private static readonly object Locker = new object();
 
 
 		private readonly string _dataPhysicalPath;
@@ -170,42 +170,54 @@ namespace AcspNet.Modules
 					: FileSystem.File.ReadAllText(filePath);
 			}
 
-			throw new NotImplementedException();
+			string data;
 
-			//	string data;
+			if (TryToLoadTextDocumentFromCache(fileName, language, out data))
+				return data;
 
-			//	if (TryToLoadTextDocumentFromCache(fileName, language, out data))
-			//		return data;
+			lock (Locker)
+			{
+				if (TryToLoadTextDocumentFromCache(fileName, language, out data))
+					return data;
 
-			//	lock (Locker)
-			//	{
-			//		if (TryToLoadTextDocumentFromCache(fileName, language, out data))
-			//			return data;
+				var filePath = GetFilePath(fileName, language);
 
-			//		var filePath = GetFilePath(fileName, language);
+				if (FileSystem.File.Exists(filePath))
+				{
+					data = FileSystem.File.ReadAllText(filePath);
+					TextCache.Add(new KeyValuePair<string, string>(fileName, language), data);
+					return data;
+				}
 
-			//		data = !FileSystem.File.Exists(filePath) ? null : FileSystem.File.ReadAllText(GetFilePath(fileName, language));
+				filePath = GetFilePath(fileName, _defaultLanguage);
 
-			//		TextCache.Add(new KeyValuePair<string, string>(fileName, language), data);
-			//	}
+				if (!FileSystem.File.Exists(filePath)) return null;
+
+				data = FileSystem.File.ReadAllText(filePath);
+				TextCache.Add(new KeyValuePair<string, string>(fileName, _defaultLanguage), data);
+				return data;
+			}
 		}
 
-		//private bool TryToLoadTextDocumentFromCache(string fileName, string language, out string data)
-		//{
-		//	data = null;
+		private bool TryToLoadTextDocumentFromCache(string fileName, string language, out string data)
+		{
+			data = null;
 
-		//	var cacheItem = TextCache.FirstOrDefault(x => x.Key.Key == fileName && x.Key.Value == language);
+			var cacheItem = TextCache.FirstOrDefault(x => x.Key.Key == fileName && x.Key.Value == language);
 
-		//	if (cacheItem.Equals(default(KeyValuePair<KeyValuePair<string, string>, string>)))
-		//		return false;
+			if (!cacheItem.Equals(default(KeyValuePair<KeyValuePair<string, string>, string>)))
+			{
+				data = cacheItem.Value;
+				return true;
+			}
 
-		//	cacheItem = TextCache.FirstOrDefault(x => x.Key.Key == fileName && x.Key.Value == _defaultLanguage);
+			cacheItem = TextCache.FirstOrDefault(x => x.Key.Key == fileName && x.Key.Value == _defaultLanguage);
 
-		//	if (cacheItem.Equals(default(KeyValuePair<KeyValuePair<string, string>, string>)))
-		//		return false;
+			if (cacheItem.Equals(default(KeyValuePair<KeyValuePair<string, string>, string>)))
+				return false;
 
-		//	data = cacheItem.Value;
-		//	return true;
-		//}
+			data = cacheItem.Value;
+			return true;
+		}
 	}
 }
