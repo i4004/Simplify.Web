@@ -16,6 +16,8 @@ namespace AcspNet.Tests.Modules
 
 		private readonly Mock<IFileSystem> _fs = new Mock<IFileSystem>();
 
+		private FileReader _fileReader;
+
 		[SetUp]
 		public void Initialize()
 		{
@@ -39,6 +41,9 @@ namespace AcspNet.Tests.Modules
 				.Returns(true);
 
 			FileReader.FileSystem = _fs.Object;
+
+			_fileReader = new FileReader(DataPath, "en", _languageManagerProvider.Object);
+			_fileReader.Setup();
 		}
 
 		[Test]
@@ -51,107 +56,97 @@ namespace AcspNet.Tests.Modules
 		[Test]
 		public void GetFilePath_NullsPassed_ArgumentNullExceptionsThrown()
 		{
-			// Assign
-
-			var fileReader = new FileReader(DataPath, "en", _languageManagerProvider.Object);
-
 			// Act
-			fileReader.Setup();
+			_fileReader.Setup();
 
 			// Act & Assert
-			Assert.Throws<ArgumentNullException>(() => fileReader.GetFilePath(null, null));
-			Assert.Throws<ArgumentNullException>(() => fileReader.GetFilePath("File", null));
+			Assert.Throws<ArgumentNullException>(() => _fileReader.GetFilePath(null, null));
+			Assert.Throws<ArgumentNullException>(() => _fileReader.GetFilePath("File", null));
 		}
 
 		[Test]
 		public void GetFilePath_CommonFile_PathIsCorrect()
 		{
 			// Assign
-
 			_languageManager.SetupGet(x => x.Language).Returns("en");
-			var fileReader = new FileReader(DataPath, "en", _languageManagerProvider.Object);
-			fileReader.Setup();
 
 			// Act & Assert
-			Assert.AreEqual("C:/WebSites/FooSite/App_Data/My.Project/Foo.en.xml", fileReader.GetFilePath("My.Project/Foo.xml"));
+			Assert.AreEqual("C:/WebSites/FooSite/App_Data/My.Project/Foo.en.xml", _fileReader.GetFilePath("My.Project/Foo.xml"));
 		}
 
 		[Test]
 		public void GetFilePath_FileWithoutExtension_PathIsCorrect()
 		{
-			// Assign
-			var fileReader = new FileReader(DataPath, "en", _languageManagerProvider.Object);
-
 			// Act & Assert
-			Assert.AreEqual("C:/WebSites/FooSite/App_Data/MyProject/Foo.en", fileReader.GetFilePath("MyProject/Foo", "en"));
+			Assert.AreEqual("C:/WebSites/FooSite/App_Data/MyProject/Foo.en", _fileReader.GetFilePath("MyProject/Foo", "en"));
 		}
 
 		[Test]
-		public void LoadTextDocument_FileExist_DocumentLoaded()
+		public void LoadTextDocument_FileExist_Loaded()
 		{
-			// Assign
-
-			var fileReader = new FileReader(DataPath, "en", _languageManagerProvider.Object);
-			fileReader.Setup();
+			// ReSharper disable once StringLiteralTypo
 
 			// Act & Assert
-			Assert.AreEqual("Тест", fileReader.LoadTextDocument("Foo.txt"));
+			Assert.AreEqual("Тест", _fileReader.LoadTextDocument("Foo.txt"));
 		}
 
 		[Test]
-		public void LoadTextDocument_FileNotExistButDefaultFileExist_DefaultDocumentLoaded()
+		public void LoadTextDocument_FileNotExistButDefaultFileExist_DefaultFile()
 		{
 			// Assign
-
-			_fs.Setup(x => x.File.Exists(It.Is<string>(d => d == "C:/WebSites/FooSite/App_Data/Foo.ru.txt")))
-				.Returns(false);
-
-			var fileReader = new FileReader(DataPath, "en", _languageManagerProvider.Object);
-			fileReader.Setup();
+			_fs.Setup(x => x.File.Exists(It.Is<string>(d => d == "C:/WebSites/FooSite/App_Data/Foo.ru.txt"))).Returns(false);
 
 			// Act & Assert
-			Assert.AreEqual("Dummy", fileReader.LoadTextDocument("Foo.txt"));
+			Assert.AreEqual("Dummy", _fileReader.LoadTextDocument("Foo.txt"));
 		}
 
 		[Test]
-		public void LoadTextDocument_FileNotExist_NullReturned()
+		public void LoadTextDocument_FileNotExist_Null()
 		{
 			// Assign
-
-			_fs.Setup(x => x.File.Exists(It.IsAny<string>()))
-				.Returns(false);
-
-			var fileReader = new FileReader(DataPath, "ru", _languageManagerProvider.Object);
-			fileReader.Setup();
+			_fs.Setup(x => x.File.Exists(It.IsAny<string>())).Returns(false);
 
 			// Act & Assert
-			Assert.IsNull(fileReader.LoadTextDocument("Foo.txt"));
+			Assert.IsNull(_fileReader.LoadTextDocument("Foo.txt"));
 		}
 
 		[Test]
-		public void LoadTextDocument_CacheEnabled_SecondFromCache()
+		public void LoadTextDocument_CacheEnabled_SecondTimeFromCache()
+		{
+			// Act
+
+			_fileReader.LoadTextDocument("Foo.txt", true);
+
+			_fileReader = new FileReader(DataPath, "en", _languageManagerProvider.Object);
+			_fileReader.Setup();
+
+			var result = _fileReader.LoadTextDocument("Foo.txt", true);
+
+			// Assert
+
+			_fs.Verify(x => x.File.ReadAllText(It.IsAny<string>()), Times.Once);
+			Assert.AreEqual("Тест", result);
+		}
+
+		[Test]
+		public void LoadTextDocument_CacheEnabledDefaultFile_DefaultFileFromCache()
 		{
 			// Assign
+			_fs.Setup(x => x.File.Exists(It.Is<string>(d => d == "C:/WebSites/FooSite/App_Data/Foo.ru.txt"))).Returns(false);
 
-			//FileReader.FileSystem = _fs.Object;
+			// Act
 
-			//_languageManager.SetupGet(x => x.Language).Returns("ru");
-			//var fileReader = new FileReader(DataPath, "en", _languageManagerProvider.Object);
-			//fileReader.Setup();
+			_fileReader.LoadTextDocument("Foo.txt", true);
 
-			//// Act
+			_fileReader = new FileReader(DataPath, "en", _languageManagerProvider.Object);
+			_fileReader.Setup();
 
-			//fileReader.LoadTextDocument("Foo.txt");
+			var result = _fileReader.LoadTextDocument("Foo.txt", true);
 
-			//fileReader = new FileReader(DataPath, "en", _languageManagerProvider.Object);
-			//fileReader.Setup();
+			// Assert
 
-			//var result = fileReader.LoadTextDocument("Foo.txt");
-
-			//// Assert
-
-			//_fs.Verify(x => x.File.ReadAllText(It.IsAny<string>()), Times.Once);
-			//Assert.AreEqual("Dummy", result);
+			_fs.Verify(x => x.File.ReadAllText(It.IsAny<string>()), Times.Once);
+			Assert.AreEqual("Dummy", result);
 		}
 
 		//[Test]
