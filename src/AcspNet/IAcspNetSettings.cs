@@ -74,7 +74,7 @@ namespace AcspNet
 		/// The static files paths.
 		/// </value>
 		IList<string> StaticFilesPaths { get; }
-		
+
 		/// <summary>
 		/// Gets the string table files.
 		/// </summary>
@@ -82,7 +82,7 @@ namespace AcspNet
 		/// The string table files.
 		/// </value>
 		IList<string> StringTableFiles { get; }
-		
+
 		/// <summary>
 		/// Gets or sets a value indicating whether site title postfix should be set automatically
 		/// </summary>
@@ -108,6 +108,11 @@ namespace AcspNet
 		/// <c>true</c> if string table memory cache enabled; otherwise, <c>false</c>.
 		/// </value>
 		bool StringTableMemoryCache { get; }
+
+		/// <summary>
+		/// Gets a value indicating whether file reader caching should be disable.
+		/// </summary>
+		bool DisableFileReaderCache { get; }
 
 		/// <summary>
 		/// Gets a value indicating whether console tracing is enabled.

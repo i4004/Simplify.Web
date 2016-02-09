@@ -642,8 +642,13 @@ namespace AcspNet.Bootstrapper
 		public virtual void RegisterFileReader()
 		{
 			DIContainer.Current.Register<IFileReader>(
-				p => new FileReader(p.Resolve<IEnvironment>().DataPhysicalPath, p.Resolve<IAcspNetSettings>().DefaultLanguage,
-					p.Resolve<ILanguageManagerProvider>()));
+				p =>
+				{
+					var settings = p.Resolve<IAcspNetSettings>();
+
+					return new FileReader(p.Resolve<IEnvironment>().DataPhysicalPath, p.Resolve<IAcspNetSettings>().DefaultLanguage,
+						p.Resolve<ILanguageManagerProvider>(), settings.DisableFileReaderCache);
+				});
 		}
 
 		/// <summary>
