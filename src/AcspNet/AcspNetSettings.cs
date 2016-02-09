@@ -76,7 +76,7 @@ namespace AcspNet
 		/// <value>
 		/// The static files paths.
 		/// </value>
-		public IList<string> StaticFilesPaths { get; private set; }
+		public IList<string> StaticFilesPaths { get; }
 
 		/// <summary>
 		/// Gets the string table files.
@@ -84,7 +84,7 @@ namespace AcspNet
 		/// <value>
 		/// The string table files.
 		/// </value>
-		public IList<string> StringTableFiles { get; private set; }
+		public IList<string> StringTableFiles { get; }
 
 		/// <summary>
 		/// Gets or sets a value indicating whether site title postfix should be set automatically
@@ -111,6 +111,11 @@ namespace AcspNet
 		/// <c>true</c> if string table memory cache enabled; otherwise, <c>false</c>.
 		/// </value>
 		public bool StringTableMemoryCache { get; private set; }
+
+		/// <summary>
+		/// Gets a value indicating whether file reader caching should be disable.
+		/// </summary>
+		public bool DisableFileReaderCache { get; private set; }
 
 		/// <summary>
 		/// Gets a value indicating whether console tracing is enabled.
@@ -154,7 +159,7 @@ namespace AcspNet
 			LoadDataCollectorSettings(config);
 			LoadStyleSettings(config);
 			LoadOtherSettings(config);
-			LoadEngineBehaviourSettings(config);
+			LoadEngineBehaviorSettings(config);
 			LoadCacheSettings(config);
 			LoadDiagnosticSettings(config);
 		}
@@ -230,7 +235,7 @@ namespace AcspNet
 			}		
 		}
 
-		private void LoadEngineBehaviourSettings(NameValueCollection config)
+		private void LoadEngineBehaviorSettings(NameValueCollection config)
 		{
 			if (!string.IsNullOrEmpty(config["DisableAutomaticSiteTitleSet"]))
 			{
@@ -265,6 +270,14 @@ namespace AcspNet
 
 				if (bool.TryParse(config["StringTableMemoryCache"], out buffer))
 					StringTableMemoryCache = buffer;
+			}
+
+			if (!string.IsNullOrEmpty(config["DisableFileReaderCache"]))
+			{
+				bool buffer;
+
+				if (bool.TryParse(config["DisableFileReaderCache"], out buffer))
+					DisableFileReaderCache = buffer;
 			}
 		}
 		
