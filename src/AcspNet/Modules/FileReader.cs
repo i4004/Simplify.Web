@@ -18,7 +18,7 @@ namespace AcspNet.Modules
 		private readonly string _dataPhysicalPath;
 		private readonly string _defaultLanguage;
 		private readonly ILanguageManagerProvider _languageManagerProvider;
-		//private readonly bool _disableCache;
+		private readonly bool _disableCache;
 
 		private ILanguageManager _languageManager;
 		private static IFileSystem _fileSystemInstance;
@@ -35,7 +35,7 @@ namespace AcspNet.Modules
 			_dataPhysicalPath = dataPhysicalPath;
 			_defaultLanguage = defaultLanguage;
 			_languageManagerProvider = languageManagerProvider;
-			//_disableCache = disableCache;
+			_disableCache = disableCache;
 		}
 
 		/// <summary>
@@ -134,7 +134,7 @@ namespace AcspNet.Modules
 		/// </returns>
 		public XDocument LoadXDocument(string fileName, string language, bool memoryCache = false)
 		{
-			if (!memoryCache)
+			if (!memoryCache || _disableCache)
 			{
 				var filePath = GetFilePath(fileName, language);
 
@@ -201,7 +201,7 @@ namespace AcspNet.Modules
 		/// </returns>
 		public string LoadTextDocument(string fileName, string language, bool memoryCache = false)
 		{
-			if (!memoryCache)
+			if (!memoryCache || _disableCache)
 			{
 				var filePath = GetFilePath(fileName, language);
 
