@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO.Abstractions;
+using System.Xml.Linq;
 using AcspNet.Modules;
 using Moq;
 using NUnit.Framework;
+using Simplify.Xml;
 
 namespace AcspNet.Tests.Modules
 {
@@ -14,7 +16,7 @@ namespace AcspNet.Tests.Modules
 		private Mock<ILanguageManagerProvider> _languageManagerProvider;
 		private Mock<ILanguageManager> _languageManager;
 
-		private readonly Mock<IFileSystem> _fs = new Mock<IFileSystem>();
+		private Mock<IFileSystem> _fs;
 
 		private FileReader _fileReader;
 
@@ -27,12 +29,27 @@ namespace AcspNet.Tests.Modules
 			_languageManagerProvider.Setup(x => x.Get()).Returns(_languageManager.Object);
 			_languageManager.SetupGet(x => x.Language).Returns("ru");
 
+			_fs = new Mock<IFileSystem>();
+
+			_fs.Setup(x => x.File.ReadAllText(It.Is<string>(d => d == "C:/WebSites/FooSite/App_Data/Foo.en.xml")))
+				.Returns("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Title\" /></items>");
+
+			// ReSharper disable once StringLiteralTypo
+			_fs.Setup(x => x.File.ReadAllText(It.Is<string>(d => d == "C:/WebSites/FooSite/App_Data/Foo.ru.xml")))
+				.Returns("<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Заголовок\" /></items>");
+
 			_fs.Setup(x => x.File.ReadAllText(It.Is<string>(d => d == "C:/WebSites/FooSite/App_Data/Foo.en.txt")))
 				.Returns("Dummy");
 
 			// ReSharper disable once StringLiteralTypo
 			_fs.Setup(x => x.File.ReadAllText(It.Is<string>(d => d == "C:/WebSites/FooSite/App_Data/Foo.ru.txt")))
 				.Returns("Тест");
+
+			_fs.Setup(x => x.File.Exists(It.Is<string>(d => d == "C:/WebSites/FooSite/App_Data/Foo.en.xml")))
+				.Returns(true);
+
+			_fs.Setup(x => x.File.Exists(It.Is<string>(d => d == "C:/WebSites/FooSite/App_Data/Foo.ru.xml")))
+				.Returns(true);
 
 			_fs.Setup(x => x.File.Exists(It.Is<string>(d => d == "C:/WebSites/FooSite/App_Data/Foo.en.txt")))
 				.Returns(true);
@@ -45,6 +62,8 @@ namespace AcspNet.Tests.Modules
 			_fileReader = new FileReader(DataPath, "en", _languageManagerProvider.Object);
 			_fileReader.Setup();
 		}
+
+		#region General
 
 		[Test]
 		public void FileSystem_NullsPassed_ArgumentNullExceptionThrown()
@@ -64,6 +83,10 @@ namespace AcspNet.Tests.Modules
 			Assert.Throws<ArgumentNullException>(() => _fileReader.GetFilePath("File", null));
 		}
 
+		#endregion
+
+		#region GetFilePath
+
 		[Test]
 		public void GetFilePath_CommonFile_PathIsCorrect()
 		{
@@ -79,6 +102,103 @@ namespace AcspNet.Tests.Modules
 		{
 			// Act & Assert
 			Assert.AreEqual("C:/WebSites/FooSite/App_Data/MyProject/Foo.en", _fileReader.GetFilePath("MyProject/Foo", "en"));
+		}
+
+		#endregion
+
+		#region LoadXDocument
+
+		[Test]
+		public void LoadXDocument_FileNotExist_Null()
+		{
+			// Assign
+			_fs.Setup(x => x.File.Exists(It.IsAny<string>())).Returns(false);
+
+			// Act & Assert
+			Assert.IsNull(_fileReader.LoadTextDocument("Foo.xml"));
+		}
+
+		[Test]
+		public void LoadXDocument_FileExist_Loaded()
+		{
+			// Act & Assert
+			Assert.AreEqual(
+				XDocument.Parse(
+					"<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Заголовок\" /></items>")
+					.Root.OuterXml(), _fileReader.LoadXDocument("Foo.xml").Root.OuterXml());
+		}
+
+		[Test]
+		public void LoadXDocument_FileNotExistButDefaultFileExist_DefaultFile()
+		{
+			// Assign
+			_fs.Setup(x => x.File.Exists(It.Is<string>(d => d == "C:/WebSites/FooSite/App_Data/Foo.ru.xml"))).Returns(false);
+
+			// Act & Assert
+			Assert.AreEqual(XDocument.Parse(
+					"<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Title\" /></items>")
+					.Root.OuterXml(), _fileReader.LoadXDocument("Foo.xml").Root.OuterXml());
+		}
+
+		[Test]
+		public void LoadXDocument_CacheEnabled_SecondTimeFromCache()
+		{
+			// Assign
+			FileReader.ClearCache();
+
+			// Act
+
+			_fileReader.LoadXDocument("Foo.xml", true);
+
+			_fileReader = new FileReader(DataPath, "en", _languageManagerProvider.Object);
+			_fileReader.Setup();
+
+			var result = _fileReader.LoadXDocument("Foo.xml", true);
+
+			// Assert
+
+			_fs.Verify(x => x.File.ReadAllText(It.IsAny<string>()), Times.Once);
+			Assert.AreEqual(XDocument.Parse(
+					"<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Заголовок\" /></items>")
+					.Root.OuterXml(), result.Root.OuterXml());
+		}
+
+		[Test]
+		public void LoadXDocument_CacheEnabledDefaultFile_DefaultFileFromCache()
+		{
+			// Assign
+			FileReader.ClearCache();
+			_fs.Setup(x => x.File.Exists(It.Is<string>(d => d == "C:/WebSites/FooSite/App_Data/Foo.ru.xml"))).Returns(false);
+
+			// Act
+
+			_fileReader.LoadXDocument("Foo.xml", true);
+
+			_fileReader = new FileReader(DataPath, "en", _languageManagerProvider.Object);
+			_fileReader.Setup();
+
+			var result = _fileReader.LoadXDocument("Foo.xml", true);
+
+			// Assert
+
+			_fs.Verify(x => x.File.ReadAllText(It.IsAny<string>()), Times.Once);
+			Assert.AreEqual(XDocument.Parse(
+					"<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Title\" /></items>")
+					.Root.OuterXml(), result.Root.OuterXml());
+		}
+
+		#endregion
+
+		#region LoadTextDocument
+
+		[Test]
+		public void LoadTextDocument_FileNotExist_Null()
+		{
+			// Assign
+			_fs.Setup(x => x.File.Exists(It.IsAny<string>())).Returns(false);
+
+			// Act & Assert
+			Assert.IsNull(_fileReader.LoadTextDocument("Foo.txt"));
 		}
 
 		[Test]
@@ -99,20 +219,13 @@ namespace AcspNet.Tests.Modules
 			// Act & Assert
 			Assert.AreEqual("Dummy", _fileReader.LoadTextDocument("Foo.txt"));
 		}
-
-		[Test]
-		public void LoadTextDocument_FileNotExist_Null()
-		{
-			// Assign
-			_fs.Setup(x => x.File.Exists(It.IsAny<string>())).Returns(false);
-
-			// Act & Assert
-			Assert.IsNull(_fileReader.LoadTextDocument("Foo.txt"));
-		}
-
+		
 		[Test]
 		public void LoadTextDocument_CacheEnabled_SecondTimeFromCache()
 		{
+			// Assign
+			FileReader.ClearCache();
+
 			// Act
 
 			_fileReader.LoadTextDocument("Foo.txt", true);
@@ -124,7 +237,10 @@ namespace AcspNet.Tests.Modules
 
 			// Assert
 
+
 			_fs.Verify(x => x.File.ReadAllText(It.IsAny<string>()), Times.Once);
+
+			// ReSharper disable once StringLiteralTypo
 			Assert.AreEqual("Тест", result);
 		}
 
@@ -132,6 +248,7 @@ namespace AcspNet.Tests.Modules
 		public void LoadTextDocument_CacheEnabledDefaultFile_DefaultFileFromCache()
 		{
 			// Assign
+			FileReader.ClearCache();
 			_fs.Setup(x => x.File.Exists(It.Is<string>(d => d == "C:/WebSites/FooSite/App_Data/Foo.ru.txt"))).Returns(false);
 
 			// Act
@@ -149,39 +266,6 @@ namespace AcspNet.Tests.Modules
 			Assert.AreEqual("Dummy", result);
 		}
 
-		//[Test]
-		//public void LoadXDocument_FileExist_DocumentLoaded()
-		//{
-		//	// Assign
-
-		//	FileReader.FileSystem = _fs.Object;
-		//	var fileReader = new FileReader(DataPath, "ru", _languageManagerProvider.Object);
-
-		//	// Act
-
-		//	fileReader.Setup();
-		//	var xmlDoc = fileReader.LoadXDocument("FooX");
-		//	var root = xmlDoc.Root;
-
-		//	// Assert
-
-		//	Assert.IsNotNull(root);
-		//	Assert.AreEqual("items", root.Name.ToString());
-		//}
-
-		//[Test]
-		//public void LoadXDocument_FileNotExist_NullReturned()
-		//{
-		//	// Act
-
-		//	FileReader.FileSystem = _fs.Object;
-		//	var fileReader = new FileReader(DataPath, "ru", _languageManagerProvider.Object);
-
-		//	// Act
-		//	fileReader.Setup();
-
-		//	// Act & Assert
-		//	Assert.IsNull(fileReader.LoadXDocument("FooNot.xml"));
-		//}
+		#endregion
 	}
 }

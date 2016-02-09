@@ -126,6 +126,10 @@
       <HintPath>..\packages\Simplify.Templates.1.2.0.0\lib\net45\Simplify.Templates.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Simplify.Xml, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Simplify.Xml.1.0.3.0\lib\net45\Simplify.Xml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.IO.Abstractions, Version=2.0.0.115, Culture=neutral, PublicKeyToken=d480b5b72fb413da, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.Abstractions.2.0.0.115\lib\net40\System.IO.Abstractions.dll</HintPath>
