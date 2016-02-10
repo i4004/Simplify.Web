@@ -37,11 +37,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AcspNet\Simplify.Web.csproj">
+    <ProjectReference Include="..\..\Simplify.Web\Simplify.Web.csproj">
       <Project>{17b12d5c-025a-4fa9-a9b2-1c246e7a6ab4}</Project>
       <Name>Simplify.Web</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AcspNet.Examples.SelfHosted\Simplify.Web.Examples.SelfHosted.csproj">
+    <ProjectReference Include="..\Simplify.Web.Examples.SelfHosted\Simplify.Web.Examples.SelfHosted.csproj">
       <Project>{9d2032e2-6b56-47dd-86ae-901c1b5af004}</Project>
       <Name>Simplify.Web.Examples.SelfHosted</Name>
     </ProjectReference>

@@ -1,4 +1,6 @@
-﻿namespace Simplify.Web.Examples.WindowsService
+﻿using Microsoft.Owin.Hosting;
+
+namespace Simplify.Web.Examples.WindowsService
 {
 	public class WebApplicationStartup
 	{

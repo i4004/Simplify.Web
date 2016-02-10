@@ -265,7 +265,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AcspNet\Simplify.Web.csproj">
+    <ProjectReference Include="..\..\Simplify.Web\Simplify.Web.csproj">
       <Project>{17b12d5c-025a-4fa9-a9b2-1c246e7a6ab4}</Project>
       <Name>Simplify.Web</Name>
     </ProjectReference>

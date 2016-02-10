@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Simplify.Templates;
 
 namespace Simplify.Web.Examples.SelfHosted.Views.Shared
 {

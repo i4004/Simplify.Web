@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
+using Microsoft.AspNet.Identity;
 using Simplify.Web.Attributes;
 using Simplify.Web.Examples.SelfHosted.Models.Accounts;
 using Simplify.Web.Examples.SelfHosted.Views.Accounts;

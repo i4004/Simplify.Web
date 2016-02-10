@@ -1,13 +1,17 @@
-﻿using Simplify.Web.Meta;
+﻿using Owin;
+using Simplify.DI;
+using Simplify.DI.Provider.SimpleInjector;
+using Simplify.Web.Meta;
+using Simplify.Web.Owin;
 
-namespace AcspNet.Examples.Katana
+namespace Simplify.Web.Examples.Nowin
 {
 	public class Startup
 	{
 		public void Configuration(IAppBuilder app)
 		{
 			// Exclude AcspNet from exclude assemblies to be able to load example controllers
-			AcspTypesFinder.ExcludedAssembliesPrefixes.Remove("AcspNet");
+			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Remove("AcspNet");
 
 			DIContainer.Current = new SimpleInjectorDIProvider();
 

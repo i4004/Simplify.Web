@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
+using Simplify.WindowsServices;
 
 namespace Simplify.Web.Examples.WindowsService
 {

@@ -1,4 +1,6 @@
-﻿using Simplify.Web.Examples.SelfHosted.Controllers;
+﻿using Moq;
+using NUnit.Framework;
+using Simplify.Web.Examples.SelfHosted.Controllers;
 using Simplify.Web.Responses;
 
 namespace Simplify.Web.Examples.SelfHosted.Tests.Controllers

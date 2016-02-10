@@ -1,4 +1,5 @@
 ﻿using System.ServiceProcess;
+using Simplify.WindowsServices;
 
 namespace Simplify.Web.Examples.WindowsService
 {

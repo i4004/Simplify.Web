@@ -1,4 +1,5 @@
-﻿using Simplify.Web.Examples.SelfHosted.Models.Accounts;
+﻿using Simplify.Templates;
+using Simplify.Web.Examples.SelfHosted.Models.Accounts;
 
 namespace Simplify.Web.Examples.SelfHosted.Views.Accounts
 {

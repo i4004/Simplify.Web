@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Owin.Hosting;
 
 namespace Simplify.Web.Examples.Nowin
 {
