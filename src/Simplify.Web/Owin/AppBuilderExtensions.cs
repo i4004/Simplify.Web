@@ -5,25 +5,25 @@ using Simplify.Web.Bootstrapper;
 namespace Simplify.Web.Owin
 {
 	/// <summary>
-	/// OWIN IAppBuilder AcspNet extensions
+	/// OWIN IAppBuilder Simplify.Web extensions
 	/// </summary>
 	public static class AppBuilderExtensions
 	{
 		/// <summary>
-		/// Adds AcspNet to OWIN pipeline
+		/// Adds Simplify.Web to OWIN pipeline
 		/// </summary>
 		/// <param name="builder">The OWIN builder.</param>
 		/// <returns></returns>
-		public static IAppBuilder UseAcspNet(this IAppBuilder builder)
+		public static IAppBuilder UseSimplifyWeb(this IAppBuilder builder)
 		{
 			try
 			{
 				BootstrapperFactory.CreateBootstrapper().Register();
-				return builder.Use<AcspNetOwinMiddleware>();
+				return builder.Use<SimplifyWebOwinMiddleware>();
 			}
 			catch (Exception e)
 			{
-				AcspNetOwinMiddleware.ProcessOnException(e);
+				SimplifyWebOwinMiddleware.ProcessOnException(e);
 
 				throw;
 			}

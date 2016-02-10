@@ -15,8 +15,8 @@ namespace Simplify.Web.Examples.SelfHosted
 	{
 		public void Configuration(IAppBuilder app)
 		{
-			// Exclude AcspNet from exclude assemblies to be able to load example controllers
-			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Remove("AcspNet");
+			// Exclude Simplify.Web from exclude assemblies to be able to load example controllers
+			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Remove("Simplify.Web");
 
 			var provider = new SimpleInjectorDIProvider();
 			DIContainer.Current = provider;
@@ -29,11 +29,11 @@ namespace Simplify.Web.Examples.SelfHosted
 
 			app.UseAesDataProtectorProvider();
 
-			app.UseAcspNet();
+			app.UseSimplifyWeb();
 
 			provider.Container.Verify();
 
-			AcspNetOwinMiddleware.OnException += Ex;
+			SimplifyWebOwinMiddleware.OnException += Ex;
 		}
 
 		private static void Ex(Exception e)

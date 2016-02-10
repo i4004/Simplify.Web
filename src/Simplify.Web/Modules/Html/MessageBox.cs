@@ -5,12 +5,12 @@ namespace Simplify.Web.Modules.Html
 	/// <summary>
 	/// The HTML message box
 	/// Usable template files:
-	/// "AcspNet/MessageBox/InfoMessageBox.tpl"
-	/// "AcspNet/MessageBox/ErrorMessageBox.tpl"
-	/// "AcspNet/MessageBox/OkMessageBox.tpl"
-	/// "AcspNet/MessageBox/InlineInfoMessageBox.tpl"
-	/// "AcspNet/MessageBox/InlineErrorMessageBox.tpl"
-	/// "AcspNet/MessageBox/InlineOkMessageBox.tpl"
+	/// "Simplify.Web/MessageBox/InfoMessageBox.tpl"
+	/// "Simplify.Web/MessageBox/ErrorMessageBox.tpl"
+	/// "Simplify.Web/MessageBox/OkMessageBox.tpl"
+	/// "Simplify.Web/MessageBox/InlineInfoMessageBox.tpl"
+	/// "Simplify.Web/MessageBox/InlineErrorMessageBox.tpl"
+	/// "Simplify.Web/MessageBox/InlineOkMessageBox.tpl"
 	/// Usable <see cref="StringTable"/> items:
 	/// "FormTitleMessageBox"
 	/// Template variables:
@@ -19,7 +19,7 @@ namespace Simplify.Web.Modules.Html
 	/// </summary>
 	public sealed class MessageBox : IMessageBox
 	{
-		private const string MessageBoxTemplatesPath = "AcspNet/MessageBox/";
+		private const string MessageBoxTemplatesPath = "Simplify.Web/MessageBox/";
 
 		private readonly ITemplateFactory _templateFactory;
 		private readonly IStringTable _stringTable;

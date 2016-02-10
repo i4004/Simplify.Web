@@ -3,7 +3,7 @@
 namespace Simplify.Web
 {
 	/// <summary>
-	/// AcspNet asynchronous controllers base class
+	/// Asynchronous controllers base class
 	/// </summary>
 	public abstract class AsyncControllerBase : ControllerBase
 	{

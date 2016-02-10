@@ -1,7 +1,7 @@
 ﻿namespace Simplify.Web
 {
 	/// <summary>
-	/// AcspNet controllers base class
+	/// Controllers base class
 	/// </summary>
 	public abstract class ControllerBase : ActionModulesAccessor
 	{

@@ -3,7 +3,7 @@
 namespace Simplify.Web
 {
 	/// <summary>
-	/// Represent AcspNet settings
+	/// Represent Simplify.Web settings
 	/// </summary>
 	public interface ISimplifyWebSettings : IHideObjectMembers
 	{

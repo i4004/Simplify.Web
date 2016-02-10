@@ -168,7 +168,7 @@
     <Compile Include="Modules\Redirector.cs" />
     <Compile Include="Modules\StringTable.cs" />
     <Compile Include="Modules\TemplateFactory.cs" />
-    <Compile Include="Owin\AcspNetOwinMiddleware.cs" />
+    <Compile Include="Owin\SimplifyWebOwinMiddleware.cs" />
     <Compile Include="Owin\AppBuilderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Responses\Ajax.cs" />

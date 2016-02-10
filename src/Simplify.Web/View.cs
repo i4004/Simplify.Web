@@ -1,7 +1,7 @@
 ﻿namespace Simplify.Web
 {
 	/// <summary>
-	/// AcspNet view base class 
+	/// View base class 
 	/// </summary>
 	public abstract class View : ModulesAccessor
 	{

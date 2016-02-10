@@ -6,7 +6,7 @@ using System.Configuration;
 namespace Simplify.Web
 {
 	/// <summary>
-	/// AcspNet settings
+	/// Simplify.Web settings
 	/// </summary>
 	public sealed class SimplifyWebSettings : ISimplifyWebSettings
 	{

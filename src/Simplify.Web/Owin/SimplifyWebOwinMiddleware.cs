@@ -11,26 +11,26 @@ using Simplify.Web.Modules;
 namespace Simplify.Web.Owin
 {
 	/// <summary>
-	/// AcspNet catched exceptions delegate
+	/// Catched exceptions delegate
 	/// </summary>
 	/// <param name="e">The e.</param>
 	public delegate void ExceptionEventHandler(Exception e);
 
 	/// <summary>
-	/// AcspNet trace delegate
+	/// HTTP requests trace delegate
 	/// </summary>
 	public delegate void TraceEventHandler(IOwinContext context);
 
 	/// <summary>
-	/// AcspNet engine root
+	/// Simplify.Web engine root
 	/// </summary>
-	public class AcspNetOwinMiddleware : OwinMiddleware
+	public class SimplifyWebOwinMiddleware : OwinMiddleware
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="AcspNetOwinMiddleware"/> class.
+		/// Initializes a new instance of the <see cref="SimplifyWebOwinMiddleware"/> class.
 		/// </summary>
 		/// <param name="next">The next middleware.</param>
-		public AcspNetOwinMiddleware(OwinMiddleware next)
+		public SimplifyWebOwinMiddleware(OwinMiddleware next)
 			: base(next)
 		{
 		}

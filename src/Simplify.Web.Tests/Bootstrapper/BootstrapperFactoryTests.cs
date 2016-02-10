@@ -8,12 +8,12 @@ namespace Simplify.Web.Tests.Bootstrapper
 	public class BootstrapperFactoryTests
 	{
 		[Test]
-		public void CreateBootstrapper_NoUserType_BaseAcspNetBootstrapperReturned()
+		public void CreateBootstrapper_NoUserType_BaseBootstrapperReturned()
 		{
 			// Assign
 
-			if(!SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Contains("AcspNet"))
-				SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Add("AcspNet");
+			if(!SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Contains("Simplify.Web"))
+				SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Add("Simplify.Web");
 
 			SimplifyWebTypesFinder.CleanLoadedTypesAndAssembliesInfo();
 
@@ -22,7 +22,7 @@ namespace Simplify.Web.Tests.Bootstrapper
 
 			// Assert
 
-			Assert.AreEqual("AcspNet.Bootstrapper.BaseAcspNetBootstrapper", bootstrapper.GetType().FullName);
+			Assert.AreEqual("Simplify.Web.Bootstrapper.BaseBootstrapper", bootstrapper.GetType().FullName);
 		}
 
 		[Test]
@@ -30,7 +30,7 @@ namespace Simplify.Web.Tests.Bootstrapper
 		{
 			// Assign
 
-			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Remove("AcspNet");
+			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Remove("Simplify.Web");
 			SimplifyWebTypesFinder.CleanLoadedTypesAndAssembliesInfo();
 
 			// Act
@@ -38,7 +38,7 @@ namespace Simplify.Web.Tests.Bootstrapper
 
 			// Assert
 
-			Assert.AreEqual("AcspNet.Tests.TestEntities.TestBootstrapper", bootstrapper.GetType().FullName);
+			Assert.AreEqual("Simplify.Web.Tests.TestEntities.TestBootstrapper", bootstrapper.GetType().FullName);
 		}
 	}
 }

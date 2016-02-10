@@ -8,7 +8,7 @@ namespace Simplify.Web
 	public class ActionModulesAccessor : ModulesAccessor
 	{
 		/// <summary>
-		/// Current AcspNet context
+		/// Current web context
 		/// </summary>
 		public virtual IWebContext Context { get; internal set; }
 

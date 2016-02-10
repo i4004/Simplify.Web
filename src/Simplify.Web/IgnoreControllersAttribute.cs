@@ -3,7 +3,7 @@
 namespace Simplify.Web
 {
 	/// <summary>
-	/// Specify controllers types which should be ignored by AcspNet
+	/// Specify controllers types which should be ignored by Simplify.Web
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class)]
 	public class IgnoreControllersAttribute : Attribute
@@ -19,7 +19,7 @@ namespace Simplify.Web
 		/// <summary>
 		/// Initializes a new instance of the <see cref="IgnoreControllersAttribute"/> class.
 		/// </summary>
-		/// <param name="types">Controllers types which should be ignored by AcspNet</param>
+		/// <param name="types">Controllers types which should be ignored by Simplify.Web</param>
 		public IgnoreControllersAttribute(params Type[] types)
 		{
 			Types = types;

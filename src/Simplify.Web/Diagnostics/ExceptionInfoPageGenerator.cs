@@ -25,7 +25,7 @@ namespace Simplify.Web.Diagnostics
 
 			var tpl = Template.FromManifest("Diagnostics.ExceptionInfoPage.html");
 
-			tpl.Set("AcspNetVersion", new AssemblyInfo(Assembly.GetCallingAssembly()).Version);
+			tpl.Set("Simplify.Web.Version", new AssemblyInfo(Assembly.GetCallingAssembly()).Version);
 
 			if (hideExceptionDetails)
 			{

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <items>
-	<item name="SiteTitle" value="AcspNet example application" />
+	<item name="SiteTitle" value="Simplify.Web example application" />
 	
 	<item name="PageTitleAbout" value="About Page" />
 	<item name="PageTitleLogin" value="Login" />

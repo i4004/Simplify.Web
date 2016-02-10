@@ -15,7 +15,7 @@ namespace Simplify.Web.Tests.Meta
 		{
 			// Assign
 
-			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Remove("AcspNet");
+			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Remove("Simplify.Web");
 			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Add("DynamicProxyGenAssembly2");
 			SimplifyWebTypesFinder.CleanLoadedTypesAndAssembliesInfo();
 

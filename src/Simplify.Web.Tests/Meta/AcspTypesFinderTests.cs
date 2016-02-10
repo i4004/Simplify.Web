@@ -9,18 +9,18 @@ namespace Simplify.Web.Tests.Meta
 	public class AcspTypesFinderTests
 	{
 		[Test]
-		public void FindTypeDerivedFrom_BaseAcspNetBootstrapper_TestBootstrapperReturned()
+		public void FindTypeDerivedFrom_BaseBootstrapper_TestBootstrapperReturned()
 		{
 			// Assign
 
-			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Remove("AcspNet");
+			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Remove("Simplify.Web");
 			SimplifyWebTypesFinder.CleanLoadedTypesAndAssembliesInfo();
 
 			// Act
 			var type = SimplifyWebTypesFinder.FindTypeDerivedFrom<BaseBootstrapper>();
 
 			// Assert
-			Assert.AreEqual("AcspNet.Tests.TestEntities.TestBootstrapper", type.FullName);
+			Assert.AreEqual("Simplify.Web.Tests.TestEntities.TestBootstrapper", type.FullName);
 		}
 
 		[Test]
@@ -38,7 +38,7 @@ namespace Simplify.Web.Tests.Meta
 		{
 			// Assign
 
-			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Remove("AcspNet");
+			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Remove("Simplify.Web");
 			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Add("DynamicProxyGenAssembly2");
 			SimplifyWebTypesFinder.CleanLoadedTypesAndAssembliesInfo();
 
@@ -50,9 +50,9 @@ namespace Simplify.Web.Tests.Meta
 
 			Assert.AreEqual(2, types.Count);
 			Assert.AreEqual(1, types2.Count);
-			Assert.AreEqual("AcspNet.Tests.TestEntities.TestController1", types[0].FullName);
-			Assert.AreEqual("AcspNet.Tests.TestEntities.TestController3", types[1].FullName);
-			Assert.AreEqual("AcspNet.Tests.TestEntities.TestController2", types2[0].FullName);
+			Assert.AreEqual("Simplify.Web.Tests.TestEntities.TestController1", types[0].FullName);
+			Assert.AreEqual("Simplify.Web.Tests.TestEntities.TestController3", types[1].FullName);
+			Assert.AreEqual("Simplify.Web.Tests.TestEntities.TestController2", types2[0].FullName);
 		}
 
 		[Test]

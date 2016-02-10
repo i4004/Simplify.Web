@@ -4,7 +4,7 @@ using Simplify.Web.ModelBinding;
 namespace Simplify.Web
 {
 	/// <summary>
-	/// AcspNet asynchronous model controllers base class
+	/// Asynchronous model controllers base class
 	/// </summary>
 	public abstract class AsyncController<T> : AsyncControllerBase
 		where T : class
