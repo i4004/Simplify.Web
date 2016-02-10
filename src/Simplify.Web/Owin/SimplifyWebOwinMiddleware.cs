@@ -71,13 +71,13 @@ namespace Simplify.Web.Owin
 
 					// Setup providers
 
-					var acspNetContextProvider = scope.Container.Resolve<IWebContextProvider>();
+					var webContextProvider = scope.Container.Resolve<IWebContextProvider>();
 					var languageManagerProvider = scope.Container.Resolve<ILanguageManagerProvider>();
 					var templateFactory = scope.Container.Resolve<ITemplateFactory>();
 					var fileReader = scope.Container.Resolve<IFileReader>();
 					var stringTable = scope.Container.Resolve<IStringTable>();
 
-					acspNetContextProvider.Setup(context);
+					webContextProvider.Setup(context);
 					languageManagerProvider.Setup(context);
 					templateFactory.Setup();
 					fileReader.Setup();

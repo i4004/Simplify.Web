@@ -42,7 +42,7 @@
     <Compile Include="Core\RequestHandlerTests.cs" />
     <Compile Include="Core\StaticFilesRequestHandlerTest.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGeneratorTests.cs" />
-    <Compile Include="Meta\AcspTypesFinderTests.cs" />
+    <Compile Include="Meta\SimplifyWebTypesFinderTests.cs" />
     <Compile Include="Meta\ControllersMetaDataFactoryTests.cs" />
     <Compile Include="Meta\ControllersMetaStoreTests.cs" />
     <Compile Include="ModelBinding\Binders\Parsers\ArrayToSpecifiedListParserTests.cs" />
