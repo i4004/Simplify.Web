@@ -8,7 +8,7 @@ namespace Simplify.Web.Examples.WindowsService
 		static void Main()
 		{
 #if DEBUG
-			System.Diagnostics.Debugger.Launch();
+			global::System.Diagnostics.Debugger.Launch();
 #endif
 
 			ServiceBase.Run(new BasicServiceHandler<WebApplicationStartup>(true));
