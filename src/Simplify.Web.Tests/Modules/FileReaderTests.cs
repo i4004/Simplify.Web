@@ -1,6 +1,10 @@
 ﻿using System;
+using System.IO.Abstractions;
 using System.Xml.Linq;
+using Moq;
+using NUnit.Framework;
 using Simplify.Web.Modules;
+using Simplify.Xml;
 
 namespace Simplify.Web.Tests.Modules
 {

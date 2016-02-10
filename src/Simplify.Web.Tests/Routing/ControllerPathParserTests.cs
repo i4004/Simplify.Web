@@ -1,4 +1,5 @@
-﻿using Simplify.Web.Routing;
+﻿using NUnit.Framework;
+using Simplify.Web.Routing;
 
 namespace Simplify.Web.Tests.Routing
 {

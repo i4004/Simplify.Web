@@ -1,4 +1,7 @@
-﻿using Simplify.Web.Modules;
+﻿using Moq;
+using NUnit.Framework;
+using Simplify.Templates;
+using Simplify.Web.Modules;
 
 namespace Simplify.Web.Tests.Modules
 {

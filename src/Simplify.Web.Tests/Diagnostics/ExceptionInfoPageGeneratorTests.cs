@@ -1,4 +1,5 @@
 ﻿using System;
+using NUnit.Framework;
 using Simplify.Web.Diagnostics;
 
 namespace Simplify.Web.Tests.Diagnostics

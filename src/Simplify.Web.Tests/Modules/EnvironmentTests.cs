@@ -1,4 +1,5 @@
-﻿using Simplify.Web.Modules;
+﻿using NUnit.Framework;
+using Simplify.Web.Modules;
 
 namespace Simplify.Web.Tests.Modules
 {

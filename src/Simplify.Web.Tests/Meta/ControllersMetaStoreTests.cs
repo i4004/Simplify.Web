@@ -1,4 +1,6 @@
 ﻿using System;
+using Moq;
+using NUnit.Framework;
 using Simplify.Web.Meta;
 using Simplify.Web.Tests.TestEntities;
 
@@ -13,9 +15,9 @@ namespace Simplify.Web.Tests.Meta
 		{
 			// Assign
 
-			AcspTypesFinder.ExcludedAssembliesPrefixes.Remove("AcspNet");
-			AcspTypesFinder.ExcludedAssembliesPrefixes.Add("DynamicProxyGenAssembly2");
-			AcspTypesFinder.CleanLoadedTypesAndAssenbliesInfo();
+			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Remove("AcspNet");
+			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Add("DynamicProxyGenAssembly2");
+			SimplifyWebTypesFinder.CleanLoadedTypesAndAssembliesInfo();
 
 			var factory = new Mock<IControllerMetaDataFactory>();
 			var store = new ControllersMetaStore(factory.Object);

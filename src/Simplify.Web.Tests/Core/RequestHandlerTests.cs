@@ -1,4 +1,8 @@
-﻿using Simplify.Web.Core;
+﻿using Microsoft.Owin;
+using Moq;
+using NUnit.Framework;
+using Simplify.DI;
+using Simplify.Web.Core;
 
 namespace Simplify.Web.Tests.Core
 {

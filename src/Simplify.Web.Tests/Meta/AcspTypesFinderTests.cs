@@ -1,4 +1,5 @@
-﻿using Simplify.Web.Bootstrapper;
+﻿using NUnit.Framework;
+using Simplify.Web.Bootstrapper;
 using Simplify.Web.Meta;
 using Simplify.Web.Tests.TestEntities;
 
@@ -12,11 +13,11 @@ namespace Simplify.Web.Tests.Meta
 		{
 			// Assign
 
-			AcspTypesFinder.ExcludedAssembliesPrefixes.Remove("AcspNet");
-			AcspTypesFinder.CleanLoadedTypesAndAssenbliesInfo();
+			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Remove("AcspNet");
+			SimplifyWebTypesFinder.CleanLoadedTypesAndAssembliesInfo();
 
 			// Act
-			var type = AcspTypesFinder.FindTypeDerivedFrom<BaseAcspNetBootstrapper>();
+			var type = SimplifyWebTypesFinder.FindTypeDerivedFrom<BaseBootstrapper>();
 
 			// Assert
 			Assert.AreEqual("AcspNet.Tests.TestEntities.TestBootstrapper", type.FullName);
@@ -26,7 +27,7 @@ namespace Simplify.Web.Tests.Meta
 		public void FindTypeDerivedFrom_NoDerivedTypes_NullReturned()
 		{
 			// Act
-			var type = AcspTypesFinder.FindTypeDerivedFrom<TestBootstrapper>();
+			var type = SimplifyWebTypesFinder.FindTypeDerivedFrom<TestBootstrapper>();
 
 			// Assert
 			Assert.IsNull(type);
@@ -37,13 +38,13 @@ namespace Simplify.Web.Tests.Meta
 		{
 			// Assign
 
-			AcspTypesFinder.ExcludedAssembliesPrefixes.Remove("AcspNet");
-			AcspTypesFinder.ExcludedAssembliesPrefixes.Add("DynamicProxyGenAssembly2");
-			AcspTypesFinder.CleanLoadedTypesAndAssenbliesInfo();
+			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Remove("AcspNet");
+			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Add("DynamicProxyGenAssembly2");
+			SimplifyWebTypesFinder.CleanLoadedTypesAndAssembliesInfo();
 
 			// Act
-			var types = AcspTypesFinder.FindTypesDerivedFrom<Controller>();
-			var types2 = AcspTypesFinder.FindTypesDerivedFrom<AsyncController>();
+			var types = SimplifyWebTypesFinder.FindTypesDerivedFrom<Controller>();
+			var types2 = SimplifyWebTypesFinder.FindTypesDerivedFrom<AsyncController>();
 
 			// Assert
 
@@ -58,7 +59,7 @@ namespace Simplify.Web.Tests.Meta
 		public void FindTypesDerivedFrom_NoDerivedTypes_NullReturned()
 		{
 			// Act
-			var types = AcspTypesFinder.FindTypesDerivedFrom<TestBootstrapper>();
+			var types = SimplifyWebTypesFinder.FindTypesDerivedFrom<TestBootstrapper>();
 
 			// Assert
 			Assert.AreEqual(0, types.Count);

@@ -1,4 +1,7 @@
-﻿using Simplify.Web.Modules;
+﻿using Microsoft.Owin;
+using Moq;
+using NUnit.Framework;
+using Simplify.Web.Modules;
 using Simplify.Web.Responses;
 
 namespace Simplify.Web.Tests.Responses
@@ -6,13 +9,13 @@ namespace Simplify.Web.Tests.Responses
 	[TestFixture]
 	public class FileTests
 	{
-		private Mock<IAcspNetContext> _context;
+		private Mock<IWebContext> _context;
 		private Mock<IHeaderDictionary> _headerDictionary;
 
 		[SetUp]
 		public void Initialize()
 		{
-			_context = new Mock<IAcspNetContext>();
+			_context = new Mock<IWebContext>();
 			_headerDictionary = new Mock<IHeaderDictionary>();
 
 			_context.SetupGet(x => x.Response.Headers).Returns(_headerDictionary.Object);

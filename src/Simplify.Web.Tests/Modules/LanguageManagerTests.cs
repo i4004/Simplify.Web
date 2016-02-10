@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Owin;
+using Moq;
+using NUnit.Framework;
 using Simplify.Web.Modules;
 
 namespace Simplify.Web.Tests.Modules

@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{785266
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplify.Web", "Simplify.Web\Simplify.Web.csproj", "{17B12D5C-025A-4FA9-A9B2-1C246E7A6AB4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplify.Web.Tests", "Simplify.Web.Tests\Simplify.Web.Tests.csproj", "{6B905D63-6CA1-455D-BD71-9608C32FB309}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{17B12D5C-025A-4FA9-A9B2-1C246E7A6AB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17B12D5C-025A-4FA9-A9B2-1C246E7A6AB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17B12D5C-025A-4FA9-A9B2-1C246E7A6AB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B905D63-6CA1-455D-BD71-9608C32FB309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B905D63-6CA1-455D-BD71-9608C32FB309}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B905D63-6CA1-455D-BD71-9608C32FB309}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B905D63-6CA1-455D-BD71-9608C32FB309}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

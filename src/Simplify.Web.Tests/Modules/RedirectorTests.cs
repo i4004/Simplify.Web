@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Owin;
+using Moq;
+using NUnit.Framework;
 using Simplify.Web.Modules;
 
 namespace Simplify.Web.Tests.Modules
@@ -7,14 +10,14 @@ namespace Simplify.Web.Tests.Modules
 	[TestFixture]
 	public class RedirectorTests
 	{
-		private Mock<IAcspNetContext> _context;
+		private Mock<IWebContext> _context;
 		private Redirector _redirector;
 		private Mock<IHeaderDictionary> _headerDictionary;
 
 		[SetUp]
 		public void Initialize()
 		{
-			_context = new Mock<IAcspNetContext>();
+			_context = new Mock<IWebContext>();
 			_redirector = new Redirector(_context.Object);
 			_headerDictionary = new Mock<IHeaderDictionary>();
 

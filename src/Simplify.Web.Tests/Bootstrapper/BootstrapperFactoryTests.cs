@@ -1,4 +1,5 @@
-﻿using Simplify.Web.Bootstrapper;
+﻿using NUnit.Framework;
+using Simplify.Web.Bootstrapper;
 using Simplify.Web.Meta;
 
 namespace Simplify.Web.Tests.Bootstrapper
@@ -11,10 +12,10 @@ namespace Simplify.Web.Tests.Bootstrapper
 		{
 			// Assign
 
-			if(!AcspTypesFinder.ExcludedAssembliesPrefixes.Contains("AcspNet"))
-				AcspTypesFinder.ExcludedAssembliesPrefixes.Add("AcspNet");
+			if(!SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Contains("AcspNet"))
+				SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Add("AcspNet");
 
-			AcspTypesFinder.CleanLoadedTypesAndAssenbliesInfo();
+			SimplifyWebTypesFinder.CleanLoadedTypesAndAssembliesInfo();
 
 			// Act
 			var bootstrapper = BootstrapperFactory.CreateBootstrapper();
@@ -29,8 +30,8 @@ namespace Simplify.Web.Tests.Bootstrapper
 		{
 			// Assign
 
-			AcspTypesFinder.ExcludedAssembliesPrefixes.Remove("AcspNet");
-			AcspTypesFinder.CleanLoadedTypesAndAssenbliesInfo();
+			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Remove("AcspNet");
+			SimplifyWebTypesFinder.CleanLoadedTypesAndAssembliesInfo();
 
 			// Act
 			var bootstrapper = BootstrapperFactory.CreateBootstrapper();

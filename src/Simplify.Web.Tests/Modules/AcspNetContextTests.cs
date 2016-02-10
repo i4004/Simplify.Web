@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Owin;
+using Moq;
+using NUnit.Framework;
 using Simplify.Web.Modules;
 
 namespace Simplify.Web.Tests.Modules
 {
 	[TestFixture]
-	public class AcspNetContextTests
+	public class WebContextTests
 	{
 		private Mock<IOwinContext> _owinContext;
 
@@ -27,7 +30,7 @@ namespace Simplify.Web.Tests.Modules
 		public void Constructor_NormalContext_SetCorrectly()
 		{
 			// Act
-			var context = new AcspNetContext(_owinContext.Object);
+			var context = new WebContext(_owinContext.Object);
 
 			// Assert
 
@@ -50,7 +53,7 @@ namespace Simplify.Web.Tests.Modules
 			_owinContext.SetupGet(x => x.Request.PathBase).Returns(new PathString(""));
 
 			// Act
-			var context = new AcspNetContext(_owinContext.Object);
+			var context = new WebContext(_owinContext.Object);
 
 			// Assert
 
@@ -67,7 +70,7 @@ namespace Simplify.Web.Tests.Modules
 			_owinContext.SetupGet(x => x.Request.PathBase).Returns(new PathString(""));
 
 			// Act
-			var context = new AcspNetContext(_owinContext.Object);
+			var context = new WebContext(_owinContext.Object);
 
 			// Assert
 
@@ -83,7 +86,7 @@ namespace Simplify.Web.Tests.Modules
 			_owinContext.SetupGet(x => x.Request.Uri).Returns(new Uri("http://localhost:8080/mywebsite/"));
 
 			// Act
-			var context = new AcspNetContext(_owinContext.Object);
+			var context = new WebContext(_owinContext.Object);
 
 			// Assert
 
@@ -98,7 +101,7 @@ namespace Simplify.Web.Tests.Modules
 			_owinContext.SetupGet(x => x.Request.PathBase).Returns(new PathString(""));
 
 			// Act
-			var context = new AcspNetContext(_owinContext.Object);
+			var context = new WebContext(_owinContext.Object);
 
 			// Assert
 			Assert.AreEqual("", context.VirtualPath);
@@ -113,7 +116,7 @@ namespace Simplify.Web.Tests.Modules
 			_owinContext.SetupGet(x => x.Request.Uri).Returns(new Uri("http://localhost/mywebsite/test?act=foo"));
 
 			// Act
-			var context = new AcspNetContext(_owinContext.Object);
+			var context = new WebContext(_owinContext.Object);
 
 			// Assert
 
@@ -129,7 +132,7 @@ namespace Simplify.Web.Tests.Modules
 			_owinContext.SetupGet(x => x.Request.Uri).Returns(new Uri("http://mywebsite.com"));
 
 			// Act
-			var context = new AcspNetContext(_owinContext.Object);
+			var context = new WebContext(_owinContext.Object);
 
 			// Assert
 
@@ -145,7 +148,7 @@ namespace Simplify.Web.Tests.Modules
 			_owinContext.SetupGet(x => x.Request.Uri).Returns(new Uri("http://mywebsite.com/test/?act=foo"));
 
 			// Act
-			var context = new AcspNetContext(_owinContext.Object);
+			var context = new WebContext(_owinContext.Object);
 
 			// Assert
 
@@ -160,7 +163,7 @@ namespace Simplify.Web.Tests.Modules
 				.Returns(new HeaderDictionary(new Dictionary<string, string[]> {{"X-Requested-With", new [] {"test"}}}));
 
 			// Act
-			var context = new AcspNetContext(_owinContext.Object);
+			var context = new WebContext(_owinContext.Object);
 
 			// Assert
 
@@ -175,7 +178,7 @@ namespace Simplify.Web.Tests.Modules
 			_owinContext.SetupGet(x => x.Request.Path).Returns(new PathString("/test"));
 
 			// Act
-			var context = new AcspNetContext(_owinContext.Object);
+			var context = new WebContext(_owinContext.Object);
 
 			// Assert
 

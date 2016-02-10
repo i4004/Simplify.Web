@@ -2,7 +2,7 @@
 
 namespace Simplify.Web.Tests.TestEntities
 {
-	public class TestBootstrapper : BaseAcspNetBootstrapper
+	public class TestBootstrapper : BaseBootstrapper
 	{	 
 	}
 }

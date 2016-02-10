@@ -1,4 +1,8 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.Owin;
+using Moq;
+using NUnit.Framework;
+using Simplify.DI;
 using Simplify.Web.Core;
 
 namespace Simplify.Web.Tests.Core

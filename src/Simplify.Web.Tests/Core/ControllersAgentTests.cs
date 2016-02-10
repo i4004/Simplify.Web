@@ -2,6 +2,9 @@
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
+using Microsoft.AspNet.Identity;
+using Moq;
+using NUnit.Framework;
 using Simplify.Web.Core;
 using Simplify.Web.Meta;
 using Simplify.Web.Routing;

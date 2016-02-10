@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Owin;
+using Moq;
+using NUnit.Framework;
+using Simplify.DI;
 using Simplify.Web.Core;
 using Simplify.Web.Tests.TestEntities;
 

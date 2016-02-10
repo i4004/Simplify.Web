@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Security.Claims;
+using Microsoft.Owin;
+using Microsoft.Owin.Security;
+using Moq;
+using NUnit.Framework;
+using Simplify.DI;
 using Simplify.Web.Core;
 using Simplify.Web.Meta;
 using Simplify.Web.Routing;

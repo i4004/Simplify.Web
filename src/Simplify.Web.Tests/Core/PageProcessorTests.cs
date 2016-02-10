@@ -1,4 +1,8 @@
 ﻿using System;
+using Microsoft.Owin;
+using Moq;
+using NUnit.Framework;
+using Simplify.DI;
 using Simplify.Web.Core;
 using Simplify.Web.Modules;
 

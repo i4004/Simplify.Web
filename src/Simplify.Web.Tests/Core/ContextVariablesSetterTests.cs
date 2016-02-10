@@ -1,4 +1,8 @@
 ﻿using System;
+using Microsoft.Owin;
+using Moq;
+using NUnit.Framework;
+using Simplify.DI;
 using Simplify.Web.Core;
 using Simplify.Web.Modules;
 
@@ -14,8 +18,8 @@ namespace Simplify.Web.Tests.Core
 		private Mock<IEnvironment> _environment;
 		private Mock<ILanguageManagerProvider> _languageManagerProvider;
 		private Mock<ILanguageManager> _languageManager;
-		private Mock<IAcspNetContextProvider> _contextProvider;
-		private Mock<IAcspNetContext> _context;
+		private Mock<IWebContextProvider> _contextProvider;
+		private Mock<IWebContext> _context;
 		private Mock<IStringTable> _stringTable;
 		private Mock<IStopwatchProvider> _stopwatchProvider;
 		
@@ -30,8 +34,8 @@ namespace Simplify.Web.Tests.Core
 			_environment = new Mock<IEnvironment>();
 			_languageManagerProvider = new Mock<ILanguageManagerProvider>();
 			_languageManager = new Mock<ILanguageManager>();
-			_contextProvider = new Mock<IAcspNetContextProvider>();
-			_context = new Mock<IAcspNetContext>();
+			_contextProvider = new Mock<IWebContextProvider>();
+			_context = new Mock<IWebContext>();
 			_stringTable = new Mock<IStringTable>();
 			_stopwatchProvider = new Mock<IStopwatchProvider>();
 
@@ -52,7 +56,7 @@ namespace Simplify.Web.Tests.Core
 
 			_containerProvider.Setup(x => x.Resolve(It.Is<Type>(d => d == typeof(IEnvironment)))).Returns(_environment.Object);
 			_containerProvider.Setup(x => x.Resolve(It.Is<Type>(d => d == typeof(ILanguageManagerProvider)))).Returns(_languageManagerProvider.Object);
-			_containerProvider.Setup(x => x.Resolve(It.Is<Type>(d => d == typeof(IAcspNetContextProvider)))).Returns(_contextProvider.Object);
+			_containerProvider.Setup(x => x.Resolve(It.Is<Type>(d => d == typeof(IWebContextProvider)))).Returns(_contextProvider.Object);
 			_containerProvider.Setup(x => x.Resolve(It.Is<Type>(d => d == typeof(IStringTable)))).Returns(_stringTable.Object);
 			_containerProvider.Setup(x => x.Resolve(It.Is<Type>(d => d == typeof(IStopwatchProvider)))).Returns(_stopwatchProvider.Object);
 		}

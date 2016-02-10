@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NUnit.Framework;
 using Simplify.Web.ModelBinding;
 using Simplify.Web.ModelBinding.Validation;
 using Simplify.Web.Tests.TestEntities;

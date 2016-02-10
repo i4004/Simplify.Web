@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Moq;
+using NUnit.Framework;
+using Simplify.DI;
+using Simplify.Templates;
 using Simplify.Web.Core;
 using Simplify.Web.Modules;
 

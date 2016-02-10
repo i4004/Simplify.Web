@@ -1,4 +1,7 @@
-﻿using Simplify.Web.Core;
+﻿using Microsoft.Owin;
+using Moq;
+using NUnit.Framework;
+using Simplify.Web.Core;
 using Simplify.Web.Modules;
 using Simplify.Web.Responses;
 
@@ -8,13 +11,13 @@ namespace Simplify.Web.Tests.Responses
 	public class AjaxTests
 	{
 		Mock<IResponseWriter> _responseWriter;
-		private Mock<IAcspNetContext> _context;
+		private Mock<IWebContext> _context;
 
 		[SetUp]
 		public void Initialize()
 		{
 			_responseWriter = new Mock<IResponseWriter>();
-			_context = new Mock<IAcspNetContext>();
+			_context = new Mock<IWebContext>();
 		}
 
 		[Test]

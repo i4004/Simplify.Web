@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
+using Moq;
+using NUnit.Framework;
 using Simplify.Web.Modules;
 
 namespace Simplify.Web.Tests.Modules
