@@ -1,7 +1,7 @@
 <NUnitProject>
 	<Settings activeconfig="Release"/>
 	<Config name="Release">
-		<assembly path="../src/AcspNet.Tests/bin/Release/AcspNet.Tests.dll"/>
-		<assembly path="../src/Examples/AcspNet.Examples.SelfHosted.Tests/bin/Release/AcspNet.Examples.SelfHosted.Tests.dll"/>
+		<assembly path="../src/Simplify.Web.Tests/bin/Release/Simplify.Web.Tests.dll"/>
+		<assembly path="../src/Examples/Simplify.Web.Examples.SelfHosted.Tests/bin/Release/Simplify.Web.Examples.SelfHosted.Tests.dll"/>
 	</Config>
 </NUnitProject>
