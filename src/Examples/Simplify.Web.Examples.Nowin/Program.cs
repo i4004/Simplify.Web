@@ -3,7 +3,7 @@ using Microsoft.Owin.Hosting;
 
 namespace Simplify.Web.Examples.Nowin
 {
-	public class Program
+	class Program
 	{
 		static void Main()
 		{

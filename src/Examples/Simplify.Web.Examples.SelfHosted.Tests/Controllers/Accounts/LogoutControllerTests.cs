@@ -14,7 +14,7 @@ namespace Simplify.Web.Examples.SelfHosted.Tests.Controllers.Accounts
 		{
 			// Assign
 
-			var c = new Mock<LogoutController> {CallBase = true};
+			var c = new Mock<LogoutController> { CallBase = true };
 			var context = new Mock<IWebContext>();
 			context.Setup(x => x.Context.Authentication.SignOut());
 			c.SetupGet(x => x.Context).Returns(context.Object);
