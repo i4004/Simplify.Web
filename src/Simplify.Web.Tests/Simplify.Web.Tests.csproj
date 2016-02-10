@@ -50,7 +50,7 @@
     <Compile Include="ModelBinding\Binders\Parsers\StringToSpecifiedObjectParserTests.cs" />
     <Compile Include="ModelBinding\Validation\ObjectPropertiesValidatorTests.cs" />
     <Compile Include="ModelBinding\Validation\StringValidatorTests.cs" />
-    <Compile Include="Modules\AcspNetContextTests.cs" />
+    <Compile Include="Modules\WebContextTests.cs" />
     <Compile Include="Modules\DataCollectorTests.cs" />
     <Compile Include="Modules\EnvironmentTests.cs" />
     <Compile Include="Modules\FileReaderTests.cs" />
