@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AcspNet.ModelBinding.Attributes
+namespace Simplify.Web.ModelBinding.Attributes
 {
 	/// <summary>
 	/// Sets format for parsing (for example, date time format)

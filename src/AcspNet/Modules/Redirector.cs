@@ -1,7 +1,6 @@
 ﻿using System;
-using AcspNet.Responses;
 
-namespace AcspNet.Modules
+namespace Simplify.Web.Modules
 {
 	/// <summary>
 	/// Provides website redirection manager, which controls current user location, url to previous page and url to specified page

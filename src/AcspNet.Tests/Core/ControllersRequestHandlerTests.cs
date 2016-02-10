@@ -1,11 +1,7 @@
 ﻿using System.Threading.Tasks;
-using AcspNet.Core;
-using Microsoft.Owin;
-using Moq;
-using NUnit.Framework;
-using Simplify.DI;
+using Simplify.Web.Core;
 
-namespace AcspNet.Tests.Core
+namespace Simplify.Web.Tests.Core
 {
 	[TestFixture]
 	public class ControllersRequestHandlerTests

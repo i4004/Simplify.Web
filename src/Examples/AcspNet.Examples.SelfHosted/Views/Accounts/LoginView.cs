@@ -1,7 +1,6 @@
-﻿using AcspNet.Examples.SelfHosted.Models.Accounts;
-using Simplify.Templates;
+﻿using Simplify.Web.Examples.SelfHosted.Models.Accounts;
 
-namespace AcspNet.Examples.SelfHosted.Views.Accounts
+namespace Simplify.Web.Examples.SelfHosted.Views.Accounts
 {
 	public class LoginView : View
 	{

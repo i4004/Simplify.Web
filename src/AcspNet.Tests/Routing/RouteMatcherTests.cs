@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using AcspNet.Routing;
-using Moq;
-using NUnit.Framework;
+using Simplify.Web.Routing;
 
-namespace AcspNet.Tests.Routing
+namespace Simplify.Web.Tests.Routing
 {
 	[TestFixture]
 	public class RouteMatcherTests

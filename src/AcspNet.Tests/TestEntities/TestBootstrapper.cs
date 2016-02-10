@@ -1,6 +1,6 @@
-﻿using AcspNet.Bootstrapper;
+﻿using Simplify.Web.Bootstrapper;
 
-namespace AcspNet.Tests.TestEntities
+namespace Simplify.Web.Tests.TestEntities
 {
 	public class TestBootstrapper : BaseAcspNetBootstrapper
 	{	 

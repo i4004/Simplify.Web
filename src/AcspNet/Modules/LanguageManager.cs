@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading;
-using Microsoft.Owin;
 
-namespace AcspNet.Modules
+namespace Simplify.Web.Modules
 {
 	/// <summary>
 	/// Current language controller and information container

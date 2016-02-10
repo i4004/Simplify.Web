@@ -1,12 +1,8 @@
 ﻿using System;
-using System.IO.Abstractions;
 using System.Xml.Linq;
-using AcspNet.Modules;
-using Moq;
-using NUnit.Framework;
-using Simplify.Xml;
+using Simplify.Web.Modules;
 
-namespace AcspNet.Tests.Modules
+namespace Simplify.Web.Tests.Modules
 {
 	[TestFixture]
 	public class FileReaderTests

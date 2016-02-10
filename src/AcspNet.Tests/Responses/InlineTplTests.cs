@@ -1,11 +1,8 @@
 ﻿using System;
-using AcspNet.Modules;
-using AcspNet.Responses;
-using Moq;
-using NUnit.Framework;
-using Simplify.Templates;
+using Simplify.Web.Modules;
+using Simplify.Web.Responses;
 
-namespace AcspNet.Tests.Responses
+namespace Simplify.Web.Tests.Responses
 {
 	[TestFixture]
 	public class InlineTplTests

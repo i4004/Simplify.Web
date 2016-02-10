@@ -1,9 +1,8 @@
-﻿using AcspNet.Bootstrapper;
-using AcspNet.Meta;
-using AcspNet.Tests.TestEntities;
-using NUnit.Framework;
+﻿using Simplify.Web.Bootstrapper;
+using Simplify.Web.Meta;
+using Simplify.Web.Tests.TestEntities;
 
-namespace AcspNet.Tests.Meta
+namespace Simplify.Web.Tests.Meta
 {
 	[TestFixture]
 	public class AcspTypesFinderTests

@@ -5,9 +5,9 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{11330387-2CFF-4DD4-848E-EBFF0BD67AB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet.Examples.SelfHosted", "Examples\AcspNet.Examples.SelfHosted\AcspNet.Examples.SelfHosted.csproj", "{9D2032E2-6B56-47DD-86AE-901C1B5AF004}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplify.Web.Examples.SelfHosted", "Examples\AcspNet.Examples.SelfHosted\Simplify.Web.Examples.SelfHosted.csproj", "{9D2032E2-6B56-47DD-86AE-901C1B5AF004}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet.Examples.Katana", "Examples\AcspNet.Examples.Katana\AcspNet.Examples.Katana.csproj", "{FFEC9CC8-C3E7-4DEC-B584-9FE5BAF24F2D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplify.Web.Examples.Katana", "Examples\AcspNet.Examples.Katana\Simplify.Web.Examples.Katana.csproj", "{FFEC9CC8-C3E7-4DEC-B584-9FE5BAF24F2D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7852664A-185C-40D4-B4BE-BF791C49A3C4}"
 	ProjectSection(SolutionItems) = preProject
@@ -15,15 +15,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{785266
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet.Examples.Nowin", "Examples\AcspNet.Examples.Nowin\AcspNet.Examples.Nowin.csproj", "{B4BC9D42-F91E-441B-8761-DFA09169C694}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplify.Web.Examples.Nowin", "Examples\AcspNet.Examples.Nowin\Simplify.Web.Examples.Nowin.csproj", "{B4BC9D42-F91E-441B-8761-DFA09169C694}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet.Examples.SelfHosted.Tests", "Examples\AcspNet.Examples.SelfHosted.Tests\AcspNet.Examples.SelfHosted.Tests.csproj", "{7276FFD4-BD6E-41DF-A000-7E6857281A02}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplify.Web.Examples.SelfHosted.Tests", "Examples\AcspNet.Examples.SelfHosted.Tests\Simplify.Web.Examples.SelfHosted.Tests.csproj", "{7276FFD4-BD6E-41DF-A000-7E6857281A02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet.Examples.WindowsService", "Examples\AcspNet.Examples.WindowsService\AcspNet.Examples.WindowsService.csproj", "{7DE8F813-3A33-4B17-AC9D-0F90A8567800}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplify.Web.Examples.WindowsService", "Examples\AcspNet.Examples.WindowsService\Simplify.Web.Examples.WindowsService.csproj", "{7DE8F813-3A33-4B17-AC9D-0F90A8567800}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet", "AcspNet\AcspNet.csproj", "{17B12D5C-025A-4FA9-A9B2-1C246E7A6AB4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplify.Web", "AcspNet\Simplify.Web.csproj", "{17B12D5C-025A-4FA9-A9B2-1C246E7A6AB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcspNet.Tests", "AcspNet.Tests\AcspNet.Tests.csproj", "{6B905D63-6CA1-455D-BD71-9608C32FB309}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplify.Web.Tests", "AcspNet.Tests\Simplify.Web.Tests.csproj", "{6B905D63-6CA1-455D-BD71-9608C32FB309}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

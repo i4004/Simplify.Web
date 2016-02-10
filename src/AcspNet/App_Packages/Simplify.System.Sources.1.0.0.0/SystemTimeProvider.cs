@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Simplify.System
+namespace Simplify.Web.App_Packages.Simplify.System.Sources._1._0._0._0
 {
 	/// <summary>
 	/// System time provider, returns the actual DateTime.Now, DateTime.UtcNow, DateTime.Today data

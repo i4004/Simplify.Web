@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using AcspNet.Modules;
+using Simplify.Web.Modules;
 
-namespace AcspNet.Core
+namespace Simplify.Web.Core
 {
 	/// <summary>
 	/// Provides string table items setter

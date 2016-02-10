@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AcspNet
+namespace Simplify.Web
 {
 	/// <summary>
 	/// Specify controllers types which should be ignored by AcspNet

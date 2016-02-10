@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using AcspNet.ModelBinding.Binders.Parsers;
+using Simplify.Web.ModelBinding.Binders.Parsers;
 
-namespace AcspNet.ModelBinding.Binders
+namespace Simplify.Web.ModelBinding.Binders
 {
 	/// <summary>
 	/// Provides form data to object (model) binding

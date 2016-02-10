@@ -1,7 +1,6 @@
-﻿using AcspNet.ModelBinding;
-using Simplify.DI;
+﻿using Simplify.Web.ModelBinding;
 
-namespace AcspNet
+namespace Simplify.Web
 {
 	/// <summary>
 	/// AcspNet asynchronous model controllers base class

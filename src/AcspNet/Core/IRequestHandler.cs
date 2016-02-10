@@ -1,8 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.Owin;
-using Simplify.DI;
 
-namespace AcspNet.Core
+namespace Simplify.Web.Core
 {
 	/// <summary>
 	/// Represent OWIN HTTP request handler

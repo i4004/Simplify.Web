@@ -1,6 +1,6 @@
-﻿using AcspNet.Modules;
+﻿using Simplify.Web.Modules;
 
-namespace AcspNet.Responses
+namespace Simplify.Web.Responses
 {
 	/// <summary>
 	/// Provides controller redirect response (redirects the client to specified URL.)

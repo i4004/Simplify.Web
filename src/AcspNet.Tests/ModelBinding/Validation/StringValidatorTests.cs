@@ -1,9 +1,8 @@
-﻿using AcspNet.ModelBinding;
-using AcspNet.ModelBinding.Validation;
-using AcspNet.Tests.TestEntities;
-using NUnit.Framework;
+﻿using Simplify.Web.ModelBinding;
+using Simplify.Web.ModelBinding.Validation;
+using Simplify.Web.Tests.TestEntities;
 
-namespace AcspNet.Tests.ModelBinding.Validation
+namespace Simplify.Web.Tests.ModelBinding.Validation
 {
 	[TestFixture]
 	public class StringValidatorTests

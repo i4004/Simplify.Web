@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Simplify.Templates;
 
-namespace AcspNet.Examples.SelfHosted.Views.Shared
+namespace Simplify.Web.Examples.SelfHosted.Views.Shared
 {
 	public class LoggedUserPanelView : View
 	{

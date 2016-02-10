@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
-using Simplify.WindowsServices;
 
-namespace AcspNet.Examples.WindowsService
+namespace Simplify.Web.Examples.WindowsService
 {
 	[RunInstaller(true)]
 	public class ServiceInstaller : ServiceInstallerBase

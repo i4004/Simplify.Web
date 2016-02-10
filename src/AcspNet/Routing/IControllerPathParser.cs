@@ -1,4 +1,4 @@
-﻿namespace AcspNet.Routing
+﻿namespace Simplify.Web.Routing
 {
 	/// <summary>
 	/// Represent controller path parser

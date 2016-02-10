@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Xml.XPath;
-using Simplify.Xml;
+using Simplify.Web.App_Packages.Simplify.Xml.Sources._1._0._3._0;
 
-namespace AcspNet.Modules
+namespace Simplify.Web.Modules
 {
 	/// <summary>
 	/// Localizable text items string table.

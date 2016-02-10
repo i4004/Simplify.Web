@@ -2,13 +2,11 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.Threading.Tasks;
-using AcspNet.Core;
-using AcspNet.Diagnostics;
-using AcspNet.Modules;
-using Microsoft.Owin;
-using Simplify.DI;
+using Simplify.Web.Core;
+using Simplify.Web.Diagnostics;
+using Simplify.Web.Modules;
 
-namespace AcspNet.Owin
+namespace Simplify.Web.Owin
 {
 	/// <summary>
 	/// AcspNet catched exceptions delegate

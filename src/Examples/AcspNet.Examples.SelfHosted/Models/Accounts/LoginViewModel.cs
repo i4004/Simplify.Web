@@ -1,7 +1,6 @@
-﻿using AcspNet.ModelBinding;
-using AcspNet.ModelBinding.Attributes;
+﻿using Simplify.Web.ModelBinding.Attributes;
 
-namespace AcspNet.Examples.SelfHosted.Models.Accounts
+namespace Simplify.Web.Examples.SelfHosted.Models.Accounts
 {
 	public class LoginViewModel
 	{

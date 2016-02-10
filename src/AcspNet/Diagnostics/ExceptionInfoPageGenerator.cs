@@ -2,10 +2,9 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
-using Simplify.System;
-using Simplify.Templates;
+using Simplify.Web.App_Packages.Simplify.System.Sources._1._0._0._0;
 
-namespace AcspNet.Diagnostics
+namespace Simplify.Web.Diagnostics
 {
 	/// <summary>
 	/// Provides exception information HTML page generator

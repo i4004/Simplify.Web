@@ -1,7 +1,7 @@
-﻿using AcspNet.Attributes;
-using AcspNet.Responses;
+﻿using Simplify.Web.Attributes;
+using Simplify.Web.Responses;
 
-namespace AcspNet.Examples.SelfHosted.Controllers
+namespace Simplify.Web.Examples.SelfHosted.Controllers
 {
 	[Get("/")]
 	public class DefaultController : Controller

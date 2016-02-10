@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.Owin;
 
-namespace AcspNet.Core
+namespace Simplify.Web.Core
 {
 	/// <summary>
 	/// Providers response writer

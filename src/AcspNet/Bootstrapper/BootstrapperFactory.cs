@@ -1,7 +1,7 @@
 ﻿using System;
-using AcspNet.Meta;
+using Simplify.Web.Meta;
 
-namespace AcspNet.Bootstrapper
+namespace Simplify.Web.Bootstrapper
 {
 	/// <summary>
 	/// AcspNet bootstrapper factory

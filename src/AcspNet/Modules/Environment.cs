@@ -1,4 +1,4 @@
-﻿namespace AcspNet.Modules
+﻿namespace Simplify.Web.Modules
 {
 	/// <summary>
 	/// Site environment properties, initialized from <see cref="IAcspNetSettings" />

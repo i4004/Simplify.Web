@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO.Abstractions;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace AcspNet.Modules
+namespace Simplify.Web.Modules
 {
 	/// <summary>
 	/// Provides localizable files reader, reads the files from data folder

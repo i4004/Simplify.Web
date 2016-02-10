@@ -1,4 +1,4 @@
-﻿namespace AcspNet.Core
+﻿namespace Simplify.Web.Core
 {
 	/// <summary>
 	/// Represent string table items setter

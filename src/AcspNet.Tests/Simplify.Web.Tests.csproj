@@ -7,8 +7,8 @@
     <ProjectGuid>{6B905D63-6CA1-455D-BD71-9608C32FB309}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AcspNet.Tests</RootNamespace>
-    <AssemblyName>AcspNet.Tests</AssemblyName>
+    <RootNamespace>Simplify.Web.Tests</RootNamespace>
+    <AssemblyName>Simplify.Web.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -91,9 +91,9 @@
     <EmbeddedResource Include="Templates\Test.tpl" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AcspNet\AcspNet.csproj">
+    <ProjectReference Include="..\AcspNet\Simplify.Web.csproj">
       <Project>{17b12d5c-025a-4fa9-a9b2-1c246e7a6ab4}</Project>
-      <Name>AcspNet</Name>
+      <Name>Simplify.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
-﻿using AcspNet.Responses;
+﻿using Simplify.Web.Responses;
 
-namespace AcspNet.Examples.WindowsService.Controllers
+namespace Simplify.Web.Examples.WindowsService.Controllers
 {
 	public class DefaultController : Controller
 	{

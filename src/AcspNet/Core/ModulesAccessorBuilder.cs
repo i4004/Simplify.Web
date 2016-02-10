@@ -1,8 +1,7 @@
-﻿using AcspNet.Modules;
-using AcspNet.Modules.Html;
-using Simplify.DI;
+﻿using Simplify.Web.Modules;
+using Simplify.Web.Modules.Html;
 
-namespace AcspNet.Core
+namespace Simplify.Web.Core
 {
 	/// <summary>
 	/// Provides builder for ModulesAccessor objects

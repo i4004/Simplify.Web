@@ -1,4 +1,4 @@
-﻿namespace AcspNet.Responses
+﻿namespace Simplify.Web.Responses
 {
 	/// <summary>
 	/// Provides controller Ajax response (send only specified string to response)

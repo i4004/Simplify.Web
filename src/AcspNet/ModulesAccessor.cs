@@ -1,7 +1,7 @@
-﻿using AcspNet.Modules;
-using AcspNet.Modules.Html;
+﻿using Simplify.Web.Modules;
+using Simplify.Web.Modules.Html;
 
-namespace AcspNet
+namespace Simplify.Web
 {
 	/// <summary>
 	/// Modules accessor base class

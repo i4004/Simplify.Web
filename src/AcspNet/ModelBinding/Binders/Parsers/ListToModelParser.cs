@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using AcspNet.ModelBinding.Attributes;
+using Simplify.Web.ModelBinding.Attributes;
 
-namespace AcspNet.ModelBinding.Binders.Parsers
+namespace Simplify.Web.ModelBinding.Binders.Parsers
 {
 	/// <summary>
 	/// Provides list of key value pair to model binding

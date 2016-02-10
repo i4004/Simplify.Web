@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using AcspNet.ModelBinding;
-using AcspNet.ModelBinding.Binders.Parsers;
-using AcspNet.Tests.TestEntities;
-using NUnit.Framework;
+using Simplify.Web.ModelBinding;
+using Simplify.Web.ModelBinding.Binders.Parsers;
+using Simplify.Web.Tests.TestEntities;
 
-namespace AcspNet.Tests.ModelBinding.Binders.Parsers
+namespace Simplify.Web.Tests.ModelBinding.Binders.Parsers
 {
 	[TestFixture]
 	public class ListToModelParserTests

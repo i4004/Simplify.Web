@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AcspNet
+namespace Simplify.Web
 {
 	/// <summary>
 	/// Represent AcspNet settings

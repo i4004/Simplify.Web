@@ -1,4 +1,4 @@
-﻿namespace AcspNet
+﻿namespace Simplify.Web
 {
 	/// <summary>
 	/// Controller response result types

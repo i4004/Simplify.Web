@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AcspNet.Meta
+namespace Simplify.Web.Meta
 {
 	/// <summary>
 	/// Provides controller security information

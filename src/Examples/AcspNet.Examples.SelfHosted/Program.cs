@@ -1,7 +1,6 @@
 ﻿using System;
-using Microsoft.Owin.Hosting;
 
-namespace AcspNet.Examples.SelfHosted
+namespace Simplify.Web.Examples.SelfHosted
 {
 	class Program
 	{

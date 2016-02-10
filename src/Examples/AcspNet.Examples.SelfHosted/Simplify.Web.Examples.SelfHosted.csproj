@@ -7,8 +7,8 @@
     <ProjectGuid>{9D2032E2-6B56-47DD-86AE-901C1B5AF004}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AcspNet.Examples.SelfHosted</RootNamespace>
-    <AssemblyName>AcspNet.Examples.SelfHosted</AssemblyName>
+    <RootNamespace>Simplify.Web.Examples.SelfHosted</RootNamespace>
+    <AssemblyName>Simplify.Web.Examples.SelfHosted</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
@@ -265,9 +265,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AcspNet\AcspNet.csproj">
+    <ProjectReference Include="..\..\AcspNet\Simplify.Web.csproj">
       <Project>{17b12d5c-025a-4fa9-a9b2-1c246e7a6ab4}</Project>
-      <Name>AcspNet</Name>
+      <Name>Simplify.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

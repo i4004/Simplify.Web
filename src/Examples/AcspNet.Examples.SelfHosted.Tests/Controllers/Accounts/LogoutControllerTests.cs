@@ -1,10 +1,8 @@
-﻿using AcspNet.Examples.SelfHosted.Controllers.Accounts;
-using AcspNet.Modules;
-using AcspNet.Responses;
-using Moq;
-using NUnit.Framework;
+﻿using Simplify.Web.Examples.SelfHosted.Controllers.Accounts;
+using Simplify.Web.Modules;
+using Simplify.Web.Responses;
 
-namespace AcspNet.Examples.SelfHosted.Tests.Controllers.Accounts
+namespace Simplify.Web.Examples.SelfHosted.Tests.Controllers.Accounts
 {
 	[TestFixture]
 	public class LogoutControllerTests

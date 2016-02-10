@@ -7,8 +7,8 @@
     <ProjectGuid>{7276FFD4-BD6E-41DF-A000-7E6857281A02}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AcspNet.Examples.SelfHosted.Tests</RootNamespace>
-    <AssemblyName>AcspNet.Examples.SelfHosted.Tests</AssemblyName>
+    <RootNamespace>Simplify.Web.Examples.SelfHosted.Tests</RootNamespace>
+    <AssemblyName>Simplify.Web.Examples.SelfHosted.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -37,13 +37,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AcspNet\AcspNet.csproj">
+    <ProjectReference Include="..\..\AcspNet\Simplify.Web.csproj">
       <Project>{17b12d5c-025a-4fa9-a9b2-1c246e7a6ab4}</Project>
-      <Name>AcspNet</Name>
+      <Name>Simplify.Web</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AcspNet.Examples.SelfHosted\AcspNet.Examples.SelfHosted.csproj">
+    <ProjectReference Include="..\AcspNet.Examples.SelfHosted\Simplify.Web.Examples.SelfHosted.csproj">
       <Project>{9d2032e2-6b56-47dd-86ae-901c1b5af004}</Project>
-      <Name>AcspNet.Examples.SelfHosted</Name>
+      <Name>Simplify.Web.Examples.SelfHosted</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

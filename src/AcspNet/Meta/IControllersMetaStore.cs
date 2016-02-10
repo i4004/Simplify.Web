@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AcspNet.Meta
+namespace Simplify.Web.Meta
 {
 	/// <summary>
 	/// Represent controllers meta store

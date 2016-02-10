@@ -1,6 +1,6 @@
-﻿using AcspNet.Responses;
+﻿using Simplify.Web.Responses;
 
-namespace AcspNet.Examples.SelfHosted.Controllers.Shared
+namespace Simplify.Web.Examples.SelfHosted.Controllers.Shared
 {
 	public class NavbarController :Controller
 	{

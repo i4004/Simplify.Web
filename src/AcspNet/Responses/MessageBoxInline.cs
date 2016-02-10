@@ -1,6 +1,6 @@
-﻿using AcspNet.Modules.Html;
+﻿using Simplify.Web.Modules.Html;
 
-namespace AcspNet.Responses
+namespace Simplify.Web.Responses
 {
 	/// <summary>
 	/// Provides inline message box response (generate inline message box and sends it to user only, without site generation)

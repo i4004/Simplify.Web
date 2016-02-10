@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Owin;
-using Simplify.DI;
 
-namespace AcspNet.Core
+namespace Simplify.Web.Core
 {
 	/// <summary>
 	/// Provides controller executor, handles creation and execution of controllers

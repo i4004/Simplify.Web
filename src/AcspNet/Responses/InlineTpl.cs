@@ -1,7 +1,6 @@
 ﻿using System;
-using Simplify.Templates;
 
-namespace AcspNet.Responses
+namespace Simplify.Web.Responses
 {
 	/// <summary>
 	/// Provides tempate response (puts data to DataCollector specified variable)

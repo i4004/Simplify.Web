@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AcspNet.Attributes;
 
-namespace AcspNet.Meta
+namespace Simplify.Web.Meta
 {
 	/// <summary>
 	/// Loads and stores AcspNet controllers meta information

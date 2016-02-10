@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using AcspNet.Attributes;
-using AcspNet.Examples.SelfHosted.Views.Shared;
-using AcspNet.Responses;
+using Simplify.Web.Attributes;
+using Simplify.Web.Examples.SelfHosted.Views.Shared;
+using Simplify.Web.Responses;
 
-namespace AcspNet.Examples.SelfHosted.Controllers.Shared
+namespace Simplify.Web.Examples.SelfHosted.Controllers.Shared
 {
 	[Priority(-1)]
 	public class LoginPanelController : AsyncController

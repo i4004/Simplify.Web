@@ -1,7 +1,7 @@
-﻿using AcspNet.Attributes;
-using AcspNet.Responses;
+﻿using Simplify.Web.Attributes;
+using Simplify.Web.Responses;
 
-namespace AcspNet.Examples.SelfHosted.Controllers.Static
+namespace Simplify.Web.Examples.SelfHosted.Controllers.Static
 {
 	[Get("about")]
 	public class AboutController : Controller

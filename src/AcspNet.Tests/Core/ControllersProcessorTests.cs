@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Security.Claims;
-using AcspNet.Core;
-using AcspNet.Meta;
-using AcspNet.Routing;
-using AcspNet.Tests.TestEntities;
-using Microsoft.Owin;
-using Microsoft.Owin.Security;
-using Moq;
-using NUnit.Framework;
-using Simplify.DI;
+using Simplify.Web.Core;
+using Simplify.Web.Meta;
+using Simplify.Web.Routing;
+using Simplify.Web.Tests.TestEntities;
 
-namespace AcspNet.Tests.Core
+namespace Simplify.Web.Tests.Core
 {
 	[TestFixture]
 	public class ControllersProcessorTests

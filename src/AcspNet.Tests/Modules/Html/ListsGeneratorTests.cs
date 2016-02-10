@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
-using AcspNet.Modules;
-using AcspNet.Modules.Html;
-using Moq;
-using NUnit.Framework;
+using Simplify.Web.Modules;
+using Simplify.Web.Modules.Html;
 
-namespace AcspNet.Tests.Modules.Html
+namespace Simplify.Web.Tests.Modules.Html
 {
 	public class ListsGeneratorTests
 	{

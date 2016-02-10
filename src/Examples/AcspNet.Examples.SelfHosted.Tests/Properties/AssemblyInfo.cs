@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AcspNet.Examples.SelfHosted.Tests")]
-[assembly: AssemblyDescription("AcspNet.Examples.SelfHosted unit tests")]
+[assembly: AssemblyTitle("Simplify.Web.Examples.SelfHosted.Tests")]
+[assembly: AssemblyDescription("Simplify.Web.Examples.SelfHosted unit tests")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Alexander Krylkov")]
-[assembly: AssemblyProduct("Advanced Controls Site Platform .NET")]
+[assembly: AssemblyProduct("Simplify")]
 [assembly: AssemblyCopyright("Licensed under LGPL")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

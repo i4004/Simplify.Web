@@ -1,7 +1,6 @@
 ﻿using System.ServiceProcess;
-using Simplify.WindowsServices;
 
-namespace AcspNet.Examples.WindowsService
+namespace Simplify.Web.Examples.WindowsService
 {
 	class Program
 	{

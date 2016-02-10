@@ -1,7 +1,6 @@
-﻿using AcspNet.Core;
-using Simplify.DI;
+﻿using Simplify.Web.Core;
 
-namespace AcspNet
+namespace Simplify.Web
 {
 	/// <summary>
 	/// View accessor base class

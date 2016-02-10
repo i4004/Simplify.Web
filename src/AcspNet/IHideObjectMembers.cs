@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace AcspNet
+namespace Simplify.Web
 {
 	/// <summary>
 	/// Helper interface used to hide the base <see cref="T:System.Object" />

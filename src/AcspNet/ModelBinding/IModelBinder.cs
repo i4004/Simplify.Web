@@ -1,4 +1,4 @@
-﻿namespace AcspNet.ModelBinding
+﻿namespace Simplify.Web.ModelBinding
 {
 	/// <summary>
 	/// Represent model binder

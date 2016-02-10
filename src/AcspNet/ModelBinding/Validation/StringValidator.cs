@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
 using System.Text.RegularExpressions;
-using AcspNet.ModelBinding.Attributes;
-using Simplify.String;
+using Simplify.Web.App_Packages.Simplify.String.Sources._1._0._1._0;
+using Simplify.Web.ModelBinding.Attributes;
 
-namespace AcspNet.ModelBinding.Validation
+namespace Simplify.Web.ModelBinding.Validation
 {
 	/// <summary>
 	/// Validates string using specified rules in attributes
@@ -15,7 +15,7 @@ namespace AcspNet.ModelBinding.Validation
 		/// </summary>
 		/// <param name="value">The value.</param>
 		/// <param name="propertyInfo">The property information.</param>
-		/// <exception cref="AcspNet.ModelBinding.ModelValidationException">
+		/// <exception cref="ModelValidationException">
 		/// </exception>
 		public static void Validate(string value, PropertyInfo propertyInfo)
 		{

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 
-namespace AcspNet
+namespace Simplify.Web
 {
 	/// <summary>
 	/// AcspNet settings

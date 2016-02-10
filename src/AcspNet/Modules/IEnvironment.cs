@@ -1,4 +1,4 @@
-﻿namespace AcspNet.Modules
+﻿namespace Simplify.Web.Modules
 {
 	/// <summary>
 	/// Represent site environment properties

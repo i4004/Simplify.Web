@@ -1,6 +1,6 @@
-﻿using AcspNet.Core;
+﻿using Simplify.Web.Core;
 
-namespace AcspNet
+namespace Simplify.Web
 {
 	/// <summary>
 	/// Provides controllers responses base class

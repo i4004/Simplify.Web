@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using AcspNet.ModelBinding.Attributes;
-using AcspNet.ModelBinding.Binders.Parsers;
+using Simplify.Web.ModelBinding.Attributes;
+using Simplify.Web.ModelBinding.Binders.Parsers;
 
-namespace AcspNet.ModelBinding.Validation
+namespace Simplify.Web.ModelBinding.Validation
 {
 	/// <summary>
 	/// Provides object properties validator

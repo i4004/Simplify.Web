@@ -1,7 +1,6 @@
-﻿using AcspNet.Modules;
-using NUnit.Framework;
+﻿using Simplify.Web.Modules;
 
-namespace AcspNet.Tests.Modules
+namespace Simplify.Web.Tests.Modules
 {
 	[TestFixture]
 	public class EnvironmentTests

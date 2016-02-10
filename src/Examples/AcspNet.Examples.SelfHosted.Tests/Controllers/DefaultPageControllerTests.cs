@@ -1,9 +1,7 @@
-﻿using AcspNet.Examples.SelfHosted.Controllers;
-using AcspNet.Responses;
-using Moq;
-using NUnit.Framework;
+﻿using Simplify.Web.Examples.SelfHosted.Controllers;
+using Simplify.Web.Responses;
 
-namespace AcspNet.Examples.SelfHosted.Tests.Controllers
+namespace Simplify.Web.Examples.SelfHosted.Tests.Controllers
 {
 	[TestFixture]
 	public class DefaultPageControllerTests

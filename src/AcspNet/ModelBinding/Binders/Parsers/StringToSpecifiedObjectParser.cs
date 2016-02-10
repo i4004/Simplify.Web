@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace AcspNet.ModelBinding.Binders.Parsers
+namespace Simplify.Web.ModelBinding.Binders.Parsers
 {
 	/// <summary>
 	/// Provides string to specified type parsing
@@ -16,7 +16,7 @@ namespace AcspNet.ModelBinding.Binders.Parsers
 		/// <param name="format">The format.</param>
 		/// <returns></returns>
 		/// <exception cref="ModelBindingException"></exception>
-		/// <exception cref="AcspNet.ModelBinding.ModelBindingException"></exception>
+		/// <exception cref="ModelBindingException"></exception>
 		public static object ParseUndefined(string value, Type parsingType, string format = null)
 		{
 			if (parsingType == typeof(string))
@@ -119,7 +119,7 @@ namespace AcspNet.ModelBinding.Binders.Parsers
 		/// </summary>
 		/// <param name="value">The value.</param>
 		/// <returns></returns>
-		/// <exception cref="AcspNet.ModelBinding.ModelBindingException"></exception>
+		/// <exception cref="ModelBindingException"></exception>
 		public static int ParseInt(string value)
 		{
 			if (string.IsNullOrEmpty(value))
@@ -138,7 +138,7 @@ namespace AcspNet.ModelBinding.Binders.Parsers
 		/// </summary>
 		/// <param name="value">The value.</param>
 		/// <returns></returns>
-		/// <exception cref="AcspNet.ModelBinding.ModelBindingException"></exception>
+		/// <exception cref="ModelBindingException"></exception>
 		public static int? ParseNullableInt(string value)
 		{
 			if (string.IsNullOrEmpty(value))
@@ -157,7 +157,7 @@ namespace AcspNet.ModelBinding.Binders.Parsers
 		/// </summary>
 		/// <param name="value">The value.</param>
 		/// <returns></returns>
-		/// <exception cref="AcspNet.ModelBinding.ModelBindingException"></exception>
+		/// <exception cref="ModelBindingException"></exception>
 		public static decimal ParseDecimal(string value)
 		{
 			if (string.IsNullOrEmpty(value))
@@ -176,7 +176,7 @@ namespace AcspNet.ModelBinding.Binders.Parsers
 		/// </summary>
 		/// <param name="value">The value.</param>
 		/// <returns></returns>
-		/// <exception cref="AcspNet.ModelBinding.ModelBindingException"></exception>
+		/// <exception cref="ModelBindingException"></exception>
 		public static decimal? ParseNullableDecimal(string value)
 		{
 			if (string.IsNullOrEmpty(value))
@@ -195,7 +195,7 @@ namespace AcspNet.ModelBinding.Binders.Parsers
 		/// </summary>
 		/// <param name="value">The value.</param>
 		/// <returns></returns>
-		/// <exception cref="AcspNet.ModelBinding.ModelBindingException"></exception>
+		/// <exception cref="ModelBindingException"></exception>
 		public static long ParseLong(string value)
 		{
 			if (string.IsNullOrEmpty(value))
@@ -214,7 +214,7 @@ namespace AcspNet.ModelBinding.Binders.Parsers
 		/// </summary>
 		/// <param name="value">The value.</param>
 		/// <returns></returns>
-		/// <exception cref="AcspNet.ModelBinding.ModelBindingException"></exception>
+		/// <exception cref="ModelBindingException"></exception>
 		public static long? ParseNullableLong(string value)
 		{
 			if (string.IsNullOrEmpty(value))
@@ -237,7 +237,7 @@ namespace AcspNet.ModelBinding.Binders.Parsers
 		/// <returns></returns>
 		/// <exception cref="ModelBindingException">
 		/// </exception>
-		/// <exception cref="AcspNet.ModelBinding.ModelBindingException"></exception>
+		/// <exception cref="ModelBindingException"></exception>
 		public static DateTime ParseDateTime(string value, string format = null)
 		{
 			if (string.IsNullOrEmpty(value))
@@ -267,7 +267,7 @@ namespace AcspNet.ModelBinding.Binders.Parsers
 		/// <returns></returns>
 		/// <exception cref="ModelBindingException">
 		/// </exception>
-		/// <exception cref="AcspNet.ModelBinding.ModelBindingException"></exception>
+		/// <exception cref="ModelBindingException"></exception>
 		public static DateTime? ParseNullableDateTime(string value, string format = null)
 		{
 			if (string.IsNullOrEmpty(value))

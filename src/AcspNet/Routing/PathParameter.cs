@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AcspNet.Routing
+namespace Simplify.Web.Routing
 {
 	/// <summary>
 	/// Provides path parameter element

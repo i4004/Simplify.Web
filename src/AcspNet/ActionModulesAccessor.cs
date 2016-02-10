@@ -1,6 +1,6 @@
-﻿using AcspNet.Modules;
+﻿using Simplify.Web.Modules;
 
-namespace AcspNet
+namespace Simplify.Web
 {
 	/// <summary>
 	/// Action modules accessor base class

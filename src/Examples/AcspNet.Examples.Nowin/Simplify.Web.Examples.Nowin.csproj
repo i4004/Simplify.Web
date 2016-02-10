@@ -7,8 +7,8 @@
     <ProjectGuid>{B4BC9D42-F91E-441B-8761-DFA09169C694}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AcspNet.Examples.Nowin</RootNamespace>
-    <AssemblyName>AcspNet.Examples.Nowin</AssemblyName>
+    <RootNamespace>Simplify.Web.Examples.Nowin</RootNamespace>
+    <AssemblyName>Simplify.Web.Examples.Nowin</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <TargetFrameworkProfile />
@@ -83,9 +83,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AcspNet\AcspNet.csproj">
+    <ProjectReference Include="..\..\AcspNet\Simplify.Web.csproj">
       <Project>{17b12d5c-025a-4fa9-a9b2-1c246e7a6ab4}</Project>
-      <Name>AcspNet</Name>
+      <Name>Simplify.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Simplify.System
+namespace Simplify.Web.App_Packages.Simplify.System.Sources._1._0._0._0
 {
 	/// <summary>
 	/// Helper interface used to hide the base <see cref="T:System.Object" />

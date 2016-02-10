@@ -1,8 +1,7 @@
 ﻿using System;
-using AcspNet.Diagnostics;
-using NUnit.Framework;
+using Simplify.Web.Diagnostics;
 
-namespace AcspNet.Tests.Diagnostics
+namespace Simplify.Web.Tests.Diagnostics
 {
 	[TestFixture]
 	public class ExceptionInfoPageGeneratorTests

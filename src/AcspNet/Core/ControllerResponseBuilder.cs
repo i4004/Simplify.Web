@@ -1,6 +1,4 @@
-﻿using Simplify.DI;
-
-namespace AcspNet.Core
+﻿namespace Simplify.Web.Core
 {
 	/// <summary>
 	/// Provides controller response builder

@@ -1,6 +1,4 @@
-﻿using Microsoft.Owin;
-
-namespace AcspNet.Modules
+﻿namespace Simplify.Web.Modules
 {
 	/// <summary>
 	/// Provides language manager provider

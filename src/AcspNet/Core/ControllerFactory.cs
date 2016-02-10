@@ -1,8 +1,6 @@
 ﻿using System;
-using Microsoft.Owin;
-using Simplify.DI;
 
-namespace AcspNet.Core
+namespace Simplify.Web.Core
 {
 	/// <summary>
 	/// Controller factory

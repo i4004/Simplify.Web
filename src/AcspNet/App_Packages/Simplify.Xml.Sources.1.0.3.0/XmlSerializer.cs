@@ -2,10 +2,9 @@
 using System.IO;
 using System.Text;
 using System.Xml.Linq;
-
 using XmlSer = System.Xml.Serialization;
 
-namespace Simplify.Xml
+namespace Simplify.Web.App_Packages.Simplify.Xml.Sources._1._0._3._0
 {
 	/// <summary>
 	/// Objects XML serialization/deserialization extensions

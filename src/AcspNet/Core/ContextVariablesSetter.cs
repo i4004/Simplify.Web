@@ -1,7 +1,6 @@
-﻿using AcspNet.Modules;
-using Simplify.DI;
+﻿using Simplify.Web.Modules;
 
-namespace AcspNet.Core
+namespace Simplify.Web.Core
 {
 	/// <summary>
 	/// Provides context variables setter

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AcspNet.Modules.Html
+namespace Simplify.Web.Modules.Html
 {
 	/// <summary>
 	/// HTML select control lists generator

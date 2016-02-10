@@ -1,9 +1,6 @@
-﻿using AcspNet.Modules;
-using Moq;
-using NUnit.Framework;
-using Simplify.Templates;
+﻿using Simplify.Web.Modules;
 
-namespace AcspNet.Tests.Modules
+namespace Simplify.Web.Tests.Modules
 {
 	[TestFixture]
 	public class DataCollectorTests

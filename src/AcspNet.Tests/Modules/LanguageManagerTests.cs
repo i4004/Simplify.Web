@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using AcspNet.Modules;
-using Microsoft.Owin;
-using Moq;
-using NUnit.Framework;
+using Simplify.Web.Modules;
 
-namespace AcspNet.Tests.Modules
+namespace Simplify.Web.Tests.Modules
 {
 	[TestFixture]
 	public class LanguageManagerTests

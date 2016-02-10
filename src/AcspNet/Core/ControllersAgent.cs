@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using AcspNet.Meta;
-using AcspNet.Routing;
+using Simplify.Web.Meta;
+using Simplify.Web.Routing;
 
-namespace AcspNet.Core
+namespace Simplify.Web.Core
 {
 	/// <summary>
 	/// Provides controllers agent

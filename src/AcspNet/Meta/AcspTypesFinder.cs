@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace AcspNet.Meta
+namespace Simplify.Web.Meta
 {
 	/// <summary>
 	/// Provides AcspNet types finder among all loaded assemblies

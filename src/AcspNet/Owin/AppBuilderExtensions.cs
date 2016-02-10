@@ -1,8 +1,7 @@
 ﻿using System;
-using AcspNet.Bootstrapper;
-using Owin;
+using Simplify.Web.Bootstrapper;
 
-namespace AcspNet.Owin
+namespace Simplify.Web.Owin
 {
 	/// <summary>
 	/// OWIN IAppBuilder AcspNet extensions

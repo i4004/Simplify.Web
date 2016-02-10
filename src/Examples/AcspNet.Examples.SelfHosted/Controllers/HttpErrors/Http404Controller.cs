@@ -1,7 +1,7 @@
-﻿using AcspNet.Attributes;
-using AcspNet.Responses;
+﻿using Simplify.Web.Attributes;
+using Simplify.Web.Responses;
 
-namespace AcspNet.Examples.SelfHosted.Controllers.HttpErrors
+namespace Simplify.Web.Examples.SelfHosted.Controllers.HttpErrors
 {
 	[Http404]
 	public class Http404Controller : Controller

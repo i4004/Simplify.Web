@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AcspNet.ModelBinding.Attributes
+namespace Simplify.Web.ModelBinding.Attributes
 {
 	/// <summary>
 	/// Sets source field name this property binds to

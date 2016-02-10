@@ -1,7 +1,6 @@
-﻿using AcspNet.Routing;
-using NUnit.Framework;
+﻿using Simplify.Web.Routing;
 
-namespace AcspNet.Tests.Routing
+namespace Simplify.Web.Tests.Routing
 {
 	[TestFixture]
 	public class ControllerPathParserTests

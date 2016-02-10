@@ -1,9 +1,7 @@
 ﻿using System.Threading.Tasks;
-using AcspNet.Modules;
-using Microsoft.Owin;
-using Simplify.DI;
+using Simplify.Web.Modules;
 
-namespace AcspNet.Core
+namespace Simplify.Web.Core
 {
 	/// <summary>
 	/// Provides page processor

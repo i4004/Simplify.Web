@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AcspNet.Examples.WindowsService")]
-[assembly: AssemblyDescription("AcspNet as windows service example")]
+[assembly: AssemblyTitle("Simplify.Web.Examples.WindowsService")]
+[assembly: AssemblyDescription("Simplify.Web as windows service example")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Alexander Krylkov")]
-[assembly: AssemblyProduct("AcspNet.Examples.WindowsService")]
+[assembly: AssemblyProduct("Simplify")]
 [assembly: AssemblyCopyright("Licensed uner LGPL")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

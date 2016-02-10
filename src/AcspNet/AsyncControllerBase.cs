@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace AcspNet
+namespace Simplify.Web
 {
 	/// <summary>
 	/// AcspNet asynchronous controllers base class

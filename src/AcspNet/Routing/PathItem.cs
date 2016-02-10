@@ -1,4 +1,4 @@
-﻿namespace AcspNet.Routing
+﻿namespace Simplify.Web.Routing
 {
 	/// <summary>
 	/// Provides path items base class

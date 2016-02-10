@@ -1,10 +1,10 @@
-﻿using AcspNet.ModelBinding.Attributes;
+﻿using Simplify.Web.ModelBinding.Attributes;
 
-namespace AcspNet.Tests.TestEntities
+namespace Simplify.Web.Tests.TestEntities
 {
 	public class TestModelWithExcludedProperty
 	{
-		[ExcludeAttribute]
+		[Exclude]
 		public string Prop1 { get; set; }		 
 	}
 }

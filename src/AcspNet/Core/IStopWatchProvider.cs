@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AcspNet.Core
+namespace Simplify.Web.Core
 {
 	/// <summary>
 	/// Represent stopwatch provider

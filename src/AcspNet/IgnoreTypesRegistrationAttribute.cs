@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AcspNet
+namespace Simplify.Web
 {
 	/// <summary>
 	/// Specify controllers or views types which should be ignored from DI container registration

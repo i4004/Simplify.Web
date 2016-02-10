@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AcspNet.Responses
+namespace Simplify.Web.Responses
 {
 	/// <summary>
 	/// Provides Http file response (send file to response)

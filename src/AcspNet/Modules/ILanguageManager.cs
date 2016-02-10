@@ -1,4 +1,4 @@
-﻿namespace AcspNet.Modules
+﻿namespace Simplify.Web.Modules
 {
 	/// <summary>
 	/// Represent current language controller and information container

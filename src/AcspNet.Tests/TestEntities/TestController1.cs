@@ -1,6 +1,6 @@
-﻿using AcspNet.Attributes;
+﻿using Simplify.Web.Attributes;
 
-namespace AcspNet.Tests.TestEntities
+namespace Simplify.Web.Tests.TestEntities
 {
 	[Get("/testaction")]
 	[Post("/testaction1")]

@@ -1,7 +1,6 @@
 ﻿using System;
-using Simplify.DI;
 
-namespace AcspNet.Core
+namespace Simplify.Web.Core
 {
 	/// <summary>
 	/// Represent view factory

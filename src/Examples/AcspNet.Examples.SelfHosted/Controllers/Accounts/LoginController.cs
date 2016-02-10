@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
-using AcspNet.Attributes;
-using AcspNet.Examples.SelfHosted.Models.Accounts;
-using AcspNet.Examples.SelfHosted.Views.Accounts;
-using AcspNet.Modules;
-using AcspNet.Responses;
-using Microsoft.AspNet.Identity;
+using Simplify.Web.Attributes;
+using Simplify.Web.Examples.SelfHosted.Models.Accounts;
+using Simplify.Web.Examples.SelfHosted.Views.Accounts;
+using Simplify.Web.Modules;
+using Simplify.Web.Responses;
 
-namespace AcspNet.Examples.SelfHosted.Controllers.Accounts
+namespace Simplify.Web.Examples.SelfHosted.Controllers.Accounts
 {
 	[Post("login")]
 	public class LoginController : Controller<LoginViewModel>

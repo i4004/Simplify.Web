@@ -1,7 +1,7 @@
-﻿using AcspNet.Attributes;
-using AcspNet.Responses;
+﻿using Simplify.Web.Attributes;
+using Simplify.Web.Responses;
 
-namespace AcspNet.Examples.SelfHosted.Controllers.Accounts
+namespace Simplify.Web.Examples.SelfHosted.Controllers.Accounts
 {
 	[Get("logout")]
 	public class LogoutController : Controller

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AcspNet.Tests.TestEntities
+namespace Simplify.Web.Tests.TestEntities
 {
 	public class TestModelStringsList
 	{

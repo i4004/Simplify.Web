@@ -1,8 +1,7 @@
-﻿using AcspNet.Bootstrapper;
-using AcspNet.Meta;
-using NUnit.Framework;
+﻿using Simplify.Web.Bootstrapper;
+using Simplify.Web.Meta;
 
-namespace AcspNet.Tests.Bootstrapper
+namespace Simplify.Web.Tests.Bootstrapper
 {
 	[TestFixture]
 	public class BootstrapperFactoryTests

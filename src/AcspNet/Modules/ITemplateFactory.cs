@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Simplify.Templates;
 
-namespace AcspNet.Modules
+namespace Simplify.Web.Modules
 {
 	/// <summary>
 	/// Represent web-site text templates loader

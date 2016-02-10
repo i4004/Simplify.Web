@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AcspNet.Attributes
+namespace Simplify.Web.Attributes
 {
 	/// <summary>
 	/// Indicates whether controller requires user authorization

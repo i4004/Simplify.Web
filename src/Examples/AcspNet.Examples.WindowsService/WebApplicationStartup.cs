@@ -1,6 +1,4 @@
-﻿using Microsoft.Owin.Hosting;
-
-namespace AcspNet.Examples.WindowsService
+﻿namespace Simplify.Web.Examples.WindowsService
 {
 	public class WebApplicationStartup
 	{

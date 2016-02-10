@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AcspNet.Meta
+namespace Simplify.Web.Meta
 {
 	/// <summary>
 	/// Represent controller meta-data creator

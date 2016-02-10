@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace AcspNet.Routing
+namespace Simplify.Web.Routing
 {
 	/// <summary>
 	/// Provides controller path parser

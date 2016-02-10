@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using AcspNet.Core;
-using AcspNet.Modules;
-using Moq;
-using NUnit.Framework;
-using Simplify.DI;
-using Simplify.Templates;
+using Simplify.Web.Core;
+using Simplify.Web.Modules;
 
-namespace AcspNet.Tests.Core
+namespace Simplify.Web.Tests.Core
 {
 	[TestFixture]
 	public class PageBuilderTests

@@ -1,10 +1,6 @@
-﻿using AcspNet.Meta;
-using AcspNet.Owin;
-using Owin;
-using Simplify.DI;
-using Simplify.DI.Provider.SimpleInjector;
+﻿using Simplify.Web.Meta;
 
-namespace AcspNet.Examples.Nowin
+namespace Simplify.Web.Examples.Nowin
 {
 	public class Startup
 	{

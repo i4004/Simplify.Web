@@ -1,6 +1,6 @@
-﻿using AcspNet.Modules.Html;
+﻿using Simplify.Web.Modules.Html;
 
-namespace AcspNet.Responses
+namespace Simplify.Web.Responses
 {
 	/// <summary>
 	/// Provides message box response (generate message box and puts it to data collector)

@@ -2,14 +2,11 @@
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
-using AcspNet.Core;
-using AcspNet.Meta;
-using AcspNet.Routing;
-using Microsoft.AspNet.Identity;
-using Moq;
-using NUnit.Framework;
+using Simplify.Web.Core;
+using Simplify.Web.Meta;
+using Simplify.Web.Routing;
 
-namespace AcspNet.Tests.Core
+namespace Simplify.Web.Tests.Core
 {
 	[TestFixture]
 	public class ControllersAgentTests

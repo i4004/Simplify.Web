@@ -1,11 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.IO.Abstractions.TestingHelpers;
-using AcspNet.Core;
-using Microsoft.Owin;
-using Moq;
-using NUnit.Framework;
+using Simplify.Web.Core;
 
-namespace AcspNet.Tests.Core
+namespace Simplify.Web.Tests.Core
 {
 	[TestFixture]
 	public class StaticFilesRequestHandlerTest

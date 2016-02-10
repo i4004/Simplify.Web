@@ -1,4 +1,4 @@
-﻿namespace AcspNet.Modules.Html
+﻿namespace Simplify.Web.Modules.Html
 {
 	/// <summary>
 	/// MessageBox status

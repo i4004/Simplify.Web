@@ -1,6 +1,4 @@
-﻿using Simplify.Templates;
-
-namespace AcspNet.Responses
+﻿namespace Simplify.Web.Responses
 {
 	/// <summary>
 	/// Provides template response (puts data to DataCollector)

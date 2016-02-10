@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AcspNet.Core;
-using AcspNet.Meta;
-using AcspNet.ModelBinding;
-using AcspNet.Modules;
-using AcspNet.Modules.Html;
-using AcspNet.Routing;
-using Simplify.DI;
-using Environment = AcspNet.Modules.Environment;
+using Simplify.Web.Core;
+using Simplify.Web.Meta;
+using Simplify.Web.ModelBinding;
+using Simplify.Web.Modules;
+using Simplify.Web.Modules.Html;
+using Simplify.Web.Routing;
+using Environment = Simplify.Web.Modules.Environment;
 
-namespace AcspNet.Bootstrapper
+namespace Simplify.Web.Bootstrapper
 {
 	/// <summary>
 	/// Base and default AcspNet bootstrapper

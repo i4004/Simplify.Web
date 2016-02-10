@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace AcspNet.Modules
+namespace Simplify.Web.Modules
 {
 	/// <summary>
 	/// Represents localizable files reader

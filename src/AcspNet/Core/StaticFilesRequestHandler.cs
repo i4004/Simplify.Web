@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO.Abstractions;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Owin;
 
-namespace AcspNet.Core
+namespace Simplify.Web.Core
 {
 	/// <summary>
 	/// Provides static files request handler

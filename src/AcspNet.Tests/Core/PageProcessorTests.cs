@@ -1,12 +1,8 @@
 ﻿using System;
-using AcspNet.Core;
-using AcspNet.Modules;
-using Microsoft.Owin;
-using Moq;
-using NUnit.Framework;
-using Simplify.DI;
+using Simplify.Web.Core;
+using Simplify.Web.Modules;
 
-namespace AcspNet.Tests.Core
+namespace Simplify.Web.Tests.Core
 {
 	[TestFixture]
 	public class PageProcessorTests

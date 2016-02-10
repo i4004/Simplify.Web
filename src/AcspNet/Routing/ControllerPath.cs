@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AcspNet.Routing
+namespace Simplify.Web.Routing
 {
 	/// <summary>
 	/// Provides parsed controller path

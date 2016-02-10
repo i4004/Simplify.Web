@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AcspNet.ModelBinding.Binders;
-using AcspNet.ModelBinding.Validation;
-using AcspNet.Modules;
+using Simplify.Web.ModelBinding.Binders;
+using Simplify.Web.ModelBinding.Validation;
+using Simplify.Web.Modules;
 
-namespace AcspNet.ModelBinding
+namespace Simplify.Web.ModelBinding
 {
 	/// <summary>
 	/// Provides model handling

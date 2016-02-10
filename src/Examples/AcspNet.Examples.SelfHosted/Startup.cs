@@ -1,15 +1,8 @@
 ﻿using System;
-using AcspNet.Meta;
-using AcspNet.Owin;
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin;
-using Microsoft.Owin.Security.Cookies;
-using Owin;
-using Owin.Security.AesDataProtectorProvider;
-using Simplify.DI;
-using Simplify.DI.Provider.SimpleInjector;
+using Simplify.Web.Meta;
+using Simplify.Web.Owin;
 
-namespace AcspNet.Examples.SelfHosted
+namespace Simplify.Web.Examples.SelfHosted
 {
 	public class Startup
 	{

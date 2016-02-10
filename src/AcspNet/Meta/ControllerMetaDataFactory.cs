@@ -1,7 +1,7 @@
 ﻿using System;
-using AcspNet.Attributes;
+using Simplify.Web.Attributes;
 
-namespace AcspNet.Meta
+namespace Simplify.Web.Meta
 {
 	/// <summary>
 	/// Creates controller meta-data

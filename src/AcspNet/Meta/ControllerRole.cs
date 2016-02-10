@@ -1,4 +1,4 @@
-﻿namespace AcspNet.Meta
+﻿namespace Simplify.Web.Meta
 {
 	/// <summary>
 	/// Controller specific roles

@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO.Abstractions;
-using System.IO.Abstractions.TestingHelpers;
-using AcspNet.Modules;
-using Moq;
-using NUnit.Framework;
-using Simplify.Templates;
+using Simplify.Web.Modules;
 
-namespace AcspNet.Tests.Modules
+namespace Simplify.Web.Tests.Modules
 {
 	[TestFixture]
 	public class TemplateFactoryTests

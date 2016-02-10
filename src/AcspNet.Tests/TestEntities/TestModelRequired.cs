@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using AcspNet.ModelBinding.Attributes;
+using Simplify.Web.ModelBinding.Attributes;
 
-namespace AcspNet.Tests.TestEntities
+namespace Simplify.Web.Tests.TestEntities
 {
 	public class TestModelRequired
 	{

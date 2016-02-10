@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AcspNet.Core;
-using AcspNet.Tests.TestEntities;
-using Microsoft.Owin;
-using Moq;
-using NUnit.Framework;
-using Simplify.DI;
+using Simplify.Web.Core;
+using Simplify.Web.Tests.TestEntities;
 
-namespace AcspNet.Tests.Core
+namespace Simplify.Web.Tests.Core
 {
 	[TestFixture]
 	public class ControllersExecutorTests

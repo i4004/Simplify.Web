@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Simplify.Templates;
 
-namespace AcspNet.Modules
+namespace Simplify.Web.Modules
 {
 	/// <summary>
 	/// Provides master page data collector

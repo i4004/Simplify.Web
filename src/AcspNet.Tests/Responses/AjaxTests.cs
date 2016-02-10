@@ -1,11 +1,8 @@
-﻿using AcspNet.Core;
-using AcspNet.Modules;
-using AcspNet.Responses;
-using Microsoft.Owin;
-using Moq;
-using NUnit.Framework;
+﻿using Simplify.Web.Core;
+using Simplify.Web.Modules;
+using Simplify.Web.Responses;
 
-namespace AcspNet.Tests.Responses
+namespace Simplify.Web.Tests.Responses
 {
 	[TestFixture]
 	public class AjaxTests

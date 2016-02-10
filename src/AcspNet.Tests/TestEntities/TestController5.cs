@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace AcspNet.Tests.TestEntities
+namespace Simplify.Web.Tests.TestEntities
 {
 	public class TestController5 : AsyncController<TestModel>
 	{
