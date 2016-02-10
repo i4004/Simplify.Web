@@ -201,7 +201,7 @@
     <EmbeddedResource Include="Diagnostics\ExceptionInfoPage.html" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="AcspNet.nuspec" />
+    <None Include="Simplify.Web.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

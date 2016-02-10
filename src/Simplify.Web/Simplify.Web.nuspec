@@ -1,0 +1,24 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+	<metadata>
+		<id>$id$</id>
+		<version>$version$</version>
+		<title>$id$</title>
+		<authors>$author$</authors>
+		<owners>$author$</owners>
+		<projectUrl>https://github.com/i4004/Simplify.Web</projectUrl>
+		<iconUrl>https://raw.github.com/i4004/Simplify.Web/master/Images/Icon.png</iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Simplify.Web is a lightweight and fast .NET web-framework based on MVC and OWIN.</description>
+		<summary>Simplify.Web is a lightweight and fast .NET web-framework based on MVC and OWIN.</summary>
+		<releaseNotes>			
+		</releaseNotes>
+		<copyright>Licensed under LGPL</copyright>
+		<language>en-US</language>
+		<tags>.NET web-framework MVC DI OWIN</tags>
+		<frameworkAssemblies>
+			<frameworkAssembly assemblyName="System" targetFramework="" />
+			<frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework="" />
+		</frameworkAssemblies>
+	</metadata>
+</package>
