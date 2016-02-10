@@ -11,14 +11,14 @@ namespace Simplify.Web.Tests.Modules
 	public class LanguageManagerTests
 	{
 		private LanguageManager _languageManager;
-		private Mock<IAcspNetSettings> _settings;
+		private Mock<ISimplifyWebSettings> _settings;
 		private Mock<IOwinContext> _context;
 		private Mock<IHeaderDictionary> _headerDictionary;
 			
 		[SetUp]
 		public void Initialize()
 		{
-			_settings = new Mock<IAcspNetSettings>();
+			_settings = new Mock<ISimplifyWebSettings>();
 			_context = new Mock<IOwinContext>();
 
 			_settings.SetupGet(x => x.DefaultLanguage).Returns("en");

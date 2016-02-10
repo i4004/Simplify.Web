@@ -115,7 +115,7 @@ namespace Simplify.Web.Bootstrapper
 		/// <value>
 		/// The type of the Simplify.Web settings.
 		/// </value>
-		public Type SimplifyWebSettingsType => _simplifyWebSettingsType ?? typeof(AcspNetSettings);
+		public Type SimplifyWebSettingsType => _simplifyWebSettingsType ?? typeof(SimplifyWebSettings);
 
 		/// <summary>
 		/// Gets the type of the view factory.
@@ -270,7 +270,7 @@ namespace Simplify.Web.Bootstrapper
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		public void SetSimplifyWebSettingsType<T>()
-			where T : IAcspNetSettings
+			where T : ISimplifyWebSettings
 		{
 			_simplifyWebSettingsType = typeof(T);
 		}
@@ -480,7 +480,7 @@ namespace Simplify.Web.Bootstrapper
 		/// </summary>
 		public virtual void RegisterSimplifyWebSettings()
 		{
-			DIContainer.Current.Register<IAcspNetSettings>(SimplifyWebSettingsType, LifetimeType.Singleton);
+			DIContainer.Current.Register<ISimplifyWebSettings>(SimplifyWebSettingsType, LifetimeType.Singleton);
 		}
 
 		/// <summary>
@@ -553,7 +553,7 @@ namespace Simplify.Web.Bootstrapper
 		public virtual void RegisterEnvironment()
 		{
 			DIContainer.Current.Register<IEnvironment>(
-				p => new Environment(AppDomain.CurrentDomain.BaseDirectory, p.Resolve<IAcspNetSettings>()));
+				p => new Environment(AppDomain.CurrentDomain.BaseDirectory, p.Resolve<ISimplifyWebSettings>()));
 		}
 
 		/// <summary>
@@ -561,7 +561,7 @@ namespace Simplify.Web.Bootstrapper
 		/// </summary>
 		public virtual void RegisterLanguageManagerProvider()
 		{
-			DIContainer.Current.Register<ILanguageManagerProvider>(p => new LanguageManagerProvider(p.Resolve<IAcspNetSettings>()));
+			DIContainer.Current.Register<ILanguageManagerProvider>(p => new LanguageManagerProvider(p.Resolve<ISimplifyWebSettings>()));
 		}
 
 		/// <summary>
@@ -572,7 +572,7 @@ namespace Simplify.Web.Bootstrapper
 			DIContainer.Current.Register<ITemplateFactory>(
 				p =>
 				{
-					var settings = p.Resolve<IAcspNetSettings>();
+					var settings = p.Resolve<ISimplifyWebSettings>();
 
 					return new TemplateFactory(p.Resolve<IEnvironment>(), p.Resolve<ILanguageManagerProvider>(),
 						settings.DefaultLanguage, settings.TemplatesMemoryCache, settings.LoadTemplatesFromAssembly);
@@ -587,9 +587,9 @@ namespace Simplify.Web.Bootstrapper
 			DIContainer.Current.Register<IFileReader>(
 				p =>
 				{
-					var settings = p.Resolve<IAcspNetSettings>();
+					var settings = p.Resolve<ISimplifyWebSettings>();
 
-					return new FileReader(p.Resolve<IEnvironment>().DataPhysicalPath, p.Resolve<IAcspNetSettings>().DefaultLanguage,
+					return new FileReader(p.Resolve<IEnvironment>().DataPhysicalPath, p.Resolve<ISimplifyWebSettings>().DefaultLanguage,
 						p.Resolve<ILanguageManagerProvider>(), settings.DisableFileReaderCache);
 				});
 		}
@@ -602,7 +602,7 @@ namespace Simplify.Web.Bootstrapper
 			DIContainer.Current.Register<IStringTable>(
 				p =>
 				{
-					var settings = p.Resolve<IAcspNetSettings>();
+					var settings = p.Resolve<ISimplifyWebSettings>();
 					return new StringTable(settings.StringTableFiles, settings.DefaultLanguage, p.Resolve<ILanguageManagerProvider>(),
 						p.Resolve<IFileReader>(), settings.StringTableMemoryCache);
 
@@ -616,7 +616,7 @@ namespace Simplify.Web.Bootstrapper
 		{
 			DIContainer.Current.Register<IDataCollector>(p =>
 			{
-				var settings = p.Resolve<IAcspNetSettings>();
+				var settings = p.Resolve<ISimplifyWebSettings>();
 
 				return new DataCollector(settings.DefaultMainContentVariableName, settings.DefaultTitleVariableName, p.Resolve<IStringTable>());
 			});
@@ -685,7 +685,7 @@ namespace Simplify.Web.Bootstrapper
 		{
 			DIContainer.Current.Register<IStaticFilesRequestHandler>(
 				p =>
-					new StaticFilesRequestHandler(p.Resolve<IAcspNetSettings>().StaticFilesPaths,
+					new StaticFilesRequestHandler(p.Resolve<ISimplifyWebSettings>().StaticFilesPaths,
 						p.Resolve<IEnvironment>().SitePhysicalPath, p.Resolve<IResponseWriter>()));
 		}
 
@@ -712,7 +712,7 @@ namespace Simplify.Web.Bootstrapper
 		{
 			DIContainer.Current.Register<IContextVariablesSetter>(
 				p =>
-					new ContextVariablesSetter(p.Resolve<IDataCollector>(), p.Resolve<IAcspNetSettings>().DisableAutomaticSiteTitleSet));
+					new ContextVariablesSetter(p.Resolve<IDataCollector>(), p.Resolve<ISimplifyWebSettings>().DisableAutomaticSiteTitleSet));
 		}
 
 		/// <summary>

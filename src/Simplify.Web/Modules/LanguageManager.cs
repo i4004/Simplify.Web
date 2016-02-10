@@ -22,7 +22,7 @@ namespace Simplify.Web.Modules
 		/// </summary>
 		/// <param name="settings">The settings.</param>
 		/// <param name="context">The OWIN context.</param>
-		public LanguageManager(IAcspNetSettings settings, IOwinContext context)
+		public LanguageManager(ISimplifyWebSettings settings, IOwinContext context)
 		{
 			_responseCookies = context.Response.Cookies;
 

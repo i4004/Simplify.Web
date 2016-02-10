@@ -33,7 +33,7 @@
     <DocumentationFile>bin\Release\Simplify.Web.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AcspNetSettings.cs" />
+    <Compile Include="SimplifyWebSettings.cs" />
     <Compile Include="ActionModulesAccessor.cs" />
     <Compile Include="App_Packages\Simplify.String.Sources.1.0.1.0\StringHelper.cs" />
     <Compile Include="App_Packages\Simplify.System.Sources.1.0.0.0\AssemblyInfo.cs" />
@@ -100,7 +100,7 @@
     <Compile Include="Core\ViewAccessorBuilder.cs" />
     <Compile Include="Core\ViewFactory.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGenerator.cs" />
-    <Compile Include="IAcspNetSettings.cs" />
+    <Compile Include="ISimplifyWebSettings.cs" />
     <Compile Include="IgnoreControllersAttribute.cs" />
     <Compile Include="IgnoreTypesRegistrationAttribute.cs" />
     <Compile Include="IHideObjectMembers.cs" />

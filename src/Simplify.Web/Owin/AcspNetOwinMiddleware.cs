@@ -61,7 +61,7 @@ namespace Simplify.Web.Owin
 
 					// Tracing
 
-					var settings = scope.Container.Resolve<IAcspNetSettings>();
+					var settings = scope.Container.Resolve<ISimplifyWebSettings>();
 
 					if (settings.ConsoleTracing)
 						TraceToConsole(context);
@@ -98,12 +98,12 @@ namespace Simplify.Web.Owin
 					{
 						return
 							context.Response.WriteAsync(ExceptionInfoPageGenerator.Generate(exception,
-								scope.Container.Resolve<IAcspNetSettings>().HideExceptionDetails));
+								scope.Container.Resolve<ISimplifyWebSettings>().HideExceptionDetails));
 					}
 
 					return
 						context.Response.WriteAsync(ExceptionInfoPageGenerator.Generate(e,
-							scope.Container.Resolve<IAcspNetSettings>().HideExceptionDetails));
+							scope.Container.Resolve<ISimplifyWebSettings>().HideExceptionDetails));
 				}
 			}
 		}

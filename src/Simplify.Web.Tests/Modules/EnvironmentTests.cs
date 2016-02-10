@@ -6,12 +6,12 @@ namespace Simplify.Web.Tests.Modules
 	[TestFixture]
 	public class EnvironmentTests
 	{
-		AcspNetSettings _settings;
+		SimplifyWebSettings _settings;
 		
 		[SetUp]
 		public void Initialize()
 		{
-			_settings = new AcspNetSettings();		
+			_settings = new SimplifyWebSettings();		
 		}
 
 		[Test]

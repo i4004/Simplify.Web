@@ -5,7 +5,7 @@ namespace Simplify.Web
 	/// <summary>
 	/// Represent AcspNet settings
 	/// </summary>
-	public interface IAcspNetSettings : IHideObjectMembers
+	public interface ISimplifyWebSettings : IHideObjectMembers
 	{
 		/// <summary>
 		/// Default language, for example: "en", "ru", "de" etc., default value is "en"

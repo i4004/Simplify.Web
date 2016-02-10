@@ -1,7 +1,7 @@
 ﻿namespace Simplify.Web.Modules
 {
 	/// <summary>
-	/// Site environment properties, initialized from <see cref="IAcspNetSettings" />
+	/// Site environment properties, initialized from <see cref="ISimplifyWebSettings" />
 	/// </summary>
 	public sealed class Environment : IEnvironment
 	{
@@ -10,7 +10,7 @@
 		/// </summary>
 		/// <param name="sitePhysicalPath">The site physical path.</param>
 		/// <param name="settings">The settings.</param>
-		public Environment(string sitePhysicalPath, IAcspNetSettings settings)
+		public Environment(string sitePhysicalPath, ISimplifyWebSettings settings)
 		{
 			sitePhysicalPath = sitePhysicalPath.Replace("\\", "/");
 

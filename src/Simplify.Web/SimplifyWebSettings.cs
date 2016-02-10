@@ -8,7 +8,7 @@ namespace Simplify.Web
 	/// <summary>
 	/// AcspNet settings
 	/// </summary>
-	public sealed class AcspNetSettings : IAcspNetSettings
+	public sealed class SimplifyWebSettings : ISimplifyWebSettings
 	{
 		/// <summary>
 		/// Default language, for example: "en", "ru", "de" etc., default value is "en"
@@ -126,9 +126,9 @@ namespace Simplify.Web
 		public bool ConsoleTracing { get; private set; }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="AcspNetSettings"/> class.
+		/// Initializes a new instance of the <see cref="SimplifyWebSettings"/> class.
 		/// </summary>
-		public AcspNetSettings()
+		public SimplifyWebSettings()
 		{
 			// Language defaults
 			DefaultLanguage = "en";
@@ -150,7 +150,7 @@ namespace Simplify.Web
 			StaticFilesPaths = new List<string> {"Styles", "Scripts", "Images", "Content", "fonts"};
 			StringTableFiles = new List<string> {"StringTable.xml"};
 
-			var config = ConfigurationManager.GetSection("AcspNetSettings") as NameValueCollection;
+			var config = ConfigurationManager.GetSection("SimplifyWebSettings") as NameValueCollection;
 
 			if (config == null) return;
 

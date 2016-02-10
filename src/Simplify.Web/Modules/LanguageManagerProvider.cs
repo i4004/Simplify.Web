@@ -7,14 +7,14 @@ namespace Simplify.Web.Modules
 	/// </summary>
 	public class LanguageManagerProvider : ILanguageManagerProvider
 	{
-		private readonly IAcspNetSettings _settings;
+		private readonly ISimplifyWebSettings _settings;
 		private ILanguageManager _languageManager;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="LanguageManagerProvider" /> class.
 		/// </summary>
 		/// <param name="settings">The settings.</param>
-		public LanguageManagerProvider(IAcspNetSettings settings)
+		public LanguageManagerProvider(ISimplifyWebSettings settings)
 		{
 			_settings = settings;
 		}
