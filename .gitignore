@@ -109,3 +109,5 @@ UpgradeLog*.XML
 
 # SASS cache disable
 .sass-cache/
+
+*.vs
