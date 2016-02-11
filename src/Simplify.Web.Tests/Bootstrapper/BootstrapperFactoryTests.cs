@@ -12,8 +12,8 @@ namespace Simplify.Web.Tests.Bootstrapper
 		{
 			// Assign
 
-			if(!SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Contains("Simplify.Web"))
-				SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Add("Simplify.Web");
+			if(!SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Contains("Simplify"))
+				SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Add("Simplify");
 
 			SimplifyWebTypesFinder.CleanLoadedTypesAndAssembliesInfo();
 
@@ -30,7 +30,7 @@ namespace Simplify.Web.Tests.Bootstrapper
 		{
 			// Assign
 
-			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Remove("Simplify.Web");
+			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Remove("Simplify");
 			SimplifyWebTypesFinder.CleanLoadedTypesAndAssembliesInfo();
 
 			// Act
