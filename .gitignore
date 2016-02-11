@@ -111,3 +111,9 @@ UpgradeLog*.XML
 .sass-cache/
 
 *.vs
+
+# Temp CSS fix
+
+*.map
+src/Examples/Simplify.Web.Examples.SelfHosted/Styles/*.css
+!src/Examples/Simplify.Web.Examples.SelfHosted/Styles/Main.min.css

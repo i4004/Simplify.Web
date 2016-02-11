@@ -236,7 +236,7 @@
     <Content Include="Styles\Colors.css" />
     <Content Include="Styles\Forms.css" />
     <Content Include="Styles\Header.css" />
-    <Content Include="Styles\Main.css">
+    <Content Include="Styles\Main.min.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Styles\MessageBox.css" />
