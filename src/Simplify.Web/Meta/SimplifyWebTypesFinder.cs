@@ -26,7 +26,6 @@ namespace Simplify.Web.Meta
 			"System",
 			"Microsoft",
 			"AspNet",
-			"Simplify.Web",
 			"DotNet",
 			"Simplify"
 		};
