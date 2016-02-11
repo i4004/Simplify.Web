@@ -4,7 +4,7 @@
 	{
 		public override ControllerResponse Invoke()
 		{
-			throw new System.NotImplementedException();
+			throw new global::System.NotImplementedException();
 		}
 	}
 }

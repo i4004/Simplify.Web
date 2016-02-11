@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace Simplify.Web.App_Packages.Simplify.Xml.Sources._1._0._3._0
+namespace Simplify.Xml
 {
 	/// <summary>
 	/// Provides extensions for System.Xml.Linq classes

@@ -33,8 +33,6 @@
     <DocumentationFile>bin\Release\Simplify.Web.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="SimplifyWebSettings.cs" />
-    <Compile Include="ActionModulesAccessor.cs" />
     <Compile Include="App_Packages\Simplify.String.Sources.1.0.1.0\StringHelper.cs" />
     <Compile Include="App_Packages\Simplify.System.Sources.1.0.0.0\AssemblyInfo.cs" />
     <Compile Include="App_Packages\Simplify.System.Sources.1.0.0.0\IAssemblyInfo.cs" />
@@ -44,6 +42,8 @@
     <Compile Include="App_Packages\Simplify.System.Sources.1.0.0.0\TimeProvider.cs" />
     <Compile Include="App_Packages\Simplify.Xml.Sources.1.0.3.0\XmlExtensions.cs" />
     <Compile Include="App_Packages\Simplify.Xml.Sources.1.0.3.0\XmlSerializer.cs" />
+    <Compile Include="SimplifyWebSettings.cs" />
+    <Compile Include="ActionModulesAccessor.cs" />
     <Compile Include="AsyncController.cs" />
     <Compile Include="AsyncControllerBase.cs" />
     <Compile Include="AsyncController{T}.cs" />
@@ -231,6 +231,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

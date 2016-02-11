@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using System.Text.RegularExpressions;
-using Simplify.Web.App_Packages.Simplify.String.Sources._1._0._1._0;
+using Simplify.String;
 using Simplify.Web.ModelBinding.Attributes;
 
 namespace Simplify.Web.ModelBinding.Validation

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Simplify.Web.App_Packages.Simplify.System.Sources._1._0._0._0
+namespace Simplify.System
 {
 	/// <summary>
 	/// Provides the assembly information

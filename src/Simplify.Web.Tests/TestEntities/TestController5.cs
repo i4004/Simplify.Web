@@ -6,7 +6,7 @@ namespace Simplify.Web.Tests.TestEntities
 	{
 		public override Task<ControllerResponse> Invoke()
 		{
-			throw new System.NotImplementedException();
+			throw new global::System.NotImplementedException();
 		}
 	}
 }

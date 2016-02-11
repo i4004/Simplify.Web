@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Simplify.Web.App_Packages.Simplify.String.Sources._1._0._1._0
+namespace Simplify.String
 {
 	/// <summary>
 	/// Strings operations helper class

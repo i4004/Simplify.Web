@@ -8,7 +8,7 @@ namespace Simplify.Web.Tests.TestEntities
 		public override async Task<ControllerResponse> Invoke()
 #pragma warning restore 1998
 		{
-			throw new System.NotImplementedException();
+			throw new global::System.NotImplementedException();
 		}
 	}
 }
