@@ -8,7 +8,7 @@ namespace Simplify.Web.Examples.Katana.Controllers
 	{
 		public override ControllerResponse Invoke()
 		{
-			return new Tpl("Hello world!");
+			return new Tpl("Hello from OWIN IIS-hosted application!");
 		}
 	}
 }

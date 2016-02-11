@@ -6,7 +6,7 @@ namespace Simplify.Web.Examples.WindowsService.Controllers
 	{
 		public override ControllerResponse Invoke()
 		{
-			return new MessageBox("Hello from OWIN self-hosted windows service application!");
+			return new MessageBox("Hello from OWIN self-hosted windows service application with HttpListener server!");
 		}
 	}
 }

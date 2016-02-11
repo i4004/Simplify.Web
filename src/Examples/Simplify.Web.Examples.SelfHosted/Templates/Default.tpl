@@ -1,4 +1,6 @@
-﻿<div class="container-fluid">
+﻿<div class="text-center">Hello from OWIN self-hosted console application with HttpListener server!</div>
+
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-6">
 			<div class="panel-heading">

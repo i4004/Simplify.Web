@@ -8,7 +8,7 @@ namespace Simplify.Web.Examples.Nowin.Controllers
 	{
 		public override ControllerResponse Invoke()
 		{
-			return new Tpl("Hello world!");
+			return new Tpl("Hello from OWIN self-hosted application with NOWIN web-server!");
 		}
 	}
 }
