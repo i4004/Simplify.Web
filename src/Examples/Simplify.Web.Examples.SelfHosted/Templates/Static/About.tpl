@@ -1,5 +1,5 @@
 ﻿<div class="container" style="max-width: 750px">
-	ACSP.NET is a lightweight and fast .NET web-framework based on MVC and OWIN
+	Simplify.Web is a lightweight and fast .NET web-framework based on MVC and OWIN
 	<h3>Main features</h3>
 	<ul>
 		<li>Based on MVC and MVVM patterns</li>
