@@ -19,7 +19,7 @@ Simplify.Web is a lightweight and fast server-side .NET web-framework based on M
 | | **.NET (4.5.1)** | **Mono (Latest)** |
 | :------ | :------ | :------: |
 | **master** | [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/sln1ciuam2hobsv4/branch/master?svg=true)](https://ci.appveyor.com/project/i4004/simplify-web/branch/master) | [![Travis Build Status](https://travis-ci.org/i4004/Simplify.Web.svg?branch=master)](https://travis-ci.org/i4004/Simplify.Web) |
-| **develop** | [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/sln1ciuam2hobsv4/branch/master?svg=true)](https://ci.appveyor.com/project/i4004/simplify-web/branch/develop) | []![Travis Build Status](https://travis-ci.org/i4004/Simplify.Web.svg?branch=develop)](https://travis-ci.org/i4004/Simplify.Web) |
+| **develop** | [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/sln1ciuam2hobsv4/branch/master?svg=true)](https://ci.appveyor.com/project/i4004/simplify-web/branch/develop) | [![Travis Build Status](https://travis-ci.org/i4004/Simplify.Web.svg?branch=develop)](https://travis-ci.org/i4004/Simplify.Web) |
 
 ## Main features
 
