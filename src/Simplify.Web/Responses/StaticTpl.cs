@@ -23,7 +23,7 @@ namespace Simplify.Web.Responses
 		/// </summary>
 		/// <param name="templateFileName">Name of the template file.</param>
 		/// <param name="title">The title.</param>
-		/// <exception cref="System.ArgumentNullException">
+		/// <exception cref="ArgumentNullException">
 		/// templateFileName
 		/// or
 		/// title

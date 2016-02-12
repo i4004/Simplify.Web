@@ -19,7 +19,7 @@ namespace Simplify.Web.Meta
 		/// <value>
 		/// The excluded assemblies prefixes.
 		/// </value>
-		/// <exception cref="System.ArgumentNullException">value</exception>
+		/// <exception cref="ArgumentNullException">value</exception>
 		public static IList<string> ExcludedAssembliesPrefixes { get; } = new List<string>
 		{
 			"mscorlib",

@@ -36,7 +36,7 @@ namespace Simplify.Web.Core
 		/// <value>
 		/// The file system.
 		/// </value>
-		/// <exception cref="System.ArgumentNullException"></exception>
+		/// <exception cref="ArgumentNullException"></exception>
 		public static IFileSystem FileSystem
 		{
 			get { return _fileSystemInstance ?? (_fileSystemInstance = new FileSystem()); }

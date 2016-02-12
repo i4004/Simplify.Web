@@ -1,4 +1,5 @@
-﻿using Simplify.Templates;
+﻿using System;
+using Simplify.Templates;
 
 namespace Simplify.Web.Responses
 {
@@ -48,7 +49,7 @@ namespace Simplify.Web.Responses
 		/// <summary>
 		/// Processes this response
 		/// </summary>
-		/// <exception cref="System.NotImplementedException"></exception>
+		/// <exception cref="NotImplementedException"></exception>
 		public override ControllerResponseResult Process()
 		{
 			DataCollector.Add(TemplateFactory.Load(TemplateFileName).Model(Model).Set());
