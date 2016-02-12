@@ -1,25 +1,25 @@
-![ACSP .NET](https://raw.github.com/i4004/AcspNet/master/Images/Icon128x128.png)
+<!--- ![Simplify.Web](https://raw.github.com/i4004/Simplify.Web/master/Images/Icon128x128.png)-->
 
-ACSP.NET (Advanced Controls Site Platform .NET) is a lightweight and fast server-side .NET web-framework based on MVC and OWIN
+Simplify.Web is a lightweight and fast server-side .NET web-framework based on MVC and OWIN
 
-## Package status
+<!---## Package status
 
-| Latest version | [![Nuget version](http://img.shields.io/badge/nuget-v5.2.0-blue.png)](https://www.nuget.org/packages/AcspNet/) |
+| Latest version | [![Nuget version](http://img.shields.io/badge/nuget-v0.8-blue.png)](https://www.nuget.org/packages/Simplify.Web/) |
 | :------ | :------: |
-| **Dependencies** | [![NuGet Status](http://nugetstatus.com/AcspNet.png)](http://nugetstatus.com/packages/AcspNet) |
+| **Dependencies** | [![NuGet Status](http://nugetstatus.com/Simplify.Web.png)](http://nugetstatus.com/packages/Simplify.Web) | -->
 
 ## Issues status
 
 | Ready issues |
 | :------ |
-| [![Stories in Ready](https://badge.waffle.io/i4004/acspnet.png?label=ready&title=Ready)](https://waffle.io/i4004/acspnet) |
+| [![Stories in Ready](https://badge.waffle.io/i4004/Simplify.Web.svg?label=ready&title=Ready)](http://waffle.io/i4004/Simplify.Web) |
 
 ## Build status
 
 | | **.NET (4.5.1)** | **Mono (Latest)** |
 | :------ | :------ | :------: |
-| **master** | [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/89hirbi3bn5ajkvj/branch/master?svg=true)](https://ci.appveyor.com/project/i4004/acspnet) | [![Travis build status](https://travis-ci.org/i4004/AcspNet.png?branch=master)](https://travis-ci.org/i4004/AcspNet) |
-| **develop** | [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/03lxsq1lf1s5j8sy/branch/develop?svg=true)](https://ci.appveyor.com/project/i4004/acspnet-155) | [![Travis build status](https://travis-ci.org/i4004/AcspNet.png?branch=develop)](https://travis-ci.org/i4004/AcspNet) |
+| **master** | [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/sln1ciuam2hobsv4/branch/master?svg=true)](https://ci.appveyor.com/project/i4004/simplify-web/branch/master) | [![Travis Build Status](https://travis-ci.org/i4004/Simplify.Web.svg?branch=master)](https://travis-ci.org/i4004/Simplify.Web) |
+| **develop** | [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/sln1ciuam2hobsv4/branch/master?svg=true)](https://ci.appveyor.com/project/i4004/simplify-web/branch/develop) | ![Travis Build Status](https://travis-ci.org/i4004/Simplify.Web.svg?branch=develop)](https://travis-ci.org/i4004/Simplify.Web) |
 
 ## Main features
 
@@ -35,7 +35,7 @@ ACSP.NET (Advanced Controls Site Platform .NET) is a lightweight and fast server
 
 ## Getting started
 
-To get started you can install [visual studio AcspNet project templates](http://visualstudiogallery.msdn.microsoft.com/25a4534d-5a5b-4cce-aecf-523c3679a1c3) and read [this](https://github.com/i4004/AcspNet/wiki/Getting-started) article.
+<!----To get started you can install [visual studio Simplify.Web project templates](http://visualstudiogallery.msdn.microsoft.com/25a4534d-5a5b-4cce-aecf-523c3679a1c3) and read [this](https://github.com/i4004/Simplify.Web/wiki/Getting-started) article.-->
 
 ## Some examples
 
@@ -111,4 +111,4 @@ public class LoggedUserPanelView : View
 </div>
 ```
 
-### [Detailed documentation](https://github.com/i4004/AcspNet/wiki)
+<!---### [Detailed documentation](https://github.com/i4004/Simplify.Web/wiki)-->
