@@ -40,6 +40,7 @@ namespace Simplify.Web.ModelBinding
 		/// <value>
 		/// The model binders types.
 		/// </value>
+		// ReSharper disable once ConvertToAutoProperty
 		public static IList<Type> ModelBindersTypes => ModelBindersTypesInstance;
 
 		/// <summary>
@@ -48,6 +49,7 @@ namespace Simplify.Web.ModelBinding
 		/// <value>
 		/// The model validators types.
 		/// </value>
+		// ReSharper disable once ConvertToAutoProperty
 		public static IList<Type> ModelValidatorsTypes => ModelValidatorsTypesInstance;
 
 		/// <summary>
