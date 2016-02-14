@@ -14,13 +14,13 @@ namespace Simplify.Web.ModelBinding
 	{
 		private readonly IWebContext _context;
 
-		private static IList<Type> _modelBindersTypes = new List<Type>
+		private static readonly IList<Type> ModelBindersTypesInstance = new List<Type>
 		{
 			typeof (HttpQueryModelBinder),
 			typeof (HttpFormModelBinder)
 		};
 
-		private static IList<Type> _modelValidatorsTypes = new List<Type>
+		private static readonly IList<Type> ModelValidatorsTypesInstance = new List<Type>
 		{
 			typeof (ObjectPropertiesValidator)
 		};
@@ -40,13 +40,7 @@ namespace Simplify.Web.ModelBinding
 		/// <value>
 		/// The model binders types.
 		/// </value>
-		public static IList<Type> ModelBindersTypes
-		{
-			get
-			{
-				return _modelBindersTypes;
-			}
-		}
+		public static IList<Type> ModelBindersTypes => ModelBindersTypesInstance;
 
 		/// <summary>
 		/// Gets the model validators types.
@@ -54,13 +48,7 @@ namespace Simplify.Web.ModelBinding
 		/// <value>
 		/// The model validators types.
 		/// </value>
-		public static IList<Type> ModelValidatorsTypes
-		{
-			get
-			{
-				return _modelValidatorsTypes;
-			}
-		}
+		public static IList<Type> ModelValidatorsTypes => ModelValidatorsTypesInstance;
 
 		/// <summary>
 		/// Registers the model binder.
