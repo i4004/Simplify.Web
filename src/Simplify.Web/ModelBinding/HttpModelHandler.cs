@@ -40,7 +40,7 @@ namespace Simplify.Web.ModelBinding
 		/// <value>
 		/// The model binders types.
 		/// </value>
-		public static IList<Type> ModelBindersTypes	
+		public static IList<Type> ModelBindersTypes
 		{
 			get
 			{
