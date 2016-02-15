@@ -29,7 +29,14 @@ namespace Simplify.Web.Core
 		/// </summary>
 		public const string VariableNameCurrentLanguageExtension = "SV:LanguageExt";
 
+		/// <summary>
+		///  The site variable name current language and country
+		/// </summary>
 		public const string VariableNameCurrentLanguageCountry = "SV:LanguageCountry";
+
+		/// <summary>
+		/// The site variable name current language and country extension
+		/// </summary>
 		public const string VariableNameCurrentLanguageCountryExtension = "SV:LanguageCountryExt";
 
 		/// <summary>
