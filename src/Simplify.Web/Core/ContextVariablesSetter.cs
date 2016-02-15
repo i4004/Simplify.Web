@@ -91,8 +91,8 @@ namespace Simplify.Web.Core
 			{
 				_dataCollector.Add(VariableNameCurrentLanguage, languageManager.Language);
 				_dataCollector.Add(VariableNameCurrentLanguageExtension, "." + languageManager.Language);
-				_dataCollector.Add(VariableNameCurrentLanguageCountry, Thread.CurrentThread.CurrentCulture.Name);
-				_dataCollector.Add(VariableNameCurrentLanguageCountryExtension, "." + Thread.CurrentThread.CurrentCulture.Name);
+				_dataCollector.Add(VariableNameCurrentLanguageCountry, Thread.CurrentThread.CurrentCulture.TextInfo.CultureName);
+				_dataCollector.Add(VariableNameCurrentLanguageCountryExtension, "." + Thread.CurrentThread.CurrentCulture.TextInfo.CultureName);
 			}
 			else
 			{
