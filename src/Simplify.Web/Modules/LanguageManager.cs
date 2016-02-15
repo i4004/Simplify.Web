@@ -26,8 +26,8 @@ namespace Simplify.Web.Modules
 		{
 			_responseCookies = context.Response.Cookies;
 
-			if(!TrySetLanguageFromCookie(context))
-				if(!settings.AcceptBrowserLanguage || (settings.AcceptBrowserLanguage && !TrySetLanguageFromRequestHeader(context)))
+			if (!TrySetLanguageFromCookie(context))
+				if (!settings.AcceptBrowserLanguage || (settings.AcceptBrowserLanguage && !TrySetLanguageFromRequestHeader(context)))
 					SetCurrentLanguage(settings.DefaultLanguage);
 		}
 
@@ -45,7 +45,7 @@ namespace Simplify.Web.Modules
 			if (string.IsNullOrEmpty(language))
 				throw new ArgumentNullException(nameof(language));
 
-			_responseCookies.Append(CookieLanguageFieldName, language, new CookieOptions{Expires = DateTime.Now.AddYears(5)});
+			_responseCookies.Append(CookieLanguageFieldName, language, new CookieOptions { Expires = DateTime.Now.AddYears(5) });
 		}
 
 		/// <summary>

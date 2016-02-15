@@ -1,4 +1,5 @@
-﻿using Simplify.DI;
+﻿using System.Threading;
+using Simplify.DI;
 using Simplify.Web.Modules;
 
 namespace Simplify.Web.Core
@@ -27,6 +28,9 @@ namespace Simplify.Web.Core
 		/// The site variable name current language extension
 		/// </summary>
 		public const string VariableNameCurrentLanguageExtension = "SV:LanguageExt";
+
+		public const string VariableNameCurrentLanguageCountry = "SV:LanguageCountry";
+		public const string VariableNameCurrentLanguageCountryExtension = "SV:LanguageCountryExt";
 
 		/// <summary>
 		/// The site variable name site URL
@@ -76,8 +80,20 @@ namespace Simplify.Web.Core
 			_dataCollector.Add(VariableNameTemplatesPath, environment.TemplatesPath);
 			_dataCollector.Add(VariableNameSiteStyle, environment.SiteStyle);
 
-			_dataCollector.Add(VariableNameCurrentLanguage, languageManager.Language);
-			_dataCollector.Add(VariableNameCurrentLanguageExtension, !string.IsNullOrEmpty(languageManager.Language) ? "." + languageManager.Language : "");
+			if (!string.IsNullOrEmpty(languageManager.Language))
+			{
+				_dataCollector.Add(VariableNameCurrentLanguage, languageManager.Language);
+				_dataCollector.Add(VariableNameCurrentLanguageExtension, "." + languageManager.Language);
+				_dataCollector.Add(VariableNameCurrentLanguageCountry, Thread.CurrentThread.CurrentCulture.Name);
+				_dataCollector.Add(VariableNameCurrentLanguageCountryExtension, "." + Thread.CurrentThread.CurrentCulture.Name);
+			}
+			else
+			{
+				_dataCollector.Add(VariableNameCurrentLanguage, (string)null);
+				_dataCollector.Add(VariableNameCurrentLanguageExtension, (string)null);
+				_dataCollector.Add(VariableNameCurrentLanguageCountry, (string)null);
+				_dataCollector.Add(VariableNameCurrentLanguageCountryExtension, (string)null);
+			}
 
 			_dataCollector.Add(VariableNameSiteUrl, context.SiteUrl);
 			_dataCollector.Add(VariableNameSiteVirtualPath, context.VirtualPath);

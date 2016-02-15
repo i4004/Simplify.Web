@@ -22,7 +22,6 @@ namespace Simplify.Web.Tests.Core
 		private Mock<IWebContext> _context;
 		private Mock<IStringTable> _stringTable;
 		private Mock<IStopwatchProvider> _stopwatchProvider;
-		
 
 		[SetUp]
 		public void Initialize()
@@ -43,6 +42,7 @@ namespace Simplify.Web.Tests.Core
 
 			_environment.SetupGet(x => x.TemplatesPath).Returns("Templates");
 			_environment.SetupGet(x => x.SiteStyle).Returns("Main");
+
 
 			_languageManager.SetupGet(x => x.Language).Returns("ru");
 			_languageManagerProvider.Setup(x => x.Get()).Returns(_languageManager.Object);
@@ -65,6 +65,7 @@ namespace Simplify.Web.Tests.Core
 		public void SetVariables_NormalData_AllVariablesSetToDataCollector()
 		{
 			// Act
+
 			_setter.SetVariables(_containerProvider.Object);
 
 			// Assert
@@ -73,10 +74,29 @@ namespace Simplify.Web.Tests.Core
 			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameSiteStyle), It.Is<string>(d => d == "Main")));
 			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameCurrentLanguage), It.Is<string>(d => d == "ru")));
 			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameCurrentLanguageExtension), It.Is<string>(d => d == ".ru")));
+			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameCurrentLanguageCountry), It.Is<string>(d => d == "ru-RU")));
+			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameCurrentLanguageCountryExtension), It.Is<string>(d => d == ".ru-RU")));
 			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameSiteUrl), It.Is<string>(d => d == "http://localhost/mysite/")));
 			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameSiteVirtualPath), It.Is<string>(d => d == "/mysite")));
 			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameExecutionTime), It.Is<string>(d => d == "01:15:342")));
 			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == "Title"), It.IsAny<string>()), Times.Never);
+		}
+
+		[Test]
+		public void SetVariables_NoLanguagesSet_DotLanguagesIsEmptyDefaltLanguage()
+		{
+			// Assign
+			_languageManager.SetupGet(x => x.Language).Returns((string)null);
+
+			// Act
+			_setter.SetVariables(_containerProvider.Object);
+
+			// Assert
+
+			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameCurrentLanguage), It.Is<string>(d => d == null)));
+			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameCurrentLanguageExtension), It.Is<string>(d => d == null)));
+			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameCurrentLanguageCountry), It.Is<string>(d => d == null)));
+			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameCurrentLanguageCountryExtension), It.Is<string>(d => d == null)));
 		}
 
 		[Test]
