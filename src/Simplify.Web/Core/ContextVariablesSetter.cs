@@ -30,14 +30,14 @@ namespace Simplify.Web.Core
 		public const string VariableNameCurrentLanguageExtension = "SV:LanguageExt";
 
 		/// <summary>
-		///  The site variable name current language and country
+		///  The site variable name current language culture name
 		/// </summary>
-		public const string VariableNameCurrentLanguageCountry = "SV:LanguageCountry";
+		public const string VariableNameCurrentLanguageCultureName = "SV:LanguageCultureName";
 
 		/// <summary>
-		/// The site variable name current language and country extension
+		/// The site variable name current language culture name extension
 		/// </summary>
-		public const string VariableNameCurrentLanguageCountryExtension = "SV:LanguageCountryExt";
+		public const string VariableNameCurrentLanguageCultureNameExtension = "SV:LanguageCultureNameExt";
 
 		/// <summary>
 		/// The site variable name site URL
@@ -91,15 +91,15 @@ namespace Simplify.Web.Core
 			{
 				_dataCollector.Add(VariableNameCurrentLanguage, languageManager.Language);
 				_dataCollector.Add(VariableNameCurrentLanguageExtension, "." + languageManager.Language);
-				_dataCollector.Add(VariableNameCurrentLanguageCountry, Thread.CurrentThread.CurrentCulture.TextInfo.CultureName);
-				_dataCollector.Add(VariableNameCurrentLanguageCountryExtension, "." + Thread.CurrentThread.CurrentCulture.TextInfo.CultureName);
+				_dataCollector.Add(VariableNameCurrentLanguageCultureName, Thread.CurrentThread.CurrentCulture.TextInfo.CultureName);
+				_dataCollector.Add(VariableNameCurrentLanguageCultureNameExtension, "." + Thread.CurrentThread.CurrentCulture.TextInfo.CultureName);
 			}
 			else
 			{
 				_dataCollector.Add(VariableNameCurrentLanguage, (string)null);
 				_dataCollector.Add(VariableNameCurrentLanguageExtension, (string)null);
-				_dataCollector.Add(VariableNameCurrentLanguageCountry, (string)null);
-				_dataCollector.Add(VariableNameCurrentLanguageCountryExtension, (string)null);
+				_dataCollector.Add(VariableNameCurrentLanguageCultureName, (string)null);
+				_dataCollector.Add(VariableNameCurrentLanguageCultureNameExtension, (string)null);
 			}
 
 			_dataCollector.Add(VariableNameSiteUrl, context.SiteUrl);

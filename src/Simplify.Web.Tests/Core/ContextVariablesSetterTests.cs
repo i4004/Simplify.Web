@@ -78,8 +78,8 @@ namespace Simplify.Web.Tests.Core
 			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameSiteStyle), It.Is<string>(d => d == "Main")));
 			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameCurrentLanguage), It.Is<string>(d => d == "ru")));
 			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameCurrentLanguageExtension), It.Is<string>(d => d == ".ru")));
-			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameCurrentLanguageCountry), It.Is<string>(d => d == "ru-RU")));
-			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameCurrentLanguageCountryExtension), It.Is<string>(d => d == ".ru-RU")));
+			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameCurrentLanguageCultureName), It.Is<string>(d => d == "ru-RU")));
+			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameCurrentLanguageCultureNameExtension), It.Is<string>(d => d == ".ru-RU")));
 			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameSiteUrl), It.Is<string>(d => d == "http://localhost/mysite/")));
 			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameSiteVirtualPath), It.Is<string>(d => d == "/mysite")));
 			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameExecutionTime), It.Is<string>(d => d == "01:15:342")));
@@ -99,8 +99,8 @@ namespace Simplify.Web.Tests.Core
 
 			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameCurrentLanguage), It.Is<string>(d => d == null)));
 			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameCurrentLanguageExtension), It.Is<string>(d => d == null)));
-			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameCurrentLanguageCountry), It.Is<string>(d => d == null)));
-			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameCurrentLanguageCountryExtension), It.Is<string>(d => d == null)));
+			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameCurrentLanguageCultureName), It.Is<string>(d => d == null)));
+			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == ContextVariablesSetter.VariableNameCurrentLanguageCultureNameExtension), It.Is<string>(d => d == null)));
 		}
 
 		[Test]
