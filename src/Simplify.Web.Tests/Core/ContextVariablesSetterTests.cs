@@ -45,7 +45,9 @@ namespace Simplify.Web.Tests.Core
 			_environment.SetupGet(x => x.TemplatesPath).Returns("Templates");
 			_environment.SetupGet(x => x.SiteStyle).Returns("Main");
 
-			Thread.CurrentThread.CurrentCulture = new CultureInfo("ru");
+			// Language-country code used in test but not suppored in LanguageManager for now
+			Thread.CurrentThread.CurrentCulture = new CultureInfo("ru-RU");
+
 			_languageManager.SetupGet(x => x.Language).Returns("ru");
 			_languageManagerProvider.Setup(x => x.Get()).Returns(_languageManager.Object);
 
