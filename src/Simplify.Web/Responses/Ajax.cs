@@ -6,11 +6,13 @@
 	public class Ajax : ControllerResponse
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Ajax"/> class.
+		/// Initializes a new instance of the <see cref="Ajax" /> class.
 		/// </summary>
 		/// <param name="ajaxData">The ajax data.</param>
-		public Ajax(string ajaxData)
+		/// <param name="statusCode">The HTTP response status code.</param>
+		public Ajax(string ajaxData, int statusCode = 200)
 		{
+			StatusCode = statusCode;
 			AjaxData = ajaxData;
 		}
 
@@ -23,12 +25,23 @@
 		public string AjaxData { get; }
 
 		/// <summary>
+		/// Gets the HTTP response status code.
+		/// </summary>
+		/// <value>
+		/// The HTTP response status code.
+		/// </value>
+		public int StatusCode { get; }
+
+		/// <summary>
 		/// Processes this response
 		/// </summary>
 		public override ControllerResponseResult Process()
 		{
-			if(AjaxData != null)
+			if (AjaxData != null)
+			{
+				Context.Response.StatusCode = StatusCode;
 				ResponseWriter.Write(AjaxData, Context.Response);
+			}
 
 			return ControllerResponseResult.RawOutput;
 		}
