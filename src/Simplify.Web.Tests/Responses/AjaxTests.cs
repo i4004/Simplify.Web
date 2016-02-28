@@ -10,7 +10,7 @@ namespace Simplify.Web.Tests.Responses
 	[TestFixture]
 	public class AjaxTests
 	{
-		Mock<IResponseWriter> _responseWriter;
+		private Mock<IResponseWriter> _responseWriter;
 		private Mock<IWebContext> _context;
 
 		[SetUp]

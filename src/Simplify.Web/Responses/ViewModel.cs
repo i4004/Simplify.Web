@@ -1,4 +1,5 @@
-﻿using Simplify.Templates;
+﻿using System;
+using Simplify.Templates;
 
 namespace Simplify.Web.Responses
 {
