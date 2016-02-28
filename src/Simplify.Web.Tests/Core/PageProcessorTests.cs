@@ -29,7 +29,6 @@ namespace Simplify.Web.Tests.Core
 			_context = new Mock<IOwinContext>();
 		}
 
-
 		[Test]
 		public void Process_Ok_PageBuiltWithOutput()
 		{

@@ -20,6 +20,6 @@ namespace Simplify.Web.ModelBinding.Binders
 				args.SetModel(
 					ListToModelParser.Parse<T>(
 						args.Context.Query.Select(x => new KeyValuePair<string, string[]>(x.Key, x.Value)).ToList()));
-		}	 
+		}
 	}
 }

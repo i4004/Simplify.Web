@@ -41,10 +41,10 @@ namespace Simplify.Web.Core
 
 				var securityResult = _agent.IsSecurityRulesViolated(metaData, context.Authentication.User);
 
-				if(securityResult == SecurityRuleCheckResult.NotAuthenticated)
+				if (securityResult == SecurityRuleCheckResult.NotAuthenticated)
 					return ControllersProcessorResult.Http401;
 
-				if(securityResult == SecurityRuleCheckResult.Forbidden)
+				if (securityResult == SecurityRuleCheckResult.Forbidden)
 					return ProcessForbiddenSecurityRule(containerProvider, context);
 
 				var result = ProcessController(metaData.ControllerType, containerProvider, context, matcherResult.RouteParameters);
@@ -76,7 +76,7 @@ namespace Simplify.Web.Core
 			if (result == ControllerResponseResult.Redirect)
 				return ControllersProcessorResult.Redirect;
 
-			return  ControllersProcessorResult.Ok;			
+			return ControllersProcessorResult.Ok;
 		}
 
 		private ControllersProcessorResult ProcessOnlyAnyPageControllersMatched(IDIContainerProvider containerProvider, IOwinContext context)
@@ -93,7 +93,7 @@ namespace Simplify.Web.Core
 
 			if (handlerControllerResult == ControllerResponseResult.Redirect)
 				return ControllersProcessorResult.Redirect;
-			
+
 			return ControllersProcessorResult.Ok;
 		}
 

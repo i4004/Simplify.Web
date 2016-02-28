@@ -104,8 +104,8 @@ namespace Simplify.Web.Core
 		/// <returns></returns>
 		public bool IsAnyPageController(IControllerMetaData metaData)
 		{
-			if(metaData.Role != null)
-				if(metaData.Role.Is400Handler
+			if (metaData.Role != null)
+				if (metaData.Role.Is400Handler
 					|| metaData.Role.Is403Handler
 					|| metaData.Role.Is404Handler)
 					return false;
@@ -114,9 +114,9 @@ namespace Simplify.Web.Core
 				return true;
 
 			return string.IsNullOrEmpty(metaData.ExecParameters.RouteInfo.GetRoute) &&
-			       string.IsNullOrEmpty(metaData.ExecParameters.RouteInfo.PostRoute) &&
-			       string.IsNullOrEmpty(metaData.ExecParameters.RouteInfo.PutRoute) &&
-			       string.IsNullOrEmpty(metaData.ExecParameters.RouteInfo.DeleteRoute);
+				   string.IsNullOrEmpty(metaData.ExecParameters.RouteInfo.PostRoute) &&
+				   string.IsNullOrEmpty(metaData.ExecParameters.RouteInfo.PutRoute) &&
+				   string.IsNullOrEmpty(metaData.ExecParameters.RouteInfo.DeleteRoute);
 		}
 
 		/// <summary>
@@ -132,7 +132,7 @@ namespace Simplify.Web.Core
 
 			if (!metaData.Security.IsAuthorizationRequired)
 				return SecurityRuleCheckResult.Ok;
-			
+
 			if (metaData.Security.AllowedUserRoles == null)
 				return user?.Identity == null || !user.Identity.IsAuthenticated ? SecurityRuleCheckResult.NotAuthenticated : SecurityRuleCheckResult.Ok;
 

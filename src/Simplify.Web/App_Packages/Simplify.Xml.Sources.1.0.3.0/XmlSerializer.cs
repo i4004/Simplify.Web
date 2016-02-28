@@ -20,14 +20,14 @@ namespace Simplify.Xml
 		/// <returns></returns>
 		public static string Serialize<T>(IList<T> items)
 		{
-			using(var memoryStream = new MemoryStream())
+			using (var memoryStream = new MemoryStream())
 			{
 				var serializer = new XmlSer.XmlSerializer(typeof(List<T>));
 				serializer.Serialize(memoryStream, items);
 
 				memoryStream.Position = 0;
 				return new StreamReader(memoryStream).ReadToEnd();
-			}			
+			}
 		}
 
 		/// <summary>

@@ -20,7 +20,7 @@ namespace Simplify.Web.Examples.SelfHosted
 
 			var provider = new SimpleInjectorDIProvider();
 			DIContainer.Current = provider;
-			
+
 			app.UseCookieAuthentication(new CookieAuthenticationOptions
 			{
 				AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
@@ -38,7 +38,6 @@ namespace Simplify.Web.Examples.SelfHosted
 
 		private static void Ex(Exception e)
 		{
-			
 		}
 	}
 }

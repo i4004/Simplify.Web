@@ -17,8 +17,8 @@ namespace Simplify.Web.Meta
 		{
 			IsAuthorizationRequired = isAuthorizationRequired;
 
-			if(!string.IsNullOrEmpty(allowedUserRoles))
-				AllowedUserRoles = allowedUserRoles.Replace(" ", "").Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
+			if (!string.IsNullOrEmpty(allowedUserRoles))
+				AllowedUserRoles = allowedUserRoles.Replace(" ", "").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 		}
 
 		/// <summary>

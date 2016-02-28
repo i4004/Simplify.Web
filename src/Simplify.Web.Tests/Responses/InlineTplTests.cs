@@ -10,12 +10,12 @@ namespace Simplify.Web.Tests.Responses
 	[TestFixture]
 	public class InlineTplTests
 	{
-		Mock<IDataCollector> _dataCollector;
-		
+		private Mock<IDataCollector> _dataCollector;
+
 		[SetUp]
 		public void Initialize()
 		{
-			_dataCollector = new Mock<IDataCollector>();			
+			_dataCollector = new Mock<IDataCollector>();
 		}
 
 		[Test]
@@ -32,7 +32,7 @@ namespace Simplify.Web.Tests.Responses
 
 			var tplData = new Mock<InlineTpl>("foo", "test") { CallBase = true };
 			tplData.SetupGet(x => x.DataCollector).Returns(_dataCollector.Object);
-			
+
 			// Act
 			var result = tplData.Object.Process();
 

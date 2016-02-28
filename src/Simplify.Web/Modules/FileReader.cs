@@ -14,7 +14,7 @@ namespace Simplify.Web.Modules
 		private static readonly IDictionary<KeyValuePair<string, string>, XDocument> XmlCache = new Dictionary<KeyValuePair<string, string>, XDocument>();
 		private static readonly IDictionary<KeyValuePair<string, string>, string> TextCache = new Dictionary<KeyValuePair<string, string>, string>();
 		private static readonly object Locker = new object();
-		
+
 		private readonly string _dataPhysicalPath;
 		private readonly string _defaultLanguage;
 		private readonly ILanguageManagerProvider _languageManagerProvider;

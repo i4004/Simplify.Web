@@ -4,7 +4,7 @@ namespace Simplify.Web.Modules
 {
 	/// <summary>
 	/// Represent web context provider
-	/// </summary> 
+	/// </summary>
 	public interface IWebContextProvider
 	{
 		/// <summary>

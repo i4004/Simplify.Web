@@ -147,8 +147,8 @@ namespace Simplify.Web
 			// Other defaults
 
 			DataPath = "App_Data";
-			StaticFilesPaths = new List<string> {"Styles", "Scripts", "Images", "Content", "fonts"};
-			StringTableFiles = new List<string> {"StringTable.xml"};
+			StaticFilesPaths = new List<string> { "Styles", "Scripts", "Images", "Content", "fonts" };
+			StringTableFiles = new List<string> { "StringTable.xml" };
 
 			var config = ConfigurationManager.GetSection("SimplifyWebSettings") as NameValueCollection;
 
@@ -201,14 +201,13 @@ namespace Simplify.Web
 				DefaultMainContentVariableName = config["DefaultMainContentVariableName"];
 
 			if (!string.IsNullOrEmpty(config["DefaultTitleVariableName"]))
-				DefaultTitleVariableName = config["DefaultTitleVariableName"];		
+				DefaultTitleVariableName = config["DefaultTitleVariableName"];
 		}
 
 		private void LoadStyleSettings(NameValueCollection config)
 		{
 			if (!string.IsNullOrEmpty(config["DefaultStyle"]))
 				DefaultStyle = config["DefaultStyle"];
-			
 		}
 
 		private void LoadOtherSettings(NameValueCollection config)
@@ -219,7 +218,7 @@ namespace Simplify.Web
 			if (!string.IsNullOrEmpty(config["StaticFilesPaths"]))
 			{
 				StaticFilesPaths.Clear();
-				var items = config["StaticFilesPaths"].Replace(" ", "").Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
+				var items = config["StaticFilesPaths"].Replace(" ", "").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
 				foreach (var item in items)
 					StaticFilesPaths.Add(item);
@@ -232,7 +231,7 @@ namespace Simplify.Web
 
 				foreach (var item in items)
 					StringTableFiles.Add(item);
-			}		
+			}
 		}
 
 		private void LoadEngineBehaviorSettings(NameValueCollection config)
@@ -251,7 +250,7 @@ namespace Simplify.Web
 
 				if (bool.TryParse(config["HideExceptionDetails"], out buffer))
 					HideExceptionDetails = buffer;
-			}	
+			}
 		}
 
 		private void LoadCacheSettings(NameValueCollection config)
@@ -280,7 +279,7 @@ namespace Simplify.Web
 					DisableFileReaderCache = buffer;
 			}
 		}
-		
+
 		private void LoadDiagnosticSettings(NameValueCollection config)
 		{
 			if (!string.IsNullOrEmpty(config["ConsoleTracing"]))

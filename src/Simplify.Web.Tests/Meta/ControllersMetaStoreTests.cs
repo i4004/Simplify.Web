@@ -23,10 +23,10 @@ namespace Simplify.Web.Tests.Meta
 			var store = new ControllersMetaStore(factory.Object);
 
 			factory.SetupSequence(x => x.CreateControllerMetaData(It.IsAny<Type>()))
-				.Returns(new ControllerMetaData(typeof (TestController1), new ControllerExecParameters(null, 2)))
-				.Returns(new ControllerMetaData(typeof (TestController2), new ControllerExecParameters(null, 1)))
-				.Returns(new ControllerMetaData(typeof (TestController4)))
-				.Returns(new ControllerMetaData(typeof (TestController5)));
+				.Returns(new ControllerMetaData(typeof(TestController1), new ControllerExecParameters(null, 2)))
+				.Returns(new ControllerMetaData(typeof(TestController2), new ControllerExecParameters(null, 1)))
+				.Returns(new ControllerMetaData(typeof(TestController4)))
+				.Returns(new ControllerMetaData(typeof(TestController5)));
 
 			// Act
 			var metaData = store.ControllersMetaData;

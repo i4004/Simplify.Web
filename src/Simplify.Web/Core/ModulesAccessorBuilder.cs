@@ -25,7 +25,7 @@ namespace Simplify.Web.Core
 			modulesAccessor.StringTableManager = stringTable;
 
 			modulesAccessor.TemplateFactory = containerProvider.Resolve<ITemplateFactory>();
-			
+
 			var htmlWrapper = new HtmlWrapper
 			{
 				MessageBox = containerProvider.Resolve<IMessageBox>(),

@@ -24,7 +24,7 @@ namespace Simplify.Web.Meta
 		/// Gets the controller role information.
 		/// </summary>
 		ControllerRole Role { get; }
-		
+
 		/// <summary>
 		/// Gets the controller security information.
 		/// </summary>

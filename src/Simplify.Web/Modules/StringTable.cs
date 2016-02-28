@@ -62,8 +62,8 @@ namespace Simplify.Web.Modules
 		/// <returns>associated value</returns>
 		public string GetAssociatedValue<T>(T enumValue) where T : struct
 		{
-			var currentItems = (IDictionary<string, object>) Items;
-			var enumItemName = enumValue.GetType().Name + "." + Enum.GetName(typeof (T), enumValue);
+			var currentItems = (IDictionary<string, object>)Items;
+			var enumItemName = enumValue.GetType().Name + "." + Enum.GetName(typeof(T), enumValue);
 
 			return currentItems.ContainsKey(enumItemName) ? currentItems[enumItemName] as string : null;
 		}
@@ -114,7 +114,7 @@ namespace Simplify.Web.Modules
 			return true;
 		}
 
-		private IDictionary<string, object>  Load()
+		private IDictionary<string, object> Load()
 		{
 			IDictionary<string, object> currentItems = new ExpandoObject();
 

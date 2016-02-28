@@ -57,7 +57,7 @@ namespace Simplify.Web.Tests.Routing
 		{
 			// Assign
 			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
-				.Returns(new ControllerPath(new List<PathItem> {new PathSegment("foo")}));
+				.Returns(new ControllerPath(new List<PathItem> { new PathSegment("foo") }));
 
 			// Act
 			var result = _matcher.Match("/foo", "/foo");
@@ -79,13 +79,13 @@ namespace Simplify.Web.Tests.Routing
 			// Assert
 			Assert.IsFalse(result.Success);
 		}
-		
+
 		[Test]
 		public void Match_MultipleSegmentsWithFirstMatchedSegment_False()
 		{
 			// Assign
 			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
-				.Returns(new ControllerPath(new List<PathItem> {new PathSegment("foo")}));
+				.Returns(new ControllerPath(new List<PathItem> { new PathSegment("foo") }));
 
 			// Act
 			var result = _matcher.Match("/foo/bar/test", "/foo");
@@ -100,7 +100,7 @@ namespace Simplify.Web.Tests.Routing
 			// Assign
 			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
 				.Returns(
-					new ControllerPath(new List<PathItem> {new PathSegment("foo"), new PathSegment("bar"), new PathSegment("test")}));
+					new ControllerPath(new List<PathItem> { new PathSegment("foo"), new PathSegment("bar"), new PathSegment("test") }));
 
 			// Act
 			var result = _matcher.Match("/foo", "/foo/bar/test");

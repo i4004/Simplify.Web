@@ -12,7 +12,7 @@ namespace Simplify.Web.Tests.Bootstrapper
 		{
 			// Assign
 
-			if(!SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Contains("Simplify"))
+			if (!SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Contains("Simplify"))
 				SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Add("Simplify");
 
 			SimplifyWebTypesFinder.CleanLoadedTypesAndAssembliesInfo();

@@ -9,9 +9,10 @@
 		/// The HTTP 404 handler
 		/// </summary>
 		Http404Handler,
+
 		/// <summary>
 		/// The HTTP 403 handler
 		/// </summary>
 		Http403Handler
 	}
-} 
+}

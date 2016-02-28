@@ -228,7 +228,6 @@ namespace Simplify.Web.ModelBinding.Binders.Parsers
 			throw new ModelBindingException($"String to nullable long parsing failed, value: '{value}'");
 		}
 
-
 		/// <summary>
 		/// Parses the date time from string.
 		/// </summary>

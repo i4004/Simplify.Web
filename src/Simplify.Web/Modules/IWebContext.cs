@@ -16,7 +16,7 @@ namespace Simplify.Web.Modules
 		/// Site root url, for example: http://mysite.com or http://localhost/mysite/
 		/// </summary>
 		string SiteUrl { get; }
-		
+
 		/// <summary>
 		/// Gets the virtual path.
 		/// </summary>
@@ -39,7 +39,7 @@ namespace Simplify.Web.Modules
 		/// Gets the response for the current HTTP request.
 		/// </summary>
 		IOwinResponse Response { get; }
-		
+
 		/// <summary>
 		/// Gets the query string for current HTTP request.
 		/// </summary>
@@ -49,7 +49,7 @@ namespace Simplify.Web.Modules
 		/// Gets the form data of post HTTP request.
 		/// </summary>
 		IFormCollection Form { get; }
-		
+
 		/// <summary>
 		/// Gets a value indicating whether this request is ajax request.
 		/// </summary>

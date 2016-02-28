@@ -8,7 +8,7 @@ namespace Simplify.Web.Tests.Responses
 	[TestFixture]
 	public class RedirectTests
 	{
-		Mock<IRedirector> _redirector;
+		private Mock<IRedirector> _redirector;
 
 		[SetUp]
 		public void Initialize()
@@ -21,7 +21,7 @@ namespace Simplify.Web.Tests.Responses
 		{
 			// Assign
 
-			var redirect = new Mock<Redirect>("foo"){CallBase = true};
+			var redirect = new Mock<Redirect>("foo") { CallBase = true };
 			redirect.SetupGet(x => x.Redirector).Returns(_redirector.Object);
 
 			// Act
@@ -32,7 +32,6 @@ namespace Simplify.Web.Tests.Responses
 			_redirector.Verify(x => x.Redirect(It.Is<string>(d => d == "foo")));
 			Assert.AreEqual(ControllerResponseResult.Redirect, result);
 		}
-
 
 		[Test]
 		public void Process_RedirectWitRedirectionType_RedirectorRedirectWithRedirectionTypeCalled()
@@ -49,6 +48,6 @@ namespace Simplify.Web.Tests.Responses
 
 			_redirector.Verify(x => x.Redirect(It.Is<RedirectionType>(d => d == RedirectionType.PreviousPageWithBookmark), It.Is<string>(d => d == "test")));
 			Assert.AreEqual(ControllerResponseResult.Redirect, result);
-		} 
+		}
 	}
 }

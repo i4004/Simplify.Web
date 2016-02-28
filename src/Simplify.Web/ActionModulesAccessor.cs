@@ -27,7 +27,7 @@ namespace Simplify.Web
 		/// The redirector.
 		/// </value>
 		public virtual IRedirector Redirector { get; internal set; }
-		
+
 		/// <summary>
 		/// Gets the language manager.
 		/// </summary>

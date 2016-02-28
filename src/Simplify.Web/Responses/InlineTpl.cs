@@ -23,7 +23,7 @@ namespace Simplify.Web.Responses
 			if (template != null)
 				Data = template.Get();
 		}
-		
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="InlineTpl"/> class.
 		/// </summary>

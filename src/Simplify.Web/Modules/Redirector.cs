@@ -11,10 +11,12 @@ namespace Simplify.Web.Modules
 		/// The previous page URL cookie field name
 		/// </summary>
 		public const string PreviousPageUrlCookieFieldName = "PreviousPageUrl";
+
 		/// <summary>
 		/// The redirect URL cookie field name
 		/// </summary>
 		public const string RedirectUrlCookieFieldName = "RedirectUrl";
+
 		/// <summary>
 		/// The previous navigated URL cookie field name
 		/// </summary>
@@ -89,15 +91,19 @@ namespace Simplify.Web.Modules
 				case RedirectionType.RedirectUrl:
 					Redirect(string.IsNullOrEmpty(RedirectUrl) ? _context.SiteUrl : RedirectUrl);
 					break;
+
 				case RedirectionType.PreviousPage:
 					Redirect(string.IsNullOrEmpty(PreviousPageUrl) ? _context.SiteUrl : PreviousPageUrl);
 					break;
+
 				case RedirectionType.PreviousPageWithBookmark:
 					Redirect(string.IsNullOrEmpty(PreviousPageUrl) ? _context.SiteUrl : PreviousPageUrl + "#" + bookmarkName);
 					break;
+
 				case RedirectionType.CurrentPage:
 					Redirect(_context.Request.Uri.AbsoluteUri);
 					break;
+
 				case RedirectionType.DefaultPage:
 					Redirect(_context.SiteUrl);
 					break;

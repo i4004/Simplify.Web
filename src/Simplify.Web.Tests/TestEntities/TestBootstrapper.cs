@@ -3,6 +3,6 @@
 namespace Simplify.Web.Tests.TestEntities
 {
 	public class TestBootstrapper : BaseBootstrapper
-	{	 
+	{
 	}
 }

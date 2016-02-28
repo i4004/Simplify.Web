@@ -1,5 +1,4 @@
-﻿using System;
-using Simplify.Templates;
+﻿using Simplify.Templates;
 
 namespace Simplify.Web.Responses
 {
@@ -7,7 +6,7 @@ namespace Simplify.Web.Responses
 	/// Provides view model response
 	/// </summary>
 	public class ViewModel<T> : ControllerResponse
-		where T : class 
+		where T : class
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ViewModel{T}" /> class.

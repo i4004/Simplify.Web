@@ -10,7 +10,7 @@ namespace Simplify.Web
 	{
 		internal virtual IViewFactory ViewFactory { get; set; }
 		internal virtual IDIContainerProvider ContainerProvider { get; set; }
-		
+
 		/// <summary>
 		/// Gets view instance
 		/// </summary>

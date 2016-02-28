@@ -56,9 +56,11 @@ namespace Simplify.Web.Modules.Html
 				case MessageBoxStatus.Information:
 					templateFile += "InfoMessageBox.tpl";
 					break;
+
 				case MessageBoxStatus.Error:
 					templateFile += "ErrorMessageBox.tpl";
 					break;
+
 				case MessageBoxStatus.Ok:
 					templateFile += "OkMessageBox.tpl";
 					break;
@@ -102,9 +104,11 @@ namespace Simplify.Web.Modules.Html
 				case MessageBoxStatus.Information:
 					templateFile += "InlineInfoMessageBox.tpl";
 					break;
+
 				case MessageBoxStatus.Error:
 					templateFile += "InlineErrorMessageBox.tpl";
 					break;
+
 				case MessageBoxStatus.Ok:
 					templateFile += "InlineOkMessageBox.tpl";
 					break;

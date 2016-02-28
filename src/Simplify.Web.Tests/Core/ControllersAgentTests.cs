@@ -288,7 +288,7 @@ namespace Simplify.Web.Tests.Core
 			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true, "Admin, User"));
 			var claims = new List<Claim>
 			{
-				new Claim(ClaimTypes.Name, "Foo"),		
+				new Claim(ClaimTypes.Name, "Foo"),
 				new Claim(ClaimTypes.Role, "User")
 			};
 

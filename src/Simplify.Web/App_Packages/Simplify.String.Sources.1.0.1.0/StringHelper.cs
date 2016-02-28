@@ -24,7 +24,7 @@ namespace Simplify.String
 		/// <returns></returns>
 		public static bool ValidateEMail(string eMail)
 		{
-			if(string.IsNullOrEmpty(eMail))
+			if (string.IsNullOrEmpty(eMail))
 				return false;
 
 			const string regularExpression = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
@@ -41,7 +41,7 @@ namespace Simplify.String
 		/// <returns></returns>
 		public static bool ValidateMobilePhone(string phone)
 		{
-			if(string.IsNullOrEmpty(phone))
+			if (string.IsNullOrEmpty(phone))
 				return false;
 
 			return Regex.IsMatch(phone, @"^(8{1}\d{10})$") ||
@@ -60,13 +60,13 @@ namespace Simplify.String
 			RetCount gRet;
 			int currentLength;
 
-			if(string.IsNullOrEmpty(stringA) || string.IsNullOrEmpty(stringB))
+			if (string.IsNullOrEmpty(stringA) || string.IsNullOrEmpty(stringB))
 				return 0;
 
 			gRet.CountLike = 0;
 			gRet.SubRows = 0;
 
-			for(currentLength = 1; currentLength <= comparingBlockLength; currentLength++)
+			for (currentLength = 1; currentLength <= comparingBlockLength; currentLength++)
 			{
 				var tRet = Matching(stringA, stringB, currentLength);
 				gRet.CountLike = gRet.CountLike + tRet.CountLike;
@@ -77,7 +77,7 @@ namespace Simplify.String
 				gRet.SubRows = gRet.SubRows + tRet.SubRows;
 			}
 
-			if(gRet.SubRows == 0)
+			if (gRet.SubRows == 0)
 				return 0;
 
 			return (float)(gRet.CountLike * 100.0 / gRet.SubRows);
@@ -91,16 +91,16 @@ namespace Simplify.String
 			tempRet.CountLike = 0;
 			tempRet.SubRows = 0;
 
-			for(posStrA = 0; posStrA <= stringA.Length - length; posStrA++)
+			for (posStrA = 0; posStrA <= stringA.Length - length; posStrA++)
 			{
 				var tempStringA = stringA.Substring(posStrA, length);
 				int posStrB;
 
-				for(posStrB = 0; posStrB <= stringB.Length - length; posStrB++)
+				for (posStrB = 0; posStrB <= stringB.Length - length; posStrB++)
 				{
 					var tempStringB = stringB.Substring(posStrB, length);
 
-					if((string.CompareOrdinal(tempStringA, tempStringB) != 0))
+					if ((string.CompareOrdinal(tempStringA, tempStringB) != 0))
 						continue;
 
 					tempRet.CountLike = (tempRet.CountLike + 1);

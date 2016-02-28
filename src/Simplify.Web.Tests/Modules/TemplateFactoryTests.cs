@@ -15,7 +15,7 @@ namespace Simplify.Web.Tests.Modules
 		private Mock<IEnvironment> _environment;
 		private Mock<ILanguageManagerProvider> _languageManagerProvider;
 		private Mock<ILanguageManager> _languageManager;
-		
+
 		[TestFixtureSetUp]
 		public void Initialize()
 		{

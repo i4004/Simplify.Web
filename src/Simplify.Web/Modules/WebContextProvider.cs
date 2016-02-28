@@ -16,7 +16,7 @@ namespace Simplify.Web.Modules
 		/// <returns></returns>
 		public void Setup(IOwinContext context)
 		{
-			if(_webContext == null)
+			if (_webContext == null)
 				_webContext = new WebContext(context);
 		}
 

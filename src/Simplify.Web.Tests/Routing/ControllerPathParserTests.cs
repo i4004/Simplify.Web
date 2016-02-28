@@ -139,7 +139,6 @@ namespace Simplify.Web.Tests.Routing
 			Assert.AreEqual("bar", result.Items[2].Name);
 		}
 
-
 		[Test]
 		public void Parse_DecimalParameter_Parsed()
 		{

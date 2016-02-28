@@ -39,11 +39,11 @@ namespace Simplify.Web.Routing
 			var controllerPathParsed = _controllerPathParser.Parse(controllerPath);
 			var currentPathItems = currentPath.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
 
-			if(currentPathItems.Length != controllerPathParsed.Items.Count)
+			if (currentPathItems.Length != controllerPathParsed.Items.Count)
 				return new RouteMatchResult();
 
 			IDictionary<string, Object> routeParameters = new ExpandoObject();
-			
+
 			for (var i = 0; i < controllerPathParsed.Items.Count; i++)
 			{
 				var currentItem = controllerPathParsed.Items[i];
@@ -57,7 +57,7 @@ namespace Simplify.Web.Routing
 				{
 					var value = GetParameterValue((PathParameter)currentItem, currentPathItems[i]);
 
-					if(value == null)
+					if (value == null)
 						return new RouteMatchResult();
 
 					routeParameters.Add(currentItem.Name, value);
@@ -70,14 +70,14 @@ namespace Simplify.Web.Routing
 
 		private static object GetParameterValue(PathParameter pathParameter, string source)
 		{
-			if (pathParameter.Type == typeof (string))
+			if (pathParameter.Type == typeof(string))
 				return source;
 
-			if (pathParameter.Type == typeof (int))
+			if (pathParameter.Type == typeof(int))
 			{
 				int buffer;
 
-				if(!int.TryParse(source, out buffer))
+				if (!int.TryParse(source, out buffer))
 					return null;
 
 				return buffer;

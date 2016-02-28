@@ -24,6 +24,5 @@ namespace Simplify.Web.ModelBinding.Attributes
 		/// The name of the field.
 		/// </value>
 		public string FieldName { get; set; }
-
 	}
 }

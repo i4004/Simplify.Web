@@ -54,6 +54,6 @@ namespace Simplify.Web.ModelBinding.Validation
 				if (string.IsNullOrEmpty(value) || !Regex.IsMatch(value, regexString))
 					throw new ModelValidationException(string.Format("Property '{0}' regex not matched, actual value: '{1}', pattern: '{2}'", propertyInfo.Name, value, regexString));
 			}
-		}		 
+		}
 	}
 }

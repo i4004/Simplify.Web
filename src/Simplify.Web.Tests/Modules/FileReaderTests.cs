@@ -83,7 +83,7 @@ namespace Simplify.Web.Tests.Modules
 			Assert.Throws<ArgumentNullException>(() => _fileReader.GetFilePath("File", null));
 		}
 
-		#endregion
+		#endregion General
 
 		#region GetFilePath
 
@@ -104,7 +104,7 @@ namespace Simplify.Web.Tests.Modules
 			Assert.AreEqual("C:/WebSites/FooSite/App_Data/MyProject/Foo.en", _fileReader.GetFilePath("MyProject/Foo", "en"));
 		}
 
-		#endregion
+		#endregion GetFilePath
 
 		#region LoadXDocument
 
@@ -187,7 +187,7 @@ namespace Simplify.Web.Tests.Modules
 					.Root.OuterXml(), result.Root.OuterXml());
 		}
 
-		#endregion
+		#endregion LoadXDocument
 
 		#region LoadTextDocument
 
@@ -219,7 +219,7 @@ namespace Simplify.Web.Tests.Modules
 			// Act & Assert
 			Assert.AreEqual("Dummy", _fileReader.LoadTextDocument("Foo.txt"));
 		}
-		
+
 		[Test]
 		public void LoadTextDocument_CacheEnabled_SecondTimeFromCache()
 		{
@@ -236,7 +236,6 @@ namespace Simplify.Web.Tests.Modules
 			var result = _fileReader.LoadTextDocument("Foo.txt", true);
 
 			// Assert
-
 
 			_fs.Verify(x => x.File.ReadAllText(It.IsAny<string>()), Times.Once);
 
@@ -266,6 +265,6 @@ namespace Simplify.Web.Tests.Modules
 			Assert.AreEqual("Dummy", result);
 		}
 
-		#endregion
+		#endregion LoadTextDocument
 	}
 }

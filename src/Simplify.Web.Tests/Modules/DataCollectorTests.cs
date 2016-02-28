@@ -18,7 +18,6 @@ namespace Simplify.Web.Tests.Modules
 			_dataCollector = new DataCollector("MainContent", "Title", _stringTable.Object);
 		}
 
-
 		[Test]
 		public void AddVariableWithTest_Nulls_NotInserted()
 		{

@@ -3,9 +3,9 @@ using Microsoft.Owin.Hosting;
 
 namespace Simplify.Web.Examples.Nowin
 {
-	class Program
+	internal class Program
 	{
-		static void Main()
+		private static void Main()
 		{
 			var options = new StartOptions
 			{

@@ -5,6 +5,6 @@ namespace Simplify.Web.Tests.TestEntities
 	public class TestModelEMail
 	{
 		[EMail]
-		public string Prop1 { get; set; }		 
+		public string Prop1 { get; set; }
 	}
 }

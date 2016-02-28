@@ -14,7 +14,7 @@ namespace Simplify.Web.Tests.Modules
 		private Mock<ISimplifyWebSettings> _settings;
 		private Mock<IOwinContext> _context;
 		private Mock<IHeaderDictionary> _headerDictionary;
-			
+
 		[SetUp]
 		public void Initialize()
 		{
@@ -42,7 +42,7 @@ namespace Simplify.Web.Tests.Modules
 		{
 			// Assign
 
-			var cookies = new Dictionary<string, string> {{LanguageManager.CookieLanguageFieldName, "ru"}};
+			var cookies = new Dictionary<string, string> { { LanguageManager.CookieLanguageFieldName, "ru" } };
 			_context.SetupGet(x => x.Request.Cookies).Returns(new RequestCookieCollection(cookies));
 			_settings.SetupGet(x => x.DefaultLanguage).Returns("en");
 
@@ -52,7 +52,7 @@ namespace Simplify.Web.Tests.Modules
 			// Assert
 			Assert.AreEqual("ru", _languageManager.Language);
 		}
-		
+
 		[Test]
 		public void SetCookieLanguage_EmptyLanguageString_CorrectCookieCreated()
 		{

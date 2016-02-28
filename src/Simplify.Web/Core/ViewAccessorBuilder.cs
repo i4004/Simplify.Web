@@ -15,7 +15,7 @@ namespace Simplify.Web.Core
 		protected void BuildViewAccessorProperties(ViewAccessor viewAccessor, IDIContainerProvider containerProvider)
 		{
 			viewAccessor.ContainerProvider = containerProvider;
-			viewAccessor.ViewFactory = containerProvider.Resolve<IViewFactory>();		
+			viewAccessor.ViewFactory = containerProvider.Resolve<IViewFactory>();
 		}
 	}
 }

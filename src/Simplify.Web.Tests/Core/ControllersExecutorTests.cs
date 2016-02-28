@@ -131,7 +131,7 @@ namespace Simplify.Web.Tests.Core
 				x =>
 					x.CreateController(It.IsAny<Type>(), It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>(),
 						It.IsAny<IDictionary<string, Object>>()));
-			
+
 			// Act & Assert
 
 			foreach (var response in _executor.ProcessAsyncControllersResponses(null))

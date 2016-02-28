@@ -33,7 +33,7 @@ namespace Simplify.Web.Tests.Modules
 		{
 			Assert.Throws<ArgumentNullException>(() => _redirector.Redirect(null));
 		}
-		
+
 		[Test]
 		public void Redirect_NormalUrl_ResponseRedirectCalled()
 		{
@@ -50,7 +50,7 @@ namespace Simplify.Web.Tests.Modules
 			// Arrange
 
 			_context.SetupGet(x => x.Request.Cookies)
-				.Returns(new RequestCookieCollection(new Dictionary<string, string> {{Redirector.RedirectUrlCookieFieldName, "foo"}}));
+				.Returns(new RequestCookieCollection(new Dictionary<string, string> { { Redirector.RedirectUrlCookieFieldName, "foo" } }));
 
 			_headerDictionary.Setup(x => x.AppendValues(It.IsAny<string>(), It.IsAny<string>())).Callback<string, string[]>((key, values) =>
 			{
@@ -95,14 +95,13 @@ namespace Simplify.Web.Tests.Modules
 			// Assign
 			_context.SetupGet(x => x.Request.Cookies)
 				.Returns(new RequestCookieCollection(new Dictionary<string, string> { { Redirector.PreviousPageUrlCookieFieldName, "foo" } }));
-			
+
 			// Act
 			_redirector.Redirect(RedirectionType.PreviousPageWithBookmark, "bar");
 
 			// Assert
 			_context.Verify(x => x.Response.Redirect(It.Is<string>(c => c == "foo#bar")), Times.Once);
 		}
-
 
 		[Test]
 		public void Redirect_ToCurrentPage_RedirectCalledToCurrentPage()
@@ -135,7 +134,7 @@ namespace Simplify.Web.Tests.Modules
 			});
 
 			// Act
-			_redirector.SetRedirectUrlToCurrentPage();		
+			_redirector.SetRedirectUrlToCurrentPage();
 		}
 
 		[Test]
@@ -144,7 +143,7 @@ namespace Simplify.Web.Tests.Modules
 			// Assign
 			_context.SetupGet(x => x.Request.Cookies)
 				.Returns(new RequestCookieCollection(new Dictionary<string, string> { { Redirector.PreviousPageUrlCookieFieldName, "foo" } }));
-			
+
 			// Act & Assert
 			Assert.AreEqual("foo", _redirector.PreviousPageUrl);
 		}

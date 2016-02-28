@@ -2,5 +2,5 @@
 
 <items>
 	<item name="UserNameNotEmptyMessage" value="The username is required and cannot be empty" />
-	<item name="PasswordNotEmptyMessage" value="The password is required and cannot be empty" />	
+	<item name="PasswordNotEmptyMessage" value="The password is required and cannot be empty" />
 </items>

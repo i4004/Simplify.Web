@@ -3,9 +3,9 @@ using Simplify.WindowsServices;
 
 namespace Simplify.Web.Examples.WindowsService
 {
-	class Program
+	internal class Program
 	{
-		static void Main()
+		private static void Main()
 		{
 #if DEBUG
 			global::System.Diagnostics.Debugger.Launch();

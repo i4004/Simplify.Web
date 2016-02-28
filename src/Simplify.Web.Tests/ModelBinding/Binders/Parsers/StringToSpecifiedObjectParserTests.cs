@@ -14,43 +14,43 @@ namespace Simplify.Web.Tests.ModelBinding.Binders.Parsers
 		[Test]
 		public void IsTypeValidForParsing_String_True()
 		{
-			Assert.IsTrue(StringToSpecifiedObjectParser.IsTypeValidForParsing(typeof (string)));
+			Assert.IsTrue(StringToSpecifiedObjectParser.IsTypeValidForParsing(typeof(string)));
 		}
 
 		[Test]
 		public void IsTypeValidForParsing_Int_True()
 		{
-			Assert.IsTrue(StringToSpecifiedObjectParser.IsTypeValidForParsing(typeof (int)));
+			Assert.IsTrue(StringToSpecifiedObjectParser.IsTypeValidForParsing(typeof(int)));
 		}
 
 		[Test]
 		public void IsTypeValidForParsing_NullableInt_True()
 		{
-			Assert.IsTrue(StringToSpecifiedObjectParser.IsTypeValidForParsing(typeof (int?)));
+			Assert.IsTrue(StringToSpecifiedObjectParser.IsTypeValidForParsing(typeof(int?)));
 		}
 
 		[Test]
 		public void IsTypeValidForParsing_Bool_True()
 		{
-			Assert.IsTrue(StringToSpecifiedObjectParser.IsTypeValidForParsing(typeof (bool)));
+			Assert.IsTrue(StringToSpecifiedObjectParser.IsTypeValidForParsing(typeof(bool)));
 		}
 
 		[Test]
 		public void IsTypeValidForParsing_NullableBool_True()
 		{
-			Assert.IsTrue(StringToSpecifiedObjectParser.IsTypeValidForParsing(typeof (bool?)));
+			Assert.IsTrue(StringToSpecifiedObjectParser.IsTypeValidForParsing(typeof(bool?)));
 		}
 
 		[Test]
 		public void IsTypeValidForParsing_Decimal_True()
 		{
-			Assert.IsTrue(StringToSpecifiedObjectParser.IsTypeValidForParsing(typeof (decimal)));
+			Assert.IsTrue(StringToSpecifiedObjectParser.IsTypeValidForParsing(typeof(decimal)));
 		}
 
 		[Test]
 		public void IsTypeValidForParsing_NullableDecimal_True()
 		{
-			Assert.IsTrue(StringToSpecifiedObjectParser.IsTypeValidForParsing(typeof (decimal?)));
+			Assert.IsTrue(StringToSpecifiedObjectParser.IsTypeValidForParsing(typeof(decimal?)));
 		}
 
 		[Test]
@@ -68,155 +68,155 @@ namespace Simplify.Web.Tests.ModelBinding.Binders.Parsers
 		[Test]
 		public void IsTypeValidForParsing_DateTime_True()
 		{
-			Assert.IsTrue(StringToSpecifiedObjectParser.IsTypeValidForParsing(typeof (DateTime)));
+			Assert.IsTrue(StringToSpecifiedObjectParser.IsTypeValidForParsing(typeof(DateTime)));
 		}
 
 		[Test]
 		public void IsTypeValidForParsing_NullableDateTime_True()
 		{
-			Assert.IsTrue(StringToSpecifiedObjectParser.IsTypeValidForParsing(typeof (DateTime?)));
+			Assert.IsTrue(StringToSpecifiedObjectParser.IsTypeValidForParsing(typeof(DateTime?)));
 		}
 
 		[Test]
 		public void IsTypeValidForParsing_Enum_True()
 		{
-			Assert.IsTrue(StringToSpecifiedObjectParser.IsTypeValidForParsing(typeof (TestEnum)));
+			Assert.IsTrue(StringToSpecifiedObjectParser.IsTypeValidForParsing(typeof(TestEnum)));
 		}
 
 		[Test]
 		public void IsTypeValidForParsing_Array_False()
 		{
-			Assert.IsFalse(StringToSpecifiedObjectParser.IsTypeValidForParsing(typeof (Array)));
+			Assert.IsFalse(StringToSpecifiedObjectParser.IsTypeValidForParsing(typeof(Array)));
 		}
 
-		#endregion
+		#endregion Validation
 
 		#region Parsing
 
 		[Test]
 		public void ParseUndefined_String_Parsed()
 		{
-			Assert.AreEqual("test", StringToSpecifiedObjectParser.ParseUndefined("test", typeof (string)));
+			Assert.AreEqual("test", StringToSpecifiedObjectParser.ParseUndefined("test", typeof(string)));
 		}
 
 		[Test]
 		public void ParseUndefined_Bool_Parsed()
 		{
-			Assert.AreEqual(true, StringToSpecifiedObjectParser.ParseUndefined("true", typeof (bool)));
+			Assert.AreEqual(true, StringToSpecifiedObjectParser.ParseUndefined("true", typeof(bool)));
 		}
 
 		[Test]
 		public void ParseUndefined_BoolOnValue_Parsed()
 		{
-			Assert.AreEqual(true, StringToSpecifiedObjectParser.ParseUndefined("on", typeof (bool)));
+			Assert.AreEqual(true, StringToSpecifiedObjectParser.ParseUndefined("on", typeof(bool)));
 		}
 
 		[Test]
 		public void ParseUndefined_BoolNull_DefaulBool()
 		{
-			Assert.AreEqual(default(bool), StringToSpecifiedObjectParser.ParseUndefined(null, typeof (bool)));
+			Assert.AreEqual(default(bool), StringToSpecifiedObjectParser.ParseUndefined(null, typeof(bool)));
 		}
 
 		[Test]
 		public void ParseUndefined_BoolBadValue_ExceptionThrown()
 		{
-			Assert.Throws<ModelBindingException>(() => StringToSpecifiedObjectParser.ParseUndefined("test", typeof (bool)));
+			Assert.Throws<ModelBindingException>(() => StringToSpecifiedObjectParser.ParseUndefined("test", typeof(bool)));
 		}
 
 		[Test]
 		public void ParseUndefined_NullableBool_Parsed()
 		{
-			Assert.AreEqual((bool?) true, StringToSpecifiedObjectParser.ParseUndefined("true", typeof (bool?)));
+			Assert.AreEqual((bool?)true, StringToSpecifiedObjectParser.ParseUndefined("true", typeof(bool?)));
 		}
 
 		[Test]
 		public void ParseUndefined_NullableBoolOnValue_Parsed()
 		{
-			Assert.AreEqual((bool?) true, StringToSpecifiedObjectParser.ParseUndefined("on", typeof (bool?)));
+			Assert.AreEqual((bool?)true, StringToSpecifiedObjectParser.ParseUndefined("on", typeof(bool?)));
 		}
 
 		[Test]
 		public void ParseUndefined_NullableBoolNull_Null()
 		{
-			Assert.IsNull(StringToSpecifiedObjectParser.ParseUndefined(null, typeof (bool?)));
+			Assert.IsNull(StringToSpecifiedObjectParser.ParseUndefined(null, typeof(bool?)));
 		}
 
 		[Test]
 		public void ParseUndefined_NullableBoolBadValue_ExceptionThrown()
 		{
-			Assert.Throws<ModelBindingException>(() => StringToSpecifiedObjectParser.ParseUndefined("test", typeof (bool?)));
+			Assert.Throws<ModelBindingException>(() => StringToSpecifiedObjectParser.ParseUndefined("test", typeof(bool?)));
 		}
 
 		[Test]
 		public void ParseUndefined_Int_Parsed()
 		{
-			Assert.AreEqual(15, StringToSpecifiedObjectParser.ParseUndefined("15", typeof (int)));
+			Assert.AreEqual(15, StringToSpecifiedObjectParser.ParseUndefined("15", typeof(int)));
 		}
 
 		[Test]
 		public void ParseUndefined_IntNull_DefaulInt()
 		{
-			Assert.AreEqual(default(int), StringToSpecifiedObjectParser.ParseUndefined(null, typeof (int)));
+			Assert.AreEqual(default(int), StringToSpecifiedObjectParser.ParseUndefined(null, typeof(int)));
 		}
 
 		[Test]
 		public void ParseUndefined_IntBadValue_ExceptionThrown()
 		{
-			Assert.Throws<ModelBindingException>(() => StringToSpecifiedObjectParser.ParseUndefined("test", typeof (int)));
+			Assert.Throws<ModelBindingException>(() => StringToSpecifiedObjectParser.ParseUndefined("test", typeof(int)));
 		}
 
 		[Test]
 		public void ParseUndefined_NullableInt_Parsed()
 		{
-			Assert.AreEqual((int?) 15, StringToSpecifiedObjectParser.ParseUndefined("15", typeof (int?)));
+			Assert.AreEqual((int?)15, StringToSpecifiedObjectParser.ParseUndefined("15", typeof(int?)));
 		}
 
 		[Test]
 		public void ParseUndefined_NullableIntNull_Null()
 		{
-			Assert.IsNull(StringToSpecifiedObjectParser.ParseUndefined(null, typeof (int?)));
+			Assert.IsNull(StringToSpecifiedObjectParser.ParseUndefined(null, typeof(int?)));
 		}
 
 		[Test]
 		public void ParseUndefined_NullableIntBadValue_ExceptionThrown()
 		{
-			Assert.Throws<ModelBindingException>(() => StringToSpecifiedObjectParser.ParseUndefined("test", typeof (int?)));
+			Assert.Throws<ModelBindingException>(() => StringToSpecifiedObjectParser.ParseUndefined("test", typeof(int?)));
 		}
 
 		[Test]
 		public void ParseUndefined_Decimal_Parsed()
 		{
-			Assert.AreEqual((decimal) 15, StringToSpecifiedObjectParser.ParseUndefined("15", typeof (decimal)));
+			Assert.AreEqual((decimal)15, StringToSpecifiedObjectParser.ParseUndefined("15", typeof(decimal)));
 		}
 
 		[Test]
 		public void ParseUndefined_DecimalNull_DefaulDecimal()
 		{
-			Assert.AreEqual(default(decimal), StringToSpecifiedObjectParser.ParseUndefined(null, typeof (decimal)));
+			Assert.AreEqual(default(decimal), StringToSpecifiedObjectParser.ParseUndefined(null, typeof(decimal)));
 		}
 
 		[Test]
 		public void ParseUndefined_DecimalBadValue_ExceptionThrown()
 		{
-			Assert.Throws<ModelBindingException>(() => StringToSpecifiedObjectParser.ParseUndefined("test", typeof (decimal)));
+			Assert.Throws<ModelBindingException>(() => StringToSpecifiedObjectParser.ParseUndefined("test", typeof(decimal)));
 		}
 
 		[Test]
 		public void ParseUndefined_NullableDecimal_Parsed()
 		{
-			Assert.AreEqual((decimal?) 15, StringToSpecifiedObjectParser.ParseUndefined("15", typeof (decimal?)));
+			Assert.AreEqual((decimal?)15, StringToSpecifiedObjectParser.ParseUndefined("15", typeof(decimal?)));
 		}
 
 		[Test]
 		public void ParseUndefined_NullableDecimalNull_Null()
 		{
-			Assert.IsNull(StringToSpecifiedObjectParser.ParseUndefined(null, typeof (decimal?)));
+			Assert.IsNull(StringToSpecifiedObjectParser.ParseUndefined(null, typeof(decimal?)));
 		}
 
 		[Test]
 		public void ParseUndefined_NullableDecimalBadValue_ExceptionThrown()
 		{
-			Assert.Throws<ModelBindingException>(() => StringToSpecifiedObjectParser.ParseUndefined("test", typeof (decimal?)));
+			Assert.Throws<ModelBindingException>(() => StringToSpecifiedObjectParser.ParseUndefined("test", typeof(decimal?)));
 		}
 
 		[Test]
@@ -272,7 +272,7 @@ namespace Simplify.Web.Tests.ModelBinding.Binders.Parsers
 		[Test]
 		public void ParseUndefined_DateTimeNull_DefaulDateTime()
 		{
-			Assert.AreEqual(default(DateTime), StringToSpecifiedObjectParser.ParseUndefined(null, typeof (DateTime)));
+			Assert.AreEqual(default(DateTime), StringToSpecifiedObjectParser.ParseUndefined(null, typeof(DateTime)));
 		}
 
 		[Test]
@@ -284,7 +284,7 @@ namespace Simplify.Web.Tests.ModelBinding.Binders.Parsers
 		[Test]
 		public void ParseUndefined_DateTimeBadValue_ExceptionThrown()
 		{
-			Assert.Throws<ModelBindingException>(() => StringToSpecifiedObjectParser.ParseUndefined("test", typeof (DateTime)));
+			Assert.Throws<ModelBindingException>(() => StringToSpecifiedObjectParser.ParseUndefined("test", typeof(DateTime)));
 		}
 
 		[Test]
@@ -296,7 +296,7 @@ namespace Simplify.Web.Tests.ModelBinding.Binders.Parsers
 		[Test]
 		public void ParseUndefined_NullableDateTime_Parsed()
 		{
-			Assert.AreEqual((DateTime?) new DateTime(2014, 03, 15),
+			Assert.AreEqual((DateTime?)new DateTime(2014, 03, 15),
 				StringToSpecifiedObjectParser.ParseUndefined("2014-03-15T00:00:00.0000000", typeof(DateTime?)));
 		}
 
@@ -310,7 +310,7 @@ namespace Simplify.Web.Tests.ModelBinding.Binders.Parsers
 		[Test]
 		public void ParseUndefined_NullableDateTimeNull_DefaulDateTime()
 		{
-			Assert.IsNull(StringToSpecifiedObjectParser.ParseUndefined(null, typeof (DateTime?)));
+			Assert.IsNull(StringToSpecifiedObjectParser.ParseUndefined(null, typeof(DateTime?)));
 		}
 
 		[Test]
@@ -322,7 +322,7 @@ namespace Simplify.Web.Tests.ModelBinding.Binders.Parsers
 		[Test]
 		public void ParseUndefined_NullableDateTimeBadValue_ExceptionThrown()
 		{
-			Assert.Throws<ModelBindingException>(() => StringToSpecifiedObjectParser.ParseUndefined("test", typeof (DateTime?)));
+			Assert.Throws<ModelBindingException>(() => StringToSpecifiedObjectParser.ParseUndefined("test", typeof(DateTime?)));
 		}
 
 		[Test]
@@ -336,12 +336,13 @@ namespace Simplify.Web.Tests.ModelBinding.Binders.Parsers
 		{
 			Assert.AreEqual(TestEnum.Value1, StringToSpecifiedObjectParser.ParseUndefined("1", typeof(TestEnum)));
 		}
+
 		[Test]
 		public void ParseUndefined_UndefinedType_ExceptionThrown()
 		{
 			Assert.Throws<ModelBindingException>(() => StringToSpecifiedObjectParser.ParseUndefined("test", typeof(Array)));
 		}
 
-		#endregion
+		#endregion Parsing
 	}
 }

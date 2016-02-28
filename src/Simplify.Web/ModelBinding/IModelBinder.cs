@@ -10,6 +10,6 @@
 		/// </summary>
 		/// <typeparam name="T">Model type</typeparam>
 		/// <param name="args">The <see cref="ModelBinderEventArgs{T}"/> instance containing the event data.</param>
-		void Bind<T>(ModelBinderEventArgs<T> args); 
+		void Bind<T>(ModelBinderEventArgs<T> args);
 	}
 }

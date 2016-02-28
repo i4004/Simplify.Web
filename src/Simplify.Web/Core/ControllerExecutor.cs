@@ -26,7 +26,7 @@ namespace Simplify.Web.Core
 			_controllerFactory = controllerFactory;
 			_controllerResponseBuilder = controllerResponseBuilder;
 		}
-		
+
 		/// <summary>
 		/// Creates and executes the specified controller.
 		/// </summary>

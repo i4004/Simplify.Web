@@ -11,7 +11,7 @@ namespace Simplify.Web.Core
 		/// Starts the measurement.
 		/// </summary>
 		void StartMeasurement();
-		
+
 		/// <summary>
 		/// Stops the and get measurement.
 		/// </summary>

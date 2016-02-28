@@ -12,7 +12,7 @@ namespace Simplify.Web.Modules
 		/// Setups the template factory.
 		/// </summary>
 		void Setup();
-		
+
 		/// <summary>
 		/// Load template from a file
 		/// </summary>

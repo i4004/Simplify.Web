@@ -540,7 +540,7 @@
             var cannotType = $.inArray($field.attr('type'), ['button', 'checkbox', 'file', 'hidden', 'image', 'radio', 'reset', 'submit']) !== -1;
             return (cannotType || $field.val().length >= threshold);
         },
-        
+
         // ---
         // Events
         // ---
@@ -844,7 +844,7 @@
                 $(this).data('bv.messages').find('.help-block[data-bv-validator="' + validator + '"][data-bv-for="' + field + '"]').html(message);
             });
         },
-        
+
         /**
          * Update all validating results of field
          *
@@ -2265,7 +2265,7 @@
             if (creditCard === '') {
                 return true;
             }
-            
+
             creditCard = creditCard.replace(/\D/g, '');
 
             // Supported credit card types
@@ -4005,11 +4005,11 @@
             if (!/^IMO \d{7}$/i.test(value)) {
                 return false;
             }
-            
+
             // Grab just the digits
             var sum    = 0,
                 digits = value.replace(/^.*(\d{7})$/, '$1');
-            
+
             // Go over each char, multiplying by the inverse of it's position
             // IMO 9176187
             // (9 * 7) + (1 * 6) + (7 * 5) + (6 * 4) + (1 * 3) + (8 * 2) = 147
@@ -4706,13 +4706,13 @@
                     value   = $.trim(value);
                     isValid = (/^(?:(?:(?:\+|00)212[\s]?(?:[\s]?\(0\)[\s]?)?)|0){1}(?:5[\s.-]?[2-3]|6[\s.-]?[13-9]){1}[0-9]{1}(?:[\s.-]?\d{2}){3}$/).test(value);
                     break;
-                
+
                 case 'PK':
                     // http://regex101.com/r/yH8aV9/2
                     value   = $.trim(value);
                     isValid = (/^0?3[0-9]{2}[0-9]{7}$/).test(value);
                     break;
-                
+
                 case 'US':
                 /* falls through */
                 default:
@@ -5582,7 +5582,7 @@
 
             return false;
         },
-        
+
         /**
          * Validate Brazilian VAT number (CNPJ)
          *
@@ -6785,8 +6785,8 @@
 
                 case 'SG':
                     isValid = /^([0][1-9]|[1-6][0-9]|[7]([0-3]|[5-9])|[8][0-2])(\d{4})$/i.test(value);
-                    break;                
-                
+                    break;
+
                 case 'US':
                 /* falls through */
                 default:

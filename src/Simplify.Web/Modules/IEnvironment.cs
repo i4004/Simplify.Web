@@ -38,7 +38,7 @@
 		/// The data physical path.
 		/// </value>
 		string DataPhysicalPath { get; }
-		
+
 		/// <summary>
 		/// Site current style
 		/// </summary>

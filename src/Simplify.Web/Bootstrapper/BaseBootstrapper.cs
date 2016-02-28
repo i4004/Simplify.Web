@@ -261,7 +261,7 @@ namespace Simplify.Web.Bootstrapper
 		/// </value>
 		public Type WebContextProviderType => _webContextProviderType ?? typeof(WebContextProvider);
 
-		#endregion
+		#endregion Bootstrapper types
 
 		#region Bootstrapper types override
 
@@ -455,7 +455,7 @@ namespace Simplify.Web.Bootstrapper
 			_webContextProviderType = typeof(T);
 		}
 
-		#endregion
+		#endregion Bootstrapper types override
 
 		#region Bootstrapper types registration
 
@@ -605,7 +605,6 @@ namespace Simplify.Web.Bootstrapper
 					var settings = p.Resolve<ISimplifyWebSettings>();
 					return new StringTable(settings.StringTableFiles, settings.DefaultLanguage, p.Resolve<ILanguageManagerProvider>(),
 						p.Resolve<IFileReader>(), settings.StringTableMemoryCache);
-
 				});
 		}
 
@@ -739,6 +738,6 @@ namespace Simplify.Web.Bootstrapper
 			DIContainer.Current.Register<IModelHandler>(p => new HttpModelHandler(p.Resolve<IWebContextProvider>().Get()));
 		}
 
-		#endregion
+		#endregion Bootstrapper types registration
 	}
 }

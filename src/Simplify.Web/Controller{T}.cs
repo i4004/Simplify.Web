@@ -10,7 +10,7 @@ namespace Simplify.Web
 		where T : class
 	{
 		private T _model;
-		
+
 		/// <summary>
 		/// Gets the model of current request.
 		/// </summary>

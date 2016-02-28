@@ -17,7 +17,7 @@ namespace Simplify.Web.Tests.Modules
 		private Mock<ILanguageManagerProvider> _languageManagerProvider;
 		private Mock<ILanguageManager> _languageManager;
 
-		private readonly IList<string> _stringTableFiles = new[] {"StringTable.xml"};
+		private readonly IList<string> _stringTableFiles = new[] { "StringTable.xml" };
 
 		[SetUp]
 		public void Initialize()
@@ -120,7 +120,7 @@ namespace Simplify.Web.Tests.Modules
 
 			// Act
 			_stringTable.Setup();
-			
+
 			// Act & Assert
 			Assert.AreEqual("Foo", _stringTable.GetAssociatedValue(FooEnum.FooItem1));
 			Assert.IsNull(_stringTable.GetAssociatedValue(FooEnum.FooItem2));

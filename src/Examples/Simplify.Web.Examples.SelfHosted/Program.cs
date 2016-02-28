@@ -3,9 +3,9 @@ using Microsoft.Owin.Hosting;
 
 namespace Simplify.Web.Examples.SelfHosted
 {
-	class Program
+	internal class Program
 	{
-		static void Main()
+		private static void Main()
 		{
 			using (WebApp.Start<Startup>("http://+:8080"))
 			{

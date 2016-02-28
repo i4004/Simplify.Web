@@ -78,7 +78,6 @@ namespace Simplify.Web.Tests.Modules
 			Assert.AreEqual("", context.VirtualPath);
 		}
 
-
 		[Test]
 		public void Constructor_VirtualPathWithPort_SetCorrectly()
 		{
@@ -160,7 +159,7 @@ namespace Simplify.Web.Tests.Modules
 		{
 			// Assign
 			_owinContext.SetupGet(x => x.Request.Headers)
-				.Returns(new HeaderDictionary(new Dictionary<string, string[]> {{"X-Requested-With", new [] {"test"}}}));
+				.Returns(new HeaderDictionary(new Dictionary<string, string[]> { { "X-Requested-With", new[] { "test" } } }));
 
 			// Act
 			var context = new WebContext(_owinContext.Object);
@@ -168,7 +167,6 @@ namespace Simplify.Web.Tests.Modules
 			// Assert
 
 			Assert.IsTrue(context.IsAjax);
-
 		}
 
 		[Test]

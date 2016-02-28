@@ -14,7 +14,7 @@ namespace Simplify.Web.Tests.Core
 		private Mock<IPageProcessor> _pageProcessor;
 		private ControllersRequestHandler _requestHandler;
 		private Mock<IOwinContext> _context;
-		
+
 		[SetUp]
 		public void Initialize()
 		{
@@ -42,7 +42,7 @@ namespace Simplify.Web.Tests.Core
 			Assert.AreEqual(task, result);
 			_pageProcessor.Verify(x => x.ProcessPage(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>()));
 		}
-		
+
 		[Test]
 		public void ProcessRequest_RawOutput_NoPageBuildsWithOutput()
 		{
@@ -57,7 +57,7 @@ namespace Simplify.Web.Tests.Core
 			_pageProcessor.Verify(x => x.ProcessPage(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>()), Times.Never);
 			_context.VerifySet(x => x.Response.StatusCode = It.IsAny<int>(), Times.Never);
 		}
-		
+
 		[Test]
 		public void ProcessRequest_Http401_404StatusCodeSetNoPageBuiltWithOutput()
 		{

@@ -72,7 +72,7 @@ namespace Simplify.Web.Modules
 		/// <param name="template">The template.</param>
 		public void Add(string variableName, ITemplate template)
 		{
-			if(template == null)
+			if (template == null)
 				return;
 
 			Add(variableName, template.Get());

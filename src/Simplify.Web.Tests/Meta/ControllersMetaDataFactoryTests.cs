@@ -16,7 +16,7 @@ namespace Simplify.Web.Tests.Meta
 
 			// Act
 
-			var metaData = factory.CreateControllerMetaData(typeof (TestController1));
+			var metaData = factory.CreateControllerMetaData(typeof(TestController1));
 			var roles = metaData.Security.AllowedUserRoles.ToList();
 
 			// Assert
@@ -31,7 +31,7 @@ namespace Simplify.Web.Tests.Meta
 			Assert.IsTrue(metaData.Role.Is404Handler);
 			Assert.AreEqual(1, metaData.ExecParameters.RunPriority);
 			Assert.IsTrue(metaData.Security.IsAuthorizationRequired);
-			Assert.AreEqual(2 , roles.Count);
+			Assert.AreEqual(2, roles.Count);
 			Assert.AreEqual("Admin", roles[0]);
 			Assert.AreEqual("User", roles[1]);
 		}

@@ -65,7 +65,7 @@ namespace Simplify.Web.Meta
 		{
 			return CurrentDomainAssembliesTypes.Where(t => t.BaseType != null
 														   && ((t.BaseType.IsGenericType == false && t.BaseType == type)
-			                                                   ||
+															   ||
 															   (t.BaseType.IsGenericType && t.BaseType.GetGenericTypeDefinition() == type)))
 				.ToList();
 		}

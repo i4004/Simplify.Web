@@ -19,9 +19,9 @@ namespace Simplify.Web.Tests.Diagnostics
 			try
 			{
 				string text = null;
-// ReSharper disable PossibleNullReferenceException
+				// ReSharper disable PossibleNullReferenceException
 				text.IndexOf("test", StringComparison.Ordinal);
-// ReSharper restore PossibleNullReferenceException
+				// ReSharper restore PossibleNullReferenceException
 			}
 			catch (Exception e)
 			{

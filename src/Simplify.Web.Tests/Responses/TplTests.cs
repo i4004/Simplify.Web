@@ -9,12 +9,12 @@ namespace Simplify.Web.Tests.Responses
 	[TestFixture]
 	public class TplTests
 	{
-		Mock<IDataCollector> _dataCollector;
-		
+		private Mock<IDataCollector> _dataCollector;
+
 		[SetUp]
 		public void Initialize()
 		{
-			_dataCollector = new Mock<IDataCollector>();			
+			_dataCollector = new Mock<IDataCollector>();
 		}
 
 		[Test]
@@ -22,9 +22,9 @@ namespace Simplify.Web.Tests.Responses
 		{
 			// Assign
 
-			var tplData = new Mock<Tpl>("test") {CallBase = true};
+			var tplData = new Mock<Tpl>("test") { CallBase = true };
 			tplData.SetupGet(x => x.DataCollector).Returns(_dataCollector.Object);
-			
+
 			// Act
 			var result = tplData.Object.Process();
 
@@ -65,7 +65,7 @@ namespace Simplify.Web.Tests.Responses
 			_dataCollector.Verify(x => x.Add(It.Is<string>(d => d == "test")));
 			_dataCollector.Verify(x => x.AddTitle(It.Is<string>(d => d == "foo title")));
 		}
-		
+
 		[Test]
 		public void Process_NormalDataAndTitle_DataAndTitleAddedtoDataCollector()
 		{
