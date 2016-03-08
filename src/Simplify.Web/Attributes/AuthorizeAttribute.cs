@@ -18,6 +18,10 @@ namespace Simplify.Web.Attributes
 				RequiredUserRoles = requiredUserRoles.Replace(" ", "").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 		}
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="AuthorizeAttribute"/> class.
+		/// </summary>
+		/// <param name="requiredUserRoles">The required user roles.</param>
 		public AuthorizeAttribute(params string[] requiredUserRoles)
 		{
 			RequiredUserRoles = requiredUserRoles;
