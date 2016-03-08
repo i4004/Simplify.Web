@@ -1,4 +1,5 @@
-﻿using Simplify.Web.Attributes;
+﻿using System;
+using Simplify.Web.Attributes;
 
 namespace Simplify.Web.Tests.TestEntities
 {
@@ -15,7 +16,7 @@ namespace Simplify.Web.Tests.TestEntities
 	{
 		public override ControllerResponse Invoke()
 		{
-			throw new global::System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System.ServiceProcess;
+﻿using System.Diagnostics;
+using System.ServiceProcess;
 using Simplify.WindowsServices;
 
 namespace Simplify.Web.Examples.WindowsService
@@ -8,7 +9,7 @@ namespace Simplify.Web.Examples.WindowsService
 		private static void Main()
 		{
 #if DEBUG
-			global::System.Diagnostics.Debugger.Launch();
+			Debugger.Launch();
 #endif
 
 			ServiceBase.Run(new BasicServiceHandler<WebApplicationStartup>(true));

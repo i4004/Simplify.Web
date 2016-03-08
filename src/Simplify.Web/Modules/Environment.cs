@@ -31,7 +31,7 @@
 		/// <value>
 		/// The site physical path.
 		/// </value>
-		public string SitePhysicalPath { get; private set; }
+		public string SitePhysicalPath { get; }
 
 		/// <summary>
 		/// Site current templates directory relative path
@@ -55,7 +55,7 @@
 		/// <value>
 		/// The data path.
 		/// </value>
-		public string DataPath { get; private set; }
+		public string DataPath { get; }
 
 		/// <summary>
 		/// Gets the data physical path.

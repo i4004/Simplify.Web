@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Simplify.Web.Tests.TestEntities
 {
@@ -6,7 +7,7 @@ namespace Simplify.Web.Tests.TestEntities
 	{
 		public override Task<ControllerResponse> Invoke()
 		{
-			throw new global::System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 	}
 }

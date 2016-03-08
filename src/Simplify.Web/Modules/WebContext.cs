@@ -36,12 +36,12 @@ namespace Simplify.Web.Modules
 		/// <summary>
 		/// Current web-site route, for example: "/" or "/user/delete/15"
 		/// </summary>
-		public string Route { get; private set; }
+		public string Route { get; }
 
 		/// <summary>
 		/// Site root url, for example: http://mysite.com or http://localhost/mysite/
 		/// </summary>
-		public string SiteUrl { get; private set; }
+		public string SiteUrl { get; }
 
 		/// <summary>
 		/// Gets the virtual path.
@@ -49,27 +49,27 @@ namespace Simplify.Web.Modules
 		/// <value>
 		/// The virtual path.
 		/// </value>
-		public string VirtualPath { get; private set; }
+		public string VirtualPath { get; }
 
 		/// <summary>
 		/// Gets the context for the current HTTP request.
 		/// </summary>
-		public IOwinContext Context { get; private set; }
+		public IOwinContext Context { get; }
 
 		/// <summary>
 		/// Gets the request for the current HTTP request.
 		/// </summary>
-		public IOwinRequest Request { get; private set; }
+		public IOwinRequest Request { get; }
 
 		/// <summary>
 		/// Gets the response for the current HTTP request.
 		/// </summary>
-		public IOwinResponse Response { get; private set; }
+		public IOwinResponse Response { get; }
 
 		/// <summary>
 		/// Gets the query string for current HTTP request.
 		/// </summary>
-		public IReadableStringCollection Query { get; private set; }
+		public IReadableStringCollection Query { get; }
 
 		/// <summary>
 		/// Gets the form data of post HTTP request.
@@ -85,6 +85,6 @@ namespace Simplify.Web.Modules
 		/// <value>
 		/// <c>true</c> if current request is ajax request; otherwise, <c>false</c>.
 		/// </value>
-		public bool IsAjax { get; private set; }
+		public bool IsAjax { get; }
 	}
 }

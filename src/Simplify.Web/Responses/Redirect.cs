@@ -33,7 +33,7 @@ namespace Simplify.Web.Responses
 		/// <value>
 		/// The type of the redirection.
 		/// </value>
-		public RedirectionType RedirectionType { get; private set; }
+		public RedirectionType RedirectionType { get; }
 
 		/// <summary>
 		/// Gets the name of the bookmark.
