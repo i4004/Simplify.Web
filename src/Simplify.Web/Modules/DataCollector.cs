@@ -11,6 +11,8 @@ namespace Simplify.Web.Modules
 		private readonly string _mainContentVariableName;
 		private readonly IStringTable _stringTable;
 
+		private readonly IDictionary<string, string> _items = new Dictionary<string, string>();
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DataCollector"/> class.
 		/// </summary>
@@ -37,12 +39,12 @@ namespace Simplify.Web.Modules
 		/// </summary>
 		/// <param name="key">Item name</param>
 		/// <returns>Data collector item</returns>
-		public string this[string key] => Items[key];
+		public string this[string key] => _items[key];
 
 		/// <summary>
 		/// Gets the data collector items which will be inserted into master template file.
 		/// </summary>
-		public IDictionary<string, string> Items { get; } = new Dictionary<string, string>();
+		public IDictionary<string, string> Items => _items;
 
 		/// <summary>
 		/// Set template variable value (all occurrences will be replaced)
