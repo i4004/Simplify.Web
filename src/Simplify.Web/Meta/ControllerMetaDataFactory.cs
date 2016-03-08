@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Simplify.Web.Attributes;
 
 namespace Simplify.Web.Meta
@@ -96,14 +97,14 @@ namespace Simplify.Web.Meta
 		private static ControllerSecurity GetControllerSecurity(Type controllerType)
 		{
 			var isAuthorizationRequired = false;
-			string requiredUserRoles = null;
+			IEnumerable<string> requiredUserRoles = null;
 
 			var attributes = controllerType.GetCustomAttributes(typeof(AuthorizeAttribute), false);
 
 			if (attributes.Length > 0)
 			{
 				isAuthorizationRequired = true;
-				requiredUserRoles = ((AuthorizeAttribute)attributes[0]).AllowedUserRoles;
+				requiredUserRoles = ((AuthorizeAttribute)attributes[0]).RequiredUserRoles;
 			}
 
 			return isAuthorizationRequired ? new ControllerSecurity(true, requiredUserRoles) : null;

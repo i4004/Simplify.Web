@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Simplify.Web.Attributes
 {
@@ -10,18 +11,24 @@ namespace Simplify.Web.Attributes
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AuthorizeAttribute"/> class.
 		/// </summary>
-		/// <param name="allowedUserRoles">Allowed user roles.</param>
-		public AuthorizeAttribute(string allowedUserRoles = null)
+		/// <param name="requiredUserRoles">Required user roles.</param>
+		public AuthorizeAttribute(string requiredUserRoles = null)
 		{
-			AllowedUserRoles = allowedUserRoles;
+			if (!string.IsNullOrEmpty(requiredUserRoles))
+				RequiredUserRoles = requiredUserRoles.Replace(" ", "").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+		}
+
+		public AuthorizeAttribute(params string[] requiredUserRoles)
+		{
+			RequiredUserRoles = requiredUserRoles;
 		}
 
 		/// <summary>
-		/// Gets the allowed user roles.
+		/// Gets the required user roles.
 		/// </summary>
 		/// <value>
-		/// The allowed user roles.
+		/// The required user roles.
 		/// </value>
-		public string AllowedUserRoles { get; private set; }
+		public IEnumerable<string> RequiredUserRoles { get; private set; }
 	}
 }

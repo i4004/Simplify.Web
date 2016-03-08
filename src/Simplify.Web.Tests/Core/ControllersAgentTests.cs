@@ -237,7 +237,9 @@ namespace Simplify.Web.Tests.Core
 		{
 			// Assign
 
-			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true, "Admin, User"));
+			var metaData = new ControllerMetaData(null, null, null,
+				new ControllerSecurity(true, new List<string> { "Admin", "User" }));
+
 			var claims = new List<Claim>
 			{
 				new Claim(ClaimTypes.Name, "Foo")
@@ -255,7 +257,7 @@ namespace Simplify.Web.Tests.Core
 		{
 			// Assign
 
-			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true, "Admin"));
+			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true, new List<string> { "Admin" }));
 			var claims = new List<Claim>
 			{
 				new Claim(ClaimTypes.Name, "Foo"),
@@ -274,7 +276,7 @@ namespace Simplify.Web.Tests.Core
 		{
 			// Assign
 
-			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true, "Admin"));
+			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true, new List<string> { "Admin, User" }));
 
 			// Act & Assert
 			Assert.AreEqual(SecurityRuleCheckResult.NotAuthenticated, _agent.IsSecurityRulesViolated(metaData, null));
@@ -285,7 +287,7 @@ namespace Simplify.Web.Tests.Core
 		{
 			// Assign
 
-			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true, "Admin, User"));
+			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true, new List<string> { "Admin", "User" }));
 			var claims = new List<Claim>
 			{
 				new Claim(ClaimTypes.Name, "Foo"),
@@ -319,7 +321,7 @@ namespace Simplify.Web.Tests.Core
 		{
 			// Assign
 
-			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true, "User"));
+			var metaData = new ControllerMetaData(null, null, null, new ControllerSecurity(true, new List<string> { "User" }));
 
 			var id = new Mock<IIdentity>();
 			id.Setup(x => x.IsAuthenticated).Returns(false);

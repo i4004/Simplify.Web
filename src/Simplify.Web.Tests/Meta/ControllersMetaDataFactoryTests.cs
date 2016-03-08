@@ -17,7 +17,7 @@ namespace Simplify.Web.Tests.Meta
 			// Act
 
 			var metaData = factory.CreateControllerMetaData(typeof(TestController1));
-			var roles = metaData.Security.AllowedUserRoles.ToList();
+			var roles = metaData.Security.RequiredUserRoles.ToList();
 
 			// Assert
 

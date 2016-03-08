@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Simplify.Web.Meta
 {
@@ -12,13 +11,12 @@ namespace Simplify.Web.Meta
 		/// Initializes a new instance of the <see cref="ControllerSecurity" /> class.
 		/// </summary>
 		/// <param name="isAuthorizationRequired">if set to <c>true</c> then indicates whether controller requires user authorization.</param>
-		/// <param name="allowedUserRoles">The allowed user roles.</param>
-		public ControllerSecurity(bool isAuthorizationRequired = false, string allowedUserRoles = null)
+		/// <param name="requiredUserRoles">The required user roles.</param>
+		public ControllerSecurity(bool isAuthorizationRequired = false, IEnumerable<string> requiredUserRoles = null)
 		{
 			IsAuthorizationRequired = isAuthorizationRequired;
 
-			if (!string.IsNullOrEmpty(allowedUserRoles))
-				AllowedUserRoles = allowedUserRoles.Replace(" ", "").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+			RequiredUserRoles = requiredUserRoles;
 		}
 
 		/// <summary>
@@ -30,11 +28,11 @@ namespace Simplify.Web.Meta
 		public bool IsAuthorizationRequired { get; private set; }
 
 		/// <summary>
-		/// Gets the allowed user roles.
+		/// Gets the required user roles.
 		/// </summary>
 		/// <value>
-		/// The allowed user roles.
+		/// The required user roles.
 		/// </value>
-		public IEnumerable<string> AllowedUserRoles { get; private set; }
+		public IEnumerable<string> RequiredUserRoles { get; private set; }
 	}
 }

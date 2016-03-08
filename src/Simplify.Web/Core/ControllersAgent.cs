@@ -133,13 +133,13 @@ namespace Simplify.Web.Core
 			if (!metaData.Security.IsAuthorizationRequired)
 				return SecurityRuleCheckResult.Ok;
 
-			if (metaData.Security.AllowedUserRoles == null)
+			if (metaData.Security.RequiredUserRoles == null)
 				return user?.Identity == null || !user.Identity.IsAuthenticated ? SecurityRuleCheckResult.NotAuthenticated : SecurityRuleCheckResult.Ok;
 
 			if (user?.Identity == null || !user.Identity.IsAuthenticated)
 				return SecurityRuleCheckResult.NotAuthenticated;
 
-			return metaData.Security.AllowedUserRoles.Any(user.IsInRole) ? SecurityRuleCheckResult.Ok : SecurityRuleCheckResult.Forbidden;
+			return metaData.Security.RequiredUserRoles.Any(user.IsInRole) ? SecurityRuleCheckResult.Ok : SecurityRuleCheckResult.Forbidden;
 		}
 	}
 }
