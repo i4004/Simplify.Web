@@ -22,6 +22,14 @@
 		string RedirectUrl { get; set; }
 
 		/// <summary>
+		/// Gets the login return URL.
+		/// </summary>
+		/// <value>
+		/// The login return URL.
+		/// </value>
+		string LoginReturnUrl { get; set; }
+
+		/// <summary>
 		/// Gets or sets the previous navigated URL.
 		/// </summary>
 		/// <value>
@@ -33,6 +41,11 @@
 		/// Sets the redirect url to current page.
 		/// </summary>
 		void SetRedirectUrlToCurrentPage();
+
+		/// <summary>
+		/// Sets the login return URL from query.
+		/// </summary>
+		void SetLoginReturnUrlFromQuery();
 
 		/// <summary>
 		/// Navigates the client by specifying redirection type.

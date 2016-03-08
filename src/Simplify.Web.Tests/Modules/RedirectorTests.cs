@@ -76,6 +76,30 @@ namespace Simplify.Web.Tests.Modules
 		}
 
 		[Test]
+		public void Redirect_ToLoginReturnUrl_NoUrl_SiteUrl()
+		{
+			// Act
+			_redirector.Redirect(RedirectionType.LoginReturnUrl);
+
+			// Assert
+			_context.Verify(x => x.Response.Redirect(It.Is<string>(c => c == "http://localhost/mywebsite/")), Times.Once);
+		}
+
+		[Test]
+		public void Redirect_ToLoginReturnUrl_NotNullOrEmpty_LoginReturnUrl()
+		{
+			// Assign
+			_context.SetupGet(x => x.Request.Cookies)
+				.Returns(new RequestCookieCollection(new Dictionary<string, string> { { Redirector.LoginReturnUrlCookieFieldName, "loginFoo" } }));
+
+			// Act
+			_redirector.Redirect(RedirectionType.LoginReturnUrl);
+
+			// Assert
+			_context.Verify(x => x.Response.Redirect(It.Is<string>(c => c == "loginFoo")), Times.Once);
+		}
+
+		[Test]
 		public void Redirect_ToPreviousPageHavePreviousPageUrl_RedirectCalledWithCorrectUrl()
 		{
 			// Arrange
@@ -135,6 +159,24 @@ namespace Simplify.Web.Tests.Modules
 
 			// Act
 			_redirector.SetRedirectUrlToCurrentPage();
+		}
+
+		[Test]
+		public void SetLoginReturnUrlFromQuery_NormalUrl_Set()
+		{
+			// Assign
+
+			_context.SetupGet(x => x.Query[It.Is<string>(fieldName => fieldName == Redirector.LoginReturnUrlQueryFieldName)])
+				.Returns("http://localhost/mywebsite/foo2");
+
+			_headerDictionary.Setup(x => x.AppendValues(It.IsAny<string>(), It.IsAny<string>())).Callback<string, string[]>((key, values) =>
+			{
+				Assert.AreEqual("Set-Cookie", key);
+				Assert.IsTrue(values[0].Contains(Redirector.LoginReturnUrlCookieFieldName + "=" + Uri.EscapeDataString("http://localhost/mywebsite/foo2")));
+			});
+
+			// Act
+			_redirector.SetLoginReturnUrlFromQuery();
 		}
 
 		[Test]

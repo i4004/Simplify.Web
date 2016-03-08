@@ -18,6 +18,16 @@ namespace Simplify.Web.Modules
 		public const string RedirectUrlCookieFieldName = "RedirectUrl";
 
 		/// <summary>
+		/// The login return URL cookie field name
+		/// </summary>
+		public const string LoginReturnUrlCookieFieldName = "LoginReturnUrl";
+
+		/// <summary>
+		/// The login return URL query field name
+		/// </summary>
+		public const string LoginReturnUrlQueryFieldName = "ReturnUrl";
+
+		/// <summary>
 		/// The previous navigated URL cookie field name
 		/// </summary>
 		public const string PreviousNavigatedUrlCookieFieldName = "PreviousNavigatedUrl";
@@ -58,6 +68,18 @@ namespace Simplify.Web.Modules
 		}
 
 		/// <summary>
+		/// Gets the login return URL.
+		/// </summary>
+		/// <value>
+		/// The login return URL.
+		/// </value>
+		public string LoginReturnUrl
+		{
+			get { return _context.Request.Cookies[LoginReturnUrlCookieFieldName]; }
+			set { _context.Response.Cookies.Append(LoginReturnUrlCookieFieldName, value); }
+		}
+
+		/// <summary>
 		/// Gets or sets the previous navigated URL.
 		/// </summary>
 		/// <value>
@@ -78,6 +100,14 @@ namespace Simplify.Web.Modules
 		}
 
 		/// <summary>
+		/// Sets the login return URL from query.
+		/// </summary>
+		public void SetLoginReturnUrlFromQuery()
+		{
+			LoginReturnUrl = _context.Query[LoginReturnUrlQueryFieldName];
+		}
+
+		/// <summary>
 		/// Navigates the client by specifying redirection type.
 		/// </summary>
 		/// <param name="redirectionType">Type of the redirection.</param>
@@ -90,6 +120,10 @@ namespace Simplify.Web.Modules
 			{
 				case RedirectionType.RedirectUrl:
 					Redirect(string.IsNullOrEmpty(RedirectUrl) ? _context.SiteUrl : RedirectUrl);
+					break;
+
+				case RedirectionType.LoginReturnUrl:
+					Redirect(string.IsNullOrEmpty(LoginReturnUrl) ? _context.SiteUrl : LoginReturnUrl);
 					break;
 
 				case RedirectionType.PreviousPage:

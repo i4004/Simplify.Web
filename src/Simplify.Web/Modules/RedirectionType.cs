@@ -16,6 +16,11 @@
 		RedirectUrl,
 
 		/// <summary>
+		/// Redirect to login redirect URL specified by OWIN in case of unauthenticated page access
+		/// </summary>
+		LoginReturnUrl,
+
+		/// <summary>
 		/// Redirect to previous page URL
 		/// </summary>
 		PreviousPage,

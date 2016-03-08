@@ -4,6 +4,7 @@ using Moq;
 using NUnit.Framework;
 using Simplify.DI;
 using Simplify.Web.Core;
+using Simplify.Web.Modules;
 
 namespace Simplify.Web.Tests.Core
 {
@@ -12,6 +13,7 @@ namespace Simplify.Web.Tests.Core
 	{
 		private Mock<IControllersProcessor> _controllersProcessor;
 		private Mock<IPageProcessor> _pageProcessor;
+		private Mock<IRedirector> _redirector;
 		private ControllersRequestHandler _requestHandler;
 		private Mock<IOwinContext> _context;
 
@@ -20,7 +22,8 @@ namespace Simplify.Web.Tests.Core
 		{
 			_controllersProcessor = new Mock<IControllersProcessor>();
 			_pageProcessor = new Mock<IPageProcessor>();
-			_requestHandler = new ControllersRequestHandler(_controllersProcessor.Object, _pageProcessor.Object);
+			_redirector = new Mock<IRedirector>();
+			_requestHandler = new ControllersRequestHandler(_controllersProcessor.Object, _pageProcessor.Object, _redirector.Object);
 
 			_context = new Mock<IOwinContext>();
 			_context.SetupGet(x => x.Response.StatusCode);
@@ -68,7 +71,9 @@ namespace Simplify.Web.Tests.Core
 			_requestHandler.ProcessRequest(null, _context.Object);
 
 			// Assert
+
 			_context.VerifySet(x => x.Response.StatusCode = It.Is<int>(d => d == 401));
+			_redirector.Verify(x => x.SetLoginReturnUrlFromQuery());
 		}
 
 		[Test]

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Owin;
 using Simplify.DI;
+using Simplify.Web.Modules;
 
 namespace Simplify.Web.Core
 {
@@ -11,16 +12,19 @@ namespace Simplify.Web.Core
 	{
 		private readonly IControllersProcessor _controllersProcessor;
 		private readonly IPageProcessor _pageProcessor;
+		private readonly IRedirector _redirector;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ControllersRequestHandler" /> class.
 		/// </summary>
 		/// <param name="controllersProcessor">The controllers request handler.</param>
 		/// <param name="pageProcessor">The page processor.</param>
-		public ControllersRequestHandler(IControllersProcessor controllersProcessor, IPageProcessor pageProcessor)
+		/// <param name="redirector">The redirector.</param>
+		public ControllersRequestHandler(IControllersProcessor controllersProcessor, IPageProcessor pageProcessor, IRedirector redirector)
 		{
 			_controllersProcessor = controllersProcessor;
 			_pageProcessor = pageProcessor;
+			_redirector = redirector;
 		}
 
 		/// <summary>
@@ -40,6 +44,7 @@ namespace Simplify.Web.Core
 
 				case ControllersProcessorResult.Http401:
 					context.Response.StatusCode = 401;
+					_redirector.SetLoginReturnUrlFromQuery();
 					break;
 
 				case ControllersProcessorResult.Http403:
