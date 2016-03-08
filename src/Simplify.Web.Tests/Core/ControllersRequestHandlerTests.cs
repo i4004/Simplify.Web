@@ -59,7 +59,7 @@ namespace Simplify.Web.Tests.Core
 		}
 
 		[Test]
-		public void ProcessRequest_Http401_404StatusCodeSetNoPageBuiltWithOutput()
+		public void ProcessRequest_Http401_401StatusCodeSetNoPageBuiltWithOutput()
 		{
 			// Assign
 			_controllersProcessor.Setup(x => x.ProcessControllers(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(ControllersProcessorResult.Http401);
@@ -72,7 +72,7 @@ namespace Simplify.Web.Tests.Core
 		}
 
 		[Test]
-		public void ProcessRequest_Http401_403StatusCodeSetNoPageBuiltWithOutput()
+		public void ProcessRequest_Http403_403StatusCodeSetNoPageBuiltWithOutput()
 		{
 			// Assign
 			_controllersProcessor.Setup(x => x.ProcessControllers(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(ControllersProcessorResult.Http403);
