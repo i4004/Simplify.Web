@@ -34,7 +34,13 @@ namespace Simplify.Web.Tests.Modules.Html
 			Assert.AreEqual("<option value='' selected='selected'>Default label</option><option value='1' >January</option><option value='2' >February</option><option value='3' >March</option><option value='4' >April</option><option value='5' >May</option><option value='6' >June</option><option value='7' >July</option><option value='8' >August</option><option value='9' >September</option><option value='10' >October</option><option value='11' >November</option><option value='12' >December</option>", lg.GenerateMonthsListFrom1());
 			Assert.AreEqual("<option value='' selected='selected'>Default label</option><option value='2013' >2013</option><option value='2012' >2012</option><option value='2011' >2011</option>", lg.GenerateYearsListToPast(2, -1, true, 2013));
 			Assert.AreEqual("<option value='2013'>2013</option><option value='2014'>2014</option><option value='2015'>2015</option>", lg.GenerateYearsListToFuture(2, 2013));
-			Assert.AreEqual("<option value='' selected='selected'>Default label</option><option value='0' selected='selected'>Foo item text</option><option value='1' ></option>", lg.GenerateListFromEnum(FooEnum.FooItem1));
+
+			Assert.AreEqual("<option value=''>Default label</option><option value='0' selected='selected'>Foo item text</option><option value='1'></option>", lg.GenerateListFromEnum(FooEnum.FooItem1));
+			Assert.AreEqual("<option value='0' selected='selected'>Foo item text</option><option value='1'></option>", lg.GenerateListFromEnum(FooEnum.FooItem1, false));
+			Assert.AreEqual("<option value='' selected='selected'>Default label</option><option value='0'>Foo item text</option><option value='1'></option>", lg.GenerateListFromEnum<FooEnum>(true));
+			Assert.AreEqual("<option value=''>Default label</option><option value='0'>Foo item text</option><option value='1'></option>", lg.GenerateListFromEnum<FooEnum>(true, false));
+			Assert.AreEqual("<option value='0'>Foo item text</option><option value='1'></option>", lg.GenerateListFromEnum<FooEnum>(false));
+
 			Assert.AreEqual("<option value=''>&nbsp;</option>", lg.GenerateEmptyListItem());
 
 			var items = new List<FooTestList>();

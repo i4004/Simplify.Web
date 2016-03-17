@@ -107,6 +107,16 @@ namespace Simplify.Web.Modules.Html
 		string GenerateListFromEnum<T>(T selectedItem, bool displayNotSelectedMessage = true) where T : struct;
 
 		/// <summary>
+		/// Generate HTML list from enum items
+		/// </summary>
+		/// <typeparam name="T">Enum type</typeparam>
+		/// <param name="displayNotSelectedMessage">Display not selected message in list or not</param>
+		/// <param name="selectNotSelectedMessage">Is not selected message should be selected</param>
+		/// <returns>HTML list</returns>
+		string GenerateListFromEnum<T>(bool displayNotSelectedMessage = true, bool selectNotSelectedMessage = true)
+			where T : struct;
+
+		/// <summary>
 		/// Generating empty HTML list item
 		/// </summary>
 		/// <returns></returns>

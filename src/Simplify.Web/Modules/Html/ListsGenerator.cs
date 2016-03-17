@@ -193,18 +193,38 @@ namespace Simplify.Web.Modules.Html
 		/// <param name="selectedItem">Selected enum item</param>
 		/// <param name="displayNotSelectedMessage">Display not selected message in list or not</param>
 		/// <returns>HTML list</returns>
-		public string GenerateListFromEnum<T>(T selectedItem, bool displayNotSelectedMessage = true)
+		public string GenerateListFromEnum<T>(T selectedItem = default(T), bool displayNotSelectedMessage = true)
 			where T : struct
 		{
-			var data = displayNotSelectedMessage ? GenerateDefaultListItem() : "";
+			var data = displayNotSelectedMessage ? GenerateDefaultListItem(false) : "";
 
 			return Enum.GetValues(typeof(T))
 				.Cast<T>()
 				.Aggregate(data,
 					(current, item) =>
 						current +
-						string.Format("<option value='{0}' {2}>{1}</option>", Convert.ToInt32(item), _stringTable.GetAssociatedValue(item),
-							selectedItem.ToString() == item.ToString() ? "selected='selected'" : ""));
+						string.Format("<option value='{0}'{2}>{1}</option>", Convert.ToInt32(item), _stringTable.GetAssociatedValue(item),
+							selectedItem.ToString() == item.ToString() ? " selected='selected'" : ""));
+		}
+
+		/// <summary>
+		/// Generate HTML list from enum items
+		/// </summary>
+		/// <typeparam name="T">Enum type</typeparam>
+		/// <param name="displayNotSelectedMessage">Display not selected message in list or not</param>
+		/// <param name="selectNotSelectedMessage">Is not selected message should be selected</param>
+		/// <returns>HTML list</returns>
+		public string GenerateListFromEnum<T>(bool displayNotSelectedMessage = true, bool selectNotSelectedMessage = true)
+			where T : struct
+		{
+			var data = displayNotSelectedMessage ? GenerateDefaultListItem(selectNotSelectedMessage) : "";
+
+			return Enum.GetValues(typeof(T))
+				.Cast<T>()
+				.Aggregate(data,
+					(current, item) =>
+						current +
+						$"<option value='{Convert.ToInt32(item)}'>{_stringTable.GetAssociatedValue(item)}</option>");
 		}
 
 		/// <summary>
