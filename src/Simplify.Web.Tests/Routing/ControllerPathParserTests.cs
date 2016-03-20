@@ -112,7 +112,7 @@ namespace Simplify.Web.Tests.Routing
 		}
 
 		[Test]
-		public void Parse_UnrecognizedPatameterType_ExceptionThrown()
+		public void Parse_UnrecognizedParameterType_ExceptionThrown()
 		{
 			// Act & Assert
 
