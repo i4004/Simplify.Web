@@ -239,7 +239,7 @@ namespace Simplify.Web.Tests.Routing
 		}
 
 		[Test]
-		public void Match_OneSegmentWithOneBoolParameter_True()
+		public void Match_BoolParameter_True()
 		{
 			// Assign
 			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
@@ -252,6 +252,50 @@ namespace Simplify.Web.Tests.Routing
 
 			Assert.IsTrue(result.Success);
 			Assert.AreEqual(true, result.RouteParameters.foo);
+		}
+
+		[Test]
+		public void Match_StringArrayShortVersionParameter_True()
+		{
+			// Assign
+			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
+				.Returns(new ControllerPath(new List<PathItem> { new PathParameter("foo", typeof(string[])) }));
+
+			// Act
+			var result = _matcher.Match("/hello,world,test", "/{foo:[]}");
+
+			// Assert
+
+			Assert.IsTrue(result.Success);
+
+			var items = (IList<string>)result.RouteParameters.foo;
+
+			Assert.AreEqual(3, items.Count);
+			Assert.AreEqual("hello", items[0]);
+			Assert.AreEqual("world", items[1]);
+			Assert.AreEqual("test", items[2]);
+		}
+
+		[Test]
+		public void Match_IntArrayShortVersionParameter_True()
+		{
+			// Assign
+			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
+				.Returns(new ControllerPath(new List<PathItem> { new PathParameter("foo", typeof(int[])) }));
+
+			// Act
+			var result = _matcher.Match("/1,2,3", "/{foo:int[]}");
+
+			// Assert
+
+			Assert.IsTrue(result.Success);
+
+			var items = (IList<int>)result.RouteParameters.foo;
+
+			Assert.AreEqual(3, items.Count);
+			Assert.AreEqual(1, items[0]);
+			Assert.AreEqual(2, items[1]);
+			Assert.AreEqual(3, items[2]);
 		}
 	}
 }

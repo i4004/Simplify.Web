@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
 
 namespace Simplify.Web.Routing
 {
@@ -42,7 +43,7 @@ namespace Simplify.Web.Routing
 			if (currentPathItems.Length != controllerPathParsed.Items.Count)
 				return new RouteMatchResult();
 
-			IDictionary<string, Object> routeParameters = new ExpandoObject();
+			IDictionary<string, object> routeParameters = new ExpandoObject();
 
 			for (var i = 0; i < controllerPathParsed.Items.Count; i++)
 			{
@@ -74,14 +75,7 @@ namespace Simplify.Web.Routing
 				return source;
 
 			if (pathParameter.Type == typeof(int))
-			{
-				int buffer;
-
-				if (!int.TryParse(source, out buffer))
-					return null;
-
-				return buffer;
-			}
+				return GetIntParameterValue(source);
 
 			if (pathParameter.Type == typeof(decimal))
 			{
@@ -103,7 +97,30 @@ namespace Simplify.Web.Routing
 				return buffer;
 			}
 
+			if (pathParameter.Type == typeof(string[]))
+				return GetStringArrayParameterValue(source);
+
+			if (pathParameter.Type == typeof(int[]))
+				return GetIntArrayParameterValue(source);
+
 			return null;
+		}
+
+		private static int GetIntParameterValue(string source)
+		{
+			int buffer;
+
+			return !int.TryParse(source, out buffer) ? default(int) : buffer;
+		}
+
+		private static IList<string> GetStringArrayParameterValue(string source)
+		{
+			return source.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+		}
+
+		private static IList<int> GetIntArrayParameterValue(string source)
+		{
+			return source.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(GetIntParameterValue).ToList();
 		}
 	}
 }
