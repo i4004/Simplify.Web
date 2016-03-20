@@ -154,6 +154,20 @@ namespace Simplify.Web.Tests.Routing
 		}
 
 		[Test]
+		public void Parse_BoolParameter_Parsed()
+		{
+			// Act
+			var result = _parser.Parse("/{foo:bool}");
+
+			// Assert
+
+			Assert.AreEqual(1, result.Items.Count);
+			Assert.IsNotNull(result.Items[0] as PathParameter);
+			Assert.AreEqual("foo", result.Items[0].Name);
+			Assert.AreEqual(typeof(bool), ((PathParameter)result.Items[0]).Type);
+		}
+
+		[Test]
 		public void Parse_StringArrayShortVersionParameter_Parsed()
 		{
 			// Act

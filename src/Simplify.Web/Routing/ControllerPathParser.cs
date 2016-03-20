@@ -63,6 +63,9 @@ namespace Simplify.Web.Routing
 			if (typeData == "decimal")
 				return typeof(decimal);
 
+			if (typeData == "bool")
+				return typeof(bool);
+
 			if (typeData == "[]")
 				return typeof(string[]);
 
