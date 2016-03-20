@@ -93,6 +93,16 @@ namespace Simplify.Web.Routing
 				return buffer;
 			}
 
+			if (pathParameter.Type == typeof(bool))
+			{
+				bool buffer;
+
+				if (!bool.TryParse(source, out buffer))
+					return null;
+
+				return buffer;
+			}
+
 			return null;
 		}
 	}

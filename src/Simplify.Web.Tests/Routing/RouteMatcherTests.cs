@@ -237,5 +237,21 @@ namespace Simplify.Web.Tests.Routing
 			Assert.IsTrue(result.Success);
 			Assert.AreEqual((decimal)15, result.RouteParameters.id);
 		}
+
+		[Test]
+		public void Match_OneSegmentWithOneBoolParameter_True()
+		{
+			// Assign
+			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
+				.Returns(new ControllerPath(new List<PathItem> { new PathParameter("foo", typeof(bool)) }));
+
+			// Act
+			var result = _matcher.Match("/true", "/{foo:bool}");
+
+			// Assert
+
+			Assert.IsTrue(result.Success);
+			Assert.AreEqual(true, result.RouteParameters.foo);
+		}
 	}
 }
