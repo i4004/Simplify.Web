@@ -27,7 +27,7 @@ namespace Simplify.Web.Routing
 			{
 				if (item.Contains("{") || item.Contains("}") || item.Contains(":"))
 				{
-					var matches = Regex.Matches(item, @"^{[a-zA-Z0-9:_\-]+}$");
+					var matches = Regex.Matches(item, @"^{[a-zA-Z0-9:_\-\[\]]+}$");
 
 					if (matches.Count == 0)
 						throw new ControllerRouteException("Bad controller path: " + controllerPath);
@@ -62,6 +62,21 @@ namespace Simplify.Web.Routing
 
 			if (typeData == "decimal")
 				return typeof(decimal);
+
+			if (typeData == "[]")
+				return typeof(string[]);
+
+			if (typeData == "string[]")
+				return typeof(string[]);
+
+			if (typeData == "int[]")
+				return typeof(int[]);
+
+			if (typeData == "decimal[]")
+				return typeof(decimal[]);
+
+			if (typeData == "bool[]")
+				return typeof(bool[]);
 
 			return null;
 		}

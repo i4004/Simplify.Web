@@ -152,5 +152,76 @@ namespace Simplify.Web.Tests.Routing
 			Assert.AreEqual("id", result.Items[0].Name);
 			Assert.AreEqual(typeof(decimal), ((PathParameter)result.Items[0]).Type);
 		}
+
+		[Test]
+		public void Parse_StringArrayShortVersionParameter_Parsed()
+		{
+			// Act
+			var result = _parser.Parse("/{stringArray:[]}");
+
+			// Assert
+
+			Assert.AreEqual(1, result.Items.Count);
+			Assert.IsNotNull(result.Items[0] as PathParameter);
+			Assert.AreEqual("stringArray", result.Items[0].Name);
+			Assert.AreEqual(typeof(string[]), ((PathParameter)result.Items[0]).Type);
+		}
+
+		[Test]
+		public void Parse_StringArrayParameter_Parsed()
+		{
+			// Act
+			var result = _parser.Parse("/{stringArray:string[]}");
+
+			// Assert
+
+			Assert.AreEqual(1, result.Items.Count);
+			Assert.IsNotNull(result.Items[0] as PathParameter);
+			Assert.AreEqual("stringArray", result.Items[0].Name);
+			Assert.AreEqual(typeof(string[]), ((PathParameter)result.Items[0]).Type);
+		}
+
+		[Test]
+		public void Parse_IntArrayParameter_Parsed()
+		{
+			// Act
+			var result = _parser.Parse("/{intArray:int[]}");
+
+			// Assert
+
+			Assert.AreEqual(1, result.Items.Count);
+			Assert.IsNotNull(result.Items[0] as PathParameter);
+			Assert.AreEqual("intArray", result.Items[0].Name);
+			Assert.AreEqual(typeof(int[]), ((PathParameter)result.Items[0]).Type);
+		}
+
+		[Test]
+		public void Parse_DecimalArrayParameter_Parsed()
+		{
+			// Act
+			var result = _parser.Parse("/{decimalArray:decimal[]}");
+
+			// Assert
+
+			Assert.AreEqual(1, result.Items.Count);
+			Assert.IsNotNull(result.Items[0] as PathParameter);
+			Assert.AreEqual("decimalArray", result.Items[0].Name);
+			Assert.AreEqual(typeof(decimal[]), ((PathParameter)result.Items[0]).Type);
+		}
+
+		[Test]
+		public void Parse_privateBoolArrayParameter_Parsed()
+
+		{
+			// Act
+			var result = _parser.Parse("/{boolArray:bool[]}");
+
+			// Assert
+
+			Assert.AreEqual(1, result.Items.Count);
+			Assert.IsNotNull(result.Items[0] as PathParameter);
+			Assert.AreEqual("boolArray", result.Items[0].Name);
+			Assert.AreEqual(typeof(bool[]), ((PathParameter)result.Items[0]).Type);
+		}
 	}
 }
