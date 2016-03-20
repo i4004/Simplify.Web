@@ -78,24 +78,10 @@ namespace Simplify.Web.Routing
 				return GetIntParameterValue(source);
 
 			if (pathParameter.Type == typeof(decimal))
-			{
-				decimal buffer;
-
-				if (!decimal.TryParse(source, out buffer))
-					return null;
-
-				return buffer;
-			}
+				return GetDecimalParameterValue(source);
 
 			if (pathParameter.Type == typeof(bool))
-			{
-				bool buffer;
-
-				if (!bool.TryParse(source, out buffer))
-					return null;
-
-				return buffer;
-			}
+				return GetBoolParameterValue(source);
 
 			if (pathParameter.Type == typeof(string[]))
 				return GetStringArrayParameterValue(source);
@@ -103,14 +89,43 @@ namespace Simplify.Web.Routing
 			if (pathParameter.Type == typeof(int[]))
 				return GetIntArrayParameterValue(source);
 
+			if (pathParameter.Type == typeof(decimal[]))
+				return GetDecimalArrayParameterValue(source);
+
+			if (pathParameter.Type == typeof(bool[]))
+				return GetBoolArrayParameterValue(source);
+
 			return null;
 		}
 
-		private static int GetIntParameterValue(string source)
+		private static object GetIntParameterValue(string source)
 		{
 			int buffer;
 
-			return !int.TryParse(source, out buffer) ? default(int) : buffer;
+			if (!int.TryParse(source, out buffer))
+				return null;
+
+			return buffer;
+		}
+
+		private static object GetDecimalParameterValue(string source)
+		{
+			decimal buffer;
+
+			if (!decimal.TryParse(source, out buffer))
+				return null;
+
+			return buffer;
+		}
+
+		private static object GetBoolParameterValue(string source)
+		{
+			bool buffer;
+
+			if (!bool.TryParse(source, out buffer))
+				return null;
+
+			return buffer;
 		}
 
 		private static IList<string> GetStringArrayParameterValue(string source)
@@ -120,7 +135,32 @@ namespace Simplify.Web.Routing
 
 		private static IList<int> GetIntArrayParameterValue(string source)
 		{
-			return source.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(GetIntParameterValue).ToList();
+			return
+				source.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+					.Select(GetIntParameterValue)
+					.Where(x => x != null)
+					.Cast<int>()
+					.ToList();
+		}
+
+		private static IList<decimal> GetDecimalArrayParameterValue(string source)
+		{
+			return
+				source.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+					.Select(GetDecimalParameterValue)
+					.Where(x => x != null)
+					.Cast<decimal>()
+					.ToList();
+		}
+
+		private static IList<bool> GetBoolArrayParameterValue(string source)
+		{
+			return
+				source.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+					.Select(GetBoolParameterValue)
+					.Where(x => x != null)
+					.Cast<bool>()
+					.ToList();
 		}
 	}
 }

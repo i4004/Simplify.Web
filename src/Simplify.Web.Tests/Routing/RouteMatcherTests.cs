@@ -184,7 +184,7 @@ namespace Simplify.Web.Tests.Routing
 				.Returns(new ControllerPath(new List<PathItem> { new PathParameter("userName", typeof(int)) }));
 
 			// Act
-			var result = _matcher.Match("/foo/bar", "/foo/{id:int}");
+			var result = _matcher.Match("/foo", "/{id:int}");
 
 			// Assert
 			Assert.IsFalse(result.Success);
@@ -296,6 +296,49 @@ namespace Simplify.Web.Tests.Routing
 			Assert.AreEqual(1, items[0]);
 			Assert.AreEqual(2, items[1]);
 			Assert.AreEqual(3, items[2]);
+		}
+
+		[Test]
+		public void Match_DecimalArrayShortVersionParameter_True()
+		{
+			// Assign
+			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
+				.Returns(new ControllerPath(new List<PathItem> { new PathParameter("foo", typeof(decimal[])) }));
+
+			// Act
+			var result = _matcher.Match("/1,2,3", "/{foo:decimal[]}");
+
+			// Assert
+
+			Assert.IsTrue(result.Success);
+
+			var items = (IList<decimal>)result.RouteParameters.foo;
+
+			Assert.AreEqual(3, items.Count);
+			Assert.AreEqual(1, items[0]);
+			Assert.AreEqual(2, items[1]);
+			Assert.AreEqual(3, items[2]);
+		}
+
+		[Test]
+		public void Match_BoolArrayShortVersionParameterWithTypeMismatch_True()
+		{
+			// Assign
+			_controllerPathParser.Setup(x => x.Parse(It.IsAny<string>()))
+				.Returns(new ControllerPath(new List<PathItem> { new PathParameter("foo", typeof(bool[])) }));
+
+			// Act
+			var result = _matcher.Match("/true,false,asdasd", "/{foo:bool[]}");
+
+			// Assert
+
+			Assert.IsTrue(result.Success);
+
+			var items = (IList<bool>)result.RouteParameters.foo;
+
+			Assert.AreEqual(2, items.Count);
+			Assert.AreEqual(true, items[0]);
+			Assert.AreEqual(false, items[1]);
 		}
 	}
 }
