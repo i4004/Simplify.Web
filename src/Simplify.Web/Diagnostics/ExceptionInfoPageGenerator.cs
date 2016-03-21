@@ -46,7 +46,7 @@ namespace Simplify.Web.Diagnostics
 			var positionPrefix = fileLineNumber == 0 && fileColumnNumber == 0 ? "" : $"[{fileLineNumber}:{fileColumnNumber}]";
 
 			detailsTpl.Set("StackTrace",
-				$"{positionPrefix} {e.GetType()} : {e.Message}{Environment.NewLine + Environment.NewLine}{trace}{GetInnerExceptionData(1, e.InnerException)}"
+				$"<b>{positionPrefix} {e.GetType()} : {e.Message}</b>{Environment.NewLine}{trace}{GetInnerExceptionData(1, e.InnerException)}"
 					.Replace(Environment.NewLine, "<br />"));
 
 			tpl.Set("ExceptionDetails", detailsTpl);
@@ -70,7 +70,7 @@ namespace Simplify.Web.Diagnostics
 			var levelText = currentLevel > 1 ? " " + currentLevel.ToString(CultureInfo.InvariantCulture) : "";
 
 			return
-				$"[Inner Exception{levelText}]{positionPrefix} {e.GetType()} : {e.Message}{Environment.NewLine}{trace}{GetInnerExceptionData(currentLevel + 1, e.InnerException)}";
+				$"<br /><b>[Inner Exception{levelText}]{positionPrefix} {e.GetType()} : {e.Message}</b>{Environment.NewLine}{trace}{GetInnerExceptionData(currentLevel + 1, e.InnerException)}";
 		}
 	}
 }
