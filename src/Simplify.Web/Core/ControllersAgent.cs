@@ -121,6 +121,7 @@ namespace Simplify.Web.Core
 			return string.IsNullOrEmpty(metaData.ExecParameters.RouteInfo.GetRoute) &&
 				   string.IsNullOrEmpty(metaData.ExecParameters.RouteInfo.PostRoute) &&
 				   string.IsNullOrEmpty(metaData.ExecParameters.RouteInfo.PutRoute) &&
+				   string.IsNullOrEmpty(metaData.ExecParameters.RouteInfo.PatchRoute) &&
 				   string.IsNullOrEmpty(metaData.ExecParameters.RouteInfo.DeleteRoute);
 		}
 

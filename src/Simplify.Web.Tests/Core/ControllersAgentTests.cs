@@ -197,10 +197,50 @@ namespace Simplify.Web.Tests.Core
 		}
 
 		[Test]
-		public void IsAnyPageController_NormalController_False()
+		public void IsAnyPageController_GetRoute_False()
 		{
 			// Assign
 			var metaData = new ControllerMetaData(null, new ControllerExecParameters(new ControllerRouteInfo("/")));
+
+			// Act & Assert
+			Assert.IsFalse(_agent.IsAnyPageController(metaData));
+		}
+
+		[Test]
+		public void IsAnyPageController_PostRoute_False()
+		{
+			// Assign
+			var metaData = new ControllerMetaData(null, new ControllerExecParameters(new ControllerRouteInfo(null, "/")));
+
+			// Act & Assert
+			Assert.IsFalse(_agent.IsAnyPageController(metaData));
+		}
+
+		[Test]
+		public void IsAnyPageController_PutRoute_False()
+		{
+			// Assign
+			var metaData = new ControllerMetaData(null, new ControllerExecParameters(new ControllerRouteInfo(null, null, "/")));
+
+			// Act & Assert
+			Assert.IsFalse(_agent.IsAnyPageController(metaData));
+		}
+
+		[Test]
+		public void IsAnyPageController_PatchRoute_False()
+		{
+			// Assign
+			var metaData = new ControllerMetaData(null, new ControllerExecParameters(new ControllerRouteInfo(null, null, null, "/")));
+
+			// Act & Assert
+			Assert.IsFalse(_agent.IsAnyPageController(metaData));
+		}
+
+		[Test]
+		public void IsAnyPageController_DeleteRoute_False()
+		{
+			// Assign
+			var metaData = new ControllerMetaData(null, new ControllerExecParameters(new ControllerRouteInfo(null, null, null, null, "/")));
 
 			// Act & Assert
 			Assert.IsFalse(_agent.IsAnyPageController(metaData));
