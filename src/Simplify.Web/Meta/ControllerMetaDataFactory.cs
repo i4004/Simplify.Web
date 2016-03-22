@@ -40,6 +40,7 @@ namespace Simplify.Web.Meta
 			string getRoute = null;
 			string postRoute = null;
 			string putRoute = null;
+			string patchRoute = null;
 			string deleteRoute = null;
 
 			var attributes = controllerType.GetCustomAttributes(typeof(GetAttribute), false);
@@ -57,6 +58,11 @@ namespace Simplify.Web.Meta
 			if (attributes.Length > 0)
 				putRoute = ((PutAttribute)attributes[0]).Route;
 
+			attributes = controllerType.GetCustomAttributes(typeof(PatchAttribute), false);
+
+			if (attributes.Length > 0)
+				patchRoute = ((PatchAttribute)attributes[0]).Route;
+
 			attributes = controllerType.GetCustomAttributes(typeof(DeleteAttribute), false);
 
 			if (attributes.Length > 0)
@@ -65,8 +71,9 @@ namespace Simplify.Web.Meta
 			return !string.IsNullOrEmpty(getRoute)
 				   || !string.IsNullOrEmpty(postRoute)
 				   || !string.IsNullOrEmpty(putRoute)
+				   || !string.IsNullOrEmpty(patchRoute)
 				   || !string.IsNullOrEmpty(deleteRoute)
-				? new ControllerRouteInfo(getRoute, postRoute, putRoute, deleteRoute)
+				? new ControllerRouteInfo(getRoute, postRoute, putRoute, patchRoute, deleteRoute)
 				: null;
 		}
 
