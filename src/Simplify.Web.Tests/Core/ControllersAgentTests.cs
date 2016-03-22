@@ -46,7 +46,7 @@ namespace Simplify.Web.Tests.Core
 			var items = _agent.GetStandardControllersMetaData().ToList();
 
 			// Assert
-			Assert.AreEqual(1, items.Count());
+			Assert.AreEqual(1, items.Count);
 			Assert.IsNull(items.First().Role);
 		}
 
