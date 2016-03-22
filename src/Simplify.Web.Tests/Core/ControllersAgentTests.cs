@@ -95,11 +95,23 @@ namespace Simplify.Web.Tests.Core
 		}
 
 		[Test]
+		public void MatchControllerRoute_PatchControllerRoutePatchMethod_MatchCalled()
+		{
+			// Act
+			_agent.MatchControllerRoute(
+				new ControllerMetaData(null, new ControllerExecParameters(new ControllerRouteInfo(null, null, null, "/foo"))), "/bar",
+				"PATCH");
+
+			// Assert
+			_routeMatcher.Verify(x => x.Match(It.Is<string>(s => s == "/bar"), It.Is<string>(s => s == "/foo")));
+		}
+
+		[Test]
 		public void MatchControllerRoute_DeleteControllerRouteDeleteMethod_MatchCalled()
 		{
 			// Act
 			_agent.MatchControllerRoute(
-				new ControllerMetaData(null, new ControllerExecParameters(new ControllerRouteInfo(null, null, null, "/foo"))),
+				new ControllerMetaData(null, new ControllerExecParameters(new ControllerRouteInfo(null, null, null, null, "/foo"))),
 				"/bar", "DELETE");
 
 			// Assert

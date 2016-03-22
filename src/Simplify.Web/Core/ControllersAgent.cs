@@ -65,6 +65,11 @@ namespace Simplify.Web.Core
 						? null
 						: _routeMatcher.Match(sourceRoute, controllerMetaData.ExecParameters.RouteInfo.PutRoute);
 
+				case "PATCH":
+					return controllerMetaData.ExecParameters.RouteInfo.PatchRoute == null
+						? null
+						: _routeMatcher.Match(sourceRoute, controllerMetaData.ExecParameters.RouteInfo.PatchRoute);
+
 				case "DELETE":
 					return controllerMetaData.ExecParameters.RouteInfo.DeleteRoute == null
 						? null
