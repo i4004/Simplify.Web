@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Owin;
+using Simplify.System;
 
 namespace Simplify.Web.Core
 {
@@ -71,12 +74,35 @@ namespace Simplify.Web.Core
 		{
 			var currentPath = context.Request.Path.ToString().Substring(1);
 
+			//var fileInfo = FileSystem.FileInfo.FromFileName(_sitePhysicalPath + currentPath);
+			//fileInfo.Refresh();
+			//var lastModified = fileInfo.LastWriteTimeUtc;
+
+			DateTime? ifModifiedSince = null;
+			var lastModified = TrimMilliseconds(FileSystem.File.GetLastWriteTimeUtc(currentPath));
+
 			SetMimeType(context, currentPath);
 
-			return _responseWriter.WriteAsync(FileSystem.File.ReadAllBytes(_sitePhysicalPath + currentPath), context.Response);
+			context.Response.Headers.Append("Last-Modified", lastModified.ToString("r"));
+
+			if (context.Request.Headers.ContainsKey("If-Modified-Since"))
+				ifModifiedSince = DateTime.ParseExact(context.Request.Headers["If-Modified-Since"], "r",
+					CultureInfo.InvariantCulture);
+
+			// New response
+			if (string.IsNullOrEmpty(context.Request.CacheControl) || context.Request.CacheControl.Contains("no-cache") || (ifModifiedSince != null && lastModified > ifModifiedSince.Value))
+			{
+				context.Response.Expires = new DateTimeOffset(TimeProvider.Current.Now.AddYears(1));
+				return _responseWriter.WriteAsync(FileSystem.File.ReadAllBytes(_sitePhysicalPath + currentPath), context.Response);
+			}
+
+			// Cached response
+
+			context.Response.StatusCode = 304;
+			return Task.Delay(0);
 		}
 
-		private void SetMimeType(IOwinContext context, string fileName)
+		private static void SetMimeType(IOwinContext context, string fileName)
 		{
 			fileName = fileName.ToLower();
 
@@ -84,6 +110,11 @@ namespace Simplify.Web.Core
 				context.Response.ContentType = "text/css";
 			else if (fileName.EndsWith(".js"))
 				context.Response.ContentType = "text/javascript";
+		}
+
+		private static DateTime TrimMilliseconds(DateTime dt)
+		{
+			return new DateTime(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second, 0);
 		}
 	}
 }
