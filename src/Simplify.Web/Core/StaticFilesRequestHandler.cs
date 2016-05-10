@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
 using System.Threading.Tasks;
@@ -73,10 +72,6 @@ namespace Simplify.Web.Core
 		public Task ProcessRequest(IOwinContext context)
 		{
 			var currentPath = context.Request.Path.ToString().Substring(1);
-
-			//var fileInfo = FileSystem.FileInfo.FromFileName(_sitePhysicalPath + currentPath);
-			//fileInfo.Refresh();
-			//var lastModified = fileInfo.LastWriteTimeUtc;
 
 			DateTime? ifModifiedSince = null;
 			var lastModified = TrimMilliseconds(FileSystem.File.GetLastWriteTimeUtc(currentPath));
