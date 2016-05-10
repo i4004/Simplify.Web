@@ -85,7 +85,8 @@ namespace Simplify.Web.Core
 					CultureInfo.InvariantCulture);
 
 			// New response
-			if (string.IsNullOrEmpty(context.Request.CacheControl) || context.Request.CacheControl.Contains("no-cache") || (ifModifiedSince != null && lastModified > ifModifiedSince.Value))
+			if ((!string.IsNullOrEmpty(context.Request.CacheControl) && context.Request.CacheControl.Contains("no-cache"))
+				|| (ifModifiedSince == null || lastModified > ifModifiedSince.Value))
 			{
 				context.Response.Expires = new DateTimeOffset(TimeProvider.Current.Now.AddYears(1));
 				return _responseWriter.WriteAsync(FileSystem.File.ReadAllBytes(_sitePhysicalPath + currentPath), context.Response);
