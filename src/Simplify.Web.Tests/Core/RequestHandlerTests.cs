@@ -3,6 +3,7 @@ using Moq;
 using NUnit.Framework;
 using Simplify.DI;
 using Simplify.Web.Core;
+using Simplify.Web.Core.StaticFiles;
 
 namespace Simplify.Web.Tests.Core
 {

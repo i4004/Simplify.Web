@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Owin;
 using Simplify.DI;
+using Simplify.Web.Core.StaticFiles;
 
 namespace Simplify.Web.Core
 {

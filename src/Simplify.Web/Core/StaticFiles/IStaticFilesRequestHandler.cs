@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Owin;
 
-namespace Simplify.Web.Core
+namespace Simplify.Web.Core.StaticFiles
 {
 	/// <summary>
 	/// Represent static files request handler

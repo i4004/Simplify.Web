@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Simplify.DI;
 using Simplify.Web.Core;
+using Simplify.Web.Core.StaticFiles;
 using Simplify.Web.Meta;
 using Simplify.Web.ModelBinding;
 using Simplify.Web.Modules;
@@ -33,6 +34,8 @@ namespace Simplify.Web.Bootstrapper
 		private Type _responseWriterType;
 		private Type _pageProcessorType;
 		private Type _controllersRequestHandlerType;
+		private Type _staticFileResponseFactoryType;
+		private Type _staticFilesRequestHandlerType;
 		private Type _requestHandlerType;
 		private Type _stopwatchProviderType;
 		private Type _webContextProviderType;
@@ -69,6 +72,8 @@ namespace Simplify.Web.Bootstrapper
 			RegisterResponseWriter();
 			RegisterPageProcessor();
 			RegisterControllersRequestHandler();
+			RegisterStaticFileResponseFactory();
+			RegisterStaticFileHandler();
 			RegisterStaticFilesRequestHandler();
 			RegisterRequestHandler();
 			RegisterStopwatchProvider();
@@ -236,6 +241,22 @@ namespace Simplify.Web.Bootstrapper
 		/// The type of the controllers request handler.
 		/// </value>
 		public Type ControllersRequestHandlerType => _controllersRequestHandlerType ?? typeof(ControllersRequestHandler);
+
+		/// <summary>
+		/// Gets the type of the static file response factory.
+		/// </summary>
+		/// <value>
+		/// The type of the static file response factory.
+		/// </value>
+		public Type StaticFileResponseFactoryType => _staticFileResponseFactoryType ?? typeof(StaticFileResponseFactory);
+
+		/// <summary>
+		/// Gets the type of the static files request handler.
+		/// </summary>
+		/// <value>
+		/// The type of the static files request handler.
+		/// </value>
+		public Type StaticFilesRequestHandlerType => _staticFilesRequestHandlerType ?? typeof(StaticFilesRequestHandler);
 
 		/// <summary>
 		/// Gets the type of the request handler.
@@ -423,6 +444,26 @@ namespace Simplify.Web.Bootstrapper
 			where T : IControllersRequestHandler
 		{
 			_controllersRequestHandlerType = typeof(T);
+		}
+
+		/// <summary>
+		/// Sets the type of the static file response factory.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetStaticFileResponseFactoryType<T>()
+			where T : IStaticFileResponseFactory
+		{
+			_staticFileResponseFactoryType = typeof(T);
+		}
+
+		/// <summary>
+		/// Sets the type of the static files request handler.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void SetStaticFilesRequestHandlerType<T>()
+			where T : IStaticFilesRequestHandler
+		{
+			_staticFilesRequestHandlerType = typeof(T);
 		}
 
 		/// <summary>
@@ -678,14 +719,30 @@ namespace Simplify.Web.Bootstrapper
 		}
 
 		/// <summary>
+		/// Registers the static file response factory
+		/// </summary>
+		public virtual void RegisterStaticFileResponseFactory()
+		{
+			DIContainer.Current.Register<IStaticFileResponseFactory>(StaticFileResponseFactoryType, LifetimeType.Singleton);
+		}
+
+		/// <summary>
+		/// Registers the static file handler.
+		/// </summary>
+		public virtual void RegisterStaticFileHandler()
+		{
+			DIContainer.Current.Register<IStaticFileHandler>(
+				p =>
+					new StaticFileHandler(p.Resolve<ISimplifyWebSettings>().StaticFilesPaths,
+						p.Resolve<IEnvironment>().SitePhysicalPath));
+		}
+
+		/// <summary>
 		/// Registers the static files request handler.
 		/// </summary>
 		public virtual void RegisterStaticFilesRequestHandler()
 		{
-			DIContainer.Current.Register<IStaticFilesRequestHandler>(
-				p =>
-					new StaticFilesRequestHandler(p.Resolve<ISimplifyWebSettings>().StaticFilesPaths,
-						p.Resolve<IEnvironment>().SitePhysicalPath, p.Resolve<IResponseWriter>()));
+			DIContainer.Current.Register<IStaticFilesRequestHandler>(StaticFilesRequestHandlerType);
 		}
 
 		/// <summary>
