@@ -5,17 +5,31 @@ using Simplify.System;
 
 namespace Simplify.Web.Core.StaticFiles
 {
+	/// <summary>
+	/// Provides static file response
+	/// </summary>
+	/// <seealso cref="Simplify.Web.Core.StaticFiles.IStaticFileResponse" />
 	public class StaticFileResponse : IStaticFileResponse
 	{
 		private readonly IOwinResponse _response;
 		private readonly IResponseWriter _responseWriter;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="StaticFileResponse"/> class.
+		/// </summary>
+		/// <param name="response">The response.</param>
+		/// <param name="responseWriter">The response writer.</param>
 		public StaticFileResponse(IOwinResponse response, IResponseWriter responseWriter)
 		{
 			_response = response;
 			_responseWriter = responseWriter;
 		}
 
+		/// <summary>
+		/// Sends the not modified static file response.
+		/// </summary>
+		/// <param name="lastModifiedTime">The last modified time.</param>
+		/// <returns></returns>
 		public Task SendNotModified(DateTime lastModifiedTime)
 		{
 			SetModificationHeaders(lastModifiedTime);
@@ -24,6 +38,12 @@ namespace Simplify.Web.Core.StaticFiles
 			return Task.Delay(0);
 		}
 
+		/// <summary>
+		/// Sends the fresh static file.
+		/// </summary>
+		/// <param name="data">The data.</param>
+		/// <param name="lastModifiedTime">The last modified time.</param>
+		/// <returns></returns>
 		public Task SendNew(byte[] data, DateTime lastModifiedTime)
 		{
 			SetModificationHeaders(lastModifiedTime);
@@ -37,6 +57,10 @@ namespace Simplify.Web.Core.StaticFiles
 			_response.Headers.Append("Last-Modified", lastModifiedTime.ToString("r"));
 		}
 
+		/// <summary>
+		/// Sets the MIME type of response.
+		/// </summary>
+		/// <param name="fileName">Name of the file.</param>
 		public void SetMimeType(string fileName)
 		{
 			fileName = fileName.ToLower();
