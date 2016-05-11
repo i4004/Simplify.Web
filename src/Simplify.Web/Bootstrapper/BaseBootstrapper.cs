@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Simplify.DI;
+using Simplify.Web.Attributes.Setup;
 using Simplify.Web.Core;
+using Simplify.Web.Core.Controllers;
+using Simplify.Web.Core.PageAssembly;
 using Simplify.Web.Core.StaticFiles;
 using Simplify.Web.Meta;
 using Simplify.Web.ModelBinding;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Simplify.Web.Attributes.Setup;
 
 namespace Simplify.Web.Meta
 {

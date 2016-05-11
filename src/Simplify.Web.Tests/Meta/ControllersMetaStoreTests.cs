@@ -1,6 +1,7 @@
 ﻿using System;
 using Moq;
 using NUnit.Framework;
+using Simplify.Web.Attributes.Setup;
 using Simplify.Web.Meta;
 using Simplify.Web.Tests.TestEntities;
 
