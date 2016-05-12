@@ -12,9 +12,10 @@ namespace Simplify.Web.Core.StaticFiles
 	/// <seealso cref="Simplify.Web.Core.StaticFiles.IStaticFileHandler" />
 	public class StaticFileHandler : IStaticFileHandler
 	{
+		private static IFileSystem _fileSystemInstance;
+
 		private readonly IList<string> _staticFilesPaths;
 		private readonly string _sitePhysicalPath;
-		private static IFileSystem _fileSystemInstance;
 
 		/// <summary>
 		/// Gets or sets the file system.
