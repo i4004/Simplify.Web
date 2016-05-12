@@ -45,11 +45,9 @@ namespace Simplify.Web.Core.StaticFiles
 			var lastModificationTime = _fileHandler.GetFileLastModificationTime(relativeFilePath);
 			var response = _responseFactory.Create(context.Response);
 
-			response.SetMimeType(relativeFilePath);
-
 			return _fileHandler.IsFileCanBeUsedFromCache(context.Request.CacheControl, ifModifiedSinceTime, lastModificationTime)
-				? response.SendNotModified(lastModificationTime)
-				: response.SendNew(_fileHandler.GetFileData(relativeFilePath), lastModificationTime);
+				? response.SendNotModified(lastModificationTime, relativeFilePath)
+				: response.SendNew(_fileHandler.GetFileData(relativeFilePath), lastModificationTime, relativeFilePath);
 		}
 
 		private static string GetRelativeFilePath(IOwinRequest request)

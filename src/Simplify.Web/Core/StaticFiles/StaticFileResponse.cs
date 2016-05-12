@@ -29,10 +29,12 @@ namespace Simplify.Web.Core.StaticFiles
 		/// Sends the not modified static file response.
 		/// </summary>
 		/// <param name="lastModifiedTime">The last modified time.</param>
+		/// <param name="fileName">Name of the file.</param>
 		/// <returns></returns>
-		public Task SendNotModified(DateTime lastModifiedTime)
+		public Task SendNotModified(DateTime lastModifiedTime, string fileName)
 		{
 			SetModificationHeaders(lastModifiedTime);
+			SetMimeType(fileName);
 
 			_response.StatusCode = 304;
 			return Task.Delay(0);
@@ -43,10 +45,12 @@ namespace Simplify.Web.Core.StaticFiles
 		/// </summary>
 		/// <param name="data">The data.</param>
 		/// <param name="lastModifiedTime">The last modified time.</param>
+		/// <param name="fileName">Name of the file.</param>
 		/// <returns></returns>
-		public Task SendNew(byte[] data, DateTime lastModifiedTime)
+		public Task SendNew(byte[] data, DateTime lastModifiedTime, string fileName)
 		{
 			SetModificationHeaders(lastModifiedTime);
+			SetMimeType(fileName);
 
 			_response.Expires = new DateTimeOffset(TimeProvider.Current.Now.AddYears(1));
 			return _responseWriter.WriteAsync(data, _response);
@@ -61,7 +65,7 @@ namespace Simplify.Web.Core.StaticFiles
 		/// Sets the MIME type of response.
 		/// </summary>
 		/// <param name="fileName">Name of the file.</param>
-		public void SetMimeType(string fileName)
+		private void SetMimeType(string fileName)
 		{
 			fileName = fileName.ToLower();
 
