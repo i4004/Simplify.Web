@@ -5,7 +5,7 @@ namespace Simplify.Web.Core.StaticFiles
 	/// <summary>
 	/// Provides static file response factory
 	/// </summary>
-	/// <seealso cref="Simplify.Web.Core.StaticFiles.IStaticFileResponseFactory" />
+	/// <seealso cref="IStaticFileResponseFactory" />
 	public class StaticFileResponseFactory : IStaticFileResponseFactory
 	{
 		private readonly IResponseWriter _responseWriter;

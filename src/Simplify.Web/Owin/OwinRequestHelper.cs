@@ -26,13 +26,23 @@ namespace Simplify.Web.Owin
 		}
 
 		/// <summary>
-		/// Determines whether cache can be used by browser.
+		/// Determines whether no cache is requested
 		/// </summary>
 		/// <param name="cacheControlHeader">The cache control header.</param>
 		/// <returns></returns>
-		public static bool IsCacheCanBeUsed(string cacheControlHeader)
+		public static bool IsNoCacheRequested(string cacheControlHeader)
 		{
-			return string.IsNullOrEmpty(cacheControlHeader) || !cacheControlHeader.Contains("no-cache");
+			return !string.IsNullOrEmpty(cacheControlHeader) && cacheControlHeader.Contains("no-cache");
+		}
+
+		/// <summary>
+		/// Gets the relative file path of request.
+		/// </summary>
+		/// <param name="request">The request.</param>
+		/// <returns></returns>
+		public static string GetRelativeFilePath(IOwinRequest request)
+		{
+			return request.Path.ToString().Substring(1);
 		}
 	}
 }

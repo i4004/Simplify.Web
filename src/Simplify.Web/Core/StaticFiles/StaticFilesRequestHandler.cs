@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Owin;
-using Simplify.Web.Owin;
 
 namespace Simplify.Web.Core.StaticFiles
 {
@@ -30,7 +29,7 @@ namespace Simplify.Web.Core.StaticFiles
 		/// <returns></returns>
 		public bool IsStaticFileRoutePath(IOwinContext context)
 		{
-			return _fileHandler.IsStaticFileRoutePath(GetRelativeFilePath(context.Request));
+			return _fileHandler.IsStaticFileRoutePath(_fileHandler.GetRelativeFilePath(context.Request));
 		}
 
 		/// <summary>
@@ -40,19 +39,14 @@ namespace Simplify.Web.Core.StaticFiles
 		/// <returns></returns>
 		public Task ProcessRequest(IOwinContext context)
 		{
-			var ifModifiedSinceTime = OwinRequestHelper.GetIfModifiedSinceTime(context.Request.Headers);
-			var relativeFilePath = GetRelativeFilePath(context.Request);
+			var relativeFilePath = _fileHandler.GetRelativeFilePath(context.Request);
 			var lastModificationTime = _fileHandler.GetFileLastModificationTime(relativeFilePath);
 			var response = _responseFactory.Create(context.Response);
 
-			return _fileHandler.IsFileCanBeUsedFromCache(context.Request.CacheControl, ifModifiedSinceTime, lastModificationTime)
+			return _fileHandler.IsFileCanBeUsedFromCache(context.Request.CacheControl,
+				_fileHandler.GetIfModifiedSinceTime(context.Request.Headers), lastModificationTime)
 				? response.SendNotModified(lastModificationTime, relativeFilePath)
 				: response.SendNew(_fileHandler.GetFileData(relativeFilePath), lastModificationTime, relativeFilePath);
-		}
-
-		private static string GetRelativeFilePath(IOwinRequest request)
-		{
-			return request.Path.ToString().Substring(1);
 		}
 	}
 }

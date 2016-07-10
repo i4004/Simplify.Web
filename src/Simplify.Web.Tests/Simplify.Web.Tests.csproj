@@ -41,7 +41,7 @@
     <Compile Include="Core\PageAssembly\PageBuilderTests.cs" />
     <Compile Include="Core\PageAssembly\PageProcessorTests.cs" />
     <Compile Include="Core\RequestHandlerTests.cs" />
-    <Compile Include="Core\StaticFiles\StaticFilesRequestHandlerTest.cs" />
+    <Compile Include="Core\StaticFiles\StaticFilesRequestHandlerTests.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGeneratorTests.cs" />
     <Compile Include="Meta\SimplifyWebTypesFinderTests.cs" />
     <Compile Include="Meta\ControllersMetaDataFactoryTests.cs" />

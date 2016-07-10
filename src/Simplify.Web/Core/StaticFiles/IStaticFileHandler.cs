@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Owin;
 
 namespace Simplify.Web.Core.StaticFiles
 {
@@ -15,13 +16,27 @@ namespace Simplify.Web.Core.StaticFiles
 		bool IsStaticFileRoutePath(string relativeFilePath);
 
 		/// <summary>
-		/// Determines whether static file can be used from cache by browser.
+		/// Gets If-Modified-Since time header from headers collection.
+		/// </summary>
+		/// <param name="headers">The headers.</param>
+		/// <returns></returns>
+		DateTime? GetIfModifiedSinceTime(IHeaderDictionary headers);
+
+		/// <summary>
+		/// Determines whether file can be used from cached.
 		/// </summary>
 		/// <param name="cacheControlHeader">The cache control header.</param>
 		/// <param name="ifModifiedSinceHeader">If modified since header.</param>
 		/// <param name="fileLastModifiedTime">The file last modified time.</param>
 		/// <returns></returns>
 		bool IsFileCanBeUsedFromCache(string cacheControlHeader, DateTime? ifModifiedSinceHeader, DateTime fileLastModifiedTime);
+
+		/// <summary>
+		/// Gets the relative file path of request.
+		/// </summary>
+		/// <param name="request">The request.</param>
+		/// <returns></returns>
+		string GetRelativeFilePath(IOwinRequest request);
 
 		/// <summary>
 		/// Gets the file last modification time.

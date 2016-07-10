@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO.Abstractions;
 using System.Linq;
+using Microsoft.Owin;
 using Simplify.Web.Owin;
 
 namespace Simplify.Web.Core.StaticFiles
@@ -9,7 +10,7 @@ namespace Simplify.Web.Core.StaticFiles
 	/// <summary>
 	/// Provides static file handler
 	/// </summary>
-	/// <seealso cref="Simplify.Web.Core.StaticFiles.IStaticFileHandler" />
+	/// <seealso cref="IStaticFileHandler" />
 	public class StaticFileHandler : IStaticFileHandler
 	{
 		private static IFileSystem _fileSystemInstance;
@@ -59,7 +60,17 @@ namespace Simplify.Web.Core.StaticFiles
 		}
 
 		/// <summary>
-		/// Determines whether static file can be used from cache by browser.
+		/// Gets If-Modified-Since time header from headers collection.
+		/// </summary>
+		/// <param name="headers">The headers.</param>
+		/// <returns></returns>
+		public DateTime? GetIfModifiedSinceTime(IHeaderDictionary headers)
+		{
+			return OwinRequestHelper.GetIfModifiedSinceTime(headers);
+		}
+
+		/// <summary>
+		/// Determines whether file can be used from cached.
 		/// </summary>
 		/// <param name="cacheControlHeader">The cache control header.</param>
 		/// <param name="ifModifiedSinceHeader">If modified since header.</param>
@@ -67,7 +78,18 @@ namespace Simplify.Web.Core.StaticFiles
 		/// <returns></returns>
 		public bool IsFileCanBeUsedFromCache(string cacheControlHeader, DateTime? ifModifiedSinceHeader, DateTime fileLastModifiedTime)
 		{
-			return OwinRequestHelper.IsCacheCanBeUsed(cacheControlHeader) && ifModifiedSinceHeader != null && fileLastModifiedTime <= ifModifiedSinceHeader.Value;
+			return !OwinRequestHelper.IsNoCacheRequested(cacheControlHeader) && ifModifiedSinceHeader != null &&
+				   fileLastModifiedTime <= ifModifiedSinceHeader.Value;
+		}
+
+		/// <summary>
+		/// Gets the relative file path of request.
+		/// </summary>
+		/// <param name="request">The request.</param>
+		/// <returns></returns>
+		public string GetRelativeFilePath(IOwinRequest request)
+		{
+			return OwinRequestHelper.GetRelativeFilePath(request);
 		}
 
 		/// <summary>
