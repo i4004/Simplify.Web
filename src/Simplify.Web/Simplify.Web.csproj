@@ -201,7 +201,7 @@
     <Compile Include="Routing\RouteMatcher.cs" />
     <Compile Include="Routing\RouteMatchResult.cs" />
     <Compile Include="SyncControllerBase.cs" />
-    <Compile Include="Util\TimeOperations.cs" />
+    <Compile Include="Util\DateTimeOperations.cs" />
     <Compile Include="View.cs" />
     <Compile Include="ViewAccessor.cs" />
   </ItemGroup>

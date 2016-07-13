@@ -100,7 +100,7 @@ namespace Simplify.Web.Core.StaticFiles
 		/// <returns></returns>
 		public DateTime GetFileLastModificationTime(string relativeFilePath)
 		{
-			return TimeOperations.TrimMilliseconds(FileSystem.File.GetLastWriteTimeUtc(relativeFilePath));
+			return DateTimeOperations.TrimMilliseconds(FileSystem.File.GetLastWriteTimeUtc(relativeFilePath));
 		}
 
 		/// <summary>
