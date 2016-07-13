@@ -8,7 +8,7 @@ namespace Simplify.Web.Core.StaticFiles
 	/// <summary>
 	/// Provides static file response
 	/// </summary>
-	/// <seealso cref="Simplify.Web.Core.StaticFiles.IStaticFileResponse" />
+	/// <seealso cref="IStaticFileResponse" />
 	public class StaticFileResponse : IStaticFileResponse
 	{
 		private readonly IOwinResponse _response;

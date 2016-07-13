@@ -61,6 +61,7 @@
     <Compile Include="Modules\RedirectorTests.cs" />
     <Compile Include="Modules\StringTableTests.cs" />
     <Compile Include="Modules\TemplateFactoryTests.cs" />
+    <Compile Include="Owin\OwinRequestHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Responses\AjaxTests.cs" />
     <Compile Include="Responses\FileTests.cs" />
