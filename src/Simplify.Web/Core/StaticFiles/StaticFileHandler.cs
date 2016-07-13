@@ -4,6 +4,7 @@ using System.IO.Abstractions;
 using System.Linq;
 using Microsoft.Owin;
 using Simplify.Web.Owin;
+using Simplify.Web.Util;
 
 namespace Simplify.Web.Core.StaticFiles
 {
@@ -99,7 +100,7 @@ namespace Simplify.Web.Core.StaticFiles
 		/// <returns></returns>
 		public DateTime GetFileLastModificationTime(string relativeFilePath)
 		{
-			return TrimMilliseconds(FileSystem.File.GetLastWriteTimeUtc(relativeFilePath));
+			return TimeOperations.TrimMilliseconds(FileSystem.File.GetLastWriteTimeUtc(relativeFilePath));
 		}
 
 		/// <summary>
@@ -110,11 +111,6 @@ namespace Simplify.Web.Core.StaticFiles
 		public byte[] GetFileData(string relativeFilePath)
 		{
 			return FileSystem.File.ReadAllBytes(_sitePhysicalPath + relativeFilePath);
-		}
-
-		private static DateTime TrimMilliseconds(DateTime dt)
-		{
-			return new DateTime(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second, 0);
 		}
 	}
 }
