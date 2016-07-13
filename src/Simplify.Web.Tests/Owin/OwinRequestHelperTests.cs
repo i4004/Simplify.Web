@@ -43,5 +43,27 @@ namespace Simplify.Web.Tests.Owin
 
 			Assert.IsNull(result);
 		}
+
+		[Test]
+		public void IsNoCacheRequested_NullHeader_False()
+		{
+			// Act
+			var result = OwinRequestHelper.IsNoCacheRequested(null);
+
+			// Assert
+
+			Assert.IsFalse(result);
+		}
+
+		[Test]
+		public void IsNoCacheRequested_ContainsNoCache_True()
+		{
+			// Act
+			var result = OwinRequestHelper.IsNoCacheRequested("no-cache");
+
+			// Assert
+
+			Assert.IsTrue(result);
+		}
 	}
 }
