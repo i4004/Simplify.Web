@@ -1,4 +1,6 @@
-<!--- ![Simplify.Web](https://raw.github.com/i4004/Simplify.Web/master/Images/Icon128x128.png)-->
+# Simplify.Web
+
+![Simplify](https://raw.githubusercontent.com/i4004/Simplify.Web/master/Images/Icon128x128.png)
 
 Simplify.Web is a lightweight and fast server-side .NET web-framework based on MVC and OWIN
 
@@ -111,4 +113,4 @@ public class LoggedUserPanelView : View
 </div>
 ```
 
-<!---### [Detailed documentation](https://github.com/i4004/Simplify.Web/wiki)-->
+### [Detailed documentation](https://github.com/i4004/Simplify.Web/wiki)
