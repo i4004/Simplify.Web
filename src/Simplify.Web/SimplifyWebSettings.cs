@@ -147,7 +147,7 @@ namespace Simplify.Web
 			// Other defaults
 
 			DataPath = "App_Data";
-			StaticFilesPaths = new List<string> { "Styles", "Scripts", "Images", "Content", "fonts" };
+			StaticFilesPaths = new List<string> { "styles", "scripts", "images", "content", "fonts" };
 			StringTableFiles = new List<string> { "StringTable.xml" };
 
 			var config = ConfigurationManager.GetSection("SimplifyWebSettings") as NameValueCollection;
