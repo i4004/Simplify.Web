@@ -52,15 +52,6 @@ namespace Simplify.Web.ModelBinding.Validation
 				return !string.IsNullOrEmpty((string)value);
 			}
 
-			if (propertyInfo.PropertyType == typeof(int?))
-				return ((int?)value) != null;
-
-			if (propertyInfo.PropertyType == typeof(bool?))
-				return (((bool?)value) != null);
-
-			if (propertyInfo.PropertyType == typeof(decimal?))
-				return (((decimal?)value) != null);
-
 			if (propertyInfo.PropertyType == typeof(DateTime))
 				return (((DateTime)value) != default(DateTime));
 
