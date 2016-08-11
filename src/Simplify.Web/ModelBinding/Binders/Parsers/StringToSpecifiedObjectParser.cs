@@ -15,8 +15,7 @@ namespace Simplify.Web.ModelBinding.Binders.Parsers
 		/// <param name="parsingType">Type to parse.</param>
 		/// <param name="format">The format.</param>
 		/// <returns></returns>
-		/// <exception cref="ModelBindingException"></exception>
-		/// <exception cref="ModelBindingException"></exception>
+		/// <exception cref="ModelNotSupportedException"></exception>
 		public static object ParseUndefined(string value, Type parsingType, string format = null)
 		{
 			if (parsingType == typeof(string))
@@ -55,7 +54,7 @@ namespace Simplify.Web.ModelBinding.Binders.Parsers
 			if (parsingType.IsEnum)
 				return ParseEnum(value, parsingType);
 
-			throw new ModelBindingException($"String parsing failed, not supported type: '{parsingType}', value '{value}'");
+			throw new ModelNotSupportedException($"String parsing failed, not supported type: '{parsingType}', value '{value}'");
 		}
 
 		/// <summary>
@@ -234,8 +233,6 @@ namespace Simplify.Web.ModelBinding.Binders.Parsers
 		/// <param name="value">The value.</param>
 		/// <param name="format">The format.</param>
 		/// <returns></returns>
-		/// <exception cref="ModelBindingException">
-		/// </exception>
 		/// <exception cref="ModelBindingException"></exception>
 		public static DateTime ParseDateTime(string value, string format = null)
 		{
@@ -265,8 +262,6 @@ namespace Simplify.Web.ModelBinding.Binders.Parsers
 		/// <param name="value">The value.</param>
 		/// <param name="format">The format.</param>
 		/// <returns></returns>
-		/// <exception cref="ModelBindingException">
-		/// </exception>
 		/// <exception cref="ModelBindingException"></exception>
 		public static DateTime? ParseNullableDateTime(string value, string format = null)
 		{

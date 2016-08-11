@@ -10,5 +10,8 @@ namespace Simplify.Web.Tests.TestEntities
 
 		[Required]
 		public IList<string> Prop2 { get; set; }
+
+		[Required]
+		public TestModelEMail Prop3 { get; set; }
 	}
 }

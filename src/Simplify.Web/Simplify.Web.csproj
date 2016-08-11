@@ -49,6 +49,7 @@
     <Compile Include="Core\StaticFiles\StaticFileHandler.cs" />
     <Compile Include="Core\StaticFiles\StaticFileResponse.cs" />
     <Compile Include="Core\StaticFiles\StaticFileResponseFactory.cs" />
+    <Compile Include="ModelBinding\ModelNotSupportedException.cs" />
     <Compile Include="Owin\OwinRequestHelper.cs" />
     <Compile Include="SimplifyWebSettings.cs" />
     <Compile Include="ActionModulesAccessor.cs" />

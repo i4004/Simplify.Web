@@ -15,7 +15,7 @@ namespace Simplify.Web.ModelBinding.Binders.Parsers
 		/// </summary>
 		/// <param name="type">The type.</param>
 		/// <returns></returns>
-		/// <exception cref="ModelBindingException">Exception throws in case of underfined list type</exception>
+		/// <exception cref="ModelNotSupportedException">Exception throws in case of underfined list type</exception>
 		public static bool IsTypeValidForParsing(Type type)
 		{
 			if (!type.IsGenericType || type.GetGenericTypeDefinition() != typeof(IList<>))
@@ -24,7 +24,7 @@ namespace Simplify.Web.ModelBinding.Binders.Parsers
 			var genericType = GetGenericListType(type);
 
 			if (!StringToSpecifiedObjectParser.IsTypeValidForParsing(genericType))
-				throw new ModelBindingException($"Not supported list property type of: '{genericType}'");
+				throw new ModelNotSupportedException($"Not supported list property type of: '{genericType}'");
 
 			return true;
 		}
@@ -36,7 +36,7 @@ namespace Simplify.Web.ModelBinding.Binders.Parsers
 		/// <param name="type">The type.</param>
 		/// <param name="format">The format.</param>
 		/// <returns></returns>
-		/// <exception cref="ModelBindingException"></exception>
+		/// <exception cref="ModelNotSupportedException"></exception>
 		public static object ParseUndefined(string[] values, Type type, string format = null)
 		{
 			var parsingType = GetGenericListType(type);
@@ -86,7 +86,7 @@ namespace Simplify.Web.ModelBinding.Binders.Parsers
 				return list;
 			}
 
-			throw new ModelBindingException($"Array parsing failed, not supported type: '{type}'");
+			throw new ModelNotSupportedException($"Array parsing failed, not supported type: '{type}'");
 		}
 
 		/// <summary>

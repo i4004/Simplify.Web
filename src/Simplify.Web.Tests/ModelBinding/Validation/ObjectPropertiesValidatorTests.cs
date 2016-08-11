@@ -41,10 +41,20 @@ namespace Simplify.Web.Tests.ModelBinding.Validation
 		public void Validate_RequiredFieldsNormal_Ok()
 		{
 			// Assign
-			var model = new TestModelRequired { Prop1 = "test", Prop2 = new List<string>() };
+			var model = new TestModelRequired { Prop1 = "test", Prop2 = new List<string>(), Prop3 = new TestModelEMail() };
 
 			// Act & Assert
 			_validator.Validate(model);
+		}
+
+		[Test]
+		public void Validate_UserTypeRequiredFieldIsNull_ExceptionThrown()
+		{
+			// Assign
+			var model = new TestModelRequired { Prop1 = "test", Prop2 = new List<string>() };
+
+			// Act & Assert
+			Assert.Throws<ModelValidationException>(() => _validator.Validate(model));
 		}
 	}
 }

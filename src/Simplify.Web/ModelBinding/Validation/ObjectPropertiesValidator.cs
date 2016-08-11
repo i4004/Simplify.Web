@@ -42,7 +42,7 @@ namespace Simplify.Web.ModelBinding.Validation
 		/// <param name="value">The value.</param>
 		/// <param name="propertyInfo">The property information.</param>
 		/// <returns></returns>
-		/// <exception cref="ModelValidationException"></exception>
+		/// <exception cref="ModelNotSupportedException"></exception>
 		private static bool Validate(object value, PropertyInfo propertyInfo)
 		{
 			if (propertyInfo.PropertyType == typeof(string))
@@ -67,7 +67,7 @@ namespace Simplify.Web.ModelBinding.Validation
 			if (propertyInfo.PropertyType == typeof(DateTime?))
 				return (((DateTime?)value) != null);
 
-			throw new ModelValidationException($"Not supported property type: '{propertyInfo.PropertyType}'");
+			return value != null;
 		}
 
 		private static bool ValidateList(object value)

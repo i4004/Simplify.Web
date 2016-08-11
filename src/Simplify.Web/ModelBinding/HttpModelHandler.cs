@@ -94,7 +94,7 @@ namespace Simplify.Web.ModelBinding
 				return args.Model;
 			}
 
-			throw new ModelBindingException(string.Format("Unrecognized request content type for binding: {0}", _context.Request.ContentType));
+			throw new ModelBindingException($"Unrecognized request content type for binding: {_context.Request.ContentType}");
 		}
 	}
 }
