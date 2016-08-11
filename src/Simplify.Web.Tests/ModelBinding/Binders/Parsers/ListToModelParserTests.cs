@@ -55,7 +55,7 @@ namespace Simplify.Web.Tests.ModelBinding.Binders.Parsers
 			};
 
 			// Act & Assert
-			Assert.Throws<ModelBindingException>(() => ListToModelParser.Parse<TestModelUndefinedType>(coll));
+			Assert.Throws<ModelNotSupportedException>(() => ListToModelParser.Parse<TestModelUndefinedType>(coll));
 		}
 
 		[Test]

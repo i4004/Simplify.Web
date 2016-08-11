@@ -30,7 +30,7 @@ namespace Simplify.Web.Tests.ModelBinding.Binders.Parsers
 		[Test]
 		public void IsTypeValidForParsing_UndefinedGenericType_False()
 		{
-			Assert.Throws<ModelBindingException>(() => ArrayToSpecifiedListParser.IsTypeValidForParsing(typeof(IList<TestController1>)));
+			Assert.Throws<ModelNotSupportedException>(() => ArrayToSpecifiedListParser.IsTypeValidForParsing(typeof(IList<TestController1>)));
 		}
 
 		[Test]

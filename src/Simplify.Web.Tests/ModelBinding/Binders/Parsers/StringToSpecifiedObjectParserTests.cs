@@ -340,7 +340,7 @@ namespace Simplify.Web.Tests.ModelBinding.Binders.Parsers
 		[Test]
 		public void ParseUndefined_UndefinedType_ExceptionThrown()
 		{
-			Assert.Throws<ModelBindingException>(() => StringToSpecifiedObjectParser.ParseUndefined("test", typeof(Array)));
+			Assert.Throws<ModelNotSupportedException>(() => StringToSpecifiedObjectParser.ParseUndefined("test", typeof(Array)));
 		}
 
 		#endregion Parsing
