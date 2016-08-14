@@ -57,7 +57,7 @@ namespace Simplify.Web.Core.StaticFiles
 		/// <returns></returns>
 		public bool IsStaticFileRoutePath(string relativeFilePath)
 		{
-			return _staticFilesPaths.Where(relativeFilePath.StartsWith).Any(path => FileSystem.File.Exists(_sitePhysicalPath + relativeFilePath));
+			return _staticFilesPaths.Where(relativeFilePath.ToLower().StartsWith).Any(path => FileSystem.File.Exists(_sitePhysicalPath + relativeFilePath));
 		}
 
 		/// <summary>

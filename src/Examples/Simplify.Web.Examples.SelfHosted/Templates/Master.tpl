@@ -4,17 +4,19 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>{Title}</title>
-	<link rel="stylesheet" type="text/css" href="{~}/Content/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="{~}/Content/bootstrap-theme.css" />
-	<link rel="stylesheet" type="text/css" href="{~}/Content/bootstrapValidator/bootstrapValidator.min.css" />
-	<link rel="stylesheet" type="text/css" href="{~}/Styles/Main.min.css" />
+	<link rel="stylesheet" type="text/css" href="{~}/content/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="{~}/content/bootstrap-theme.css" />
+	<link rel="stylesheet" type="text/css" href="{~}/content/bootstrapValidator/bootstrapValidator.min.css" />
+	<link rel="stylesheet" type="text/css" href="{~}/styles/Main.min.css" />
 </head>
 <body>
-	<script type="text/javascript" src="{~}/Scripts/jquery-2.1.1.min.js"></script>
-	<script type="text/javascript" src="{~}/Scripts/bootstrap.min.js"></script>
-	<script type="text/javascript" src="{~}/Scripts/bootstrapValidator/bootstrapValidator.min.js"></script>
+	<script type="text/javascript" src="{~}/scripts/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="{~}/scripts/bootstrap.min.js"></script>
+	<script type="text/javascript" src="{~}/scripts/bootstrapValidator/bootstrapValidator.min.js"></script>
 
-	<div class="Title"><img class="Logo" src="{~}/Images/Icon.png" alt="Simplify.Web" />Your Simplify.Web application</div>
+	<div class="Title">
+		<img class="Logo" src="{~}/images/Icon.png" alt="Simplify.Web" />Your Simplify.Web application
+	</div>
 
 	{Navbar}
 
