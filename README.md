@@ -4,6 +4,8 @@
 
 Simplify.Web is a lightweight and fast server-side .NET web-framework based on MVC and OWIN
 
+_This project is a continuator of [AcspNet web-framework](https://github.com/i4004/AcspNet)_
+
 <!---## Package status
 
 | Latest version | [![Nuget version](http://img.shields.io/badge/nuget-v0.8-blue.png)](https://www.nuget.org/packages/Simplify.Web/) |
