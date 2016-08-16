@@ -16,12 +16,16 @@ namespace Simplify.Web.ModelBinding
 
 		private static readonly IList<Type> ModelBindersTypesInstance = new List<Type>
 		{
+			// Default model binders
+
 			typeof (HttpQueryModelBinder),
 			typeof (HttpFormModelBinder)
 		};
 
 		private static readonly IList<Type> ModelValidatorsTypesInstance = new List<Type>
 		{
+			// Default model validators
+
 			typeof (ObjectPropertiesValidator)
 		};
 
@@ -73,7 +77,7 @@ namespace Simplify.Web.ModelBinding
 		}
 
 		/// <summary>
-		/// Parses object from data and validates it
+		/// Parses object from HTTP data and validates it
 		/// </summary>
 		/// <typeparam name="T">Model type</typeparam>
 		/// <returns></returns>
