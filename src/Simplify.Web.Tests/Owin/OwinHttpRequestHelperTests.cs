@@ -7,7 +7,7 @@ using Simplify.Web.Owin;
 namespace Simplify.Web.Tests.Owin
 {
 	[TestFixture]
-	public class OwinRequestHelperTests
+	public class OwinHttpRequestHelperTests
 	{
 		[Test]
 		public void GetIfModifiedSinceTime_Exists_Parsed()
@@ -20,7 +20,7 @@ namespace Simplify.Web.Tests.Owin
 			headers.Setup(x => x.ContainsKey(It.Is<string>(p => p == "If-Modified-Since"))).Returns(true);
 
 			// Act
-			var result = OwinRequestHelper.GetIfModifiedSinceTime(headers.Object);
+			var result = OwinHttpRequestHelper.GetIfModifiedSinceTime(headers.Object);
 
 			// Assert
 
@@ -37,7 +37,7 @@ namespace Simplify.Web.Tests.Owin
 			headers.Setup(x => x.ContainsKey(It.Is<string>(p => p == "If-Modified-Since"))).Returns(false);
 
 			// Act
-			var result = OwinRequestHelper.GetIfModifiedSinceTime(headers.Object);
+			var result = OwinHttpRequestHelper.GetIfModifiedSinceTime(headers.Object);
 
 			// Assert
 
@@ -48,7 +48,7 @@ namespace Simplify.Web.Tests.Owin
 		public void IsNoCacheRequested_NullHeader_False()
 		{
 			// Act
-			var result = OwinRequestHelper.IsNoCacheRequested(null);
+			var result = OwinHttpRequestHelper.IsNoCacheRequested(null);
 
 			// Assert
 
@@ -59,7 +59,7 @@ namespace Simplify.Web.Tests.Owin
 		public void IsNoCacheRequested_ContainsNoCache_True()
 		{
 			// Act
-			var result = OwinRequestHelper.IsNoCacheRequested("no-cache");
+			var result = OwinHttpRequestHelper.IsNoCacheRequested("no-cache");
 
 			// Assert
 
@@ -75,7 +75,7 @@ namespace Simplify.Web.Tests.Owin
 			request.SetupGet(x => x.Path).Returns(new PathString("/test"));
 
 			// Act
-			var result = OwinRequestHelper.GetRelativeFilePath(request.Object);
+			var result = OwinHttpRequestHelper.GetRelativeFilePath(request.Object);
 
 			// Assert
 

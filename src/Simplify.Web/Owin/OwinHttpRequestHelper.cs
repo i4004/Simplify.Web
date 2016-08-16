@@ -7,7 +7,7 @@ namespace Simplify.Web.Owin
 	/// <summary>
 	/// Provides OWIN and HTTP related utility functions
 	/// </summary>
-	public static class OwinRequestHelper
+	public static class OwinHttpRequestHelper
 	{
 		/// <summary>
 		/// Gets If-Modified-Since time header from headers collection.

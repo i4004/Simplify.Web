@@ -67,7 +67,7 @@ namespace Simplify.Web.Core.StaticFiles
 		/// <returns></returns>
 		public DateTime? GetIfModifiedSinceTime(IHeaderDictionary headers)
 		{
-			return OwinRequestHelper.GetIfModifiedSinceTime(headers);
+			return OwinHttpRequestHelper.GetIfModifiedSinceTime(headers);
 		}
 
 		/// <summary>
@@ -79,7 +79,7 @@ namespace Simplify.Web.Core.StaticFiles
 		/// <returns></returns>
 		public bool IsFileCanBeUsedFromCache(string cacheControlHeader, DateTime? ifModifiedSinceHeader, DateTime fileLastModifiedTime)
 		{
-			return !OwinRequestHelper.IsNoCacheRequested(cacheControlHeader) && ifModifiedSinceHeader != null &&
+			return !OwinHttpRequestHelper.IsNoCacheRequested(cacheControlHeader) && ifModifiedSinceHeader != null &&
 				   fileLastModifiedTime <= ifModifiedSinceHeader.Value;
 		}
 
@@ -90,7 +90,7 @@ namespace Simplify.Web.Core.StaticFiles
 		/// <returns></returns>
 		public string GetRelativeFilePath(IOwinRequest request)
 		{
-			return OwinRequestHelper.GetRelativeFilePath(request);
+			return OwinHttpRequestHelper.GetRelativeFilePath(request);
 		}
 
 		/// <summary>
