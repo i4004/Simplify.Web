@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using Simplify.DI;
 using Simplify.Web.Modules;
+using Simplify.Web.Modules.Data;
 
 namespace Simplify.Web.Core.PageAssembly
 {

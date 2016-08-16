@@ -1,4 +1,4 @@
-﻿namespace Simplify.Web.Modules
+﻿namespace Simplify.Web.Modules.Data
 {
 	/// <summary>
 	/// Represent string table

@@ -8,6 +8,7 @@ using Simplify.DI;
 using Simplify.Web.Core;
 using Simplify.Web.Core.PageAssembly;
 using Simplify.Web.Modules;
+using Simplify.Web.Modules.Data;
 
 namespace Simplify.Web.Tests.Core.PageAssembly
 {

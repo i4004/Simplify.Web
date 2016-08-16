@@ -7,6 +7,7 @@ using Simplify.DI;
 using Simplify.Web.Core;
 using Simplify.Web.Diagnostics;
 using Simplify.Web.Modules;
+using Simplify.Web.Modules.Data;
 
 namespace Simplify.Web.Owin
 {

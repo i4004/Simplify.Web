@@ -4,7 +4,7 @@ using System.IO.Abstractions;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace Simplify.Web.Modules
+namespace Simplify.Web.Modules.Data
 {
 	/// <summary>
 	/// Provides localizable files reader, reads the files from data folder

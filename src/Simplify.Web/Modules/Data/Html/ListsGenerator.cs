@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Simplify.Web.Modules.Html
+namespace Simplify.Web.Modules.Data.Html
 {
 	/// <summary>
 	/// HTML select control lists generator

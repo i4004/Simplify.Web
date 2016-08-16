@@ -6,6 +6,7 @@ using Simplify.DI;
 using Simplify.Templates;
 using Simplify.Web.Core.PageAssembly;
 using Simplify.Web.Modules;
+using Simplify.Web.Modules.Data;
 
 namespace Simplify.Web.Tests.Core.PageAssembly
 {

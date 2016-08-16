@@ -1,6 +1,7 @@
 ﻿using Simplify.DI;
 using Simplify.Web.Modules;
-using Simplify.Web.Modules.Html;
+using Simplify.Web.Modules.Data;
+using Simplify.Web.Modules.Data.Html;
 
 namespace Simplify.Web.Core.AccessorsBuilding
 {

@@ -2,10 +2,10 @@
 using Moq;
 using NUnit.Framework;
 using Simplify.Templates;
-using Simplify.Web.Modules;
-using Simplify.Web.Modules.Html;
+using Simplify.Web.Modules.Data;
+using Simplify.Web.Modules.Data.Html;
 
-namespace Simplify.Web.Tests.Modules.Html
+namespace Simplify.Web.Tests.Modules.Data.Html
 {
 	[TestFixture]
 	public class MessageBoxTests

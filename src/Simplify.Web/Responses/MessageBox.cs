@@ -1,4 +1,4 @@
-﻿using Simplify.Web.Modules.Html;
+﻿using Simplify.Web.Modules.Data.Html;
 
 namespace Simplify.Web.Responses
 {

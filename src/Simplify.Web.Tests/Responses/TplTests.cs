@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using Simplify.Templates;
 using Simplify.Web.Modules;
+using Simplify.Web.Modules.Data;
 using Simplify.Web.Responses;
 
 namespace Simplify.Web.Tests.Responses
