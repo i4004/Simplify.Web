@@ -8,6 +8,7 @@ using Simplify.Web.Core;
 using Simplify.Web.Diagnostics;
 using Simplify.Web.Modules;
 using Simplify.Web.Modules.Data;
+using Simplify.Web.Settings;
 
 namespace Simplify.Web.Owin
 {

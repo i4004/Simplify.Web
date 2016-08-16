@@ -16,6 +16,7 @@ using Simplify.Web.Modules;
 using Simplify.Web.Modules.Data;
 using Simplify.Web.Modules.Data.Html;
 using Simplify.Web.Routing;
+using Simplify.Web.Settings;
 using Environment = Simplify.Web.Modules.Environment;
 
 namespace Simplify.Web.Bootstrapper

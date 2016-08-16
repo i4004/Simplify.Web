@@ -1,4 +1,6 @@
-﻿namespace Simplify.Web.Modules
+﻿using Simplify.Web.Settings;
+
+namespace Simplify.Web.Modules
 {
 	/// <summary>
 	/// Site environment properties, initialized from <see cref="ISimplifyWebSettings" />

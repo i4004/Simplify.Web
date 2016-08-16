@@ -4,6 +4,7 @@ using Microsoft.Owin;
 using Moq;
 using NUnit.Framework;
 using Simplify.Web.Modules;
+using Simplify.Web.Settings;
 
 namespace Simplify.Web.Tests.Modules
 {

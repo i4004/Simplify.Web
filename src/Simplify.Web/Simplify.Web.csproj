@@ -51,7 +51,7 @@
     <Compile Include="Core\StaticFiles\StaticFileResponseFactory.cs" />
     <Compile Include="ModelBinding\ModelNotSupportedException.cs" />
     <Compile Include="Owin\OwinRequestHelper.cs" />
-    <Compile Include="SimplifyWebSettings.cs" />
+    <Compile Include="Settings\SimplifyWebSettings.cs" />
     <Compile Include="ActionModulesAccessor.cs" />
     <Compile Include="AsyncController.cs" />
     <Compile Include="AsyncControllerBase.cs" />
@@ -109,7 +109,7 @@
     <Compile Include="Core\AccessorsBuilding\ViewAccessorBuilder.cs" />
     <Compile Include="Core\Views\ViewFactory.cs" />
     <Compile Include="Diagnostics\ExceptionInfoPageGenerator.cs" />
-    <Compile Include="ISimplifyWebSettings.cs" />
+    <Compile Include="Settings\ISimplifyWebSettings.cs" />
     <Compile Include="Attributes\Setup\IgnoreControllersAttribute.cs" />
     <Compile Include="Attributes\Setup\IgnoreTypesRegistrationAttribute.cs" />
     <Compile Include="IHideObjectMembers.cs" />

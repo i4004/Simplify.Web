@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Threading;
 using Microsoft.Owin;
+using Simplify.Web.Settings;
 
 namespace Simplify.Web.Modules
 {
