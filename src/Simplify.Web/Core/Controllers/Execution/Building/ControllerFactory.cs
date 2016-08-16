@@ -1,8 +1,9 @@
 ﻿using System;
 using Microsoft.Owin;
 using Simplify.DI;
+using Simplify.Web.Core.AccessorsBuilding;
 
-namespace Simplify.Web.Core.Controllers
+namespace Simplify.Web.Core.Controllers.Execution.Building
 {
 	/// <summary>
 	/// Controller factory

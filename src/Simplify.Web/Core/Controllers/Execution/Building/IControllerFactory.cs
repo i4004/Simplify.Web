@@ -2,7 +2,7 @@
 using Microsoft.Owin;
 using Simplify.DI;
 
-namespace Simplify.Web.Core.Controllers
+namespace Simplify.Web.Core.Controllers.Execution.Building
 {
 	/// <summary>
 	/// Represent controller factory

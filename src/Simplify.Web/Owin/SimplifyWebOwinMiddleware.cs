@@ -66,8 +66,7 @@ namespace Simplify.Web.Owin
 					if (settings.ConsoleTracing)
 						TraceToConsole(context);
 
-					if (OnTrace != null)
-						OnTrace(context);
+					OnTrace?.Invoke(context);
 
 					// Setup providers
 
@@ -118,7 +117,8 @@ namespace Simplify.Web.Owin
 
 		private static void TraceToConsole(IOwinContext context)
 		{
-			Trace.WriteLine(string.Format("[{0}] [{1}] {2}", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss:fff", CultureInfo.InvariantCulture), context.Request.Method, context.Request.Uri.AbsoluteUri));
+			Trace.WriteLine(
+				$"[{DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss:fff", CultureInfo.InvariantCulture)}] [{context.Request.Method}] {context.Request.Uri.AbsoluteUri}");
 		}
 	}
 }

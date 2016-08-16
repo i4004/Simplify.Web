@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Owin;
 using Simplify.DI;
+using Simplify.Web.Core.Controllers.Execution.Building;
 
-namespace Simplify.Web.Core.Controllers
+namespace Simplify.Web.Core.Controllers.Execution
 {
 	/// <summary>
 	/// Provides controller executor, handles creation and execution of controllers

@@ -5,7 +5,7 @@ using Microsoft.Owin;
 namespace Simplify.Web.Owin
 {
 	/// <summary>
-	/// Provides OWIN request helper
+	/// Provides OWIN and HTTP related utility functions
 	/// </summary>
 	public static class OwinRequestHelper
 	{

@@ -1,8 +1,9 @@
 ﻿using System;
 using Simplify.DI;
+using Simplify.Web.Core.AccessorsBuilding;
 using Simplify.Web.Modules;
 
-namespace Simplify.Web.Core
+namespace Simplify.Web.Core.Views
 {
 	/// <summary>
 	/// View factory

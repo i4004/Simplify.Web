@@ -1,7 +1,7 @@
 ﻿using System;
 using Simplify.DI;
 
-namespace Simplify.Web.Core
+namespace Simplify.Web.Core.Views
 {
 	/// <summary>
 	/// Represent view factory

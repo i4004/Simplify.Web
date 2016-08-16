@@ -1,7 +1,7 @@
 ﻿using Simplify.DI;
 using Simplify.Web.Modules;
 
-namespace Simplify.Web.Core
+namespace Simplify.Web.Core.AccessorsBuilding
 {
 	/// <summary>
 	/// Provides builder for ActionModulesAccessor objects

@@ -2,7 +2,7 @@
 using Simplify.Web.Modules;
 using Simplify.Web.Modules.Html;
 
-namespace Simplify.Web.Core
+namespace Simplify.Web.Core.AccessorsBuilding
 {
 	/// <summary>
 	/// Provides builder for ModulesAccessor objects

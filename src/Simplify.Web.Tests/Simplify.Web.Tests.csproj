@@ -35,7 +35,7 @@
     <Compile Include="Bootstrapper\BootstrapperFactoryTests.cs" />
     <Compile Include="Core\PageAssembly\ContextVariablesSetterTests.cs" />
     <Compile Include="Core\Controllers\ControllersAgentTests.cs" />
-    <Compile Include="Core\Controllers\ControllersExecutorTests.cs" />
+    <Compile Include="Core\Controllers\Execution\ControllersExecutorTests.cs" />
     <Compile Include="Core\Controllers\ControllersProcessorTests.cs" />
     <Compile Include="Core\Controllers\ControllersRequestHandlerTests.cs" />
     <Compile Include="Core\PageAssembly\PageBuilderTests.cs" />

@@ -5,10 +5,11 @@ using Microsoft.Owin;
 using Moq;
 using NUnit.Framework;
 using Simplify.DI;
-using Simplify.Web.Core.Controllers;
+using Simplify.Web.Core.Controllers.Execution;
+using Simplify.Web.Core.Controllers.Execution.Building;
 using Simplify.Web.Tests.TestEntities;
 
-namespace Simplify.Web.Tests.Core.Controllers
+namespace Simplify.Web.Tests.Core.Controllers.Execution
 {
 	[TestFixture]
 	public class ControllersExecutorTests

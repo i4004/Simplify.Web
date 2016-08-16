@@ -1,5 +1,6 @@
 ﻿using Simplify.DI;
 using Simplify.Web.Core;
+using Simplify.Web.Core.Views;
 
 namespace Simplify.Web
 {

@@ -1,6 +1,6 @@
 ﻿using Simplify.DI;
 
-namespace Simplify.Web.Core.Controllers
+namespace Simplify.Web.Core.Controllers.Execution
 {
 	/// <summary>
 	/// Represent controller response builder

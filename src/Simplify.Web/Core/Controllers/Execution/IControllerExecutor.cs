@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Owin;
 using Simplify.DI;
 
-namespace Simplify.Web.Core.Controllers
+namespace Simplify.Web.Core.Controllers.Execution
 {
 	/// <summary>
 	/// Represent controller executor, handles creation and execution of controllers
