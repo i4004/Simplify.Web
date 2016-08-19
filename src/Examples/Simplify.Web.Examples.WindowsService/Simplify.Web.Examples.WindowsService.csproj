@@ -54,8 +54,8 @@
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Simplify.DI, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Simplify.DI.1.1.1.0\lib\net45\Simplify.DI.dll</HintPath>
+    <Reference Include="Simplify.DI, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Simplify.DI.1.1.2\lib\net45\Simplify.DI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Simplify.System, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -66,8 +66,8 @@
       <HintPath>..\..\packages\Simplify.Templates.1.2.1\lib\net45\Simplify.Templates.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Simplify.WindowsServices, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Simplify.WindowsServices.2.2.0.0\lib\net45\Simplify.WindowsServices.dll</HintPath>
+    <Reference Include="Simplify.WindowsServices, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Simplify.WindowsServices.2.4.0\lib\net45\Simplify.WindowsServices.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -90,14 +90,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Install.bat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
     <None Include="Templates\Master.tpl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Uninstall.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
