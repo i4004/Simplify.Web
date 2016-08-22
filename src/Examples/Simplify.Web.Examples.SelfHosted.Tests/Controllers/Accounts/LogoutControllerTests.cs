@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using Microsoft.Owin.Security;
+using Moq;
 using NUnit.Framework;
 using Simplify.Web.Examples.SelfHosted.Controllers.Accounts;
 using Simplify.Web.Modules;
@@ -16,7 +17,10 @@ namespace Simplify.Web.Examples.SelfHosted.Tests.Controllers.Accounts
 
 			var c = new Mock<LogoutController> { CallBase = true };
 			var context = new Mock<IWebContext>();
-			context.Setup(x => x.Context.Authentication.SignOut());
+			var auth = new Mock<IAuthenticationManager>();
+
+			auth.Setup(x => x.SignOut());
+			context.SetupGet(x => x.Context.Authentication).Returns(auth.Object);
 			c.SetupGet(x => x.Context).Returns(context.Object);
 
 			// Act
@@ -25,7 +29,7 @@ namespace Simplify.Web.Examples.SelfHosted.Tests.Controllers.Accounts
 			// Assert
 
 			Assert.AreEqual(RedirectionType.DefaultPage, ((Redirect)result).RedirectionType);
-			context.Verify(x => x.Context.Authentication.SignOut());
+			auth.Verify(x => x.SignOut());
 		}
 	}
 }
