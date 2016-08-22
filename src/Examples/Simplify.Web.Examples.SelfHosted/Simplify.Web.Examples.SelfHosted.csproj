@@ -119,8 +119,8 @@
     <None Include="fonts\glyphicons-halflings-regular.woff" />
     <None Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="packages.config" />
-    <None Include="scripts\jquery-3.1.0.min.map" />
-    <None Include="scripts\jquery-3.1.0.slim.min.map" />
+    <None Include="scripts2\jquery-3.1.0.min.map" />
+    <None Include="scripts2\jquery-3.1.0.slim.min.map" />
     <None Include="Styles\Forms.scss" />
     <None Include="Styles\Header.scss" />
     <None Include="Styles\Main.scss" />
@@ -196,21 +196,21 @@
     <Content Include="Images\Icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="scripts\bootstrap.js" />
-    <Content Include="scripts\bootstrap.min.js">
+    <None Include="scripts2\bootstrap.js" />
+    <Content Include="scripts2\bootstrap.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="scripts\bootstrapValidator\bootstrapValidator.js" />
-    <Content Include="scripts\bootstrapValidator\bootstrapValidator.min.js">
+    <None Include="scripts2\bootstrapValidator\bootstrapValidator.js" />
+    <Content Include="scripts2\bootstrapValidator\bootstrapValidator.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="scripts\jquery-3.1.0.intellisense.js" />
-    <None Include="scripts\jquery-3.1.0.js" />
-    <Content Include="scripts\jquery-3.1.0.min.js">
+    <None Include="scripts2\jquery-3.1.0.intellisense.js" />
+    <None Include="scripts2\jquery-3.1.0.js" />
+    <Content Include="scripts2\jquery-3.1.0.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="scripts\jquery-3.1.0.slim.js" />
-    <None Include="scripts\jquery-3.1.0.slim.min.js" />
+    <None Include="scripts2\jquery-3.1.0.slim.js" />
+    <None Include="scripts2\jquery-3.1.0.slim.min.js" />
     <Content Include="Styles\Colors.css" />
     <Content Include="Styles\Forms.css" />
     <Content Include="Styles\Header.css" />
