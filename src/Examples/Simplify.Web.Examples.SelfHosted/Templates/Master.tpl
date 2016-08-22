@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="{~}/styles/Main.min.css" />
 </head>
 <body>
-	<script type="text/javascript" src="{~}/scripts/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="{~}/scripts/jquery-3.1.0.min.js"></script>
 	<script type="text/javascript" src="{~}/scripts/bootstrap.min.js"></script>
 	<script type="text/javascript" src="{~}/scripts/bootstrapValidator/bootstrapValidator.min.js"></script>
 
