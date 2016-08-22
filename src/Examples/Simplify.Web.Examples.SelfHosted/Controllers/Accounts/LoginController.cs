@@ -3,6 +3,7 @@ using System.Security.Claims;
 using Microsoft.AspNet.Identity;
 using Simplify.Web.Attributes;
 using Simplify.Web.Examples.SelfHosted.Models.Accounts;
+using Simplify.Web.Examples.SelfHosted.Views;
 using Simplify.Web.Examples.SelfHosted.Views.Accounts;
 using Simplify.Web.Modules;
 using Simplify.Web.Responses;
@@ -29,7 +30,7 @@ namespace Simplify.Web.Examples.SelfHosted.Controllers.Accounts
 				return new Redirect(RedirectionType.PreviousPage);
 			}
 
-			return new Tpl(GetView<LoginView>().Get(Model, Html.MessageBox.GetInline(StringTable.WrongUserNameOrPassword)), StringTable.PageTitleLogin);
+			return new Tpl(GetView<LoginView>().Get(Model, GetView<MessageBoxView>().Get(StringTable.WrongUserNameOrPassword)), StringTable.PageTitleLogin);
 		}
 	}
 }

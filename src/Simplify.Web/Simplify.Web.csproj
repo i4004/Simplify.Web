@@ -157,10 +157,7 @@
     <Compile Include="Modules\Data\Html\HtmlWrapper.cs" />
     <Compile Include="Modules\Data\Html\IHtmlWrapper.cs" />
     <Compile Include="Modules\Data\Html\IListsGenerator.cs" />
-    <Compile Include="Modules\Data\Html\IMessageBox.cs" />
     <Compile Include="Modules\Data\Html\ListsGenerator.cs" />
-    <Compile Include="Modules\Data\Html\MessageBox.cs" />
-    <Compile Include="Modules\Data\Html\MessageBoxStatus.cs" />
     <Compile Include="Modules\IWebContext.cs" />
     <Compile Include="Modules\IWebContextProvider.cs" />
     <Compile Include="Modules\Data\IDataCollector.cs" />
@@ -183,8 +180,6 @@
     <Compile Include="Responses\Ajax.cs" />
     <Compile Include="Responses\File.cs" />
     <Compile Include="Responses\InlineTpl.cs" />
-    <Compile Include="Responses\MessageBox.cs" />
-    <Compile Include="Responses\MessageBoxInline.cs" />
     <Compile Include="Responses\Redirect.cs" />
     <Compile Include="Responses\StaticTpl.cs" />
     <Compile Include="Responses\Tpl.cs" />

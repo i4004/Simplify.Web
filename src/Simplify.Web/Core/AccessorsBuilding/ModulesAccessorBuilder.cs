@@ -29,7 +29,6 @@ namespace Simplify.Web.Core.AccessorsBuilding
 
 			var htmlWrapper = new HtmlWrapper
 			{
-				MessageBox = containerProvider.Resolve<IMessageBox>(),
 				ListsGenerator = containerProvider.Resolve<IListsGenerator>()
 			};
 

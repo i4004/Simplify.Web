@@ -36,7 +36,6 @@ namespace Simplify.Web.Bootstrapper
 		private Type _controllerExecutorType;
 		private Type _controllersProcessorType;
 		private Type _listsGeneratorType;
-		private Type _messageBoxType;
 		private Type _stringTableItemsSetterType;
 		private Type _pageBuilderType;
 		private Type _responseWriterType;
@@ -74,7 +73,6 @@ namespace Simplify.Web.Bootstrapper
 			RegisterStringTable();
 			RegisterDataCollector();
 			RegisterListsGenerator();
-			RegisterMessageBox();
 			RegisterStringTableItemsSetter();
 			RegisterPageBuilder();
 			RegisterResponseWriter();
@@ -201,14 +199,6 @@ namespace Simplify.Web.Bootstrapper
 		/// The type of the lists generator.
 		/// </value>
 		public Type ListsGeneratorType => _listsGeneratorType ?? typeof(ListsGenerator);
-
-		/// <summary>
-		/// Gets the type of the message box.
-		/// </summary>
-		/// <value>
-		/// The type of the message box.
-		/// </value>
-		public Type MessageBoxType => _messageBoxType ?? typeof(MessageBox);
 
 		/// <summary>
 		/// Gets the type of the string table items setter.
@@ -392,16 +382,6 @@ namespace Simplify.Web.Bootstrapper
 			where T : IListsGenerator
 		{
 			_listsGeneratorType = typeof(T);
-		}
-
-		/// <summary>
-		/// Sets the message box type.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		public void SetMessageBoxType<T>()
-			where T : IMessageBox
-		{
-			_messageBoxType = typeof(T);
 		}
 
 		/// <summary>
@@ -676,14 +656,6 @@ namespace Simplify.Web.Bootstrapper
 		public virtual void RegisterListsGenerator()
 		{
 			DIContainer.Current.Register<IListsGenerator>(ListsGeneratorType);
-		}
-
-		/// <summary>
-		/// Registers the message box.
-		/// </summary>
-		public virtual void RegisterMessageBox()
-		{
-			DIContainer.Current.Register<IMessageBox>(MessageBoxType);
 		}
 
 		/// <summary>
