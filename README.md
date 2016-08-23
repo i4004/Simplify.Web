@@ -6,11 +6,11 @@ Simplify.Web is a lightweight and fast server-side .NET web-framework based on M
 
 _This project is a continuator of [AcspNet web-framework](https://github.com/i4004/AcspNet)_
 
-<!---## Package status
+## Package status
 
-| Latest version | [![Nuget version](http://img.shields.io/badge/nuget-v0.8-blue.png)](https://www.nuget.org/packages/Simplify.Web/) |
+| Latest version | [![Nuget version](http://img.shields.io/badge/nuget-v0.9-blue.png)](https://www.nuget.org/packages/Simplify.Web/) |
 | :------ | :------: |
-| **Dependencies** | [![NuGet Status](http://nugetstatus.com/Simplify.Web.png)](http://nugetstatus.com/packages/Simplify.Web) | -->
+| **Dependencies** | [![NuGet Status](http://nugetstatus.com/Simplify.Web.png)](http://nugetstatus.com/packages/Simplify.Web) |
 
 ## Issues status
 
