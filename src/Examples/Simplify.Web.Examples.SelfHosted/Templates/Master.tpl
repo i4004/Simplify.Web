@@ -15,7 +15,7 @@
 	<script type="text/javascript" src="{~}/scripts/bootstrapValidator/bootstrapValidator.min.js"></script>
 
 	<div class="Title">
-		<img class="Logo" src="{~}/images/Icon.png" alt="Simplify.Web" />Your Simplify.Web application
+		<img class="Logo" src="{~}/images/IconMedium.png" alt="Simplify.Web" />Your Simplify.Web application
 	</div>
 
 	{Navbar}

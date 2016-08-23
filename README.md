@@ -1,6 +1,6 @@
 # Simplify.Web
 
-![Simplify](https://raw.githubusercontent.com/i4004/Simplify.Web/master/Images/Icon128x128.png)
+![Simplify](https://raw.githubusercontent.com/i4004/Simplify.Web/master/Images/IconMedium.png)
 
 Simplify.Web is a lightweight and fast server-side .NET web-framework based on MVC and OWIN
 
