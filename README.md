@@ -16,7 +16,7 @@ _This project is a continuator of [AcspNet web-framework](https://github.com/i40
 
 | Ready issues |
 | :------ |
-| [![Stories in Ready](https://badge.waffle.io/i4004/Simplify.Web.svg?label=ready&title=Ready)](http://waffle.io/i4004/Simplify.Web) |
+| [![Stories in Ready](https://badge.waffle.io/i4004/Simplify.Web.svg?label=ready&title=Ready)](http://waffle.io/i4004/Simplify) |
 
 ## Build status
 
