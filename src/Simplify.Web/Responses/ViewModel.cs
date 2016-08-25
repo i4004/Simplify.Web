@@ -48,7 +48,6 @@ namespace Simplify.Web.Responses
 		/// <summary>
 		/// Processes this response
 		/// </summary>
-		/// <exception cref="NotImplementedException"></exception>
 		public override ControllerResponseResult Process()
 		{
 			DataCollector.Add(TemplateFactory.Load(TemplateFileName).Model(Model).Set());
