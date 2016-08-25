@@ -130,6 +130,16 @@ namespace Simplify.Web.Tests.Modules.Data
 		}
 
 		[Test]
+		public void LoadXDocument_FileNameWithoutExtensionFileExist_Loaded()
+		{
+			// Act & Assert
+			Assert.AreEqual(
+				XDocument.Parse(
+					"<?xml version=\"1.0\" encoding=\"utf-8\" ?><items><item name=\"SiteTitle\" value=\"Заголовок\" /></items>")
+					.Root.OuterXml(), _fileReader.LoadXDocument("Foo").Root.OuterXml());
+		}
+
+		[Test]
 		public void LoadXDocument_FileNotExistButDefaultFileExist_DefaultFile()
 		{
 			// Assign

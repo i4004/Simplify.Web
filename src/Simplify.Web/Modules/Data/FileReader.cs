@@ -134,6 +134,11 @@ namespace Simplify.Web.Modules.Data
 		/// </returns>
 		public XDocument LoadXDocument(string fileName, string language, bool memoryCache = false)
 		{
+			if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException(nameof(fileName));
+
+			if (!fileName.EndsWith(".xml"))
+				fileName = fileName + ".xml";
+
 			if (!memoryCache || _disableCache)
 			{
 				var filePath = GetFilePath(fileName, language);
@@ -201,6 +206,8 @@ namespace Simplify.Web.Modules.Data
 		/// </returns>
 		public string LoadTextDocument(string fileName, string language, bool memoryCache = false)
 		{
+			if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException(nameof(fileName));
+
 			if (!memoryCache || _disableCache)
 			{
 				var filePath = GetFilePath(fileName, language);
