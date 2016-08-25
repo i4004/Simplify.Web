@@ -1,6 +1,4 @@
-﻿using Simplify.Templates;
-
-namespace Simplify.Web.Examples.SelfHosted.Views
+﻿namespace Simplify.Web.Examples.SelfHosted.Views
 {
 	public class MessageBoxView : View
 	{
