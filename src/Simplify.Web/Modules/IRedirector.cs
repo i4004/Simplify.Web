@@ -43,9 +43,9 @@
 		void SetRedirectUrlToCurrentPage();
 
 		/// <summary>
-		/// Sets the login return URL from query.
+		/// Sets the login return URL from current URI.
 		/// </summary>
-		void SetLoginReturnUrlFromQuery();
+		void SetLoginReturnUrlFromCurrentUri();
 
 		/// <summary>
 		/// Navigates the client by specifying redirection type.

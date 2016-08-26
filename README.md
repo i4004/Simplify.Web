@@ -8,7 +8,7 @@ _This project is a continuator of [AcspNet web-framework](https://github.com/i40
 
 ## Package status
 
-| Latest version | [![Nuget version](http://img.shields.io/badge/nuget-v1-blue.png)](https://www.nuget.org/packages/Simplify.Web/) |
+| Latest version | [![Nuget version](http://img.shields.io/badge/nuget-v1.0.1-blue.png)](https://www.nuget.org/packages/Simplify.Web/) |
 | :------ | :------: |
 | **Dependencies** | [![NuGet Status](http://nugetstatus.com/Simplify.Web.png)](http://nugetstatus.com/packages/Simplify.Web) |
 

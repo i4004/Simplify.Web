@@ -166,8 +166,7 @@ namespace Simplify.Web.Tests.Modules
 		{
 			// Assign
 
-			_context.SetupGet(x => x.Query[It.Is<string>(fieldName => fieldName == Redirector.LoginReturnUrlQueryFieldName)])
-				.Returns("http://localhost/mywebsite/foo2");
+			_context.SetupGet(x => x.Request.Uri).Returns(new Uri("http://localhost/mywebsite/foo2"));
 
 			_headerDictionary.Setup(x => x.AppendValues(It.IsAny<string>(), It.IsAny<string>())).Callback<string, string[]>((key, values) =>
 			{
@@ -176,7 +175,7 @@ namespace Simplify.Web.Tests.Modules
 			});
 
 			// Act
-			_redirector.SetLoginReturnUrlFromQuery();
+			_redirector.SetLoginReturnUrlFromCurrentUri();
 		}
 
 		[Test]

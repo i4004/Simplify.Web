@@ -45,7 +45,7 @@ namespace Simplify.Web.Core.Controllers
 
 				case ControllersProcessorResult.Http401:
 					context.Response.StatusCode = 401;
-					_redirector.SetLoginReturnUrlFromQuery();
+					_redirector.SetLoginReturnUrlFromCurrentUri();
 					break;
 
 				case ControllersProcessorResult.Http403:

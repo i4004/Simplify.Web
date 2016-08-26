@@ -74,7 +74,7 @@ namespace Simplify.Web.Tests.Core.Controllers
 			// Assert
 
 			_context.VerifySet(x => x.Response.StatusCode = It.Is<int>(d => d == 401));
-			_redirector.Verify(x => x.SetLoginReturnUrlFromQuery());
+			_redirector.Verify(x => x.SetLoginReturnUrlFromCurrentUri());
 		}
 
 		[Test]

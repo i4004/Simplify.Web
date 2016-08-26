@@ -23,11 +23,6 @@ namespace Simplify.Web.Modules
 		public const string LoginReturnUrlCookieFieldName = "LoginReturnUrl";
 
 		/// <summary>
-		/// The login return URL query field name
-		/// </summary>
-		public const string LoginReturnUrlQueryFieldName = "ReturnUrl";
-
-		/// <summary>
 		/// The previous navigated URL cookie field name
 		/// </summary>
 		public const string PreviousNavigatedUrlCookieFieldName = "PreviousNavigatedUrl";
@@ -100,11 +95,11 @@ namespace Simplify.Web.Modules
 		}
 
 		/// <summary>
-		/// Sets the login return URL from query.
+		/// Sets the login return URL from current URI.
 		/// </summary>
-		public void SetLoginReturnUrlFromQuery()
+		public void SetLoginReturnUrlFromCurrentUri()
 		{
-			LoginReturnUrl = _context.Query[LoginReturnUrlQueryFieldName];
+			LoginReturnUrl = _context.Request.Uri.AbsoluteUri;
 		}
 
 		/// <summary>

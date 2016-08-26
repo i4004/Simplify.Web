@@ -27,7 +27,7 @@ namespace Simplify.Web.Examples.SelfHosted.Controllers.Accounts
 				var authenticationManager = Context.Context.Authentication;
 				authenticationManager.SignIn(id);
 
-				return new Redirect(RedirectionType.PreviousPage);
+				return new Redirect(RedirectionType.LoginReturnUrl);
 			}
 
 			return new Tpl(GetView<LoginView>().Get(Model, GetView<MessageBoxView>().Get(StringTable.WrongUserNameOrPassword)), StringTable.PageTitleLogin);
