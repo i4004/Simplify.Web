@@ -11,7 +11,26 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Simplify.Web is a lightweight and fast .NET web-framework based on MVC and OWIN.</description>
 		<summary>Simplify.Web is a lightweight and fast .NET web-framework based on MVC and OWIN.</summary>
-		<releaseNotes>			
+		<releaseNotes>
+			Changes relatively to AcspNet 5.2:
+			* Upgrade to .net framework 4.5.2
+			New Features:
+			+ FileReader cache
+			+ StringTable memory cache
+			+ Login ReturnUrl save and redirection
+			+ Static files HTTP cache handing
+			+ AuthorizeAttribute allowed user roles as args parameter
+			+ New controller route parameter type: comma separated arrays with specific types (string, int, bool))
+			+ HTTP status code in ajax responses as second parameter
+			+ HTTP PATCH method support
+			+ "Required" attribute for user types in view models
+			+ SV:LanguageCountry templates variable with language/contry information
+			Changes:
+			* Lowercased default StaticFilesPaths in Simplify.Web
+			* Html.ListsGenerator.GenerateListFromEnum without selected item
+			* Ajax response data check for null before write and skip nullable values
+			* Templates memory cache bug fix
+			* Upgrade to Simplify.Templates 1.2.1, Simplify.DI 1.1.2, System.IO.Abstractions 2.0.0.124
 		</releaseNotes>
 		<copyright>Licensed under LGPL</copyright>
 		<language>en-US</language>
