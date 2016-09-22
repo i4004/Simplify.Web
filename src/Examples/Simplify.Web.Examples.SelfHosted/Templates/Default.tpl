@@ -24,6 +24,8 @@
 				<li class="list-group-item">Style: {SV:Style}</li>
 				<li class="list-group-item">Language: {SV:Language}</li>
 				<li class="list-group-item">Language with extension: {SV:LanguageExt}</li>
+				<li class="list-group-item">Language culture name: {SV:LanguageCultureName}</li>
+				<li class="list-group-item">Language culture name with extension: {SV:LanguageCultureNameExt}</li>
 			</ul>
 		</div>
 	</div>
