@@ -14,11 +14,13 @@ namespace Simplify.Web.Responses
 		/// <param name="templateFileName">Name of the template file.</param>
 		/// <param name="viewModel">The view model.</param>
 		/// <param name="title">The title.</param>
-		public ViewModel(string templateFileName, T viewModel = null, string title = null)
+		/// <param name="statusCode">The HTTP response status code.</param>
+		public ViewModel(string templateFileName, T viewModel = null, string title = null, int statusCode = 200)
 		{
 			TemplateFileName = templateFileName;
 			Model = viewModel;
 			Title = title;
+			StatusCode = statusCode;
 		}
 
 		/// <summary>
@@ -46,10 +48,20 @@ namespace Simplify.Web.Responses
 		public string Title { get; set; }
 
 		/// <summary>
+		/// Gets the HTTP response status code.
+		/// </summary>
+		/// <value>
+		/// The HTTP response status code.
+		/// </value>
+		public int StatusCode { get; }
+
+		/// <summary>
 		/// Processes this response
 		/// </summary>
 		public override ControllerResponseResult Process()
 		{
+			Context.Response.StatusCode = StatusCode;
+
 			DataCollector.Add(TemplateFactory.Load(TemplateFileName).Model(Model).Set());
 
 			if (!string.IsNullOrEmpty(Title))
