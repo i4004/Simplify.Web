@@ -20,8 +20,8 @@ namespace Simplify.Web.Responses
 				throw new ArgumentNullException(nameof(templateFileName));
 
 			TemplateFileName = templateFileName;
-			StatusCode = statusCode;
 			Title = title;
+			StatusCode = statusCode;
 		}
 
 		/// <summary>
