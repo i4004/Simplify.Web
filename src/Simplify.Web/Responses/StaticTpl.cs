@@ -11,41 +11,10 @@ namespace Simplify.Web.Responses
 		/// Initializes a new instance of the <see cref="Tpl" /> class.
 		/// </summary>
 		/// <param name="templateFileName">Name of the template file.</param>
-		public StaticTpl(string templateFileName)
-		{
-			if (templateFileName == null)
-				throw new ArgumentNullException(nameof(templateFileName));
-
-			TemplateFileName = templateFileName;
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Tpl" /> class.
-		/// </summary>
-		/// <param name="templateFileName">Name of the template file.</param>
 		/// <param name="title">The title.</param>
-		/// <exception cref="ArgumentNullException">
-		/// templateFileName
-		/// or
-		/// title
-		/// </exception>
-		public StaticTpl(string templateFileName, string title)
-		{
-			if (templateFileName == null)
-				throw new ArgumentNullException(nameof(templateFileName));
-
-			TemplateFileName = templateFileName;
-			Title = title;
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Tpl" /> class.
-		/// </summary>
-		/// <param name="templateFileName">Name of the template file.</param>
 		/// <param name="statusCode">The HTTP response status code.</param>
-		/// <param name="title">The title.</param>
 		/// <exception cref="ArgumentNullException"></exception>
-		public StaticTpl(string templateFileName, int statusCode, string title = null)
+		public StaticTpl(string templateFileName, string title = null, int statusCode = 200)
 		{
 			if (templateFileName == null)
 				throw new ArgumentNullException(nameof(templateFileName));
@@ -77,15 +46,14 @@ namespace Simplify.Web.Responses
 		/// <value>
 		/// The HTTP response status code.
 		/// </value>
-		public int? StatusCode { get; }
+		public int StatusCode { get; }
 
 		/// <summary>
 		/// Processes this response
 		/// </summary>
 		public override ControllerResponseResult Process()
 		{
-			if(StatusCode != null)
-				Context.Response.StatusCode = StatusCode.Value;
+			Context.Response.StatusCode = StatusCode;
 
 			DataCollector.Add(TemplateFactory.Load(TemplateFileName));
 
