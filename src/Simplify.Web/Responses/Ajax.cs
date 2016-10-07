@@ -12,8 +12,17 @@
 		/// <param name="statusCode">The HTTP response status code.</param>
 		public Ajax(string ajaxData, int statusCode = 200)
 		{
-			StatusCode = statusCode;
 			AjaxData = ajaxData;
+			StatusCode = statusCode;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Ajax" /> class.
+		/// </summary>
+		/// <param name="statusCode">The HTTP response status code.</param>
+		public Ajax(int statusCode = 204)
+		{
+			StatusCode = statusCode;
 		}
 
 		/// <summary>
@@ -37,11 +46,10 @@
 		/// </summary>
 		public override ControllerResponseResult Process()
 		{
+			Context.Response.StatusCode = StatusCode;
+
 			if (AjaxData != null)
-			{
-				Context.Response.StatusCode = StatusCode;
 				ResponseWriter.Write(AjaxData, Context.Response);
-			}
 
 			return ControllerResponseResult.RawOutput;
 		}
