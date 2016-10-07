@@ -11,30 +11,13 @@ namespace Simplify.Web.Responses
 		/// Initializes a new instance of the <see cref="Tpl"/> class.
 		/// </summary>
 		/// <param name="data">The data for main content variable.</param>
-		public Tpl(string data)
-		{
-			Data = data;
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Tpl"/> class.
-		/// </summary>
-		/// <param name="data">The data for main content variable.</param>
 		/// <param name="title">The site title.</param>
-		public Tpl(string data, string title)
+		/// <param name="statusCode">The HTTP response status code.</param>
+		public Tpl(string data, string title = null, int statusCode = 200)
 		{
 			Data = data;
 			Title = title;
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Tpl"/> class.
-		/// </summary>
-		/// <param name="template">The template.</param>
-		public Tpl(ITemplate template)
-		{
-			if (template != null)
-				Data = template.Get();
+			StatusCode = statusCode;
 		}
 
 		/// <summary>
@@ -42,12 +25,14 @@ namespace Simplify.Web.Responses
 		/// </summary>
 		/// <param name="template">The template.</param>
 		/// <param name="title">The site title.</param>
-		public Tpl(ITemplate template, string title)
+		/// <param name="statusCode">The HTTP response status code.</param>
+		public Tpl(ITemplate template, string title = null, int statusCode = 200)
 		{
 			if (template != null)
 				Data = template.Get();
 
 			Title = title;
+			StatusCode = statusCode;
 		}
 
 		/// <summary>
@@ -61,10 +46,21 @@ namespace Simplify.Web.Responses
 		public string Title { get; }
 
 		/// <summary>
+		/// Gets the HTTP response status code.
+		/// </summary>
+		/// <value>
+		/// The HTTP response status code.
+		/// </value>
+		public int? StatusCode { get; }
+
+		/// <summary>
 		/// Processes this response
 		/// </summary>
 		public override ControllerResponseResult Process()
 		{
+			if (StatusCode != null)
+				Context.Response.StatusCode = StatusCode.Value;
+
 			DataCollector.Add(Data);
 
 			if (!string.IsNullOrEmpty(Title))
