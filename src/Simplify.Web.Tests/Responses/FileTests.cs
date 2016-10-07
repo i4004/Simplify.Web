@@ -26,7 +26,7 @@ namespace Simplify.Web.Tests.Responses
 		{
 			// Assign
 
-			var file = new Mock<File>("Foo.txt", "application/example", new byte[] { 13 }) { CallBase = true };
+			var file = new Mock<File>("Foo.txt", "application/example", new byte[] { 13 }, 200) { CallBase = true };
 			file.SetupGet(x => x.Context).Returns(_context.Object);
 
 			// Act

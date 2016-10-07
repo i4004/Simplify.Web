@@ -1,6 +1,8 @@
-﻿using Moq;
+﻿using Microsoft.Owin;
+using Moq;
 using NUnit.Framework;
 using Simplify.Templates;
+using Simplify.Web.Modules;
 using Simplify.Web.Modules.Data;
 using Simplify.Web.Responses;
 
@@ -10,11 +12,17 @@ namespace Simplify.Web.Tests.Responses
 	public class TplTests
 	{
 		private Mock<IDataCollector> _dataCollector;
+		private Mock<IWebContext> _context;
+		private Mock<IOwinResponse> _response;
 
 		[SetUp]
 		public void Initialize()
 		{
 			_dataCollector = new Mock<IDataCollector>();
+			_context = new Mock<IWebContext>();
+			_response = new Mock<IOwinResponse>();
+
+			_context.SetupGet(x => x.Response).Returns(_response.Object);
 		}
 
 		[Test]
@@ -22,8 +30,9 @@ namespace Simplify.Web.Tests.Responses
 		{
 			// Assign
 
-			var tplData = new Mock<Tpl>("test") { CallBase = true };
+			var tplData = new Mock<Tpl>("test", null, 200) { CallBase = true };
 			tplData.SetupGet(x => x.DataCollector).Returns(_dataCollector.Object);
+			tplData.SetupGet(x => x.Context).Returns(_context.Object);
 
 			// Act
 			var result = tplData.Object.Process();
@@ -39,8 +48,9 @@ namespace Simplify.Web.Tests.Responses
 		{
 			// Assign
 
-			var tplData = new Mock<Tpl>(Template.FromString("test")) { CallBase = true };
+			var tplData = new Mock<Tpl>(Template.FromString("test"), null, 200) { CallBase = true };
 			tplData.SetupGet(x => x.DataCollector).Returns(_dataCollector.Object);
+			tplData.SetupGet(x => x.Context).Returns(_context.Object);
 
 			// Act
 			tplData.Object.Process();
@@ -54,8 +64,9 @@ namespace Simplify.Web.Tests.Responses
 		{
 			// Assign
 
-			var tplData = new Mock<Tpl>(Template.FromString("test"), "foo title") { CallBase = true };
+			var tplData = new Mock<Tpl>(Template.FromString("test"), "foo title", 200) { CallBase = true };
 			tplData.SetupGet(x => x.DataCollector).Returns(_dataCollector.Object);
+			tplData.SetupGet(x => x.Context).Returns(_context.Object);
 
 			// Act
 			tplData.Object.Process();
@@ -71,8 +82,9 @@ namespace Simplify.Web.Tests.Responses
 		{
 			// Assign
 
-			var tplData = new Mock<Tpl>("test", "foo title") { CallBase = true };
+			var tplData = new Mock<Tpl>("test", "foo title", 200) { CallBase = true };
 			tplData.SetupGet(x => x.DataCollector).Returns(_dataCollector.Object);
+			tplData.SetupGet(x => x.Context).Returns(_context.Object);
 
 			// Act
 			tplData.Object.Process();
@@ -88,8 +100,9 @@ namespace Simplify.Web.Tests.Responses
 		{
 			// Assign
 
-			var tplData = new Mock<Tpl>("test", null) { CallBase = true };
+			var tplData = new Mock<Tpl>("test", null, 200) { CallBase = true };
 			tplData.SetupGet(x => x.DataCollector).Returns(_dataCollector.Object);
+			tplData.SetupGet(x => x.Context).Returns(_context.Object);
 
 			// Act
 			tplData.Object.Process();

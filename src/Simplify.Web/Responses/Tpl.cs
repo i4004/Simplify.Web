@@ -51,15 +51,14 @@ namespace Simplify.Web.Responses
 		/// <value>
 		/// The HTTP response status code.
 		/// </value>
-		public int? StatusCode { get; }
+		public int StatusCode { get; }
 
 		/// <summary>
 		/// Processes this response
 		/// </summary>
 		public override ControllerResponseResult Process()
 		{
-			if (StatusCode != null)
-				Context.Response.StatusCode = StatusCode.Value;
+			Context.Response.StatusCode = StatusCode;
 
 			DataCollector.Add(Data);
 
