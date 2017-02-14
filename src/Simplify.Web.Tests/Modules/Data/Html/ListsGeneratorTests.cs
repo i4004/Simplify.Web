@@ -47,7 +47,7 @@ namespace Simplify.Web.Tests.Modules.Data.Html
 			items.Add(new FooTestList(1, "Item 1"));
 			items.Add(new FooTestList(2, "Item 2"));
 
-			Assert.AreEqual("<option value='1' >Item 1</option><option value='2' >Item 2</option>", lg.GenerateList(items, x => x.Id, x => x.Value));
+			Assert.AreEqual("<option value='1' >Item 1</option><option value='2' >Item 2</option>", lg.GenerateList(items, x => x.Id.ToString(), x => x.Value));
 		}
 
 		public class FooTestList

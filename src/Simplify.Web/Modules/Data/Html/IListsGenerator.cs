@@ -94,7 +94,7 @@ namespace Simplify.Web.Modules.Data.Html
 		/// <param name="selectedItem">Selected item</param>
 		/// <param name="generateEmptyListItem">Generate empty list item</param>
 		/// <returns></returns>
-		string GenerateList<T>(IList<T> items, Func<T, int> id, Func<T, string> name, T selectedItem = null, bool generateEmptyListItem = false)
+		string GenerateList<T>(IList<T> items, Func<T, string> id, Func<T, string> name, T selectedItem = null, bool generateEmptyListItem = false)
 			where T : class;
 
 		/// <summary>
