@@ -2,7 +2,7 @@
 
 ![Simplify](https://raw.githubusercontent.com/i4004/Simplify.Web/master/Images/IconMedium.png)
 
-Simplify.Web is a lightweight and fast server-side .NET web-framework based on MVC and OWIN
+Simplify.Web is a lightweight and fast server-side .NET web-framework based on MVC and OWIN for building HTTP based web-applications, RESTful APIs etc.
 
 _This project is a continuator of [AcspNet web-framework](https://github.com/i4004/AcspNet)_
 
