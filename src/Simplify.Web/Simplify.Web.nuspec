@@ -12,7 +12,14 @@
 		<description>Simplify.Web is a lightweight and fast .NET web-framework based on MVC and OWIN.</description>
 		<summary>Simplify.Web is a lightweight and fast .NET web-framework based on MVC and OWIN.</summary>
 		<releaseNotes>
-			* Redirector login return URL retrieve bug fix
+			+ 'Ajax' controller respose with default null ajaxData parameter without writing to response
+			+ 'Tpl' response constructors with HTTP status code
+			+ 'File' response constructors with HTTP status code
+			+ 'ViewModel' response constructors with HTTP status code
+			+ 'StaticTpl' response constructors with HTTP status code
+			* 'File' response duplicate headers error under Chrome fix
+			* Setting HTTP status 500 in SimplifyWebOwinMiddleware exception
+			* id parameter type changed to string for generic ListsGenerator.GenerateList
 		</releaseNotes>
 		<copyright>Licensed under LGPL</copyright>
 		<language>en-US</language>
