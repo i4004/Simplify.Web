@@ -219,8 +219,8 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Simplify.DI, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Simplify.DI.1.1.2\lib\net45\Simplify.DI.dll</HintPath>
+    <Reference Include="Simplify.DI, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Simplify.DI.1.2.0\lib\net452\Simplify.DI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Simplify.Templates, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
