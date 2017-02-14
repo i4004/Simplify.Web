@@ -72,7 +72,7 @@ namespace Simplify.Web.Responses
 		{
 			Context.Response.StatusCode = StatusCode;
 
-			Context.Response.Headers.Append("Content-Disposition", "attachment; filename=" + OutputFileName);
+			Context.Response.Headers.Append("Content-Disposition", "attachment; filename=\"" + OutputFileName + "\"");
 			Context.Response.ContentType = ContentType;
 			Context.Response.Write(Data);
 
