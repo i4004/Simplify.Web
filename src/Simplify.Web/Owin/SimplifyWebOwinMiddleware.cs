@@ -93,6 +93,8 @@ namespace Simplify.Web.Owin
 				{
 					try
 					{
+						context.Response.StatusCode = 500;
+
 						ProcessOnException(e);
 					}
 					catch (Exception exception)

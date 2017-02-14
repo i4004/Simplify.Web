@@ -97,6 +97,7 @@
     <Compile Include="Controllers\Accounts\LoginPageController.cs" />
     <Compile Include="Controllers\Accounts\LogoutController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\ExceptionExampleController.cs" />
     <Compile Include="Controllers\HttpErrors\Http404Controller.cs" />
     <Compile Include="Controllers\Shared\LoginPanelController.cs" />
     <Compile Include="Controllers\Shared\NavbarController.cs" />

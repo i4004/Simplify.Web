@@ -13,6 +13,7 @@
 			<ul class="nav navbar-nav">
 				<li><a href="{~}/about">About</a></li>
 				<li><a href="{~}/messagePageExample">Message page example</a></li>
+				<li><a href="{~}/exception">Exception</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				{LoginPanel}
