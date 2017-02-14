@@ -34,7 +34,7 @@ namespace Simplify.Web.Tests.Responses
 
 			// Assert
 
-			_headerDictionary.Verify(x => x.Append(It.Is<string>(d => d == "Content-Disposition"), It.Is<string>(d => d == "attachment; filename=Foo.txt")));
+			_headerDictionary.Verify(x => x.Append(It.Is<string>(d => d == "Content-Disposition"), It.Is<string>(d => d == "attachment; filename=\"Foo.txt\"")));
 			_context.VerifySet(x => x.Response.ContentType = "application/example");
 			_context.Verify(x => x.Response.Write(It.Is<byte[]>(d => d[0] == 13)));
 			Assert.AreEqual(ControllerResponseResult.RawOutput, result);
