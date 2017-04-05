@@ -41,6 +41,8 @@ _This project is a continuator of [AcspNet web-framework](https://github.com/i40
 
 <!----To get started you can install [visual studio Simplify.Web project templates](http://visualstudiogallery.msdn.microsoft.com/25a4534d-5a5b-4cce-aecf-523c3679a1c3) and read [this](https://github.com/i4004/Simplify.Web/wiki/Getting-started) article.-->
 
+### The examples below shows simple backend HTML generation, but you can easily use any front end technologies with Simplify.Web like AngularJS etc.
+
 ## Some examples
 
 #### Simple static page controller
