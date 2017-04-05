@@ -95,7 +95,7 @@ public class LoggedUserPanelView : View
 #### Templates example
 
 ##### Master.tpl
-````html
+```html
 ﻿<!DOCTYPE html>
 <html>
 <head>
@@ -109,7 +109,7 @@ public class LoggedUserPanelView : View
 
 ##### About.tpl
 
-````html
+```html
 ﻿<div class="container">
     Welcome to about page!
 </div>
