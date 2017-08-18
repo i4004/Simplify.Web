@@ -10,10 +10,12 @@
 		/// </summary>
 		/// <param name="ajaxData">The ajax data.</param>
 		/// <param name="statusCode">The HTTP response status code.</param>
-		public Ajax(string ajaxData, int statusCode = 200)
+		/// <param name="contentType">Type of the content.</param>
+		public Ajax(string ajaxData, int statusCode = 200, string contentType = null)
 		{
 			AjaxData = ajaxData;
 			StatusCode = statusCode;
+			ContentType = contentType;
 		}
 
 		/// <summary>
@@ -21,7 +23,7 @@
 		/// </summary>
 		/// <param name="ajaxData">The ajax data.</param>
 		/// <param name="contentType">Type of the content.</param>
-		public Ajax(string ajaxData, string contentType = null)
+		public Ajax(string ajaxData, string contentType)
 		{
 			AjaxData = ajaxData;
 			ContentType = contentType;
