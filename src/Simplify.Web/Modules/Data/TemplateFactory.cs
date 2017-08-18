@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -60,7 +61,7 @@ namespace Simplify.Web.Modules.Data
 			if (!fileName.EndsWith(".tpl"))
 				fileName = fileName + ".tpl";
 
-			var filePath = !_loadTemplatesFromAssembly ? $"{_environment.TemplatesPhysicalPath}{fileName}" : fileName;
+			var filePath = !_loadTemplatesFromAssembly ? Path.Combine(_environment.TemplatesPhysicalPath, fileName) : fileName;
 
 			if (!_templatesMemoryCache)
 				return new Template(filePath, _languageManager.Language, _defaultLanguage);
