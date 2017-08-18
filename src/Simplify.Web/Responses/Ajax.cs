@@ -19,6 +19,17 @@
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Ajax" /> class.
 		/// </summary>
+		/// <param name="ajaxData">The ajax data.</param>
+		/// <param name="contentType">Type of the content.</param>
+		public Ajax(string ajaxData, string contentType)
+		{
+			AjaxData = ajaxData;
+			ContentType = contentType;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Ajax" /> class.
+		/// </summary>
 		/// <param name="statusCode">The HTTP response status code.</param>
 		public Ajax(int statusCode = 204)
 		{
@@ -34,6 +45,14 @@
 		public string AjaxData { get; }
 
 		/// <summary>
+		/// Gets the type of the content.
+		/// </summary>
+		/// <value>
+		/// The type of the content.
+		/// </value>
+		public string ContentType { get; }
+
+		/// <summary>
 		/// Gets the HTTP response status code.
 		/// </summary>
 		/// <value>
@@ -47,6 +66,9 @@
 		public override ControllerResponseResult Process()
 		{
 			Context.Response.StatusCode = StatusCode;
+
+			if (ContentType != null)
+				Context.Response.ContentType = ContentType;
 
 			if (AjaxData != null)
 				ResponseWriter.Write(AjaxData, Context.Response);
