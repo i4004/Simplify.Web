@@ -8,7 +8,7 @@
 			{Message}
 		</div>
 		<div class="form-group">
-			<input type="text" class="form-control" name="UserName" placeholder="User name" value="{Model.UserName}"
+			<input type="text" class="form-control" name="UserName" placeholder="User name" value="{UserName}"
 				   required data-bv-notempty-message="{UserNameNotEmptyMessage}" />
 		</div>
 		<div class="form-group">
@@ -16,7 +16,7 @@
 				   required data-bv-notempty-message="{PasswordNotEmptyMessage}" />
 		</div>
 		<div class="form-group">
-			<label><input type="checkbox" name="RememberMe" {Model.RememberMe} /> Remember me</label>
+			<label><input type="checkbox" name="RememberMe" {RememberMe} /> Remember me</label>
 		</div>
 		<div class="form-group">
 			<i>Note: Login: Foo, password: 1</i>
