@@ -44,8 +44,7 @@ namespace Simplify.String
 			if (string.IsNullOrEmpty(phone))
 				return false;
 
-			return Regex.IsMatch(phone, @"^(8{1}\d{10})$") ||
-				   Regex.IsMatch(phone, @"^(\+7{1}\d{10})$");
+			return Regex.IsMatch(phone, @"^\+[1-9]{1}[0-9]{7,11}$");
 		}
 
 		/// <summary>

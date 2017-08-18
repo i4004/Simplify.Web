@@ -33,7 +33,7 @@
     <DocumentationFile>bin\Release\Simplify.Web.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="App_Packages\Simplify.String.Sources.1.0.1.0\StringHelper.cs" />
+    <Compile Include="App_Packages\Simplify.String.Sources.1.1.0.0\StringHelper.cs" />
     <Compile Include="App_Packages\Simplify.System.Sources.1.0.0.0\AssemblyInfo.cs" />
     <Compile Include="App_Packages\Simplify.System.Sources.1.0.0.0\IAssemblyInfo.cs" />
     <Compile Include="App_Packages\Simplify.System.Sources.1.0.0.0\IHideObjectMembers.cs" />
