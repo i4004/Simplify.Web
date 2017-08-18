@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
 using Moq;
@@ -20,7 +21,10 @@ namespace Simplify.Web.Tests.Modules.Data
 		[TestFixtureSetUp]
 		public void Initialize()
 		{
-			var files = new Dictionary<string, MockFileData> { { "C:/WebSites/FooSite/Templates/Foo.tpl", "Dummy data" } };
+			var dir = Path.Combine("WebSites", "FooSite", "Templates");
+			var file = Path.Combine("WebSites", "FooSite", "Templates", "Foo.tpl");
+
+			var files = new Dictionary<string, MockFileData> { { file, "Dummy data" } };
 
 			Template.FileSystem = new MockFileSystem(files);
 
@@ -28,7 +32,7 @@ namespace Simplify.Web.Tests.Modules.Data
 			_languageManagerProvider = new Mock<ILanguageManagerProvider>();
 			_languageManager = new Mock<ILanguageManager>();
 
-			_environment.SetupGet(x => x.TemplatesPhysicalPath).Returns("C:/WebSites/FooSite/Templates/");
+			_environment.SetupGet(x => x.TemplatesPhysicalPath).Returns(dir);
 			_languageManagerProvider.Setup(x => x.Get()).Returns(_languageManager.Object);
 			_languageManager.SetupGet(x => x.Language).Returns("en");
 		}
