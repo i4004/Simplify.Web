@@ -21,7 +21,7 @@
 		/// </summary>
 		/// <param name="ajaxData">The ajax data.</param>
 		/// <param name="contentType">Type of the content.</param>
-		public Ajax(string ajaxData, string contentType)
+		public Ajax(string ajaxData, string contentType = null)
 		{
 			AjaxData = ajaxData;
 			ContentType = contentType;
