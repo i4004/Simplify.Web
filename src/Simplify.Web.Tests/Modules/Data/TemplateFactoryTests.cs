@@ -18,7 +18,7 @@ namespace Simplify.Web.Tests.Modules.Data
 		private Mock<ILanguageManagerProvider> _languageManagerProvider;
 		private Mock<ILanguageManager> _languageManager;
 
-		[OneTimeSetUpAttribute]
+		[OneTimeSetUp]
 		public void Initialize()
 		{
 			var dir = Path.Combine("WebSites", "FooSite", "Templates");
