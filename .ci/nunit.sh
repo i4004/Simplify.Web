@@ -1,8 +1,9 @@
-mono --runtime=v4.0 src/.nuget/NuGet.exe install NUnit.Runners -Version 3.7.0 -o packages
+mono src/.nuget/NuGet.exe install NUnit.Runners -Version 3.7.0 -o packages
 
 runTest()
 {
-    mono --runtime=v4.0 packages/NUnit.ConsoleRunner.3.7.0/tools/nunit3-console.exe -labels After $@
+    mono packages/NUnit.ConsoleRunner.3.7.0/tools/nunit3-console.exe -labels After -noresult $@
+
    if [ $? -ne 0 ]
    then   
      exit 1
