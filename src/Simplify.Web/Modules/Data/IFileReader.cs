@@ -13,7 +13,7 @@ namespace Simplify.Web.Modules.Data
 		void Setup();
 
 		/// <summary>
-		/// Load xml document from a file
+		/// Load xml document from a file located in data folder
 		/// </summary>
 		/// <param name="fileName">File name</param>
 		/// <param name="memoryCache">Load file from memory cache if possible.</param>
@@ -21,7 +21,7 @@ namespace Simplify.Web.Modules.Data
 		XDocument LoadXDocument(string fileName, bool memoryCache = false);
 
 		/// <summary>
-		/// Load xml document from a file with specific language
+		/// Load xml document from a file with specific language located in data folder
 		/// </summary>
 		/// <param name="fileName">File name</param>
 		/// <param name="language">File language</param>
@@ -30,7 +30,7 @@ namespace Simplify.Web.Modules.Data
 		XDocument LoadXDocument(string fileName, string language, bool memoryCache = false);
 
 		/// <summary>
-		/// Load text from a extension data file
+		/// Load text from a file located in data folder
 		/// </summary>
 		/// <param name="fileName">File name</param>
 		/// <param name="memoryCache">Load file from memory cache if possible.</param>
@@ -38,7 +38,7 @@ namespace Simplify.Web.Modules.Data
 		string LoadTextDocument(string fileName, bool memoryCache = false);
 
 		/// <summary>
-		/// Load text from a file with specific language
+		/// Load text from a file with specific language located in data folder
 		/// </summary>
 		/// <param name="fileName">File name</param>
 		/// <param name="language">File language</param>

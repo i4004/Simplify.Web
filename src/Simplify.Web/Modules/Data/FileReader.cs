@@ -74,7 +74,9 @@ namespace Simplify.Web.Modules.Data
 		/// Get file path
 		/// </summary>
 		/// <param name="fileName">File name</param>
-		/// <returns>File path</returns>
+		/// <returns>
+		/// File path
+		/// </returns>
 		public string GetFilePath(string fileName)
 		{
 			return GetFilePath(fileName, _languageManager.Language);
@@ -111,7 +113,7 @@ namespace Simplify.Web.Modules.Data
 		}
 
 		/// <summary>
-		/// Load xml document from a file
+		/// Load xml document from a file located in data folder
 		/// </summary>
 		/// <param name="fileName">File name</param>
 		/// <param name="memoryCache">Load file from memory cache if possible.</param>
@@ -124,7 +126,7 @@ namespace Simplify.Web.Modules.Data
 		}
 
 		/// <summary>
-		/// Load xml document from a file with specific language
+		/// Load xml document from a file with specific language located in data folder
 		/// </summary>
 		/// <param name="fileName">File name</param>
 		/// <param name="language">File language</param>
@@ -132,6 +134,7 @@ namespace Simplify.Web.Modules.Data
 		/// <returns>
 		/// Xml document
 		/// </returns>
+		/// <exception cref="ArgumentNullException">fileName</exception>
 		public XDocument LoadXDocument(string fileName, string language, bool memoryCache = false)
 		{
 			if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException(nameof(fileName));
@@ -183,7 +186,7 @@ namespace Simplify.Web.Modules.Data
 		}
 
 		/// <summary>
-		/// Load text from a extension data file
+		/// Load text from a file located in data folder
 		/// </summary>
 		/// <param name="fileName">File name</param>
 		/// <param name="memoryCache">Load file from memory cache if possible.</param>
@@ -196,7 +199,7 @@ namespace Simplify.Web.Modules.Data
 		}
 
 		/// <summary>
-		/// Load text from a file with specific language
+		/// Load text from a file with specific language located in data folder
 		/// </summary>
 		/// <param name="fileName">File name</param>
 		/// <param name="language">File language</param>
@@ -204,6 +207,7 @@ namespace Simplify.Web.Modules.Data
 		/// <returns>
 		/// Text from a file
 		/// </returns>
+		/// <exception cref="ArgumentNullException">fileName</exception>
 		public string LoadTextDocument(string fileName, string language, bool memoryCache = false)
 		{
 			if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException(nameof(fileName));
