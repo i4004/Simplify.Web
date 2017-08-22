@@ -34,6 +34,12 @@ namespace Simplify.Web.Tests.ModelBinding.Binders.Parsers
 		}
 
 		[Test]
+		public void IsTypeValidForParsing_StringArray_False()
+		{
+			Assert.IsFalse(ArrayToSpecifiedListParser.IsTypeValidForParsing(typeof(string[])));
+		}
+
+		[Test]
 		public void ParseUndefined_EnumList_ParsedCorrectly()
 		{
 			// Act
@@ -43,6 +49,17 @@ namespace Simplify.Web.Tests.ModelBinding.Binders.Parsers
 
 			Assert.AreEqual(TestEnum.Value2, result[0]);
 			Assert.AreEqual(TestEnum.Value1, result[1]);
+		}
+
+		[Test]
+		public void ParseUndefined_StringsList_Null()
+		{
+			// Act
+			var result = (string[])ArrayToSpecifiedListParser.ParseUndefined(new[] { "val1", "val2" }, typeof(string[]));
+
+			// Assert
+
+			Assert.IsNull(result);
 		}
 	}
 }

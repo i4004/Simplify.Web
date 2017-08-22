@@ -45,7 +45,7 @@ namespace Simplify.Web.Tests.ModelBinding.Binders.Parsers
 		}
 
 		[Test]
-		public void Parse_DataTypeMismatch_ExceptionThrown()
+		public void Parse_DataTypeMismatch_ModelNotSupportedExceptionThrown()
 		{
 			// Assign
 
@@ -130,6 +130,20 @@ namespace Simplify.Web.Tests.ModelBinding.Binders.Parsers
 
 			// Assert
 			Assert.IsNull(obj.Prop1);
+		}
+
+		[Test]
+		public void Parse_StringsArray_ModelNotSupportedExceptionThrown()
+		{
+			// Assign
+
+			var coll = new List<KeyValuePair<string, string[]>>
+			{
+				new KeyValuePair<string, string[]>("Prop1", new []{"val1", "val2"})
+			};
+
+			// Act & Assert
+			Assert.Throws<ModelNotSupportedException>(() => ListToModelParser.Parse<TestModelStringsArray>(coll));
 		}
 	}
 }

@@ -33,13 +33,16 @@ namespace Simplify.Web.ModelBinding.Binders.Parsers
 		/// Parses the undefined values types from string array to list.
 		/// </summary>
 		/// <param name="values">The values.</param>
-		/// <param name="type">The type.</param>
+		/// <param name="type">The type to parse to.</param>
 		/// <param name="format">The format.</param>
 		/// <returns></returns>
 		/// <exception cref="ModelNotSupportedException"></exception>
 		public static object ParseUndefined(string[] values, Type type, string format = null)
 		{
 			var parsingType = GetGenericListType(type);
+
+			if (parsingType == null)
+				return null;
 
 			if (parsingType == typeof(string))
 				return values.Select(StringToSpecifiedObjectParser.ParseString).ToList();
