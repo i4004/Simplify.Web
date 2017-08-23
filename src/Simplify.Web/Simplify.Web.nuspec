@@ -12,14 +12,17 @@
 		<description>Simplify.Web is a lightweight and fast .NET web-framework based on MVC and OWIN.</description>
 		<summary>Simplify.Web is a lightweight and fast .NET web-framework based on MVC and OWIN.</summary>
 		<releaseNotes>
-			+ 'Ajax' controller respose with default null ajaxData parameter without writing to response
-			+ 'Tpl' response constructors with HTTP status code
-			+ 'File' response constructors with HTTP status code
-			+ 'ViewModel' response constructors with HTTP status code
-			+ 'StaticTpl' response constructors with HTTP status code
-			* 'File' response duplicate headers error under Chrome fix
-			* Setting HTTP status 500 in SimplifyWebOwinMiddleware exception
-			* id parameter type changed to string for generic ListsGenerator.GenerateList
+			New:
+			+ 'Ajax' controller respose content type parameter added
+
+			Improvements:
+			* Upgrade to Microsoft.Owin 3.1.0
+			* Upgrade to Simplify.DI 1.2.1
+			* Upgrade to Simplify.Templates 1.3
+			* Upgrade to System.IO.Abstractions 2.0.0.144
+
+			Bug fixes:
+			* #47 - FileReader not loads file with requested localization if default cached version exist, insted default cached returned
 		</releaseNotes>
 		<copyright>Licensed under LGPL</copyright>
 		<language>en-US</language>
