@@ -47,15 +47,9 @@ namespace Simplify.Web.Modules.Data
 		/// <exception cref="ArgumentNullException"></exception>
 		public static IFileSystem FileSystem
 		{
-			get { return _fileSystemInstance ?? (_fileSystemInstance = new FileSystem()); }
+			get => _fileSystemInstance ?? (_fileSystemInstance = new FileSystem());
 
-			set
-			{
-				if (value == null)
-					throw new ArgumentNullException();
-
-				_fileSystemInstance = value;
-			}
+			set => _fileSystemInstance = value ?? throw new ArgumentNullException();
 		}
 
 		/// <summary>
