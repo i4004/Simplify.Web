@@ -41,6 +41,7 @@
     <Compile Include="Core\PageAssembly\PageBuilderTests.cs" />
     <Compile Include="Core\PageAssembly\PageProcessorTests.cs" />
     <Compile Include="Core\RequestHandlerTests.cs" />
+    <Compile Include="Modules\Data\FileReaderTests2.cs" />
     <Compile Include="TestEntities\TestModelStringsArray.cs" />
     <Compile Include="Util\DateTimeOperationsTests.cs" />
     <Compile Include="Core\StaticFiles\StaticFilesRequestHandlerTests.cs" />
