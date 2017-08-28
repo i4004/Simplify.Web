@@ -43,6 +43,8 @@ _This project is a continuator of [AcspNet web-framework](https://github.com/i40
 
 ### The examples below shows simple backend HTML generation, but you can easily use any front end technologies with Simplify.Web like AngularJS etc.
 
+[Getting started page](https://github.com/i4004/Simplify.Web/wiki/Getting-started)
+
 ## Some examples
 
 #### Simple static page controller
