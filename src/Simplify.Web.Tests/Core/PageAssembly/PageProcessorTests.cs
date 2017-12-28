@@ -28,6 +28,8 @@ namespace Simplify.Web.Tests.Core.PageAssembly
 			_processor = new PageProcessor(_pageBuilder.Object, _responseWriter.Object, _redirector.Object);
 
 			_context = new Mock<IOwinContext>();
+
+			_context.SetupSet(x => x.Response.ContentType = It.IsAny<string>());
 		}
 
 		[Test]
@@ -46,6 +48,7 @@ namespace Simplify.Web.Tests.Core.PageAssembly
 			_pageBuilder.Verify(x => x.Build(It.IsAny<IDIContainerProvider>()));
 			_responseWriter.Verify(x => x.WriteAsync(It.Is<string>(d => d == "Foo"), It.Is<IOwinResponse>(d => d == _context.Object.Response)));
 			_redirector.SetupSet(x => x.PreviousPageUrl = It.Is<string>(d => d == "http://localhost:8080/test"));
+			_context.VerifySet(x => x.Response.ContentType = It.Is<string>(s => s == "text/html"));
 		}
 	}
 }
