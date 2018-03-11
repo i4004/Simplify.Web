@@ -34,6 +34,8 @@ namespace Simplify.Web.Core.PageAssembly
 		/// <param name="context">The context.</param>
 		public Task ProcessPage(IDIContainerProvider containerProvider, IOwinContext context)
 		{
+			context.Response.ContentType = "text/html";
+
 			var task = _responseWriter.WriteAsync(_pageBuilder.Build(containerProvider), context.Response);
 
 			_redirector.PreviousPageUrl = context.Request.Uri.AbsoluteUri;
