@@ -1,244 +1,42 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{17B12D5C-025A-4FA9-A9B2-1C246E7A6AB4}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Simplify.Web</RootNamespace>
-    <AssemblyName>Simplify.Web</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Release\Simplify.Web.xml</DocumentationFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="App_Packages\Simplify.String.Sources.1.1.0.0\StringHelper.cs" />
-    <Compile Include="App_Packages\Simplify.System.Sources.1.0.0.0\AssemblyInfo.cs" />
-    <Compile Include="App_Packages\Simplify.System.Sources.1.0.0.0\IAssemblyInfo.cs" />
-    <Compile Include="App_Packages\Simplify.System.Sources.1.0.0.0\IHideObjectMembers.cs" />
-    <Compile Include="App_Packages\Simplify.System.Sources.1.0.0.0\ITimeProvider.cs" />
-    <Compile Include="App_Packages\Simplify.System.Sources.1.0.0.0\SystemTimeProvider.cs" />
-    <Compile Include="App_Packages\Simplify.System.Sources.1.0.0.0\TimeProvider.cs" />
-    <Compile Include="App_Packages\Simplify.Xml.Sources.1.0.3.0\XmlExtensions.cs" />
-    <Compile Include="App_Packages\Simplify.Xml.Sources.1.0.3.0\XmlSerializer.cs" />
-    <Compile Include="Attributes\PatchAttribute.cs" />
-    <Compile Include="Core\StaticFiles\IStaticFileHandler.cs" />
-    <Compile Include="Core\StaticFiles\IStaticFileResponse.cs" />
-    <Compile Include="Core\StaticFiles\IStaticFileResponseFactory.cs" />
-    <Compile Include="Core\StaticFiles\StaticFileHandler.cs" />
-    <Compile Include="Core\StaticFiles\StaticFileResponse.cs" />
-    <Compile Include="Core\StaticFiles\StaticFileResponseFactory.cs" />
-    <Compile Include="ModelBinding\ModelNotSupportedException.cs" />
-    <Compile Include="Owin\OwinHttpRequestHelper.cs" />
-    <Compile Include="Settings\SimplifyWebSettings.cs" />
-    <Compile Include="ActionModulesAccessor.cs" />
-    <Compile Include="AsyncController.cs" />
-    <Compile Include="AsyncControllerBase.cs" />
-    <Compile Include="AsyncController{T}.cs" />
-    <Compile Include="Attributes\AuthorizeAttribute.cs" />
-    <Compile Include="Attributes\DeleteAttribute.cs" />
-    <Compile Include="Attributes\GetAttribute.cs" />
-    <Compile Include="Attributes\Http400Attribute.cs" />
-    <Compile Include="Attributes\Http403Attribute.cs" />
-    <Compile Include="Attributes\Http404Attribute.cs" />
-    <Compile Include="Attributes\PostAttribute.cs" />
-    <Compile Include="Attributes\PriorityAttribute.cs" />
-    <Compile Include="Attributes\PutAttribute.cs" />
-    <Compile Include="Bootstrapper\BaseBootstrapper.cs" />
-    <Compile Include="Bootstrapper\BootstrapperFactory.cs" />
-    <Compile Include="Controller.cs" />
-    <Compile Include="ControllerBase.cs" />
-    <Compile Include="ControllerResponse.cs" />
-    <Compile Include="ControllerResponseResult.cs" />
-    <Compile Include="Controller{T}.cs" />
-    <Compile Include="Core\AccessorsBuilding\ActionModulesAccessorBuilder.cs" />
-    <Compile Include="Core\PageAssembly\ContextVariablesSetter.cs" />
-    <Compile Include="Core\Controllers\Execution\ControllerExecutor.cs" />
-    <Compile Include="Core\Controllers\Execution\Building\ControllerFactory.cs" />
-    <Compile Include="Core\Controllers\Execution\ControllerResponseBuilder.cs" />
-    <Compile Include="Core\Controllers\ControllersAgent.cs" />
-    <Compile Include="Core\Controllers\ControllersProcessor.cs" />
-    <Compile Include="Core\Controllers\ControllersProcessorResult.cs" />
-    <Compile Include="Core\Controllers\ControllersRequestHandler.cs" />
-    <Compile Include="Core\Controllers\HandlerControllerType.cs" />
-    <Compile Include="Core\PageAssembly\IContextVariablesSetter.cs" />
-    <Compile Include="Core\Controllers\Execution\IControllerExecutor.cs" />
-    <Compile Include="Core\Controllers\Execution\Building\IControllerFactory.cs" />
-    <Compile Include="Core\Controllers\Execution\IControllerResponseBuilder.cs" />
-    <Compile Include="Core\Controllers\IControllersAgent.cs" />
-    <Compile Include="Core\Controllers\IControllersProcessor.cs" />
-    <Compile Include="Core\Controllers\IControllersRequestHandler.cs" />
-    <Compile Include="Core\PageAssembly\IPageBuilder.cs" />
-    <Compile Include="Core\PageAssembly\IPageProcessor.cs" />
-    <Compile Include="Core\IRequestHandler.cs" />
-    <Compile Include="Core\IResponseWriter.cs" />
-    <Compile Include="Core\StaticFiles\IStaticFilesRequestHandler.cs" />
-    <Compile Include="Core\IStopWatchProvider.cs" />
-    <Compile Include="Core\PageAssembly\IStringTableItemsSetter.cs" />
-    <Compile Include="Core\Views\IViewFactory.cs" />
-    <Compile Include="Core\AccessorsBuilding\ModulesAccessorBuilder.cs" />
-    <Compile Include="Core\PageAssembly\PageBuilder.cs" />
-    <Compile Include="Core\PageAssembly\PageProcessor.cs" />
-    <Compile Include="Core\RequestHandler.cs" />
-    <Compile Include="Core\ResponseWriter.cs" />
-    <Compile Include="Core\Controllers\SecurityCheckResult.cs" />
-    <Compile Include="Core\StaticFiles\StaticFilesRequestHandler.cs" />
-    <Compile Include="Core\StopwatchProvider.cs" />
-    <Compile Include="Core\PageAssembly\StringTableItemsSetter.cs" />
-    <Compile Include="Core\AccessorsBuilding\ViewAccessorBuilder.cs" />
-    <Compile Include="Core\Views\ViewFactory.cs" />
-    <Compile Include="Diagnostics\ExceptionInfoPageGenerator.cs" />
-    <Compile Include="Settings\ISimplifyWebSettings.cs" />
-    <Compile Include="Attributes\Setup\IgnoreControllersAttribute.cs" />
-    <Compile Include="Attributes\Setup\IgnoreTypesRegistrationAttribute.cs" />
-    <Compile Include="IHideObjectMembers.cs" />
-    <Compile Include="Meta\SimplifyWebTypesFinder.cs" />
-    <Compile Include="Meta\ControllerExecParameters.cs" />
-    <Compile Include="Meta\ControllerMetaData.cs" />
-    <Compile Include="Meta\ControllerMetaDataFactory.cs" />
-    <Compile Include="Meta\ControllerRole.cs" />
-    <Compile Include="Meta\ControllerRouteInfo.cs" />
-    <Compile Include="Meta\ControllerSecurity.cs" />
-    <Compile Include="Meta\ControllersMetaStore.cs" />
-    <Compile Include="Meta\IControllerMetaData.cs" />
-    <Compile Include="Meta\IControllerMetaDataFactory.cs" />
-    <Compile Include="Meta\IControllersMetaStore.cs" />
-    <Compile Include="Meta\IViewsMetaStore.cs" />
-    <Compile Include="Meta\ViewsMetaStore.cs" />
-    <Compile Include="ModelBinding\Attributes\BindPropertyAttribute.cs" />
-    <Compile Include="ModelBinding\Attributes\EMailAttribute.cs" />
-    <Compile Include="ModelBinding\Attributes\ExcludeAttribute.cs" />
-    <Compile Include="ModelBinding\Attributes\FormatAttribute.cs" />
-    <Compile Include="ModelBinding\Attributes\MaxLengthAttribute.cs" />
-    <Compile Include="ModelBinding\Attributes\MinLengthAttribute.cs" />
-    <Compile Include="ModelBinding\Attributes\RegexAttribute.cs" />
-    <Compile Include="ModelBinding\Attributes\RequiredAttribute.cs" />
-    <Compile Include="ModelBinding\Binders\HttpFormModelBinder.cs" />
-    <Compile Include="ModelBinding\Binders\HttpQueryModelBinder.cs" />
-    <Compile Include="ModelBinding\Binders\Parsers\ArrayToSpecifiedListParser.cs" />
-    <Compile Include="ModelBinding\Binders\Parsers\ListToModelParser.cs" />
-    <Compile Include="ModelBinding\Binders\Parsers\StringToSpecifiedObjectParser.cs" />
-    <Compile Include="ModelBinding\HttpModelHandler.cs" />
-    <Compile Include="ModelBinding\IModelBinder.cs" />
-    <Compile Include="ModelBinding\IModelHandler.cs" />
-    <Compile Include="ModelBinding\IModelValidator.cs" />
-    <Compile Include="ModelBinding\ModelBinderEventArgs.cs" />
-    <Compile Include="ModelBinding\ModelBindingException.cs" />
-    <Compile Include="ModelBinding\ModelValidationException.cs" />
-    <Compile Include="ModelBinding\Validation\ObjectPropertiesValidator.cs" />
-    <Compile Include="ModelBinding\Validation\StringValidator.cs" />
-    <Compile Include="ModulesAccessor.cs" />
-    <Compile Include="Modules\WebContext.cs" />
-    <Compile Include="Modules\WebContextProvider.cs" />
-    <Compile Include="Modules\Data\DataCollector.cs" />
-    <Compile Include="Modules\Environment.cs" />
-    <Compile Include="Modules\Data\FileReader.cs" />
-    <Compile Include="Modules\Data\Html\HtmlWrapper.cs" />
-    <Compile Include="Modules\Data\Html\IHtmlWrapper.cs" />
-    <Compile Include="Modules\Data\Html\IListsGenerator.cs" />
-    <Compile Include="Modules\Data\Html\ListsGenerator.cs" />
-    <Compile Include="Modules\IWebContext.cs" />
-    <Compile Include="Modules\IWebContextProvider.cs" />
-    <Compile Include="Modules\Data\IDataCollector.cs" />
-    <Compile Include="Modules\IEnvironment.cs" />
-    <Compile Include="Modules\Data\IFileReader.cs" />
-    <Compile Include="Modules\ILanguageManager.cs" />
-    <Compile Include="Modules\ILanguageManagerProvider.cs" />
-    <Compile Include="Modules\IRedirector.cs" />
-    <Compile Include="Modules\Data\IStringTable.cs" />
-    <Compile Include="Modules\Data\ITemplateFactory.cs" />
-    <Compile Include="Modules\LanguageManager.cs" />
-    <Compile Include="Modules\LanguageManagerProvider.cs" />
-    <Compile Include="Modules\RedirectionType.cs" />
-    <Compile Include="Modules\Redirector.cs" />
-    <Compile Include="Modules\Data\StringTable.cs" />
-    <Compile Include="Modules\Data\TemplateFactory.cs" />
-    <Compile Include="Owin\SimplifyWebOwinMiddleware.cs" />
-    <Compile Include="Owin\AppBuilderExtensions.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Responses\Ajax.cs" />
-    <Compile Include="Responses\File.cs" />
-    <Compile Include="Responses\InlineTpl.cs" />
-    <Compile Include="Responses\Redirect.cs" />
-    <Compile Include="Responses\StaticTpl.cs" />
-    <Compile Include="Responses\Tpl.cs" />
-    <Compile Include="Responses\ViewModel.cs" />
-    <Compile Include="Routing\ControllerPath.cs" />
-    <Compile Include="Routing\ControllerPathParser.cs" />
-    <Compile Include="Routing\ControllerRouteException.cs" />
-    <Compile Include="Routing\IControllerPath.cs" />
-    <Compile Include="Routing\IControllerPathParser.cs" />
-    <Compile Include="Routing\IRouteMatcher.cs" />
-    <Compile Include="Routing\IRouteMatchResult.cs" />
-    <Compile Include="Routing\PathItem.cs" />
-    <Compile Include="Routing\PathParameter.cs" />
-    <Compile Include="Routing\PathSegment.cs" />
-    <Compile Include="Routing\RouteMatcher.cs" />
-    <Compile Include="Routing\RouteMatchResult.cs" />
-    <Compile Include="SyncControllerBase.cs" />
-    <Compile Include="Util\DateTimeOperations.cs" />
-    <Compile Include="View.cs" />
-    <Compile Include="ViewAccessor.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Diagnostics\ExceptionIDetails.html" />
-    <EmbeddedResource Include="Diagnostics\ExceptionInfoPage.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Simplify.Web.nuspec" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
-      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Simplify.DI, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Simplify.DI.1.2.1\lib\net452\Simplify.DI.dll</HintPath>
-    </Reference>
-    <Reference Include="Simplify.Templates, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Simplify.Templates.1.3.0\lib\net452\Simplify.Templates.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.IO.Abstractions, Version=2.0.0.144, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.Abstractions.2.0.0.144\lib\net40\System.IO.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>net452</TargetFrameworks>
+		<Authors>Alexander Krylkov</Authors>
+		<Product>Simplify</Product>
+		<Description>Lightweight and fast .NET web-framework based on MVC and OWIN</Description>
+		<Copyright>Licensed under LGPL</Copyright>
+		<Version>1.2</Version>
+		<PackageProjectUrl>https://github.com/i4004/Simplify.Web</PackageProjectUrl>
+		<PackageIconUrl>https://raw.githubusercontent.com/i4004/Simplify.Web/master/Images/Icon.png</PackageIconUrl>
+		<RepositoryUrl>https://github.com/i4004/Simplify.Web</RepositoryUrl>
+		<RepositoryType>GIT</RepositoryType>
+		<PackageTags>.NET web-framework MVC DI OWIN</PackageTags>
+		<PackageReleaseNotes>
+		</PackageReleaseNotes>
+		<OutputPath>bin\Any CPU\$(Configuration)\</OutputPath>
+		<DocumentationFile>bin\Any CPU\$(Configuration)\$(TargetFramework)\Simplify.Web.xml</DocumentationFile>
+	</PropertyGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net452' ">
+		<Reference Include="System" />
+		<Reference Include="System.Configuration" />
+		<Reference Include="Microsoft.CSharp" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Remove="Diagnostics\ExceptionIDetails.html" />
+		<None Remove="Diagnostics\ExceptionInfoPage.html" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Diagnostics\ExceptionIDetails.html" />
+		<EmbeddedResource Include="Diagnostics\ExceptionInfoPage.html" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Owin" Version="3.1.0" />
+		<PackageReference Include="Owin" Version="1.0" />
+		<PackageReference Include="Simplify.DI" Version="1.2.1" />
+		<PackageReference Include="Simplify.String.Sources" Version="1.1.0" PrivateAssets="All" />
+		<PackageReference Include="Simplify.System.Sources" Version="1.0.0.0" PrivateAssets="All" />
+		<PackageReference Include="Simplify.Templates" Version="1.3.0" />
+		<PackageReference Include="Simplify.Xml.Sources" Version="1.0.3.0" PrivateAssets="All" />
+		<PackageReference Include="System.IO.Abstractions" Version="2.0.0.144" />
+	</ItemGroup>
 </Project>
