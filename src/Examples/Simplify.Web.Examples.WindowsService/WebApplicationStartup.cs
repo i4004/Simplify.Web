@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin.Hosting;
+﻿using System;
+using Microsoft.Owin.Hosting;
 
 namespace Simplify.Web.Examples.WindowsService
 {
@@ -6,6 +7,7 @@ namespace Simplify.Web.Examples.WindowsService
 	{
 		public void Run()
 		{
+			Console.WriteLine("Running a http server on port 8080");
 			WebApp.Start<Startup>("http://localhost:8080");
 		}
 	}

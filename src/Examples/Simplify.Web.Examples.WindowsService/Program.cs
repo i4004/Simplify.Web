@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using Simplify.DI;
 using Simplify.WindowsServices;
 
 namespace Simplify.Web.Examples.WindowsService
@@ -11,7 +13,13 @@ namespace Simplify.Web.Examples.WindowsService
 			Debugger.Launch();
 #endif
 
-			new BasicServiceHandler<WebApplicationStartup>(true).Start(args);
+			if (new BasicServiceHandler<WebApplicationStartup>(true).Start(args))
+				return;
+
+			using (var scope = DIContainer.Current.BeginLifetimeScope())
+				scope.Container.Resolve<WebApplicationStartup>().Run();
+
+			Console.ReadLine();
 		}
 	}
 }
