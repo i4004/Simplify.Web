@@ -18,10 +18,10 @@ namespace Simplify.Web.Modules.Data
 
 		private readonly IEnvironment _environment;
 		private readonly ILanguageManagerProvider _languageManagerProvider;
-		private ILanguageManager _languageManager;
 		private readonly string _defaultLanguage;
 		private readonly bool _templatesMemoryCache;
 		private readonly bool _loadTemplatesFromAssembly;
+		private ILanguageManager _languageManager;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="TemplateFactory" /> class.
@@ -104,7 +104,7 @@ namespace Simplify.Web.Modules.Data
 			var existingItem = Cache.FirstOrDefault(x => x.Key.Key == filePath && x.Key.Value == _languageManager.Language);
 
 			if (!existingItem.Equals(default(KeyValuePair<KeyValuePair<string, string>, string>)))
-				return new Template(existingItem.Value, false);
+				return new Template(existingItem.Value, _languageManager.Language, false);
 
 			return null;
 		}

@@ -104,7 +104,9 @@ namespace Simplify.Web.Tests.Modules.Data
 			data = tf.Load("Foo.tpl");
 
 			// Assert
+
 			Assert.AreEqual("Dummy data", data.Get());
+			Assert.AreEqual("en", data.Language);
 		}
 
 		[Test]
