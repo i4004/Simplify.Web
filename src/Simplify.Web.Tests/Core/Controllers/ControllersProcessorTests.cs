@@ -18,15 +18,14 @@ namespace Simplify.Web.Tests.Core.Controllers
 	[TestFixture]
 	public class ControllersProcessorTests
 	{
+		private readonly IDIContainerProvider _containerProvider = null;
+		private readonly IDictionary<string, Object> _routeParameters = new ExpandoObject();
 		private ControllersProcessor _processor;
 		private Mock<IControllersAgent> _agent;
 		private Mock<IControllerExecutor> _controllersExecutor;
-
-		private readonly IDIContainerProvider _containerProvider = null;
 		private Mock<IOwinContext> _context;
 
 		private ControllerMetaData _metaData;
-		private readonly IDictionary<string, Object> _routeParameters = new ExpandoObject();
 
 		[SetUp]
 		public void Initialize()

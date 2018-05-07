@@ -78,6 +78,11 @@ namespace Simplify.Web.Meta
 			}
 		}
 
+		private static IList<IControllerMetaData> SortControllersMetaContainers(IEnumerable<IControllerMetaData> controllersMetaContainers)
+		{
+			return controllersMetaContainers.OrderBy(x => x.ExecParameters?.RunPriority ?? 0).ToList();
+		}
+
 		private void LoadMetaData(ICollection<IControllerMetaData> controllersMetaContainers, IEnumerable<Type> types, IEnumerable<Type> typesToIgnore)
 		{
 			foreach (var t in types.Where(t => typesToIgnore.All(x => x.FullName != t.FullName) &&
@@ -90,11 +95,6 @@ namespace Simplify.Web.Meta
 		private void BuildControllerMetaData(ICollection<IControllerMetaData> controllersMetaContainers, Type controllerType)
 		{
 			controllersMetaContainers.Add(_metaDataFactory.CreateControllerMetaData(controllerType));
-		}
-
-		private static IList<IControllerMetaData> SortControllersMetaContainers(IEnumerable<IControllerMetaData> controllersMetaContainers)
-		{
-			return controllersMetaContainers.OrderBy(x => x.ExecParameters?.RunPriority ?? 0).ToList();
 		}
 	}
 }

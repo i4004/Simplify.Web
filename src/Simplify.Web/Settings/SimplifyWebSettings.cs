@@ -11,6 +11,45 @@ namespace Simplify.Web.Settings
 	public sealed class SimplifyWebSettings : ISimplifyWebSettings
 	{
 		/// <summary>
+		/// Initializes a new instance of the <see cref="SimplifyWebSettings"/> class.
+		/// </summary>
+		public SimplifyWebSettings()
+		{
+			// Language defaults
+			DefaultLanguage = "en";
+
+			DefaultTemplatesPath = "Templates";
+			DefaultMasterTemplateFileName = "Master.tpl";
+
+			// Data collection defaults
+
+			DefaultMainContentVariableName = "MainContent";
+			DefaultTitleVariableName = "Title";
+
+			// Style defaults
+			DefaultStyle = "Main";
+
+			// Other defaults
+
+			DataPath = "App_Data";
+			StaticFilesPaths = new List<string> { "styles", "scripts", "images", "content", "fonts" };
+			StringTableFiles = new List<string> { "StringTable.xml" };
+
+			var config = ConfigurationManager.GetSection("SimplifyWebSettings") as NameValueCollection;
+
+			if (config == null) return;
+
+			LoadLanguageManagerSettings(config);
+			LoadTemplatesSettings(config);
+			LoadDataCollectorSettings(config);
+			LoadStyleSettings(config);
+			LoadOtherSettings(config);
+			LoadEngineBehaviorSettings(config);
+			LoadCacheSettings(config);
+			LoadDiagnosticSettings(config);
+		}
+
+		/// <summary>
 		/// Default language, for example: "en", "ru", "de" etc., default value is "en"
 		/// </summary>
 		public string DefaultLanguage { get; private set; }
@@ -124,45 +163,6 @@ namespace Simplify.Web.Settings
 		/// <c>true</c> if console tracing is enabled; otherwise, <c>false</c>.
 		/// </value>
 		public bool ConsoleTracing { get; private set; }
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="SimplifyWebSettings"/> class.
-		/// </summary>
-		public SimplifyWebSettings()
-		{
-			// Language defaults
-			DefaultLanguage = "en";
-
-			DefaultTemplatesPath = "Templates";
-			DefaultMasterTemplateFileName = "Master.tpl";
-
-			// Data collection defaults
-
-			DefaultMainContentVariableName = "MainContent";
-			DefaultTitleVariableName = "Title";
-
-			// Style defaults
-			DefaultStyle = "Main";
-
-			// Other defaults
-
-			DataPath = "App_Data";
-			StaticFilesPaths = new List<string> { "styles", "scripts", "images", "content", "fonts" };
-			StringTableFiles = new List<string> { "StringTable.xml" };
-
-			var config = ConfigurationManager.GetSection("SimplifyWebSettings") as NameValueCollection;
-
-			if (config == null) return;
-
-			LoadLanguageManagerSettings(config);
-			LoadTemplatesSettings(config);
-			LoadDataCollectorSettings(config);
-			LoadStyleSettings(config);
-			LoadOtherSettings(config);
-			LoadEngineBehaviorSettings(config);
-			LoadCacheSettings(config);
-			LoadDiagnosticSettings(config);
-		}
 
 		private void LoadLanguageManagerSettings(NameValueCollection config)
 		{

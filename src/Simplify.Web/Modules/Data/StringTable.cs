@@ -18,9 +18,9 @@ namespace Simplify.Web.Modules.Data
 		private readonly IList<string> _stringTableFiles;
 		private readonly string _defaultLanguage;
 		private readonly ILanguageManagerProvider _languageManagerProvider;
-		private ILanguageManager _languageManager;
 		private readonly IFileReader _fileReader;
 		private readonly bool _memoryCache;
+		private ILanguageManager _languageManager;
 
 		/// <summary>
 		/// Load string table with current language
@@ -83,6 +83,32 @@ namespace Simplify.Web.Modules.Data
 			return null;
 		}
 
+		/// <summary>
+		/// Loads string table.
+		/// </summary>
+		private static void Load(string fileName, string defaultLanguage, string currentLanguage, IFileReader fileReader, IDictionary<string, object> currentItems)
+		{
+			var stringTable = fileReader.LoadXDocument(fileName);
+
+			// Loading current culture strings
+			if (stringTable?.Root != null)
+				foreach (var item in stringTable.Root.XPathSelectElements("item").Where(x => x.HasAttributes))
+					currentItems.Add((string)item.Attribute("name"), string.IsNullOrEmpty(item.Value) ? (string)item.Attribute("value") : item.InnerXml().Trim());
+
+			if (currentLanguage == defaultLanguage)
+				return;
+
+			// Loading default culture strings
+
+			stringTable = fileReader.LoadXDocument(fileName, defaultLanguage);
+
+			if (stringTable?.Root == null)
+				return;
+
+			foreach (var item in stringTable.Root.XPathSelectElements("item").Where(x => x.HasAttributes && !currentItems.ContainsKey((string)x.Attribute("name"))))
+				currentItems.Add((string)item.Attribute("name"), string.IsNullOrEmpty(item.Value) ? (string)item.Attribute("value") : item.InnerXml().Trim());
+		}
+
 		private void TryLoad()
 		{
 			if (!_memoryCache)
@@ -122,32 +148,6 @@ namespace Simplify.Web.Modules.Data
 				Load(file, _defaultLanguage, _languageManager.Language, _fileReader, currentItems);
 
 			return currentItems;
-		}
-
-		/// <summary>
-		/// Loads string table.
-		/// </summary>
-		private static void Load(string fileName, string defaultLanguage, string currentLanguage, IFileReader fileReader, IDictionary<string, object> currentItems)
-		{
-			var stringTable = fileReader.LoadXDocument(fileName);
-
-			// Loading current culture strings
-			if (stringTable?.Root != null)
-				foreach (var item in stringTable.Root.XPathSelectElements("item").Where(x => x.HasAttributes))
-					currentItems.Add((string)item.Attribute("name"), string.IsNullOrEmpty(item.Value) ? (string)item.Attribute("value") : item.InnerXml().Trim());
-
-			if (currentLanguage == defaultLanguage)
-				return;
-
-			// Loading default culture strings
-
-			stringTable = fileReader.LoadXDocument(fileName, defaultLanguage);
-
-			if (stringTable?.Root == null)
-				return;
-
-			foreach (var item in stringTable.Root.XPathSelectElements("item").Where(x => x.HasAttributes && !currentItems.ContainsKey((string)x.Attribute("name"))))
-				currentItems.Add((string)item.Attribute("name"), string.IsNullOrEmpty(item.Value) ? (string)item.Attribute("value") : item.InnerXml().Trim());
 		}
 	}
 }

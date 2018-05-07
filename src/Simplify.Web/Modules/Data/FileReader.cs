@@ -19,13 +19,13 @@ namespace Simplify.Web.Modules.Data
 
 		private static readonly object Locker = new object();
 
+		private static IFileSystem _fileSystemInstance;
 		private readonly string _dataPhysicalPath;
 		private readonly string _defaultLanguage;
 		private readonly ILanguageManagerProvider _languageManagerProvider;
 		private readonly bool _disableCache;
 
 		private ILanguageManager _languageManager;
-		private static IFileSystem _fileSystemInstance;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="FileReader" /> class.
@@ -55,6 +55,18 @@ namespace Simplify.Web.Modules.Data
 			get => _fileSystemInstance ?? (_fileSystemInstance = new FileSystem());
 
 			set => _fileSystemInstance = value ?? throw new ArgumentNullException();
+		}
+
+		/// <summary>
+		/// Clears the cache.
+		/// </summary>
+		public static void ClearCache()
+		{
+			lock (Locker)
+			{
+				XmlCache.Clear();
+				TextCache.Clear();
+			}
 		}
 
 		/// <summary>
@@ -201,18 +213,6 @@ namespace Simplify.Web.Modules.Data
 		}
 
 		#endregion XML
-
-		/// <summary>
-		/// Clears the cache.
-		/// </summary>
-		public static void ClearCache()
-		{
-			lock (Locker)
-			{
-				XmlCache.Clear();
-				TextCache.Clear();
-			}
-		}
 
 		private static bool TryToLoadTextFileFromCache(string fileName, string language, out string data)
 		{

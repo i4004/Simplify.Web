@@ -9,14 +9,6 @@ namespace Simplify.Web.Attributes
 	public class PatchAttribute : Attribute
 	{
 		/// <summary>
-		/// Gets the route.
-		/// </summary>
-		/// <value>
-		/// The route.
-		/// </value>
-		public string Route { get; private set; }
-
-		/// <summary>
 		/// Initializes a new instance of the <see cref="PutAttribute"/> class.
 		/// </summary>
 		/// <param name="route">The route.</param>
@@ -24,5 +16,13 @@ namespace Simplify.Web.Attributes
 		{
 			Route = route;
 		}
+
+		/// <summary>
+		/// Gets the route.
+		/// </summary>
+		/// <value>
+		/// The route.
+		/// </value>
+		public string Route { get; private set; }
 	}
 }

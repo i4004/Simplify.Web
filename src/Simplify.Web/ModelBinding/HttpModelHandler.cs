@@ -12,8 +12,6 @@ namespace Simplify.Web.ModelBinding
 	/// </summary>
 	public class HttpModelHandler : IModelHandler
 	{
-		private readonly IWebContext _context;
-
 		private static readonly IList<Type> ModelBindersTypesInstance = new List<Type>
 		{
 			// Default model binders
@@ -28,6 +26,8 @@ namespace Simplify.Web.ModelBinding
 
 			typeof (ObjectPropertiesValidator)
 		};
+
+		private readonly IWebContext _context;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="HttpModelHandler"/> class.

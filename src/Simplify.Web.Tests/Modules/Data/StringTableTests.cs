@@ -7,18 +7,23 @@ using Simplify.Web.Modules.Data;
 
 namespace Simplify.Web.Tests.Modules.Data
 {
+	public enum FooEnum
+	{
+		FooItem1,
+		FooItem2
+	}
+
 	[TestFixture]
 	public class StringTableTests
 	{
 		private const string DefaultLanguage = "en";
 
+		private readonly IList<string> _stringTableFiles = new[] { "StringTable.xml" };
 		private StringTable _stringTable;
 		private Mock<IFileReader> _fileReader;
 
 		private Mock<ILanguageManagerProvider> _languageManagerProvider;
 		private Mock<ILanguageManager> _languageManager;
-
-		private readonly IList<string> _stringTableFiles = new[] { "StringTable.xml" };
 
 		[SetUp]
 		public void Initialize()
@@ -176,11 +181,5 @@ namespace Simplify.Web.Tests.Modules.Data
 			_fileReader.Verify(x => x.LoadXDocument(It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
 			Assert.AreEqual("Your site title!", _stringTable.Items.SiteTitle);
 		}
-	}
-
-	public enum FooEnum
-	{
-		FooItem1,
-		FooItem2
 	}
 }

@@ -9,14 +9,6 @@ namespace Simplify.Web.Attributes
 	public class PriorityAttribute : Attribute
 	{
 		/// <summary>
-		/// Gets the priority.
-		/// </summary>
-		/// <value>
-		/// The priority.
-		/// </value>
-		public int Priority { get; private set; }
-
-		/// <summary>
 		/// Initializes a new instance of the <see cref="PriorityAttribute"/> class.
 		/// </summary>
 		/// <param name="priority">The execution priority.</param>
@@ -24,5 +16,13 @@ namespace Simplify.Web.Attributes
 		{
 			Priority = priority;
 		}
+
+		/// <summary>
+		/// Gets the priority.
+		/// </summary>
+		/// <value>
+		/// The priority.
+		/// </value>
+		public int Priority { get; private set; }
 	}
 }

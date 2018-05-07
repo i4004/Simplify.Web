@@ -17,16 +17,16 @@ namespace Simplify.Web.Modules.Data
 		string TitleVariableName { get; }
 
 		/// <summary>
+		/// Gets the data collector items which will be inserted into master template file.
+		/// </summary>
+		IDictionary<string, string> Items { get; }
+
+		/// <summary>
 		/// List of data collector items
 		/// </summary>
 		/// <param name="key">Item name</param>
 		/// <returns>Data collector item</returns>
 		string this[string key] { get; }
-
-		/// <summary>
-		/// Gets the data collector items which will be inserted into master template file.
-		/// </summary>
-		IDictionary<string, string> Items { get; }
 
 		/// <summary>
 		///  Set template variable value (all occurrences will be replaced)

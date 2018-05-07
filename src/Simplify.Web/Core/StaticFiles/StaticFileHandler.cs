@@ -20,6 +20,17 @@ namespace Simplify.Web.Core.StaticFiles
 		private readonly string _sitePhysicalPath;
 
 		/// <summary>
+		/// Initializes a new instance of the <see cref="StaticFileHandler"/> class.
+		/// </summary>
+		/// <param name="staticFilesPaths">The static files paths.</param>
+		/// <param name="sitePhysicalPath">The site physical path.</param>
+		public StaticFileHandler(IList<string> staticFilesPaths, string sitePhysicalPath)
+		{
+			_staticFilesPaths = staticFilesPaths;
+			_sitePhysicalPath = sitePhysicalPath;
+		}
+
+		/// <summary>
 		/// Gets or sets the file system.
 		/// </summary>
 		/// <value>
@@ -37,17 +48,6 @@ namespace Simplify.Web.Core.StaticFiles
 
 				_fileSystemInstance = value;
 			}
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="StaticFileHandler"/> class.
-		/// </summary>
-		/// <param name="staticFilesPaths">The static files paths.</param>
-		/// <param name="sitePhysicalPath">The site physical path.</param>
-		public StaticFileHandler(IList<string> staticFilesPaths, string sitePhysicalPath)
-		{
-			_staticFilesPaths = staticFilesPaths;
-			_sitePhysicalPath = sitePhysicalPath;
 		}
 
 		/// <summary>

@@ -25,14 +25,6 @@ namespace Simplify.Web.Responses
 		}
 
 		/// <summary>
-		/// Gets the name of the string table title item.
-		/// </summary>
-		/// <value>
-		/// The name of the string table title item.
-		/// </value>
-		private string Title { get; }
-
-		/// <summary>
 		/// Gets the name of the template file.
 		/// </summary>
 		/// <value>
@@ -47,6 +39,14 @@ namespace Simplify.Web.Responses
 		/// The HTTP response status code.
 		/// </value>
 		public int StatusCode { get; }
+
+		/// <summary>
+		/// Gets the name of the string table title item.
+		/// </summary>
+		/// <value>
+		/// The name of the string table title item.
+		/// </value>
+		private string Title { get; }
 
 		/// <summary>
 		/// Processes this response
