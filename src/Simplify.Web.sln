@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{11330387-2CFF-4DD4-848E-EBFF0BD67AB7}"
 EndProject
@@ -11,9 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{785266
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplify.Web", "Simplify.Web\Simplify.Web.csproj", "{17B12D5C-025A-4FA9-A9B2-1C246E7A6AB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simplify.Web", "Simplify.Web\Simplify.Web.csproj", "{17B12D5C-025A-4FA9-A9B2-1C246E7A6AB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplify.Web.Tests", "Simplify.Web.Tests\Simplify.Web.Tests.csproj", "{6B905D63-6CA1-455D-BD71-9608C32FB309}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simplify.Web.Tests", "Simplify.Web.Tests\Simplify.Web.Tests.csproj", "{6B905D63-6CA1-455D-BD71-9608C32FB309}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplify.Web.Examples.Katana", "Examples\Simplify.Web.Examples.Katana\Simplify.Web.Examples.Katana.csproj", "{6CC47549-4A2A-4C35-A45A-808B7B4D2817}"
 EndProject
@@ -69,5 +69,8 @@ Global
 		{9B1E9F18-5593-4F57-B49F-D8F54981ADEE} = {11330387-2CFF-4DD4-848E-EBFF0BD67AB7}
 		{3F1BF8C5-D27A-4E06-AAC0-142C6851AECD} = {11330387-2CFF-4DD4-848E-EBFF0BD67AB7}
 		{5E46B646-1EFF-43B8-9146-402D727F39F6} = {11330387-2CFF-4DD4-848E-EBFF0BD67AB7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {11FA5D89-5D38-4711-B1D9-9B979602A8DC}
 	EndGlobalSection
 EndGlobal
