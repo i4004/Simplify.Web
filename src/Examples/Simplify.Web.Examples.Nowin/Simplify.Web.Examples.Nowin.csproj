@@ -10,14 +10,14 @@
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Owin.Hosting" Version="3.1.0" />
+		<PackageReference Include="Microsoft.Owin.Hosting" Version="4.0.0" />
 		<PackageReference Include="Nowin" Version="0.26.0" />
 		<ProjectReference Include="..\..\Simplify.Web\Simplify.Web.csproj" />
 		<Reference Include="Microsoft.CSharp" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Update="Templates\Master.tpl">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
+		<None Update="Templates\Master.tpl">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 </Project>
