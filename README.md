@@ -20,7 +20,7 @@ _This project is a continuator of [AcspNet web-framework](https://github.com/i40
 
 ## Build status
 
-| | **.NET (4.5.2)** |
+| Branch | **.NET (4.5.2)** |
 | :------ | :------ |
 | **master** | [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/sln1ciuam2hobsv4/branch/master?svg=true)](https://ci.appveyor.com/project/i4004/simplify-web/branch/master) |
 | **develop** | [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/sln1ciuam2hobsv4/branch/develop?svg=true)](https://ci.appveyor.com/project/i4004/simplify-web/branch/develop) |
