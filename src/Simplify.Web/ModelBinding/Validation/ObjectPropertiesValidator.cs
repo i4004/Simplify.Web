@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Reflection;
 using Simplify.Web.ModelBinding.Attributes;
-using Simplify.Web.ModelBinding.Binders.Parsers;
 
 namespace Simplify.Web.ModelBinding.Validation
 {
@@ -27,11 +26,7 @@ namespace Simplify.Web.ModelBinding.Validation
 			{
 				var isRequired = propInfo.CustomAttributes.Any(x => x.AttributeType == RequiredAttributeType);
 
-				var isList = ArrayToSpecifiedListParser.IsTypeValidForParsing(propInfo.PropertyType);
-
-				if (isRequired &&
-					((isList && !ValidateList(propInfo.GetValue(model)))
-					|| (!isList && !Validate(propInfo.GetValue(model), propInfo))))
+				if (isRequired && !Validate(propInfo.GetValue(model), propInfo))
 					throw new ModelValidationException($"Required property '{propInfo.Name}' is null or empty");
 			}
 		}
@@ -58,11 +53,6 @@ namespace Simplify.Web.ModelBinding.Validation
 			if (propertyInfo.PropertyType == typeof(DateTime?))
 				return (((DateTime?)value) != null);
 
-			return value != null;
-		}
-
-		private static bool ValidateList(object value)
-		{
 			return value != null;
 		}
 	}

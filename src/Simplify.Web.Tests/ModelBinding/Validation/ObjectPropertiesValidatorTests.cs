@@ -56,5 +56,45 @@ namespace Simplify.Web.Tests.ModelBinding.Validation
 			// Act & Assert
 			Assert.Throws<ModelValidationException>(() => _validator.Validate(model));
 		}
+
+		[Test]
+		public void Validate_RequiredCustomArrayFieldIsNull_ExceptionThrown()
+		{
+			// Assign
+			var model = new TestModelRequiredCustomArray();
+
+			// Act & Assert
+			Assert.Throws<ModelValidationException>(() => _validator.Validate(model));
+		}
+
+		[Test]
+		public void Validate_RequiredCustomArrayFieldIsNotNull_NoExceptions()
+		{
+			// Assign
+			var model = new TestModelRequiredCustomArray { Prop1 = new TestModelEMail[1] { null } };
+
+			// Act & Assert
+			_validator.Validate(model);
+		}
+
+		[Test]
+		public void Validate_RequiredCustomListFieldIsNull_ExceptionThrown()
+		{
+			// Assign
+			var model = new TestModelRequiredCustomGenericList();
+
+			// Act & Assert
+			Assert.Throws<ModelValidationException>(() => _validator.Validate(model));
+		}
+
+		[Test]
+		public void Validate_RequiredCustomListFieldIsNotNull_NoExceptions()
+		{
+			// Assign
+			var model = new TestModelRequiredCustomGenericList() { Prop1 = new List<TestModelEMail>() };
+
+			// Act & Assert
+			_validator.Validate(model);
+		}
 	}
 }
