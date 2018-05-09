@@ -13,5 +13,5 @@ before_script:
  - chmod +x .ci/nunit.sh
 
 script:
- - xbuild /p:Platform="Any CPU" /p:Configuration=Release src/Simplify.Web.sln /tv:12.0
+ - xbuild /p:Platform="Any CPU" /p:Configuration=Release src/Simplify.Web.sln
  - .ci/nunit.sh "src/Simplify.Web.Tests/bin/Release/Simplify.Web.Tests.dll src/Examples/Simplify.Web.Examples.SelfHosted.Tests/bin/Release/Simplify.Web.Examples.SelfHosted.Tests.dll"
