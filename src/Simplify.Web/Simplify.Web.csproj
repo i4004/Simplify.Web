@@ -18,18 +18,14 @@
 		<OutputPath>bin\Any CPU\$(Configuration)\</OutputPath>
 		<DocumentationFile>bin\Any CPU\$(Configuration)\$(TargetFramework)\Simplify.Web.xml</DocumentationFile>
 	</PropertyGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Diagnostics\ExceptionIDetails.html" />
+		<EmbeddedResource Include="Diagnostics\ExceptionInfoPage.html" />
+	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net452' ">
 		<Reference Include="System" />
 		<Reference Include="System.Configuration" />
 		<Reference Include="Microsoft.CSharp" />
-	</ItemGroup>
-	<ItemGroup>
-		<None Remove="Diagnostics\ExceptionIDetails.html" />
-		<None Remove="Diagnostics\ExceptionInfoPage.html" />
-	</ItemGroup>
-	<ItemGroup>
-		<EmbeddedResource Include="Diagnostics\ExceptionIDetails.html" />
-		<EmbeddedResource Include="Diagnostics\ExceptionInfoPage.html" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Owin" Version="4.0.0" />
