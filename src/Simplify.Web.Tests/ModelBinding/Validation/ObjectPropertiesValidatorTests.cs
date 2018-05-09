@@ -18,7 +18,7 @@ namespace Simplify.Web.Tests.ModelBinding.Validation
 		}
 
 		[Test]
-		public void Validate_RequiredFieldIsNull_ExceptionThrown()
+		public void Validate_RequiredListFieldIsNull_ExceptionThrown()
 		{
 			// Assign
 			var model = new TestModelRequired { Prop2 = new List<string>() };
@@ -28,7 +28,7 @@ namespace Simplify.Web.Tests.ModelBinding.Validation
 		}
 
 		[Test]
-		public void Validate_RequiredListFieldIsNull_ExceptionThrown()
+		public void Validate_RequiredStringFieldIsNull_ExceptionThrown()
 		{
 			// Assign
 			var model = new TestModelRequired { Prop1 = "test" };
@@ -38,7 +38,7 @@ namespace Simplify.Web.Tests.ModelBinding.Validation
 		}
 
 		[Test]
-		public void Validate_RequiredFieldsNormal_Ok()
+		public void Validate_RequiredFieldsIsNormal_Ok()
 		{
 			// Assign
 			var model = new TestModelRequired { Prop1 = "test", Prop2 = new List<string>(), Prop3 = new TestModelEMail() };
@@ -48,7 +48,7 @@ namespace Simplify.Web.Tests.ModelBinding.Validation
 		}
 
 		[Test]
-		public void Validate_UserTypeRequiredFieldIsNull_ExceptionThrown()
+		public void Validate_UserTypeRequiredFieldIsNullOtherIsOk_ExceptionThrown()
 		{
 			// Assign
 			var model = new TestModelRequired { Prop1 = "test", Prop2 = new List<string>() };
