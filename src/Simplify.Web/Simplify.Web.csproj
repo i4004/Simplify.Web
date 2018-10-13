@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net452</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;net462</TargetFrameworks>
 		<Authors>Alexander Krylkov</Authors>
 		<Product>Simplify</Product>
 		<Description>Lightweight and fast .NET web-framework based on MVC and OWIN</Description>
@@ -29,9 +29,12 @@
 		<Reference Include="System.Xml.Linq" />
 		<Reference Include="Microsoft.CSharp" />
 	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' ">
+		<PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
+	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Owin" Version="4.0.0" />
-		<PackageReference Include="Owin" Version="1.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.Owin" Version="2.1.1" />
 		<PackageReference Include="Simplify.DI" Version="1.2.2" />
 		<PackageReference Include="Simplify.String.Sources" Version="1.2.0" PrivateAssets="All" />
 		<PackageReference Include="Simplify.System.Sources" Version="1.0.2" PrivateAssets="All" />
