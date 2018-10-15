@@ -1,0 +1,23 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+	{
+		"name": "Simplify.Web.Examples.Kestrel Launch",
+		"type": "coreclr",
+		"request": "launch",
+		"preLaunchTask": "Build Kestrel Example",
+		"program": "${workspaceFolder}/src/Examples/Simplify.Web.Examples.Kestrel/bin/Debug/netcoreapp2.1/Simplify.Web.Examples.Kestrel.dll",
+		"cwd": "${workspaceFolder}/src/Examples/Simplify.Web.Examples.Kestrel",
+		"internalConsoleOptions": "openOnSessionStart",
+		"env":
+		{
+			"ASPNETCORE_ENVIRONMENT": "Development"
+		}
+	},
+	{
+		"name": ".NET Core Attach",
+		"type": "coreclr",
+		"request": "attach",
+		"processId": "${command:pickProcess}"
+	}]
+}
