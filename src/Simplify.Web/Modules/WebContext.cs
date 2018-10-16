@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
 
 namespace Simplify.Web.Modules
 {
@@ -15,7 +15,7 @@ namespace Simplify.Web.Modules
 		/// Initializes a new instance of the <see cref="WebContext"/> class.
 		/// </summary>
 		/// <param name="context">The context.</param>
-		public WebContext(IOwinContext context)
+		public WebContext(HttpContext context)
 		{
 			Context = context;
 			Request = context.Request;
@@ -26,7 +26,8 @@ namespace Simplify.Web.Modules
 
 			VirtualPath = string.IsNullOrEmpty(Request.PathBase.Value) ? "" : Request.PathBase.Value;
 
-			SiteUrl = Request.Uri.Scheme + "://" + Request.Uri.Authority + VirtualPath + "/";
+			// TODO
+			//SiteUrl = Request.Uri.Scheme + "://" + Request.Uri.Authority + VirtualPath + "/";
 
 			IsAjax = Request.Headers.ContainsKey("X-Requested-With");
 
@@ -54,23 +55,27 @@ namespace Simplify.Web.Modules
 		/// <summary>
 		/// Gets the context for the current HTTP request.
 		/// </summary>
-		public IOwinContext Context { get; }
+		public HttpContext Context { get; }
 
+		// TODO check correct class
 		/// <summary>
 		/// Gets the request for the current HTTP request.
 		/// </summary>
-		public IOwinRequest Request { get; }
+		public HttpRequest Request { get; }
 
+		// TODO check correct class
 		/// <summary>
 		/// Gets the response for the current HTTP request.
 		/// </summary>
-		public IOwinResponse Response { get; }
+		public HttpResponse Response { get; }
 
+		// TODO check correct interface
 		/// <summary>
 		/// Gets the query string for current HTTP request.
 		/// </summary>
-		public IReadableStringCollection Query { get; }
+		public IQueryCollection Query { get; }
 
+		// TODO check correct interface
 		/// <summary>
 		/// Gets the form data of post HTTP request.
 		/// </summary>

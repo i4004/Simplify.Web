@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
 using Simplify.Web.Settings;
 
 namespace Simplify.Web.Modules
@@ -16,14 +16,15 @@ namespace Simplify.Web.Modules
 		/// </summary>
 		public const string CookieLanguageFieldName = "language";
 
-		private readonly ResponseCookieCollection _responseCookies;
+		// TODO check correct interface
+		private readonly IResponseCookies _responseCookies;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="LanguageManager" /> class.
 		/// </summary>
 		/// <param name="settings">The settings.</param>
 		/// <param name="context">The OWIN context.</param>
-		public LanguageManager(ISimplifyWebSettings settings, IOwinContext context)
+		public LanguageManager(ISimplifyWebSettings settings, HttpContext context)
 		{
 			_responseCookies = context.Response.Cookies;
 
@@ -70,25 +71,26 @@ namespace Simplify.Web.Modules
 			}
 		}
 
-		private bool TrySetLanguageFromCookie(IOwinContext context)
+		private bool TrySetLanguageFromCookie(HttpContext context)
 		{
 			var cookieLanguage = context.Request.Cookies[CookieLanguageFieldName];
 
 			return !string.IsNullOrEmpty(cookieLanguage) && SetCurrentLanguage(cookieLanguage);
 		}
 
-		private bool TrySetLanguageFromRequestHeader(IOwinContext context)
+		private bool TrySetLanguageFromRequestHeader(HttpContext context)
 		{
-			var languages = context.Request.Headers.GetValues("Accept-Language");
+			// TODO
+			//var languages = context.Request.Headers.GetValues("Accept-Language");
 
-			if (languages != null && languages.Count > 0)
-			{
-				var languageString = languages[0];
+			//if (languages != null && languages.Count > 0)
+			//{
+			//	var languageString = languages[0];
 
-				var items = languageString.Split(';');
+			//	var items = languageString.Split(';');
 
-				return SetCurrentLanguage(items[0]);
-			}
+			//	return SetCurrentLanguage(items[0]);
+			//}
 
 			return false;
 		}

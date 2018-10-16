@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
 using Simplify.DI;
 
 namespace Simplify.Web.Core.PageAssembly
@@ -14,6 +14,6 @@ namespace Simplify.Web.Core.PageAssembly
 		/// </summary>
 		/// <param name="containerProvider">The DI container provider.</param>
 		/// <param name="context">The context.</param>
-		Task ProcessPage(IDIContainerProvider containerProvider, IOwinContext context);
+		Task ProcessPage(IDIContainerProvider containerProvider, HttpContext context);
 	}
 }

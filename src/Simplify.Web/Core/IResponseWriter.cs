@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
 
 namespace Simplify.Web.Core
 {
@@ -8,36 +8,40 @@ namespace Simplify.Web.Core
 	/// </summary>
 	public interface IResponseWriter
 	{
+		// TODO check correct interface
 		/// <summary>
 		/// Writes the specified data.
 		/// </summary>
 		/// <param name="data">The data.</param>
 		/// <param name="response">The response.</param>
 		/// <returns></returns>
-		void Write(string data, IOwinResponse response);
+		void Write(string data, HttpResponse response);
 
+		// TODO check correct interface
 		/// <summary>
 		/// Writes the specified data.
 		/// </summary>
 		/// <param name="data">The data.</param>
 		/// <param name="response">The response.</param>
 		/// <returns></returns>
-		void Write(byte[] data, IOwinResponse response);
+		void Write(byte[] data, HttpResponse response);
 
+		// TODO check correct interface
 		/// <summary>
 		/// Writes the specified data asynchronously.
 		/// </summary>
 		/// <param name="data">The data.</param>
 		/// <param name="response">The response.</param>
 		/// <returns></returns>
-		Task WriteAsync(string data, IOwinResponse response);
+		Task WriteAsync(string data, HttpResponse response);
 
+		// TODO check correct interface
 		/// <summary>
 		/// Writes the specified data asynchronously.
 		/// </summary>
 		/// <param name="data">The data.</param>
 		/// <param name="response">The response.</param>
 		/// <returns></returns>
-		Task WriteAsync(byte[] data, IOwinResponse response);
+		Task WriteAsync(byte[] data, HttpResponse response);
 	}
 }

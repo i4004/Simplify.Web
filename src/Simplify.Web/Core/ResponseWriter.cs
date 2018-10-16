@@ -1,5 +1,6 @@
-﻿using System.Threading.Tasks;
-using Microsoft.Owin;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Simplify.Web.Core
 {
@@ -14,9 +15,10 @@ namespace Simplify.Web.Core
 		/// <param name="data">The data.</param>
 		/// <param name="response">The response.</param>
 		/// <returns></returns>
-		public void Write(string data, IOwinResponse response)
+		public void Write(string data, HttpResponse response)
 		{
-			response.Write(data);
+			// TODO check correctness
+			response.WriteAsync(data).Wait();
 		}
 
 		/// <summary>
@@ -25,9 +27,10 @@ namespace Simplify.Web.Core
 		/// <param name="data">The data.</param>
 		/// <param name="response">The response.</param>
 		/// <returns></returns>
-		public void Write(byte[] data, IOwinResponse response)
+		public void Write(byte[] data, HttpResponse response)
 		{
-			response.Write(data);
+			//response.Write(data);
+			throw new NotImplementedException();
 		}
 
 		/// <summary>
@@ -36,7 +39,7 @@ namespace Simplify.Web.Core
 		/// <param name="data">The data.</param>
 		/// <param name="response">The response.</param>
 		/// <returns></returns>
-		public Task WriteAsync(string data, IOwinResponse response)
+		public Task WriteAsync(string data, HttpResponse response)
 		{
 			return response.WriteAsync(data);
 		}
@@ -47,9 +50,10 @@ namespace Simplify.Web.Core
 		/// <param name="data">The data.</param>
 		/// <param name="response">The response.</param>
 		/// <returns></returns>
-		public Task WriteAsync(byte[] data, IOwinResponse response)
+		public Task WriteAsync(byte[] data, HttpResponse response)
 		{
-			return response.WriteAsync(data);
+			//return response.WriteAsync(data);
+			throw new NotImplementedException();
 		}
 	}
 }

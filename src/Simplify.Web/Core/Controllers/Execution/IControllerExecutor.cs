@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
 using Simplify.DI;
 
 namespace Simplify.Web.Core.Controllers.Execution
@@ -18,7 +18,7 @@ namespace Simplify.Web.Core.Controllers.Execution
 		/// <param name="context">The context.</param>
 		/// <param name="routeParameters">The route parameters.</param>
 		/// <returns></returns>
-		ControllerResponseResult Execute(Type controllerType, IDIContainerProvider containerProvider, IOwinContext context,
+		ControllerResponseResult Execute(Type controllerType, IDIContainerProvider containerProvider, HttpContext context,
 			dynamic routeParameters = null);
 
 		/// <summary>

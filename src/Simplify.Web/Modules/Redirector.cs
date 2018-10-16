@@ -91,7 +91,8 @@ namespace Simplify.Web.Modules
 		/// </summary>
 		public void SetRedirectUrlToCurrentPage()
 		{
-			RedirectUrl = _context.Request.Uri.AbsoluteUri;
+			// TODO
+			//RedirectUrl = _context.Request.Uri.AbsoluteUri;
 		}
 
 		/// <summary>
@@ -99,7 +100,8 @@ namespace Simplify.Web.Modules
 		/// </summary>
 		public void SetLoginReturnUrlFromCurrentUri()
 		{
-			LoginReturnUrl = _context.Request.Uri.AbsoluteUri;
+			// TODO
+			//LoginReturnUrl = _context.Request.Uri.AbsoluteUri;
 		}
 
 		/// <summary>
@@ -109,7 +111,8 @@ namespace Simplify.Web.Modules
 		/// <param name="bookmarkName">Name of the bookmark.</param>
 		public void Redirect(RedirectionType redirectionType, string bookmarkName = null)
 		{
-			PreviousNavigatedUrl = _context.Request.Uri.AbsoluteUri;
+			// TODO
+			//PreviousNavigatedUrl = _context.Request.Uri.AbsoluteUri;
 
 			switch (redirectionType)
 			{
@@ -130,7 +133,8 @@ namespace Simplify.Web.Modules
 					break;
 
 				case RedirectionType.CurrentPage:
-					Redirect(_context.Request.Uri.AbsoluteUri);
+					// TODO
+					//Redirect(_context.Request.Uri.AbsoluteUri);
 					break;
 
 				case RedirectionType.DefaultPage:

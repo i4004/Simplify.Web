@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
 using Simplify.DI;
 using Simplify.Web.Core.Controllers;
 using Simplify.Web.Core.StaticFiles;
@@ -31,7 +31,7 @@ namespace Simplify.Web.Core
 		/// <param name="containerProvider">The DI container provider.</param>
 		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		public Task ProcessRequest(IDIContainerProvider containerProvider, IOwinContext context)
+		public Task ProcessRequest(IDIContainerProvider containerProvider, HttpContext context)
 		{
 			return _staticFilesRequestHandler.IsStaticFileRoutePath(context)
 				? _staticFilesRequestHandler.ProcessRequest(context)

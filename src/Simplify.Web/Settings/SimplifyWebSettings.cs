@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Configuration;
 
 namespace Simplify.Web.Settings
 {
@@ -10,6 +9,7 @@ namespace Simplify.Web.Settings
 	/// </summary>
 	public sealed class SimplifyWebSettings : ISimplifyWebSettings
 	{
+		// TODO rebuild using appsettings.json
 		/// <summary>
 		/// Initializes a new instance of the <see cref="SimplifyWebSettings"/> class.
 		/// </summary>
@@ -35,18 +35,19 @@ namespace Simplify.Web.Settings
 			StaticFilesPaths = new List<string> { "styles", "scripts", "images", "content", "fonts" };
 			StringTableFiles = new List<string> { "StringTable.xml" };
 
-			var config = ConfigurationManager.GetSection("SimplifyWebSettings") as NameValueCollection;
+			// TODO
+			//var config = ConfigurationManager.GetSection("SimplifyWebSettings") as NameValueCollection;
 
-			if (config == null) return;
+			//if (config == null) return;
 
-			LoadLanguageManagerSettings(config);
-			LoadTemplatesSettings(config);
-			LoadDataCollectorSettings(config);
-			LoadStyleSettings(config);
-			LoadOtherSettings(config);
-			LoadEngineBehaviorSettings(config);
-			LoadCacheSettings(config);
-			LoadDiagnosticSettings(config);
+			//LoadLanguageManagerSettings(config);
+			//LoadTemplatesSettings(config);
+			//LoadDataCollectorSettings(config);
+			//LoadStyleSettings(config);
+			//LoadOtherSettings(config);
+			//LoadEngineBehaviorSettings(config);
+			//LoadCacheSettings(config);
+			//LoadDiagnosticSettings(config);
 		}
 
 		/// <summary>

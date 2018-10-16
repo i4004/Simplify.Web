@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
 using Simplify.DI;
 using Simplify.Web.Core.Controllers.Execution;
 
@@ -30,7 +30,7 @@ namespace Simplify.Web.Core.Controllers
 		/// <param name="containerProvider">The DI container provider.</param>
 		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		public ControllersProcessorResult ProcessControllers(IDIContainerProvider containerProvider, IOwinContext context)
+		public ControllersProcessorResult ProcessControllers(IDIContainerProvider containerProvider, HttpContext context)
 		{
 			var atleastOneNonAnyPageControllerMatched = false;
 
@@ -40,7 +40,8 @@ namespace Simplify.Web.Core.Controllers
 
 				if (matcherResult == null || !matcherResult.Success) continue;
 
-				var securityResult = _agent.IsSecurityRulesViolated(metaData, context.Authentication.User);
+				// TODO check correct user source
+				var securityResult = _agent.IsSecurityRulesViolated(metaData, context.User);
 
 				if (securityResult == SecurityRuleCheckResult.NotAuthenticated)
 					return ControllersProcessorResult.Http401;
@@ -67,7 +68,8 @@ namespace Simplify.Web.Core.Controllers
 			return ProcessAsyncControllersResponses(containerProvider);
 		}
 
-		private ControllersProcessorResult ProcessController(Type controllerType, IDIContainerProvider containerProvider, IOwinContext context, dynamic routeParameters)
+		private ControllersProcessorResult ProcessController(Type controllerType, IDIContainerProvider containerProvider,
+			HttpContext context, dynamic routeParameters)
 		{
 			var result = _controllerExecutor.Execute(controllerType, containerProvider, context, routeParameters);
 
@@ -80,7 +82,8 @@ namespace Simplify.Web.Core.Controllers
 			return ControllersProcessorResult.Ok;
 		}
 
-		private ControllersProcessorResult ProcessOnlyAnyPageControllersMatched(IDIContainerProvider containerProvider, IOwinContext context)
+		private ControllersProcessorResult ProcessOnlyAnyPageControllersMatched(IDIContainerProvider containerProvider,
+			HttpContext context)
 		{
 			var http404Controller = _agent.GetHandlerController(HandlerControllerType.Http404Handler);
 
@@ -112,7 +115,8 @@ namespace Simplify.Web.Core.Controllers
 			return ControllersProcessorResult.Ok;
 		}
 
-		private ControllersProcessorResult ProcessForbiddenSecurityRule(IDIContainerProvider containerProvider, IOwinContext context)
+		private ControllersProcessorResult ProcessForbiddenSecurityRule(IDIContainerProvider containerProvider,
+			HttpContext context)
 		{
 			var http403Controller = _agent.GetHandlerController(HandlerControllerType.Http403Handler);
 
