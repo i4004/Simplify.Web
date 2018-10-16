@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;net462</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0</TargetFrameworks>
 		<Authors>Alexander Krylkov</Authors>
 		<Product>Simplify</Product>
 		<Description>Lightweight and fast .NET web-framework based on MVC and OWIN</Description>
@@ -22,19 +22,10 @@
 		<EmbeddedResource Include="Diagnostics\ExceptionIDetails.html" />
 		<EmbeddedResource Include="Diagnostics\ExceptionInfoPage.html" />
 	</ItemGroup>
-	<ItemGroup Condition="'$(TargetFramework)' == 'net452' ">
-		<Reference Include="System" />
-		<Reference Include="System.Configuration" />
-		<Reference Include="System.Xml" />
-		<Reference Include="System.Xml.Linq" />
-		<Reference Include="Microsoft.CSharp" />
-	</ItemGroup>
-	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' ">
+	<ItemGroup>
 		<PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
-	</ItemGroup>
-	<ItemGroup>
-	  <PackageReference Include="Microsoft.AspNetCore.Owin" Version="2.1.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Http " Version="2.1.1" />		
 		<PackageReference Include="Simplify.DI" Version="1.2.2" />
 		<PackageReference Include="Simplify.String.Sources" Version="1.2.0" PrivateAssets="All" />
 		<PackageReference Include="Simplify.System.Sources" Version="1.0.2" PrivateAssets="All" />
