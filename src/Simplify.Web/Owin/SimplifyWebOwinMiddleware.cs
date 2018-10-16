@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Globalization;
 using System.Threading.Tasks;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
 using Simplify.DI;
 using Simplify.Web.Core;
 using Simplify.Web.Diagnostics;
-using Simplify.Web.Modules;
-using Simplify.Web.Modules.Data;
 using Simplify.Web.Settings;
 
 namespace Simplify.Web.Owin
@@ -21,22 +17,13 @@ namespace Simplify.Web.Owin
 	/// <summary>
 	/// HTTP requests trace delegate
 	/// </summary>
-	public delegate void TraceEventHandler(IOwinContext context);
+	public delegate void TraceEventHandler(HttpContext context);
 
 	/// <summary>
 	/// Simplify.Web engine root
 	/// </summary>
-	public class SimplifyWebOwinMiddleware : OwinMiddleware
+	public class SimplifyWebOwinMiddleware
 	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="SimplifyWebOwinMiddleware"/> class.
-		/// </summary>
-		/// <param name="next">The next middleware.</param>
-		public SimplifyWebOwinMiddleware(OwinMiddleware next)
-			: base(next)
-		{
-		}
-
 		/// <summary>
 		/// Occurs when exception occured and catched by framework.
 		/// </summary>
@@ -52,7 +39,7 @@ namespace Simplify.Web.Owin
 		/// </summary>
 		/// <param name="context"></param>
 		/// <returns></returns>
-		public override Task Invoke(IOwinContext context)
+		public static Task Invoke(HttpContext context)
 		{
 			using (var scope = DIContainer.Current.BeginLifetimeScope())
 			{
@@ -70,24 +57,25 @@ namespace Simplify.Web.Owin
 
 					OnTrace?.Invoke(context);
 
-					// Setup providers
+					//// Setup providers
 
-					var webContextProvider = scope.Container.Resolve<IWebContextProvider>();
-					var languageManagerProvider = scope.Container.Resolve<ILanguageManagerProvider>();
-					var templateFactory = scope.Container.Resolve<ITemplateFactory>();
-					var fileReader = scope.Container.Resolve<IFileReader>();
-					var stringTable = scope.Container.Resolve<IStringTable>();
+					//var webContextProvider = scope.Container.Resolve<IWebContextProvider>();
+					//var languageManagerProvider = scope.Container.Resolve<ILanguageManagerProvider>();
+					//var templateFactory = scope.Container.Resolve<ITemplateFactory>();
+					//var fileReader = scope.Container.Resolve<IFileReader>();
+					//var stringTable = scope.Container.Resolve<IStringTable>();
 
-					webContextProvider.Setup(context);
-					languageManagerProvider.Setup(context);
-					templateFactory.Setup();
-					fileReader.Setup();
-					stringTable.Setup();
+					//webContextProvider.Setup(context);
+					//languageManagerProvider.Setup(context);
+					//templateFactory.Setup();
+					//fileReader.Setup();
+					//stringTable.Setup();
 
-					// Run request process pipeline
+					//// Run request process pipeline
 
-					var requestHandler = scope.Container.Resolve<IRequestHandler>();
-					return requestHandler.ProcessRequest(scope.Container, context);
+					//var requestHandler = scope.Container.Resolve<IRequestHandler>();
+					//return requestHandler.ProcessRequest(scope.Container, context);
+					return Task.Delay(10);
 				}
 				catch (Exception e)
 				{
@@ -119,10 +107,11 @@ namespace Simplify.Web.Owin
 			return true;
 		}
 
-		private static void TraceToConsole(IOwinContext context)
+		private static void TraceToConsole(HttpContext context)
 		{
-			Trace.WriteLine(
-				$"[{DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss:fff", CultureInfo.InvariantCulture)}] [{context.Request.Method}] {context.Request.Uri.AbsoluteUri}");
+			// TODO
+			//Trace.WriteLine(
+			//$"[{DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss:fff", CultureInfo.InvariantCulture)}] [{context.Request.Method}] {context.Request.Uri.AbsoluteUri}");
 		}
 	}
 }
