@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Simplify.Web.Owin;
 
 namespace Simplify.Web.Examples.Kestrel
 {
@@ -13,10 +13,7 @@ namespace Simplify.Web.Examples.Kestrel
 				app.UseDeveloperExceptionPage();
 			}
 
-			app.Run(async (context) =>
-			{
-				await context.Response.WriteAsync("Hello World!");
-			});
+			app.UseSimplifyWeb();
 		}
 	}
 }
