@@ -16,26 +16,6 @@ namespace Simplify.Web.Settings
 		/// </summary>
 		public SimplifyWebSettings(IConfiguration configuration)
 		{
-			// Language defaults
-			DefaultLanguage = "en";
-
-			DefaultTemplatesPath = "Templates";
-			DefaultMasterTemplateFileName = "Master.tpl";
-
-			// Data collection defaults
-
-			DefaultMainContentVariableName = "MainContent";
-			DefaultTitleVariableName = "Title";
-
-			// Style defaults
-			DefaultStyle = "Main";
-
-			// Other defaults
-
-			DataPath = "App_Data";
-			StaticFilesPaths = new List<string> { "styles", "scripts", "images", "content", "fonts" };
-			StringTableFiles = new List<string> { "StringTable.xml" };
-
 			// TODO
 			//var config = ConfigurationManager.GetSection("SimplifyWebSettings") as NameValueCollection;
 
@@ -56,7 +36,7 @@ namespace Simplify.Web.Settings
 		/// <summary>
 		/// Default language, for example: "en", "ru", "de" etc., default value is "en"
 		/// </summary>
-		public string DefaultLanguage { get; private set; }
+		public string DefaultLanguage { get; private set; } = "en";
 
 		/// <summary>
 		/// Gets a value indicating whether browser language should be accepted
@@ -69,7 +49,7 @@ namespace Simplify.Web.Settings
 		/// <summary>
 		/// Default templates directory path, for example: Templates, default value is "Templates"
 		/// </summary>
-		public string DefaultTemplatesPath { get; private set; }
+		public string DefaultTemplatesPath { get; private set; } = "Templates";
 
 		/// <summary>
 		/// Gets a value indicating whether all templates should be loaded from assembly
@@ -85,7 +65,7 @@ namespace Simplify.Web.Settings
 		/// <value>
 		/// The name of the master page template file
 		/// </value>
-		public string DefaultMasterTemplateFileName { get; private set; }
+		public string DefaultMasterTemplateFileName { get; private set; } = "Master.tpl";
 
 		/// <summary>
 		/// Gets or sets the master template main content variable name.
@@ -93,7 +73,7 @@ namespace Simplify.Web.Settings
 		/// <value>
 		/// The  master template main content variable name.
 		/// </value>
-		public string DefaultMainContentVariableName { get; private set; }
+		public string DefaultMainContentVariableName { get; private set; } = "MainContent";
 
 		/// <summary>
 		/// Gets or sets the master template title variable name.
@@ -101,17 +81,17 @@ namespace Simplify.Web.Settings
 		/// <value>
 		/// The title variable name.
 		/// </value>
-		public string DefaultTitleVariableName { get; private set; }
+		public string DefaultTitleVariableName { get; private set; } = "Title";
 
 		/// <summary>
 		/// Default site style
 		/// </summary>
-		public string DefaultStyle { get; private set; }
+		public string DefaultStyle { get; private set; } = "Main";
 
 		/// <summary>
 		/// Data directory path, default value is "App_Data"
 		/// </summary>
-		public string DataPath { get; private set; }
+		public string DataPath { get; private set; } = "App_Data";
 
 		/// <summary>
 		/// Gets the static files paths.
@@ -120,6 +100,7 @@ namespace Simplify.Web.Settings
 		/// The static files paths.
 		/// </value>
 		public IList<string> StaticFilesPaths { get; }
+			= new List<string> { "styles", "scripts", "images", "content", "fonts" };
 
 		/// <summary>
 		/// Gets the string table files.
@@ -128,6 +109,7 @@ namespace Simplify.Web.Settings
 		/// The string table files.
 		/// </value>
 		public IList<string> StringTableFiles { get; }
+			= new List<string> { "StringTable.xml" };
 
 		/// <summary>
 		/// Gets or sets a value indicating whether site title postfix should be set automatically
