@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Simplify.Web.Bootstrapper;
 
 namespace Simplify.Web.Owin
@@ -13,8 +14,9 @@ namespace Simplify.Web.Owin
 		/// Performs Simplify.Web bootstrapper registrations and adds Simplify.Web to the OWIN pipeline as a terminal middleware
 		/// </summary>
 		/// <param name="builder">The OWIN builder.</param>
+		/// <param name="env">The hosting environment.</param>
 		/// <returns></returns>
-		public static IApplicationBuilder UseSimplifyWeb(this IApplicationBuilder builder)
+		public static IApplicationBuilder UseSimplifyWeb(this IApplicationBuilder builder, IHostingEnvironment env)
 		{
 			try
 			{
@@ -24,7 +26,7 @@ namespace Simplify.Web.Owin
 				//builder.Use(next => middleware.Invoke);
 				//builder.Use((context, next) => middleware.Invoke(context, next));
 
-				BootstrapperFactory.CreateBootstrapper().Register();
+				BootstrapperFactory.CreateBootstrapper().Register(env);
 
 				builder.Run(async (context) => await SimplifyWebOwinMiddleware.Invoke(context));
 

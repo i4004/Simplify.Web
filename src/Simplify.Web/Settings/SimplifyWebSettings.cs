@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using Microsoft.Extensions.Configuration;
 
 namespace Simplify.Web.Settings
 {
@@ -13,7 +14,7 @@ namespace Simplify.Web.Settings
 		/// <summary>
 		/// Initializes a new instance of the <see cref="SimplifyWebSettings"/> class.
 		/// </summary>
-		public SimplifyWebSettings()
+		public SimplifyWebSettings(IConfiguration configuration)
 		{
 			// Language defaults
 			DefaultLanguage = "en";
@@ -39,6 +40,8 @@ namespace Simplify.Web.Settings
 			//var config = ConfigurationManager.GetSection("SimplifyWebSettings") as NameValueCollection;
 
 			//if (config == null) return;
+
+			//configuration.GetSection()
 
 			//LoadLanguageManagerSettings(config);
 			//LoadTemplatesSettings(config);

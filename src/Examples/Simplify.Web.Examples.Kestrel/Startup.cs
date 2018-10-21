@@ -13,7 +13,7 @@ namespace Simplify.Web.Examples.Kestrel
 				app.UseDeveloperExceptionPage();
 			}
 
-			app.UseSimplifyWeb();
+			app.UseSimplifyWeb(env);
 		}
 	}
 }
