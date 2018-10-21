@@ -501,8 +501,8 @@ namespace Simplify.Web.Bootstrapper
 		public virtual void RegisterConfiguration(IHostingEnvironment env)
 		{
 			var builder = new ConfigurationBuilder()
-				.AddJsonFile("appsettings.json")
-				.AddJsonFile($"appsettings.{env.EnvironmentName}.json");
+				.AddJsonFile("appsettings.json", true)
+				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", true);
 
 			DIContainer.Current.Register<IConfiguration>(p => builder.Build(), LifetimeType.Singleton);
 		}
