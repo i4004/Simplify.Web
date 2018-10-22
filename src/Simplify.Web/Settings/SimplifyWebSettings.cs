@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using Microsoft.Extensions.Configuration;
 
 namespace Simplify.Web.Settings
@@ -10,27 +9,23 @@ namespace Simplify.Web.Settings
 	/// </summary>
 	public sealed class SimplifyWebSettings : ISimplifyWebSettings
 	{
-		// TODO rebuild using appsettings.json
 		/// <summary>
 		/// Initializes a new instance of the <see cref="SimplifyWebSettings"/> class.
 		/// </summary>
 		public SimplifyWebSettings(IConfiguration configuration)
 		{
-			// TODO
-			//var config = ConfigurationManager.GetSection("SimplifyWebSettings") as NameValueCollection;
+			var config = configuration.GetSection("SimplifyWebSettings");
 
-			//if (config == null) return;
+			if (config == null) return;
 
-			//configuration.GetSection()
-
-			//LoadLanguageManagerSettings(config);
-			//LoadTemplatesSettings(config);
-			//LoadDataCollectorSettings(config);
-			//LoadStyleSettings(config);
-			//LoadOtherSettings(config);
-			//LoadEngineBehaviorSettings(config);
-			//LoadCacheSettings(config);
-			//LoadDiagnosticSettings(config);
+			LoadLanguageManagerSettings(config);
+			LoadTemplatesSettings(config);
+			LoadDataCollectorSettings(config);
+			LoadStyleSettings(config);
+			LoadOtherSettings(config);
+			LoadEngineBehaviorSettings(config);
+			LoadCacheSettings(config);
+			LoadDiagnosticSettings(config);
 		}
 
 		/// <summary>
@@ -150,131 +145,155 @@ namespace Simplify.Web.Settings
 		/// </value>
 		public bool ConsoleTracing { get; private set; }
 
-		private void LoadLanguageManagerSettings(NameValueCollection config)
+		private void LoadLanguageManagerSettings(IConfiguration config)
 		{
-			if (!string.IsNullOrEmpty(config["DefaultLanguage"]))
-				DefaultLanguage = config["DefaultLanguage"];
+			var defaultLanguage = config["DefaultLanguage"];
 
-			if (!string.IsNullOrEmpty(config["AcceptBrowserLanguage"]))
-			{
-				bool buffer;
+			if (!string.IsNullOrEmpty(defaultLanguage))
+				DefaultLanguage = defaultLanguage;
 
-				if (bool.TryParse(config["AcceptBrowserLanguage"], out buffer))
-					AcceptBrowserLanguage = buffer;
-			}
+			var acceptBrowserLanguage = config["AcceptBrowserLanguage"];
+
+			if (string.IsNullOrEmpty(acceptBrowserLanguage))
+				return;
+
+			if (bool.TryParse(acceptBrowserLanguage, out var buffer))
+				AcceptBrowserLanguage = buffer;
 		}
 
-		private void LoadTemplatesSettings(NameValueCollection config)
+		private void LoadTemplatesSettings(IConfiguration config)
 		{
-			if (!string.IsNullOrEmpty(config["DefaultTemplatesPath"]))
-				DefaultTemplatesPath = config["DefaultTemplatesPath"];
+			var defaultTemplatesPath = config["DefaultTemplatesPath"];
 
-			if (!string.IsNullOrEmpty(config["LoadTemplatesFromAssembly"]))
+			if (!string.IsNullOrEmpty(defaultTemplatesPath))
+				DefaultTemplatesPath = defaultTemplatesPath;
+
+			var loadTemplatesFromAssembly = config["LoadTemplatesFromAssembly"];
+
+			if (!string.IsNullOrEmpty(loadTemplatesFromAssembly))
 			{
-				bool buffer;
-
-				if (bool.TryParse(config["LoadTemplatesFromAssembly"], out buffer))
+				if (bool.TryParse(loadTemplatesFromAssembly, out var buffer))
 					LoadTemplatesFromAssembly = buffer;
 			}
 
-			if (!string.IsNullOrEmpty(config["DefaultMasterTemplateFileName"]))
-				DefaultMasterTemplateFileName = config["DefaultMasterTemplateFileName"];
+			var defaultMasterTemplateFileName = config["DefaultMasterTemplateFileName"];
+
+			if (!string.IsNullOrEmpty(defaultMasterTemplateFileName))
+				DefaultMasterTemplateFileName = defaultMasterTemplateFileName;
 		}
 
-		private void LoadDataCollectorSettings(NameValueCollection config)
+		private void LoadDataCollectorSettings(IConfiguration config)
 		{
-			if (!string.IsNullOrEmpty(config["DefaultMainContentVariableName"]))
-				DefaultMainContentVariableName = config["DefaultMainContentVariableName"];
+			var defaultMainContentVariableName = config["DefaultMainContentVariableName"];
 
-			if (!string.IsNullOrEmpty(config["DefaultTitleVariableName"]))
-				DefaultTitleVariableName = config["DefaultTitleVariableName"];
+			if (!string.IsNullOrEmpty(defaultMainContentVariableName))
+				DefaultMainContentVariableName = defaultMainContentVariableName;
+
+			var defaultTitleVariableName = config["DefaultTitleVariableName"];
+
+			if (!string.IsNullOrEmpty(defaultTitleVariableName))
+				DefaultTitleVariableName = defaultTitleVariableName;
 		}
 
-		private void LoadStyleSettings(NameValueCollection config)
+		private void LoadStyleSettings(IConfiguration config)
 		{
-			if (!string.IsNullOrEmpty(config["DefaultStyle"]))
-				DefaultStyle = config["DefaultStyle"];
+			var defaultStyle = config["DefaultStyle"];
+
+			if (!string.IsNullOrEmpty(defaultStyle))
+				DefaultStyle = defaultStyle;
 		}
 
-		private void LoadOtherSettings(NameValueCollection config)
+		private void LoadOtherSettings(IConfiguration config)
 		{
-			if (!string.IsNullOrEmpty(config["DataPath"]))
-				DataPath = config["DataPath"];
+			var dataPath = config["DataPath"];
 
-			if (!string.IsNullOrEmpty(config["StaticFilesPaths"]))
+			if (!string.IsNullOrEmpty(dataPath))
+				DataPath = dataPath;
+
+			var staticFilesPaths = config["StaticFilesPaths"];
+
+			if (!string.IsNullOrEmpty(staticFilesPaths))
 			{
 				StaticFilesPaths.Clear();
-				var items = config["StaticFilesPaths"].Replace(" ", "").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+				var items = staticFilesPaths.Replace(" ", "").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
 				foreach (var item in items)
 					StaticFilesPaths.Add(item);
 			}
 
-			if (!string.IsNullOrEmpty(config["StringTableFiles"]))
+			var stringTableFiles = config["StringTableFiles"];
+
+			if (string.IsNullOrEmpty(stringTableFiles))
+				return;
+
 			{
 				StringTableFiles.Clear();
-				var items = config["StringTableFiles"].Replace(" ", "").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+				var items = stringTableFiles.Replace(" ", "").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
 				foreach (var item in items)
 					StringTableFiles.Add(item);
 			}
 		}
 
-		private void LoadEngineBehaviorSettings(NameValueCollection config)
+		private void LoadEngineBehaviorSettings(IConfiguration config)
 		{
-			if (!string.IsNullOrEmpty(config["DisableAutomaticSiteTitleSet"]))
-			{
-				bool buffer;
+			var disableAutomaticSiteTitleSet = config["DisableAutomaticSiteTitleSet"];
 
-				if (bool.TryParse(config["DisableAutomaticSiteTitleSet"], out buffer))
+			if (!string.IsNullOrEmpty(disableAutomaticSiteTitleSet))
+			{
+				if (bool.TryParse(disableAutomaticSiteTitleSet, out var buffer))
 					DisableAutomaticSiteTitleSet = buffer;
 			}
 
-			if (!string.IsNullOrEmpty(config["HideExceptionDetails"]))
-			{
-				bool buffer;
+			var hideExceptionDetails = config["HideExceptionDetails"];
 
-				if (bool.TryParse(config["HideExceptionDetails"], out buffer))
+			if (string.IsNullOrEmpty(hideExceptionDetails))
+				return;
+
+			{
+				if (bool.TryParse(hideExceptionDetails, out var buffer))
 					HideExceptionDetails = buffer;
 			}
 		}
 
-		private void LoadCacheSettings(NameValueCollection config)
+		private void LoadCacheSettings(IConfiguration config)
 		{
-			if (!string.IsNullOrEmpty(config["TemplatesMemoryCache"]))
-			{
-				bool buffer;
+			var templatesMemoryCache = config["TemplatesMemoryCache"];
 
-				if (bool.TryParse(config["TemplatesMemoryCache"], out buffer))
+			if (!string.IsNullOrEmpty(templatesMemoryCache))
+			{
+				if (bool.TryParse(templatesMemoryCache, out var buffer))
 					TemplatesMemoryCache = buffer;
 			}
 
-			if (!string.IsNullOrEmpty(config["StringTableMemoryCache"]))
-			{
-				bool buffer;
+			var stringTableMemoryCache = config["StringTableMemoryCache"];
 
-				if (bool.TryParse(config["StringTableMemoryCache"], out buffer))
+			if (!string.IsNullOrEmpty(stringTableMemoryCache))
+			{
+				if (bool.TryParse(stringTableMemoryCache, out var buffer))
 					StringTableMemoryCache = buffer;
 			}
 
-			if (!string.IsNullOrEmpty(config["DisableFileReaderCache"]))
-			{
-				bool buffer;
+			var disableFileReaderCache = config["DisableFileReaderCache"];
 
-				if (bool.TryParse(config["DisableFileReaderCache"], out buffer))
+			if (string.IsNullOrEmpty(disableFileReaderCache))
+				return;
+
+			{
+				if (bool.TryParse(disableFileReaderCache, out var buffer))
 					DisableFileReaderCache = buffer;
 			}
 		}
 
-		private void LoadDiagnosticSettings(NameValueCollection config)
+		private void LoadDiagnosticSettings(IConfiguration config)
 		{
-			if (!string.IsNullOrEmpty(config["ConsoleTracing"]))
-			{
-				bool buffer;
+			var consoleTracing = config["ConsoleTracing"];
 
-				if (bool.TryParse(config["ConsoleTracing"], out buffer))
-					ConsoleTracing = buffer;
-			}
+			if (string.IsNullOrEmpty(consoleTracing))
+				return;
+
+			if (bool.TryParse(consoleTracing, out var buffer))
+				ConsoleTracing = buffer;
 		}
 	}
 }
