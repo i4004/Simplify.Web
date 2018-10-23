@@ -25,6 +25,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.1.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.1.1" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
 		<PackageReference Include="Simplify.DI" Version="1.2.2" />

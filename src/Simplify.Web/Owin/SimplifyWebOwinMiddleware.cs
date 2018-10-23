@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Globalization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Simplify.DI;
 using Simplify.Web.Core;
 using Simplify.Web.Diagnostics;
@@ -109,9 +112,8 @@ namespace Simplify.Web.Owin
 
 		private static void TraceToConsole(HttpContext context)
 		{
-			// TODO
-			//Trace.WriteLine(
-			//$"[{DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss:fff", CultureInfo.InvariantCulture)}] [{context.Request.Method}] {context.Request.Uri.AbsoluteUri}");
+			Trace.WriteLine(
+				$"[{DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss:fff", CultureInfo.InvariantCulture)}] [{context.Request.Method}] {context.Request.GetDisplayUrl()}");
 		}
 	}
 }
