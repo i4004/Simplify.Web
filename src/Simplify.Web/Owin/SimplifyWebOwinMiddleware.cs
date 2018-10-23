@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Simplify.DI;
 using Simplify.Web.Core;
 using Simplify.Web.Diagnostics;
+using Simplify.Web.Modules;
 using Simplify.Web.Settings;
 
 namespace Simplify.Web.Owin
@@ -60,15 +61,15 @@ namespace Simplify.Web.Owin
 
 					OnTrace?.Invoke(context);
 
-					//// Setup providers
+					// Setup providers
 
-					//var webContextProvider = scope.Container.Resolve<IWebContextProvider>();
+					var webContextProvider = scope.Container.Resolve<IWebContextProvider>();
 					//var languageManagerProvider = scope.Container.Resolve<ILanguageManagerProvider>();
 					//var templateFactory = scope.Container.Resolve<ITemplateFactory>();
 					//var fileReader = scope.Container.Resolve<IFileReader>();
 					//var stringTable = scope.Container.Resolve<IStringTable>();
 
-					//webContextProvider.Setup(context);
+					webContextProvider.Setup(context);
 					//languageManagerProvider.Setup(context);
 					//templateFactory.Setup();
 					//fileReader.Setup();

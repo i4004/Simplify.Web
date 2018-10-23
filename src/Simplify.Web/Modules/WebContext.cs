@@ -26,8 +26,7 @@ namespace Simplify.Web.Modules
 
 			VirtualPath = string.IsNullOrEmpty(Request.PathBase.Value) ? "" : Request.PathBase.Value;
 
-			// TODO
-			//SiteUrl = Request.Uri.Scheme + "://" + Request.Uri.Authority + VirtualPath + "/";
+			SiteUrl = Request.Scheme + "://" + Request.Host.Value + VirtualPath + "/";
 
 			IsAjax = Request.Headers.ContainsKey("X-Requested-With");
 
