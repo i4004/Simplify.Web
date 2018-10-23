@@ -56,13 +56,11 @@ namespace Simplify.Web.Modules
 		/// </summary>
 		public HttpContext Context { get; }
 
-		// TODO check correct class
 		/// <summary>
 		/// Gets the request for the current HTTP request.
 		/// </summary>
 		public HttpRequest Request { get; }
 
-		// TODO check correct class
 		/// <summary>
 		/// Gets the response for the current HTTP request.
 		/// </summary>
