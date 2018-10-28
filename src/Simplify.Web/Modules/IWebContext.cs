@@ -40,13 +40,11 @@ namespace Simplify.Web.Modules
 		/// </summary>
 		HttpResponse Response { get; }
 
-		// TODO check correct interface
 		/// <summary>
 		/// Gets the query string for current HTTP request.
 		/// </summary>
 		IQueryCollection Query { get; }
 
-		// TODO check correct interface
 		/// <summary>
 		/// Gets the form data of post HTTP request.
 		/// </summary>

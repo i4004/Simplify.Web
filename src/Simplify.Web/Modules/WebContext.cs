@@ -66,20 +66,15 @@ namespace Simplify.Web.Modules
 		/// </summary>
 		public HttpResponse Response { get; }
 
-		// TODO check correct interface
 		/// <summary>
 		/// Gets the query string for current HTTP request.
 		/// </summary>
 		public IQueryCollection Query { get; }
 
-		// TODO check correct interface
 		/// <summary>
 		/// Gets the form data of post HTTP request.
 		/// </summary>
-		public IFormCollection Form
-		{
-			get { return _form.Value; }
-		}
+		public IFormCollection Form => _form.Value;
 
 		/// <summary>
 		/// Gets a value indicating whether this request is ajax request.
