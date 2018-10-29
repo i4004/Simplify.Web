@@ -17,7 +17,6 @@ namespace Simplify.Web.Core
 		/// <returns></returns>
 		void Write(string data, HttpResponse response);
 
-		// TODO check correct interface
 		/// <summary>
 		/// Writes the specified data.
 		/// </summary>
@@ -26,7 +25,6 @@ namespace Simplify.Web.Core
 		/// <returns></returns>
 		void Write(byte[] data, HttpResponse response);
 
-		// TODO check correct interface
 		/// <summary>
 		/// Writes the specified data asynchronously.
 		/// </summary>
@@ -35,7 +33,6 @@ namespace Simplify.Web.Core
 		/// <returns></returns>
 		Task WriteAsync(string data, HttpResponse response);
 
-		// TODO check correct interface
 		/// <summary>
 		/// Writes the specified data asynchronously.
 		/// </summary>

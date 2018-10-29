@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
 namespace Simplify.Web.Core
@@ -17,7 +16,6 @@ namespace Simplify.Web.Core
 		/// <returns></returns>
 		public void Write(string data, HttpResponse response)
 		{
-			// TODO check correctness
 			response.WriteAsync(data).Wait();
 		}
 
@@ -29,8 +27,7 @@ namespace Simplify.Web.Core
 		/// <returns></returns>
 		public void Write(byte[] data, HttpResponse response)
 		{
-			//response.Write(data);
-			throw new NotImplementedException();
+			response.Body.Write(data, 0, data.Length);
 		}
 
 		/// <summary>
@@ -52,8 +49,7 @@ namespace Simplify.Web.Core
 		/// <returns></returns>
 		public Task WriteAsync(byte[] data, HttpResponse response)
 		{
-			//return response.WriteAsync(data);
-			throw new NotImplementedException();
+			return response.Body.WriteAsync(data, 0, data.Length);
 		}
 	}
 }
