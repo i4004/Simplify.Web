@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Simplify.DI;
 using Simplify.Web.Modules;
 
@@ -38,8 +39,7 @@ namespace Simplify.Web.Core.PageAssembly
 
 			var task = _responseWriter.WriteAsync(_pageBuilder.Build(containerProvider), context.Response);
 
-			// TODO
-			//_redirector.PreviousPageUrl = context.Request.Uri.AbsoluteUri;
+			_redirector.PreviousPageUrl = context.Request.GetEncodedUrl();
 
 			return task;
 		}

@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace Simplify.Web.Modules
 {
@@ -91,8 +92,7 @@ namespace Simplify.Web.Modules
 		/// </summary>
 		public void SetRedirectUrlToCurrentPage()
 		{
-			// TODO
-			//RedirectUrl = _context.Request.Uri.AbsoluteUri;
+			RedirectUrl = _context.Request.GetEncodedUrl();
 		}
 
 		/// <summary>
@@ -100,8 +100,7 @@ namespace Simplify.Web.Modules
 		/// </summary>
 		public void SetLoginReturnUrlFromCurrentUri()
 		{
-			// TODO
-			//LoginReturnUrl = _context.Request.Uri.AbsoluteUri;
+			LoginReturnUrl = _context.Request.GetEncodedUrl();
 		}
 
 		/// <summary>
@@ -111,8 +110,7 @@ namespace Simplify.Web.Modules
 		/// <param name="bookmarkName">Name of the bookmark.</param>
 		public void Redirect(RedirectionType redirectionType, string bookmarkName = null)
 		{
-			// TODO
-			//PreviousNavigatedUrl = _context.Request.Uri.AbsoluteUri;
+			PreviousNavigatedUrl = _context.Request.GetEncodedUrl();
 
 			switch (redirectionType)
 			{
@@ -133,8 +131,7 @@ namespace Simplify.Web.Modules
 					break;
 
 				case RedirectionType.CurrentPage:
-					// TODO
-					//Redirect(_context.Request.Uri.AbsoluteUri);
+					Redirect(_context.Request.GetEncodedUrl());
 					break;
 
 				case RedirectionType.DefaultPage:
