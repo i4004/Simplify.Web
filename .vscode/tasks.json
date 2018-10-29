@@ -10,5 +10,20 @@
 			"${workspaceFolder}/src/Examples/Simplify.Web.Examples.Kestrel/Simplify.Web.Examples.Kestrel.csproj"
 		],
 		"problemMatcher": "$msCompile"
+	},
+	{
+		"label": "Build",
+		"command": "dotnet",
+		"type": "process",
+		"args": [
+			"build",
+			"${workspaceFolder}/src/Simplify.Web.sln"
+		],
+		"problemMatcher": "$msCompile",
+		"group":
+		{
+			"kind": "build",
+			"isDefault": true
+		}
 	}]
 }
