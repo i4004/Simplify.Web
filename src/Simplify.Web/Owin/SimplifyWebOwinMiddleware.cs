@@ -8,6 +8,7 @@ using Simplify.DI;
 using Simplify.Web.Core;
 using Simplify.Web.Diagnostics;
 using Simplify.Web.Modules;
+using Simplify.Web.Modules.Data;
 using Simplify.Web.Settings;
 
 namespace Simplify.Web.Owin
@@ -64,22 +65,21 @@ namespace Simplify.Web.Owin
 					// Setup providers
 
 					var webContextProvider = scope.Container.Resolve<IWebContextProvider>();
-					//var languageManagerProvider = scope.Container.Resolve<ILanguageManagerProvider>();
-					//var templateFactory = scope.Container.Resolve<ITemplateFactory>();
-					//var fileReader = scope.Container.Resolve<IFileReader>();
-					//var stringTable = scope.Container.Resolve<IStringTable>();
+					var languageManagerProvider = scope.Container.Resolve<ILanguageManagerProvider>();
+					var templateFactory = scope.Container.Resolve<ITemplateFactory>();
+					var fileReader = scope.Container.Resolve<IFileReader>();
+					var stringTable = scope.Container.Resolve<IStringTable>();
 
 					webContextProvider.Setup(context);
-					//languageManagerProvider.Setup(context);
-					//templateFactory.Setup();
-					//fileReader.Setup();
-					//stringTable.Setup();
+					languageManagerProvider.Setup(context);
+					templateFactory.Setup();
+					fileReader.Setup();
+					stringTable.Setup();
 
-					//// Run request process pipeline
+					// Run request process pipeline
 
-					//var requestHandler = scope.Container.Resolve<IRequestHandler>();
-					//return requestHandler.ProcessRequest(scope.Container, context);
-					return Task.Delay(10);
+					var requestHandler = scope.Container.Resolve<IRequestHandler>();
+					return requestHandler.ProcessRequest(scope.Container, context);
 				}
 				catch (Exception e)
 				{
