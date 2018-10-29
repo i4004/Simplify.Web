@@ -8,4 +8,14 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Simplify.Web\Simplify.Web.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Content Update="appsettings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="Templates\Master.tpl">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
 </Project>
