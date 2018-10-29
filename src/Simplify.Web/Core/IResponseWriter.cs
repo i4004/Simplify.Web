@@ -8,7 +8,6 @@ namespace Simplify.Web.Core
 	/// </summary>
 	public interface IResponseWriter
 	{
-		// TODO check correct interface
 		/// <summary>
 		/// Writes the specified data.
 		/// </summary>
