@@ -20,12 +20,6 @@ namespace Simplify.Web.Owin
 		{
 			try
 			{
-				// TODO cleanup
-				//return builder.Use<SimplifyWebOwinMiddleware>();
-				//var middleware = new SimplifyWebOwinMiddleware();
-				//builder.Use(next => middleware.Invoke);
-				//builder.Use((context, next) => middleware.Invoke(context, next));
-
 				BootstrapperFactory.CreateBootstrapper().Register(env);
 
 				builder.Run(async (context) => await SimplifyWebOwinMiddleware.Invoke(context));
