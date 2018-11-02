@@ -40,7 +40,6 @@ namespace Simplify.Web.Core.Controllers
 
 				if (matcherResult == null || !matcherResult.Success) continue;
 
-				// TODO check correct user source
 				var securityResult = _agent.IsSecurityRulesViolated(metaData, context.User);
 
 				if (securityResult == SecurityRuleCheckResult.NotAuthenticated)
