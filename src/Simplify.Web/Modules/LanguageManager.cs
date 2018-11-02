@@ -16,7 +16,6 @@ namespace Simplify.Web.Modules
 		/// </summary>
 		public const string CookieLanguageFieldName = "language";
 
-		// TODO check correct interface
 		private readonly IResponseCookies _responseCookies;
 
 		/// <summary>
@@ -28,9 +27,11 @@ namespace Simplify.Web.Modules
 		{
 			_responseCookies = context.Response.Cookies;
 
-			if (!TrySetLanguageFromCookie(context))
-				if (!settings.AcceptBrowserLanguage || (settings.AcceptBrowserLanguage && !TrySetLanguageFromRequestHeader(context)))
-					SetCurrentLanguage(settings.DefaultLanguage);
+			if (TrySetLanguageFromCookie(context))
+				return;
+
+			if (!settings.AcceptBrowserLanguage || (settings.AcceptBrowserLanguage && !TrySetLanguageFromRequestHeader(context)))
+				SetCurrentLanguage(settings.DefaultLanguage);
 		}
 
 		/// <summary>
@@ -80,19 +81,16 @@ namespace Simplify.Web.Modules
 
 		private bool TrySetLanguageFromRequestHeader(HttpContext context)
 		{
-			// TODO
-			//var languages = context.Request.Headers.GetValues("Accept-Language");
+			var languages = context.Request.Headers["Accept-Language"];
 
-			//if (languages != null && languages.Count > 0)
-			//{
-			//	var languageString = languages[0];
+			if (languages.Count == 0)
+				return false;
 
-			//	var items = languageString.Split(';');
+			var languageString = languages[0];
 
-			//	return SetCurrentLanguage(items[0]);
-			//}
+			var items = languageString.Split(';');
 
-			return false;
+			return SetCurrentLanguage(items[0]);
 		}
 	}
 }
