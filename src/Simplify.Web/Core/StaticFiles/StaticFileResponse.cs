@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Simplify.System;
 
 namespace Simplify.Web.Core.StaticFiles
 {
@@ -51,8 +52,8 @@ namespace Simplify.Web.Core.StaticFiles
 			SetModificationHeaders(lastModifiedTime);
 			SetMimeType(fileName);
 
-			// TODO
-			//_response.Expires = new DateTimeOffset(TimeProvider.Current.Now.AddYears(1));
+			_response.Headers["Expires"] = new DateTimeOffset(TimeProvider.Current.Now.AddYears(1)).ToString("R");
+
 			return _responseWriter.WriteAsync(data, _response);
 		}
 
