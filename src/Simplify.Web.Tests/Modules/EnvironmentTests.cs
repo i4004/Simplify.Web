@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Moq;
+using NUnit.Framework;
 using Simplify.Web.Modules;
 using Simplify.Web.Settings;
 
@@ -7,12 +8,19 @@ namespace Simplify.Web.Tests.Modules
 	[TestFixture]
 	public class EnvironmentTests
 	{
-		private SimplifyWebSettings _settings;
+		private ISimplifyWebSettings _settings;
 
 		[SetUp]
 		public void Initialize()
 		{
-			_settings = new SimplifyWebSettings();
+			var settings = new Mock<ISimplifyWebSettings>();
+
+			settings.SetupGet(x => x.DefaultTemplatesPath).Returns("Templates");
+			settings.SetupGet(x => x.DefaultStyle).Returns("Main");
+			settings.SetupGet(x => x.DefaultMasterTemplateFileName).Returns("Master.tpl");
+			settings.SetupGet(x => x.DataPath).Returns("App_Data");
+
+			_settings = settings.Object;
 		}
 
 		[Test]
