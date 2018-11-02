@@ -17,7 +17,6 @@ namespace Simplify.Web.Tests.Modules
 		private Mock<ISimplifyWebSettings> _settings;
 		private Mock<HttpContext> _context;
 
-		// TODO rename
 		private Mock<IResponseCookies> _responseCookies;
 
 		[SetUp]
