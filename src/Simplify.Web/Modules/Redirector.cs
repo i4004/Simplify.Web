@@ -47,8 +47,8 @@ namespace Simplify.Web.Modules
 		/// </value>
 		public string PreviousPageUrl
 		{
-			get { return _context.Request.Cookies[PreviousPageUrlCookieFieldName]; }
-			set { _context.Response.Cookies.Append(PreviousPageUrlCookieFieldName, value); }
+			get => _context.Request.Cookies[PreviousPageUrlCookieFieldName];
+			set => _context.Response.Cookies.Append(PreviousPageUrlCookieFieldName, value);
 		}
 
 		/// <summary>
@@ -59,8 +59,8 @@ namespace Simplify.Web.Modules
 		/// </value>
 		public string RedirectUrl
 		{
-			get { return _context.Request.Cookies[RedirectUrlCookieFieldName]; }
-			set { _context.Response.Cookies.Append(RedirectUrlCookieFieldName, value); }
+			get => _context.Request.Cookies[RedirectUrlCookieFieldName];
+			set => _context.Response.Cookies.Append(RedirectUrlCookieFieldName, value);
 		}
 
 		/// <summary>
@@ -71,8 +71,8 @@ namespace Simplify.Web.Modules
 		/// </value>
 		public string LoginReturnUrl
 		{
-			get { return _context.Request.Cookies[LoginReturnUrlCookieFieldName]; }
-			set { _context.Response.Cookies.Append(LoginReturnUrlCookieFieldName, value); }
+			get => _context.Request.Cookies[LoginReturnUrlCookieFieldName];
+			set => _context.Response.Cookies.Append(LoginReturnUrlCookieFieldName, value);
 		}
 
 		/// <summary>
@@ -83,8 +83,8 @@ namespace Simplify.Web.Modules
 		/// </value>
 		public string PreviousNavigatedUrl
 		{
-			get { return _context.Request.Cookies[PreviousNavigatedUrlCookieFieldName]; }
-			set { _context.Response.Cookies.Append(PreviousNavigatedUrlCookieFieldName, value); }
+			get => _context.Request.Cookies[PreviousNavigatedUrlCookieFieldName];
+			set => _context.Response.Cookies.Append(PreviousNavigatedUrlCookieFieldName, value);
 		}
 
 		/// <summary>
