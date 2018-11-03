@@ -46,7 +46,6 @@ namespace Simplify.Web.Tests.Modules
 			Assert.IsFalse(context.IsAjax);
 		}
 
-		// TODO
 		[Test]
 		public void Constructor_PathWithPort_SetCorrectly()
 		{
