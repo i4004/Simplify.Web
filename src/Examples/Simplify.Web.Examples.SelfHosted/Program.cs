@@ -1,17 +1,17 @@
-﻿using System;
-using Microsoft.Owin.Hosting;
+﻿using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Simplify.Web.Examples.SelfHosted
 {
 	internal class Program
 	{
-		private static void Main()
+		public static void Main(string[] args)
 		{
-			using (WebApp.Start<Startup>("http://localhost:8080"))
-			{
-				Console.WriteLine("Running a http server on port 8080");
-				Console.ReadLine();
-			}
+			CreateWebHostBuilder(args).Build().Run();
 		}
+
+		public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+			WebHost.CreateDefaultBuilder(args)
+				.UseStartup<Startup>();
 	}
 }

@@ -12,6 +12,16 @@
 		"problemMatcher": "$msCompile"
 	},
 	{
+		"label": "Build SelfHosted Example",
+		"command": "dotnet",
+		"type": "process",
+		"args": [
+			"build",
+			"${workspaceFolder}/src/Examples/Simplify.Web.Examples.SelfHosted/Simplify.Web.Examples.SelfHosted.csproj"
+		],
+		"problemMatcher": "$msCompile"
+	},
+	{
 		"label": "Build",
 		"command": "dotnet",
 		"type": "process",

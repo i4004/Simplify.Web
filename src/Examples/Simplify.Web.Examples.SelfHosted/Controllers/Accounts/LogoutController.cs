@@ -1,4 +1,5 @@
-﻿using Simplify.Web.Attributes;
+﻿using Microsoft.AspNetCore.Authentication;
+using Simplify.Web.Attributes;
 using Simplify.Web.Responses;
 
 namespace Simplify.Web.Examples.SelfHosted.Controllers.Accounts
@@ -8,7 +9,7 @@ namespace Simplify.Web.Examples.SelfHosted.Controllers.Accounts
 	{
 		public override ControllerResponse Invoke()
 		{
-			Context.Context.Authentication.SignOut();
+			Context.Context.SignOutAsync().Wait();
 
 			return new Redirect();
 		}

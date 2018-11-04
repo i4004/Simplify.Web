@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
-using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Simplify.Web.Attributes;
 using Simplify.Web.Examples.SelfHosted.Models.Accounts;
 using Simplify.Web.Examples.SelfHosted.Views;
@@ -22,10 +23,9 @@ namespace Simplify.Web.Examples.SelfHosted.Controllers.Accounts
 					new Claim(ClaimTypes.Name, Model.UserName)
 				};
 
-				var id = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+				var id = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-				var authenticationManager = Context.Context.Authentication;
-				authenticationManager.SignIn(id);
+				Context.Context.SignInAsync(new ClaimsPrincipal(id));
 
 				return new Redirect(RedirectionType.LoginReturnUrl);
 			}

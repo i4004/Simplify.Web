@@ -1,0 +1,15 @@
+﻿{
+	"profiles":
+	{
+		"Simplify.Web.Examples.SelfHosted":
+		{
+			"commandName": "Project",
+			"launchBrowser": true,
+			"applicationUrl": "http://localhost:8080;https://localhost:443",
+			"environmentVariables":
+			{
+				"ASPNETCORE_ENVIRONMENT": "Development"
+			}
+		}
+	}
+}
