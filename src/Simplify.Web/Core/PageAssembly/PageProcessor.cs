@@ -36,10 +36,9 @@ namespace Simplify.Web.Core.PageAssembly
 		public Task ProcessPage(IDIContainerProvider containerProvider, HttpContext context)
 		{
 			context.Response.ContentType = "text/html";
+			_redirector.PreviousPageUrl = context.Request.GetEncodedUrl();
 
 			var task = _responseWriter.WriteAsync(_pageBuilder.Build(containerProvider), context.Response);
-
-			_redirector.PreviousPageUrl = context.Request.GetEncodedUrl();
 
 			return task;
 		}
