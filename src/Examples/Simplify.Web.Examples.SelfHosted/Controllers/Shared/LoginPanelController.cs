@@ -10,7 +10,7 @@ namespace Simplify.Web.Examples.SelfHosted.Controllers.Shared
 	{
 		public override async Task<ControllerResponse> Invoke()
 		{
-			return Context.Context.User == null
+			return Context.Context.User == null || !Context.Context.User.Identity.IsAuthenticated
 				? new InlineTpl("LoginPanel", await TemplateFactory.LoadAsync("Shared/LoginPanel/GuestPanel"))
 				: new InlineTpl("LoginPanel", await GetView<LoggedUserPanelView>().Get(Context.Context.User.Identity.Name));
 		}
