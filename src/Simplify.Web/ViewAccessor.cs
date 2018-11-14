@@ -9,7 +9,7 @@ namespace Simplify.Web
 	public abstract class ViewAccessor
 	{
 		internal virtual IViewFactory ViewFactory { get; set; }
-		internal virtual IDIContainerProvider ContainerProvider { get; set; }
+		internal virtual IDIResolver Resolver { get; set; }
 
 		/// <summary>
 		/// Gets view instance
@@ -21,7 +21,7 @@ namespace Simplify.Web
 		{
 			var type = typeof(T);
 
-			return (T)ViewFactory.CreateView(type, ContainerProvider);
+			return (T)ViewFactory.CreateView(type, Resolver);
 		}
 	}
 }

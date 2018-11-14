@@ -10,8 +10,8 @@ namespace Simplify.Web.Core.PageAssembly
 		/// <summary>
 		/// Buids a web page
 		/// </summary>
-		/// <param name="containerProvider">The DI container provider.</param>
+		/// <param name="resolver">The DI container resolver.</param>
 		/// <returns></returns>
-		string Build(IDIContainerProvider containerProvider);
+		string Build(IDIResolver resolver);
 	}
 }

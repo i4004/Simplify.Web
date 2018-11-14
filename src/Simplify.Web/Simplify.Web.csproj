@@ -28,8 +28,8 @@
 		<PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.1.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.1.1" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
-		<PackageReference Include="Simplify.DI" Version="1.2.2" />
-		<PackageReference Include="Simplify.Templates" Version="1.4.0" />
+		<PackageReference Include="Simplify.DI" Version="2.0.1" />
+		<PackageReference Include="Simplify.Templates" Version="1.4.1" />
 		<PackageReference Include="Simplify.String.Sources" Version="1.2.0" PrivateAssets="All" />
 		<PackageReference Include="Simplify.System.Sources" Version="1.0.2" PrivateAssets="All" />
 		<PackageReference Include="Simplify.Xml.Sources" Version="1.0.4" PrivateAssets="All" />
