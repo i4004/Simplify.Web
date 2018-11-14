@@ -59,11 +59,11 @@ namespace Simplify.Web.Owin
 				try
 				{
 					// Starts execution measurement
-					scope.Container.Resolve<IStopwatchProvider>().StartMeasurement();
+					scope.Resolver.Resolve<IStopwatchProvider>().StartMeasurement();
 
 					// Tracing
 
-					var settings = scope.Container.Resolve<ISimplifyWebSettings>();
+					var settings = scope.Resolver.Resolve<ISimplifyWebSettings>();
 
 					if (settings.ConsoleTracing)
 						TraceToConsole(context);
@@ -72,11 +72,11 @@ namespace Simplify.Web.Owin
 
 					// Setup providers
 
-					var webContextProvider = scope.Container.Resolve<IWebContextProvider>();
-					var languageManagerProvider = scope.Container.Resolve<ILanguageManagerProvider>();
-					var templateFactory = scope.Container.Resolve<ITemplateFactory>();
-					var fileReader = scope.Container.Resolve<IFileReader>();
-					var stringTable = scope.Container.Resolve<IStringTable>();
+					var webContextProvider = scope.Resolver.Resolve<IWebContextProvider>();
+					var languageManagerProvider = scope.Resolver.Resolve<ILanguageManagerProvider>();
+					var templateFactory = scope.Resolver.Resolve<ITemplateFactory>();
+					var fileReader = scope.Resolver.Resolve<IFileReader>();
+					var stringTable = scope.Resolver.Resolve<IStringTable>();
 
 					webContextProvider.Setup(context);
 					languageManagerProvider.Setup(context);
@@ -86,8 +86,8 @@ namespace Simplify.Web.Owin
 
 					// Run request process pipeline
 
-					var requestHandler = scope.Container.Resolve<IRequestHandler>();
-					return requestHandler.ProcessRequest(scope.Container, context);
+					var requestHandler = scope.Resolver.Resolve<IRequestHandler>();
+					return requestHandler.ProcessRequest(scope.Resolver, context);
 				}
 				catch (Exception e)
 				{
@@ -101,12 +101,12 @@ namespace Simplify.Web.Owin
 					{
 						return
 							context.Response.WriteAsync(ExceptionInfoPageGenerator.Generate(exception,
-								scope.Container.Resolve<ISimplifyWebSettings>().HideExceptionDetails));
+								scope.Resolver.Resolve<ISimplifyWebSettings>().HideExceptionDetails));
 					}
 
 					return
 						context.Response.WriteAsync(ExceptionInfoPageGenerator.Generate(e,
-							scope.Container.Resolve<ISimplifyWebSettings>().HideExceptionDetails));
+							scope.Resolver.Resolve<ISimplifyWebSettings>().HideExceptionDetails));
 				}
 			}
 		}

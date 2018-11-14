@@ -17,7 +17,7 @@ namespace Simplify.Web.Examples.WindowsService
 				return;
 
 			using (var scope = DIContainer.Current.BeginLifetimeScope())
-				scope.Container.Resolve<WebApplicationStartup>().Run();
+				scope.Resolver.Resolve<WebApplicationStartup>().Run();
 
 			Console.ReadLine();
 		}

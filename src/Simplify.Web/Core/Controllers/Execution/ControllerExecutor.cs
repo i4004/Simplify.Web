@@ -32,19 +32,19 @@ namespace Simplify.Web.Core.Controllers.Execution
 		/// Creates and executes the specified controller.
 		/// </summary>
 		/// <param name="controllerType">Type of the controller.</param>
-		/// <param name="containerProvider">The container provider.</param>
+		/// <param name="resolver">The DI container resolver.</param>
 		/// <param name="context">The context.</param>
 		/// <param name="routeParameters">The route parameters.</param>
 		/// <returns></returns>
-		public ControllerResponseResult Execute(Type controllerType, IDIContainerProvider containerProvider, IOwinContext context,
+		public ControllerResponseResult Execute(Type controllerType, IDIResolver resolver, IOwinContext context,
 			dynamic routeParameters = null)
 		{
-			ControllerBase controller = _controllerFactory.CreateController(controllerType, containerProvider, context, routeParameters);
+			ControllerBase controller = _controllerFactory.CreateController(controllerType, resolver, context, routeParameters);
 
 			var syncController = controller as SyncControllerBase;
 
 			if (syncController != null)
-				return ProcessControllerResponse(syncController.Invoke(), containerProvider);
+				return ProcessControllerResponse(syncController.Invoke(), resolver);
 
 			var asyncController = controller as AsyncControllerBase;
 
@@ -60,23 +60,23 @@ namespace Simplify.Web.Core.Controllers.Execution
 		/// <summary>
 		/// Processes the asynchronous controllers responses.
 		/// </summary>
-		/// <param name="containerProvider">The container provider.</param>
+		/// <param name="resolver">The DI container resolver.</param>
 		/// <returns></returns>
-		public IEnumerable<ControllerResponseResult> ProcessAsyncControllersResponses(IDIContainerProvider containerProvider)
+		public IEnumerable<ControllerResponseResult> ProcessAsyncControllersResponses(IDIResolver resolver)
 		{
 			foreach (var task in _controllersResponses)
 			{
 				task.Wait();
-				yield return ProcessControllerResponse(task.Result, containerProvider);
+				yield return ProcessControllerResponse(task.Result, resolver);
 			}
 		}
 
-		private ControllerResponseResult ProcessControllerResponse(ControllerResponse response, IDIContainerProvider containerProvider)
+		private ControllerResponseResult ProcessControllerResponse(ControllerResponse response, IDIResolver resolver)
 		{
 			if (response == null)
 				return ControllerResponseResult.Default;
 
-			_controllerResponseBuilder.BuildControllerResponseProperties(response, containerProvider);
+			_controllerResponseBuilder.BuildControllerResponseProperties(response, resolver);
 
 			return response.Process();
 		}

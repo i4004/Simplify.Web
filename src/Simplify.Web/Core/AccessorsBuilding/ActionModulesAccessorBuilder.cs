@@ -13,16 +13,16 @@ namespace Simplify.Web.Core.AccessorsBuilding
 		/// Builds the modules accessor properties.
 		/// </summary>
 		/// <param name="modulesAccessor">The modules accessor.</param>
-		/// <param name="containerProvider">The DI container provider.</param>
-		protected void BuildActionModulesAccessorProperties(ActionModulesAccessor modulesAccessor, IDIContainerProvider containerProvider)
+		/// <param name="resolver">The DI container resolver.</param>
+		protected void BuildActionModulesAccessorProperties(ActionModulesAccessor modulesAccessor, IDIResolver resolver)
 		{
-			BuildModulesAccessorProperties(modulesAccessor, containerProvider);
+			BuildModulesAccessorProperties(modulesAccessor, resolver);
 
-			modulesAccessor.Context = containerProvider.Resolve<IWebContextProvider>().Get();
-			modulesAccessor.DataCollector = containerProvider.Resolve<IDataCollector>();
-			modulesAccessor.Redirector = containerProvider.Resolve<IRedirector>();
-			modulesAccessor.LanguageManager = containerProvider.Resolve<ILanguageManagerProvider>().Get();
-			modulesAccessor.FileReader = containerProvider.Resolve<IFileReader>();
+			modulesAccessor.Context = resolver.Resolve<IWebContextProvider>().Get();
+			modulesAccessor.DataCollector = resolver.Resolve<IDataCollector>();
+			modulesAccessor.Redirector = resolver.Resolve<IRedirector>();
+			modulesAccessor.LanguageManager = resolver.Resolve<ILanguageManagerProvider>().Get();
+			modulesAccessor.FileReader = resolver.Resolve<IFileReader>();
 		}
 	}
 }

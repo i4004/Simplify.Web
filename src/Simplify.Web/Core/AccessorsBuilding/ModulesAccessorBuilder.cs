@@ -14,22 +14,22 @@ namespace Simplify.Web.Core.AccessorsBuilding
 		/// Builds the modules accessor properties.
 		/// </summary>
 		/// <param name="modulesAccessor">The modules accessor.</param>
-		/// <param name="containerProvider">The DI container provider.</param>
-		protected void BuildModulesAccessorProperties(ModulesAccessor modulesAccessor, IDIContainerProvider containerProvider)
+		/// <param name="resolver">The DI container resolver.</param>
+		protected void BuildModulesAccessorProperties(ModulesAccessor modulesAccessor, IDIResolver resolver)
 		{
-			BuildViewAccessorProperties(modulesAccessor, containerProvider);
+			BuildViewAccessorProperties(modulesAccessor, resolver);
 
-			modulesAccessor.Environment = containerProvider.Resolve<IEnvironment>();
+			modulesAccessor.Environment = resolver.Resolve<IEnvironment>();
 
-			var stringTable = containerProvider.Resolve<IStringTable>();
+			var stringTable = resolver.Resolve<IStringTable>();
 			modulesAccessor.StringTable = stringTable.Items;
 			modulesAccessor.StringTableManager = stringTable;
 
-			modulesAccessor.TemplateFactory = containerProvider.Resolve<ITemplateFactory>();
+			modulesAccessor.TemplateFactory = resolver.Resolve<ITemplateFactory>();
 
 			var htmlWrapper = new HtmlWrapper
 			{
-				ListsGenerator = containerProvider.Resolve<IListsGenerator>()
+				ListsGenerator = resolver.Resolve<IListsGenerator>()
 			};
 
 			modulesAccessor.Html = htmlWrapper;

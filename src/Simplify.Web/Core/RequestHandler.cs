@@ -28,14 +28,14 @@ namespace Simplify.Web.Core
 		/// <summary>
 		/// Processes the OWIN HTTP request.
 		/// </summary>
-		/// <param name="containerProvider">The DI container provider.</param>
+		/// <param name="resolver">The DI container resolver.</param>
 		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		public Task ProcessRequest(IDIContainerProvider containerProvider, IOwinContext context)
+		public Task ProcessRequest(IDIResolver resolver, IOwinContext context)
 		{
 			return _staticFilesRequestHandler.IsStaticFileRoutePath(context)
 				? _staticFilesRequestHandler.ProcessRequest(context)
-				: _controllersRequestHandler.ProcessRequest(containerProvider, context);
+				: _controllersRequestHandler.ProcessRequest(resolver, context);
 		}
 	}
 }

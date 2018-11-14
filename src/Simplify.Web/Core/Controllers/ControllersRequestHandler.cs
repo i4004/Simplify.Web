@@ -31,17 +31,17 @@ namespace Simplify.Web.Core.Controllers
 		/// <summary>
 		/// Processes the HTTP request for controllers.
 		/// </summary>
-		/// <param name="containerProvider">The DI container provider.</param>
+		/// <param name="resolver">THE DI container resolver</param>
 		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		public Task ProcessRequest(IDIContainerProvider containerProvider, IOwinContext context)
+		public Task ProcessRequest(IDIResolver resolver, IOwinContext context)
 		{
-			var result = _controllersProcessor.ProcessControllers(containerProvider, context);
+			var result = _controllersProcessor.ProcessControllers(resolver, context);
 
 			switch (result)
 			{
 				case ControllersProcessorResult.Ok:
-					return _pageProcessor.ProcessPage(containerProvider, context);
+					return _pageProcessor.ProcessPage(resolver, context);
 
 				case ControllersProcessorResult.Http401:
 					context.Response.StatusCode = 401;
