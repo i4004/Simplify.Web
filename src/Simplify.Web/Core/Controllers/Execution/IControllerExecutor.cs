@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using Simplify.DI;
 
-namespace Simplify.Web.Core.Controllers.Execution {
+namespace Simplify.Web.Core.Controllers.Execution
+{
 	/// <summary>
 	/// Represent controller executor, handles creation and execution of controllers
 	/// </summary>
-	public interface IControllerExecutor {
+	public interface IControllerExecutor
+	{
 		/// <summary>
 		/// Creates and executes the specified controller.
 		/// </summary>
@@ -16,7 +18,7 @@ namespace Simplify.Web.Core.Controllers.Execution {
 		/// <param name="context">The context.</param>
 		/// <param name="routeParameters">The route parameters.</param>
 		/// <returns></returns>
-		ControllerResponseResult Execute (Type controllerType, IDIResolver resolver, IOwinContext context,
+		ControllerResponseResult Execute(Type controllerType, IDIResolver resolver, HttpContext context,
 			dynamic routeParameters = null);
 
 		/// <summary>
@@ -24,6 +26,6 @@ namespace Simplify.Web.Core.Controllers.Execution {
 		/// </summary>
 		/// <param name="resolver">The DI container resolver.</param>
 		/// <returns></returns>
-		IEnumerable<ControllerResponseResult> ProcessAsyncControllersResponses (IDIResolver resolver);
+		IEnumerable<ControllerResponseResult> ProcessAsyncControllersResponses(IDIResolver resolver);
 	}
 }

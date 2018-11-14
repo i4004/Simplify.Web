@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Http;
 using Simplify.DI;
 using Simplify.Web.Core.AccessorsBuilding;
 
-namespace Simplify.Web.Core.Controllers.Execution.Building {
+namespace Simplify.Web.Core.Controllers.Execution.Building
+{
 	/// <summary>
 	/// Controller factory
 	/// </summary>
-	public class ControllerFactory : ActionModulesAccessorBuilder, IControllerFactory {
+	public class ControllerFactory : ActionModulesAccessorBuilder, IControllerFactory
+	{
 		/// <summary>
 		/// Creates the controller.
 		/// </summary>
@@ -16,11 +18,12 @@ namespace Simplify.Web.Core.Controllers.Execution.Building {
 		/// <param name="context">The context.</param>
 		/// <param name="routeParameters">The route parameters.</param>
 		/// <returns></returns>
-		public ControllerBase CreateController (Type controllerType, IDIResolver resolver, IOwinContext context,
-			dynamic routeParameters = null) {
-			var controller = (ControllerBase) resolver.Resolve (controllerType);
+		public ControllerBase CreateController(Type controllerType, IDIResolver resolver, HttpContext context,
+			dynamic routeParameters = null)
+		{
+			var controller = (ControllerBase)resolver.Resolve(controllerType);
 
-			BuildActionModulesAccessorProperties (controller, resolver);
+			BuildActionModulesAccessorProperties(controller, resolver);
 
 			controller.RouteParameters = routeParameters;
 

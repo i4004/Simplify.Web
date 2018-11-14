@@ -5,22 +5,25 @@ using Microsoft.AspNetCore.Http;
 using Simplify.DI;
 using Simplify.Web.Core.Controllers.Execution.Building;
 
-namespace Simplify.Web.Core.Controllers.Execution {
+namespace Simplify.Web.Core.Controllers.Execution
+{
 	/// <summary>
 	/// Provides controller executor, handles creation and execution of controllers
 	/// </summary>
-	public class ControllerExecutor : IControllerExecutor {
+	public class ControllerExecutor : IControllerExecutor
+	{
 		private readonly IControllerFactory _controllerFactory;
 		private readonly IControllerResponseBuilder _controllerResponseBuilder;
 
-		private readonly IList<Task<ControllerResponse>> _controllersResponses = new List<Task<ControllerResponse>> ();
+		private readonly IList<Task<ControllerResponse>> _controllersResponses = new List<Task<ControllerResponse>>();
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ControllerExecutor"/> class.
 		/// </summary>
 		/// <param name="controllerFactory">The controller factory.</param>
 		/// <param name="controllerResponseBuilder">The controller response builder.</param>
-		public ControllerExecutor (IControllerFactory controllerFactory, IControllerResponseBuilder controllerResponseBuilder) {
+		public ControllerExecutor(IControllerFactory controllerFactory, IControllerResponseBuilder controllerResponseBuilder)
+		{
 			_controllerFactory = controllerFactory;
 			_controllerResponseBuilder = controllerResponseBuilder;
 		}
@@ -33,20 +36,22 @@ namespace Simplify.Web.Core.Controllers.Execution {
 		/// <param name="context">The context.</param>
 		/// <param name="routeParameters">The route parameters.</param>
 		/// <returns></returns>
-		public ControllerResponseResult Execute (Type controllerType, IDIResolver resolver, IOwinContext context,
-			dynamic routeParameters = null) {
-			ControllerBase controller = _controllerFactory.CreateController (controllerType, resolver, context, routeParameters);
+		public ControllerResponseResult Execute(Type controllerType, IDIResolver resolver, HttpContext context,
+			dynamic routeParameters = null)
+		{
+			ControllerBase controller = _controllerFactory.CreateController(controllerType, resolver, context, routeParameters);
 
 			var syncController = controller as SyncControllerBase;
 
 			if (syncController != null)
-				return ProcessControllerResponse (syncController.Invoke (), resolver);
+				return ProcessControllerResponse(syncController.Invoke(), resolver);
 
 			var asyncController = controller as AsyncControllerBase;
 
-			if (asyncController != null) {
-				var task = asyncController.Invoke ();
-				_controllersResponses.Add (task);
+			if (asyncController != null)
+			{
+				var task = asyncController.Invoke();
+				_controllersResponses.Add(task);
 			}
 
 			return ControllerResponseResult.Default;
@@ -57,20 +62,23 @@ namespace Simplify.Web.Core.Controllers.Execution {
 		/// </summary>
 		/// <param name="resolver">The DI container resolver.</param>
 		/// <returns></returns>
-		public IEnumerable<ControllerResponseResult> ProcessAsyncControllersResponses (IDIResolver resolver) {
-			foreach (var task in _controllersResponses) {
-				task.Wait ();
-				yield return ProcessControllerResponse (task.Result, resolver);
+		public IEnumerable<ControllerResponseResult> ProcessAsyncControllersResponses(IDIResolver resolver)
+		{
+			foreach (var task in _controllersResponses)
+			{
+				task.Wait();
+				yield return ProcessControllerResponse(task.Result, resolver);
 			}
 		}
 
-		private ControllerResponseResult ProcessControllerResponse (ControllerResponse response, IDIResolver resolver) {
+		private ControllerResponseResult ProcessControllerResponse(ControllerResponse response, IDIResolver resolver)
+		{
 			if (response == null)
 				return ControllerResponseResult.Default;
 
-			_controllerResponseBuilder.BuildControllerResponseProperties (response, resolver);
+			_controllerResponseBuilder.BuildControllerResponseProperties(response, resolver);
 
-			return response.Process ();
+			return response.Process();
 		}
 	}
 }

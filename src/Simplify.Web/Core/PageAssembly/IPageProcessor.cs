@@ -2,16 +2,18 @@
 using Microsoft.AspNetCore.Http;
 using Simplify.DI;
 
-namespace Simplify.Web.Core.PageAssembly {
+namespace Simplify.Web.Core.PageAssembly
+{
 	/// <summary>
 	/// Represent web-page processor
 	/// </summary>
-	public interface IPageProcessor {
+	public interface IPageProcessor
+	{
 		/// <summary>
 		/// Processes (build web-page and send to client, process current page state) the current web-page
 		/// </summary>
 		/// <param name="resolver">The DI container resolver.</param>
 		/// <param name="context">The context.</param>
-		Task ProcessPage (IDIResolver resolver, IOwinContext context);
+		Task ProcessPage(IDIResolver resolver, HttpContext context);
 	}
 }
