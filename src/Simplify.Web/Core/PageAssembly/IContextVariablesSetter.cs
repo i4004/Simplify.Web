@@ -10,7 +10,7 @@ namespace Simplify.Web.Core.PageAssembly
 		/// <summary>
 		/// Sets the context variables to data collector
 		/// </summary>
-		/// <param name="containerProvider">The DI container provider.</param>
-		void SetVariables(IDIContainerProvider containerProvider);
+		/// <param name="resolver">The DI container resolver.</param>
+		void SetVariables(IDIResolver resolver);
 	}
 }

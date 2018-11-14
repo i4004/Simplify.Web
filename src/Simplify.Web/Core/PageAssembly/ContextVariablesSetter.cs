@@ -77,13 +77,13 @@ namespace Simplify.Web.Core.PageAssembly
 		/// <summary>
 		/// Sets the context variables to data collector
 		/// </summary>
-		/// <param name="containerProvider">The DI container provider.</param>
-		public void SetVariables(IDIContainerProvider containerProvider)
+		/// <param name="resolver">The DI container resolver.</param>
+		public void SetVariables(IDIResolver resolver)
 		{
-			var environment = containerProvider.Resolve<IEnvironment>();
-			var languageManager = containerProvider.Resolve<ILanguageManagerProvider>().Get();
-			var context = containerProvider.Resolve<IWebContextProvider>().Get();
-			var stopWatchProvider = containerProvider.Resolve<IStopwatchProvider>();
+			var environment = resolver.Resolve<IEnvironment>();
+			var languageManager = resolver.Resolve<ILanguageManagerProvider>().Get();
+			var context = resolver.Resolve<IWebContextProvider>().Get();
+			var stopWatchProvider = resolver.Resolve<IStopwatchProvider>();
 
 			_dataCollector.Add(VariableNameTemplatesPath, environment.TemplatesPath);
 			_dataCollector.Add(VariableNameSiteStyle, environment.SiteStyle);
@@ -107,7 +107,7 @@ namespace Simplify.Web.Core.PageAssembly
 			_dataCollector.Add(VariableNameSiteVirtualPath, context.VirtualPath);
 
 			if (!_disableAutomaticSiteTitleSet)
-				SetSiteTitleFromStringTable(context.Request.Path.Value, containerProvider.Resolve<IStringTable>());
+				SetSiteTitleFromStringTable(context.Request.Path.Value, resolver.Resolve<IStringTable>());
 
 			_dataCollector.Add(VariableNameExecutionTime, stopWatchProvider.StopAndGetMeasurement().ToString("mm\\:ss\\:fff"));
 		}

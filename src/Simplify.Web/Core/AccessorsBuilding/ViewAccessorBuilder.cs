@@ -12,11 +12,11 @@ namespace Simplify.Web.Core.AccessorsBuilding
 		/// Builds the view accessor properties.
 		/// </summary>
 		/// <param name="viewAccessor">The view accessor.</param>
-		/// <param name="containerProvider">The DI container provider.</param>
-		protected void BuildViewAccessorProperties(ViewAccessor viewAccessor, IDIContainerProvider containerProvider)
+		/// <param name="resolver">The DI container resolver.</param>
+		protected void BuildViewAccessorProperties(ViewAccessor viewAccessor, IDIResolver resolver)
 		{
-			viewAccessor.ContainerProvider = containerProvider;
-			viewAccessor.ViewFactory = containerProvider.Resolve<IViewFactory>();
+			viewAccessor.Resolver = resolver;
+			viewAccessor.ViewFactory = resolver.Resolve<IViewFactory>();
 		}
 	}
 }

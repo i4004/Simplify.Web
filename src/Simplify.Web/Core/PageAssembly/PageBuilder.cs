@@ -26,14 +26,14 @@ namespace Simplify.Web.Core.PageAssembly
 		/// <summary>
 		/// Buids a web page
 		/// </summary>
-		/// <param name="containerProvider">The DI container provider.</param>
+		/// <param name="resolver">The DI container resolver.</param>
 		/// <returns></returns>
-		public string Build(IDIContainerProvider containerProvider)
+		public string Build(IDIResolver resolver)
 		{
-			containerProvider.Resolve<IStringTableItemsSetter>().Set();
-			containerProvider.Resolve<IContextVariablesSetter>().SetVariables(containerProvider);
+			resolver.Resolve<IStringTableItemsSetter>().Set();
+			resolver.Resolve<IContextVariablesSetter>().SetVariables(resolver);
 
-			var tpl = _templateFactory.Load(containerProvider.Resolve<IEnvironment>().MasterTemplateFileName);
+			var tpl = _templateFactory.Load(resolver.Resolve<IEnvironment>().MasterTemplateFileName);
 
 			foreach (var item in _dataCollector.Items.Keys)
 				tpl.Set(item, _dataCollector.Items[item]);

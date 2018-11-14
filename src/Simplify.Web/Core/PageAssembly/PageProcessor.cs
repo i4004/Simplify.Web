@@ -30,13 +30,13 @@ namespace Simplify.Web.Core.PageAssembly
 		/// <summary>
 		/// Processes (build web-page and send to client, process current page state) the current web-page
 		/// </summary>
-		/// <param name="containerProvider">The DI container provider.</param>
+		/// <param name="resolver">The DI container resolver.</param>
 		/// <param name="context">The context.</param>
-		public Task ProcessPage(IDIContainerProvider containerProvider, IOwinContext context)
+		public Task ProcessPage(IDIResolver resolver, IOwinContext context)
 		{
 			context.Response.ContentType = "text/html";
 
-			var task = _responseWriter.WriteAsync(_pageBuilder.Build(containerProvider), context.Response);
+			var task = _responseWriter.WriteAsync(_pageBuilder.Build(resolver), context.Response);
 
 			_redirector.PreviousPageUrl = context.Request.Uri.AbsoluteUri;
 

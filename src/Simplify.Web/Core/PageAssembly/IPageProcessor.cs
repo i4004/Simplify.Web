@@ -12,8 +12,8 @@ namespace Simplify.Web.Core.PageAssembly
 		/// <summary>
 		/// Processes (build web-page and send to client, process current page state) the current web-page
 		/// </summary>
-		/// <param name="containerProvider">The DI container provider.</param>
+		/// <param name="resolver">The DI container resolver.</param>
 		/// <param name="context">The context.</param>
-		Task ProcessPage(IDIContainerProvider containerProvider, IOwinContext context);
+		Task ProcessPage(IDIResolver resolver, IOwinContext context);
 	}
 }

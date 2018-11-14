@@ -12,12 +12,12 @@ namespace Simplify.Web.Core.Controllers.Execution
 		/// Builds the controller response properties.
 		/// </summary>
 		/// <param name="controllerResponse">The controller response.</param>
-		/// <param name="containerProvider">The DI container provider.</param>
-		public void BuildControllerResponseProperties(ControllerResponse controllerResponse, IDIContainerProvider containerProvider)
+		/// <param name="resolver">The DI container resolver.</param>
+		public void BuildControllerResponseProperties(ControllerResponse controllerResponse, IDIResolver resolver)
 		{
-			BuildActionModulesAccessorProperties(controllerResponse, containerProvider);
+			BuildActionModulesAccessorProperties(controllerResponse, resolver);
 
-			controllerResponse.ResponseWriter = containerProvider.Resolve<IResponseWriter>();
+			controllerResponse.ResponseWriter = resolver.Resolve<IResponseWriter>();
 		}
 	}
 }

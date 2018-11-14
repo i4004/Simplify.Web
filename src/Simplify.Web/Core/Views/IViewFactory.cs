@@ -12,8 +12,8 @@ namespace Simplify.Web.Core.Views
 		/// Creates the view.
 		/// </summary>
 		/// <param name="viewType">Type of the view.</param>
-		/// <param name="containerProvider">The DI container provider.</param>
+		/// <param name="resolver">The DI container resolver.</param>
 		/// <returns></returns>
-		View CreateView(Type viewType, IDIContainerProvider containerProvider);
+		View CreateView(Type viewType, IDIResolver resolver);
 	}
 }

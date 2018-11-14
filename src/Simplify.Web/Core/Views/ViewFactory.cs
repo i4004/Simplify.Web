@@ -14,16 +14,16 @@ namespace Simplify.Web.Core.Views
 		/// Creates the view.
 		/// </summary>
 		/// <param name="viewType">Type of the view.</param>
-		/// <param name="containerProvider">The DI container provider.</param>
+		/// <param name="resolver"></param>
 		/// <returns></returns>
-		public View CreateView(Type viewType, IDIContainerProvider containerProvider)
+		public View CreateView(Type viewType, IDIResolver resolver)
 		{
-			var view = (View)containerProvider.Resolve(viewType);
+			var view = (View)resolver.Resolve(viewType);
 
-			BuildModulesAccessorProperties(view, containerProvider);
+			BuildModulesAccessorProperties(view, resolver);
 
-			view.Language = containerProvider.Resolve<ILanguageManagerProvider>().Get().Language;
-			view.SiteUrl = containerProvider.Resolve<IWebContextProvider>().Get().SiteUrl;
+			view.Language = resolver.Resolve<ILanguageManagerProvider>().Get().Language;
+			view.SiteUrl = resolver.Resolve<IWebContextProvider>().Get().SiteUrl;
 
 			return view;
 		}

@@ -27,10 +27,10 @@ namespace Simplify.Web.Core.Controllers
 		/// <summary>
 		/// Process controllers for current HTTP request
 		/// </summary>
-		/// <param name="containerProvider">The DI container provider.</param>
+		/// <param name="resolver">The DI container resolver.</param>
 		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		public ControllersProcessorResult ProcessControllers(IDIContainerProvider containerProvider, IOwinContext context)
+		public ControllersProcessorResult ProcessControllers(IDIResolver resolver, IOwinContext context)
 		{
 			var atleastOneNonAnyPageControllerMatched = false;
 
@@ -46,9 +46,9 @@ namespace Simplify.Web.Core.Controllers
 					return ControllersProcessorResult.Http401;
 
 				if (securityResult == SecurityRuleCheckResult.Forbidden)
-					return ProcessForbiddenSecurityRule(containerProvider, context);
+					return ProcessForbiddenSecurityRule(resolver, context);
 
-				var result = ProcessController(metaData.ControllerType, containerProvider, context, matcherResult.RouteParameters);
+				var result = ProcessController(metaData.ControllerType, resolver, context, matcherResult.RouteParameters);
 
 				if (result != ControllersProcessorResult.Ok)
 					return result;
@@ -59,17 +59,17 @@ namespace Simplify.Web.Core.Controllers
 
 			if (!atleastOneNonAnyPageControllerMatched)
 			{
-				var result = ProcessOnlyAnyPageControllersMatched(containerProvider, context);
+				var result = ProcessOnlyAnyPageControllersMatched(resolver, context);
 				if (result != ControllersProcessorResult.Ok)
 					return result;
 			}
 
-			return ProcessAsyncControllersResponses(containerProvider);
+			return ProcessAsyncControllersResponses(resolver);
 		}
 
-		private ControllersProcessorResult ProcessController(Type controllerType, IDIContainerProvider containerProvider, IOwinContext context, dynamic routeParameters)
+		private ControllersProcessorResult ProcessController(Type controllerType, IDIResolver resolver, IOwinContext context, dynamic routeParameters)
 		{
-			var result = _controllerExecutor.Execute(controllerType, containerProvider, context, routeParameters);
+			var result = _controllerExecutor.Execute(controllerType, resolver, context, routeParameters);
 
 			if (result == ControllerResponseResult.RawOutput)
 				return ControllersProcessorResult.RawOutput;
@@ -80,14 +80,14 @@ namespace Simplify.Web.Core.Controllers
 			return ControllersProcessorResult.Ok;
 		}
 
-		private ControllersProcessorResult ProcessOnlyAnyPageControllersMatched(IDIContainerProvider containerProvider, IOwinContext context)
+		private ControllersProcessorResult ProcessOnlyAnyPageControllersMatched(IDIResolver resolver, IOwinContext context)
 		{
 			var http404Controller = _agent.GetHandlerController(HandlerControllerType.Http404Handler);
 
 			if (http404Controller == null)
 				return ControllersProcessorResult.Http404;
 
-			var handlerControllerResult = _controllerExecutor.Execute(http404Controller.ControllerType, containerProvider, context);
+			var handlerControllerResult = _controllerExecutor.Execute(http404Controller.ControllerType, resolver, context);
 
 			if (handlerControllerResult == ControllerResponseResult.RawOutput)
 				return ControllersProcessorResult.RawOutput;
@@ -98,9 +98,9 @@ namespace Simplify.Web.Core.Controllers
 			return ControllersProcessorResult.Ok;
 		}
 
-		private ControllersProcessorResult ProcessAsyncControllersResponses(IDIContainerProvider containerProvider)
+		private ControllersProcessorResult ProcessAsyncControllersResponses(IDIResolver resolver)
 		{
-			foreach (var controllerResponseResult in _controllerExecutor.ProcessAsyncControllersResponses(containerProvider))
+			foreach (var controllerResponseResult in _controllerExecutor.ProcessAsyncControllersResponses(resolver))
 			{
 				if (controllerResponseResult == ControllerResponseResult.RawOutput)
 					return ControllersProcessorResult.RawOutput;
@@ -112,14 +112,14 @@ namespace Simplify.Web.Core.Controllers
 			return ControllersProcessorResult.Ok;
 		}
 
-		private ControllersProcessorResult ProcessForbiddenSecurityRule(IDIContainerProvider containerProvider, IOwinContext context)
+		private ControllersProcessorResult ProcessForbiddenSecurityRule(IDIResolver resolver, IOwinContext context)
 		{
 			var http403Controller = _agent.GetHandlerController(HandlerControllerType.Http403Handler);
 
 			if (http403Controller == null)
 				return ControllersProcessorResult.Http403;
 
-			var handlerControllerResult = _controllerExecutor.Execute(http403Controller.ControllerType, containerProvider, context);
+			var handlerControllerResult = _controllerExecutor.Execute(http403Controller.ControllerType, resolver, context);
 
 			if (handlerControllerResult == ControllerResponseResult.RawOutput)
 				return ControllersProcessorResult.RawOutput;
