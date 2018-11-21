@@ -1,5 +1,4 @@
 ﻿using Simplify.Web.Attributes;
-using Simplify.Web.Responses;
 
 namespace Simplify.Web.Examples.Kestrel.Controllers
 {
@@ -8,7 +7,7 @@ namespace Simplify.Web.Examples.Kestrel.Controllers
 	{
 		public override ControllerResponse Invoke()
 		{
-			return new Tpl("Hello world!!!");
+			return Tpl("Hello world!!!");
 		}
 	}
 }
