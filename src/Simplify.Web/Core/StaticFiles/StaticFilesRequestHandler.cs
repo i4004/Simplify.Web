@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
 
 namespace Simplify.Web.Core.StaticFiles
 {
@@ -27,7 +27,7 @@ namespace Simplify.Web.Core.StaticFiles
 		/// </summary>
 		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		public bool IsStaticFileRoutePath(IOwinContext context)
+		public bool IsStaticFileRoutePath(HttpContext context)
 		{
 			return _fileHandler.IsStaticFileRoutePath(_fileHandler.GetRelativeFilePath(context.Request));
 		}
@@ -37,13 +37,13 @@ namespace Simplify.Web.Core.StaticFiles
 		/// </summary>
 		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		public Task ProcessRequest(IOwinContext context)
+		public Task ProcessRequest(HttpContext context)
 		{
 			var relativeFilePath = _fileHandler.GetRelativeFilePath(context.Request);
 			var lastModificationTime = _fileHandler.GetFileLastModificationTime(relativeFilePath);
 			var response = _responseFactory.Create(context.Response);
 
-			return _fileHandler.IsFileCanBeUsedFromCache(context.Request.CacheControl,
+			return _fileHandler.IsFileCanBeUsedFromCache(context.Request.Headers["Cache-Control"],
 				_fileHandler.GetIfModifiedSinceTime(context.Request.Headers), lastModificationTime)
 				? response.SendNotModified(lastModificationTime, relativeFilePath)
 				: response.SendNew(_fileHandler.GetFileData(relativeFilePath), lastModificationTime, relativeFilePath);

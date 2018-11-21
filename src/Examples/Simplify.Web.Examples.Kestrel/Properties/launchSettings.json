@@ -1,0 +1,33 @@
+﻿{
+	"iisSettings":
+	{
+		"windowsAuthentication": false,
+		"anonymousAuthentication": true,
+		"iisExpress":
+		{
+			"applicationUrl": "http://localhost:8080"
+		}
+	},
+	"profiles":
+	{
+		"IIS Express":
+		{
+			"commandName": "IISExpress",
+			"launchBrowser": true,
+			"environmentVariables":
+			{
+				"ASPNETCORE_ENVIRONMENT": "Development"
+			}
+		},
+		"Simplify.Web.Examples.Kestrel":
+		{
+			"commandName": "Project",
+			"launchBrowser": true,
+			"applicationUrl": "http://localhost:8080;https://localhost:8443",
+			"environmentVariables":
+			{
+				"ASPNETCORE_ENVIRONMENT": "Development"
+			}
+		}
+	}
+}

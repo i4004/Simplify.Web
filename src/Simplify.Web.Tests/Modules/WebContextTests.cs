@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Owin;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
 using Moq;
 using NUnit.Framework;
 using Simplify.Web.Modules;
@@ -10,20 +10,22 @@ namespace Simplify.Web.Tests.Modules
 	[TestFixture]
 	public class WebContextTests
 	{
-		private Mock<IOwinContext> _owinContext;
+		private Mock<HttpContext> _owinContext;
 
 		[SetUp]
 		public void Initialize()
 		{
-			_owinContext = new Mock<IOwinContext>();
+			_owinContext = new Mock<HttpContext>();
 
-			_owinContext.SetupGet(x => x.Response).Returns(new Mock<IOwinResponse>().Object);
+			_owinContext.SetupGet(x => x.Response).Returns(new Mock<HttpResponse>().Object);
 			_owinContext.SetupGet(x => x.Request.PathBase).Returns(new PathString("/mywebsite"));
 			_owinContext.SetupGet(x => x.Request.Path).Returns(new PathString("/"));
-			_owinContext.SetupGet(x => x.Request.Uri).Returns(new Uri("http://localhost/mywebsite/"));
-			_owinContext.SetupGet(x => x.Request.Query).Returns(new ReadableStringCollection(new Dictionary<string, string[]>()));
+			_owinContext.SetupGet(x => x.Request.Scheme).Returns("http");
+			_owinContext.SetupGet(x => x.Request.Host).Returns(new HostString("localhost"));
+			_owinContext.SetupGet(x => x.Request.Query).Returns(new Mock<IQueryCollection>().Object);
+
 			_owinContext.SetupGet(x => x.Request.Headers)
-				.Returns(new HeaderDictionary(new Dictionary<string, string[]>()));
+				.Returns(new HeaderDictionary(new Dictionary<string, StringValues>()));
 		}
 
 		[Test]
@@ -49,8 +51,10 @@ namespace Simplify.Web.Tests.Modules
 		{
 			// Assign
 
-			_owinContext.SetupGet(x => x.Request.Uri).Returns(new Uri("http://localhost:8080"));
 			_owinContext.SetupGet(x => x.Request.PathBase).Returns(new PathString(""));
+			_owinContext.SetupGet(x => x.Request.Path).Returns(new PathString("/"));
+			_owinContext.SetupGet(x => x.Request.Scheme).Returns("http");
+			_owinContext.SetupGet(x => x.Request.Host).Returns(new HostString("localhost", 8080));
 
 			// Act
 			var context = new WebContext(_owinContext.Object);
@@ -66,8 +70,10 @@ namespace Simplify.Web.Tests.Modules
 		{
 			// Assign
 
-			_owinContext.SetupGet(x => x.Request.Uri).Returns(new Uri("http://localhost:8080?act=test"));
 			_owinContext.SetupGet(x => x.Request.PathBase).Returns(new PathString(""));
+			_owinContext.SetupGet(x => x.Request.Path).Returns(new PathString("/?act=test"));
+			_owinContext.SetupGet(x => x.Request.Scheme).Returns("http");
+			_owinContext.SetupGet(x => x.Request.Host).Returns(new HostString("localhost", 8080));
 
 			// Act
 			var context = new WebContext(_owinContext.Object);
@@ -82,7 +88,11 @@ namespace Simplify.Web.Tests.Modules
 		public void Constructor_VirtualPathWithPort_SetCorrectly()
 		{
 			// Assign
-			_owinContext.SetupGet(x => x.Request.Uri).Returns(new Uri("http://localhost:8080/mywebsite/"));
+
+			_owinContext.SetupGet(x => x.Request.PathBase).Returns(new PathString("/mywebsite"));
+			_owinContext.SetupGet(x => x.Request.Path).Returns(new PathString("/"));
+			_owinContext.SetupGet(x => x.Request.Scheme).Returns("http");
+			_owinContext.SetupGet(x => x.Request.Host).Returns(new HostString("localhost", 8080));
 
 			// Act
 			var context = new WebContext(_owinContext.Object);
@@ -112,7 +122,9 @@ namespace Simplify.Web.Tests.Modules
 			// Assign
 
 			_owinContext.SetupGet(x => x.Request.PathBase).Returns(new PathString("/mywebsite"));
-			_owinContext.SetupGet(x => x.Request.Uri).Returns(new Uri("http://localhost/mywebsite/test?act=foo"));
+			_owinContext.SetupGet(x => x.Request.Path).Returns(new PathString("/test?act=foo"));
+			_owinContext.SetupGet(x => x.Request.Scheme).Returns("http");
+			_owinContext.SetupGet(x => x.Request.Host).Returns(new HostString("localhost"));
 
 			// Act
 			var context = new WebContext(_owinContext.Object);
@@ -128,7 +140,9 @@ namespace Simplify.Web.Tests.Modules
 			// Assign
 
 			_owinContext.SetupGet(x => x.Request.PathBase).Returns(new PathString(""));
-			_owinContext.SetupGet(x => x.Request.Uri).Returns(new Uri("http://mywebsite.com"));
+			_owinContext.SetupGet(x => x.Request.Path).Returns(new PathString("/"));
+			_owinContext.SetupGet(x => x.Request.Scheme).Returns("http");
+			_owinContext.SetupGet(x => x.Request.Host).Returns(new HostString("mywebsite.com"));
 
 			// Act
 			var context = new WebContext(_owinContext.Object);
@@ -144,7 +158,9 @@ namespace Simplify.Web.Tests.Modules
 			// Assign
 
 			_owinContext.SetupGet(x => x.Request.PathBase).Returns(new PathString(""));
-			_owinContext.SetupGet(x => x.Request.Uri).Returns(new Uri("http://mywebsite.com/test/?act=foo"));
+			_owinContext.SetupGet(x => x.Request.Path).Returns(new PathString("/test/?act=foo"));
+			_owinContext.SetupGet(x => x.Request.Scheme).Returns("http");
+			_owinContext.SetupGet(x => x.Request.Host).Returns(new HostString("mywebsite.com"));
 
 			// Act
 			var context = new WebContext(_owinContext.Object);
@@ -159,7 +175,7 @@ namespace Simplify.Web.Tests.Modules
 		{
 			// Assign
 			_owinContext.SetupGet(x => x.Request.Headers)
-				.Returns(new HeaderDictionary(new Dictionary<string, string[]> { { "X-Requested-With", new[] { "test" } } }));
+				.Returns(new HeaderDictionary(new Dictionary<string, StringValues> { { "X-Requested-With", new[] { "test" } } }));
 
 			// Act
 			var context = new WebContext(_owinContext.Object);

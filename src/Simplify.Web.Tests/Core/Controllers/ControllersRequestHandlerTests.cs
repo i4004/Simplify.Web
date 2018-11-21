@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
 using Moq;
 using NUnit.Framework;
 using Simplify.DI;
@@ -16,7 +16,7 @@ namespace Simplify.Web.Tests.Core.Controllers
 		private Mock<IPageProcessor> _pageProcessor;
 		private Mock<IRedirector> _redirector;
 		private ControllersRequestHandler _requestHandler;
-		private Mock<IOwinContext> _context;
+		private Mock<HttpContext> _context;
 
 		[SetUp]
 		public void Initialize()
@@ -26,7 +26,7 @@ namespace Simplify.Web.Tests.Core.Controllers
 			_redirector = new Mock<IRedirector>();
 			_requestHandler = new ControllersRequestHandler(_controllersProcessor.Object, _pageProcessor.Object, _redirector.Object);
 
-			_context = new Mock<IOwinContext>();
+			_context = new Mock<HttpContext>();
 			_context.SetupGet(x => x.Response.StatusCode);
 		}
 
@@ -36,29 +36,29 @@ namespace Simplify.Web.Tests.Core.Controllers
 			// Assign
 			var task = Task.Delay(0);
 
-			_controllersProcessor.Setup(x => x.ProcessControllers(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(ControllersProcessorResult.Ok);
-			_pageProcessor.Setup(x => x.ProcessPage(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(task);
+			_controllersProcessor.Setup(x => x.ProcessControllers(It.IsAny<IDIContainerProvider>(), It.IsAny<HttpContext>())).Returns(ControllersProcessorResult.Ok);
+			_pageProcessor.Setup(x => x.ProcessPage(It.IsAny<IDIContainerProvider>(), It.IsAny<HttpContext>())).Returns(task);
 
 			// Act
 			var result = _requestHandler.ProcessRequest(null, _context.Object);
 
 			// Assert
 			Assert.AreEqual(task, result);
-			_pageProcessor.Verify(x => x.ProcessPage(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>()));
+			_pageProcessor.Verify(x => x.ProcessPage(It.IsAny<IDIContainerProvider>(), It.IsAny<HttpContext>()));
 		}
 
 		[Test]
 		public void ProcessRequest_RawOutput_NoPageBuildsWithOutput()
 		{
 			// Assign
-			_controllersProcessor.Setup(x => x.ProcessControllers(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(ControllersProcessorResult.RawOutput);
+			_controllersProcessor.Setup(x => x.ProcessControllers(It.IsAny<IDIContainerProvider>(), It.IsAny<HttpContext>())).Returns(ControllersProcessorResult.RawOutput);
 
 			// Act
 			_requestHandler.ProcessRequest(null, _context.Object);
 
 			// Assert
 
-			_pageProcessor.Verify(x => x.ProcessPage(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>()), Times.Never);
+			_pageProcessor.Verify(x => x.ProcessPage(It.IsAny<IDIContainerProvider>(), It.IsAny<HttpContext>()), Times.Never);
 			_context.VerifySet(x => x.Response.StatusCode = It.IsAny<int>(), Times.Never);
 		}
 
@@ -66,7 +66,7 @@ namespace Simplify.Web.Tests.Core.Controllers
 		public void ProcessRequest_Http401_401StatusCodeSetNoPageBuiltWithOutput()
 		{
 			// Assign
-			_controllersProcessor.Setup(x => x.ProcessControllers(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(ControllersProcessorResult.Http401);
+			_controllersProcessor.Setup(x => x.ProcessControllers(It.IsAny<IDIContainerProvider>(), It.IsAny<HttpContext>())).Returns(ControllersProcessorResult.Http401);
 
 			// Act
 			_requestHandler.ProcessRequest(null, _context.Object);
@@ -81,7 +81,7 @@ namespace Simplify.Web.Tests.Core.Controllers
 		public void ProcessRequest_Http403_403StatusCodeSetNoPageBuiltWithOutput()
 		{
 			// Assign
-			_controllersProcessor.Setup(x => x.ProcessControllers(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(ControllersProcessorResult.Http403);
+			_controllersProcessor.Setup(x => x.ProcessControllers(It.IsAny<IDIContainerProvider>(), It.IsAny<HttpContext>())).Returns(ControllersProcessorResult.Http403);
 
 			// Act
 			_requestHandler.ProcessRequest(null, _context.Object);
@@ -94,14 +94,14 @@ namespace Simplify.Web.Tests.Core.Controllers
 		public void ProcessRequest_Http404_404StatusCodeSetNoPageBuiltWithOutput()
 		{
 			// Assign
-			_controllersProcessor.Setup(x => x.ProcessControllers(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>())).Returns(ControllersProcessorResult.Http404);
+			_controllersProcessor.Setup(x => x.ProcessControllers(It.IsAny<IDIContainerProvider>(), It.IsAny<HttpContext>())).Returns(ControllersProcessorResult.Http404);
 
 			// Act
 			_requestHandler.ProcessRequest(null, _context.Object);
 
 			// Assert
 
-			_pageProcessor.Verify(x => x.ProcessPage(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>()), Times.Never);
+			_pageProcessor.Verify(x => x.ProcessPage(It.IsAny<IDIContainerProvider>(), It.IsAny<HttpContext>()), Times.Never);
 			_context.VerifySet(x => x.Response.StatusCode = It.Is<int>(d => d == 404));
 		}
 	}

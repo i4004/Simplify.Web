@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
 
 namespace Simplify.Web.Core.StaticFiles
 {
@@ -36,7 +36,7 @@ namespace Simplify.Web.Core.StaticFiles
 		/// </summary>
 		/// <param name="request">The request.</param>
 		/// <returns></returns>
-		string GetRelativeFilePath(IOwinRequest request);
+		string GetRelativeFilePath(HttpRequest request);
 
 		/// <summary>
 		/// Gets the file last modification time.

@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Http;
 
 namespace Simplify.Web.Responses
 {
@@ -74,7 +75,8 @@ namespace Simplify.Web.Responses
 
 			Context.Response.Headers.Append("Content-Disposition", "attachment; filename=\"" + OutputFileName + "\"");
 			Context.Response.ContentType = ContentType;
-			Context.Response.Write(Data);
+
+			Context.Response.Body.Write(Data, 0, Data.Length);
 
 			return ControllerResponseResult.RawOutput;
 		}

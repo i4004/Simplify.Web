@@ -1,4 +1,4 @@
-﻿using Microsoft.Owin;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace Simplify.Web.Modules
 {
@@ -28,22 +28,22 @@ namespace Simplify.Web.Modules
 		/// <summary>
 		/// Gets the context for the current HTTP request.
 		/// </summary>
-		IOwinContext Context { get; }
+		HttpContext Context { get; }
 
 		/// <summary>
 		/// Gets the request for the current HTTP request.
 		/// </summary>
-		IOwinRequest Request { get; }
+		HttpRequest Request { get; }
 
 		/// <summary>
 		/// Gets the response for the current HTTP request.
 		/// </summary>
-		IOwinResponse Response { get; }
+		HttpResponse Response { get; }
 
 		/// <summary>
 		/// Gets the query string for current HTTP request.
 		/// </summary>
-		IReadableStringCollection Query { get; }
+		IQueryCollection Query { get; }
 
 		/// <summary>
 		/// Gets the form data of post HTTP request.

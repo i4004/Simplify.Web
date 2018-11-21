@@ -1,4 +1,4 @@
-﻿using Microsoft.Owin;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace Simplify.Web.Core.StaticFiles
 {
@@ -24,7 +24,7 @@ namespace Simplify.Web.Core.StaticFiles
 		/// </summary>
 		/// <param name="response">The response.</param>
 		/// <returns></returns>
-		public IStaticFileResponse Create(IOwinResponse response)
+		public IStaticFileResponse Create(HttpResponse response)
 		{
 			return new StaticFileResponse(response, _responseWriter);
 		}

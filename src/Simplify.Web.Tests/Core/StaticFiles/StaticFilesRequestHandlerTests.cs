@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
 using Moq;
 using NUnit.Framework;
 using Simplify.Web.Core.StaticFiles;
@@ -14,7 +14,7 @@ namespace Simplify.Web.Tests.Core.StaticFiles
 		private Mock<IStaticFileResponseFactory> _responseFactory;
 		private Mock<IStaticFileResponse> _response;
 
-		private Mock<IOwinContext> _context;
+		private Mock<HttpContext> _context;
 
 		[SetUp]
 		public void Initialize()
@@ -24,12 +24,12 @@ namespace Simplify.Web.Tests.Core.StaticFiles
 			_response = new Mock<IStaticFileResponse>();
 
 			_responseFactory = new Mock<IStaticFileResponseFactory>();
-			_responseFactory.Setup(x => x.Create(It.IsAny<IOwinResponse>())).Returns(_response.Object);
+			_responseFactory.Setup(x => x.Create(It.IsAny<HttpResponse>())).Returns(_response.Object);
 
 			_requestHandler = new StaticFilesRequestHandler(_fileHandler.Object, _responseFactory.Object);
 
-			_context = new Mock<IOwinContext>();
-			_context.SetupGet(x => x.Request.Headers);
+			_context = new Mock<HttpContext>();
+			_context.SetupGet(x => x.Request.Headers).Returns(new HeaderDictionary(0));
 		}
 
 		[Test]

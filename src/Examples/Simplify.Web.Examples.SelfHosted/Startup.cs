@@ -1,9 +1,7 @@
-﻿using System;
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin;
-using Microsoft.Owin.Security.Cookies;
-using Owin;
-using Owin.Security.AesDataProtectorProvider;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Simplify.DI;
 using Simplify.DI.Provider.SimpleInjector;
 using Simplify.Web.Meta;
@@ -13,7 +11,13 @@ namespace Simplify.Web.Examples.SelfHosted
 {
 	public class Startup
 	{
-		public void Configuration(IAppBuilder app)
+		public void ConfigureServices(IServiceCollection services)
+		{
+			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+				.AddCookie();
+		}
+
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
 			// Exclude Simplify.Web from exclude assemblies to be able to load example controllers
 			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Remove("Simplify");
@@ -21,23 +25,16 @@ namespace Simplify.Web.Examples.SelfHosted
 			var provider = new SimpleInjectorDIProvider();
 			DIContainer.Current = provider;
 
-			app.UseCookieAuthentication(new CookieAuthenticationOptions
+			if (env.IsDevelopment())
 			{
-				AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-				LoginPath = new PathString("/login")
-			});
+				app.UseDeveloperExceptionPage();
+			}
 
-			app.UseAesDataProtectorProvider();
+			app.UseAuthentication();
 
-			app.UseSimplifyWeb();
+			app.UseSimplifyWeb(env);
 
 			provider.Container.Verify();
-
-			SimplifyWebOwinMiddleware.OnException += Ex;
-		}
-
-		private static void Ex(Exception e)
-		{
 		}
 	}
 }

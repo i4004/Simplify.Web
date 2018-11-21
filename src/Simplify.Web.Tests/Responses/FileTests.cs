@@ -1,4 +1,4 @@
-﻿using Microsoft.Owin;
+﻿using Microsoft.AspNetCore.Http;
 using Moq;
 using NUnit.Framework;
 using Simplify.Web.Modules;
@@ -10,15 +10,16 @@ namespace Simplify.Web.Tests.Responses
 	public class FileTests
 	{
 		private Mock<IWebContext> _context;
-		private Mock<IHeaderDictionary> _headerDictionary;
+		private HeaderDictionary _headerDictionary;
 
 		[SetUp]
 		public void Initialize()
 		{
 			_context = new Mock<IWebContext>();
-			_headerDictionary = new Mock<IHeaderDictionary>();
+			_headerDictionary = new HeaderDictionary();
 
-			_context.SetupGet(x => x.Response.Headers).Returns(_headerDictionary.Object);
+			_context.SetupGet(x => x.Response.Headers).Returns(_headerDictionary);
+			_context.Setup(x => x.Response.Body.Write(It.IsAny<byte[]>(), It.IsAny<int>(), It.IsAny<int>()));
 		}
 
 		[Test]
@@ -34,9 +35,10 @@ namespace Simplify.Web.Tests.Responses
 
 			// Assert
 
-			_headerDictionary.Verify(x => x.Append(It.Is<string>(d => d == "Content-Disposition"), It.Is<string>(d => d == "attachment; filename=\"Foo.txt\"")));
 			_context.VerifySet(x => x.Response.ContentType = "application/example");
-			_context.Verify(x => x.Response.Write(It.Is<byte[]>(d => d[0] == 13)));
+			_context.Verify(x => x.Response.Body.Write(It.Is<byte[]>(d => d[0] == 13), It.Is<int>(data => data == 0), It.Is<int>(data => data == 1)));
+			Assert.AreEqual(1, _headerDictionary.Count);
+			Assert.AreEqual("attachment; filename=\"Foo.txt\"", _headerDictionary["Content-Disposition"]);
 			Assert.AreEqual(ControllerResponseResult.RawOutput, result);
 		}
 	}

@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
 using Simplify.DI;
 using Simplify.Web.Core.PageAssembly;
 using Simplify.Web.Modules;
@@ -34,7 +34,7 @@ namespace Simplify.Web.Core.Controllers
 		/// <param name="resolver">THE DI container resolver</param>
 		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		public Task ProcessRequest(IDIResolver resolver, IOwinContext context)
+		public Task ProcessRequest(IDIResolver resolver, HttpContext context)
 		{
 			var result = _controllersProcessor.ProcessControllers(resolver, context);
 

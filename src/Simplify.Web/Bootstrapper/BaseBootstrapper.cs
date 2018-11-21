@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Simplify.DI;
 using Simplify.Web.Attributes.Setup;
 using Simplify.Web.Core;
@@ -50,8 +52,12 @@ namespace Simplify.Web.Bootstrapper
 		/// <summary>
 		/// Registers the types in container.
 		/// </summary>
-		public void Register()
+		public void Register(IHostingEnvironment env)
 		{
+			// Registering non Simplify.Web types
+
+			RegisterConfiguration(env);
+
 			// Registering Simplify.Web core types
 
 			RegisterControllersMetaStore();
@@ -487,6 +493,19 @@ namespace Simplify.Web.Bootstrapper
 		#endregion Bootstrapper types override
 
 		#region Bootstrapper types registration
+
+		/// <summary>
+		/// Registers the configuration.
+		/// </summary>
+		/// <param name="env">The env.</param>
+		public virtual void RegisterConfiguration(IHostingEnvironment env)
+		{
+			var builder = new ConfigurationBuilder()
+				.AddJsonFile("appsettings.json", true)
+				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", true);
+
+			DIContainer.Current.Register<IConfiguration>(p => builder.Build(), LifetimeType.Singleton);
+		}
 
 		/// <summary>
 		/// Registers the controllers meta store.

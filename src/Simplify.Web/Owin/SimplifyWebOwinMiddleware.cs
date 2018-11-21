@@ -2,7 +2,8 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.Threading.Tasks;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Simplify.DI;
 using Simplify.Web.Core;
 using Simplify.Web.Diagnostics;
@@ -21,22 +22,13 @@ namespace Simplify.Web.Owin
 	/// <summary>
 	/// HTTP requests trace delegate
 	/// </summary>
-	public delegate void TraceEventHandler(IOwinContext context);
+	public delegate void TraceEventHandler(HttpContext context);
 
 	/// <summary>
 	/// Simplify.Web engine root
 	/// </summary>
-	public class SimplifyWebOwinMiddleware : OwinMiddleware
+	public class SimplifyWebOwinMiddleware
 	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="SimplifyWebOwinMiddleware"/> class.
-		/// </summary>
-		/// <param name="next">The next middleware.</param>
-		public SimplifyWebOwinMiddleware(OwinMiddleware next)
-			: base(next)
-		{
-		}
-
 		/// <summary>
 		/// Occurs when exception occured and catched by framework.
 		/// </summary>
@@ -52,7 +44,7 @@ namespace Simplify.Web.Owin
 		/// </summary>
 		/// <param name="context"></param>
 		/// <returns></returns>
-		public override Task Invoke(IOwinContext context)
+		public static Task Invoke(HttpContext context)
 		{
 			using (var scope = DIContainer.Current.BeginLifetimeScope())
 			{
@@ -119,10 +111,10 @@ namespace Simplify.Web.Owin
 			return true;
 		}
 
-		private static void TraceToConsole(IOwinContext context)
+		private static void TraceToConsole(HttpContext context)
 		{
 			Trace.WriteLine(
-				$"[{DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss:fff", CultureInfo.InvariantCulture)}] [{context.Request.Method}] {context.Request.Uri.AbsoluteUri}");
+				$"[{DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss:fff", CultureInfo.InvariantCulture)}] [{context.Request.Method}] {context.Request.GetDisplayUrl()}");
 		}
 	}
 }

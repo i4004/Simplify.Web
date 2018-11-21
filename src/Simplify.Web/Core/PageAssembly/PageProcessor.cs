@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Simplify.DI;
 using Simplify.Web.Modules;
 
@@ -32,13 +33,12 @@ namespace Simplify.Web.Core.PageAssembly
 		/// </summary>
 		/// <param name="resolver">The DI container resolver.</param>
 		/// <param name="context">The context.</param>
-		public Task ProcessPage(IDIResolver resolver, IOwinContext context)
+		public Task ProcessPage(IDIResolver resolver, HttpContext context)
 		{
 			context.Response.ContentType = "text/html";
+			_redirector.PreviousPageUrl = context.Request.GetEncodedUrl();
 
 			var task = _responseWriter.WriteAsync(_pageBuilder.Build(resolver), context.Response);
-
-			_redirector.PreviousPageUrl = context.Request.Uri.AbsoluteUri;
 
 			return task;
 		}

@@ -1,4 +1,4 @@
-﻿using Microsoft.Owin;
+﻿using Microsoft.AspNetCore.Http;
 using Simplify.Web.Settings;
 
 namespace Simplify.Web.Modules
@@ -24,7 +24,7 @@ namespace Simplify.Web.Modules
 		/// Creates the language manager instance.
 		/// </summary>
 		/// <param name="context">The context.</param>
-		public void Setup(IOwinContext context)
+		public void Setup(HttpContext context)
 		{
 			if (_languageManager == null)
 				_languageManager = new LanguageManager(_settings, context);

@@ -1,4 +1,4 @@
-﻿using Microsoft.Owin;
+﻿using Microsoft.AspNetCore.Http;
 using Moq;
 using NUnit.Framework;
 using Simplify.DI;
@@ -27,30 +27,30 @@ namespace Simplify.Web.Tests.Core
 		public void ProcessRequest_IsStaticFileRoutePath_StaticFilesRequestHandlerExecuted()
 		{
 			// Assign
-			_staticFilesRequestHandler.Setup(x => x.IsStaticFileRoutePath(It.IsAny<IOwinContext>())).Returns(true);
+			_staticFilesRequestHandler.Setup(x => x.IsStaticFileRoutePath(It.IsAny<HttpContext>())).Returns(true);
 
 			// Act
 			_requestHandler.ProcessRequest(null, null);
 
 			// Assert
 
-			_controllersRequestHandler.Verify(x => x.ProcessRequest(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>()), Times.Never);
-			_staticFilesRequestHandler.Verify(x => x.ProcessRequest(It.IsAny<IOwinContext>()));
+			_controllersRequestHandler.Verify(x => x.ProcessRequest(It.IsAny<IDIContainerProvider>(), It.IsAny<HttpContext>()), Times.Never);
+			_staticFilesRequestHandler.Verify(x => x.ProcessRequest(It.IsAny<HttpContext>()));
 		}
 
 		[Test]
 		public void ProcessRequest_IsNotStaticFileRoutePath_StaticFilesRequestHandlerExecuted()
 		{
 			// Assign
-			_staticFilesRequestHandler.Setup(x => x.IsStaticFileRoutePath(It.IsAny<IOwinContext>())).Returns(false);
+			_staticFilesRequestHandler.Setup(x => x.IsStaticFileRoutePath(It.IsAny<HttpContext>())).Returns(false);
 
 			// Act
 			_requestHandler.ProcessRequest(null, null);
 
 			// Assert
 
-			_controllersRequestHandler.Verify(x => x.ProcessRequest(It.IsAny<IDIContainerProvider>(), It.IsAny<IOwinContext>()));
-			_staticFilesRequestHandler.Verify(x => x.ProcessRequest(It.IsAny<IOwinContext>()), Times.Never);
+			_controllersRequestHandler.Verify(x => x.ProcessRequest(It.IsAny<IDIContainerProvider>(), It.IsAny<HttpContext>()));
+			_staticFilesRequestHandler.Verify(x => x.ProcessRequest(It.IsAny<HttpContext>()), Times.Never);
 		}
 	}
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
 using Simplify.Web.Settings;
 
 namespace Simplify.Web.Modules
@@ -16,20 +16,22 @@ namespace Simplify.Web.Modules
 		/// </summary>
 		public const string CookieLanguageFieldName = "language";
 
-		private readonly ResponseCookieCollection _responseCookies;
+		private readonly IResponseCookies _responseCookies;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="LanguageManager" /> class.
 		/// </summary>
 		/// <param name="settings">The settings.</param>
 		/// <param name="context">The OWIN context.</param>
-		public LanguageManager(ISimplifyWebSettings settings, IOwinContext context)
+		public LanguageManager(ISimplifyWebSettings settings, HttpContext context)
 		{
 			_responseCookies = context.Response.Cookies;
 
-			if (!TrySetLanguageFromCookie(context))
-				if (!settings.AcceptBrowserLanguage || (settings.AcceptBrowserLanguage && !TrySetLanguageFromRequestHeader(context)))
-					SetCurrentLanguage(settings.DefaultLanguage);
+			if (TrySetLanguageFromCookie(context))
+				return;
+
+			if (!settings.AcceptBrowserLanguage || (settings.AcceptBrowserLanguage && !TrySetLanguageFromRequestHeader(context)))
+				SetCurrentLanguage(settings.DefaultLanguage);
 		}
 
 		/// <summary>
@@ -70,27 +72,25 @@ namespace Simplify.Web.Modules
 			}
 		}
 
-		private bool TrySetLanguageFromCookie(IOwinContext context)
+		private bool TrySetLanguageFromCookie(HttpContext context)
 		{
 			var cookieLanguage = context.Request.Cookies[CookieLanguageFieldName];
 
 			return !string.IsNullOrEmpty(cookieLanguage) && SetCurrentLanguage(cookieLanguage);
 		}
 
-		private bool TrySetLanguageFromRequestHeader(IOwinContext context)
+		private bool TrySetLanguageFromRequestHeader(HttpContext context)
 		{
-			var languages = context.Request.Headers.GetValues("Accept-Language");
+			var languages = context.Request.Headers["Accept-Language"];
 
-			if (languages != null && languages.Count > 0)
-			{
-				var languageString = languages[0];
+			if (languages.Count == 0)
+				return false;
 
-				var items = languageString.Split(';');
+			var languageString = languages[0];
 
-				return SetCurrentLanguage(items[0]);
-			}
+			var items = languageString.Split(';');
 
-			return false;
+			return SetCurrentLanguage(items[0]);
 		}
 	}
 }

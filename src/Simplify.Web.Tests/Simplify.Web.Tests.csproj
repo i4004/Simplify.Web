@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net452</TargetFrameworks>
+		<TargetFrameworks>netcoreapp2.1</TargetFrameworks>
 		<Authors>Alexander Krylkov</Authors>
 		<Product>Simplify</Product>
 		<Description>Simplify.Web unit tests</Description>
@@ -15,14 +15,13 @@
 		<EmbeddedResource Include="Templates\Test.tpl" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
+		<PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+		<PackageReference Include="Moq" Version="4.10.0" />
 		<PackageReference Include="NUnit" Version="3.11.0" />
 		<PackageReference Include="NUnit3TestAdapter" Version="3.11.0" />
-		<PackageReference Include="Moq" Version="4.8.2" />
-		<PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.1" />
 		<PackageReference Include="Simplify.Xml" Version="1.1.0" />
-		<PackageReference Include="System.IO.Abstractions.TestingHelpers" Version="2.1.0.178" />
+		<PackageReference Include="System.IO.Abstractions.TestingHelpers" Version="2.2.9-beta" />
 		<ProjectReference Include="..\Simplify.Web\Simplify.Web.csproj" />
-		<Reference Include="Microsoft.CSharp" />
 	</ItemGroup>
 </Project>

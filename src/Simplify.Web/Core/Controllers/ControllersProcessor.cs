@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
 using Simplify.DI;
 using Simplify.Web.Core.Controllers.Execution;
 
@@ -30,7 +30,7 @@ namespace Simplify.Web.Core.Controllers
 		/// <param name="resolver">The DI container resolver.</param>
 		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		public ControllersProcessorResult ProcessControllers(IDIResolver resolver, IOwinContext context)
+		public ControllersProcessorResult ProcessControllers(IDIResolver resolver, HttpContext context)
 		{
 			var atleastOneNonAnyPageControllerMatched = false;
 
@@ -40,7 +40,7 @@ namespace Simplify.Web.Core.Controllers
 
 				if (matcherResult == null || !matcherResult.Success) continue;
 
-				var securityResult = _agent.IsSecurityRulesViolated(metaData, context.Authentication.User);
+				var securityResult = _agent.IsSecurityRulesViolated(metaData, context.User);
 
 				if (securityResult == SecurityRuleCheckResult.NotAuthenticated)
 					return ControllersProcessorResult.Http401;
@@ -67,7 +67,7 @@ namespace Simplify.Web.Core.Controllers
 			return ProcessAsyncControllersResponses(resolver);
 		}
 
-		private ControllersProcessorResult ProcessController(Type controllerType, IDIResolver resolver, IOwinContext context, dynamic routeParameters)
+		private ControllersProcessorResult ProcessController(Type controllerType, IDIResolver resolver, HttpContext context, dynamic routeParameters)
 		{
 			var result = _controllerExecutor.Execute(controllerType, resolver, context, routeParameters);
 
@@ -80,7 +80,7 @@ namespace Simplify.Web.Core.Controllers
 			return ControllersProcessorResult.Ok;
 		}
 
-		private ControllersProcessorResult ProcessOnlyAnyPageControllersMatched(IDIResolver resolver, IOwinContext context)
+		private ControllersProcessorResult ProcessOnlyAnyPageControllersMatched(IDIResolver resolver, HttpContext context)
 		{
 			var http404Controller = _agent.GetHandlerController(HandlerControllerType.Http404Handler);
 
@@ -112,7 +112,7 @@ namespace Simplify.Web.Core.Controllers
 			return ControllersProcessorResult.Ok;
 		}
 
-		private ControllersProcessorResult ProcessForbiddenSecurityRule(IDIResolver resolver, IOwinContext context)
+		private ControllersProcessorResult ProcessForbiddenSecurityRule(IDIResolver resolver, HttpContext context)
 		{
 			var http403Controller = _agent.GetHandlerController(HandlerControllerType.Http403Handler);
 
