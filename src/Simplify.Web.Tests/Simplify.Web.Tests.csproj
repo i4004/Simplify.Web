@@ -21,7 +21,7 @@
 		<PackageReference Include="NUnit" Version="3.11.0" />
 		<PackageReference Include="NUnit3TestAdapter" Version="3.11.0" />
 		<PackageReference Include="Simplify.Xml" Version="1.1.0" />
-		<PackageReference Include="System.IO.Abstractions.TestingHelpers" Version="2.1.0.231" />
+		<PackageReference Include="System.IO.Abstractions.TestingHelpers" Version="2.2.9-beta" />
 		<ProjectReference Include="..\Simplify.Web\Simplify.Web.csproj" />
 	</ItemGroup>
 </Project>
