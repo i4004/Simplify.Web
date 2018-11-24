@@ -24,7 +24,7 @@ namespace Simplify.Web.Core.PageAssembly
 		}
 
 		/// <summary>
-		/// Buids a web page
+		/// Builds a web page
 		/// </summary>
 		/// <param name="resolver">The DI container resolver.</param>
 		/// <returns></returns>
