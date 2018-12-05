@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simplify.Web.Tests", "Simpl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simplify.Web.Examples.SelfHosted", "Examples\Simplify.Web.Examples.SelfHosted\Simplify.Web.Examples.SelfHosted.csproj", "{9B1E9F18-5593-4F57-B49F-D8F54981ADEE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simplify.Web.Examples.WindowsService", "Examples\Simplify.Web.Examples.WindowsService\Simplify.Web.Examples.WindowsService.csproj", "{3F1BF8C5-D27A-4E06-AAC0-142C6851AECD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simplify.Web.Examples.SelfHosted.Tests", "Examples\Simplify.Web.Examples.SelfHosted.Tests\Simplify.Web.Examples.SelfHosted.Tests.csproj", "{5E46B646-1EFF-43B8-9146-402D727F39F6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simplify.Web.Examples.Kestrel", "Examples\Simplify.Web.Examples.Kestrel\Simplify.Web.Examples.Kestrel.csproj", "{FA82F076-4052-4492-BA42-6ECBDE578198}"
@@ -41,10 +39,6 @@ Global
 		{9B1E9F18-5593-4F57-B49F-D8F54981ADEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B1E9F18-5593-4F57-B49F-D8F54981ADEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B1E9F18-5593-4F57-B49F-D8F54981ADEE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3F1BF8C5-D27A-4E06-AAC0-142C6851AECD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3F1BF8C5-D27A-4E06-AAC0-142C6851AECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3F1BF8C5-D27A-4E06-AAC0-142C6851AECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3F1BF8C5-D27A-4E06-AAC0-142C6851AECD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5E46B646-1EFF-43B8-9146-402D727F39F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5E46B646-1EFF-43B8-9146-402D727F39F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E46B646-1EFF-43B8-9146-402D727F39F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -59,7 +53,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9B1E9F18-5593-4F57-B49F-D8F54981ADEE} = {11330387-2CFF-4DD4-848E-EBFF0BD67AB7}
-		{3F1BF8C5-D27A-4E06-AAC0-142C6851AECD} = {11330387-2CFF-4DD4-848E-EBFF0BD67AB7}
 		{5E46B646-1EFF-43B8-9146-402D727F39F6} = {11330387-2CFF-4DD4-848E-EBFF0BD67AB7}
 		{FA82F076-4052-4492-BA42-6ECBDE578198} = {11330387-2CFF-4DD4-848E-EBFF0BD67AB7}
 	EndGlobalSection
