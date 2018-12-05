@@ -18,7 +18,7 @@ namespace Simplify.Web
 		public virtual dynamic RouteParameters { get; internal set; }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Ajax" /> class.
+		/// Initializes a new instance of the <see cref="Responses.Ajax" /> class.
 		/// </summary>
 		/// <param name="ajaxData">The ajax data.</param>
 		/// <param name="statusCode">The HTTP response status code.</param>
@@ -29,7 +29,7 @@ namespace Simplify.Web
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Ajax" /> class.
+		/// Initializes a new instance of the <see cref="Responses.Ajax" /> class.
 		/// </summary>
 		/// <param name="ajaxData">The ajax data.</param>
 		/// <param name="contentType">Type of the content.</param>
@@ -39,12 +39,26 @@ namespace Simplify.Web
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Ajax" /> class.
+		/// Initializes a new instance of the <see cref="Responses.Ajax" /> class.
 		/// </summary>
 		/// <param name="statusCode">The HTTP response status code.</param>
 		protected Ajax Ajax(int statusCode = 204)
 		{
 			return new Ajax(statusCode);
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="File" /> class.
+		/// </summary>
+		/// <param name="outputFileName">The name of the file.</param>
+		/// <param name="contentType">Type of the content.</param>
+		/// <param name="data">The data of the file.</param>
+		/// <param name="statusCode">The HTTP response status code.</param>
+		/// <exception cref="ArgumentNullException">
+		/// </exception>
+		protected File File(string outputFileName, string contentType, byte[] data, int statusCode = 200)
+		{
+			return new File(outputFileName, contentType, data, statusCode);
 		}
 
 		/// <summary>
