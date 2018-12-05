@@ -62,6 +62,26 @@ namespace Simplify.Web
 		}
 
 		/// <summary>
+		/// Initializes a new instance of the <see cref="Responses.InlineTpl"/> class.
+		/// </summary>
+		/// <param name="dataCollectorVariableName">Name of the data collector variable.</param>
+		/// <param name="template">The template.</param>
+		protected InlineTpl InlineTpl(string dataCollectorVariableName, ITemplate template)
+		{
+			return new InlineTpl(dataCollectorVariableName, template);
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Responses.InlineTpl"/> class.
+		/// </summary>
+		/// <param name="dataCollectorVariableName">Name of the data collector variable.</param>
+		/// <param name="data">The data.</param>
+		protected InlineTpl InlineTpl(string dataCollectorVariableName, string data)
+		{
+			return new InlineTpl(dataCollectorVariableName, data);
+		}
+
+		/// <summary>
 		/// Initializes a new instance of the <see cref="Responses.Tpl" /> class.
 		/// </summary>
 		/// <param name="template">The template.</param>
