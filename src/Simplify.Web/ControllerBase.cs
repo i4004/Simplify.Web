@@ -134,5 +134,16 @@ namespace Simplify.Web
 		{
 			return new StaticTpl(templateFileName, title, statusCode);
 		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Responses.StatusCode" /> class.
+		/// </summary>
+		/// <param name="statusCode">The HTTP response status code.</param>
+		/// <param name="responseData">The response data.</param>
+		/// <param name="contentType">Type of the content.</param>
+		protected StatusCode StatusCode(int statusCode, string responseData = null, string contentType = null)
+		{
+			return new StatusCode(statusCode, responseData, contentType);
+		}
 	}
 }
