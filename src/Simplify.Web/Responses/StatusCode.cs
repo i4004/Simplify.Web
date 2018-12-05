@@ -6,7 +6,7 @@
 	public class StatusCode : ControllerResponse
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Ajax" /> class.
+		/// Initializes a new instance of the <see cref="StatusCode" /> class.
 		/// </summary>
 		/// <param name="statusCode">The HTTP response status code.</param>
 		/// <param name="responseData">The response data.</param>

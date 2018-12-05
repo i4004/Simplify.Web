@@ -16,10 +16,7 @@ namespace Simplify.Web.Responses
 		/// <exception cref="ArgumentNullException"></exception>
 		public StaticTpl(string templateFileName, string title = null, int statusCode = 200)
 		{
-			if (templateFileName == null)
-				throw new ArgumentNullException(nameof(templateFileName));
-
-			TemplateFileName = templateFileName;
+			TemplateFileName = templateFileName ?? throw new ArgumentNullException(nameof(templateFileName));
 			Title = title;
 			StatusCode = statusCode;
 		}
