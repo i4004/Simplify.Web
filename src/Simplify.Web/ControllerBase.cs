@@ -145,5 +145,18 @@ namespace Simplify.Web
 		{
 			return new StatusCode(statusCode, responseData, contentType);
 		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ViewModel{T}" /> class.
+		/// </summary>
+		/// <param name="templateFileName">Name of the template file.</param>
+		/// <param name="viewModel">The view model.</param>
+		/// <param name="title">The title.</param>
+		/// <param name="statusCode">The HTTP response status code.</param>
+		protected ViewModel<T> ViewModel<T>(string templateFileName, T viewModel = null, string title = null, int statusCode = 200)
+			where T : class
+		{
+			return new ViewModel<T>(templateFileName, viewModel, title, statusCode);
+		}
 	}
 }
