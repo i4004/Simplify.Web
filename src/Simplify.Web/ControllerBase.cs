@@ -18,6 +18,8 @@ namespace Simplify.Web
 		/// </value>
 		public virtual dynamic RouteParameters { get; internal set; }
 
+		#region Response Wrappers
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Responses.Ajax" /> class.
 		/// </summary>
@@ -158,5 +160,7 @@ namespace Simplify.Web
 		{
 			return new ViewModel<T>(templateFileName, viewModel, title, statusCode);
 		}
+
+		#endregion Response Wrappers
 	}
 }
