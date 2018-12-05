@@ -1,5 +1,6 @@
 ﻿using System;
 using Simplify.Templates;
+using Simplify.Web.Modules;
 using Simplify.Web.Responses;
 
 namespace Simplify.Web
@@ -79,6 +80,25 @@ namespace Simplify.Web
 		protected InlineTpl InlineTpl(string dataCollectorVariableName, string data)
 		{
 			return new InlineTpl(dataCollectorVariableName, data);
+		}
+
+		/// <summary>
+		/// Redirects the client to specified URL.
+		/// </summary>
+		/// <param name="url">The URL.</param>
+		protected Redirect Redirect(string url)
+		{
+			return new Redirect(url);
+		}
+
+		/// <summary>
+		/// Redirects the client by specifying redirection type.
+		/// </summary>
+		/// <param name="redirectionType">Type of the navigation.</param>
+		/// <param name="bookmarkName">Name of the bookmark.</param>
+		protected Redirect Redirect(RedirectionType redirectionType = RedirectionType.DefaultPage, string bookmarkName = null)
+		{
+			return new Redirect(redirectionType, bookmarkName);
 		}
 
 		/// <summary>
