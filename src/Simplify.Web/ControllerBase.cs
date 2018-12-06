@@ -85,6 +85,14 @@ namespace Simplify.Web
 		}
 
 		/// <summary>
+		/// Initializes a new instance of the <see cref="NoContent"/> class.
+		/// </summary>
+		protected NoContent NoContent()
+		{
+			return new NoContent();
+		}
+
+		/// <summary>
 		/// Redirects the client to specified URL.
 		/// </summary>
 		/// <param name="url">The URL.</param>
