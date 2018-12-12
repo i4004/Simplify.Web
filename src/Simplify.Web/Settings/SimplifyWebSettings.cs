@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.Configuration;
 
 namespace Simplify.Web.Settings
@@ -16,7 +17,8 @@ namespace Simplify.Web.Settings
 		{
 			var config = configuration.GetSection("SimplifyWebSettings");
 
-			if (config == null) return;
+			if (!config.GetChildren().Any())
+				return;
 
 			LoadLanguageManagerSettings(config);
 			LoadTemplatesSettings(config);
