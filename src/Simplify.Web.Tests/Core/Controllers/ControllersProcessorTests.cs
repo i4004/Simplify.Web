@@ -218,7 +218,7 @@ namespace Simplify.Web.Tests.Core.Controllers
 			_agent.SetupSequence(
 				x => x.MatchControllerRoute(It.IsAny<IControllerMetaData>(), It.IsAny<string>(), It.IsAny<string>()))
 				.Returns(new RouteMatchResult(true, _routeParameters))
-				.Returns(null);
+				.Returns((IRouteMatchResult)null);
 			_agent.Setup(x => x.GetStandardControllersMetaData()).Returns(() => new List<IControllerMetaData>
 			{
 				_metaData,

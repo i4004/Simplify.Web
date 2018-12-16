@@ -15,7 +15,7 @@
 		<PackageReference Include="Microsoft.Owin.Security" Version="4.0.0" />
 		<PackageReference Include="Microsoft.Owin.Security.Cookies" Version="4.0.0" />
 		<PackageReference Include="Owin.Security.AesDataProtectorProvider" Version="1.1.2" />
-		<PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.1" />
+		<PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.2" />
 		<PackageReference Include="Simplify.DI.Provider.SimpleInjector" Version="1.4.0" />
 		<PackageReference Include="bootstrap" Version="3.3.7" PrivateAssets="All" />
 		<PackageReference Include="jQuery" Version="3.1.0" PrivateAssets="All" />
