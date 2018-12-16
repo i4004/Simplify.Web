@@ -12,7 +12,7 @@
 		<RepositoryType>GIT</RepositoryType>
 		<PackageTags>.NET web-framework MVC DI OWIN</PackageTags>
 		<PackageReleaseNotes>
-			* Upgrade to Simplify.DI 2.0.1, Simplify.Templates 1.4.1
+			* Upgrade to Simplify.DI 2.0.1, Simplify.Templates 1.5
 		</PackageReleaseNotes>
 		<OutputPath>bin\Any CPU\$(Configuration)\</OutputPath>
 		<DocumentationFile>bin\Any CPU\$(Configuration)\$(TargetFramework)\Simplify.Web.xml</DocumentationFile>
