@@ -7,7 +7,7 @@ namespace Simplify.Web.Examples.Kestrel.Controllers
 	{
 		public override ControllerResponse Invoke()
 		{
-			return Tpl("Hello world!!!");
+			return Tpl("Hello from Simplify.Web Kestrel Application!");
 		}
 	}
 }
