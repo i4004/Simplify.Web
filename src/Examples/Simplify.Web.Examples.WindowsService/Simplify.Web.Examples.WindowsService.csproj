@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>net462</TargetFrameworks>
+		<Authors>Alexander Krylkov</Authors>
+		<Product>Simplify</Product>
+		<Description>Simplify.Web as windows service example</Description>
+		<Copyright>Licensed under LGPL</Copyright>
+		<Version>2.0</Version>
+		<OutputType>Exe</OutputType>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+		<PackageReference Include="Simplify.DI.Provider.SimpleInjector" Version="1.4.0" />
+		<PackageReference Include="Simplify.WindowsServices" Version="2.6.0" />
+		<ProjectReference Include="..\..\Simplify.Web\Simplify.Web.csproj" />
+		<Reference Include="System.ServiceModel" />
+	</ItemGroup>
+</Project>
