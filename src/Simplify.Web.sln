@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simplify.Web.Examples.SelfH
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simplify.Web.Examples.Kestrel", "Examples\Simplify.Web.Examples.Kestrel\Simplify.Web.Examples.Kestrel.csproj", "{FA82F076-4052-4492-BA42-6ECBDE578198}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simplify.Web.Examples.WindowsService", "Examples\Simplify.Web.Examples.WindowsService\Simplify.Web.Examples.WindowsService.csproj", "{D0303E65-5D2F-4D2D-90D1-982418CA14AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{FA82F076-4052-4492-BA42-6ECBDE578198}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA82F076-4052-4492-BA42-6ECBDE578198}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA82F076-4052-4492-BA42-6ECBDE578198}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0303E65-5D2F-4D2D-90D1-982418CA14AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0303E65-5D2F-4D2D-90D1-982418CA14AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0303E65-5D2F-4D2D-90D1-982418CA14AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0303E65-5D2F-4D2D-90D1-982418CA14AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		{9B1E9F18-5593-4F57-B49F-D8F54981ADEE} = {11330387-2CFF-4DD4-848E-EBFF0BD67AB7}
 		{5E46B646-1EFF-43B8-9146-402D727F39F6} = {11330387-2CFF-4DD4-848E-EBFF0BD67AB7}
 		{FA82F076-4052-4492-BA42-6ECBDE578198} = {11330387-2CFF-4DD4-848E-EBFF0BD67AB7}
+		{D0303E65-5D2F-4D2D-90D1-982418CA14AD} = {11330387-2CFF-4DD4-848E-EBFF0BD67AB7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {11FA5D89-5D38-4711-B1D9-9B979602A8DC}
