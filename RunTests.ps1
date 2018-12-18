@@ -9,7 +9,6 @@ Get-ChildItem .\**\*.csproj -Recurse |
 	ForEach-Object { 
 
 	$testResultPath = (Get-Item -Path ".\").FullName + "\test-result.trx"
-	$testResultPath
 	$loggerParameters = "trx;LogFileName=" + $testResultPath
 
 	# Run dotnet test on the project and output the results in mstest format (also works for other frameworks like nunit)
@@ -19,7 +18,7 @@ Get-ChildItem .\**\*.csproj -Recurse |
 	if ("${ENV:APPVEYOR_JOB_ID}" -ne "")
 	{
 		"Uploading test results to AppVeyor..."
-		
+
 		$wc = New-Object 'System.Net.WebClient'
 		$wc.UploadFile("https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)", $testResultPath) 
 	}
