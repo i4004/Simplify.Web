@@ -18,6 +18,8 @@ Get-ChildItem .\**\*.csproj -Recurse |
 	# if on build server upload results to AppVeyor
 	if ("${ENV:APPVEYOR_JOB_ID}" -ne "")
 	{
+		"Uploading test results to AppVeyor..."
+		
 		$wc = New-Object 'System.Net.WebClient'
 		$wc.UploadFile("https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)", $testResultPath) 
 	}
