@@ -12,7 +12,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
 		<PackageReference Include="Simplify.DI.Provider.SimpleInjector" Version="1.4.0" />
-		<PackageReference Include="Simplify.WindowsServices" Version="2.6.0" />
+		<PackageReference Include="Simplify.WindowsServices" Version="2.7.0" />
 		<ProjectReference Include="..\..\Simplify.Web\Simplify.Web.csproj" />
 		<Reference Include="System.ServiceModel" />
 	</ItemGroup>
