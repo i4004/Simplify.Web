@@ -13,7 +13,7 @@ namespace Simplify.Web.Examples.WindowsService
 				app.UseDeveloperExceptionPage();
 			}
 
-			app.UseSimplifyWeb();
+			app.UseSimplifyWebWithoutRegistrations();
 		}
 	}
 }
