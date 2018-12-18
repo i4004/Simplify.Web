@@ -9,6 +9,7 @@ Get-ChildItem .\**\*.csproj -Recurse |
 	ForEach-Object { 
 
 	$testResultPath = (Get-Item -Path ".\").FullName + "\test-result.trx"
+	$testResultPath
 	$loggerParameters = "trx;LogFileName=" + $testResultPath
 
 	# Run dotnet test on the project and output the results in mstest format (also works for other frameworks like nunit)
@@ -22,5 +23,5 @@ Get-ChildItem .\**\*.csproj -Recurse |
 	}
 
 	# don't leave the test results lying around
-	Remove-Item .\test-result.trx -ErrorAction SilentlyContinue
+	Remove-Item $testResultPath -ErrorAction SilentlyContinue
 }
