@@ -17,7 +17,7 @@ namespace Simplify.Web.Examples.Kestrel
 				app.UseDeveloperExceptionPage();
 			}
 
-			app.UseSimplifyWeb(env);
+			app.UseSimplifyWeb();
 		}
 	}
 }

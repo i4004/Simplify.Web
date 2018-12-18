@@ -32,7 +32,7 @@ namespace Simplify.Web.Examples.SelfHosted
 
 			app.UseAuthentication();
 
-			app.UseSimplifyWeb(env);
+			app.UseSimplifyWeb();
 
 			provider.Container.Verify();
 		}
