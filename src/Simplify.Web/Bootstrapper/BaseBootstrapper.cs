@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Simplify.DI;
 using Simplify.Web.Attributes.Setup;
@@ -52,11 +51,11 @@ namespace Simplify.Web.Bootstrapper
 		/// <summary>
 		/// Registers the types in container.
 		/// </summary>
-		public void Register(IHostingEnvironment env)
+		public void Register()
 		{
 			// Registering non Simplify.Web types
 
-			RegisterConfiguration(env);
+			RegisterConfiguration();
 
 			// Registering Simplify.Web core types
 
@@ -497,12 +496,13 @@ namespace Simplify.Web.Bootstrapper
 		/// <summary>
 		/// Registers the configuration.
 		/// </summary>
-		/// <param name="env">The env.</param>
-		public virtual void RegisterConfiguration(IHostingEnvironment env)
+		public virtual void RegisterConfiguration()
 		{
+			var environmentName = global::System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
 			var builder = new ConfigurationBuilder()
 				.AddJsonFile("appsettings.json", true)
-				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", true);
+				.AddJsonFile($"appsettings.{environmentName}.json", true);
 
 			DIContainer.Current.Register<IConfiguration>(p => builder.Build(), LifetimeType.Singleton);
 		}
