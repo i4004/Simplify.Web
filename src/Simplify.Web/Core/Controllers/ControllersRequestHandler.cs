@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Simplify.DI;
 using Simplify.Web.Core.PageAssembly;
 using Simplify.Web.Modules;
+using Simplify.Web.Owin;
 
 namespace Simplify.Web.Core.Controllers
 {
@@ -34,7 +34,7 @@ namespace Simplify.Web.Core.Controllers
 		/// <param name="resolver">THE DI container resolver</param>
 		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		public Task ProcessRequest(IDIResolver resolver, HttpContext context)
+		public RequestHandlingResult ProcessRequest(IDIResolver resolver, HttpContext context)
 		{
 			var result = _controllersProcessor.ProcessControllers(resolver, context);
 
@@ -53,11 +53,14 @@ namespace Simplify.Web.Core.Controllers
 					break;
 
 				case ControllersProcessorResult.Http404:
-					context.Response.StatusCode = 404;
+					if (ApplicationBuilderExtensions.TerminalMiddleware)
+						context.Response.StatusCode = 404;
+					else
+						return RequestHandlingResult.UnhandledResult();
 					break;
 			}
 
-			return Task.Delay(0);
+			return RequestHandlingResult.HandledResult();
 		}
 	}
 }

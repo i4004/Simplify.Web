@@ -11,7 +11,7 @@
 		Ok,
 
 		/// <summary>
-		/// Execution should be stopped, becase raw output will be sent to client
+		/// Execution should be stopped, because raw output will be sent to client
 		/// </summary>
 		RawOutput,
 
@@ -36,7 +36,7 @@
 		Http404,
 
 		/// <summary>
-		/// Execution should be stopped, becase client will be redirected to new URL
+		/// Execution should be stopped, because client will be redirected to new URL
 		/// </summary>
 		Redirect
 	}
