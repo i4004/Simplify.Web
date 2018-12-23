@@ -1,4 +1,4 @@
-﻿{
+{
 	"iisSettings":
 	{
 		"windowsAuthentication": false,
@@ -6,7 +6,7 @@
 		"iisExpress":
 		{
 			"applicationUrl": "http://localhost:5000",
-			"sslPort": 5001
+			"sslPort": 44337
 		}
 	},
 	"profiles":
@@ -24,11 +24,11 @@
 		{
 			"commandName": "Project",
 			"launchBrowser": true,
-			"applicationUrl": "http://localhost:5000;https://localhost:5001",
 			"environmentVariables":
 			{
 				"ASPNETCORE_ENVIRONMENT": "Development"
-			}
+			},
+			"applicationUrl": "http://localhost:5000;https://localhost:5001"
 		}
 	}
 }

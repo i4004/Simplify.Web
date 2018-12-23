@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Moq;
 using NUnit.Framework;
 using Simplify.DI;
+using Simplify.Web.Core;
 using Simplify.Web.Core.Controllers;
 using Simplify.Web.Core.PageAssembly;
 using Simplify.Web.Modules;
@@ -34,16 +34,16 @@ namespace Simplify.Web.Tests.Core.Controllers
 		public void ProcessRequest_Ok_PageBuiltWithOutput()
 		{
 			// Assign
-			var task = Task.Delay(0);
+			var handledResult = RequestHandlingResult.HandledResult();
 
 			_controllersProcessor.Setup(x => x.ProcessControllers(It.IsAny<IDIContainerProvider>(), It.IsAny<HttpContext>())).Returns(ControllersProcessorResult.Ok);
-			_pageProcessor.Setup(x => x.ProcessPage(It.IsAny<IDIContainerProvider>(), It.IsAny<HttpContext>())).Returns(task);
+			_pageProcessor.Setup(x => x.ProcessPage(It.IsAny<IDIContainerProvider>(), It.IsAny<HttpContext>())).Returns(handledResult);
 
 			// Act
 			var result = _requestHandler.ProcessRequest(null, _context.Object);
 
 			// Assert
-			Assert.AreEqual(task, result);
+			Assert.AreEqual(handledResult, result);
 			_pageProcessor.Verify(x => x.ProcessPage(It.IsAny<IDIContainerProvider>(), It.IsAny<HttpContext>()));
 		}
 

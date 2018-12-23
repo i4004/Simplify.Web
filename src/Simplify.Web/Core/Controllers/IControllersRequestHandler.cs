@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Simplify.DI;
 
 namespace Simplify.Web.Core.Controllers
@@ -15,6 +14,6 @@ namespace Simplify.Web.Core.Controllers
 		/// <param name="resolver">The DI container resolver.</param>
 		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		Task ProcessRequest(IDIResolver resolver, HttpContext context);
+		RequestHandlingResult ProcessRequest(IDIResolver resolver, HttpContext context);
 	}
 }

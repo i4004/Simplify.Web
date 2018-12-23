@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Globalization;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Simplify.DI;
@@ -44,7 +43,7 @@ namespace Simplify.Web.Owin
 		/// </summary>
 		/// <param name="context"></param>
 		/// <returns></returns>
-		public static Task Invoke(HttpContext context)
+		public static RequestHandlingResult Invoke(HttpContext context)
 		{
 			using (var scope = DIContainer.Current.BeginLifetimeScope())
 			{
@@ -91,14 +90,15 @@ namespace Simplify.Web.Owin
 					}
 					catch (Exception exception)
 					{
-						return
+						return RequestHandlingResult.HandledResult(
 							context.Response.WriteAsync(ExceptionInfoPageGenerator.Generate(exception,
-								scope.Resolver.Resolve<ISimplifyWebSettings>().HideExceptionDetails));
+								scope.Resolver.Resolve<ISimplifyWebSettings>().HideExceptionDetails)));
 					}
 
 					return
-						context.Response.WriteAsync(ExceptionInfoPageGenerator.Generate(e,
-							scope.Resolver.Resolve<ISimplifyWebSettings>().HideExceptionDetails));
+						RequestHandlingResult.HandledResult(context.Response.WriteAsync(
+							ExceptionInfoPageGenerator.Generate(e,
+								scope.Resolver.Resolve<ISimplifyWebSettings>().HideExceptionDetails)));
 				}
 			}
 		}

@@ -39,15 +39,8 @@ namespace Simplify.Web.Core.StaticFiles
 		/// <exception cref="ArgumentNullException"></exception>
 		public static IFileSystem FileSystem
 		{
-			get { return _fileSystemInstance ?? (_fileSystemInstance = new FileSystem()); }
-
-			set
-			{
-				if (value == null)
-					throw new ArgumentNullException();
-
-				_fileSystemInstance = value;
-			}
+			get => _fileSystemInstance ?? (_fileSystemInstance = new FileSystem());
+			set => _fileSystemInstance = value ?? throw new ArgumentNullException();
 		}
 
 		/// <summary>
