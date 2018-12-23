@@ -33,6 +33,34 @@ namespace Simplify.Web.Owin
 		}
 
 		/// <summary>
+		/// Performs Simplify.Web bootstrapper registrations and adds Simplify.Web to the OWIN pipeline as a non-terminal middleware
+		/// </summary>
+		/// <param name="builder">The OWIN builder.</param>
+		/// <returns></returns>
+		public static IApplicationBuilder UseSimplifyWebSpa(this IApplicationBuilder builder)
+		{
+			try
+			{
+				BootstrapperFactory.CreateBootstrapper().Register();
+
+				builder.Use(async (context, next) =>
+				{
+					await SimplifyWebOwinMiddleware.Invoke(context);
+
+					await next.Invoke();
+				});
+
+				return builder;
+			}
+			catch (Exception e)
+			{
+				SimplifyWebOwinMiddleware.ProcessOnException(e);
+
+				throw;
+			}
+		}
+
+		/// <summary>
 		/// Adds Simplify.Web to the OWIN pipeline as a terminal middleware without bootstrapper registrations (useful when you want to control bootstrapper registrations manually)
 		/// </summary>
 		/// <param name="builder">The builder.</param>
