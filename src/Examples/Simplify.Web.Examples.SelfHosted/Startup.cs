@@ -26,9 +26,7 @@ namespace Simplify.Web.Examples.SelfHosted
 			DIContainer.Current = provider;
 
 			if (env.IsDevelopment())
-			{
 				app.UseDeveloperExceptionPage();
-			}
 
 			app.UseAuthentication();
 
