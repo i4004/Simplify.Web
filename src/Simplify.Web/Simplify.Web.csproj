@@ -22,7 +22,7 @@
 			* Status Code exact controller responses like Ok(), NoContent()
 			* StatusCode controllers response
 			* Controllers wrappers for main responses to shorten code without new keyword
-			* Possibility to use Simplify.Web as a non-terminal middleware for SPA to onlty process API request and forward other requests to SPA server
+			* Possibility to use Simplify.Web as a non-terminal middleware for SPA to only process API request and forward other requests to SPA server
 		</PackageReleaseNotes>
 		<OutputPath>bin\Any CPU\$(Configuration)\</OutputPath>
 		<DocumentationFile>bin\Any CPU\$(Configuration)\$(TargetFramework)\Simplify.Web.xml</DocumentationFile>
