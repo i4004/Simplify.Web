@@ -27,8 +27,6 @@ namespace Simplify.Web.Examples.Angular
 			if (env.IsDevelopment())
 				app.UseDeveloperExceptionPage();
 
-			//app.UseSpaStaticFiles();
-
 			app.UseSimplifyWebNonTerminal();
 
 			app.UseSpa(spa =>
