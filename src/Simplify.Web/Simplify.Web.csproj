@@ -5,22 +5,24 @@
 		<Product>Simplify</Product>
 		<Description>Lightweight and fast .NET web-framework based on MVC and OWIN</Description>
 		<Copyright>Licensed under LGPL</Copyright>
-		<Version>2.0-pre01</Version>
+		<Version>2.0-pre02</Version>
 		<PackageProjectUrl>https://github.com/i4004/Simplify.Web</PackageProjectUrl>
 		<PackageIconUrl>https://raw.githubusercontent.com/i4004/Simplify.Web/master/Images/Icon.png</PackageIconUrl>
 		<RepositoryUrl>https://github.com/i4004/Simplify.Web</RepositoryUrl>
 		<RepositoryType>GIT</RepositoryType>
 		<PackageTags>.NET web-framework MVC DI OWIN</PackageTags>
 		<PackageReleaseNotes>
-			Breaking changes:
+			Breaking changes
 			* Switched to Microsoft.AspNetCore process pipeline instead of Microsoft.Owin
 			* App.config/Web.config settings support dropped, switched to IConfiguration based settings
-			Other changes:
-			* .NET Standard 2.0 support
+			Other changes
+			* .NET 4.5.2 version upgrade to .NET 4.6.2
+			New Features
+			 .NET Standard 2.0 support
 			* Status Code exact controller responses like Ok(), NoContent()
 			* StatusCode controllers response
 			* Controllers wrappers for main responses to shorten code without new keyword
-			* .NET 4.5.2 version upgrade to .NET 4.6.2
+			* Possibility to use Simplify.Web as a non-terminal middleware for SPA to onlty process API request and forward other requests to SPA server
 		</PackageReleaseNotes>
 		<OutputPath>bin\Any CPU\$(Configuration)\</OutputPath>
 		<DocumentationFile>bin\Any CPU\$(Configuration)\$(TargetFramework)\Simplify.Web.xml</DocumentationFile>
