@@ -1,18 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;net462</TargetFrameworks>
 		<Authors>Alexander Krylkov</Authors>
 		<Product>Simplify</Product>
 		<Description>Lightweight and fast .NET web-framework based on MVC and OWIN</Description>
 		<Copyright>Licensed under LGPL</Copyright>
-		<Version>1.3</Version>
+		<Version>2.0-pre01</Version>
 		<PackageProjectUrl>https://github.com/i4004/Simplify.Web</PackageProjectUrl>
 		<PackageIconUrl>https://raw.githubusercontent.com/i4004/Simplify.Web/master/Images/Icon.png</PackageIconUrl>
 		<RepositoryUrl>https://github.com/i4004/Simplify.Web</RepositoryUrl>
 		<RepositoryType>GIT</RepositoryType>
 		<PackageTags>.NET web-framework MVC DI OWIN</PackageTags>
 		<PackageReleaseNotes>
-			* Upgrade to Simplify.DI 2.0.1, Simplify.Templates 1.5
+			Breaking changes:
+			* Switched to Microsoft.AspNetCore process pipeline instead of Microsoft.Owin
+			* App.config/Web.config settings support dropped, switched to IConfiguration based settings
+			Other changes:
+			* .NET Standard 2.0 support
+			* Status Code exact controller responses like Ok(), NoContent()
+			* StatusCode controllers response
+			* Controllers wrappers for main responses to shorten code without new keyword
+			* .NET 4.5.2 version upgrade to .NET 4.6.2
 		</PackageReleaseNotes>
 		<OutputPath>bin\Any CPU\$(Configuration)\</OutputPath>
 		<DocumentationFile>bin\Any CPU\$(Configuration)\$(TargetFramework)\Simplify.Web.xml</DocumentationFile>
@@ -23,10 +31,10 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.1.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.1.1" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
 		<PackageReference Include="Simplify.DI" Version="2.0.1" />
 		<PackageReference Include="Simplify.Templates" Version="1.5.0" />
 		<PackageReference Include="Simplify.String.Sources" Version="1.2.0" PrivateAssets="All" />

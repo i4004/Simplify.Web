@@ -26,7 +26,7 @@ namespace Simplify.Web.Tests.Responses
 		}
 
 		[Test]
-		public void Process_NormalData_DataAddedtoDataCollector()
+		public void InlineTplProcess_NormalData_DataAddedtoDataCollector()
 		{
 			// Assign
 
@@ -43,7 +43,7 @@ namespace Simplify.Web.Tests.Responses
 		}
 
 		[Test]
-		public void Process_NormalTemplate_DataAddedtoDataCollector()
+		public void InlineTplProcess_NormalTemplate_DataAddedtoDataCollector()
 		{
 			// Assign
 
