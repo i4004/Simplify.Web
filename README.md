@@ -43,12 +43,12 @@ _This project is a continuator of [AcspNet web-framework](https://github.com/i40
 
 Below is the list of sample applications showing different variations of Simplify.Web usage
 
-* [Only as an API backend with Angular + Bootstrap UI SPA](https://github.com/i4004/Simplify/tree/master/src/SampleApps/SampleApp.Angular)
-* [Very simple Kestrel-based Application with backend page](https://github.com/i4004/Simplify/tree/master/src/SampleApps/SampleApp.Kestrel)
-* [Kestrel-based Application with backend HTML generation, localization, authentication](https://github.com/i4004/Simplify/tree/master/src/SampleApps/SampleApp.SelfHosted)
-* [Only as an API backend with Vue.js + Bootstrap UI SPA](https://github.com/i4004/Simplify/tree/master/src/SampleApps/SampleApp.Vue)
-* [Only as an API backend with Vue.js + Element UI SPA](https://github.com/i4004/Simplify/tree/master/src/SampleApps/SampleApp.Vue.Element)
-* [Very simple Kestrel-based Application hosted as windows-service](https://github.com/i4004/Simplify/tree/master/src/SampleApps/SampleApp.WindowsServiceHosted)
+* [Only as an API backend with Angular + Bootstrap UI SPA](https://github.com/i4004/Simplify.Web/tree/master/src/SampleApps/SampleApp.Angular)
+* [Very simple Kestrel-based Application with backend page](https://github.com/i4004/Simplify.Web/tree/master/src/SampleApps/SampleApp.Kestrel)
+* [Kestrel-based Application with backend HTML generation, localization, authentication](https://github.com/i4004/Simplify.Web/tree/master/src/SampleApps/SampleApp.SelfHosted)
+* [Only as an API backend with Vue.js + Bootstrap UI SPA](https://github.com/i4004/Simplify.Web/tree/master/src/SampleApps/SampleApp.Vue)
+* [Only as an API backend with Vue.js + Element UI SPA](hhttps://github.com/i4004/Simplify.Web/tree/master/src/SampleApps/SampleApp.Vue.Element)
+* [Very simple Kestrel-based Application hosted as windows-service](https://github.com/i4004/Simplify.Web/tree/master/src/SampleApps/SampleApp.WindowsServiceHosted)
 
 [Getting started page](https://github.com/i4004/Simplify.Web/wiki/Getting-started)
 
