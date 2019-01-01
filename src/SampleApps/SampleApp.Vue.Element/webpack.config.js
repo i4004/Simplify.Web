@@ -1,7 +1,6 @@
 const resolve = require('path').resolve
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const url = require('url')
 const publicPath = ''
 
 module.exports = (env) =>
@@ -20,7 +19,7 @@ module.exports = (env) =>
 			path: resolve(__dirname, 'wwwroot/dist'),
 			filename: isDevBuild ? '[name].js' : '[name].js?[chunkhash]',
 			chunkFilename: '[id].js?[chunkhash]',
-			publicPath: isDevBuild ? '/assets/' : publicPath
+			publicPath: isDevBuild ? '/' : publicPath
 		},
 		module:
 		{
@@ -57,7 +56,8 @@ module.exports = (env) =>
 			}),
 			new HtmlWebpackPlugin(
 			{
-				template: 'ClientApp/index.html'
+				template: 'ClientApp/index.html',
+				favicon: 'ClientApp/favicon.ico'
 			})
 		],
 		resolve:
@@ -67,28 +67,6 @@ module.exports = (env) =>
 				'~': resolve(__dirname, 'ClientApp')
 			},
 			extensions: ['.js', '.vue', '.json', '.css']
-		},
-		devServer:
-		{
-			host: '127.0.0.1',
-			port: 8010,
-			proxy:
-			{
-				'/api/':
-				{
-					target: 'http://127.0.0.1:8080',
-					changeOrigin: true,
-					pathRewrite:
-					{
-						'^/api': ''
-					}
-				}
-			},
-			historyApiFallback:
-			{
-				index: url.parse(isDevBuild ? '/assets/' : publicPath).pathname
-			}
-		},
-		devtool: isDevBuild ? '#eval-source-map' : '#source-map'
+		}
 	}];
-};
+}
