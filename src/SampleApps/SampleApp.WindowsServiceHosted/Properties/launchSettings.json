@@ -1,7 +1,7 @@
 {
 	"profiles":
 	{
-		"Simplify.Web.Examples.WindowsService":
+		"SampleApp.WindowsServiceHosted":
 		{
 			"commandName": "Project",
 			"commandLineArgs": "console",

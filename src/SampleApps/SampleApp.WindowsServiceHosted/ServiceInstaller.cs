@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using Simplify.WindowsServices;
 
-namespace Simplify.Web.Examples.WindowsService
+namespace SampleApp.WindowsServiceHosted
 {
 	[RunInstaller(true)]
 	public class ServiceInstaller : ServiceInstallerBase

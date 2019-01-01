@@ -1,10 +1,10 @@
 ﻿using System;
+using SampleApp.WindowsServiceHosted.Setup;
 using Simplify.DI;
 using Simplify.DI.Provider.SimpleInjector;
-using Simplify.Web.Examples.WindowsService.Setup;
 using Simplify.WindowsServices;
 
-namespace Simplify.Web.Examples.WindowsService
+namespace SampleApp.WindowsServiceHosted
 {
 	internal class Program
 	{

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Simplify.Web.Owin;
 
-namespace Simplify.Web.Examples.WindowsService
+namespace SampleApp.WindowsServiceHosted
 {
 	public class Startup
 	{

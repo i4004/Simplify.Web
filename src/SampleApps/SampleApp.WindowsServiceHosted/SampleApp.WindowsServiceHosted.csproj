@@ -3,7 +3,7 @@
 		<TargetFrameworks>net462</TargetFrameworks>
 		<Authors>Alexander Krylkov</Authors>
 		<Product>Simplify</Product>
-		<Description>Simplify.Web as windows service example</Description>
+		<Description>Simplify.Web as windows service sample app</Description>
 		<Copyright>Licensed under LGPL</Copyright>
 		<Version>2.0</Version>
 		<OutputType>Exe</OutputType>
@@ -17,8 +17,8 @@
 		<Reference Include="System.ServiceModel" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Update="Templates\Master.tpl">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
+		<None Update="Templates\Master.tpl">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 </Project>

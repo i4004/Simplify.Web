@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Simplify.Web.Examples.WindowsService
+namespace SampleApp.WindowsServiceHosted
 {
 	public class WebApplicationStartup
 	{

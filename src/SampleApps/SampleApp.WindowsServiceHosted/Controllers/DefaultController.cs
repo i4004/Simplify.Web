@@ -1,7 +1,8 @@
-﻿using Simplify.Web.Attributes;
+﻿using Simplify.Web;
+using Simplify.Web.Attributes;
 using Simplify.Web.Responses;
 
-namespace Simplify.Web.Examples.WindowsService.Controllers
+namespace SampleApp.WindowsServiceHosted.Controllers
 {
 	[Get("/")]
 	public class DefaultController : Controller
