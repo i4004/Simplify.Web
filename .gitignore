@@ -118,7 +118,7 @@ src/SampleApps/SampleApp.SelfHosted/Styles/*.css
 !src/SampleApps/SampleApp.SelfHosted/Styles/Main.min.css
 
 # Dist ignore
-*/wwwroot/dist
+**/wwwroot/dist/
 
 # Node modules
 node_modules/
