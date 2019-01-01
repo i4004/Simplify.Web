@@ -119,3 +119,6 @@ src/SampleApps/SampleApp.SelfHosted/Styles/*.css
 
 # Dist ignore
 */wwwroot/dist
+
+# Node modules
+node_modules/
