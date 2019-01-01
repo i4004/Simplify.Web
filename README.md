@@ -8,7 +8,7 @@ _This project is a continuator of [AcspNet web-framework](https://github.com/i40
 
 ## Package status
 
-| Latest version | [![Nuget version](http://img.shields.io/badge/nuget-v1.3-blue.png)](https://www.nuget.org/packages/Simplify.Web/) |
+| Latest version | [![Nuget version](http://img.shields.io/badge/nuget-v2.0-blue.png)](https://www.nuget.org/packages/Simplify.Web/) |
 | :------ | :------: |
 | **Dependencies** | [![NuGet Status](http://nugetstatus.com/Simplify.Web.png)](http://nugetstatus.com/packages/Simplify.Web) |
 
@@ -20,34 +20,42 @@ _This project is a continuator of [AcspNet web-framework](https://github.com/i40
 
 ## Build status
 
-| Branch | **.NET (4.5.2)** |
+| Branch | **.NET (4.6.2)** |
 | :------ | :------ |
 | **master** | [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/sln1ciuam2hobsv4/branch/master?svg=true)](https://ci.appveyor.com/project/i4004/simplify-web/branch/master) |
 | **develop** | [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/sln1ciuam2hobsv4/branch/develop?svg=true)](https://ci.appveyor.com/project/i4004/simplify-web/branch/develop) |
 
 ## Main features
 
+* Comes as Microsoft.AspNetCore OWIN middleware
+* Can be used as an API backend only with other front-end frameworks
 * Based on MVC and MVVM patterns
-* Comes as OWIN middleware
+* Lightweigh & Fast
 * Uses switchable IOC container for itself and controllers, views constructor injection ([Simplify.DI](https://github.com/i4004/Simplify/wiki/Simplify.DI))
-* Mono-friendly
 * Support async controllers
-* Uses fast templates engine ([Simplify.Templates](https://github.com/i4004/Simplify/wiki/Simplify.Templates))
 * Supports controllers which can be run on any page
 * Localization-friendly (supports templates, string table and data files localization by default)
+* Uses fast templates engine ([Simplify.Templates](https://github.com/i4004/Simplify/wiki/Simplify.Templates))
 * Mocking-friendly
+* Mono-friendly
 
 ## Getting started
 
-<!----To get started you can install [visual studio Simplify.Web project templates](http://visualstudiogallery.msdn.microsoft.com/25a4534d-5a5b-4cce-aecf-523c3679a1c3) and read [this](https://github.com/i4004/Simplify.Web/wiki/Getting-started) article.-->
+Below is the list of sample applications showing different variations of Simplify.Web usage
 
-### The examples below shows simple backend HTML generation, but you can easily use any front end technologies with Simplify.Web like AngularJS etc.
+* [Only as an API backend with Angular + Bootstrap UI SPA](https://github.com/i4004/Simplify/tree/master/src/SampleApps/SampleApp.Angular)
+* [Very simple Kestrel-based Application with backend page](https://github.com/i4004/Simplify/tree/master/src/SampleApps/SampleApp.Kestrel)
+* [Kestrel-based Application with backend HTML generation, localization, authentication](https://github.com/i4004/Simplify/tree/master/src/SampleApps/SampleApp.SelfHosted)
+* [Only as an API backend with Vue.js + Bootstrap UI SPA](https://github.com/i4004/Simplify/tree/master/src/SampleApps/SampleApp.Vue)
+* [Only as an API backend with Vue.js + Element UI SPA](https://github.com/i4004/Simplify/tree/master/src/SampleApps/SampleApp.Vue.Element)
+* [Very simple Kestrel-based Application hosted as windows-service](https://github.com/i4004/Simplify/tree/master/src/SampleApps/SampleApp.WindowsServiceHosted)
 
 [Getting started page](https://github.com/i4004/Simplify.Web/wiki/Getting-started)
 
-## Some examples
+### Just some simple controllers example
 
 #### Simple static page controller
+
 ```csharp
 // Controller will be executed only on HTTP GET request like http://mysite.com/about
 [Get("about")]
@@ -61,8 +69,37 @@ public class AboutController : Controller
 }
 ```
 
+#### API controller example
+
+```csharp
+[Get("api/weatherTypes")]
+public class SampleDataController : Controller
+{
+    private static readonly string[] Summaries =
+    {
+        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    };
+
+    public override ControllerResponse Invoke()
+    {
+        try
+        {
+            return new Json(items);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+
+            return StatusCode(500);
+        }
+    }
+}
+```
+
 #### Any page controller with high run priority example
+
 Runs on any request and adds login panel to a pages
+
 ```csharp
 // Controller will be executed on any request and will be launched before other controllers (because they have Priority = 0 by default)
 [Priority(-1)]
@@ -80,6 +117,7 @@ public class LoginPanelController : AsyncController
 ```
 
 #### View example
+
 ```csharp
 public class LoggedUserPanelView : View
 {
@@ -94,29 +132,6 @@ public class LoggedUserPanelView : View
         return tpl;
     }
 }
-```
-
-#### Templates example
-
-##### Master.tpl
-```html
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title>{Title}</title>
-</head>
-<body>
-    {MainContent}
-</body>
-</html>
-```
-
-##### About.tpl
-
-```html
-﻿<div class="container">
-    Welcome to about page!
-</div>
 ```
 
 ### [Detailed documentation](https://github.com/i4004/Simplify.Web/wiki)
