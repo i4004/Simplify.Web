@@ -1,6 +1,7 @@
-﻿using Simplify.Web.Attributes;
+﻿using Simplify.Web;
+using Simplify.Web.Attributes;
 
-namespace Simplify.Web.Examples.Kestrel.Controllers
+namespace SampleApp.Kestrel.Controllers
 {
 	[Get("/")]
 	public class DefaultController : Controller

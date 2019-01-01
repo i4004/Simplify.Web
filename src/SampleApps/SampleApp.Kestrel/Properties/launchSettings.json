@@ -20,7 +20,7 @@
 				"ASPNETCORE_ENVIRONMENT": "Development"
 			}
 		},
-		"Simplify.Web.Examples.Kestrel":
+		"SampleApp.Kestrel":
 		{
 			"commandName": "Project",
 			"launchBrowser": true,
