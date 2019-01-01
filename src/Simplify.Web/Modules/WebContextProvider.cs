@@ -1,4 +1,4 @@
-﻿using Microsoft.Owin;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace Simplify.Web.Modules
 {
@@ -14,7 +14,7 @@ namespace Simplify.Web.Modules
 		/// </summary>
 		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		public void Setup(IOwinContext context)
+		public void Setup(HttpContext context)
 		{
 			if (_webContext == null)
 				_webContext = new WebContext(context);

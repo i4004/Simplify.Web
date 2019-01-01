@@ -1,4 +1,4 @@
-﻿using Microsoft.Owin;
+﻿using Microsoft.AspNetCore.Http;
 using Moq;
 using NUnit.Framework;
 using Simplify.Web.Core;
@@ -34,7 +34,7 @@ namespace Simplify.Web.Tests.Responses
 
 			// Assert
 
-			_responseWriter.Verify(x => x.Write(It.Is<string>(d => d == "test"), It.IsAny<IOwinResponse>()));
+			_responseWriter.Verify(x => x.Write(It.Is<string>(d => d == "test"), It.IsAny<HttpResponse>()));
 			_context.VerifySet(x => x.Response.StatusCode = It.Is<int>(code => code == 123));
 			Assert.AreEqual(ControllerResponseResult.RawOutput, result);
 		}

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
 using Simplify.DI;
 using Simplify.Web.Attributes.Setup;
 using Simplify.Web.Core;
@@ -43,7 +44,6 @@ namespace Simplify.Web.Bootstrapper
 		private Type _controllersRequestHandlerType;
 		private Type _staticFileResponseFactoryType;
 		private Type _staticFilesRequestHandlerType;
-		private Type _requestHandlerType;
 		private Type _stopwatchProviderType;
 		private Type _webContextProviderType;
 
@@ -52,6 +52,10 @@ namespace Simplify.Web.Bootstrapper
 		/// </summary>
 		public void Register()
 		{
+			// Registering non Simplify.Web types
+
+			RegisterConfiguration();
+
 			// Registering Simplify.Web core types
 
 			RegisterControllersMetaStore();
@@ -86,7 +90,7 @@ namespace Simplify.Web.Bootstrapper
 			RegisterContextVariablesSetter();
 			RegisterWebContextProvider();
 			RegisterRedirector();
-			RegisterModelHander();
+			RegisterModelHandler();
 
 			var ignoredTypes = GetIgnoredTypes();
 
@@ -255,14 +259,6 @@ namespace Simplify.Web.Bootstrapper
 		/// The type of the static files request handler.
 		/// </value>
 		public Type StaticFilesRequestHandlerType => _staticFilesRequestHandlerType ?? typeof(StaticFilesRequestHandler);
-
-		/// <summary>
-		/// Gets the type of the request handler.
-		/// </summary>
-		/// <value>
-		/// The type of the request handler.
-		/// </value>
-		public Type RequestHandlerType => _requestHandlerType ?? typeof(RequestHandler);
 
 		/// <summary>
 		/// Gets the type of the stopwatch provider.
@@ -455,16 +451,6 @@ namespace Simplify.Web.Bootstrapper
 		}
 
 		/// <summary>
-		/// Sets the type of the request handler.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		public void SetRequestHandlerType<T>()
-			where T : IRequestHandler
-		{
-			_requestHandlerType = typeof(T);
-		}
-
-		/// <summary>
 		/// Sets the type of the stopwatch provider.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
@@ -487,6 +473,20 @@ namespace Simplify.Web.Bootstrapper
 		#endregion Bootstrapper types override
 
 		#region Bootstrapper types registration
+
+		/// <summary>
+		/// Registers the configuration.
+		/// </summary>
+		public virtual void RegisterConfiguration()
+		{
+			var environmentName = global::System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+			var builder = new ConfigurationBuilder()
+				.AddJsonFile("appsettings.json", true)
+				.AddJsonFile($"appsettings.{environmentName}.json", true);
+
+			DIContainer.Current.Register<IConfiguration>(p => builder.Build(), LifetimeType.Singleton);
+		}
 
 		/// <summary>
 		/// Registers the controllers meta store.
@@ -730,7 +730,10 @@ namespace Simplify.Web.Bootstrapper
 		/// </summary>
 		public virtual void RegisterRequestHandler()
 		{
-			DIContainer.Current.Register<IRequestHandler>(RequestHandlerType);
+			DIContainer.Current.Register<IRequestHandler>(
+				p =>
+					new RequestHandler(p.Resolve<IControllersRequestHandler>(),
+						p.Resolve<IStaticFilesRequestHandler>(), p.Resolve<ISimplifyWebSettings>().StaticFilesEnabled));
 		}
 
 		/// <summary>
@@ -768,9 +771,9 @@ namespace Simplify.Web.Bootstrapper
 		}
 
 		/// <summary>
-		/// Registers the model hander.
+		/// Registers the model handler.
 		/// </summary>
-		public virtual void RegisterModelHander()
+		public virtual void RegisterModelHandler()
 		{
 			DIContainer.Current.Register<IModelHandler>(p => new HttpModelHandler(p.Resolve<IWebContextProvider>().Get()));
 		}

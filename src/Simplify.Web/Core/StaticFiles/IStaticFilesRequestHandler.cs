@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.Owin;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace Simplify.Web.Core.StaticFiles
 {
@@ -13,13 +12,13 @@ namespace Simplify.Web.Core.StaticFiles
 		/// </summary>
 		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		bool IsStaticFileRoutePath(IOwinContext context);
+		bool IsStaticFileRoutePath(HttpContext context);
 
 		/// <summary>
 		/// Processes the HTTP request for static files.
 		/// </summary>
 		/// <param name="context">The context.</param>
 		/// <returns></returns>
-		Task ProcessRequest(IOwinContext context);
+		RequestHandlingResult ProcessRequest(HttpContext context);
 	}
 }

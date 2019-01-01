@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO.Abstractions;
 using System.Linq;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
 using Simplify.Web.Owin;
 using Simplify.Web.Util;
 
@@ -39,15 +39,8 @@ namespace Simplify.Web.Core.StaticFiles
 		/// <exception cref="ArgumentNullException"></exception>
 		public static IFileSystem FileSystem
 		{
-			get { return _fileSystemInstance ?? (_fileSystemInstance = new FileSystem()); }
-
-			set
-			{
-				if (value == null)
-					throw new ArgumentNullException();
-
-				_fileSystemInstance = value;
-			}
+			get => _fileSystemInstance ?? (_fileSystemInstance = new FileSystem());
+			set => _fileSystemInstance = value ?? throw new ArgumentNullException();
 		}
 
 		/// <summary>
@@ -88,7 +81,7 @@ namespace Simplify.Web.Core.StaticFiles
 		/// </summary>
 		/// <param name="request">The request.</param>
 		/// <returns></returns>
-		public string GetRelativeFilePath(IOwinRequest request)
+		public string GetRelativeFilePath(HttpRequest request)
 		{
 			return OwinHttpRequestHelper.GetRelativeFilePath(request);
 		}

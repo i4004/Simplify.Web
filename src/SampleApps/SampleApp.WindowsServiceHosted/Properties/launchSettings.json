@@ -1,0 +1,16 @@
+{
+	"profiles":
+	{
+		"SampleApp.WindowsServiceHosted":
+		{
+			"commandName": "Project",
+			"commandLineArgs": "console",
+			"launchBrowser": true,
+			"environmentVariables":
+			{
+				"ASPNETCORE_ENVIRONMENT": "Development"
+			},
+			"applicationUrl": "http://localhost:5000;https://localhost:5001"
+		}
+	}
+}

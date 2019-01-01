@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
 using Moq;
 using NUnit.Framework;
 using Simplify.Web.Owin;
@@ -71,7 +71,7 @@ namespace Simplify.Web.Tests.Owin
 		{
 			// Assign
 
-			var request = new Mock<IOwinRequest>();
+			var request = new Mock<HttpRequest>();
 			request.SetupGet(x => x.Path).Returns(new PathString("/test"));
 
 			// Act
@@ -80,6 +80,22 @@ namespace Simplify.Web.Tests.Owin
 			// Assert
 
 			Assert.AreEqual("test", result);
+		}
+
+		[Test]
+		public void GetRelativeFilePath_EmptyPath_EmptyString()
+		{
+			// Assign
+
+			var request = new Mock<HttpRequest>();
+			request.SetupGet(x => x.Path).Returns(new PathString());
+
+			// Act
+			var result = OwinHttpRequestHelper.GetRelativeFilePath(request.Object);
+
+			// Assert
+
+			Assert.AreEqual("", result);
 		}
 	}
 }

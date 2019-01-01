@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Security.Claims;
-using Microsoft.Owin;
-using Microsoft.Owin.Security;
+using Microsoft.AspNetCore.Http;
 using Moq;
 using NUnit.Framework;
 using Simplify.DI;
@@ -19,11 +18,11 @@ namespace Simplify.Web.Tests.Core.Controllers
 	public class ControllersProcessorTests
 	{
 		private readonly IDIContainerProvider _containerProvider = null;
-		private readonly IDictionary<string, Object> _routeParameters = new ExpandoObject();
+		private readonly IDictionary<string, object> _routeParameters = new ExpandoObject();
 		private ControllersProcessor _processor;
 		private Mock<IControllersAgent> _agent;
 		private Mock<IControllerExecutor> _controllersExecutor;
-		private Mock<IOwinContext> _context;
+		private Mock<HttpContext> _context;
 
 		private ControllerMetaData _metaData;
 
@@ -34,7 +33,7 @@ namespace Simplify.Web.Tests.Core.Controllers
 			_controllersExecutor = new Mock<IControllerExecutor>();
 			_processor = new ControllersProcessor(_agent.Object, _controllersExecutor.Object);
 
-			_context = new Mock<IOwinContext>();
+			_context = new Mock<HttpContext>();
 
 			_metaData = new ControllerMetaData(typeof(TestController1),
 				new ControllerExecParameters(new ControllerRouteInfo("/foo/bar")));
@@ -49,7 +48,6 @@ namespace Simplify.Web.Tests.Core.Controllers
 
 			_context.SetupGet(x => x.Request.Path).Returns(new PathString("/foo/bar"));
 			_context.SetupGet(x => x.Request.Method).Returns("GET");
-			_context.SetupGet(x => x.Authentication).Returns(new Mock<IAuthenticationManager>().Object);
 		}
 
 		[Test]
@@ -67,7 +65,7 @@ namespace Simplify.Web.Tests.Core.Controllers
 			_controllersExecutor.Verify(
 				x =>
 					x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
-						It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
+						It.IsAny<HttpContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
 		}
 
 		[Test]
@@ -88,11 +86,11 @@ namespace Simplify.Web.Tests.Core.Controllers
 			Assert.AreEqual(ControllersProcessorResult.Ok, result);
 			_controllersExecutor.Verify(x =>
 				x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
-					It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
+					It.IsAny<HttpContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
 
 			_controllersExecutor.Verify(x =>
 				x.Execute(It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IDIContainerProvider>(),
-					It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == null)));
+					It.IsAny<HttpContext>(), It.Is<IDictionary<string, Object>>(d => d == null)));
 		}
 
 		[Test]
@@ -108,7 +106,7 @@ namespace Simplify.Web.Tests.Core.Controllers
 			_controllersExecutor.Setup(
 				x =>
 					x.Execute(It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IDIContainerProvider>(),
-						It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>())).Returns(ControllerResponseResult.RawOutput);
+						It.IsAny<HttpContext>(), It.IsAny<IDictionary<string, Object>>())).Returns(ControllerResponseResult.RawOutput);
 
 			// Act
 			var result = _processor.ProcessControllers(_containerProvider, _context.Object);
@@ -118,11 +116,11 @@ namespace Simplify.Web.Tests.Core.Controllers
 			Assert.AreEqual(ControllersProcessorResult.RawOutput, result);
 			_controllersExecutor.Verify(x =>
 				x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
-					It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
+					It.IsAny<HttpContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
 
 			_controllersExecutor.Verify(x =>
 				x.Execute(It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IDIContainerProvider>(),
-					It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == null)));
+					It.IsAny<HttpContext>(), It.Is<IDictionary<string, Object>>(d => d == null)));
 		}
 
 		[Test]
@@ -138,7 +136,7 @@ namespace Simplify.Web.Tests.Core.Controllers
 			_controllersExecutor.Setup(
 				x =>
 					x.Execute(It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IDIContainerProvider>(),
-						It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>())).Returns(ControllerResponseResult.Redirect);
+						It.IsAny<HttpContext>(), It.IsAny<IDictionary<string, Object>>())).Returns(ControllerResponseResult.Redirect);
 
 			// Act
 			var result = _processor.ProcessControllers(_containerProvider, _context.Object);
@@ -148,11 +146,11 @@ namespace Simplify.Web.Tests.Core.Controllers
 			Assert.AreEqual(ControllersProcessorResult.Redirect, result);
 			_controllersExecutor.Verify(x =>
 				x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
-					It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
+					It.IsAny<HttpContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
 
 			_controllersExecutor.Verify(x =>
 				x.Execute(It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IDIContainerProvider>(),
-					It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == null)));
+					It.IsAny<HttpContext>(), It.Is<IDictionary<string, Object>>(d => d == null)));
 		}
 
 		[Test]
@@ -175,12 +173,12 @@ namespace Simplify.Web.Tests.Core.Controllers
 			_agent.Verify(x => x.IsAnyPageController(It.IsAny<IControllerMetaData>()));
 			_controllersExecutor.Verify(x =>
 				x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
-					It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()));
+					It.IsAny<HttpContext>(), It.IsAny<IDictionary<string, Object>>()));
 
 			_controllersExecutor.Verify(
 				x =>
 					x.Execute(It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IDIContainerProvider>(),
-						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == null)));
+						It.IsAny<HttpContext>(), It.Is<IDictionary<string, Object>>(d => d == null)));
 		}
 
 		[Test]
@@ -199,12 +197,12 @@ namespace Simplify.Web.Tests.Core.Controllers
 			_controllersExecutor.Verify(
 				x =>
 					x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
-						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)));
+						It.IsAny<HttpContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)));
 
 			_controllersExecutor.Verify(
 				x =>
 					x.Execute(It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IDIContainerProvider>(),
-						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == null)), Times.Never);
+						It.IsAny<HttpContext>(), It.Is<IDictionary<string, Object>>(d => d == null)), Times.Never);
 
 			_controllersExecutor.Verify(x => x.ProcessAsyncControllersResponses(It.IsAny<IDIContainerProvider>()));
 		}
@@ -235,12 +233,12 @@ namespace Simplify.Web.Tests.Core.Controllers
 			_controllersExecutor.Verify(
 				x =>
 					x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
-						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)), Times.Once);
+						It.IsAny<HttpContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)), Times.Once);
 
 			_controllersExecutor.Verify(
 				x =>
 					x.Execute(It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IDIContainerProvider>(),
-						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == null)), Times.Never);
+						It.IsAny<HttpContext>(), It.Is<IDictionary<string, Object>>(d => d == null)), Times.Never);
 
 			_controllersExecutor.Verify(x => x.ProcessAsyncControllersResponses(It.IsAny<IDIContainerProvider>()), Times.Once);
 		}
@@ -260,7 +258,7 @@ namespace Simplify.Web.Tests.Core.Controllers
 			_controllersExecutor.Setup(
 				x =>
 					x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
-						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters))).Returns(ControllerResponseResult.RawOutput);
+						It.IsAny<HttpContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters))).Returns(ControllerResponseResult.RawOutput);
 
 			// Act
 			var result = _processor.ProcessControllers(_containerProvider, _context.Object);
@@ -271,7 +269,7 @@ namespace Simplify.Web.Tests.Core.Controllers
 			_controllersExecutor.Verify(
 				x =>
 					x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
-						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)), Times.Once);
+						It.IsAny<HttpContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)), Times.Once);
 		}
 
 		[Test]
@@ -289,7 +287,7 @@ namespace Simplify.Web.Tests.Core.Controllers
 			_controllersExecutor.Setup(
 				x =>
 					x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
-						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters))).Returns(ControllerResponseResult.Redirect);
+						It.IsAny<HttpContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters))).Returns(ControllerResponseResult.Redirect);
 
 			// Act
 			var result = _processor.ProcessControllers(_containerProvider, _context.Object);
@@ -300,7 +298,7 @@ namespace Simplify.Web.Tests.Core.Controllers
 			_controllersExecutor.Verify(
 				x =>
 					x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
-						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)), Times.Once);
+						It.IsAny<HttpContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)), Times.Once);
 		}
 
 		[Test]
@@ -327,7 +325,7 @@ namespace Simplify.Web.Tests.Core.Controllers
 			_controllersExecutor.Verify(
 				x =>
 					x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
-						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)), Times.Exactly(2));
+						It.IsAny<HttpContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)), Times.Exactly(2));
 		}
 
 		[Test]
@@ -354,7 +352,7 @@ namespace Simplify.Web.Tests.Core.Controllers
 			_controllersExecutor.Verify(
 				x =>
 					x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
-						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)), Times.Exactly(2));
+						It.IsAny<HttpContext>(), It.Is<IDictionary<string, Object>>(d => d == _routeParameters)), Times.Exactly(2));
 		}
 
 		[Test]
@@ -390,11 +388,11 @@ namespace Simplify.Web.Tests.Core.Controllers
 			Assert.AreEqual(ControllersProcessorResult.Ok, result);
 			_controllersExecutor.Verify(x =>
 				x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
-					It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
+					It.IsAny<HttpContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
 			_controllersExecutor.Verify(
 				x =>
 					x.Execute(It.Is<Type>(t => t == typeof(TestController2)), It.IsAny<IDIContainerProvider>(),
-						It.IsAny<IOwinContext>(), It.Is<IDictionary<string, Object>>(d => d == null)));
+						It.IsAny<HttpContext>(), It.Is<IDictionary<string, Object>>(d => d == null)));
 			_agent.Setup(x => x.IsSecurityRulesViolated(It.IsAny<IControllerMetaData>(), It.IsAny<ClaimsPrincipal>()));
 		}
 
@@ -412,7 +410,7 @@ namespace Simplify.Web.Tests.Core.Controllers
 			Assert.AreEqual(ControllersProcessorResult.Http403, result);
 			_controllersExecutor.Verify(x =>
 				x.Execute(It.Is<Type>(t => t == typeof(TestController1)), It.IsAny<IDIContainerProvider>(),
-					It.IsAny<IOwinContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
+					It.IsAny<HttpContext>(), It.IsAny<IDictionary<string, Object>>()), Times.Never);
 			_agent.Setup(x => x.IsSecurityRulesViolated(It.IsAny<IControllerMetaData>(), It.IsAny<ClaimsPrincipal>()));
 		}
 	}

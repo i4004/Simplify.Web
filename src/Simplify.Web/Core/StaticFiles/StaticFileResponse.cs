@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
 using Simplify.System;
 
 namespace Simplify.Web.Core.StaticFiles
@@ -11,7 +11,7 @@ namespace Simplify.Web.Core.StaticFiles
 	/// <seealso cref="IStaticFileResponse" />
 	public class StaticFileResponse : IStaticFileResponse
 	{
-		private readonly IOwinResponse _response;
+		private readonly HttpResponse _response;
 		private readonly IResponseWriter _responseWriter;
 
 		/// <summary>
@@ -19,7 +19,7 @@ namespace Simplify.Web.Core.StaticFiles
 		/// </summary>
 		/// <param name="response">The response.</param>
 		/// <param name="responseWriter">The response writer.</param>
-		public StaticFileResponse(IOwinResponse response, IResponseWriter responseWriter)
+		public StaticFileResponse(HttpResponse response, IResponseWriter responseWriter)
 		{
 			_response = response;
 			_responseWriter = responseWriter;
@@ -52,7 +52,8 @@ namespace Simplify.Web.Core.StaticFiles
 			SetModificationHeaders(lastModifiedTime);
 			SetMimeType(fileName);
 
-			_response.Expires = new DateTimeOffset(TimeProvider.Current.Now.AddYears(1));
+			_response.Headers["Expires"] = new DateTimeOffset(TimeProvider.Current.Now.AddYears(1)).ToString("R");
+
 			return _responseWriter.WriteAsync(data, _response);
 		}
 

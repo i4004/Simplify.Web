@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
 
 namespace Simplify.Web.Core
 {
@@ -14,7 +14,7 @@ namespace Simplify.Web.Core
 		/// <param name="data">The data.</param>
 		/// <param name="response">The response.</param>
 		/// <returns></returns>
-		void Write(string data, IOwinResponse response);
+		void Write(string data, HttpResponse response);
 
 		/// <summary>
 		/// Writes the specified data.
@@ -22,7 +22,7 @@ namespace Simplify.Web.Core
 		/// <param name="data">The data.</param>
 		/// <param name="response">The response.</param>
 		/// <returns></returns>
-		void Write(byte[] data, IOwinResponse response);
+		void Write(byte[] data, HttpResponse response);
 
 		/// <summary>
 		/// Writes the specified data asynchronously.
@@ -30,7 +30,7 @@ namespace Simplify.Web.Core
 		/// <param name="data">The data.</param>
 		/// <param name="response">The response.</param>
 		/// <returns></returns>
-		Task WriteAsync(string data, IOwinResponse response);
+		Task WriteAsync(string data, HttpResponse response);
 
 		/// <summary>
 		/// Writes the specified data asynchronously.
@@ -38,6 +38,6 @@ namespace Simplify.Web.Core
 		/// <param name="data">The data.</param>
 		/// <param name="response">The response.</param>
 		/// <returns></returns>
-		Task WriteAsync(byte[] data, IOwinResponse response);
+		Task WriteAsync(byte[] data, HttpResponse response);
 	}
 }

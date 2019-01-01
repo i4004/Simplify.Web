@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Http;
 
 namespace Simplify.Web.Responses
 {
@@ -18,18 +19,9 @@ namespace Simplify.Web.Responses
 		/// </exception>
 		public File(string outputFileName, string contentType, byte[] data, int statusCode = 200)
 		{
-			if (outputFileName == null)
-				throw new ArgumentNullException(nameof(outputFileName));
-
-			if (contentType == null)
-				throw new ArgumentNullException(nameof(contentType));
-
-			if (data == null)
-				throw new ArgumentNullException(nameof(data));
-
-			OutputFileName = outputFileName;
-			ContentType = contentType;
-			Data = data;
+			OutputFileName = outputFileName ?? throw new ArgumentNullException(nameof(outputFileName));
+			ContentType = contentType ?? throw new ArgumentNullException(nameof(contentType));
+			Data = data ?? throw new ArgumentNullException(nameof(data));
 			StatusCode = statusCode;
 		}
 
@@ -74,7 +66,8 @@ namespace Simplify.Web.Responses
 
 			Context.Response.Headers.Append("Content-Disposition", "attachment; filename=\"" + OutputFileName + "\"");
 			Context.Response.ContentType = ContentType;
-			Context.Response.Write(Data);
+
+			Context.Response.Body.Write(Data, 0, Data.Length);
 
 			return ControllerResponseResult.RawOutput;
 		}

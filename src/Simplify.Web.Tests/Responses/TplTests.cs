@@ -1,4 +1,4 @@
-﻿using Microsoft.Owin;
+﻿using Microsoft.AspNetCore.Http;
 using Moq;
 using NUnit.Framework;
 using Simplify.Templates;
@@ -13,14 +13,14 @@ namespace Simplify.Web.Tests.Responses
 	{
 		private Mock<IDataCollector> _dataCollector;
 		private Mock<IWebContext> _context;
-		private Mock<IOwinResponse> _response;
+		private Mock<HttpResponse> _response;
 
 		[SetUp]
 		public void Initialize()
 		{
 			_dataCollector = new Mock<IDataCollector>();
 			_context = new Mock<IWebContext>();
-			_response = new Mock<IOwinResponse>();
+			_response = new Mock<HttpResponse>();
 
 			_context.SetupGet(x => x.Response).Returns(_response.Object);
 		}

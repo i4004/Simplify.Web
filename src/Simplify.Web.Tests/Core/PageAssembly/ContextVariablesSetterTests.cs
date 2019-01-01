@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
 using Moq;
 using NUnit.Framework;
 using Simplify.DI;

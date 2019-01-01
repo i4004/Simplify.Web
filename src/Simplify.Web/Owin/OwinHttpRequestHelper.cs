@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using Microsoft.Owin;
+using Microsoft.AspNetCore.Http;
 
 namespace Simplify.Web.Owin
 {
@@ -40,9 +40,9 @@ namespace Simplify.Web.Owin
 		/// </summary>
 		/// <param name="request">The request.</param>
 		/// <returns></returns>
-		public static string GetRelativeFilePath(IOwinRequest request)
+		public static string GetRelativeFilePath(HttpRequest request)
 		{
-			return request.Path.ToString().Substring(1);
+			return !string.IsNullOrEmpty(request?.Path.Value) ? request.Path.ToString().Substring(1) : "";
 		}
 	}
 }
