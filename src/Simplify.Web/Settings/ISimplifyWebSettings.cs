@@ -68,6 +68,11 @@ namespace Simplify.Web.Settings
 		string DataPath { get; }
 
 		/// <summary>
+		/// Gets a value indicating whether Simplify.Web static files processing is enabled or controllers requests should be processed only
+		/// </summary>
+		bool StaticFilesEnabled { get; }
+
+		/// <summary>
 		/// Gets the static files paths.
 		/// </summary>
 		/// <value>

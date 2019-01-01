@@ -20,7 +20,25 @@ namespace Simplify.Web.Tests.Core
 		{
 			_controllersRequestHandler = new Mock<IControllersRequestHandler>();
 			_staticFilesRequestHandler = new Mock<IStaticFilesRequestHandler>();
-			_requestHandler = new RequestHandler(_controllersRequestHandler.Object, _staticFilesRequestHandler.Object);
+			_staticFilesRequestHandler = new Mock<IStaticFilesRequestHandler>();
+			_requestHandler = new RequestHandler(_controllersRequestHandler.Object, _staticFilesRequestHandler.Object, true);
+		}
+
+		[Test]
+		public void ProcessRequest_StaticFilesDisabledButFound_StaticFilesRequestHandlerNotExecuted()
+		{
+			// Assign
+			_requestHandler = new RequestHandler(_controllersRequestHandler.Object, _staticFilesRequestHandler.Object, false);
+			_staticFilesRequestHandler.Setup(x => x.IsStaticFileRoutePath(It.IsAny<HttpContext>())).Returns(true);
+
+			// Act
+			_requestHandler.ProcessRequest(null, null);
+
+			// Assert
+
+			_controllersRequestHandler.Verify(
+				x => x.ProcessRequest(It.IsAny<IDIContainerProvider>(), It.IsAny<HttpContext>()), Times.Once);
+			_staticFilesRequestHandler.Verify(x => x.ProcessRequest(It.IsAny<HttpContext>()), Times.Never);
 		}
 
 		[Test]

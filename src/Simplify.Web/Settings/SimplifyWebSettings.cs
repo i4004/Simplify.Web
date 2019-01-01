@@ -8,6 +8,7 @@ namespace Simplify.Web.Settings
 	/// <summary>
 	/// Simplify.Web settings
 	/// </summary>
+	/// <seealso cref="Simplify.Web.Settings.ISimplifyWebSettings" />
 	public sealed class SimplifyWebSettings : ISimplifyWebSettings
 	{
 		/// <summary>
@@ -89,6 +90,11 @@ namespace Simplify.Web.Settings
 		/// Data directory path, default value is "App_Data"
 		/// </summary>
 		public string DataPath { get; private set; } = "App_Data";
+
+		/// <summary>
+		/// Gets a value indicating whether Simplify.Web static files processing is enabled or controllers requests should be processed only
+		/// </summary>
+		public bool StaticFilesEnabled { get; private set; } = true;
 
 		/// <summary>
 		/// Gets the static files paths.
@@ -211,6 +217,14 @@ namespace Simplify.Web.Settings
 
 			if (!string.IsNullOrEmpty(dataPath))
 				DataPath = dataPath;
+
+			var staticFilesEnabled = config["StaticFilesEnabled"];
+
+			if (!string.IsNullOrEmpty(staticFilesEnabled))
+			{
+				if (bool.TryParse(staticFilesEnabled, out var buffer))
+					StaticFilesEnabled = buffer;
+			}
 
 			var staticFilesPaths = config["StaticFilesPaths"];
 

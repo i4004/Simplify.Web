@@ -44,7 +44,6 @@ namespace Simplify.Web.Bootstrapper
 		private Type _controllersRequestHandlerType;
 		private Type _staticFileResponseFactoryType;
 		private Type _staticFilesRequestHandlerType;
-		private Type _requestHandlerType;
 		private Type _stopwatchProviderType;
 		private Type _webContextProviderType;
 
@@ -91,7 +90,7 @@ namespace Simplify.Web.Bootstrapper
 			RegisterContextVariablesSetter();
 			RegisterWebContextProvider();
 			RegisterRedirector();
-			RegisterModelHander();
+			RegisterModelHandler();
 
 			var ignoredTypes = GetIgnoredTypes();
 
@@ -260,14 +259,6 @@ namespace Simplify.Web.Bootstrapper
 		/// The type of the static files request handler.
 		/// </value>
 		public Type StaticFilesRequestHandlerType => _staticFilesRequestHandlerType ?? typeof(StaticFilesRequestHandler);
-
-		/// <summary>
-		/// Gets the type of the request handler.
-		/// </summary>
-		/// <value>
-		/// The type of the request handler.
-		/// </value>
-		public Type RequestHandlerType => _requestHandlerType ?? typeof(RequestHandler);
 
 		/// <summary>
 		/// Gets the type of the stopwatch provider.
@@ -457,16 +448,6 @@ namespace Simplify.Web.Bootstrapper
 			where T : IStaticFilesRequestHandler
 		{
 			_staticFilesRequestHandlerType = typeof(T);
-		}
-
-		/// <summary>
-		/// Sets the type of the request handler.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		public void SetRequestHandlerType<T>()
-			where T : IRequestHandler
-		{
-			_requestHandlerType = typeof(T);
 		}
 
 		/// <summary>
@@ -749,7 +730,10 @@ namespace Simplify.Web.Bootstrapper
 		/// </summary>
 		public virtual void RegisterRequestHandler()
 		{
-			DIContainer.Current.Register<IRequestHandler>(RequestHandlerType);
+			DIContainer.Current.Register<IRequestHandler>(
+				p =>
+					new RequestHandler(p.Resolve<IControllersRequestHandler>(),
+						p.Resolve<IStaticFilesRequestHandler>(), p.Resolve<ISimplifyWebSettings>().StaticFilesEnabled));
 		}
 
 		/// <summary>
@@ -787,9 +771,9 @@ namespace Simplify.Web.Bootstrapper
 		}
 
 		/// <summary>
-		/// Registers the model hander.
+		/// Registers the model handler.
 		/// </summary>
-		public virtual void RegisterModelHander()
+		public virtual void RegisterModelHandler()
 		{
 			DIContainer.Current.Register<IModelHandler>(p => new HttpModelHandler(p.Resolve<IWebContextProvider>().Get()));
 		}
