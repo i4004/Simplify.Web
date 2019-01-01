@@ -113,7 +113,12 @@ UpgradeLog*.XML
 *.vs
 
 # Temp CSS fix
-
 *.map
-src/Examples/Simplify.Web.Examples.SelfHosted/Styles/*.css
-!src/Examples/Simplify.Web.Examples.SelfHosted/Styles/Main.min.css
+src/SampleApps/SampleApp.SelfHosted/Styles/*.css
+!src/SampleApps/SampleApp.SelfHosted/Styles/Main.min.css
+
+# Dist ignore
+**/wwwroot/dist/
+
+# Node modules
+node_modules/

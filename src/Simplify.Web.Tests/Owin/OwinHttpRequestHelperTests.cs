@@ -81,5 +81,21 @@ namespace Simplify.Web.Tests.Owin
 
 			Assert.AreEqual("test", result);
 		}
+
+		[Test]
+		public void GetRelativeFilePath_EmptyPath_EmptyString()
+		{
+			// Assign
+
+			var request = new Mock<HttpRequest>();
+			request.SetupGet(x => x.Path).Returns(new PathString());
+
+			// Act
+			var result = OwinHttpRequestHelper.GetRelativeFilePath(request.Object);
+
+			// Assert
+
+			Assert.AreEqual("", result);
+		}
 	}
 }

@@ -42,7 +42,7 @@ namespace Simplify.Web.Owin
 		/// <returns></returns>
 		public static string GetRelativeFilePath(HttpRequest request)
 		{
-			return request.Path.ToString().Substring(1);
+			return !string.IsNullOrEmpty(request?.Path.Value) ? request.Path.ToString().Substring(1) : "";
 		}
 	}
 }
