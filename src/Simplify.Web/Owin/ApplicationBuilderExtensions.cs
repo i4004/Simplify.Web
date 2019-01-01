@@ -27,7 +27,7 @@ namespace Simplify.Web.Owin
 				TerminalMiddleware = true;
 				BootstrapperFactory.CreateBootstrapper().Register();
 
-				builder.Run(async (context) => await SimplifyWebOwinMiddleware.Invoke(context).Task);
+				RegisterAsTerminal(builder);
 
 				return builder;
 			}
@@ -50,7 +50,7 @@ namespace Simplify.Web.Owin
 			{
 				TerminalMiddleware = false;
 
-				builder.Run(async (context) => await SimplifyWebOwinMiddleware.Invoke(context).Task);
+				RegisterAsTerminal(builder);
 
 				return builder;
 			}
@@ -74,15 +74,7 @@ namespace Simplify.Web.Owin
 				TerminalMiddleware = false;
 				BootstrapperFactory.CreateBootstrapper().Register();
 
-				builder.Use(async (context, next) =>
-				{
-					var result = SimplifyWebOwinMiddleware.Invoke(context);
-
-					await result.Task;
-
-					if (result.Status == RequestHandlingStatus.RequestWasUnhandled)
-						await next.Invoke();
-				});
+				Register(builder);
 
 				return builder;
 			}
@@ -92,6 +84,47 @@ namespace Simplify.Web.Owin
 
 				throw;
 			}
+		}
+
+		/// <summary>
+		/// Adds Simplify.Web to the OWIN pipeline as a non-terminal middleware without bootstrapper registrations
+		/// </summary>
+		/// <param name="builder">The OWIN builder.</param>
+		/// <returns></returns>
+		public static IApplicationBuilder UseSimplifyWebNonTerminalWithoutRegistrations(this IApplicationBuilder builder)
+		{
+			try
+			{
+				TerminalMiddleware = false;
+
+				Register(builder);
+
+				return builder;
+			}
+			catch (Exception e)
+			{
+				SimplifyWebOwinMiddleware.ProcessOnException(e);
+
+				throw;
+			}
+		}
+
+		private static void Register(IApplicationBuilder builder)
+		{
+			builder.Use(async (context, next) =>
+			{
+				var result = SimplifyWebOwinMiddleware.Invoke(context);
+
+				await result.Task;
+
+				if (result.Status == RequestHandlingStatus.RequestWasUnhandled)
+					await next.Invoke();
+			});
+		}
+
+		private static void RegisterAsTerminal(IApplicationBuilder builder)
+		{
+			builder.Run(async (context) => await SimplifyWebOwinMiddleware.Invoke(context).Task);
 		}
 	}
 }
