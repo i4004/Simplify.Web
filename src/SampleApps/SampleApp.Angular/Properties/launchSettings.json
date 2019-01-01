@@ -25,7 +25,7 @@
 				"ASPNETCORE_ENVIRONMENT": "Development"
 			}
 		},
-		"Simplify.Web.Examples.Angular":
+		"SampleApp.Angular":
 		{
 			"commandName": "Project",
 			"launchBrowser": true,

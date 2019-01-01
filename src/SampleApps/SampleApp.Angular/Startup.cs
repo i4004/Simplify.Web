@@ -2,10 +2,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.DependencyInjection;
-using Simplify.Web.Meta;
 using Simplify.Web.Owin;
 
-namespace Simplify.Web.Examples.Angular
+namespace SampleApp.Angular
 {
 	public class Startup
 	{
@@ -21,9 +20,6 @@ namespace Simplify.Web.Examples.Angular
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
-			// Exclude Simplify.Web from exclude assemblies to be able to load example controllers
-			SimplifyWebTypesFinder.ExcludedAssembliesPrefixes.Remove("Simplify");
-
 			if (env.IsDevelopment())
 				app.UseDeveloperExceptionPage();
 

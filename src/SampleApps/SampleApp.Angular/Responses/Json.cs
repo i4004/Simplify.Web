@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
+using Simplify.Web;
 
-namespace Simplify.Web.Examples.Angular.Responses
+namespace SampleApp.Angular.Responses
 {
 	/// <summary>
 	/// Provides controller JSON response (send only JSON string to response)
+	/// This is sample Json response, it is recommended to use https://github.com/i4004/Simplify.Web.Json package instead
 	/// </summary>
 	public class Json : ControllerResponse
 	{

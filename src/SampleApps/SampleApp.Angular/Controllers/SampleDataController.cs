@@ -1,9 +1,10 @@
 using System;
 using System.Linq;
+using SampleApp.Angular.Responses;
+using Simplify.Web;
 using Simplify.Web.Attributes;
-using Simplify.Web.Examples.Angular.Responses;
 
-namespace Simplify.Web.Examples.Angular.Controllers
+namespace SampleApp.Angular.Controllers
 {
 	[Get("api/SampleData/WeatherForecasts")]
 	public class SampleDataController : Controller
