@@ -14,7 +14,8 @@ _This project is a continuator of [AcspNet web-framework](https://github.com/i40
 
 ## Issues
 
-* [Project Board](https://github.com/users/i4004/projects/4)
+[![Issues board](https://dxssrr2j0sq4w.cloudfront.net/3.2.0/img/external/zenhub-badge.png)](https://app.zenhub.com/workspaces/simplify-5ce3859397ab7c51aa180635/board?repos=17025953,51341283,66346856)
+
 
 ## Build status
 
