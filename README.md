@@ -12,7 +12,9 @@ _This project is a continuator of [AcspNet web-framework](https://github.com/i40
 | :------ | :------: |
 | **Dependencies** | [![NuGet Status](http://nugetstatus.com/Simplify.Web.png)](http://nugetstatus.com/packages/Simplify.Web) |
 
-## ![Project Board](https://github.com/users/i4004/projects/4)
+## Issues
+
+* [Project Board](https://github.com/users/i4004/projects/4)
 
 ## Build status
 
