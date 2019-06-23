@@ -71,7 +71,7 @@ Use the short name to create a project based on selected template:
 dotnet new sweb.angular -n HelloWorldApplication
 ```
 
-Then just run create project via F5 (it will download all required nuget and npm packages at first build).
+Then just run project via F5 (it will download all required nuget and npm packages at first build).
 
 ## [Detailed documentation](https://github.com/i4004/Simplify.Web/wiki)
 
