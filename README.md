@@ -135,3 +135,29 @@ public class LoggedUserPanelView : View
 ```
 
 ### [Detailed documentation](https://github.com/i4004/Simplify.Web/wiki)
+
+## Contributing
+
+There are many ways in which you can participate in the project. Like most open-source software projects, contributing code is just one of many outlets where you can help improve. Some of the things that you could help out with are:
+
+* Documentation (both code and features)
+* Bug reports
+* Bug fixes
+* Feature requests
+* Feature implementations
+* Test coverage
+* Code quality
+* Sample applications
+
+## Related Projects
+
+Additional extensions to Simplify.Web live in their own repositories on GitHub. For example:
+
+* [Simplify.Web.Json](https://github.com/i4004/Simplify.Web.Json) - JSON serialization/deserialization
+* [Simplify.Web.Multipart](https://github.com/i4004/Simplify.Web.Multipart) - multipart form model binder
+* [Simplify.Web.MessageBox](https://github.com/i4004/Simplify.Web.MessageBox) - non-interactive server side message box
+* [Simplify.Web.Templates](https://github.com/i4004/Simplify.Web.Templates) - Visual studio project templates
+
+## License
+
+Licensed under the GNU LESSER GENERAL PUBLIC LICENSE
