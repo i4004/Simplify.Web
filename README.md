@@ -29,7 +29,7 @@ _This project is a continuator of [AcspNet web-framework](https://github.com/i40
 
 ## Build status
 
-| Branch | **.NET (4.6.2)** |
+| Branch | Status |
 | :------ | :------ |
 | **master** | [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/sln1ciuam2hobsv4/branch/master?svg=true)](https://ci.appveyor.com/project/i4004/simplify-web/branch/master) |
 | **develop** | [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/sln1ciuam2hobsv4/branch/develop?svg=true)](https://ci.appveyor.com/project/i4004/simplify-web/branch/develop) |
@@ -37,20 +37,43 @@ _This project is a continuator of [AcspNet web-framework](https://github.com/i40
 ## Main features
 
 * Comes as Microsoft.AspNetCore OWIN middleware
-* Can be used as an API backend only with other front-end frameworks
+* Can be used as an API backend only with front-end frameworks
 * Based on MVC and MVVM patterns
-* Lightweigh & Fast
+* Lightweight & Fast
 * Uses switchable IOC container for itself and controllers, views constructor injection ([Simplify.DI](https://github.com/i4004/Simplify/wiki/Simplify.DI))
 * Support async controllers
 * Supports controllers which can be run on any page
-* Localization-friendly (supports templates, string table and data files localization by default)
+* Localization-friendly (supports templates, strings and data files localization by default)
 * Uses fast templates engine ([Simplify.Templates](https://github.com/i4004/Simplify/wiki/Simplify.Templates))
 * Mocking-friendly
 * Mono-friendly
 
-## Getting started
+## Quick start
 
-To create your first application please proceed to [getting started page](https://github.com/i4004/Simplify.Web/wiki/Getting-started)
+There is a templates package available at nuget.org for Simplify.Web. It contains a couple of templates which can be a good starting point for your application.
+
+Installing a templates package:
+
+```console
+dotnet new -i Simplify.Web.Templates
+```
+
+| Template | Short Name |
+| :------ | :------ |
+| Angular template | sweb.angular |
+| Api template | sweb.api |
+| Minimal template | sweb.minimal |
+| Windows service hosted api template | sweb.api.windowsservice |
+
+Use the short name to create a project based on selected template:
+
+```console
+dotnet new sweb.angular -n HelloWorldApplication
+```
+
+Then just run create project via F5 (it will download all required nuget and npm packages at first build).
+
+## [Detailed documentation](https://github.com/i4004/Simplify.Web/wiki)
 
 ### API controller example
 
@@ -133,8 +156,6 @@ public class LoggedUserPanelView : View
     }
 }
 ```
-
-### [Detailed documentation](https://github.com/i4004/Simplify.Web/wiki)
 
 ## Contributing
 
