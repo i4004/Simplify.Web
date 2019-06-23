@@ -2,7 +2,18 @@
 
 ![Simplify](https://raw.githubusercontent.com/i4004/Simplify.Web/master/Images/IconMedium.png)
 
-Simplify.Web is a lightweight and fast server-side .NET web-framework based on MVC and OWIN for building HTTP based web-applications, RESTful APIs etc.
+Simplify.Web is a lightweight and fast server-side .NET web-framework based on MVC and OWIN patterns for building HTTP based web-applications, RESTful APIs etc.
+
+It can be used as:
+
+* An API backend framework
+* As a mix of API backend + some SPA front end like Angular
+* As an old way backend generated web-site
+
+It can be hosted:
+
+* The same way as an ApsNetCore MVC application (On IIS, or as a console application)
+* Inside a windows service
 
 _This project is a continuator of [AcspNet web-framework](https://github.com/i4004/AcspNet)_
 
@@ -15,7 +26,6 @@ _This project is a continuator of [AcspNet web-framework](https://github.com/i40
 ## Issues
 
 [![Issues board](https://dxssrr2j0sq4w.cloudfront.net/3.2.0/img/external/zenhub-badge.svg)](https://app.zenhub.com/workspaces/simplify-5ce3859397ab7c51aa180635/board?repos=17025953,51341283,66346856,66425973,66536426)
-
 
 ## Build status
 
@@ -40,35 +50,9 @@ _This project is a continuator of [AcspNet web-framework](https://github.com/i40
 
 ## Getting started
 
-Below is the list of sample applications showing different variations of Simplify.Web usage
+To create your first application please proceed to [getting started page](https://github.com/i4004/Simplify.Web/wiki/Getting-started)
 
-* [Only as an API backend with Angular + Bootstrap UI SPA](https://github.com/i4004/Simplify.Web/tree/master/src/SampleApps/SampleApp.Angular)
-* [Very simple Kestrel-based Application with backend page](https://github.com/i4004/Simplify.Web/tree/master/src/SampleApps/SampleApp.Kestrel)
-* [Kestrel-based Application with backend HTML generation, localization, authentication](https://github.com/i4004/Simplify.Web/tree/master/src/SampleApps/SampleApp.SelfHosted)
-* [Only as an API backend with Vue.js + Bootstrap UI SPA](https://github.com/i4004/Simplify.Web/tree/master/src/SampleApps/SampleApp.Vue)
-* [Only as an API backend with Vue.js + Element UI SPA](https://github.com/i4004/Simplify.Web/tree/master/src/SampleApps/SampleApp.Vue.Element)
-* [Very simple Kestrel-based Application hosted as windows-service](https://github.com/i4004/Simplify.Web/tree/master/src/SampleApps/SampleApp.WindowsServiceHosted)
-
-[Getting started page](https://github.com/i4004/Simplify.Web/wiki/Getting-started)
-
-### Just some simple controllers example
-
-#### Simple static page controller
-
-```csharp
-// Controller will be executed only on HTTP GET request like http://mysite.com/about
-[Get("about")]
-public class AboutController : Controller
-{
-    public override ControllerResponse Invoke()
-    {
-        // About.tpl content will be inserted into {MainContent} in Master.tpl
-        return new StaticTpl("Static/About", StringTable.PageTitleAbout);
-    }
-}
-```
-
-#### API controller example
+### API controller example
 
 ```csharp
 [Get("api/weatherTypes")]
@@ -91,6 +75,23 @@ public class SampleDataController : Controller
 
             return StatusCode(500);
         }
+    }
+}
+```
+
+### Some simple HTML generation controllers example
+
+#### Static page controller
+
+```csharp
+// Controller will be executed only on HTTP GET request like http://mysite.com/about
+[Get("about")]
+public class AboutController : Controller
+{
+    public override ControllerResponse Invoke()
+    {
+        // About.tpl content will be inserted into {MainContent} in Master.tpl
+        return new StaticTpl("Static/About", StringTable.PageTitleAbout);
     }
 }
 ```
