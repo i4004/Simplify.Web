@@ -42,7 +42,7 @@ _This project is a continuator of [AcspNet web-framework](https://github.com/i40
 * Lightweight & Fast
 * Uses switchable IOC container for itself and controllers, views constructor injection ([Simplify.DI](https://github.com/i4004/Simplify/wiki/Simplify.DI))
 * Support async controllers
-* Supports controllers which can be run on any page
+* Supports controllers which can be run on any request
 * Localization-friendly (supports templates, strings and data files localization by default)
 * Uses fast templates engine ([Simplify.Templates](https://github.com/i4004/Simplify/wiki/Simplify.Templates))
 * Mocking-friendly
