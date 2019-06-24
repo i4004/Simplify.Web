@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Simplify.DI;
-using Simplify.DI.Provider.SimpleInjector;
 using Simplify.Web.Owin;
 
 namespace SampleApp.SelfHosted
@@ -18,9 +17,6 @@ namespace SampleApp.SelfHosted
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
-			var provider = new SimpleInjectorDIProvider();
-			DIContainer.Current = provider;
-
 			if (env.IsDevelopment())
 				app.UseDeveloperExceptionPage();
 
@@ -28,7 +24,7 @@ namespace SampleApp.SelfHosted
 
 			app.UseSimplifyWeb();
 
-			provider.Container.Verify();
+			DIContainer.Current.Verify();
 		}
 	}
 }
