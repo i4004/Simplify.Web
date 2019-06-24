@@ -15,6 +15,3 @@ build:
   publish_nuget: true
   parallel: true
   verbosity: minimal
-  
-test_script:
- - ps: .\RunTests.ps1
