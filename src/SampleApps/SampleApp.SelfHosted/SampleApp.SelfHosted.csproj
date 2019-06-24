@@ -11,7 +11,6 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.App" />
-		<PackageReference Include="Simplify.DI.Provider.SimpleInjector" Version="1.4.0" />
 		<PackageReference Include="bootstrap" Version="3.3.7" PrivateAssets="All" />
 		<PackageReference Include="jQuery" Version="3.1.0" PrivateAssets="All" />
 		<ProjectReference Include="..\..\Simplify.Web\Simplify.Web.csproj" />
