@@ -75,10 +75,10 @@ Then just run project via F5 (it will download all required nuget and npm packag
 
 ## [Detailed documentation](https://github.com/i4004/Simplify.Web/wiki)
 
-### API controller example
+### API outgoing JSON controller example
 
 ```csharp
-[Get("api/weatherTypes")]
+[Get("api/v1/weatherTypes")]
 public class SampleDataController : Controller
 {
     private static readonly string[] Summaries =
@@ -99,6 +99,40 @@ public class SampleDataController : Controller
             return StatusCode(500);
         }
     }
+}
+```
+
+### API ingoing JSON controller example
+
+```csharp
+[Post("api/v1/sendMessage")]
+public class SampleDataController : Controller<SampleModel>
+{
+    public override ControllerResponse Invoke()
+    {
+        try
+        {
+            Trace.WriteLine($"Object with message received: {Model.Message}");
+
+            return NoContent();
+        }
+        catch (Exception e) when (e is ModelValidationException || e is Newtonsoft.Json.JsonException)
+        {
+            return StatusCode(400, e.Message);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+
+            return StatusCode(500, "Site error!");
+        }
+    }
+}
+
+public class SampleModel
+{
+    [Required]
+    public string Message { get; set; }
 }
 ```
 
