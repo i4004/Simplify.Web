@@ -57,5 +57,13 @@ namespace Simplify.Web.Modules
 		/// <c>true</c> if current request is ajax request; otherwise, <c>false</c>.
 		/// </value>
 		bool IsAjax { get; }
+
+		/// <summary>
+		/// Gets the request body.
+		/// </summary>
+		/// <value>
+		/// The request body.
+		/// </value>
+		string RequestBody { get; }
 	}
 }
