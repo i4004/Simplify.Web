@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Represent string table
 	/// </summary>
-	public interface IStringTable : IHideObjectMembers
+	public interface IStringTable
 	{
 		/// <summary>
 		/// String table items

@@ -5,7 +5,7 @@ namespace Simplify.Web.Modules.Data
 	/// <summary>
 	/// Represents localizable files reader
 	/// </summary>
-	public interface IFileReader : IHideObjectMembers
+	public interface IFileReader
 	{
 		/// <summary>
 		/// Setups the file reader.

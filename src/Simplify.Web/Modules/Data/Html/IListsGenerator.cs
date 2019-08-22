@@ -8,7 +8,7 @@ namespace Simplify.Web.Modules.Data.Html
 	/// Usable <see cref="StringTable"/> items:
 	/// "HtmlListDefaultItemLabel"
 	/// </summary>
-	public interface IListsGenerator : IHideObjectMembers
+	public interface IListsGenerator
 	{
 		/// <summary>
 		/// Generate number selected HTML list

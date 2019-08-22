@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Represent website redirection manager, which controls current user location, url to previous page and url to specified page
 	/// </summary>
-	public interface IRedirector : IHideObjectMembers
+	public interface IRedirector
 	{
 		/// <summary>
 		/// Gets or sets the previous page url.

@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Represent current language controller and information container
 	/// </summary>
-	public interface ILanguageManager : IHideObjectMembers
+	public interface ILanguageManager
 	{
 		/// <summary>
 		/// Site current language, for example: "en", "ru", "de" etc.

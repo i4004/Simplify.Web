@@ -5,7 +5,7 @@ namespace Simplify.Web.Modules
 	/// <summary>
 	/// Represent web context
 	/// </summary>
-	public interface IWebContext : IHideObjectMembers
+	public interface IWebContext
 	{
 		/// <summary>
 		/// Current web-site route, for example: "/" or "/user/delete/15"
