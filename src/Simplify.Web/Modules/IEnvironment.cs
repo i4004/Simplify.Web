@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Represent site environment properties
 	/// </summary>
-	public interface IEnvironment : IHideObjectMembers
+	public interface IEnvironment
 	{
 		/// <summary>
 		/// Gets the site physical path.

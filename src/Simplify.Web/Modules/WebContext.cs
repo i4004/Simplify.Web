@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.IO;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 
 namespace Simplify.Web.Modules
 {
@@ -10,6 +11,7 @@ namespace Simplify.Web.Modules
 	public class WebContext : IWebContext
 	{
 		private readonly Lazy<IFormCollection> _form;
+		private readonly Lazy<string> _requestBody;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="WebContext"/> class.
@@ -23,6 +25,7 @@ namespace Simplify.Web.Modules
 			Query = context.Request.Query;
 
 			_form = new Lazy<IFormCollection>(() => Task.Run(() => context.Request.ReadFormAsync()).Result);
+			_requestBody = new Lazy<string>(() => new StreamReader(Context.Request.Body).ReadToEnd());
 
 			VirtualPath = string.IsNullOrEmpty(Request.PathBase.Value) ? "" : Request.PathBase.Value;
 
@@ -83,5 +86,13 @@ namespace Simplify.Web.Modules
 		/// <c>true</c> if current request is ajax request; otherwise, <c>false</c>.
 		/// </value>
 		public bool IsAjax { get; }
+
+		/// <summary>
+		/// Gets or sets the request body.
+		/// </summary>
+		/// <value>
+		/// The request body.
+		/// </value>
+		public string RequestBody => _requestBody.Value;
 	}
 }

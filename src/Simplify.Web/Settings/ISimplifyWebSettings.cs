@@ -5,7 +5,7 @@ namespace Simplify.Web.Settings
 	/// <summary>
 	/// Represent Simplify.Web settings
 	/// </summary>
-	public interface ISimplifyWebSettings : IHideObjectMembers
+	public interface ISimplifyWebSettings
 	{
 		/// <summary>
 		/// Default language, for example: "en", "ru", "de" etc., default value is "en"

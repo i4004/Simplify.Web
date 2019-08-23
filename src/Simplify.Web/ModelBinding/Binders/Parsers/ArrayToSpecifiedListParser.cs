@@ -15,7 +15,7 @@ namespace Simplify.Web.ModelBinding.Binders.Parsers
 		/// </summary>
 		/// <param name="type">The type.</param>
 		/// <returns></returns>
-		/// <exception cref="ModelNotSupportedException">Exception throws in case of underfined list type</exception>
+		/// <exception cref="ModelNotSupportedException">Exception throws in case of undefined list type</exception>
 		public static bool IsTypeValidForParsing(Type type)
 		{
 			if (!type.IsGenericType || type.GetGenericTypeDefinition() != typeof(IList<>))

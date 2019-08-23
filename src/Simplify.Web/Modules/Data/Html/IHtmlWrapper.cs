@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Various HTML generation classes container
 	/// </summary>
-	public interface IHtmlWrapper : IHideObjectMembers
+	public interface IHtmlWrapper
 	{
 		/// <summary>
 		/// HTML ComboBox lists generator.

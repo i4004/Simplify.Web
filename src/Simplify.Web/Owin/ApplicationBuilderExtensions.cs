@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Simplify.Web.Bootstrapper;
 using Simplify.Web.Core;
+using System;
 
 namespace Simplify.Web.Owin
 {
@@ -48,7 +48,7 @@ namespace Simplify.Web.Owin
 		{
 			try
 			{
-				TerminalMiddleware = false;
+				TerminalMiddleware = true;
 
 				RegisterAsTerminal(builder);
 
