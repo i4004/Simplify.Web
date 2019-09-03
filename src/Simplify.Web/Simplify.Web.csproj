@@ -5,15 +5,14 @@
 		<Product>Simplify</Product>
 		<Description>Lightweight and fast .NET web-framework based on MVC and OWIN</Description>
 		<Copyright>Licensed under LGPL</Copyright>
-		<Version>2.1</Version>
+		<Version>2.2</Version>
 		<PackageProjectUrl>https://github.com/i4004/Simplify.Web</PackageProjectUrl>
 		<PackageIconUrl>https://raw.githubusercontent.com/i4004/Simplify.Web/master/Images/Icon.png</PackageIconUrl>
 		<RepositoryUrl>https://github.com/i4004/Simplify.Web</RepositoryUrl>
 		<RepositoryType>GIT</RepositoryType>
 		<PackageTags>.NET web-framework MVC DI OWIN</PackageTags>
 		<PackageReleaseNotes>
-			* WebContext RequestBody field added
-			* Terminal middleware set on UseSimplifyWebWithoutRegistrations fix
+			* Upgrade to Simplify.DI 3.0
 		</PackageReleaseNotes>
 		<OutputPath>bin\Any CPU\$(Configuration)\</OutputPath>
 		<DocumentationFile>bin\Any CPU\$(Configuration)\$(TargetFramework)\Simplify.Web.xml</DocumentationFile>
@@ -28,7 +27,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
-		<PackageReference Include="Simplify.DI" Version="2.1.0" />
+		<PackageReference Include="Simplify.DI" Version="3.0.0" />
 		<PackageReference Include="Simplify.Templates" Version="1.5.1" />
 		<PackageReference Include="Simplify.String.Sources" Version="1.2.0" PrivateAssets="All" />
 		<PackageReference Include="Simplify.System.Sources" Version="1.1.0" PrivateAssets="All" />
