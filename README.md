@@ -1,3 +1,5 @@
+# This project is moved to https://github.com/SimplifyNet/Simplify.Web
+
 # Simplify.Web
 
 ![Simplify](https://raw.githubusercontent.com/i4004/Simplify.Web/master/Images/IconMedium.png)
